@@ -8,19 +8,24 @@ class EntityParser {
   private entitiesPath: string;
 
   constructor() {
-    this.entitiesPath = path.join(__dirname, '../../mastodon-documentation/content/en/entities');
+    this.entitiesPath = path.join(
+      __dirname,
+      '../../mastodon-documentation/content/en/entities'
+    );
   }
 
   public parseAllEntities(): EntityClass[] {
     const entities: EntityClass[] = [];
-    
+
     if (!fs.existsSync(this.entitiesPath)) {
       console.error(`Entities path does not exist: ${this.entitiesPath}`);
       return entities;
     }
 
-    const files = fs.readdirSync(this.entitiesPath).filter(file => file.endsWith('.md'));
-    
+    const files = fs
+      .readdirSync(this.entitiesPath)
+      .filter((file) => file.endsWith('.md'));
+
     for (const file of files) {
       try {
         const entity = this.parseEntityFile(path.join(this.entitiesPath, file));
@@ -38,7 +43,7 @@ class EntityParser {
   private parseEntityFile(filePath: string): EntityClass | null {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
-    
+
     // Extract class name from frontmatter title
     const className = parsed.data.title;
     if (!className) {
@@ -55,32 +60,35 @@ class EntityParser {
     return {
       name: className,
       description,
-      attributes
+      attributes,
     };
   }
 
   private parseAttributes(content: string): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
-    
+
     // Find the "## Attributes" section
-    const attributesMatch = content.match(/## Attributes\s*([\s\S]*?)(?=\n## |$)/);
+    const attributesMatch = content.match(
+      /## Attributes\s*([\s\S]*?)(?=\n## |$)/
+    );
     if (!attributesMatch) {
       return attributes;
     }
 
     const attributesSection = attributesMatch[1];
-    
+
     // Match each attribute definition
-    const attributeRegex = /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)/g;
-    
+    const attributeRegex =
+      /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)/g;
+
     let match;
     while ((match = attributeRegex.exec(attributesSection)) !== null) {
       const [, name, modifiers, description, type] = match;
-      
+
       const attribute: EntityAttribute = {
         name: name.trim(),
         type: this.cleanType(type.trim()),
-        description: this.cleanDescription(description.trim())
+        description: this.cleanDescription(description.trim()),
       };
 
       // Check for optional/deprecated modifiers

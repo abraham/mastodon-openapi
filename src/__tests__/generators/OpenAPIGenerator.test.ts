@@ -19,22 +19,22 @@ describe('OpenAPIGenerator', () => {
             {
               name: 'id',
               type: 'Integer',
-              description: 'The ID of the entity'
+              description: 'The ID of the entity',
             },
             {
               name: 'name',
               type: 'String',
               description: 'The name of the entity',
-              optional: true
+              optional: true,
             },
             {
               name: 'active',
               type: 'Boolean',
               description: 'Whether the entity is active',
-              deprecated: true
-            }
-          ]
-        }
+              deprecated: true,
+            },
+          ],
+        },
       ];
 
       const methodFiles: ApiMethodsFile[] = [
@@ -48,7 +48,7 @@ describe('OpenAPIGenerator', () => {
               endpoint: '/api/v1/test/:id',
               description: 'Retrieve a test entity',
               returns: 'TestEntity',
-              oauth: 'User token + read'
+              oauth: 'User token + read',
             },
             {
               name: 'Create test entity',
@@ -59,17 +59,17 @@ describe('OpenAPIGenerator', () => {
                 {
                   name: 'name',
                   description: 'Name of the entity',
-                  required: true
+                  required: true,
                 },
                 {
                   name: 'active',
-                  description: 'Whether entity is active'
-                }
+                  description: 'Whether entity is active',
+                },
               ],
-              oauth: 'User token + write'
-            }
-          ]
-        }
+              oauth: 'User token + write',
+            },
+          ],
+        },
       ];
 
       const spec = generator.generateSchema(entities, methodFiles);
@@ -118,12 +118,14 @@ describe('OpenAPIGenerator', () => {
       const postOp = spec.paths['/api/v1/test'].post!;
       expect(postOp.summary).toBe('Create test entity');
       expect(postOp.requestBody).toBeDefined();
-      expect(postOp.requestBody?.content['application/x-www-form-urlencoded']).toBeDefined();
+      expect(
+        postOp.requestBody?.content['application/x-www-form-urlencoded']
+      ).toBeDefined();
     });
 
     it('should handle empty inputs', () => {
       const spec = generator.generateSchema([], []);
-      
+
       expect(spec.openapi).toBe('3.0.3');
       expect(spec.paths).toEqual({});
       expect(spec.components?.schemas).toEqual({});
@@ -134,10 +136,10 @@ describe('OpenAPIGenerator', () => {
     it('should return valid JSON string', () => {
       const entities: EntityClass[] = [];
       const methodFiles: ApiMethodsFile[] = [];
-      
+
       generator.generateSchema(entities, methodFiles);
       const json = generator.toJSON();
-      
+
       expect(() => JSON.parse(json)).not.toThrow();
       const parsed = JSON.parse(json);
       expect(parsed.openapi).toBe('3.0.3');

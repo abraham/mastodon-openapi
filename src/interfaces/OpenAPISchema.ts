@@ -44,16 +44,22 @@ interface OpenAPIParameter {
 interface OpenAPIRequestBody {
   description?: string;
   required?: boolean;
-  content: Record<string, {
-    schema: OpenAPIProperty | { $ref: string };
-  }>;
+  content: Record<
+    string,
+    {
+      schema: OpenAPIProperty | { $ref: string };
+    }
+  >;
 }
 
 interface OpenAPIResponse {
   description: string;
-  content?: Record<string, {
-    schema: OpenAPIProperty | { $ref: string };
-  }>;
+  content?: Record<
+    string,
+    {
+      schema: OpenAPIProperty | { $ref: string };
+    }
+  >;
 }
 
 interface OpenAPIOperation {
@@ -96,5 +102,5 @@ export {
   OpenAPIResponse,
   OpenAPIOperation,
   OpenAPIPath,
-  OpenAPISpec
+  OpenAPISpec,
 };
