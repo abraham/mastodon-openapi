@@ -9,7 +9,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "generate": "ts-node src/generate.ts",
-    "test": "jest --passWithNoTests",
+    "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",
     "postinstall": "git clone https://github.com/mastodon/documentation mastodon-documentation || true"
