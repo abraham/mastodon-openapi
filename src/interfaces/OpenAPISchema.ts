@@ -1,0 +1,100 @@
+interface OpenAPIInfo {
+  title: string;
+  version: string;
+  description?: string;
+}
+
+interface OpenAPIServer {
+  url: string;
+  description?: string;
+}
+
+interface OpenAPISecurityScheme {
+  type: string;
+  scheme?: string;
+  bearerFormat?: string;
+  description?: string;
+}
+
+interface OpenAPIProperty {
+  type?: string;
+  format?: string;
+  description?: string;
+  items?: OpenAPIProperty;
+  $ref?: string;
+  enum?: string[];
+  deprecated?: boolean;
+}
+
+interface OpenAPISchema {
+  type?: string;
+  properties?: Record<string, OpenAPIProperty>;
+  required?: string[];
+  description?: string;
+}
+
+interface OpenAPIParameter {
+  name: string;
+  in: string;
+  required?: boolean;
+  description?: string;
+  schema?: OpenAPIProperty;
+}
+
+interface OpenAPIRequestBody {
+  description?: string;
+  required?: boolean;
+  content: Record<string, {
+    schema: OpenAPIProperty | { $ref: string };
+  }>;
+}
+
+interface OpenAPIResponse {
+  description: string;
+  content?: Record<string, {
+    schema: OpenAPIProperty | { $ref: string };
+  }>;
+}
+
+interface OpenAPIOperation {
+  summary?: string;
+  description?: string;
+  tags?: string[];
+  security?: Array<Record<string, string[]>>;
+  parameters?: OpenAPIParameter[];
+  requestBody?: OpenAPIRequestBody;
+  responses: Record<string, OpenAPIResponse>;
+}
+
+interface OpenAPIPath {
+  get?: OpenAPIOperation;
+  post?: OpenAPIOperation;
+  put?: OpenAPIOperation;
+  delete?: OpenAPIOperation;
+  patch?: OpenAPIOperation;
+}
+
+interface OpenAPISpec {
+  openapi: string;
+  info: OpenAPIInfo;
+  servers?: OpenAPIServer[];
+  paths: Record<string, OpenAPIPath>;
+  components?: {
+    schemas?: Record<string, OpenAPISchema>;
+    securitySchemes?: Record<string, OpenAPISecurityScheme>;
+  };
+}
+
+export {
+  OpenAPIInfo,
+  OpenAPIServer,
+  OpenAPISecurityScheme,
+  OpenAPIProperty,
+  OpenAPISchema,
+  OpenAPIParameter,
+  OpenAPIRequestBody,
+  OpenAPIResponse,
+  OpenAPIOperation,
+  OpenAPIPath,
+  OpenAPISpec
+};
