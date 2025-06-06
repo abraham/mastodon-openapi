@@ -34,6 +34,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
+    "@seriousme/openapi-schema-validator": "^2.4.1",
     "gray-matter": "^4.0.3"
   }
 }
