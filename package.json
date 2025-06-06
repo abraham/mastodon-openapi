@@ -12,6 +12,8 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "postinstall": "git clone https://github.com/mastodon/documentation mastodon-documentation || true"
   },
   "keywords": [
@@ -26,6 +28,7 @@
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.0.0",
     "jest": "^29.5.0",
+    "prettier": "^3.5.3",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"

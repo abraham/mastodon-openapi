@@ -8,7 +8,7 @@ import {
   OpenAPISchema,
   OpenAPIProperty,
   OpenAPIOperation,
-  OpenAPIPath
+  OpenAPIPath,
 } from '../interfaces/OpenAPISchema';
 
 class OpenAPIGenerator {
@@ -20,13 +20,13 @@ class OpenAPIGenerator {
       info: {
         title: 'Mastodon API',
         version: '4.2.0',
-        description: 'Documentation for the Mastodon API'
+        description: 'Documentation for the Mastodon API',
       },
       servers: [
         {
           url: 'https://mastodon.example',
-          description: 'Production server'
-        }
+          description: 'Production server',
+        },
       ],
       paths: {},
       components: {
@@ -34,26 +34,29 @@ class OpenAPIGenerator {
         securitySchemes: {
           OAuth2: {
             type: 'oauth2',
-            description: 'OAuth 2.0 authentication'
+            description: 'OAuth 2.0 authentication',
           },
           BearerAuth: {
             type: 'http',
             scheme: 'bearer',
             bearerFormat: 'JWT',
-            description: 'Bearer token authentication'
-          }
-        }
-      }
+            description: 'Bearer token authentication',
+          },
+        },
+      },
     };
   }
 
-  public generateSchema(entities: EntityClass[], methodFiles: ApiMethodsFile[]): OpenAPISpec {
+  public generateSchema(
+    entities: EntityClass[],
+    methodFiles: ApiMethodsFile[]
+  ): OpenAPISpec {
     // Convert entities to OpenAPI schemas
     this.convertEntities(entities);
-    
+
     // Convert methods to OpenAPI paths
     this.convertMethods(methodFiles);
-    
+
     return this.spec;
   }
 
@@ -67,7 +70,7 @@ class OpenAPIGenerator {
         type: 'object',
         description: entity.description,
         properties: {},
-        required: []
+        required: [],
       };
 
       for (const attribute of entity.attributes) {
@@ -75,7 +78,7 @@ class OpenAPIGenerator {
         if (schema.properties) {
           schema.properties[attribute.name] = property;
         }
-        
+
         // Add to required array if not optional
         if (!attribute.optional && schema.required) {
           schema.required.push(attribute.name);
@@ -95,7 +98,7 @@ class OpenAPIGenerator {
 
   private convertAttribute(attribute: EntityAttribute): OpenAPIProperty {
     const property: OpenAPIProperty = {
-      description: attribute.description
+      description: attribute.description,
     };
 
     if (attribute.deprecated) {
@@ -104,7 +107,7 @@ class OpenAPIGenerator {
 
     // Parse type information to determine OpenAPI type
     const type = this.parseType(attribute.type);
-    
+
     if (type.type) {
       property.type = type.type;
     }
@@ -126,7 +129,7 @@ class OpenAPIGenerator {
 
   private parseType(typeString: string): OpenAPIProperty {
     const cleanType = typeString.toLowerCase().trim();
-    
+
     // Handle arrays
     if (cleanType.includes('array of')) {
       const itemTypeMatch = typeString.match(/array of\s+(.+?)(?:\s|$)/i);
@@ -134,7 +137,7 @@ class OpenAPIGenerator {
         const itemType = this.parseType(itemTypeMatch[1]);
         return {
           type: 'array',
-          items: itemType
+          items: itemType,
         };
       }
       return { type: 'array' };
@@ -148,7 +151,7 @@ class OpenAPIGenerator {
         // Clean up reference name
         const cleanRefName = refName.replace(/[^\w:]/g, '');
         return {
-          $ref: `#/components/schemas/${cleanRefName}`
+          $ref: `#/components/schemas/${cleanRefName}`,
         };
       }
     }
@@ -156,7 +159,7 @@ class OpenAPIGenerator {
     // Handle basic types
     if (cleanType.includes('string')) {
       const property: OpenAPIProperty = { type: 'string' };
-      
+
       if (cleanType.includes('url')) {
         property.format = 'uri';
       } else if (cleanType.includes('datetime')) {
@@ -168,11 +171,14 @@ class OpenAPIGenerator {
       } else if (cleanType.includes('html')) {
         property.description = (property.description || '') + ' (HTML content)';
       }
-      
+
       return property;
     }
 
-    if (cleanType.includes('integer') || cleanType.includes('cast from an integer')) {
+    if (
+      cleanType.includes('integer') ||
+      cleanType.includes('cast from an integer')
+    ) {
       return { type: 'integer' };
     }
 
@@ -190,16 +196,18 @@ class OpenAPIGenerator {
 
     // Handle enums
     if (cleanType.includes('enumerable') || cleanType.includes('oneof')) {
-      return { 
+      return {
         type: 'string',
-        description: (typeString.includes('Enumerable') ? 'Enumerable value' : '') 
+        description: typeString.includes('Enumerable')
+          ? 'Enumerable value'
+          : '',
       };
     }
 
     // Default to string for unknown types
-    return { 
+    return {
       type: 'string',
-      description: `Original type: ${typeString}`
+      description: `Original type: ${typeString}`,
     };
   }
 
@@ -225,9 +233,9 @@ class OpenAPIGenerator {
       tags: [category],
       responses: {
         '200': {
-          description: method.returns || 'Success'
-        }
-      }
+          description: method.returns || 'Success',
+        },
+      },
     };
 
     // Add security if OAuth is required
@@ -249,7 +257,7 @@ class OpenAPIGenerator {
             in: 'query',
             required: param.required,
             description: param.description,
-            schema: { type: 'string' }
+            schema: { type: 'string' },
           });
         } else {
           bodyParams.push(param);
@@ -264,7 +272,7 @@ class OpenAPIGenerator {
         for (const param of bodyParams) {
           properties[param.name] = {
             type: 'string',
-            description: param.description
+            description: param.description,
           };
           if (param.required) {
             required.push(param.name);
@@ -279,10 +287,10 @@ class OpenAPIGenerator {
               schema: {
                 type: 'object',
                 properties,
-                required: required.length > 0 ? required : undefined
-              } as OpenAPIProperty
-            }
-          }
+                required: required.length > 0 ? required : undefined,
+              } as OpenAPIProperty,
+            },
+          },
         };
       }
     }
@@ -299,7 +307,7 @@ class OpenAPIGenerator {
           in: 'path',
           required: true,
           description: `${pathParam} parameter`,
-          schema: { type: 'string' }
+          schema: { type: 'string' },
         });
       }
     }
@@ -314,7 +322,7 @@ class OpenAPIGenerator {
 
   private extractPathParameters(path: string): string[] {
     const matches = path.match(/\{([^}]+)\}/g);
-    return matches ? matches.map(match => match.slice(1, -1)) : [];
+    return matches ? matches.map((match) => match.slice(1, -1)) : [];
   }
 
   public toJSON(): string {
