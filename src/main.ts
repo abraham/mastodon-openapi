@@ -35,12 +35,12 @@ function main() {
   // Write schema to file
   const distDir = path.join(__dirname, '..', 'dist');
   const schemaPath = path.join(distDir, 'schema.json');
-  
+
   // Ensure dist directory exists
   if (!fs.existsSync(distDir)) {
     fs.mkdirSync(distDir, { recursive: true });
   }
-  
+
   // Write schema to file
   fs.writeFileSync(schemaPath, generator.toJSON());
   console.log(`Schema written to ${schemaPath}`);
