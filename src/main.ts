@@ -1,6 +1,8 @@
 import { EntityParser } from './parsers/EntityParser';
 import { MethodParser } from './parsers/MethodParser';
 import { OpenAPIGenerator } from './generators/OpenAPIGenerator';
+import * as fs from 'fs';
+import * as path from 'path';
 
 function main() {
   console.log('Parsing Mastodon entity files...');
@@ -29,7 +31,19 @@ function main() {
   const schema = generator.generateSchema(entities, methodFiles);
 
   console.log('OpenAPI schema generated successfully');
-  console.log(generator.toJSON());
+
+  // Write schema to file
+  const distDir = path.join(__dirname, '..', 'dist');
+  const schemaPath = path.join(distDir, 'schema.json');
+
+  // Ensure dist directory exists
+  if (!fs.existsSync(distDir)) {
+    fs.mkdirSync(distDir, { recursive: true });
+  }
+
+  // Write schema to file
+  fs.writeFileSync(schemaPath, generator.toJSON());
+  console.log(`Schema written to ${schemaPath}`);
 }
 
 if (require.main === module) {
