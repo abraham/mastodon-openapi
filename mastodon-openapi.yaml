@@ -1,0 +1,3788 @@
+openapi: 3.0.3
+info:
+  title: Mastodon API
+  description: The Mastodon REST API. Please see https://docs.joinmastodon.org/api/ for more details.
+  version: 4.3.0
+  contact:
+    name: Mastodon Project
+    url: https://joinmastodon.org
+  license:
+    name: AGPL-3.0
+    url: https://github.com/mastodon/mastodon/blob/main/LICENSE
+servers:
+- url: https://{instance}
+  description: Mastodon instance
+  variables:
+    instance:
+      default: mastodon.social
+      description: The domain of your Mastodon instance
+paths:
+  /api/v1/accounts/{id}:
+    get:
+      summary: View account
+      description: View information about a profile
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/verify_credentials:
+    get:
+      summary: Verify credentials
+      description: Test to make sure that the user token works
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAccount'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/update_credentials:
+    patch:
+      summary: Update credentials
+      description: Update the user's display and preferences
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CredentialAccount'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: display_name
+        in: query
+        description: The display name to use for the profile
+        required: false
+        schema:
+          type: string
+      - name: note
+        in: query
+        description: The account bio
+        required: false
+        schema:
+          type: string
+      - name: avatar
+        in: query
+        description: Avatar image encoded using multipart/form-data
+        required: false
+        schema:
+          type: string
+      - name: header
+        in: query
+        description: Header image encoded using multipart/form-data
+        required: false
+        schema:
+          type: string
+      - name: locked
+        in: query
+        description: Whether manual approval of follow requests is required
+        required: false
+        schema:
+          type: boolean
+      - name: bot
+        in: query
+        description: Whether the account is a bot
+        required: false
+        schema:
+          type: boolean
+      - name: discoverable
+        in: query
+        description: Whether the account should be shown in the profile directory
+        required: false
+        schema:
+          type: boolean
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/statuses:
+    get:
+      summary: Get account statuses
+      description: Statuses posted to the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/followers:
+    get:
+      summary: Get account followers
+      description: Accounts which follow the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/following:
+    get:
+      summary: Get account following
+      description: Accounts which the given account is following
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/follow:
+    post:
+      summary: Follow account
+      description: Follow the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/unfollow:
+    post:
+      summary: Unfollow account
+      description: Unfollow the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/block:
+    post:
+      summary: Block account
+      description: Block the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/unblock:
+    post:
+      summary: Unblock account
+      description: Unblock the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/mute:
+    post:
+      summary: Mute account
+      description: Mute the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/{id}/unmute:
+    post:
+      summary: Unmute account
+      description: Unmute the given account
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/relationships:
+    get:
+      summary: Check relationships
+      description: Find out whether a given account is followed, blocked, muted, etc.
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Relationship'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/accounts/search:
+    get:
+      summary: Search accounts
+      description: Search for matching accounts by username or display name
+      tags:
+      - accounts
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}:
+    get:
+      summary: View status
+      description: View information about a status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+    delete:
+      summary: Delete status
+      description: Delete one of your own statuses
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    put:
+      summary: Edit status
+      description: Change the content of a status that has already been published
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses:
+    post:
+      summary: Publish status
+      description: Post a new status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: status
+        in: query
+        description: Text content of the status
+        required: false
+        schema:
+          type: string
+      - name: media_ids
+        in: query
+        description: Array of attachment ids to be attached as media
+        required: false
+        schema:
+          type: array
+      - name: poll
+        in: query
+        description: Poll to be attached
+        required: false
+        schema:
+          type: object
+      - name: in_reply_to_id
+        in: query
+        description: ID of the status being replied to
+        required: false
+        schema:
+          type: string
+      - name: sensitive
+        in: query
+        description: Mark status and attached media as sensitive?
+        required: false
+        schema:
+          type: boolean
+      - name: spoiler_text
+        in: query
+        description: Text to be shown as a warning or subject before the actual content
+        required: false
+        schema:
+          type: string
+      - name: visibility
+        in: query
+        description: Visibility of the posted status
+        required: false
+        schema:
+          type: string
+      - name: language
+        in: query
+        description: ISO 639 language code for this status
+        required: false
+        schema:
+          type: string
+      - name: scheduled_at
+        in: query
+        description: ISO 8601 Datetime at which to schedule a status
+        required: false
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/context:
+    get:
+      summary: Get status context
+      description: View statuses above and below this status in the thread
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/reblog:
+    post:
+      summary: Boost status
+      description: Reshare a status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/unreblog:
+    post:
+      summary: Undo boost
+      description: Undo a reshare of a status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/favourite:
+    post:
+      summary: Favourite status
+      description: Add a status to your favourites list
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/unfavourite:
+    post:
+      summary: Undo favourite
+      description: Remove a status from your favourites list
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/bookmark:
+    post:
+      summary: Bookmark status
+      description: Privately bookmark a status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/unbookmark:
+    post:
+      summary: Undo bookmark
+      description: Remove a status from your private bookmarks
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/mute:
+    post:
+      summary: Mute conversation
+      description: Do not receive notifications for the thread
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/unmute:
+    post:
+      summary: Unmute conversation
+      description: Start receiving notifications for the thread again
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/pin:
+    post:
+      summary: Pin status
+      description: Pin status to the top of your profile
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/unpin:
+    post:
+      summary: Unpin status
+      description: Unpin a status from the top of your profile
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Status'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/history:
+    get:
+      summary: Get status edit history
+      description: Get all known versions of a status in reverse chronological order
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/statuses/{id}/source:
+    get:
+      summary: Get status source
+      description: Obtain the source properties for a status
+      tags:
+      - statuses
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/timelines/home:
+    get:
+      summary: Home timeline
+      description: View statuses from followed users
+      tags:
+      - timelines
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/timelines/public:
+    get:
+      summary: Public timeline
+      description: Public timeline
+      tags:
+      - timelines
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+  /api/v1/timelines/tag/{hashtag}:
+    get:
+      summary: Hashtag timeline
+      description: View public statuses containing the given hashtag
+      tags:
+      - timelines
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: hashtag
+        in: path
+        description: The name of the hashtag
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/timelines/list/{list_id}:
+    get:
+      summary: List timeline
+      description: View statuses in the given list timeline
+      tags:
+      - timelines
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: list_id
+        in: path
+        description: The ID of the List in the database
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/notifications:
+    get:
+      summary: Get notifications
+      description: Receive notifications for the current user
+      tags:
+      - notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/notifications/{id}:
+    get:
+      summary: Get single notification
+      description: View information about a notification with a given ID
+      tags:
+      - notifications
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Notification'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/notifications/clear:
+    post:
+      summary: Dismiss all notifications
+      description: Clear all notifications from the server
+      tags:
+      - notifications
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/notifications/{id}/dismiss:
+    post:
+      summary: Dismiss single notification
+      description: Clear a single notification from the server
+      tags:
+      - notifications
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v2/search:
+    get:
+      summary: Search
+      description: Search for content in accounts, statuses and hashtags
+      tags:
+      - search
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Search'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/instance:
+    get:
+      summary: View server information
+      description: Information about the server
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/instance/peers:
+    get:
+      summary: List of connected domains
+      description: Domains that this instance is aware of
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/instance/activity:
+    get:
+      summary: Weekly activity
+      description: Instance activity over the last 3 months
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Activity'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/instance/rules:
+    get:
+      summary: View server rules
+      description: Rules that the users of this service should follow
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rule'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/instance/domain_blocks:
+    get:
+      summary: View domain blocks
+      description: Obtain a list of domains that have been blocked
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+  /api/v1/instance/extended_description:
+    get:
+      summary: View extended description
+      description: Obtain an extended description of this server
+      tags:
+      - instance
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Instance'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/apps:
+    post:
+      summary: Create an application
+      description: Create a new application to obtain OAuth2 credentials
+      tags:
+      - apps
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/apps/verify_credentials:
+    get:
+      summary: Verify your app works
+      description: Confirm that the app's OAuth2 credentials work
+      tags:
+      - apps
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Application'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /oauth/token:
+    post:
+      summary: Obtain a token
+      description: Obtain an access token
+      tags:
+      - oauth
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Token'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /oauth/revoke:
+    post:
+      summary: Revoke a token
+      description: Revoke an access token
+      tags:
+      - oauth
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/media:
+    post:
+      summary: Upload media attachment
+      description: Creates an attachment to be used with a new status
+      tags:
+      - media
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/media/{id}:
+    get:
+      summary: Get media attachment
+      description: Get a media attachment
+      tags:
+      - media
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    put:
+      summary: Update media attachment
+      description: Update a MediaAttachment's parameters
+      tags:
+      - media
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MediaAttachment'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/polls/{id}:
+    get:
+      summary: View a poll
+      description: View a poll
+      tags:
+      - polls
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/polls/{id}/votes:
+    post:
+      summary: Vote on a poll
+      description: Submit a vote to a poll
+      tags:
+      - polls
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Poll'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/lists:
+    get:
+      summary: View your lists
+      description: Fetch all lists that the user owns
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+    post:
+      summary: Create a list
+      description: Create a new list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/lists/{id}:
+    get:
+      summary: View a single list
+      description: Fetch the list with the given ID
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    put:
+      summary: Update a list
+      description: Change the title of a list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    delete:
+      summary: Delete a list
+      description: Delete a list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/lists/{id}/accounts:
+    get:
+      summary: View accounts in list
+      description: View accounts in the given list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    post:
+      summary: Add accounts to list
+      description: Add accounts to the given list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+    delete:
+      summary: Remove accounts from list
+      description: Remove accounts from the given list
+      tags:
+      - lists
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: id
+        in: path
+        description: The ID of the resource
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/follow_requests:
+    get:
+      summary: View pending follow requests
+      description: Pending follow requests
+      tags:
+      - follow_requests
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+      - BearerAuth: []
+  /api/v1/follow_requests/{account_id}/authorize:
+    post:
+      summary: Accept follow request
+      description: Accept a follow request
+      tags:
+      - follow_requests
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: account_id
+        in: path
+        description: The ID of the Account in the database
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/follow_requests/{account_id}/reject:
+    post:
+      summary: Reject follow request
+      description: Reject a follow request
+      tags:
+      - follow_requests
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: account_id
+        in: path
+        description: The ID of the Account in the database
+        required: true
+        schema:
+          type: string
+      security:
+      - BearerAuth: []
+  /api/v1/blocks:
+    get:
+      summary: View blocked users
+      description: View your blocks
+      tags:
+      - blocks
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/mutes:
+    get:
+      summary: View muted users
+      description: View your mutes
+      tags:
+      - mutes
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/favourites:
+    get:
+      summary: View favourited statuses
+      description: Statuses the user has favourited
+      tags:
+      - favourites
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+  /api/v1/bookmarks:
+    get:
+      summary: View bookmarked statuses
+      description: Statuses the user has bookmarked
+      tags:
+      - bookmarks
+      responses:
+        '200':
+          description: Success
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      parameters:
+      - name: max_id
+        in: query
+        description: Return results older than this ID
+        required: false
+        schema:
+          type: string
+      - name: since_id
+        in: query
+        description: Return results newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: min_id
+        in: query
+        description: Return results immediately newer than this ID
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: Maximum number of results to return. Defaults to 20
+        required: false
+        schema:
+          type: integer
+      security:
+      - BearerAuth: []
+components:
+  schemas:
+    Account:
+      type: object
+      description: Represents a user of Mastodon and their associated profile.
+      properties:
+        id:
+          type: string
+          description: The account id
+        username:
+          type: string
+          description: The username of the account, not including domain
+        acct:
+          type: string
+          description: The Webfinger account URI. Equal to username for local users, or username@domain for remote users
+        display_name:
+          type: string
+          description: The profile's display name
+        locked:
+          type: boolean
+          description: Whether the account manually approves follow requests
+        bot:
+          type: boolean
+          description: Whether the account may perform automated actions
+        discoverable:
+          type: boolean
+          description: Whether the account has opted into discovery features
+          nullable: true
+        group:
+          type: boolean
+          description: Whether the account represents a Group actor
+        created_at:
+          type: string
+          description: When the account was created
+          format: date-time
+        note:
+          type: string
+          description: The profile's bio / description
+        url:
+          type: string
+          description: The location of the user's profile page
+          format: uri
+        uri:
+          type: string
+          description: The user's ActivityPub actor identifier
+          format: uri
+        avatar:
+          type: string
+          description: An image icon that is shown next to statuses and in the profile
+          format: uri
+        avatar_static:
+          type: string
+          description: A static version of the avatar
+          format: uri
+        header:
+          type: string
+          description: An image banner that is shown above the profile
+          format: uri
+        header_static:
+          type: string
+          description: A static version of the header
+          format: uri
+        followers_count:
+          type: integer
+          description: The reported followers of this profile
+        following_count:
+          type: integer
+          description: The reported follows of this profile
+        statuses_count:
+          type: integer
+          description: How many statuses are attached to this account
+        last_status_at:
+          type: string
+          description: When the most recent status was posted
+          format: date
+          nullable: true
+        noindex:
+          type: boolean
+          description: Whether the local user has opted out of being indexed by search engines
+          nullable: true
+        emojis:
+          type: array
+          description: Custom emoji entities to be used when rendering the profile
+          items:
+            $ref: '#/components/schemas/CustomEmoji'
+        fields:
+          type: array
+          description: Additional metadata attached to a profile as name-value pairs
+          items:
+            $ref: '#/components/schemas/Field'
+        moved:
+          $ref: '#/components/schemas/Account'
+        suspended:
+          type: boolean
+          description: An extra attribute returned only when an account is suspended
+        limited:
+          type: boolean
+          description: An extra attribute returned only when an account is silenced
+        hide_collections:
+          type: boolean
+          description: Whether the user hides the contents of their follows and followers collections
+      required:
+      - id
+      - username
+      - acct
+      - display_name
+      - locked
+      - bot
+      - created_at
+      - note
+      - url
+      - avatar
+      - avatar_static
+      - header
+      - header_static
+      - followers_count
+      - following_count
+      - statuses_count
+      - last_status_at
+      - emojis
+      - fields
+    CredentialAccount:
+      type: object
+      description: Represents the current user's account with additional private information.
+      properties:
+        id:
+          type: string
+          description: The account id
+        username:
+          type: string
+          description: The username of the account, not including domain
+        acct:
+          type: string
+          description: The Webfinger account URI. Equal to username for local users, or username@domain for remote users
+        display_name:
+          type: string
+          description: The profile's display name
+        locked:
+          type: boolean
+          description: Whether the account manually approves follow requests
+        bot:
+          type: boolean
+          description: Whether the account may perform automated actions
+        discoverable:
+          type: boolean
+          description: Whether the account has opted into discovery features
+          nullable: true
+        group:
+          type: boolean
+          description: Whether the account represents a Group actor
+        created_at:
+          type: string
+          description: When the account was created
+          format: date-time
+        note:
+          type: string
+          description: The profile's bio / description
+        url:
+          type: string
+          description: The location of the user's profile page
+          format: uri
+        uri:
+          type: string
+          description: The user's ActivityPub actor identifier
+          format: uri
+        avatar:
+          type: string
+          description: An image icon that is shown next to statuses and in the profile
+          format: uri
+        avatar_static:
+          type: string
+          description: A static version of the avatar
+          format: uri
+        header:
+          type: string
+          description: An image banner that is shown above the profile
+          format: uri
+        header_static:
+          type: string
+          description: A static version of the header
+          format: uri
+        followers_count:
+          type: integer
+          description: The reported followers of this profile
+        following_count:
+          type: integer
+          description: The reported follows of this profile
+        statuses_count:
+          type: integer
+          description: How many statuses are attached to this account
+        last_status_at:
+          type: string
+          description: When the most recent status was posted
+          format: date
+          nullable: true
+        noindex:
+          type: boolean
+          description: Whether the local user has opted out of being indexed by search engines
+          nullable: true
+        emojis:
+          type: array
+          description: Custom emoji entities to be used when rendering the profile
+          items:
+            $ref: '#/components/schemas/CustomEmoji'
+        fields:
+          type: array
+          description: Additional metadata attached to a profile as name-value pairs
+          items:
+            $ref: '#/components/schemas/Field'
+        moved:
+          $ref: '#/components/schemas/Account'
+        suspended:
+          type: boolean
+          description: An extra attribute returned only when an account is suspended
+        limited:
+          type: boolean
+          description: An extra attribute returned only when an account is silenced
+        hide_collections:
+          type: boolean
+          description: Whether the user hides the contents of their follows and followers collections
+        source:
+          type: object
+          description: An extra attribute that contains source values to be used with API methods
+        role:
+          type: object
+          description: The role assigned to the currently authorized user
+      required:
+      - id
+      - username
+      - acct
+      - display_name
+      - locked
+      - bot
+      - created_at
+      - note
+      - url
+      - avatar
+      - avatar_static
+      - header
+      - header_static
+      - followers_count
+      - following_count
+      - statuses_count
+      - last_status_at
+      - emojis
+      - fields
+    Status:
+      type: object
+      description: Represents a status posted by an account.
+      properties:
+        id:
+          type: string
+          description: ID of the status in the database
+        uri:
+          type: string
+          description: URI of the status used for federation
+          format: uri
+        created_at:
+          type: string
+          description: The date when this status was created
+          format: date-time
+        account:
+          $ref: '#/components/schemas/Account'
+        content:
+          type: string
+          description: HTML-encoded status content
+        visibility:
+          type: string
+          description: Visibility of this status
+        sensitive:
+          type: boolean
+          description: Is this status marked as sensitive content?
+        spoiler_text:
+          type: string
+          description: Subject or summary line, below which status content is collapsed
+        media_attachments:
+          type: array
+          description: Media that is attached to this status
+          items:
+            $ref: '#/components/schemas/MediaAttachment'
+        application:
+          $ref: '#/components/schemas/Application'
+        mentions:
+          type: array
+          description: Mentions of users within the status content
+          items:
+            $ref: '#/components/schemas/Mention'
+        tags:
+          type: array
+          description: Hashtags used within the status content
+          items:
+            $ref: '#/components/schemas/Tag'
+        emojis:
+          type: array
+          description: Custom emoji to be used when rendering status content
+          items:
+            $ref: '#/components/schemas/CustomEmoji'
+        reblogs_count:
+          type: integer
+          description: How many boosts this status has received
+        favourites_count:
+          type: integer
+          description: How many favourites this status has received
+        replies_count:
+          type: integer
+          description: How many replies this status has received
+        url:
+          type: string
+          description: A link to the status's HTML representation
+          format: uri
+          nullable: true
+        in_reply_to_id:
+          type: string
+          description: ID of the status being replied to
+          nullable: true
+        in_reply_to_account_id:
+          type: string
+          description: ID of the account being replied to
+          nullable: true
+        reblog:
+          $ref: '#/components/schemas/Status'
+        poll:
+          $ref: '#/components/schemas/Poll'
+        card:
+          type: object
+          description: Preview card for links included within status content
+          nullable: true
+        language:
+          type: string
+          description: Primary language of this status
+          nullable: true
+        text:
+          type: string
+          description: Plain-text source of a status
+          nullable: true
+        edited_at:
+          type: string
+          description: Timestamp of when the status was last edited
+          format: date-time
+          nullable: true
+        favourited:
+          type: boolean
+          description: Have you favourited this status?
+        reblogged:
+          type: boolean
+          description: Have you boosted this status?
+        muted:
+          type: boolean
+          description: Have you muted notifications for this status's conversation?
+        bookmarked:
+          type: boolean
+          description: Have you bookmarked this status?
+        pinned:
+          type: boolean
+          description: Have you pinned this status?
+      required:
+      - id
+      - uri
+      - created_at
+      - account
+      - content
+      - visibility
+      - sensitive
+      - spoiler_text
+      - media_attachments
+      - application
+      - mentions
+      - tags
+      - emojis
+      - reblogs_count
+      - favourites_count
+      - replies_count
+      - url
+      - in_reply_to_id
+      - in_reply_to_account_id
+      - reblog
+      - poll
+      - card
+      - language
+      - text
+      - edited_at
+    MediaAttachment:
+      type: object
+      description: Represents a file or media attachment that can be added to a status.
+      properties:
+        id:
+          type: string
+          description: The ID of the attachment in the database
+        type:
+          type: string
+          description: The type of the attachment
+        url:
+          type: string
+          description: The location of the original full-size attachment
+          format: uri
+        preview_url:
+          type: string
+          description: The location of a scaled-down preview of the attachment
+          format: uri
+        remote_url:
+          type: string
+          description: The location of the full-size original attachment on the remote website
+          format: uri
+          nullable: true
+        meta:
+          type: object
+          description: Metadata returned by Paperclip
+        description:
+          type: string
+          description: Alternate text that describes what is in the media attachment
+          nullable: true
+        blurhash:
+          type: string
+          description: A hash computed by the BlurHash algorithm
+          nullable: true
+      required:
+      - id
+      - type
+      - url
+      - preview_url
+      - remote_url
+      - meta
+      - description
+      - blurhash
+    Notification:
+      type: object
+      description: Represents a notification of an event relevant to the user.
+      properties:
+        id:
+          type: string
+          description: The id of the notification in the database
+        type:
+          type: string
+          description: The type of event that resulted in the notification
+        created_at:
+          type: string
+          description: The timestamp of the notification
+          format: date-time
+        account:
+          $ref: '#/components/schemas/Account'
+        status:
+          $ref: '#/components/schemas/Status'
+        report:
+          type: object
+          description: Report that was the object of the notification
+          nullable: true
+        relationship_severance_event:
+          type: object
+          description: Summary of the event that caused follow relationships to be severed
+          nullable: true
+      required:
+      - id
+      - type
+      - created_at
+      - account
+      - status
+    CustomEmoji:
+      type: object
+      description: Represents a custom emoji.
+      properties:
+        shortcode:
+          type: string
+          description: The name of the custom emoji
+        url:
+          type: string
+          description: A link to the custom emoji
+          format: uri
+        static_url:
+          type: string
+          description: A link to a static copy of the custom emoji
+          format: uri
+        visible_in_picker:
+          type: boolean
+          description: Whether this Emoji should be visible in the picker or unlisted
+        category:
+          type: string
+          description: Used for sorting custom emoji in the picker
+          nullable: true
+      required:
+      - shortcode
+      - url
+      - static_url
+      - visible_in_picker
+    Field:
+      type: object
+      description: Represents a profile field as a name-value pair with optional verification.
+      properties:
+        name:
+          type: string
+          description: The key of a given field's key-value pair
+        value:
+          type: string
+          description: The value associated with the name key
+        verified_at:
+          type: string
+          description: Timestamp of when the server verified a URL value for a rel="me" link
+          format: date-time
+      required:
+      - name
+      - value
+      - verified_at
+    Mention:
+      type: object
+      description: Represents a mention of a user within the status content.
+      properties:
+        id:
+          type: string
+          description: The account id of the mentioned user
+        username:
+          type: string
+          description: The username of the mentioned user
+        url:
+          type: string
+          description: The location of the mentioned user's profile
+          format: uri
+        acct:
+          type: string
+          description: 'The webfinger acct: URI of the mentioned user'
+      required:
+      - id
+      - username
+      - url
+      - acct
+    Tag:
+      type: object
+      description: Represents a hashtag used within the status content.
+      properties:
+        name:
+          type: string
+          description: 'The value of the hashtag after the # sign'
+        url:
+          type: string
+          description: A link to the hashtag on the instance
+          format: uri
+        history:
+          type: array
+          description: Usage statistics for given days
+          items:
+            $ref: '#/components/schemas/TagHistory'
+        following:
+          type: boolean
+          description: Whether the current token's authorized user is following this tag
+      required:
+      - name
+      - url
+      - history
+      - following
+    Poll:
+      type: object
+      description: Represents a poll attached to a status.
+      properties:
+        id:
+          type: string
+          description: The ID of the poll in the database
+        expires_at:
+          type: string
+          description: When the poll ends
+          format: date-time
+        expired:
+          type: boolean
+          description: Is the poll currently expired?
+        multiple:
+          type: boolean
+          description: Does the poll allow multiple-choice answers?
+        votes_count:
+          type: integer
+          description: How many votes have been received
+        voters_count:
+          type: integer
+          description: How many unique accounts have voted on a multiple-choice poll
+          nullable: true
+        options:
+          type: array
+          description: Possible answers for the poll
+          items:
+            $ref: '#/components/schemas/PollOption'
+        emojis:
+          type: array
+          description: Custom emoji to be used for rendering poll options
+          items:
+            $ref: '#/components/schemas/CustomEmoji'
+        voted:
+          type: boolean
+          description: When called with a user token, has the authorized user voted?
+        own_votes:
+          type: array
+          description: When called with a user token, which options has the authorized user chosen?
+          items:
+            type: string
+      required:
+      - id
+      - expires_at
+      - expired
+      - multiple
+      - votes_count
+      - options
+      - emojis
+      - voted
+      - own_votes
+    PollOption:
+      type: object
+      description: Represents a poll choice.
+      properties:
+        title:
+          type: string
+          description: The text value of the poll option
+        votes_count:
+          type: integer
+          description: The number of received votes for this option
+          nullable: true
+      required:
+      - title
+    Application:
+      type: object
+      description: Represents an application that interfaces with the REST API to access accounts or post statuses.
+      properties:
+        name:
+          type: string
+          description: The name of your application
+        website:
+          type: string
+          description: The website associated with your application
+          format: uri
+        vapid_key:
+          type: string
+          description: Used for Push Streaming API
+      required:
+      - name
+      - website
+      - vapid_key
+    Token:
+      type: object
+      description: Represents an OAuth token used for authenticating with the API and performing actions.
+      properties:
+        access_token:
+          type: string
+          description: An OAuth token to be used for authorization
+        token_type:
+          type: string
+          description: The OAuth token type
+        scope:
+          type: string
+          description: The OAuth scopes granted by this token
+        created_at:
+          type: integer
+          description: When the token was generated
+      required:
+      - access_token
+      - token_type
+      - scope
+      - created_at
+    Instance:
+      type: object
+      description: Represents the software instance of Mastodon running on this domain.
+      properties:
+        uri:
+          type: string
+          description: The domain name of the instance
+        title:
+          type: string
+          description: The title of the website
+        short_description:
+          type: string
+          description: A shorter description defined by the admin
+        description:
+          type: string
+          description: A description for the instance
+        email:
+          type: string
+          description: An email that may be contacted for any inquiries
+        version:
+          type: string
+          description: The version of Mastodon installed on the instance
+        urls:
+          type: object
+          description: URLs of interest for clients apps
+        stats:
+          type: object
+          description: Statistics about how much information the instance contains
+        thumbnail:
+          type: string
+          description: Banner image for the instance
+          format: uri
+        languages:
+          type: array
+          description: Primary languages of the website and its staff
+          items:
+            type: string
+        registrations:
+          type: boolean
+          description: Whether registrations are enabled
+        approval_required:
+          type: boolean
+          description: Whether registrations require moderator approval
+        invites_enabled:
+          type: boolean
+          description: Whether invites are enabled
+        configuration:
+          type: object
+          description: Configured values and limits for this website
+        contact_account:
+          type: object
+          description: A user that can be contacted regarding the instance
+          nullable: true
+        rules:
+          type: array
+          description: An itemized list of rules for this website
+          items:
+            $ref: '#/components/schemas/Rule'
+      required:
+      - uri
+      - title
+      - short_description
+      - description
+      - email
+      - version
+      - urls
+      - stats
+      - thumbnail
+      - languages
+      - registrations
+      - approval_required
+      - invites_enabled
+      - configuration
+      - rules
+    Error:
+      type: object
+      description: Represents an error.
+      properties:
+        error:
+          type: string
+          description: The error message
+        error_description:
+          type: string
+          description: A longer description of the error
+      required:
+      - error
+      - error_description
+    Context:
+      type: object
+      description: Represents the tree around a given status.
+      properties:
+        ancestors:
+          type: array
+          description: Parents in the thread
+          items:
+            $ref: '#/components/schemas/Status'
+        descendants:
+          type: array
+          description: Children in the thread
+          items:
+            $ref: '#/components/schemas/Status'
+      required:
+      - ancestors
+      - descendants
+    Conversation:
+      type: object
+      description: Represents a conversation with "direct message" visibility.
+      properties:
+        id:
+          type: string
+          description: Local database ID of the conversation
+        unread:
+          type: boolean
+          description: Is the conversation currently marked as unread?
+        accounts:
+          type: array
+          description: Participants in the conversation
+          items:
+            $ref: '#/components/schemas/Account'
+        last_status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - id
+      - unread
+      - accounts
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      description: OAuth 2.0 authorization code flow
+      flows:
+        authorizationCode:
+          authorizationUrl: https://{instance}/oauth/authorize
+          tokenUrl: https://{instance}/oauth/token
+          scopes:
+            read: Read access to account data
+            write: Write access to account data
+            follow: Access to manage relationships
+            push: Access to Web Push API subscriptions
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication

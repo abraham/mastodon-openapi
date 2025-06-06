@@ -1,0 +1,4 @@
+requests>=2.28.0
+PyYAML>=6.0
+markdown>=3.4.0
+pydantic>=1.10.0
