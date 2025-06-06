@@ -1,5 +1,6 @@
 node_modules/
-dist/
+dist/*
+!dist/schema.json
 *.log
 .env
 .DS_Store
