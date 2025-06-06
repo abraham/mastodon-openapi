@@ -8,6 +8,7 @@
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
+    "generate": "ts-node src/generate.ts",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",
@@ -22,10 +23,14 @@
   "license": "MIT",
   "devDependencies": {
     "@types/jest": "^29.5.0",
+    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.0.0",
     "jest": "^29.5.0",
     "ts-jest": "^29.1.0",
     "ts-node": "^10.9.0",
     "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "gray-matter": "^4.0.3"
   }
 }
