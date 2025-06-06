@@ -10,7 +10,8 @@
     "dev": "ts-node src/index.ts",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
-    "clean": "rm -rf dist"
+    "clean": "rm -rf dist",
+    "postinstall": "git clone https://github.com/mastodon/documentation mastodon-documentation || true"
   },
   "keywords": [
     "mastodon",
