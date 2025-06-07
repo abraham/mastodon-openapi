@@ -83,6 +83,9 @@ class EntityParser {
     const methodFiles = methodParser.parseAllMethods();
     const analyzer = new JsonExampleAnalyzer();
 
+    // Pass known entities to the analyzer so it can create proper references
+    analyzer.setKnownEntities(entities);
+
     const enrichedEntities = entities.map((entity) => ({
       ...entity,
       attributes: [...entity.attributes],

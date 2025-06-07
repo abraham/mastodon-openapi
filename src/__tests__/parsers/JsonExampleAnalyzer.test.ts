@@ -304,4 +304,173 @@ describe('JsonExampleAnalyzer', () => {
     expect(arrayIndexProps.length).toBe(2); // Shows array indices "0", "1" are created as properties
     expect(nestedArrayIndexProps.length).toBe(0); // Nested props would be in nestedObject
   });
+
+  test('should detect known entities and create references', () => {
+    // Create mock entities that the analyzer can reference
+    const mockEntities = [
+      {
+        name: 'CustomEmoji',
+        description: 'Represents a custom emoji.',
+        attributes: [
+          {
+            name: 'shortcode',
+            type: 'String',
+            description: 'The name of the custom emoji.',
+          },
+          {
+            name: 'url',
+            type: 'String',
+            description: 'A link to the custom emoji.',
+          },
+          {
+            name: 'static_url',
+            type: 'String',
+            description: 'A link to a static copy of the custom emoji.',
+          },
+          {
+            name: 'visible_in_picker',
+            type: 'Boolean',
+            description: 'Whether this Emoji should be visible in the picker.',
+          },
+        ],
+      },
+      {
+        name: 'Field',
+        description: 'Additional metadata attached to a profile.',
+        attributes: [
+          {
+            name: 'name',
+            type: 'String',
+            description: "The key of a given field's key-value pair.",
+          },
+          {
+            name: 'value',
+            type: 'String',
+            description: 'The value associated with the name key.',
+          },
+          {
+            name: 'verified_at',
+            type: 'String',
+            description: 'Timestamp of when the server verified a URL.',
+          },
+        ],
+      },
+    ];
+
+    analyzer.setKnownEntities(mockEntities);
+
+    const jsonObj = {
+      emojis: [
+        {
+          shortcode: 'fatyoshi',
+          url: 'https://example.com/emoji.png',
+          static_url: 'https://example.com/emoji_static.png',
+          visible_in_picker: true,
+        },
+      ],
+      fields: [
+        {
+          name: 'Website',
+          value: 'https://example.com',
+          verified_at: '2019-08-24T14:15:20.000Z',
+        },
+      ],
+    };
+
+    const jsonAttributes = analyzer.analyzeJsonObject(jsonObj);
+    const entityAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
+
+    expect(entityAttributes).toHaveLength(2);
+
+    // Check emojis array references CustomEmoji
+    const emojisAttr = entityAttributes.find((a) => a.name === 'emojis');
+    expect(emojisAttr?.type).toBe('Array of [CustomEmoji]');
+    expect(emojisAttr?.properties).toBeUndefined(); // Should not have inline properties
+
+    // Check fields array references Field
+    const fieldsAttr = entityAttributes.find((a) => a.name === 'fields');
+    expect(fieldsAttr?.type).toBe('Array of [Field]');
+    expect(fieldsAttr?.properties).toBeUndefined(); // Should not have inline properties
+  });
+
+  test('should fall back to inline properties when no matching entity is found', () => {
+    // Set up analyzer with some entities but not the ones we'll use
+    const mockEntities = [
+      {
+        name: 'Account',
+        description: 'Represents a user account.',
+        attributes: [
+          { name: 'id', type: 'String', description: 'Account ID' },
+          { name: 'username', type: 'String', description: 'Account username' },
+        ],
+      },
+    ];
+
+    analyzer.setKnownEntities(mockEntities);
+
+    const jsonObj = {
+      unknown_objects: [
+        {
+          custom_field_1: 'value1',
+          custom_field_2: 'value2',
+        },
+      ],
+    };
+
+    const jsonAttributes = analyzer.analyzeJsonObject(jsonObj);
+    const entityAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
+
+    expect(entityAttributes).toHaveLength(1);
+
+    // Should fall back to inline properties since no matching entity was found
+    const unknownAttr = entityAttributes.find(
+      (a) => a.name === 'unknown_objects'
+    );
+    expect(unknownAttr?.type).toBe('Array of Object');
+    expect(unknownAttr?.properties).toBeDefined(); // Should have inline properties
+    expect(Object.keys(unknownAttr?.properties || {})).toEqual([
+      'custom_field_1',
+      'custom_field_2',
+    ]);
+  });
+
+  test('should detect single object entity references', () => {
+    const mockEntities = [
+      {
+        name: 'Account',
+        description: 'Represents a user account.',
+        attributes: [
+          { name: 'id', type: 'String', description: 'Account ID' },
+          { name: 'username', type: 'String', description: 'Account username' },
+          { name: 'acct', type: 'String', description: 'Account acct' },
+          {
+            name: 'display_name',
+            type: 'String',
+            description: 'Account display name',
+          },
+        ],
+      },
+    ];
+
+    analyzer.setKnownEntities(mockEntities);
+
+    const jsonObj = {
+      reblog: {
+        id: '123',
+        username: 'alice',
+        acct: 'alice@example.com',
+        display_name: 'Alice',
+      },
+    };
+
+    const jsonAttributes = analyzer.analyzeJsonObject(jsonObj);
+    const entityAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
+
+    expect(entityAttributes).toHaveLength(1);
+
+    // Should reference Account entity
+    const reblogAttr = entityAttributes.find((a) => a.name === 'reblog');
+    expect(reblogAttr?.type).toBe('[Account]');
+    expect(reblogAttr?.properties).toBeUndefined(); // Should not have inline properties
+  });
 });

@@ -1,13 +1,23 @@
 import { EntityAttribute } from '../interfaces/EntityAttribute';
+import { EntityClass } from '../interfaces/EntityClass';
 
 interface JsonAttributeInfo {
   name: string;
   type: string;
   isArray?: boolean;
   nestedObject?: JsonAttributeInfo[];
+  entityRef?: string; // Reference to an existing entity if detected
 }
 
 class JsonExampleAnalyzer {
+  private knownEntities: EntityClass[] = [];
+
+  /**
+   * Set the known entities so we can create proper references
+   */
+  public setKnownEntities(entities: EntityClass[]): void {
+    this.knownEntities = entities;
+  }
   /**
    * Analyzes a JSON object and extracts attribute information
    */
@@ -33,11 +43,18 @@ class JsonExampleAnalyzer {
         if (value.length > 0) {
           const firstItem = value[0];
           if (typeof firstItem === 'object' && firstItem !== null) {
-            attribute.type = 'object';
-            attribute.nestedObject = this.analyzeJsonObject(
-              firstItem,
-              `${path}.${key}[0]`
-            );
+            // Check if this looks like a known entity
+            const matchedEntity = this.findMatchingEntity(firstItem);
+            if (matchedEntity) {
+              attribute.type = 'object';
+              attribute.entityRef = matchedEntity.name;
+            } else {
+              attribute.type = 'object';
+              attribute.nestedObject = this.analyzeJsonObject(
+                firstItem,
+                `${path}.${key}[0]`
+              );
+            }
           } else {
             attribute.type = this.inferTypeFromValue(firstItem);
           }
@@ -47,11 +64,18 @@ class JsonExampleAnalyzer {
       }
       // Handle nested objects
       else if (typeof value === 'object' && value !== null) {
-        attribute.type = 'object';
-        attribute.nestedObject = this.analyzeJsonObject(
-          value,
-          `${path}.${key}`
-        );
+        // Check if this looks like a known entity
+        const matchedEntity = this.findMatchingEntity(value);
+        if (matchedEntity) {
+          attribute.type = 'object';
+          attribute.entityRef = matchedEntity.name;
+        } else {
+          attribute.type = 'object';
+          attribute.nestedObject = this.analyzeJsonObject(
+            value,
+            `${path}.${key}`
+          );
+        }
       }
 
       attributes.push(attribute);
@@ -75,8 +99,16 @@ class JsonExampleAnalyzer {
         description: `Attribute discovered from JSON example`,
       };
 
-      // For nested objects, add their properties to the properties field
-      if (jsonAttr.nestedObject && jsonAttr.nestedObject.length > 0) {
+      // Handle entity references
+      if (jsonAttr.entityRef) {
+        if (jsonAttr.isArray) {
+          entityAttr.type = `Array of [${jsonAttr.entityRef}]`;
+        } else {
+          entityAttr.type = `[${jsonAttr.entityRef}]`;
+        }
+      }
+      // For nested objects without entity reference, add their properties to the properties field
+      else if (jsonAttr.nestedObject && jsonAttr.nestedObject.length > 0) {
         const nestedEntityAttrs = this.convertToEntityAttributes(
           jsonAttr.nestedObject
         );
@@ -132,6 +164,59 @@ class JsonExampleAnalyzer {
     }
 
     return merged;
+  }
+
+  /**
+   * Attempts to find a known entity that matches the structure of the given object
+   */
+  private findMatchingEntity(obj: any): EntityClass | null {
+    if (!obj || typeof obj !== 'object') {
+      return null;
+    }
+
+    const objKeys = Object.keys(obj).sort();
+
+    // Look for entities that have a significant overlap in attributes
+    for (const entity of this.knownEntities) {
+      const entityKeys = entity.attributes
+        .filter((attr) => !attr.optional) // Only consider non-optional attributes for matching
+        .map((attr) => attr.name)
+        .sort();
+
+      // Check if object has most of the required entity attributes
+      const matchingKeys = entityKeys.filter((key) => objKeys.includes(key));
+      const matchRatio = matchingKeys.length / Math.max(entityKeys.length, 1);
+
+      // If we have a good match (60% or more of required attributes)
+      // and the object doesn't have too many extra attributes
+      if (matchRatio >= 0.6 && objKeys.length <= entityKeys.length * 2) {
+        return entity;
+      }
+    }
+
+    // Special case: look for entities with specific identifying attributes
+    const specialMappings = [
+      { keys: ['shortcode', 'url', 'static_url'], entityName: 'CustomEmoji' },
+      { keys: ['name', 'value'], entityName: 'Field' },
+      { keys: ['acct', 'username', 'display_name'], entityName: 'Account' },
+      { keys: ['id', 'uri', 'url', 'content'], entityName: 'Status' },
+    ];
+
+    for (const mapping of specialMappings) {
+      const hasRequiredKeys = mapping.keys.every((key) =>
+        objKeys.includes(key)
+      );
+      if (hasRequiredKeys) {
+        const entity = this.knownEntities.find(
+          (e) => e.name.toLowerCase() === mapping.entityName.toLowerCase()
+        );
+        if (entity) {
+          return entity;
+        }
+      }
+    }
+
+    return null;
   }
 
   private inferTypeFromValue(value: any): string {

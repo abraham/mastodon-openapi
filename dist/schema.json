@@ -9014,48 +9014,14 @@
             "description": "Additional metadata attached to a profile as name-value pairs.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "name": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "value": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "verified_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              }
+              "$ref": "#/components/schemas/Field"
             }
           },
           "emojis": {
             "description": "Custom emoji entities to be used when rendering the profile.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "shortcode": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "static_url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "visible_in_picker": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              }
+              "$ref": "#/components/schemas/CustomEmoji"
             }
           },
           "bot": {
@@ -9136,22 +9102,7 @@
                 "description": "Attribute discovered from JSON example",
                 "type": "array",
                 "items": {
-                  "type": "object"
-                },
-                "properties": {
-                  "name": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "value": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "verified_at": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  }
+                  "$ref": "#/components/schemas/Field"
                 }
               },
               "follow_requests_count": {
@@ -10085,31 +10036,7 @@
             "description": "Emoji reactions attached to the announcement.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "name": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "me": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "static_url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              }
+              "$ref": "#/components/schemas/Reaction"
             }
           }
         },
@@ -10579,21 +10506,7 @@
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "keyword": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "whole_word": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              }
+              "$ref": "#/components/schemas/FilterKeyword"
             }
           },
           "statuses": {
@@ -10807,18 +10720,7 @@
             "description": "The list of available size variants for this instance configured icon.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "src": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "size": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              }
+              "$ref": "#/components/schemas/InstanceIcon"
             }
           },
           "languages": {
@@ -11130,17 +11032,7 @@
             "description": "An itemized list of rules for this website.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "text": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              }
+              "$ref": "#/components/schemas/Rule"
             }
           },
           "contact": {
@@ -11153,124 +11045,7 @@
               },
               "account": {
                 "description": "Attribute discovered from JSON example",
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "username": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "acct": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "display_name": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "locked": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "boolean"
-                  },
-                  "bot": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "boolean"
-                  },
-                  "discoverable": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "boolean"
-                  },
-                  "group": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "date"
-                  },
-                  "note": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "url": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "avatar": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "avatar_static": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "header": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "header_static": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string",
-                    "format": "uri"
-                  },
-                  "followers_count": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "integer"
-                  },
-                  "following_count": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "integer"
-                  },
-                  "statuses_count": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "integer"
-                  },
-                  "last_status_at": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "noindex": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "boolean"
-                  },
-                  "emojis": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "description": "Original type: unknown"
-                    }
-                  },
-                  "fields": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "array",
-                    "items": {
-                      "type": "object"
-                    },
-                    "properties": {
-                      "name": {
-                        "description": "Attribute discovered from JSON example",
-                        "type": "string"
-                      },
-                      "value": {
-                        "description": "Attribute discovered from JSON example",
-                        "type": "string"
-                      },
-                      "verified_at": {
-                        "description": "Attribute discovered from JSON example",
-                        "type": "string"
-                      }
-                    }
-                  }
-                }
+                "$ref": "#/components/schemas/Account"
               }
             }
           }
@@ -11400,41 +11175,11 @@
           },
           "notifications": {
             "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object",
-            "properties": {
-              "last_read_id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "version": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "updated_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              }
-            }
+            "$ref": "#/components/schemas/Marker"
           },
           "home": {
             "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object",
-            "properties": {
-              "last_read_id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "version": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "updated_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              }
-            }
+            "$ref": "#/components/schemas/Marker"
           }
         },
         "required": [
@@ -11783,17 +11528,7 @@
             "description": "Possible answers for the poll.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "title": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "votes_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              }
+              "$ref": "#/components/schemas/Poll_Option"
             }
           },
           "emojis": {
@@ -12338,107 +12073,7 @@
           },
           "target_account": {
             "description": "The account that was reported.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "username": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "acct": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "display_name": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "locked": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "bot": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "discoverable": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "group": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "created_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              },
-              "note": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "followers_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "following_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "statuses_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "last_status_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "emojis": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "description": "Original type: unknown"
-                }
-              },
-              "fields": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "description": "Original type: unknown"
-                }
-              }
-            }
+            "$ref": "#/components/schemas/Account"
           }
         },
         "required": [
@@ -12760,113 +12395,7 @@
           },
           "account": {
             "description": "The account that authored this status.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "username": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "acct": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "display_name": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "locked": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "bot": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "created_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              },
-              "note": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "followers_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "following_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "statuses_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "last_status_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              },
-              "emojis": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "description": "Original type: unknown"
-                }
-              },
-              "fields": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "object"
-                },
-                "properties": {
-                  "name": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "value": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "verified_at": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/schemas/Account"
           },
           "content": {
             "description": "HTML-encoded status content.",
@@ -13400,17 +12929,7 @@
             "description": "The translated media descriptions of the status.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "description": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              }
+              "$ref": "#/components/schemas/Translation_Attachment"
             }
           },
           "detected_source_language": {
@@ -13785,136 +13304,13 @@
           },
           "contact_account": {
             "description": "A user that can be contacted, as an alternative to `email`.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "username": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "acct": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "display_name": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "locked": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "bot": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "discoverable": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "group": {
-                "description": "Attribute discovered from JSON example",
-                "type": "boolean"
-              },
-              "created_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "date"
-              },
-              "note": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "url": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "avatar_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "header_static": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string",
-                "format": "uri"
-              },
-              "followers_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "following_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "statuses_count": {
-                "description": "Attribute discovered from JSON example",
-                "type": "integer"
-              },
-              "last_status_at": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "emojis": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "description": "Original type: unknown"
-                }
-              },
-              "fields": {
-                "description": "Attribute discovered from JSON example",
-                "type": "array",
-                "items": {
-                  "type": "object"
-                },
-                "properties": {
-                  "name": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "value": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  },
-                  "verified_at": {
-                    "description": "Attribute discovered from JSON example",
-                    "type": "string"
-                  }
-                }
-              }
-            }
+            "$ref": "#/components/schemas/Account"
           },
           "rules": {
             "description": "An itemized list of rules for this website.",
             "type": "array",
             "items": {
-              "type": "object"
-            },
-            "properties": {
-              "id": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              },
-              "text": {
-                "description": "Attribute discovered from JSON example",
-                "type": "string"
-              }
+              "$ref": "#/components/schemas/Rule"
             }
           }
         },
