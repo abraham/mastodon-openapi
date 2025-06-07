@@ -375,6 +375,23 @@ class OpenAPIGenerator {
           );
         }
 
+        // Check for 3-segment pattern: /resource/{id}/sub-resource
+        if (
+          segments.length === 3 &&
+          segments[1].startsWith('{') &&
+          segments[1].endsWith('}')
+        ) {
+          // Pattern like /accounts/{id}/endorsements
+          // Generate: getAccountEndorsements (not getAccountsByIdEndorsements)
+          const mainResource = this.toSingular(segments[0]); // accounts -> account
+          const subResource = segments[2]; // endorsements (keep as is, could be plural or singular)
+          return (
+            semanticMethod +
+            this.toPascalCase(mainResource) +
+            this.toPascalCase(subResource)
+          );
+        }
+
         // More complex path with parameters - fallback to original logic
         const pathParts: string[] = [];
         for (let i = 0; i < segments.length; i++) {

@@ -121,6 +121,12 @@ describe('OpenAPIGenerator OperationId Generation', () => {
               endpoint: '/api/v1/statuses/:id',
               description: 'Delete status',
             },
+            {
+              name: 'Get account endorsements',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/:id/endorsements',
+              description: 'Get account endorsements',
+            },
           ],
         },
       ];
@@ -142,10 +148,10 @@ describe('OpenAPIGenerator OperationId Generation', () => {
         'createAccount'
       );
 
-      // Check nested path with parameter
+      // Check nested path with parameter (this is the issue being fixed)
       expect(
         spec.paths['/api/v1/accounts/{id}/follow']?.post?.operationId
-      ).toBe('postAccountsByIdFollow');
+      ).toBe('postAccountFollow');
 
       // Check snake_case handling
       expect(
@@ -156,6 +162,11 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       expect(spec.paths['/api/v1/statuses/{id}']?.delete?.operationId).toBe(
         'deleteStatus'
       );
+
+      // Check the specific issue pattern: /resource/{id}/sub-resource -> getResourceSubResource
+      expect(
+        spec.paths['/api/v1/accounts/{id}/endorsements']?.get?.operationId
+      ).toBe('getAccountEndorsements');
     });
 
     it('should handle different HTTP methods correctly', () => {
