@@ -661,6 +661,11 @@ class OpenAPIGenerator {
       },
     };
 
+    // Add deprecated flag if method is deprecated
+    if (method.deprecated) {
+      operation.deprecated = true;
+    }
+
     // Add security if OAuth is required
     if (method.oauth && method.oauth !== 'Public') {
       operation.security = [{ OAuth2: [] }];

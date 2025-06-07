@@ -9,6 +9,7 @@ interface ApiMethod {
   returns?: string;
   oauth?: string;
   version?: string;
+  deprecated?: boolean;
 }
 
 export { ApiMethod };
