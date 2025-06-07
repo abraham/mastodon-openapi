@@ -260,6 +260,145 @@ class OpenAPIGenerator {
     }
   }
 
+  private generateOperationId(httpMethod: string, endpoint: string): string {
+    // Convert HTTP method to lowercase
+    const method = httpMethod.toLowerCase();
+
+    // Extract API version and path
+    const versionMatch = endpoint.match(
+      /^\/api\/(v\d+(?:\.\d+)?(?:_alpha)?)\/(.*)$/
+    );
+    if (!versionMatch) {
+      // Fallback if no version found
+      const path = endpoint.replace(/^\/api\//, '');
+      return method + this.toPascalCase(path);
+    }
+
+    const [, version, pathAfterVersion] = versionMatch;
+    const segments = pathAfterVersion
+      .split('/')
+      .filter((segment) => segment.length > 0);
+
+    if (segments.length === 0) {
+      return method;
+    }
+
+    // Generate base operation name
+    let baseOperationId = this.generateBaseOperationId(method, segments);
+
+    // Add version suffix if it's not v1 or if there might be conflicts
+    if (version !== 'v1' || this.hasVersionConflicts(pathAfterVersion)) {
+      const versionSuffix = this.normalizeVersion(version);
+      baseOperationId += versionSuffix;
+    }
+
+    return baseOperationId;
+  }
+
+  private generateBaseOperationId(method: string, segments: string[]): string {
+    // Handle different patterns
+    if (segments.length === 1) {
+      // Simple resource: /accounts -> getAccounts
+      return method + this.toPascalCase(segments[0]);
+    }
+
+    // Check for path parameters
+    const hasPathParams = segments.some(
+      (segment) => segment.startsWith('{') && segment.endsWith('}')
+    );
+
+    if (hasPathParams) {
+      // Handle path parameters
+      if (segments.length === 2 && segments[1] === '{id}') {
+        // Pattern like /accounts/{id} -> getAccountById
+        const resource = segments[0];
+        let singular = resource;
+
+        // Handle common plural forms
+        if (resource.endsWith('ies')) {
+          singular = resource.slice(0, -3) + 'y'; // stories -> story
+        } else if (resource.endsWith('es')) {
+          singular = resource.slice(0, -2); // statuses -> status
+        } else if (resource.endsWith('s')) {
+          singular = resource.slice(0, -1); // accounts -> account
+        }
+
+        return method + this.toPascalCase(singular) + 'ById';
+      } else {
+        // More complex path with parameters
+        const pathParts: string[] = [];
+        for (let i = 0; i < segments.length; i++) {
+          const segment = segments[i];
+          if (segment.startsWith('{') && segment.endsWith('}')) {
+            const paramName = segment.slice(1, -1);
+            pathParts.push('By' + this.toPascalCase(paramName));
+          } else {
+            pathParts.push(this.toPascalCase(segment));
+          }
+        }
+        return method + pathParts.join('');
+      }
+    } else {
+      // No path parameters
+      const lastSegment = segments[segments.length - 1];
+
+      // For specific actions like familiar_followers, check if we need context to avoid conflicts
+      if (segments.length >= 2 && lastSegment.includes('_')) {
+        const action = this.toPascalCase(lastSegment);
+
+        // Special case for familiar_followers since it's unique and the issue specifically requested it
+        if (lastSegment === 'familiar_followers') {
+          return method + action;
+        }
+
+        // Always include context for other actions to avoid conflicts
+        const context = segments
+          .slice(0, -1)
+          .map((s) => this.toPascalCase(s))
+          .join('');
+        return method + context + action;
+      }
+
+      // For other multi-segment paths
+      if (segments.length === 2) {
+        const [resource, action] = segments;
+        return method + this.toPascalCase(resource) + this.toPascalCase(action);
+      }
+
+      // Default: combine all segments
+      return method + segments.map((s) => this.toPascalCase(s)).join('');
+    }
+  }
+
+  private normalizeVersion(version: string): string {
+    // Convert version string to PascalCase suffix
+    if (version === 'v1') return '';
+    if (version === 'v2') return 'V2';
+    if (version === 'v2_alpha') return 'V2Alpha';
+    // Handle other versions generically
+    return this.toPascalCase(version);
+  }
+
+  private hasVersionConflicts(pathAfterVersion: string): boolean {
+    // Common paths that appear in multiple API versions
+    const conflictingPaths = [
+      'notifications',
+      'filters',
+      'accounts',
+      'statuses',
+    ];
+
+    const firstSegment = pathAfterVersion.split('/')[0];
+    return conflictingPaths.includes(firstSegment);
+  }
+
+  private toPascalCase(str: string): string {
+    return str
+      .split(/[_-]/)
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+  }
+
   private convertMethod(method: ApiMethod, category: string): void {
     const path = this.normalizePath(method.endpoint);
     const httpMethod = method.httpMethod.toLowerCase() as keyof OpenAPIPath;
@@ -269,6 +408,7 @@ class OpenAPIGenerator {
     }
 
     const operation: OpenAPIOperation = {
+      operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
       description: method.description,
       tags: [category],

@@ -76,6 +76,7 @@ interface OpenAPIResponse {
 }
 
 interface OpenAPIOperation {
+  operationId?: string;
   summary?: string;
   description?: string;
   tags?: string[];
