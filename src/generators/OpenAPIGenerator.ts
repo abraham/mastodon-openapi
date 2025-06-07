@@ -146,6 +146,9 @@ class OpenAPIGenerator {
     if (type.$ref) {
       property.$ref = type.$ref;
     }
+    if (type.oneOf) {
+      property.oneOf = type.oneOf;
+    }
 
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
@@ -421,17 +424,32 @@ class OpenAPIGenerator {
       }
     }
 
-    // Handle single entity responses: "[EntityName]"
-    const entityMatch = returns.match(/\[([^\]]+)\]/);
-    if (entityMatch) {
-      const entityName = entityMatch[1];
-      const sanitizedEntityName = this.sanitizeSchemaName(entityName);
+    // Find all entity references: "[EntityName]"
+    const entityMatches = returns.match(/\[([^\]]+)\]/g);
+    if (entityMatches && entityMatches.length > 0) {
+      const validEntityRefs: OpenAPIProperty[] = [];
 
-      // Check if the entity exists in the components.schemas
-      if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+      for (const match of entityMatches) {
+        const entityName = match.slice(1, -1); // Remove [ and ]
+        const sanitizedEntityName = this.sanitizeSchemaName(entityName);
+
+        // Check if the entity exists in the components.schemas
+        if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+          validEntityRefs.push({
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          });
+        }
+      }
+
+      // If we found multiple valid entities, use oneOf
+      if (validEntityRefs.length > 1) {
         return {
-          $ref: `#/components/schemas/${sanitizedEntityName}`,
+          oneOf: validEntityRefs,
         };
+      }
+      // If we found exactly one valid entity, return it directly
+      else if (validEntityRefs.length === 1) {
+        return validEntityRefs[0];
       }
     }
 
