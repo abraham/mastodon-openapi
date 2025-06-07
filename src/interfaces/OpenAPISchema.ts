@@ -45,6 +45,7 @@ interface OpenAPISchema {
   properties?: Record<string, OpenAPIProperty>;
   required?: string[];
   description?: string;
+  oneOf?: OpenAPIProperty[];
 }
 
 interface OpenAPIParameter {

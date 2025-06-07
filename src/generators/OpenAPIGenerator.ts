@@ -428,6 +428,7 @@ class OpenAPIGenerator {
     const entityMatches = returns.match(/\[([^\]]+)\]/g);
     if (entityMatches && entityMatches.length > 0) {
       const validEntityRefs: OpenAPIProperty[] = [];
+      const entityNames: string[] = [];
 
       for (const match of entityMatches) {
         const entityName = match.slice(1, -1); // Remove [ and ]
@@ -438,14 +439,13 @@ class OpenAPIGenerator {
           validEntityRefs.push({
             $ref: `#/components/schemas/${sanitizedEntityName}`,
           });
+          entityNames.push(sanitizedEntityName);
         }
       }
 
-      // If we found multiple valid entities, use oneOf
+      // If we found multiple valid entities, create a synthetic schema
       if (validEntityRefs.length > 1) {
-        return {
-          oneOf: validEntityRefs,
-        };
+        return this.createSyntheticOneOfSchema(validEntityRefs, entityNames);
       }
       // If we found exactly one valid entity, return it directly
       else if (validEntityRefs.length === 1) {
@@ -455,6 +455,36 @@ class OpenAPIGenerator {
 
     // If no entity reference found or entity doesn't exist, return null to fallback to description-only
     return null;
+  }
+
+  private createSyntheticOneOfSchema(
+    validEntityRefs: OpenAPIProperty[],
+    entityNames: string[]
+  ): OpenAPIProperty {
+    // Generate synthetic schema name by joining entity names with "Or"
+    const syntheticSchemaName = entityNames.join('Or');
+
+    // Initialize components if not present
+    if (!this.spec.components) {
+      this.spec.components = { schemas: {} };
+    }
+    if (!this.spec.components.schemas) {
+      this.spec.components.schemas = {};
+    }
+
+    // Check if synthetic schema already exists
+    if (!this.spec.components.schemas[syntheticSchemaName]) {
+      // Create the synthetic schema
+      this.spec.components.schemas[syntheticSchemaName] = {
+        oneOf: validEntityRefs,
+        description: `One of: ${entityNames.join(', ')}`,
+      };
+    }
+
+    // Return reference to the synthetic schema
+    return {
+      $ref: `#/components/schemas/${syntheticSchemaName}`,
+    };
   }
 
   private convertMethod(method: ApiMethod, category: string): void {

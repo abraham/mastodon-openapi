@@ -171,7 +171,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation?.responses['200'].description).toBe('Success');
     });
 
-    it('should generate oneOf schema for multiple return types', () => {
+    it('should generate synthetic schema for multiple return types', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -220,7 +220,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
 
-      // Should have content with application/json schema using oneOf
+      // Should have content with application/json schema referencing synthetic type
       expect(operation?.responses['200'].content).toBeDefined();
       expect(
         operation?.responses['200'].content?.['application/json']
@@ -228,10 +228,19 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(
         operation?.responses['200'].content?.['application/json'].schema
       ).toEqual({
+        $ref: '#/components/schemas/StatusOrScheduledStatus',
+      });
+
+      // Check that the synthetic schema was created in components
+      expect(
+        spec.components?.schemas?.['StatusOrScheduledStatus']
+      ).toBeDefined();
+      expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
         oneOf: [
           { $ref: '#/components/schemas/Status' },
           { $ref: '#/components/schemas/ScheduledStatus' },
         ],
+        description: 'One of: Status, ScheduledStatus',
       });
     });
 
