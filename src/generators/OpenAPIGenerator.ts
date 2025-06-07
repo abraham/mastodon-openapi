@@ -506,6 +506,20 @@ class OpenAPIGenerator {
     });
   }
 
+  private convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
+    const schema: OpenAPIProperty = {
+      type: 'string',
+      description: param.description,
+    };
+
+    // Add enum values if available
+    if (param.enumValues && param.enumValues.length > 0) {
+      schema.enum = param.enumValues;
+    }
+
+    return schema;
+  }
+
   private convertMethod(method: ApiMethod, category: string): void {
     const path = this.normalizePath(method.endpoint);
     const httpMethod = method.httpMethod.toLowerCase() as keyof OpenAPIPath;
@@ -561,7 +575,7 @@ class OpenAPIGenerator {
             in: param.in,
             required: param.required,
             description: param.description,
-            schema: { type: 'string' },
+            schema: this.convertParameterToSchema(param),
           });
         } else if (param.in === 'formData') {
           // Form data parameters go in request body
@@ -574,7 +588,7 @@ class OpenAPIGenerator {
               in: 'query',
               required: param.required,
               description: param.description,
-              schema: { type: 'string' },
+              schema: this.convertParameterToSchema(param),
             });
           } else {
             bodyParams.push(param);
@@ -588,10 +602,7 @@ class OpenAPIGenerator {
         const required: string[] = [];
 
         for (const param of bodyParams) {
-          properties[param.name] = {
-            type: 'string',
-            description: param.description,
-          };
+          properties[param.name] = this.convertParameterToSchema(param);
           if (param.required) {
             required.push(param.name);
           }

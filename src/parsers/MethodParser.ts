@@ -191,15 +191,76 @@ class MethodParser {
       const required =
         cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
 
-      parameters.push({
+      // Extract enum values from description
+      const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
+
+      const parameter: ApiParameter = {
         name: name.trim(),
         description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
         required: required ? true : undefined,
         in: parameterLocation,
-      });
+      };
+
+      // Add enum values if found
+      if (enumValues.length > 0) {
+        parameter.enumValues = enumValues;
+      }
+
+      parameters.push(parameter);
     }
 
     return parameters;
+  }
+
+  private extractEnumValuesFromDescription(description: string): string[] {
+    const enumValues: string[] = [];
+
+    // Look for patterns like "to `value1`, `value2`, `value3`"
+    // This pattern matches the visibility parameter format specifically
+    const toPattern = /to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
+    let match = toPattern.exec(description);
+    if (match) {
+      const valuesList = match[1];
+      const values = valuesList.match(/`([^`]+)`/g);
+      if (values && values.length > 1) {
+        // Only extract if multiple values found
+        for (const value of values) {
+          const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+          if (cleanValue && !enumValues.includes(cleanValue)) {
+            enumValues.push(cleanValue);
+          }
+        }
+      }
+    }
+
+    // If we didn't find the "to" pattern, try other patterns
+    if (enumValues.length === 0) {
+      const patterns = [
+        /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+      ];
+
+      for (const pattern of patterns) {
+        pattern.lastIndex = 0; // Reset regex state
+        const match = pattern.exec(description);
+        if (match) {
+          const valuesList = match[1];
+          const values = valuesList.match(/`([^`]+)`/g);
+          if (values && values.length > 1) {
+            // Only extract if multiple values found
+            for (const value of values) {
+              const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+              if (cleanValue && !enumValues.includes(cleanValue)) {
+                enumValues.push(cleanValue);
+              }
+            }
+          }
+          break; // Found a pattern, don't try others
+        }
+      }
+    }
+
+    return enumValues;
   }
 
   private cleanMarkdown(text: string): string {
