@@ -8,10 +8,10 @@ export { OpenAPISpec } from './interfaces/OpenAPISchema';
 export { EntityParser } from './parsers/EntityParser';
 export { MethodParser } from './parsers/MethodParser';
 export { OpenAPIGenerator } from './generators/OpenAPIGenerator';
-export { main } from './main';
+export { main } from './index';
 
 // If this module is run directly, call main
 if (require.main === module) {
-  const { main } = require('./main');
+  const { main } = require('./index');
   main();
 }
