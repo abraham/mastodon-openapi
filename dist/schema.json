@@ -10121,7 +10121,7 @@
             }
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for your application.",
+            "description": "The registered redirection URI(s) for your application.\\ May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
             "type": "string"
           },
@@ -10643,6 +10643,24 @@
             "type": "string",
             "format": "uri"
           },
+          "thumbnail[blurhash]": {
+            "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+            "type": "string"
+          },
+          "thumbnail[versions]": {
+            "description": "Links to scaled resolution images, for high DPI screens.",
+            "type": "object"
+          },
+          "thumbnail[versions][@1x]": {
+            "description": "The URL for the thumbnail image at 1x resolution.",
+            "type": "string",
+            "format": "uri"
+          },
+          "thumbnail[versions][@2x]": {
+            "description": "The URL for the thumbnail image at 2x resolution.",
+            "type": "string",
+            "format": "uri"
+          },
           "icon": {
             "description": "The list of available size variants for this instance configured icon.",
             "type": "array",
@@ -10684,6 +10702,10 @@
             "description": "The URL of the server's current terms of service, if any.",
             "type": "string",
             "format": "uri"
+          },
+          "configuration[vapid][public_key]": {
+            "description": "The instances VAPID public key, used for push notifications, the same as [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}).",
+            "type": "string"
           },
           "configuration[accounts]": {
             "description": "Limits related to accounts.",
@@ -10780,7 +10802,7 @@
             "description": "Whether federation is limited to explicitly allowed domains.",
             "type": "boolean"
           },
-          "registrations": {
+          "registrations[enabled]": {
             "description": "Whether registrations are enabled.",
             "type": "boolean"
           },
@@ -10804,7 +10826,7 @@
             "description": "Information about which version of the API is implemented by this server. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
             "type": "object"
           },
-          "api_versions[mastodon]": {
+          "contact": {
             "description": "Hints related to contacting a representative of the website.",
             "type": "object"
           },
@@ -10836,6 +10858,10 @@
           "usage[users][active_month]",
           "thumbnail",
           "thumbnail[url]",
+          "thumbnail[blurhash]",
+          "thumbnail[versions]",
+          "thumbnail[versions][@1x]",
+          "thumbnail[versions][@2x]",
           "icon",
           "languages",
           "configuration",
@@ -10844,6 +10870,7 @@
           "configuration[urls][about]",
           "configuration[urls][privacy_policy]",
           "configuration[urls][terms_of_service]",
+          "configuration[vapid][public_key]",
           "configuration[accounts]",
           "configuration[accounts][max_featured_tags]",
           "configuration[accounts][max_pinned_statuses]",
@@ -10867,13 +10894,13 @@
           "configuration[translation]",
           "configuration[translation][enabled]",
           "configuration[limited_federation]",
-          "registrations",
+          "registrations[enabled]",
           "registrations[approval_required]",
           "registrations[message]",
           "registrations[min_age]",
           "registrations[reason_required]",
           "api_versions",
-          "api_versions[mastodon]",
+          "contact",
           "contact[email]",
           "contact[account]",
           "rules"
@@ -12138,7 +12165,7 @@
             "format": "date-time"
           },
           "quote": {
-            "description": "Information about the status being quoted, if any",
+            "description": "Information about the status being quoted, if any\\ Type:* {{<nullable>}} [Quote]({{< relref \"entities/quote\" >}}), [ShallowQuote]({{< relref \"entities/ShallowQuote\" >}}) or null\\ Version history:\\ 4.4.0 - added ### `favourited` {{%optional%}} {#favourited} Description: If the current token has an authorized user: Have you favourited this status?",
             "type": "boolean"
           },
           "reblogged": {
@@ -12296,6 +12323,10 @@
             "items": {
               "$ref": "#/components/schemas/CustomEmoji"
             }
+          },
+          "quote": {
+            "description": "Information about the status being quoted, if any\\ Type:* {{<nullable>}} [Quote]({{< relref \"entities/quote\" >}}) or [ShallowQuote]({{< relref \"entities/ShallowQuote\" >}})\\ Version history:\\ 4.4.0 - added",
+            "type": "string"
           }
         },
         "required": [

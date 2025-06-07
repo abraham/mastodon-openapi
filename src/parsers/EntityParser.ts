@@ -210,46 +210,168 @@ class EntityParser {
   }
 
   private parseAttributesFromSection(content: string): EntityAttribute[] {
+    // Parse attributes using pattern matching instead of complex regex
+    return this.parseEntityAttributesWithPatternMatching(content);
+  }
+
+  private parseEntityAttributesWithPatternMatching(
+    content: string
+  ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
+    const lines = content.split('\n');
 
-    // Match each attribute definition in this section
-    // Capture more content after Type to get enum values
-    const attributeRegex =
-      /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)(.*?)(?=\n\*\*Version history:\*\*|\n\*\*|\n###|$)/gs;
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
 
-    let match;
-    while ((match = attributeRegex.exec(content)) !== null) {
-      const [, name, modifiers, description, type, additionalContent] = match;
-
-      const cleanedType = this.cleanType(type.trim());
-      const attribute: EntityAttribute = {
-        name: name.trim(),
-        type: cleanedType,
-        description: this.cleanDescription(description.trim()),
-      };
-
-      // Check for optional/deprecated modifiers
-      if (modifiers) {
-        if (modifiers.includes('optional')) {
-          attribute.optional = true;
-        }
-        if (modifiers.includes('deprecated')) {
-          attribute.deprecated = true;
+      // Look for attribute headers: ### `attribute_name` {{%optional%}} {#id}
+      if (this.isEntityAttributeHeader(line)) {
+        const attributeData = this.parseEntityAttribute(lines, i);
+        if (attributeData) {
+          attributes.push(attributeData.attribute);
+          i = attributeData.nextIndex;
         }
       }
-
-      // Extract enum values if this is an enumerable type
-      if (cleanedType.toLowerCase().includes('enumerable')) {
-        const enumValues = this.extractEnumValues(additionalContent);
-        if (enumValues.length > 0) {
-          attribute.enumValues = enumValues;
-        }
-      }
-
-      attributes.push(attribute);
     }
 
     return attributes;
+  }
+
+  private isEntityAttributeHeader(line: string): boolean {
+    // Must start with ### and contain `attribute_name`
+    return (
+      line.startsWith('###') &&
+      line.includes('`') &&
+      line.includes('`') &&
+      line.includes('{#')
+    );
+  }
+
+  private parseEntityAttribute(
+    lines: string[],
+    startIndex: number
+  ): {
+    attribute: EntityAttribute;
+    nextIndex: number;
+  } | null {
+    const headerLine = lines[startIndex].trim();
+
+    // Extract attribute name from ### `attribute_name` {{%modifiers%}} {#id}
+    const nameMatch = headerLine.match(/### `([^`]+)`/);
+    if (!nameMatch) {
+      return null;
+    }
+
+    const name = nameMatch[1];
+
+    // Extract modifiers
+    const modifiers = this.extractModifiersFromHeader(headerLine);
+
+    // Find Description and Type lines
+    let descriptionLine = '';
+    let typeLine = '';
+    let additionalContent = '';
+    let currentIndex = startIndex + 1;
+
+    // Skip empty lines after header
+    while (currentIndex < lines.length && lines[currentIndex].trim() === '') {
+      currentIndex++;
+    }
+
+    // Look for **Description:**
+    if (
+      currentIndex < lines.length &&
+      lines[currentIndex].trim().startsWith('**Description:**')
+    ) {
+      descriptionLine = lines[currentIndex]
+        .trim()
+        .replace(/^\*\*Description:\*\*\s*/, '');
+      currentIndex++;
+
+      // Collect continuation lines for description
+      while (currentIndex < lines.length) {
+        const line = lines[currentIndex].trim();
+        if (line.startsWith('**Type:**')) {
+          break;
+        }
+        if (line !== '') {
+          descriptionLine += ' ' + line;
+        }
+        currentIndex++;
+      }
+    }
+
+    // Look for **Type:**
+    if (
+      currentIndex < lines.length &&
+      lines[currentIndex].trim().startsWith('**Type:**')
+    ) {
+      typeLine = lines[currentIndex].trim().replace(/^\*\*Type:\*\*\s*/, '');
+      currentIndex++;
+    }
+
+    // Collect additional content until **Version history:** or next attribute
+    const additionalLines: string[] = [];
+    while (currentIndex < lines.length) {
+      const line = lines[currentIndex].trim();
+
+      // Stop at Version history or any other **field:**
+      if (
+        line.startsWith('**Version history:**') ||
+        (line.startsWith('**') && line.includes(':'))
+      ) {
+        break;
+      }
+
+      // Stop at next attribute
+      if (this.isEntityAttributeHeader(line)) {
+        currentIndex--; // Back up so the next iteration will process this header
+        break;
+      }
+
+      additionalLines.push(line);
+      currentIndex++;
+    }
+
+    additionalContent = additionalLines.join('\n');
+
+    // Skip to end of this attribute section
+    while (currentIndex < lines.length) {
+      const line = lines[currentIndex].trim();
+      if (this.isEntityAttributeHeader(line)) {
+        currentIndex--; // Back up so the next iteration will process this header
+        break;
+      }
+      currentIndex++;
+    }
+
+    // Create the attribute
+    const cleanedType = this.cleanType(typeLine);
+    const attribute: EntityAttribute = {
+      name: name.trim(),
+      type: cleanedType,
+      description: this.cleanDescription(descriptionLine),
+    };
+
+    // Apply modifiers
+    if (modifiers.includes('optional')) {
+      attribute.optional = true;
+    }
+    if (modifiers.includes('deprecated')) {
+      attribute.deprecated = true;
+    }
+
+    // Extract enum values if this is an enumerable type
+    if (cleanedType.toLowerCase().includes('enumerable')) {
+      const enumValues = this.extractEnumValues(additionalContent);
+      if (enumValues.length > 0) {
+        attribute.enumValues = enumValues;
+      }
+    }
+
+    return {
+      attribute,
+      nextIndex: currentIndex,
+    };
   }
 
   private parseMethodEntityAttributes(content: string): EntityAttribute[] {
@@ -257,13 +379,15 @@ class EntityParser {
     return this.parseMethodEntityAttributesWithPatternMatching(content);
   }
 
-  private parseMethodEntityAttributesWithPatternMatching(content: string): EntityAttribute[] {
+  private parseMethodEntityAttributesWithPatternMatching(
+    content: string
+  ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
     const lines = content.split('\n');
-    
+
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
-      
+
       // Look for attribute headers: #### `attribute_name` {{%optional%}} {#id}
       if (this.isMethodEntityAttributeHeader(line)) {
         const attributeData = this.parseMethodEntityAttribute(lines, i);
@@ -273,7 +397,7 @@ class EntityParser {
         }
       }
     }
-    
+
     return attributes;
   }
 
@@ -282,68 +406,83 @@ class EntityParser {
     return line.startsWith('####') && line.includes('`') && line.includes('`');
   }
 
-  private parseMethodEntityAttribute(lines: string[], startIndex: number): {
+  private parseMethodEntityAttribute(
+    lines: string[],
+    startIndex: number
+  ): {
     attribute: EntityAttribute;
     nextIndex: number;
   } | null {
     const headerLine = lines[startIndex].trim();
-    
+
     // Extract attribute name from #### `attribute_name` {{%modifiers%}} {#id}
     const nameMatch = headerLine.match(/#### `([^`]+)`/);
     if (!nameMatch) {
       return null;
     }
-    
+
     const name = nameMatch[1];
-    
+
     // Extract modifiers
     const modifiers = this.extractModifiersFromHeader(headerLine);
-    
+
     // Find Description and Type lines
     let descriptionLine = '';
     let typeLine = '';
     let enumContent = '';
     let currentIndex = startIndex + 1;
-    
+
     // Skip empty lines after header
     while (currentIndex < lines.length && lines[currentIndex].trim() === '') {
       currentIndex++;
     }
-    
+
     // Look for **Description:**
-    if (currentIndex < lines.length && lines[currentIndex].trim().startsWith('**Description:**')) {
-      descriptionLine = lines[currentIndex].trim().replace(/^\*\*Description:\*\*\s*/, '').replace(/\\$/, '');
+    if (
+      currentIndex < lines.length &&
+      lines[currentIndex].trim().startsWith('**Description:**')
+    ) {
+      descriptionLine = lines[currentIndex]
+        .trim()
+        .replace(/^\*\*Description:\*\*\s*/, '')
+        .replace(/\\$/, '');
       currentIndex++;
     }
-    
+
     // Look for **Type:**
-    if (currentIndex < lines.length && lines[currentIndex].trim().startsWith('**Type:**')) {
-      typeLine = lines[currentIndex].trim().replace(/^\*\*Type:\*\*\s*/, '').replace(/\\$/, '');
+    if (
+      currentIndex < lines.length &&
+      lines[currentIndex].trim().startsWith('**Type:**')
+    ) {
+      typeLine = lines[currentIndex]
+        .trim()
+        .replace(/^\*\*Type:\*\*\s*/, '')
+        .replace(/\\$/, '');
       currentIndex++;
     }
-    
+
     // Collect content until **Version history:** or next attribute
     const enumLines: string[] = [];
     while (currentIndex < lines.length) {
       const line = lines[currentIndex].trim();
-      
+
       // Stop at Version history
       if (line.startsWith('**Version history:**')) {
         break;
       }
-      
+
       // Stop at next attribute
       if (this.isMethodEntityAttributeHeader(line)) {
         currentIndex--; // Back up so the next iteration will process this header
         break;
       }
-      
+
       enumLines.push(line);
       currentIndex++;
     }
-    
+
     enumContent = enumLines.join('\n');
-    
+
     // Skip to end of Version history section
     while (currentIndex < lines.length) {
       const line = lines[currentIndex].trim();
@@ -353,7 +492,7 @@ class EntityParser {
       }
       currentIndex++;
     }
-    
+
     // Create the attribute
     const cleanedType = this.cleanType(typeLine);
     const attribute: EntityAttribute = {
@@ -361,7 +500,7 @@ class EntityParser {
       type: cleanedType,
       description: this.cleanDescription(descriptionLine),
     };
-    
+
     // Apply modifiers
     if (modifiers.includes('optional')) {
       attribute.optional = true;
@@ -369,7 +508,7 @@ class EntityParser {
     if (modifiers.includes('deprecated')) {
       attribute.deprecated = true;
     }
-    
+
     // Extract enum values
     if (enumContent.trim()) {
       const enumValues = this.extractEnumValues(enumContent);
@@ -377,24 +516,24 @@ class EntityParser {
         attribute.enumValues = enumValues;
       }
     }
-    
+
     return {
       attribute,
-      nextIndex: currentIndex
+      nextIndex: currentIndex,
     };
   }
 
   private extractModifiersFromHeader(header: string): string[] {
     const modifiers: string[] = [];
-    
+
     // Look for {{%modifier%}} patterns
     const modifierPattern = /\{\{%([^%]+)%\}\}/g;
     let match;
-    
+
     while ((match = modifierPattern.exec(header)) !== null) {
       modifiers.push(match[1].trim());
     }
-    
+
     return modifiers;
   }
 

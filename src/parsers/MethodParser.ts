@@ -100,10 +100,10 @@ class MethodParser {
     const sections: string[] = [];
     const lines = content.split('\n');
     let currentSection: string[] = [];
-    
+
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i];
-      
+
       // Check if this line is a method header (## or ### followed by {#anchor})
       if (this.isMethodHeader(line)) {
         // If we have a current section, save it
@@ -117,28 +117,28 @@ class MethodParser {
         currentSection.push(line);
       }
     }
-    
+
     // Add the last section if it exists
     if (currentSection.length > 0) {
       sections.push(currentSection.join('\n'));
     }
-    
+
     return sections;
   }
 
   private isMethodHeader(line: string): boolean {
     const trimmed = line.trim();
-    
+
     // Must start with ## or ###
     if (!trimmed.startsWith('##')) {
       return false;
     }
-    
+
     // Must have {#anchor} pattern
     if (!trimmed.includes('{#') || !trimmed.endsWith('}')) {
       return false;
     }
-    
+
     // Check the basic pattern: ##+ text {#anchor}
     const headerPattern = /^##+ .+\{#[^}]+\}$/;
     return headerPattern.test(trimmed);
@@ -149,7 +149,7 @@ class MethodParser {
     const parts: string[] = [];
     const lines = section.split('\n');
     let currentPart: string[] = [];
-    
+
     for (const line of lines) {
       // Check if this is a horizontal rule line
       if (this.isHorizontalRule(line)) {
@@ -163,12 +163,12 @@ class MethodParser {
         currentPart.push(line);
       }
     }
-    
+
     // Add the last part
     if (currentPart.length > 0) {
       parts.push(currentPart.join('\n'));
     }
-    
+
     return parts;
   }
 
@@ -244,63 +244,70 @@ class MethodParser {
 
   private extractDescription(section: string): string {
     // Find the end of the HTTP block
-    const httpBlockEndIndex = section.indexOf('```', section.indexOf('```http') + 7);
+    const httpBlockEndIndex = section.indexOf(
+      '```',
+      section.indexOf('```http') + 7
+    );
     if (httpBlockEndIndex === -1) {
       return '';
     }
 
     // Get content after the HTTP block
     const afterHttpBlock = section.substring(httpBlockEndIndex + 3);
-    
+
     // Split into lines for pattern matching
     const lines = afterHttpBlock.split('\n');
-    
+
     // Skip empty lines at the beginning
     let startIndex = 0;
     while (startIndex < lines.length && lines[startIndex].trim() === '') {
       startIndex++;
     }
-    
+
     // Check if we have any content left
     if (startIndex >= lines.length) {
       return '';
     }
-    
+
     // Get the first non-empty line
     const firstLine = lines[startIndex].trim();
-    
+
     // Check if it's a structural element that should not be treated as description
     if (this.isStructuralElement(firstLine)) {
       return '';
     }
-    
+
     // If it passes all checks, it's a valid description
     return firstLine;
   }
 
   private isStructuralElement(line: string): boolean {
     const trimmed = line.trim();
-    
+
     // Check for markdown headers (any level)
     if (trimmed.startsWith('#')) {
       return true;
     }
-    
+
     // Check for bold markdown fields like **Returns:**
     if (trimmed.startsWith('**') && trimmed.includes(':**')) {
       return true;
     }
-    
+
     // Check for list items
-    if (trimmed.startsWith('-') || trimmed.startsWith('*') || trimmed.startsWith('+')) {
+    if (
+      trimmed.startsWith('-') ||
+      trimmed.startsWith('*') ||
+      trimmed.startsWith('+')
+    ) {
       return true;
     }
-    
+
     // Check for code blocks
     if (trimmed.startsWith('```')) {
       return true;
     }
-    
+
     return false;
   }
 
@@ -350,25 +357,28 @@ class MethodParser {
     return this.processComplexParameters(rawParameters, parameterLocation);
   }
 
-  private extractParameterSection(section: string, sectionName: string): string | null {
+  private extractParameterSection(
+    section: string,
+    sectionName: string
+  ): string | null {
     // Look for the section header: ##### sectionName
     const headerToFind = `##### ${sectionName}`;
     const headerIndex = section.indexOf(headerToFind);
-    
+
     if (headerIndex === -1) {
       return null;
     }
-    
+
     // Start after the header
     const startIndex = headerIndex + headerToFind.length;
-    
+
     // Find the end of this section (next header or end of content)
     const remainingContent = section.substring(startIndex);
-    
+
     // Look for the next header (any level starting with #)
     const lines = remainingContent.split('\n');
     let endIndex = lines.length;
-    
+
     for (let i = 0; i < lines.length; i++) {
       const line = lines[i].trim();
       if (line.startsWith('#')) {
@@ -376,7 +386,7 @@ class MethodParser {
         break;
       }
     }
-    
+
     // Extract the section content
     const sectionContent = lines.slice(0, endIndex).join('\n');
     return sectionContent.trim();
@@ -394,82 +404,91 @@ class MethodParser {
       required?: boolean;
       enumValues?: string[];
     }> = [];
-    
+
     const lines = paramSection.split('\n');
     let i = 0;
-    
+
     while (i < lines.length) {
       const line = lines[i].trim();
-      
+
       // Skip empty lines
       if (line === '') {
         i++;
         continue;
       }
-      
+
       // Check if this line could be a parameter name
       if (this.isValidParameterName(line) && i + 1 < lines.length) {
         const nextLine = lines[i + 1].trim();
-        
+
         // Check if the next line starts with ':' (parameter description)
         if (nextLine.startsWith(':')) {
           const paramName = line;
           let description = nextLine.substring(1).trim(); // Remove the ':'
-          
+
           // Collect multi-line descriptions
           let j = i + 2;
           while (j < lines.length) {
             const descLine = lines[j].trim();
-            
+
             // Stop if we hit another parameter or empty line followed by parameter
-            if (this.isValidParameterName(descLine) && 
-                j + 1 < lines.length && 
-                lines[j + 1].trim().startsWith(':')) {
+            if (
+              this.isValidParameterName(descLine) &&
+              j + 1 < lines.length &&
+              lines[j + 1].trim().startsWith(':')
+            ) {
               break;
             }
-            
+
             // Stop if we hit an empty line and the next non-empty line is a parameter
             if (descLine === '') {
               let nextNonEmpty = j + 1;
-              while (nextNonEmpty < lines.length && lines[nextNonEmpty].trim() === '') {
+              while (
+                nextNonEmpty < lines.length &&
+                lines[nextNonEmpty].trim() === ''
+              ) {
                 nextNonEmpty++;
               }
-              if (nextNonEmpty < lines.length && 
-                  this.isValidParameterName(lines[nextNonEmpty].trim()) &&
-                  nextNonEmpty + 1 < lines.length &&
-                  lines[nextNonEmpty + 1].trim().startsWith(':')) {
+              if (
+                nextNonEmpty < lines.length &&
+                this.isValidParameterName(lines[nextNonEmpty].trim()) &&
+                nextNonEmpty + 1 < lines.length &&
+                lines[nextNonEmpty + 1].trim().startsWith(':')
+              ) {
                 break;
               }
             }
-            
+
             // Add to description if it's not empty
             if (descLine !== '') {
               description += ' ' + descLine;
             }
-            
+
             j++;
           }
-          
+
           // Process the parameter
           const cleanDesc = this.cleanMarkdown(description);
-          const required = cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
+          const required =
+            cleanDesc.includes('{{<required>}}') ||
+            cleanDesc.includes('required');
           const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
-          
+
           parameters.push({
             name: paramName,
             description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
             required: required ? true : undefined,
             enumValues: enumValues.length > 0 ? enumValues : undefined,
           });
-          
+
           i = j;
           continue;
         }
       }
-      
+
       i++;
     }
-    
+
     return parameters;
   }
 
