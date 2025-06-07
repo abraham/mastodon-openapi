@@ -324,5 +324,152 @@ describe('OpenAPIGenerator Response Types', () => {
         '[NonExistentEntityA] or [NonExistentEntityB] depending on conditions.'
       );
     });
+
+    it('should reuse synthetic schemas for identical entity combinations', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Status',
+          description: 'Status entity',
+          attributes: [
+            {
+              name: 'id',
+              type: 'String',
+              description: 'Status ID',
+            },
+          ],
+        },
+        {
+          name: 'ScheduledStatus',
+          description: 'ScheduledStatus entity',
+          attributes: [
+            {
+              name: 'id',
+              type: 'String',
+              description: 'Scheduled status ID',
+            },
+          ],
+        },
+      ];
+
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Post a new status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Publish a status with the given parameters.',
+              returns:
+                '[Status]. When scheduled_at is present, [ScheduledStatus] is returned instead.',
+            },
+            {
+              name: 'Update a status',
+              httpMethod: 'PUT',
+              endpoint: '/api/v1/statuses/{id}',
+              description: 'Update a status with the given parameters.',
+              returns: '[Status] or [ScheduledStatus] depending on conditions.',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      // Both operations should reference the same synthetic schema
+      const postOperation = spec.paths['/api/v1/statuses']?.post;
+      const putOperation = spec.paths['/api/v1/statuses/{id}']?.put;
+
+      expect(
+        postOperation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        $ref: '#/components/schemas/StatusOrScheduledStatus',
+      });
+
+      expect(
+        putOperation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        $ref: '#/components/schemas/StatusOrScheduledStatus',
+      });
+
+      // Should have created exactly one synthetic schema
+      const synthetics = Object.keys(spec.components?.schemas || {}).filter(
+        (name) => name.includes('Or')
+      );
+      expect(synthetics).toEqual(['StatusOrScheduledStatus']);
+    });
+
+    it('should generate different synthetic schemas for different entity combinations', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Status',
+          description: 'Status entity',
+          attributes: [
+            { name: 'id', type: 'String', description: 'Status ID' },
+          ],
+        },
+        {
+          name: 'ScheduledStatus',
+          description: 'ScheduledStatus entity',
+          attributes: [
+            { name: 'id', type: 'String', description: 'Scheduled status ID' },
+          ],
+        },
+        {
+          name: 'Account',
+          description: 'Account entity',
+          attributes: [
+            { name: 'id', type: 'String', description: 'Account ID' },
+          ],
+        },
+      ];
+
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'mixed',
+          description: 'Mixed methods',
+          methods: [
+            {
+              name: 'Method returning Status or ScheduledStatus',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/test1',
+              description: 'Test method 1',
+              returns: '[Status] or [ScheduledStatus]',
+            },
+            {
+              name: 'Method returning Status or Account',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/test2',
+              description: 'Test method 2',
+              returns: '[Status] or [Account]',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      // Should create two different synthetic schemas
+      expect(
+        spec.components?.schemas?.['StatusOrScheduledStatus']
+      ).toBeDefined();
+      expect(spec.components?.schemas?.['StatusOrAccount']).toBeDefined();
+
+      const operation1 = spec.paths['/api/v1/test1']?.post;
+      const operation2 = spec.paths['/api/v1/test2']?.post;
+
+      expect(
+        operation1?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        $ref: '#/components/schemas/StatusOrScheduledStatus',
+      });
+
+      expect(
+        operation2?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        $ref: '#/components/schemas/StatusOrAccount',
+      });
+    });
   });
 });
