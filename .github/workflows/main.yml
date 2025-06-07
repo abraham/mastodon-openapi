@@ -27,5 +27,11 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Generate OpenAPI schema
+        run: npm run generate
+
+      - name: Validate OpenAPI schema
+        run: npm run validate
+
       - name: Run tests
         run: npm test
