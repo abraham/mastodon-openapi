@@ -9208,109 +9208,6 @@
           "verified_at"
         ]
       },
-      "CredentialAccount_entity": {
-        "type": "object",
-        "description": "Additional entity definition for CredentialAccount entity",
-        "properties": {
-          "source": {
-            "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
-            "type": "object"
-          },
-          "source[attribution_domains]": {
-            "description": "Domains of websites allowed to credit the account.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "source[note]": {
-            "description": "Profile bio, in plain-text instead of in HTML.",
-            "type": "string"
-          },
-          "source[fields]": {
-            "description": "Metadata about the account.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Field"
-            }
-          },
-          "source[privacy]": {
-            "description": "The default post privacy to be used for new statuses.",
-            "type": "string",
-            "enum": [
-              "public",
-              "unlisted",
-              "private",
-              "direct"
-            ]
-          },
-          "source[sensitive]": {
-            "description": "Whether new statuses should be marked sensitive by default.",
-            "type": "boolean"
-          },
-          "source[language]": {
-            "description": "The default posting language for new statuses.",
-            "type": "string"
-          },
-          "source[follow_requests_count]": {
-            "description": "The number of pending follow requests.",
-            "type": "integer"
-          },
-          "role": {
-            "description": "The role assigned to the currently authorized user.",
-            "$ref": "#/components/schemas/Role"
-          }
-        },
-        "required": [
-          "source",
-          "source[attribution_domains]",
-          "source[note]",
-          "source[fields]",
-          "source[privacy]",
-          "source[sensitive]",
-          "source[language]",
-          "source[follow_requests_count]",
-          "role"
-        ]
-      },
-      "MutedAccount_entity": {
-        "type": "object",
-        "description": "Additional entity definition for MutedAccount entity",
-        "properties": {
-          "mute_expires_at": {
-            "description": "When a timed mute will expire, if applicable.",
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "required": [
-          "mute_expires_at"
-        ]
-      },
-      "Field_entity": {
-        "type": "object",
-        "description": "Additional entity definition for Field entity",
-        "properties": {
-          "name": {
-            "description": "The key of a given field's key-value pair.",
-            "type": "string"
-          },
-          "value": {
-            "description": "The value associated with the `name` key.",
-            "type": "string"
-          },
-          "verified_at": {
-            "description": "Timestamp of when the server verified a URL value for a rel=\"me\" link.",
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "required": [
-          "name",
-          "value",
-          "verified_at"
-        ]
-      },
       "AccountWarning": {
         "type": "object",
         "description": "Moderation warning against a particular account.",
@@ -9519,30 +9416,6 @@
       "CohortData": {
         "type": "object",
         "description": "Additional entity definition for CohortData",
-        "properties": {
-          "date": {
-            "description": "The timestamp for the start of the bucket, at midnight.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "rate": {
-            "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
-            "type": "number"
-          },
-          "value": {
-            "description": "How many users registered in the specified `period` and were active for the given `date` bucket.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "date",
-          "rate",
-          "value"
-        ]
-      },
-      "CohortData_entity": {
-        "type": "object",
-        "description": "Additional entity definition for CohortData entity",
         "properties": {
           "date": {
             "description": "The timestamp for the start of the bucket, at midnight.",
@@ -11392,37 +11265,6 @@
       "Trends_Link": {
         "type": "object",
         "description": "Additional entity definition for Trends::Link",
-        "properties": {
-          "history": {
-            "description": "Usage statistics for given days (typically the past week).",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "history[][day]": {
-            "description": "UNIX timestamp on midnight of the given day.",
-            "type": "string"
-          },
-          "history[][accounts]": {
-            "description": "The counted accounts using the link within that day.",
-            "type": "string"
-          },
-          "history[][uses]": {
-            "description": "The counted statuses using the link within that day.",
-            "type": "string"
-          }
-        },
-        "required": [
-          "history",
-          "history[][day]",
-          "history[][accounts]",
-          "history[][uses]"
-        ]
-      },
-      "Trends_Link_entity": {
-        "type": "object",
-        "description": "Additional entity definition for Trends::Link entity",
         "properties": {
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
