@@ -2039,14 +2039,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupedNotificationsResults"
-                }
-              }
-            }
+            "description": "[GroupedNotificationsResults]"
           }
         },
         "security": [
@@ -2066,14 +2059,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupedNotificationsResults"
-                }
-              }
-            }
+            "description": "[GroupedNotificationsResults]"
           }
         },
         "security": [
@@ -3365,14 +3351,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupedNotificationsResults"
-                }
-              }
-            }
+            "description": "[GroupedNotificationsResults]"
           }
         },
         "security": [
@@ -3392,14 +3371,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/GroupedNotificationsResults"
-                }
-              }
-            }
+            "description": "[GroupedNotificationsResults]"
           }
         },
         "security": [

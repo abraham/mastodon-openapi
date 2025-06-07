@@ -409,12 +409,16 @@ class OpenAPIGenerator {
     if (arrayMatch) {
       const entityName = arrayMatch[1];
       const sanitizedEntityName = this.sanitizeSchemaName(entityName);
-      return {
-        type: 'array',
-        items: {
-          $ref: `#/components/schemas/${sanitizedEntityName}`,
-        },
-      };
+
+      // Check if the entity exists in the components.schemas
+      if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          type: 'array',
+          items: {
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          },
+        };
+      }
     }
 
     // Handle single entity responses: "[EntityName]"
@@ -422,12 +426,16 @@ class OpenAPIGenerator {
     if (entityMatch) {
       const entityName = entityMatch[1];
       const sanitizedEntityName = this.sanitizeSchemaName(entityName);
-      return {
-        $ref: `#/components/schemas/${sanitizedEntityName}`,
-      };
+
+      // Check if the entity exists in the components.schemas
+      if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          $ref: `#/components/schemas/${sanitizedEntityName}`,
+        };
+      }
     }
 
-    // If no entity reference found, return null to fallback to description-only
+    // If no entity reference found or entity doesn't exist, return null to fallback to description-only
     return null;
   }
 
