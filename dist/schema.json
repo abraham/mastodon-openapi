@@ -292,7 +292,7 @@
     },
     "/api/v1/accounts/{id}/statuses": {
       "get": {
-        "operationId": "getAccountsByIdStatuses",
+        "operationId": "getAccountStatuses",
         "summary": "Get account's statuses",
         "description": "Statuses posted to the given account.",
         "tags": [
@@ -414,7 +414,7 @@
     },
     "/api/v1/accounts/{id}/followers": {
       "get": {
-        "operationId": "getAccountsByIdFollowers",
+        "operationId": "getAccountFollowers",
         "summary": "Get account's followers",
         "description": "Accounts which follow the given account, if network is not hidden by the account owner.",
         "tags": [
@@ -486,7 +486,7 @@
     },
     "/api/v1/accounts/{id}/following": {
       "get": {
-        "operationId": "getAccountsByIdFollowing",
+        "operationId": "getAccountFollowing",
         "summary": "Get account's following",
         "description": "Accounts which the given account is following, if network is not hidden by the account owner.",
         "tags": [
@@ -558,7 +558,7 @@
     },
     "/api/v1/accounts/{id}/featured_tags": {
       "get": {
-        "operationId": "getAccountsByIdFeaturedTags",
+        "operationId": "getAccountFeaturedTags",
         "summary": "Get account's featured tags",
         "description": "Tags featured by this account.",
         "tags": [
@@ -594,7 +594,7 @@
     },
     "/api/v1/accounts/{id}/lists": {
       "get": {
-        "operationId": "getAccountsByIdLists",
+        "operationId": "getAccountLists",
         "summary": "Get lists containing this account",
         "description": "User lists that you have added this account to.",
         "tags": [
@@ -635,7 +635,7 @@
     },
     "/api/v1/accounts/{id}/follow": {
       "post": {
-        "operationId": "postAccountsByIdFollow",
+        "operationId": "postAccountFollow",
         "summary": "Follow account",
         "description": "Follow the given account. Can also be used to update whether to show reblogs or enable notifications.",
         "tags": [
@@ -701,7 +701,7 @@
     },
     "/api/v1/accounts/{id}/unfollow": {
       "post": {
-        "operationId": "postAccountsByIdUnfollow",
+        "operationId": "postAccountUnfollow",
         "summary": "Unfollow account",
         "description": "Unfollow the given account.",
         "tags": [
@@ -739,7 +739,7 @@
     },
     "/api/v1/accounts/{id}/remove_from_followers": {
       "post": {
-        "operationId": "postAccountsByIdRemoveFromFollowers",
+        "operationId": "postAccountRemoveFromFollowers",
         "summary": "Remove account from followers",
         "description": "Remove the given account from your followers.",
         "tags": [
@@ -777,7 +777,7 @@
     },
     "/api/v1/accounts/{id}/block": {
       "post": {
-        "operationId": "postAccountsByIdBlock",
+        "operationId": "postAccountBlock",
         "summary": "Block account",
         "description": "Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline)",
         "tags": [
@@ -815,7 +815,7 @@
     },
     "/api/v1/accounts/{id}/unblock": {
       "post": {
-        "operationId": "postAccountsByIdUnblock",
+        "operationId": "postAccountUnblock",
         "summary": "Unblock account",
         "description": "Unblock the given account.",
         "tags": [
@@ -853,7 +853,7 @@
     },
     "/api/v1/accounts/{id}/mute": {
       "post": {
-        "operationId": "postAccountsByIdMute",
+        "operationId": "postAccountMute",
         "summary": "Mute account",
         "description": "Mute the given account. Clients should filter statuses and notifications from this account, if received (e.g. due to a boost in the Home timeline).",
         "tags": [
@@ -912,7 +912,7 @@
     },
     "/api/v1/accounts/{id}/unmute": {
       "post": {
-        "operationId": "postAccountsByIdUnmute",
+        "operationId": "postAccountUnmute",
         "summary": "Unmute account",
         "description": "Unmute the given account.",
         "tags": [
@@ -950,7 +950,7 @@
     },
     "/api/v1/accounts/{id}/pin": {
       "post": {
-        "operationId": "postAccountsByIdPin",
+        "operationId": "postAccountPin",
         "summary": "Feature account on your profile",
         "description": "Add the given account to the user's featured profiles. (Featured profiles are currently shown on the user's own public profile.)",
         "tags": [
@@ -989,7 +989,7 @@
     },
     "/api/v1/accounts/{id}/unpin": {
       "post": {
-        "operationId": "postAccountsByIdUnpin",
+        "operationId": "postAccountUnpin",
         "summary": "Unfeature account from profile",
         "description": "Remove the given account from the user's featured profiles.",
         "tags": [
@@ -1028,7 +1028,7 @@
     },
     "/api/v1/accounts/{id}/endorsements": {
       "get": {
-        "operationId": "getAccountsByIdEndorsements",
+        "operationId": "getAccountEndorsements",
         "summary": "Get featured accounts",
         "description": "Accounts that the user is currently featuring on their profile.",
         "tags": [
@@ -1088,7 +1088,7 @@
     },
     "/api/v1/accounts/{id}/endorse": {
       "post": {
-        "operationId": "postAccountsByIdEndorse",
+        "operationId": "postAccountEndorse",
         "summary": "Feature account on your profile",
         "description": "Add the given account to the user's featured profiles.",
         "tags": [
@@ -1126,7 +1126,7 @@
     },
     "/api/v1/accounts/{id}/unendorse": {
       "post": {
-        "operationId": "postAccountsByIdUnendorse",
+        "operationId": "postAccountUnendorse",
         "summary": "Unfeature account from profile",
         "description": "Remove the given account from the user's featured profiles.",
         "tags": [
@@ -1164,7 +1164,7 @@
     },
     "/api/v1/accounts/{id}/note": {
       "post": {
-        "operationId": "postAccountsByIdNote",
+        "operationId": "postAccountNote",
         "summary": "Set private note on profile",
         "description": "Sets a private note on a user.",
         "tags": [
@@ -1426,7 +1426,7 @@
     },
     "/api/v1/accounts/{id}/identity_proofs": {
       "get": {
-        "operationId": "getAccountsByIdIdentityProofs",
+        "operationId": "getAccountIdentityProofs",
         "summary": "Identity proofs",
         "description": "",
         "tags": [
@@ -1498,7 +1498,7 @@
     },
     "/api/v1/announcements/{id}/dismiss": {
       "post": {
-        "operationId": "postAnnouncementsByIdDismiss",
+        "operationId": "postAnnouncementDismiss",
         "summary": "Dismiss an announcement",
         "description": "Allows a user to mark the announcement as read.",
         "tags": [
@@ -1891,7 +1891,7 @@
     },
     "/api/v1/conversations/{id}/read": {
       "post": {
-        "operationId": "postConversationsByIdRead",
+        "operationId": "postConversationRead",
         "summary": "Mark a conversation as read",
         "description": "",
         "tags": [
@@ -2701,7 +2701,7 @@
     },
     "/api/v2/filters/{filter_id}/keywords": {
       "get": {
-        "operationId": "getFiltersByFilterIdKeywordsV2",
+        "operationId": "getFilterKeywordsV2",
         "summary": "View keywords added to a filter",
         "description": "List all keywords attached to the current filter group.",
         "tags": [
@@ -2740,7 +2740,7 @@
         ]
       },
       "post": {
-        "operationId": "postFiltersByFilterIdKeywordsV2",
+        "operationId": "postFilterKeywordsV2",
         "summary": "Add a keyword to a filter",
         "description": "Add the given keyword to the specified filter group",
         "tags": [
@@ -2923,7 +2923,7 @@
     },
     "/api/v2/filters/{filter_id}/statuses": {
       "get": {
-        "operationId": "getFiltersByFilterIdStatusesV2",
+        "operationId": "getFilterStatusesV2",
         "summary": "View all status filters",
         "description": "Obtain a list of all status filters within this filter group.",
         "tags": [
@@ -2962,7 +2962,7 @@
         ]
       },
       "post": {
-        "operationId": "postFiltersByFilterIdStatusesV2",
+        "operationId": "postFilterStatusesV2",
         "summary": "Add a status to a filter group",
         "description": "Add a status filter to the current filter group.",
         "tags": [
@@ -3383,7 +3383,7 @@
     },
     "/api/v1/follow_requests/{account_id}/authorize": {
       "post": {
-        "operationId": "postFollowRequestsByAccountIdAuthorize",
+        "operationId": "postFollowRequestAuthorize",
         "summary": "Accept follow request",
         "description": "",
         "tags": [
@@ -3421,7 +3421,7 @@
     },
     "/api/v1/follow_requests/{account_id}/reject": {
       "post": {
-        "operationId": "postFollowRequestsByAccountIdReject",
+        "operationId": "postFollowRequestReject",
         "summary": "Reject follow request",
         "description": "",
         "tags": [
@@ -3693,7 +3693,7 @@
     },
     "/api/v2/notifications/{group_key}/dismiss": {
       "post": {
-        "operationId": "postNotificationsByGroupKeyDismissV2",
+        "operationId": "postNotificationDismissV2",
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
@@ -3724,7 +3724,7 @@
     },
     "/api/v2/notifications/{group_key}/accounts": {
       "get": {
-        "operationId": "getNotificationsByGroupKeyAccountsV2",
+        "operationId": "getNotificationAccountsV2",
         "summary": "Get accounts of all notifications in a notification group",
         "description": "",
         "tags": [
@@ -4294,7 +4294,7 @@
     },
     "/api/v1/lists/{id}/accounts": {
       "get": {
-        "operationId": "getListsByIdAccounts",
+        "operationId": "getListAccounts",
         "summary": "View accounts in a list",
         "description": "",
         "tags": [
@@ -4369,7 +4369,7 @@
         ]
       },
       "post": {
-        "operationId": "postListsByIdAccounts",
+        "operationId": "postListAccounts",
         "summary": "Add accounts to a list",
         "description": "Add accounts to the given list. Note that the user must be following these accounts.",
         "tags": [
@@ -4418,7 +4418,7 @@
         }
       },
       "delete": {
-        "operationId": "deleteListsByIdAccounts",
+        "operationId": "deleteListAccounts",
         "summary": "Remove accounts from list",
         "description": "Remove accounts from the given list.",
         "tags": [
@@ -5039,7 +5039,7 @@
     },
     "/api/v1/notifications/{id}/dismiss": {
       "post": {
-        "operationId": "postNotificationsByIdDismiss",
+        "operationId": "postNotificationDismiss",
         "summary": "Dismiss a single notification",
         "description": "Dismiss a single notification from the server.",
         "tags": [
@@ -5546,7 +5546,7 @@
     },
     "/api/v2_alpha/notifications/{group_key}/dismiss": {
       "post": {
-        "operationId": "postNotificationsByGroupKeyDismissV2Alpha",
+        "operationId": "postNotificationDismissV2Alpha",
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
@@ -5953,7 +5953,7 @@
     },
     "/api/v1/polls/{id}/votes": {
       "post": {
-        "operationId": "postPollsByIdVotes",
+        "operationId": "postPollVotes",
         "summary": "Vote on a poll",
         "description": "Vote on a poll attached to a status.",
         "tags": [
@@ -6972,7 +6972,7 @@
     },
     "/api/v1/statuses/{id}/context": {
       "get": {
-        "operationId": "getStatusesByIdContext",
+        "operationId": "getStatusContext",
         "summary": "Get parent and child statuses in context",
         "description": "View statuses above and below this status in the thread.",
         "tags": [
@@ -7010,7 +7010,7 @@
     },
     "/api/v1/statuses/{id}/translate": {
       "post": {
-        "operationId": "postStatusesByIdTranslate",
+        "operationId": "postStatusTranslate",
         "summary": "Translate a status",
         "description": "Translate the status content into some language.",
         "tags": [
@@ -7065,7 +7065,7 @@
     },
     "/api/v1/statuses/{id}/reblogged_by": {
       "get": {
-        "operationId": "getStatusesByIdRebloggedBy",
+        "operationId": "getStatusRebloggedBy",
         "summary": "See who boosted a status",
         "description": "View who boosted a given status.",
         "tags": [
@@ -7133,7 +7133,7 @@
     },
     "/api/v1/statuses/{id}/favourited_by": {
       "get": {
-        "operationId": "getStatusesByIdFavouritedBy",
+        "operationId": "getStatusFavouritedBy",
         "summary": "See who favourited a status",
         "description": "View who favourited a given status.",
         "tags": [
@@ -7201,7 +7201,7 @@
     },
     "/api/v1/statuses/{id}/favourite": {
       "post": {
-        "operationId": "postStatusesByIdFavourite",
+        "operationId": "postStatusFavourite",
         "summary": "Favourite a status",
         "description": "Add a status to your favourites list.",
         "tags": [
@@ -7239,7 +7239,7 @@
     },
     "/api/v1/statuses/{id}/unfavourite": {
       "post": {
-        "operationId": "postStatusesByIdUnfavourite",
+        "operationId": "postStatusUnfavourite",
         "summary": "Undo favourite of a status",
         "description": "Remove a status from your favourites list.",
         "tags": [
@@ -7277,7 +7277,7 @@
     },
     "/api/v1/statuses/{id}/reblog": {
       "post": {
-        "operationId": "postStatusesByIdReblog",
+        "operationId": "postStatusReblog",
         "summary": "Boost a status",
         "description": "Reshare a status on your own profile.",
         "tags": [
@@ -7332,7 +7332,7 @@
     },
     "/api/v1/statuses/{id}/unreblog": {
       "post": {
-        "operationId": "postStatusesByIdUnreblog",
+        "operationId": "postStatusUnreblog",
         "summary": "Undo boost of a status",
         "description": "Undo a reshare of a status.",
         "tags": [
@@ -7370,7 +7370,7 @@
     },
     "/api/v1/statuses/{id}/bookmark": {
       "post": {
-        "operationId": "postStatusesByIdBookmark",
+        "operationId": "postStatusBookmark",
         "summary": "Bookmark a status",
         "description": "Privately bookmark a status.",
         "tags": [
@@ -7408,7 +7408,7 @@
     },
     "/api/v1/statuses/{id}/unbookmark": {
       "post": {
-        "operationId": "postStatusesByIdUnbookmark",
+        "operationId": "postStatusUnbookmark",
         "summary": "Undo bookmark of a status",
         "description": "Remove a status from your private bookmarks.",
         "tags": [
@@ -7446,7 +7446,7 @@
     },
     "/api/v1/statuses/{id}/mute": {
       "post": {
-        "operationId": "postStatusesByIdMute",
+        "operationId": "postStatusMute",
         "summary": "Mute a conversation",
         "description": "Do not receive notifications for the thread that this status is part of. Must be a thread in which you are a participant.",
         "tags": [
@@ -7484,7 +7484,7 @@
     },
     "/api/v1/statuses/{id}/unmute": {
       "post": {
-        "operationId": "postStatusesByIdUnmute",
+        "operationId": "postStatusUnmute",
         "summary": "Unmute a conversation",
         "description": "Start receiving notifications again for the thread that this status is part of.",
         "tags": [
@@ -7522,7 +7522,7 @@
     },
     "/api/v1/statuses/{id}/pin": {
       "post": {
-        "operationId": "postStatusesByIdPin",
+        "operationId": "postStatusPin",
         "summary": "Pin status to profile",
         "description": "Feature one of your own public statuses at the top of your profile.",
         "tags": [
@@ -7560,7 +7560,7 @@
     },
     "/api/v1/statuses/{id}/unpin": {
       "post": {
-        "operationId": "postStatusesByIdUnpin",
+        "operationId": "postStatusUnpin",
         "summary": "Unpin status from profile",
         "description": "Unfeature a status from the top of your profile.",
         "tags": [
@@ -7598,7 +7598,7 @@
     },
     "/api/v1/statuses/{id}/history": {
       "get": {
-        "operationId": "getStatusesByIdHistory",
+        "operationId": "getStatusHistory",
         "summary": "View edit history of a status",
         "description": "Get all known versions of a status, including the initial and current states.",
         "tags": [
@@ -7639,7 +7639,7 @@
     },
     "/api/v1/statuses/{id}/source": {
       "get": {
-        "operationId": "getStatusesByIdSource",
+        "operationId": "getStatusSource",
         "summary": "View status source",
         "description": "Obtain the source properties for a status so that it can be edited.",
         "tags": [
@@ -7677,7 +7677,7 @@
     },
     "/api/v1/statuses/{id}/card": {
       "get": {
-        "operationId": "getStatusesByIdCard",
+        "operationId": "getStatusCard",
         "summary": "Fetch preview card",
         "description": "",
         "tags": [
@@ -8129,7 +8129,7 @@
     },
     "/api/v1/tags/{id}/follow": {
       "post": {
-        "operationId": "postTagsByIdFollow",
+        "operationId": "postTagFollow",
         "summary": "Follow a hashtag",
         "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.",
         "tags": [
@@ -8167,7 +8167,7 @@
     },
     "/api/v1/tags/{id}/unfollow": {
       "post": {
-        "operationId": "postTagsByIdUnfollow",
+        "operationId": "postTagUnfollow",
         "summary": "Unfollow a hashtag",
         "description": "Unfollow a hashtag. Posts containing this hashtag will no longer be inserted into your home timeline.",
         "tags": [
@@ -8205,7 +8205,7 @@
     },
     "/api/v1/tags/{id}/feature": {
       "post": {
-        "operationId": "postTagsByIdFeature",
+        "operationId": "postTagFeature",
         "summary": "Feature a hashtag",
         "description": "Feature the hashtag on your profile.",
         "tags": [
@@ -8243,7 +8243,7 @@
     },
     "/api/v1/tags/{id}/unfeature": {
       "post": {
-        "operationId": "postTagsByIdUnfeature",
+        "operationId": "postTagUnfeature",
         "summary": "Unfeature a hashtag",
         "description": "Stop featuring the hashtag on your profile.",
         "tags": [
