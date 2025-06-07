@@ -75,21 +75,18 @@ class JsonExampleAnalyzer {
         description: `Attribute discovered from JSON example`,
       };
 
-      entityAttributes.push(entityAttr);
-
-      // For nested objects, also add their attributes with prefixed names
-      if (jsonAttr.nestedObject) {
-        const nestedAttrs = this.convertToEntityAttributes(
+      // For nested objects, add their properties to the properties field
+      if (jsonAttr.nestedObject && jsonAttr.nestedObject.length > 0) {
+        const nestedEntityAttrs = this.convertToEntityAttributes(
           jsonAttr.nestedObject
         );
-        for (const nestedAttr of nestedAttrs) {
-          entityAttributes.push({
-            ...nestedAttr,
-            name: `${jsonAttr.name}.${nestedAttr.name}`,
-            description: `Nested attribute discovered from JSON example`,
-          });
+        entityAttr.properties = {};
+        for (const nestedAttr of nestedEntityAttrs) {
+          entityAttr.properties[nestedAttr.name] = nestedAttr;
         }
       }
+
+      entityAttributes.push(entityAttr);
     }
 
     return entityAttributes;
@@ -103,10 +100,29 @@ class JsonExampleAnalyzer {
     exampleAttributes: EntityAttribute[]
   ): EntityAttribute[] {
     const merged = [...existingAttributes];
-    const existingNames = new Set(existingAttributes.map((attr) => attr.name));
+    const existingNamesMap = new Map(
+      existingAttributes.map((attr, index) => [attr.name, index])
+    );
 
     for (const exampleAttr of exampleAttributes) {
-      if (!existingNames.has(exampleAttr.name)) {
+      const existingIndex = existingNamesMap.get(exampleAttr.name);
+
+      if (existingIndex !== undefined) {
+        // Attribute exists - merge nested properties if the example has them
+        const existingAttr = merged[existingIndex];
+        if (
+          exampleAttr.properties &&
+          Object.keys(exampleAttr.properties).length > 0
+        ) {
+          // Update existing attribute to include nested properties
+          merged[existingIndex] = {
+            ...existingAttr,
+            properties: exampleAttr.properties,
+            // Also update type to "object" if it wasn't already
+            type: exampleAttr.type,
+          };
+        }
+      } else {
         // Add new attribute found in example
         merged.push({
           ...exampleAttr,

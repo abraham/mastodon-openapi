@@ -150,6 +150,14 @@ class OpenAPIGenerator {
       property.oneOf = type.oneOf;
     }
 
+    // Handle nested properties for object types
+    if (attribute.properties && Object.keys(attribute.properties).length > 0) {
+      property.properties = {};
+      for (const [propName, propAttr] of Object.entries(attribute.properties)) {
+        property.properties[propName] = this.convertAttribute(propAttr);
+      }
+    }
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       property.enum = attribute.enumValues;

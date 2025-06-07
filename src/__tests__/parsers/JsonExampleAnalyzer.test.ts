@@ -124,10 +124,88 @@ describe('JsonExampleAnalyzer', () => {
     }
   });
 
+  test('should convert nested objects with proper nested properties', () => {
+    const jsonObj = {
+      source: {
+        privacy: 'public',
+        sensitive: false,
+      },
+      configuration: {
+        polls: {
+          max_expiration: 2629746,
+          min_expiration: 300,
+        },
+        accounts: {
+          max_featured_tags: 10,
+        },
+      },
+    };
+
+    const jsonAttributes = analyzer.analyzeJsonObject(jsonObj);
+    const entityAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
+
+    // Should only create top-level properties
+    expect(entityAttributes).toHaveLength(2);
+
+    const sourceAttr = entityAttributes.find((a) => a.name === 'source');
+    expect(sourceAttr?.type).toBe('object');
+    expect(sourceAttr?.properties).toBeDefined();
+
+    if (sourceAttr?.properties) {
+      expect(Object.keys(sourceAttr.properties)).toEqual([
+        'privacy',
+        'sensitive',
+      ]);
+      expect(sourceAttr.properties.privacy.type).toBe('String');
+      expect(sourceAttr.properties.sensitive.type).toBe('Boolean');
+    }
+
+    const configAttr = entityAttributes.find((a) => a.name === 'configuration');
+    expect(configAttr?.type).toBe('object');
+    expect(configAttr?.properties).toBeDefined();
+
+    if (configAttr?.properties) {
+      expect(Object.keys(configAttr.properties)).toEqual(['polls', 'accounts']);
+
+      // Check nested properties in configuration.polls
+      const pollsProperty = configAttr.properties.polls;
+      expect(pollsProperty?.type).toBe('object');
+      expect(pollsProperty?.properties).toBeDefined();
+
+      if (pollsProperty?.properties) {
+        expect(Object.keys(pollsProperty.properties)).toEqual([
+          'max_expiration',
+          'min_expiration',
+        ]);
+        expect(pollsProperty.properties.max_expiration.type).toBe('Integer');
+        expect(pollsProperty.properties.min_expiration.type).toBe('Integer');
+      }
+
+      // Check nested properties in configuration.accounts
+      const accountsProperty = configAttr.properties.accounts;
+      expect(accountsProperty?.type).toBe('object');
+      expect(accountsProperty?.properties).toBeDefined();
+
+      if (accountsProperty?.properties) {
+        expect(Object.keys(accountsProperty.properties)).toEqual([
+          'max_featured_tags',
+        ]);
+        expect(accountsProperty.properties.max_featured_tags.type).toBe(
+          'Integer'
+        );
+      }
+    }
+  });
+
   test('should merge with existing attributes correctly', () => {
     const existingAttributes = [
       { name: 'id', type: 'String', description: 'Account ID' },
       { name: 'username', type: 'String', description: 'Account username' },
+      {
+        name: 'configuration',
+        type: 'Hash',
+        description: 'Server configuration',
+      },
     ];
 
     const exampleAttributes = [
@@ -146,6 +224,25 @@ describe('JsonExampleAnalyzer', () => {
         type: 'Boolean',
         description: 'Attribute discovered from JSON example',
       },
+      {
+        name: 'configuration',
+        type: 'object',
+        description: 'Attribute discovered from JSON example',
+        properties: {
+          polls: {
+            name: 'polls',
+            type: 'object',
+            description: 'Attribute discovered from JSON example',
+            properties: {
+              max_expiration: {
+                name: 'max_expiration',
+                type: 'Integer',
+                description: 'Attribute discovered from JSON example',
+              },
+            },
+          },
+        },
+      },
     ];
 
     const merged = analyzer.mergeWithExistingAttributes(
@@ -153,7 +250,7 @@ describe('JsonExampleAnalyzer', () => {
       exampleAttributes
     );
 
-    expect(merged).toHaveLength(4); // 2 existing + 2 new
+    expect(merged).toHaveLength(5); // 3 existing + 2 new
     expect(merged.find((a) => a.name === 'id')?.description).toBe('Account ID'); // Existing kept
     expect(merged.find((a) => a.name === 'username')?.description).toBe(
       'Account username'
@@ -163,6 +260,16 @@ describe('JsonExampleAnalyzer', () => {
     ).toContain('missing from entity definition');
     expect(merged.find((a) => a.name === 'locked')?.description).toContain(
       'missing from entity definition'
+    );
+
+    // Check that configuration was updated with nested properties
+    const configAttr = merged.find((a) => a.name === 'configuration');
+    expect(configAttr?.type).toBe('object'); // Updated from 'Hash'
+    expect(configAttr?.description).toBe('Server configuration'); // Original description kept
+    expect(configAttr?.properties).toBeDefined();
+    expect(configAttr?.properties?.polls).toBeDefined();
+    expect(configAttr?.properties?.polls.properties?.max_expiration.type).toBe(
+      'Integer'
     );
   });
 
