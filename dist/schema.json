@@ -10463,6 +10463,24 @@
             "type": "string",
             "format": "uri"
           },
+          "thumbnail[blurhash]": {
+            "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+            "type": "string"
+          },
+          "thumbnail[versions]": {
+            "description": "Links to scaled resolution images, for high DPI screens.",
+            "type": "object"
+          },
+          "thumbnail[versions][@1x]": {
+            "description": "The URL for the thumbnail image at 1x resolution.",
+            "type": "string",
+            "format": "uri"
+          },
+          "thumbnail[versions][@2x]": {
+            "description": "The URL for the thumbnail image at 2x resolution.",
+            "type": "string",
+            "format": "uri"
+          },
           "icon": {
             "description": "The list of available size variants for this instance configured icon.",
             "type": "array",
