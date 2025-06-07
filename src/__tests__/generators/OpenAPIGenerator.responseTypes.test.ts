@@ -498,9 +498,7 @@ describe('OpenAPIGenerator Response Types', () => {
         {
           name: 'FamiliarFollowers',
           description: 'FamiliarFollowers entity',
-          attributes: [
-            { name: 'id', type: 'String', description: 'ID' },
-          ],
+          attributes: [{ name: 'id', type: 'String', description: 'ID' }],
         },
         {
           name: 'Account',
@@ -533,7 +531,9 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(spec.components?.schemas?.['FamiliarFollowersOrAccount']).toEqual({
         type: 'object',
         properties: {
-          familiar_followers: { $ref: '#/components/schemas/FamiliarFollowers' },
+          familiar_followers: {
+            $ref: '#/components/schemas/FamiliarFollowers',
+          },
           account: { $ref: '#/components/schemas/Account' },
         },
         description: 'Object containing one of: familiar_followers, account',
