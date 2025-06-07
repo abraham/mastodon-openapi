@@ -3,6 +3,9 @@ import * as path from 'path';
 import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
+import { JsonExampleAnalyzer } from './JsonExampleAnalyzer';
+import { MethodParser } from './MethodParser';
+import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 
 class EntityParser {
   private entitiesPath: string;
@@ -70,6 +73,57 @@ class EntityParser {
     }
 
     return entities;
+  }
+
+  /**
+   * Enriches entities with attributes discovered from JSON examples in method responses
+   */
+  public enrichEntitiesWithExamples(entities: EntityClass[]): EntityClass[] {
+    const methodParser = new MethodParser();
+    const methodFiles = methodParser.parseAllMethods();
+    const analyzer = new JsonExampleAnalyzer();
+
+    const enrichedEntities = entities.map(entity => ({ ...entity, attributes: [...entity.attributes] })); // Deep clone
+
+    for (const methodFile of methodFiles) {
+      for (const method of methodFile.methods) {
+        if (method.responses && method.returns) {
+          // Extract entity names from the returns field
+          const entityNames = this.extractEntityNamesFromReturns(method.returns);
+
+          for (const entityName of entityNames) {
+            // Find successful responses (200-299 status codes)
+            const successfulResponses = method.responses.filter(
+              response => {
+                const statusCode = parseInt(response.statusCode);
+                return statusCode >= 200 && statusCode < 300 && response.parsedExample;
+              }
+            );
+
+            for (const response of successfulResponses) {
+              // Find the entity to enrich
+              const entityToEnrich = enrichedEntities.find(
+                e => e.name.toLowerCase() === entityName.toLowerCase()
+              );
+
+              if (entityToEnrich && response.parsedExample) {
+                // Analyze the JSON example
+                const jsonAttributes = analyzer.analyzeJsonObject(response.parsedExample);
+                const exampleAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
+                
+                // Merge with existing attributes
+                entityToEnrich.attributes = analyzer.mergeWithExistingAttributes(
+                  entityToEnrich.attributes,
+                  exampleAttributes
+                );
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return enrichedEntities;
   }
 
   private parseEntitiesFromMethodFile(filePath: string): EntityClass[] {
@@ -332,6 +386,44 @@ class EntityParser {
       .replace(/\*\*/g, '') // Remove bold markdown
       .replace(/\\\s*$/, '') // Remove trailing backslashes
       .trim();
+  }
+
+  /**
+   * Extracts entity names from the returns field of a method
+   * Examples:
+   * - "[Account]({{< relref \"entities/account\" >}})" -> ["Account"]
+   * - "Array of [Account]({{< relref \"entities/account\" >}})" -> ["Account"]
+   * - "[CredentialAccount]({{< relref \"entities/Account#CredentialAccount\">}})" -> ["Account"]
+   */
+  private extractEntityNamesFromReturns(returns: string): string[] {
+    const entityNames: string[] = [];
+    
+    // Match patterns like [EntityName](link) or [EntityName]
+    const entityRegex = /\[([^\]]+)\]/g;
+    let match;
+    
+    while ((match = entityRegex.exec(returns)) !== null) {
+      const entityName = match[1];
+      
+      // Handle special cases like "CredentialAccount" -> "Account"
+      // Extract the base entity name if it has a prefix like "Credential"
+      let baseEntityName = entityName;
+      
+      // Check for common prefixes and extract the base name
+      const prefixes = ['Credential', 'Admin_', 'Partial', 'V1_'];
+      for (const prefix of prefixes) {
+        if (entityName.startsWith(prefix)) {
+          baseEntityName = entityName.substring(prefix.length);
+          break;
+        }
+      }
+      
+      if (baseEntityName && !entityNames.includes(baseEntityName)) {
+        entityNames.push(baseEntityName);
+      }
+    }
+    
+    return entityNames;
   }
 }
 

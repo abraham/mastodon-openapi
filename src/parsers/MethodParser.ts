@@ -498,7 +498,7 @@ class MethodParser {
           parsedExample = JSON.parse(jsonExample);
         } catch (error) {
           // If JSON parsing fails, just store the raw example
-          console.warn(`Failed to parse JSON example for ${statusCode}: ${error}`);
+          // Note: Many examples contain comments or are truncated with "...", which is not valid JSON
         }
 
         responses.push({

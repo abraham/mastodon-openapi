@@ -8,6 +8,7 @@ export { ApiMethodsFile } from './interfaces/ApiMethodsFile';
 export { OpenAPISpec } from './interfaces/OpenAPISchema';
 export { EntityParser } from './parsers/EntityParser';
 export { MethodParser } from './parsers/MethodParser';
+export { JsonExampleAnalyzer } from './parsers/JsonExampleAnalyzer';
 export { OpenAPIGenerator } from './generators/OpenAPIGenerator';
 export { main } from './index';
 
