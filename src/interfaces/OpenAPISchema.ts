@@ -14,6 +14,25 @@ interface OpenAPISecurityScheme {
   scheme?: string;
   bearerFormat?: string;
   description?: string;
+  flows?: {
+    authorizationCode?: {
+      authorizationUrl: string;
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+    implicit?: {
+      authorizationUrl: string;
+      scopes: Record<string, string>;
+    };
+    password?: {
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+    clientCredentials?: {
+      tokenUrl: string;
+      scopes: Record<string, string>;
+    };
+  };
 }
 
 interface OpenAPIProperty {

@@ -35,6 +35,18 @@ class OpenAPIGenerator {
           OAuth2: {
             type: 'oauth2',
             description: 'OAuth 2.0 authentication',
+            flows: {
+              authorizationCode: {
+                authorizationUrl: 'https://mastodon.example/oauth/authorize',
+                tokenUrl: 'https://mastodon.example/oauth/token',
+                scopes: {
+                  read: 'Read access',
+                  write: 'Write access',
+                  follow: 'Follow access',
+                  push: 'Push access',
+                },
+              },
+            },
           },
           BearerAuth: {
             type: 'http',

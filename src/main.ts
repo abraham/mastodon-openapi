@@ -4,7 +4,26 @@ import { OpenAPIGenerator } from './generators/OpenAPIGenerator';
 import * as fs from 'fs';
 import * as path from 'path';
 
-function main() {
+async function validateSchemaIfEnabled(schemaPath: string): Promise<void> {
+  const shouldSkipValidation = process.env.SKIP_VALIDATION === 'true';
+  if (shouldSkipValidation) {
+    console.log('⏭️  Schema validation skipped (SKIP_VALIDATION=true)');
+    return;
+  }
+
+  try {
+    // Dynamic import to avoid Jest ES module issues
+    const { validateSchema } = await import('./validator');
+    await validateSchema(schemaPath, true);
+  } catch (error) {
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error(`Schema validation failed: ${String(error)}`);
+  }
+}
+
+async function main() {
   console.log('Parsing Mastodon entity files...');
 
   const parser = new EntityParser();
@@ -44,10 +63,16 @@ function main() {
   // Write schema to file
   fs.writeFileSync(schemaPath, generator.toJSON());
   console.log(`Schema written to ${schemaPath}`);
+
+  // Validate the generated schema
+  await validateSchemaIfEnabled(schemaPath);
 }
 
 if (require.main === module) {
-  main();
+  main().catch(error => {
+    console.error('Error:', error.message);
+    process.exit(1);
+  });
 }
 
 export { main };

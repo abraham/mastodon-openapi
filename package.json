@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "generate": "ts-node src/generate.ts",
+    "validate": "ts-node src/validate.ts",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",

@@ -27,5 +27,11 @@ jobs:
       - name: Build project
         run: npm run build
 
+      - name: Generate schema
+        run: SKIP_VALIDATION=true npm run generate
+
+      - name: Validate generated schema
+        run: npm run validate
+
       - name: Run tests
         run: npm test
