@@ -123,8 +123,9 @@ class MethodParser {
     const endpoint = httpMatch[2].trim();
 
     // Extract description (first paragraph after the endpoint)
+    // Exclude lines starting with *, #, or blank lines to avoid capturing markdown headers
     const descriptionMatch = section.match(
-      /```http[^`]*```\s*\n\n([^*\n][^\n]*)/
+      /```http[^`]*```\s*\n\n([^*#\n][^\n]*)/
     );
     const description = descriptionMatch ? descriptionMatch[1].trim() : '';
 
