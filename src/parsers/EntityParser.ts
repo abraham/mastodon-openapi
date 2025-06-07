@@ -137,16 +137,18 @@ class EntityParser {
     const attributes: EntityAttribute[] = [];
 
     // Match each attribute definition in this section
+    // Capture more content after Type to get enum values
     const attributeRegex =
-      /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)/g;
+      /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)(.*?)(?=\n\*\*Version history:\*\*|\n\*\*|\n###|$)/gs;
 
     let match;
     while ((match = attributeRegex.exec(content)) !== null) {
-      const [, name, modifiers, description, type] = match;
+      const [, name, modifiers, description, type, additionalContent] = match;
 
+      const cleanedType = this.cleanType(type.trim());
       const attribute: EntityAttribute = {
         name: name.trim(),
-        type: this.cleanType(type.trim()),
+        type: cleanedType,
         description: this.cleanDescription(description.trim()),
       };
 
@@ -157,6 +159,14 @@ class EntityParser {
         }
         if (modifiers.includes('deprecated')) {
           attribute.deprecated = true;
+        }
+      }
+
+      // Extract enum values if this is an enumerable type
+      if (cleanedType.toLowerCase().includes('enumerable')) {
+        const enumValues = this.extractEnumValues(additionalContent);
+        if (enumValues.length > 0) {
+          attribute.enumValues = enumValues;
         }
       }
 
@@ -173,6 +183,23 @@ class EntityParser {
       .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
       .replace(/\\\s*$/, '') // Remove trailing backslashes
       .trim();
+  }
+
+  private extractEnumValues(content: string): string[] {
+    const enumValues: string[] = [];
+
+    // Look for enum value patterns like `value` = description
+    const enumPattern = /`([^`]+)`\s*=\s*[^\n]+/g;
+    let match;
+
+    while ((match = enumPattern.exec(content)) !== null) {
+      const enumValue = match[1].trim();
+      if (enumValue) {
+        enumValues.push(enumValue);
+      }
+    }
+
+    return enumValues;
   }
 
   private cleanDescription(description: string): string {

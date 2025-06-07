@@ -4709,7 +4709,13 @@
           },
           "source[privacy]": {
             "description": "The default post privacy to be used for new statuses.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "public",
+              "unlisted",
+              "private",
+              "direct"
+            ]
           },
           "source[sensitive]": {
             "description": "Whether new statuses should be marked sensitive by default.",
@@ -4806,7 +4812,13 @@
           },
           "source[privacy]": {
             "description": "The default post privacy to be used for new statuses.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "public",
+              "unlisted",
+              "private",
+              "direct"
+            ]
           },
           "source[sensitive]": {
             "description": "Whether new statuses should be marked sensitive by default.",
@@ -4885,7 +4897,16 @@
           },
           "action": {
             "description": "Action taken against the account.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "none",
+              "disable",
+              "mark_statuses_as_sensitive",
+              "delete_statuses",
+              "sensitive",
+              "silence",
+              "suspend"
+            ]
           },
           "text": {
             "description": "Message from the moderator to the target account.",
@@ -5051,7 +5072,11 @@
           },
           "frequency": {
             "description": "The size of the bucket for the returned data.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "day",
+              "month"
+            ]
           },
           "data": {
             "description": "Retention data for users who registered during the given period.",
@@ -5183,7 +5208,12 @@
           },
           "severity": {
             "description": "The policy to be applied by this domain block.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "silence",
+              "suspend",
+              "noop"
+            ]
           },
           "reject_media": {
             "description": "Whether to reject media attachments from this domain",
@@ -5299,7 +5329,12 @@
           },
           "severity": {
             "description": "The associated policy with this IP block.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "sign_up_requires_approval",
+              "sign_up_block",
+              "no_access"
+            ]
           },
           "comment": {
             "description": "The recorded reason for this IP block.",
@@ -5394,7 +5429,12 @@
           },
           "category": {
             "description": "The category under which the report is classified.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "spam",
+              "violation",
+              "other"
+            ]
           },
           "comment": {
             "description": "An optional reason for reporting.",
@@ -5616,7 +5656,12 @@
           },
           "state": {
             "description": "State of the appeal.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "approved",
+              "rejected",
+              "pending"
+            ]
           }
         },
         "required": [
@@ -5651,6 +5696,11 @@
               "type": "string"
             }
           },
+          "redirect_uri": {
+            "description": "The registered redirection URI(s) for your application.",
+            "deprecated": true,
+            "type": "string"
+          },
           "vapid_key": {
             "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps]({{< relref \"methods/apps#create\" >}}). Equivalent to [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}) and [Instance#vapid_public_key]({{< relref \"entities/Instance#vapid_public_key\" >}})",
             "deprecated": true,
@@ -5661,6 +5711,7 @@
           "name",
           "scopes",
           "redirect_uris",
+          "redirect_uri",
           "vapid_key"
         ]
       },
@@ -5791,7 +5842,11 @@
           },
           "severity": {
             "description": "The level to which the domain is blocked.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "silence",
+              "suspend"
+            ]
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -5822,7 +5877,11 @@
           },
           "type": {
             "description": "Whether the message is a pre-key message (used to establish a new session) or a normally encrypted message (part of an existing session).",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "0",
+              "1"
+            ]
           },
           "body": {
             "description": "The encrypted message content.",
@@ -5962,7 +6021,14 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "enum": [
+              "home",
+              "notifications",
+              "public",
+              "thread",
+              "account"
+            ]
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
@@ -5971,7 +6037,12 @@
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "warn",
+              "hide",
+              "blur"
+            ]
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
@@ -6416,7 +6487,12 @@
           },
           "replies_policy": {
             "description": "Which replies should be shown in the list.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "followed",
+              "list",
+              "none"
+            ]
           }
         },
         "required": [
@@ -6459,7 +6535,14 @@
           },
           "type": {
             "description": "The type of the attachment.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "unknown",
+              "image",
+              "gifv",
+              "video",
+              "audio"
+            ]
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -6516,7 +6599,21 @@
           },
           "type": {
             "description": "The type of event that resulted in the notification.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "mention",
+              "status",
+              "reblog",
+              "follow",
+              "follow_request",
+              "favourite",
+              "poll",
+              "update",
+              "admin.sign_up",
+              "admin.report",
+              "severed_relationships",
+              "moderation_warning"
+            ]
           },
           "group_key": {
             "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
@@ -6733,7 +6830,13 @@
         "properties": {
           "posting:default:visibility": {
             "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "public",
+              "unlisted",
+              "private",
+              "direct"
+            ]
           },
           "posting:default:sensitive": {
             "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]]({{< relref \"entities/Account#source-sensitive\" >}}).",
@@ -6745,7 +6848,12 @@
           },
           "reading:expand:media": {
             "description": "Whether media attachments should be automatically displayed or blurred/hidden.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "default",
+              "show_all",
+              "hide_all"
+            ]
           },
           "reading:expand:spoilers": {
             "description": "Whether CWs should be expanded by default.",
@@ -6779,7 +6887,13 @@
           },
           "type": {
             "description": "The type of the preview card.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "link",
+              "photo",
+              "video",
+              "rich"
+            ]
           },
           "authors": {
             "description": "Fediverse account of the authors of the original resource.",
@@ -6962,7 +7076,15 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "revoked",
+              "deleted",
+              "unauthorized"
+            ]
           },
           "status": {
             "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
@@ -7102,7 +7224,12 @@
           },
           "type": {
             "description": "Type of event.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "domain_block",
+              "user_domain_block",
+              "account_suspension"
+            ]
           },
           "purged": {
             "description": "Whether the list of severed relationships is unavailable because the underlying issue has been purged.",
@@ -7155,7 +7282,12 @@
           },
           "category": {
             "description": "The generic reason for the report.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "spam",
+              "violation",
+              "other"
+            ]
           },
           "comment": {
             "description": "The reason for the report.",
@@ -7324,7 +7456,13 @@
           },
           "params[visibility]": {
             "description": "The visibility that the status will have once it is posted.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "public",
+              "unlisted",
+              "private",
+              "direct"
+            ]
           },
           "params[in_reply_to_id]": {
             "description": "ID of the Status that will be replied to.",
@@ -7421,7 +7559,15 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "pending",
+              "accepted",
+              "rejected",
+              "revoked",
+              "deleted",
+              "unauthorized"
+            ]
           },
           "status_id": {
             "description": "The identifier of the status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
@@ -7460,7 +7606,13 @@
           },
           "visibility": {
             "description": "Visibility of this status.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "public",
+              "unlisted",
+              "private",
+              "direct"
+            ]
           },
           "sensitive": {
             "description": "Is this status marked as sensitive content?",
@@ -7561,8 +7713,8 @@
             "type": "string",
             "format": "date-time"
           },
-          "favourited": {
-            "description": "If the current token has an authorized user: Have you favourited this status?",
+          "quote": {
+            "description": "Information about the status being quoted, if any",
             "type": "boolean"
           },
           "reblogged": {
@@ -7615,7 +7767,8 @@
           "card",
           "language",
           "text",
-          "edited_at"
+          "edited_at",
+          "quote"
         ]
       },
       "Status_Mention": {
@@ -7762,14 +7915,26 @@
         "properties": {
           "source": {
             "description": "The reason this account is being suggested.",
-            "type": "string"
+            "type": "string",
+            "enum": [
+              "staff",
+              "past_interactions",
+              "global"
+            ]
           },
           "sources": {
             "description": "A list of reasons this account is being suggested. This replaces `source`",
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "enum": [
+              "featured",
+              "most_followed",
+              "most_interactions",
+              "similar_to_recently_followed",
+              "friends_of_friends"
+            ]
           },
           "account": {
             "description": "The account being recommended to follow.",
@@ -8027,7 +8192,14 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "enum": [
+              "home",
+              "notifications",
+              "public",
+              "thread",
+              "account"
+            ]
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
