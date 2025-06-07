@@ -175,13 +175,18 @@ class MethodParser {
     sectionName: string,
     parameterLocation: string
   ): ApiParameter[] {
-    const parameters: ApiParameter[] = [];
+    const rawParameters: Array<{
+      name: string;
+      description: string;
+      required?: boolean;
+      enumValues?: string[];
+    }> = [];
 
     // Find parameters section
     const paramMatch = section.match(
       new RegExp(`##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#|$)`)
     );
-    if (!paramMatch) return parameters;
+    if (!paramMatch) return [];
 
     const paramSection = paramMatch[1];
 
@@ -200,22 +205,176 @@ class MethodParser {
       // Extract enum values from description
       const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
 
-      const parameter: ApiParameter = {
+      const rawParam = {
         name: name.trim(),
         description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
         required: required ? true : undefined,
-        in: parameterLocation,
+        enumValues: enumValues.length > 0 ? enumValues : undefined,
       };
 
-      // Add enum values if found
-      if (enumValues.length > 0) {
-        parameter.enumValues = enumValues;
+      rawParameters.push(rawParam);
+    }
+
+    // Process raw parameters to handle complex types
+    return this.processComplexParameters(rawParameters, parameterLocation);
+  }
+
+  private processComplexParameters(
+    rawParameters: Array<{
+      name: string;
+      description: string;
+      required?: boolean;
+      enumValues?: string[];
+    }>,
+    parameterLocation: string
+  ): ApiParameter[] {
+    const parameters: ApiParameter[] = [];
+    const objectGroups: Record<
+      string,
+      Array<{
+        name: string;
+        property: string;
+        isArray: boolean;
+        description: string;
+        required?: boolean;
+        enumValues?: string[];
+      }>
+    > = {};
+
+    for (const rawParam of rawParameters) {
+      const { name } = rawParam;
+
+      // Check if it's an array parameter (ends with [])
+      if (name.endsWith('[]')) {
+        const baseName = name.slice(0, -2);
+
+        // Check if it's an object property array like poll[options][]
+        const objectPropertyArrayMatch = baseName.match(
+          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
+        );
+        if (objectPropertyArrayMatch) {
+          const [, objectName, propertyName] = objectPropertyArrayMatch;
+          if (!objectGroups[objectName]) {
+            objectGroups[objectName] = [];
+          }
+          objectGroups[objectName].push({
+            name: rawParam.name,
+            property: propertyName,
+            isArray: true,
+            description: rawParam.description,
+            required: rawParam.required,
+            enumValues: rawParam.enumValues,
+          });
+        } else {
+          // Simple array parameter like media_ids[]
+          parameters.push({
+            name: baseName,
+            description: rawParam.description,
+            required: rawParam.required,
+            in: parameterLocation,
+            enumValues: rawParam.enumValues,
+            schema: {
+              type: 'array',
+              items: {
+                type: this.inferTypeFromDescription(rawParam.description),
+              },
+            },
+          });
+        }
+      }
+      // Check if it's an object property like poll[expires_in]
+      else {
+        const objectPropertyMatch = name.match(
+          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
+        );
+        if (objectPropertyMatch) {
+          const [, objectName, propertyName] = objectPropertyMatch;
+          if (!objectGroups[objectName]) {
+            objectGroups[objectName] = [];
+          }
+          objectGroups[objectName].push({
+            name: rawParam.name,
+            property: propertyName,
+            isArray: false,
+            description: rawParam.description,
+            required: rawParam.required,
+            enumValues: rawParam.enumValues,
+          });
+        } else {
+          // Simple parameter
+          parameters.push({
+            name: rawParam.name,
+            description: rawParam.description,
+            required: rawParam.required,
+            in: parameterLocation,
+            enumValues: rawParam.enumValues,
+          });
+        }
+      }
+    }
+
+    // Process object groups
+    for (const [objectName, properties] of Object.entries(objectGroups)) {
+      const objectProperties: Record<
+        string,
+        { type: string; description?: string; items?: { type: string } }
+      > = {};
+      let objectDescription = `Object containing the following properties:`;
+      let hasRequiredProperty = false;
+
+      for (const prop of properties) {
+        const propType = this.inferTypeFromDescription(prop.description);
+
+        if (prop.isArray) {
+          objectProperties[prop.property] = {
+            type: 'array',
+            description: prop.description,
+            items: { type: propType },
+          };
+        } else {
+          objectProperties[prop.property] = {
+            type: propType,
+            description: prop.description,
+          };
+        }
+
+        if (prop.required) {
+          hasRequiredProperty = true;
+        }
       }
 
-      parameters.push(parameter);
+      parameters.push({
+        name: objectName,
+        description: objectDescription,
+        required: hasRequiredProperty ? true : undefined,
+        in: parameterLocation,
+        schema: {
+          type: 'object',
+          properties: objectProperties,
+        },
+      });
     }
 
     return parameters;
+  }
+
+  private inferTypeFromDescription(description: string): string {
+    const lowerDesc = description.toLowerCase();
+
+    if (lowerDesc.includes('boolean')) {
+      return 'boolean';
+    } else if (lowerDesc.includes('integer') || lowerDesc.includes('number')) {
+      return 'integer';
+    } else if (
+      lowerDesc.includes('array of string') ||
+      lowerDesc.includes('array of id')
+    ) {
+      return 'string';
+    } else if (lowerDesc.includes('array')) {
+      return 'string'; // Default for arrays if not specified
+    }
+
+    return 'string';
   }
 
   private extractEnumValuesFromDescription(description: string): string[] {
