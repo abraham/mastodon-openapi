@@ -91,10 +91,16 @@ class MethodParser {
 
   private parseMethodSection(section: string): ApiMethod | null {
     // Extract method name from header: ## Method Name {#anchor}
-    const nameMatch = section.match(/^## ([^{]+)\{#[^}]+\}/m);
+    // Handle headers that may contain {{%removed%}} or other Hugo shortcodes
+    const nameMatch = section.match(/^## (.+?)\s*\{#[^}]+\}/m);
     if (!nameMatch) return null;
 
     const name = nameMatch[1].trim();
+
+    // Skip methods marked as removed
+    if (name.includes('{{%removed%}}')) {
+      return null;
+    }
 
     // Extract HTTP method and endpoint: ```http\nMETHOD /path\n```
     const httpMatch = section.match(

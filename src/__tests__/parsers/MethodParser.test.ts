@@ -187,4 +187,39 @@ describe('MethodParser', () => {
     expect(foundPostMethod).toBe(true);
     expect(foundDeleteMethod).toBe(true);
   });
+
+  test('should skip methods marked with {{%removed%}}', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    // Look for the specific removed method in notifications
+    const notificationsFile = methodFiles.find(
+      (f) => f.name === 'notifications'
+    );
+    expect(notificationsFile).toBeDefined();
+
+    if (notificationsFile) {
+      // Should not find the removed POST /api/v1/notifications/dismiss method
+      const removedMethod = notificationsFile.methods.find(
+        (method) =>
+          method.endpoint === '/api/v1/notifications/dismiss' &&
+          method.httpMethod === 'POST'
+      );
+      expect(removedMethod).toBeUndefined();
+
+      // Should still find the non-removed POST /api/v1/notifications/:id/dismiss method
+      const validMethod = notificationsFile.methods.find(
+        (method) =>
+          method.endpoint === '/api/v1/notifications/:id/dismiss' &&
+          method.httpMethod === 'POST'
+      );
+      expect(validMethod).toBeDefined();
+    }
+
+    // Verify no methods contain "removed" in their name (as a general check)
+    for (const methodFile of methodFiles) {
+      for (const method of methodFile.methods) {
+        expect(method.name.toLowerCase()).not.toContain('removed');
+      }
+    }
+  });
 });
