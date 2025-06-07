@@ -293,5 +293,29 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       expect(statusesOpId).toBe('getStatus');
       expect(accountsOpId).not.toBe(statusesOpId);
     });
+
+    it('should generate combined operationIds for non-resource operations', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'featured_tags',
+          description: 'Featured tags methods',
+          methods: [
+            {
+              name: 'Get featured tag suggestions',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/featured_tags/suggestions',
+              description: 'Get featured tag suggestions',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      // Check the specific case mentioned in the issue
+      expect(
+        spec.paths['/api/v1/featured_tags/suggestions']?.get?.operationId
+      ).toBe('getFeaturedTagSuggestions');
+    });
   });
 });

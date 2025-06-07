@@ -2416,7 +2416,7 @@
     },
     "/api/v1/featured_tags/suggestions": {
       "get": {
-        "operationId": "getSuggestions",
+        "operationId": "getFeaturedTagSuggestions",
         "summary": "View suggested tags to feature",
         "description": "Shows up to 10 recently-used tags.",
         "tags": [

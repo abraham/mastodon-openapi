@@ -430,13 +430,22 @@ class OpenAPIGenerator {
       if (segments.length === 2) {
         const [firstSegment, lastSegment] = segments;
 
+        // List of generic terms that need context to be meaningful
+        const genericTerms = ['suggestions'];
+
+        // If the last segment is generic, combine both segments
+        if (genericTerms.includes(lastSegment)) {
+          return (
+            semanticMethod +
+            this.toPascalCase(this.toSingular(firstSegment)) +
+            this.toPascalCase(lastSegment)
+          );
+        }
+
         // Try to use just the last segment for simpler names
-        // but fall back to full path if it might cause conflicts
+        // For paths like /profile/avatar -> deleteAvatar
         const simpleOperationId =
           semanticMethod + this.toPascalCase(lastSegment);
-
-        // For now, use the simple approach - we can add conflict detection later if needed
-        // For paths like /profile/avatar -> deleteAvatar
         return simpleOperationId;
       }
 
