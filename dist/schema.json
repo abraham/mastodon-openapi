@@ -10283,59 +10283,6 @@
           "severity"
         ]
       },
-      "EncryptedMessage": {
-        "type": "object",
-        "description": "Represents an encrypted message.",
-        "properties": {
-          "id": {
-            "description": "The ID of the EncryptedMessage in the database.",
-            "type": "string"
-          },
-          "account_id": {
-            "description": "The ID of the Account that sent this message.",
-            "type": "string"
-          },
-          "device_id": {
-            "description": "The ID of the Device that sent this message.",
-            "type": "string"
-          },
-          "type": {
-            "description": "Whether the message is a pre-key message (used to establish a new session) or a normally encrypted message (part of an existing session).",
-            "type": "string",
-            "enum": [
-              "0",
-              "1"
-            ]
-          },
-          "body": {
-            "description": "The encrypted message content.",
-            "type": "string"
-          },
-          "digest": {
-            "description": "An HMAC SHA-256 digest hash of the message.",
-            "type": "string"
-          },
-          "message_franking": {
-            "description": "A signed value to be used when reporting the message body for its content.",
-            "type": "string"
-          },
-          "created_at": {
-            "description": "A timestamp for when the message was created.",
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "required": [
-          "id",
-          "account_id",
-          "device_id",
-          "type",
-          "body",
-          "digest",
-          "message_franking",
-          "created_at"
-        ]
-      },
       "Error": {
         "type": "object",
         "description": "Represents an error message.",
