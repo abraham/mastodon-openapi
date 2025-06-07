@@ -35,6 +35,7 @@ interface OpenAPIProperty {
   description?: string;
   items?: OpenAPIProperty;
   $ref?: string;
+  oneOf?: OpenAPIProperty[];
   enum?: string[];
   deprecated?: boolean;
 }

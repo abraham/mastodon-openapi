@@ -4078,7 +4078,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Status"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Status"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ScheduledStatus"
+                    }
+                  ]
                 }
               }
             }
