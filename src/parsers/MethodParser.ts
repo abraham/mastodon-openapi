@@ -123,11 +123,8 @@ class MethodParser {
     const endpoint = httpMatch[2].trim();
 
     // Extract description (first paragraph after the endpoint)
-    // Exclude lines starting with *, #, or blank lines to avoid capturing markdown headers
-    const descriptionMatch = section.match(
-      /```http[^`]*```\s*\n\n([^*#\n][^\n]*)/
-    );
-    const description = descriptionMatch ? descriptionMatch[1].trim() : '';
+    // Use pattern matching instead of regex for better maintainability
+    const description = this.extractDescription(section);
 
     // Extract returns, oauth, version info
     const returnsMatch = section.match(/\*\*Returns:\*\*\s*([^\\\n]+)/);
@@ -162,6 +159,68 @@ class MethodParser {
       version,
       deprecated: isDeprecated || undefined,
     };
+  }
+
+  private extractDescription(section: string): string {
+    // Find the end of the HTTP block
+    const httpBlockEndIndex = section.indexOf('```', section.indexOf('```http') + 7);
+    if (httpBlockEndIndex === -1) {
+      return '';
+    }
+
+    // Get content after the HTTP block
+    const afterHttpBlock = section.substring(httpBlockEndIndex + 3);
+    
+    // Split into lines for pattern matching
+    const lines = afterHttpBlock.split('\n');
+    
+    // Skip empty lines at the beginning
+    let startIndex = 0;
+    while (startIndex < lines.length && lines[startIndex].trim() === '') {
+      startIndex++;
+    }
+    
+    // Check if we have any content left
+    if (startIndex >= lines.length) {
+      return '';
+    }
+    
+    // Get the first non-empty line
+    const firstLine = lines[startIndex].trim();
+    
+    // Check if it's a structural element that should not be treated as description
+    if (this.isStructuralElement(firstLine)) {
+      return '';
+    }
+    
+    // If it passes all checks, it's a valid description
+    return firstLine;
+  }
+
+  private isStructuralElement(line: string): boolean {
+    const trimmed = line.trim();
+    
+    // Check for markdown headers (any level)
+    if (trimmed.startsWith('#')) {
+      return true;
+    }
+    
+    // Check for bold markdown fields like **Returns:**
+    if (trimmed.startsWith('**') && trimmed.includes(':**')) {
+      return true;
+    }
+    
+    // Check for list items
+    if (trimmed.startsWith('-') || trimmed.startsWith('*') || trimmed.startsWith('+')) {
+      return true;
+    }
+    
+    // Check for code blocks
+    if (trimmed.startsWith('```')) {
+      return true;
+    }
+    
+    return false;
   }
 
   private parseAllParameters(section: string): ApiParameter[] {
