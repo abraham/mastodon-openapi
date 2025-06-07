@@ -118,9 +118,7 @@ describe('OpenAPIGenerator', () => {
       const postOp = spec.paths['/api/v1/test'].post!;
       expect(postOp.summary).toBe('Create test entity');
       expect(postOp.requestBody).toBeDefined();
-      expect(
-        postOp.requestBody?.content['application/x-www-form-urlencoded']
-      ).toBeDefined();
+      expect(postOp.requestBody?.content['application/json']).toBeDefined();
     });
 
     it('should handle empty inputs', () => {
