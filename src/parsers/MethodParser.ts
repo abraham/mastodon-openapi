@@ -127,8 +127,8 @@ class MethodParser {
       ? this.cleanMarkdown(versionMatch[1].trim())
       : undefined;
 
-    // Parse parameters from Form data parameters section
-    const parameters = this.parseParameters(section);
+    // Parse parameters from both Query parameters and Form data parameters sections
+    const parameters = this.parseAllParameters(section);
 
     return {
       name,
@@ -142,12 +142,38 @@ class MethodParser {
     };
   }
 
-  private parseParameters(section: string): ApiParameter[] {
+  private parseAllParameters(section: string): ApiParameter[] {
+    const parameters: ApiParameter[] = [];
+
+    // Parse query parameters
+    const queryParams = this.parseParametersByType(
+      section,
+      'Query parameters',
+      'query'
+    );
+    parameters.push(...queryParams);
+
+    // Parse form data parameters
+    const formParams = this.parseParametersByType(
+      section,
+      'Form data parameters',
+      'formData'
+    );
+    parameters.push(...formParams);
+
+    return parameters;
+  }
+
+  private parseParametersByType(
+    section: string,
+    sectionName: string,
+    parameterLocation: string
+  ): ApiParameter[] {
     const parameters: ApiParameter[] = [];
 
     // Find parameters section
     const paramMatch = section.match(
-      /##### Form data parameters\s*([\s\S]*?)(?=\n#|$)/
+      new RegExp(`##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#|$)`)
     );
     if (!paramMatch) return parameters;
 
@@ -155,7 +181,7 @@ class MethodParser {
 
     // Match parameter definitions: parameter_name\n: description
     const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
+      /^([a-zA-Z_][a-zA-Z0-9_\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
     let match;
     while ((match = paramRegex.exec(paramSection)) !== null) {
@@ -169,6 +195,7 @@ class MethodParser {
         name: name.trim(),
         description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
         required: required ? true : undefined,
+        in: parameterLocation,
       });
     }
 

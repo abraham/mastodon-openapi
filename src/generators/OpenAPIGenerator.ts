@@ -550,23 +550,40 @@ class OpenAPIGenerator {
       const bodyParams: ApiParameter[] = [];
 
       for (const param of method.parameters) {
-        // For GET requests, parameters are usually query parameters
-        // For POST/PUT/PATCH, they are usually form data (request body)
-        if (httpMethod === 'get') {
+        // Use the 'in' property to determine parameter location
+        if (
+          param.in === 'query' ||
+          param.in === 'path' ||
+          param.in === 'header'
+        ) {
           operation.parameters.push({
             name: param.name,
-            in: 'query',
+            in: param.in,
             required: param.required,
             description: param.description,
             schema: { type: 'string' },
           });
-        } else {
+        } else if (param.in === 'formData') {
+          // Form data parameters go in request body
           bodyParams.push(param);
+        } else {
+          // Fallback to old behavior for backwards compatibility
+          if (httpMethod === 'get') {
+            operation.parameters.push({
+              name: param.name,
+              in: 'query',
+              required: param.required,
+              description: param.description,
+              schema: { type: 'string' },
+            });
+          } else {
+            bodyParams.push(param);
+          }
         }
       }
 
-      // Add request body for non-GET methods with parameters
-      if (bodyParams.length > 0 && httpMethod !== 'get') {
+      // Add request body for form data parameters
+      if (bodyParams.length > 0) {
         const properties: Record<string, OpenAPIProperty> = {};
         const required: string[] = [];
 

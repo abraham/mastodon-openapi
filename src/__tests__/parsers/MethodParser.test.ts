@@ -106,6 +106,64 @@ describe('MethodParser', () => {
     }
   });
 
+  test('should parse query parameters correctly', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    // Find timelines method file which should have query parameters
+    const timelinesMethodFile = methodFiles.find((f) => f.name === 'timelines');
+    expect(timelinesMethodFile).toBeDefined();
+
+    if (timelinesMethodFile) {
+      // Find the public timeline method which has query parameters
+      const publicTimelineMethod = timelinesMethodFile.methods.find(
+        (method) => method.endpoint === '/api/v1/timelines/public'
+      );
+      expect(publicTimelineMethod).toBeDefined();
+
+      if (publicTimelineMethod && publicTimelineMethod.parameters) {
+        // Should have query parameters like 'local', 'remote', 'only_media', etc.
+        const queryParams = publicTimelineMethod.parameters.filter(
+          (p) => p.in === 'query'
+        );
+        expect(queryParams.length).toBeGreaterThan(0);
+
+        // Check for specific known query parameters
+        const localParam = queryParams.find((p) => p.name === 'local');
+        expect(localParam).toBeDefined();
+        expect(localParam?.description).toContain('Boolean');
+
+        const limitParam = queryParams.find((p) => p.name === 'limit');
+        expect(limitParam).toBeDefined();
+        expect(limitParam?.description).toContain('Integer');
+      }
+    }
+  });
+
+  test('should parse both query and form data parameters', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    let foundQueryParam = false;
+    let foundFormParam = false;
+
+    for (const methodFile of methodFiles) {
+      for (const method of methodFile.methods) {
+        if (method.parameters) {
+          for (const param of method.parameters) {
+            if (param.in === 'query') {
+              foundQueryParam = true;
+            }
+            if (param.in === 'formData') {
+              foundFormParam = true;
+            }
+          }
+        }
+      }
+    }
+
+    expect(foundQueryParam).toBe(true);
+    expect(foundFormParam).toBe(true);
+  });
+
   test('should extract HTTP methods and endpoints correctly', () => {
     const methodFiles = methodParser.parseAllMethods();
 
