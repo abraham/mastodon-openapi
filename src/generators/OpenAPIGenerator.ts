@@ -3,6 +3,7 @@ import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod } from '../interfaces/ApiMethod';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { ApiParameter } from '../interfaces/ApiParameter';
+import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
 import {
   OpenAPISpec,
   OpenAPISchema,
@@ -15,6 +16,31 @@ class OpenAPIGenerator {
   private spec: OpenAPISpec;
 
   constructor() {
+    // Parse OAuth scopes from documentation
+    const oauthParser = new OAuthScopeParser();
+    const oauthScopes = oauthParser.parseOAuthScopes();
+
+    // Convert scopes to the format needed for OpenAPI
+    const scopesObject: Record<string, string> = {};
+    for (const scope of oauthScopes.scopes) {
+      scopesObject[scope.name] = scope.description;
+    }
+
+    // Filter scopes for clientCredentials flow (typically only read/write scopes)
+    const clientCredentialsScopes: Record<string, string> = {};
+    for (const scope of oauthScopes.scopes) {
+      // Include high-level scopes and non-user-specific scopes for client credentials
+      if (
+        ['read', 'write'].includes(scope.name) ||
+        (scope.name.startsWith('read:') &&
+          !scope.name.includes('notifications')) ||
+        (scope.name.startsWith('write:') &&
+          !scope.name.includes('notifications'))
+      ) {
+        clientCredentialsScopes[scope.name] = scope.description;
+      }
+    }
+
     this.spec = {
       openapi: '3.0.3',
       info: {
@@ -39,19 +65,11 @@ class OpenAPIGenerator {
               authorizationCode: {
                 authorizationUrl: 'https://mastodon.example/oauth/authorize',
                 tokenUrl: 'https://mastodon.example/oauth/token',
-                scopes: {
-                  read: 'Read access',
-                  write: 'Write access',
-                  follow: 'Follow/unfollow accounts',
-                  push: 'Push notifications',
-                },
+                scopes: scopesObject,
               },
               clientCredentials: {
                 tokenUrl: 'https://mastodon.example/oauth/token',
-                scopes: {
-                  read: 'Read access',
-                  write: 'Write access',
-                },
+                scopes: clientCredentialsScopes,
               },
             },
           },
