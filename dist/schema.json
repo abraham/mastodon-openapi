@@ -1219,7 +1219,7 @@
     },
     "/api/v1/accounts/relationships": {
       "get": {
-        "operationId": "getRelationships",
+        "operationId": "getAccountRelationships",
         "summary": "Check relationships to other accounts",
         "description": "Find out whether a given account is followed, blocked, muted, etc.",
         "tags": [
@@ -1316,7 +1316,7 @@
     },
     "/api/v1/accounts/search": {
       "get": {
-        "operationId": "getSearch",
+        "operationId": "getAccountSearch",
         "summary": "Search for matching accounts",
         "description": "Search for matching accounts by username or display name.",
         "tags": [
@@ -1393,7 +1393,7 @@
     },
     "/api/v1/accounts/lookup": {
       "get": {
-        "operationId": "getLookup",
+        "operationId": "getAccountLookup",
         "summary": "Lookup account ID from Webfinger address",
         "description": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.",
         "tags": [
@@ -2147,7 +2147,7 @@
     },
     "/api/v1/emails/confirmations": {
       "post": {
-        "operationId": "createConfirmations",
+        "operationId": "createEmailConfirmations",
         "summary": "Resend confirmation email",
         "description": "Resend a new confirmation email. If an email is provided, updates the unconfirmed user's email before resending the confirmation email.",
         "tags": [
@@ -3863,7 +3863,7 @@
     },
     "/api/v1/instance/peers": {
       "get": {
-        "operationId": "getPeers",
+        "operationId": "getInstancePeers",
         "summary": "List of connected domains",
         "description": "Domains that this instance is aware of.",
         "tags": [
@@ -3878,7 +3878,7 @@
     },
     "/api/v1/instance/activity": {
       "get": {
-        "operationId": "getActivity",
+        "operationId": "getInstanceActivity",
         "summary": "Weekly activity",
         "description": "Instance activity over the last 3 months, binned weekly.",
         "tags": [
@@ -3893,7 +3893,7 @@
     },
     "/api/v1/instance/rules": {
       "get": {
-        "operationId": "getRules",
+        "operationId": "getInstanceRules",
         "summary": "List of rules",
         "description": "Rules that the users of this service should follow.",
         "tags": [
@@ -5019,7 +5019,7 @@
     },
     "/api/v1/notifications/clear": {
       "post": {
-        "operationId": "createClear",
+        "operationId": "createNotificationClear",
         "summary": "Dismiss all notifications",
         "description": "Clear all notifications from the server.",
         "tags": [
@@ -5134,7 +5134,7 @@
     },
     "/api/v2/notifications/policy": {
       "get": {
-        "operationId": "getPolicyV2",
+        "operationId": "getNotificationPolicyV2",
         "summary": "Get the filtering policy for notifications",
         "description": "Notifications filtering policy for the user.",
         "tags": [
@@ -5161,7 +5161,7 @@
     },
     "/api/v1/notifications/requests": {
       "get": {
-        "operationId": "getRequests",
+        "operationId": "getNotificationRequests",
         "summary": "Get all notification requests",
         "description": "Notification requests for notifications filtered by the user's policy. This API returns Link headers containing links to the next/previous page.",
         "tags": [
@@ -6031,7 +6031,7 @@
     },
     "/api/v1/push/subscription": {
       "post": {
-        "operationId": "createSubscription",
+        "operationId": "createPushSubscription",
         "summary": "Subscribe to push notifications",
         "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.",
         "tags": [
@@ -6134,7 +6134,7 @@
         }
       },
       "get": {
-        "operationId": "getSubscription",
+        "operationId": "getPushSubscription",
         "summary": "Get current subscription",
         "description": "View the PushSubscription currently associated with this access token.",
         "tags": [
@@ -6159,7 +6159,7 @@
         ]
       },
       "put": {
-        "operationId": "putSubscription",
+        "operationId": "putPushSubscription",
         "summary": "Change types of notifications",
         "description": "Updates the current push subscription. Only the data part can be updated. To change fundamentals, a new subscription must be created instead.",
         "tags": [
@@ -6234,7 +6234,7 @@
         }
       },
       "delete": {
-        "operationId": "deleteSubscription",
+        "operationId": "deletePushSubscription",
         "summary": "Remove current subscription",
         "description": "Removes the current Web Push API subscription.",
         "tags": [
@@ -7716,7 +7716,7 @@
     },
     "/api/v1/streaming/health": {
       "get": {
-        "operationId": "getHealth",
+        "operationId": "getStreamingHealth",
         "summary": "Check if the server is alive",
         "description": "Verify that the streaming service is alive before connecting to it",
         "tags": [
@@ -7731,7 +7731,7 @@
     },
     "/api/v1/streaming/user": {
       "get": {
-        "operationId": "getUser",
+        "operationId": "getStreamingUser",
         "summary": "Watch your home timeline and notifications",
         "description": "Returns events that are relevant to the authorized user, i.e. home timeline and notifications",
         "tags": [
@@ -7771,7 +7771,7 @@
     },
     "/api/v1/streaming/public": {
       "get": {
-        "operationId": "getPublic",
+        "operationId": "getStreamingPublic",
         "summary": "Watch the federated timeline",
         "description": "Returns all public statuses",
         "tags": [
@@ -7864,7 +7864,7 @@
     },
     "/api/v1/streaming/hashtag": {
       "get": {
-        "operationId": "getHashtag",
+        "operationId": "getStreamingHashtag",
         "summary": "Watch the public timeline for a hashtag",
         "description": "Returns all public statuses for a particular hashtag",
         "tags": [
@@ -7926,7 +7926,7 @@
     },
     "/api/v1/streaming/list": {
       "get": {
-        "operationId": "getList",
+        "operationId": "getStreamingList",
         "summary": "Watch for list updates",
         "description": "Returns statuses for a list",
         "tags": [
@@ -7957,7 +7957,7 @@
     },
     "/api/v1/streaming/direct": {
       "get": {
-        "operationId": "getDirect",
+        "operationId": "getStreamingDirect",
         "summary": "Watch for direct messages",
         "description": "Returns events for received direct messages.",
         "tags": [
@@ -8281,7 +8281,7 @@
     },
     "/api/v1/timelines/public": {
       "get": {
-        "operationId": "getPublic",
+        "operationId": "getTimelinPublic",
         "summary": "View public timeline",
         "description": "View public statuses.",
         "tags": [
@@ -8516,7 +8516,7 @@
     },
     "/api/v1/timelines/home": {
       "get": {
-        "operationId": "getHome",
+        "operationId": "getTimelinHome",
         "summary": "View home timeline",
         "description": "View statuses from followed users and hashtags.",
         "tags": [
@@ -8584,7 +8584,7 @@
     },
     "/api/v1/timelines/link?url={url}": {
       "get": {
-        "operationId": "getLink?url={url}",
+        "operationId": "getTimelinLink?url={url}",
         "summary": "View link timeline",
         "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.",
         "tags": [
@@ -8747,7 +8747,7 @@
     },
     "/api/v1/timelines/direct": {
       "get": {
-        "operationId": "getDirect",
+        "operationId": "getTimelinDirect",
         "summary": "View direct timeline",
         "description": "View statuses with a \"direct\" privacy, from your account or in your notifications.",
         "tags": [
@@ -8816,7 +8816,7 @@
     },
     "/api/v1/trends/tags": {
       "get": {
-        "operationId": "getTags",
+        "operationId": "getTrendTags",
         "summary": "View trending tags",
         "description": "Tags that are being used more frequently within the past week.",
         "tags": [
@@ -8861,7 +8861,7 @@
     },
     "/api/v1/trends/statuses": {
       "get": {
-        "operationId": "getStatuses",
+        "operationId": "getTrendStatuses",
         "summary": "View trending statuses",
         "description": "Statuses that have been interacted with more than others.",
         "tags": [
@@ -8906,7 +8906,7 @@
     },
     "/api/v1/trends/links": {
       "get": {
-        "operationId": "getLinks",
+        "operationId": "getTrendLinks",
         "summary": "View trending links",
         "description": "Links that have been shared more than others.",
         "tags": [
