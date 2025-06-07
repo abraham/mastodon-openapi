@@ -46,11 +46,15 @@ describe('OpenAPIGenerator Response Types', () => {
       const operation = spec.paths['/api/v1/accounts/{id}']?.get;
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
-      
+
       // Should have content with application/json schema
       expect(operation?.responses['200'].content).toBeDefined();
-      expect(operation?.responses['200'].content?.['application/json']).toBeDefined();
-      expect(operation?.responses['200'].content?.['application/json'].schema).toEqual({
+      expect(
+        operation?.responses['200'].content?.['application/json']
+      ).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
         $ref: '#/components/schemas/Account',
       });
     });
@@ -79,8 +83,10 @@ describe('OpenAPIGenerator Response Types', () => {
               name: 'Find familiar followers',
               httpMethod: 'GET',
               endpoint: '/api/v1/accounts/familiar_followers',
-              description: 'Obtain a list of all accounts that follow a given account.',
-              returns: 'Array of [FamiliarFollowers]({{< relref "entities/FamiliarFollowers">}})',
+              description:
+                'Obtain a list of all accounts that follow a given account.',
+              returns:
+                'Array of [FamiliarFollowers]({{< relref "entities/FamiliarFollowers">}})',
             },
           ],
         },
@@ -91,11 +97,15 @@ describe('OpenAPIGenerator Response Types', () => {
       const operation = spec.paths['/api/v1/accounts/familiar_followers']?.get;
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
-      
+
       // Should have content with application/json schema
       expect(operation?.responses['200'].content).toBeDefined();
-      expect(operation?.responses['200'].content?.['application/json']).toBeDefined();
-      expect(operation?.responses['200'].content?.['application/json'].schema).toEqual({
+      expect(
+        operation?.responses['200'].content?.['application/json']
+      ).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
         type: 'array',
         items: {
           $ref: '#/components/schemas/FamiliarFollowers',
@@ -125,10 +135,12 @@ describe('OpenAPIGenerator Response Types', () => {
       const operation = spec.paths['/api/v1/accounts/test']?.get;
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
-      
+
       // Should fallback to description only
       expect(operation?.responses['200'].content).toBeUndefined();
-      expect(operation?.responses['200'].description).toBe('Some complex description without entity reference');
+      expect(operation?.responses['200'].description).toBe(
+        'Some complex description without entity reference'
+      );
     });
 
     it('should handle methods without returns field', () => {
@@ -153,7 +165,7 @@ describe('OpenAPIGenerator Response Types', () => {
       const operation = spec.paths['/api/v1/accounts/test']?.get;
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
-      
+
       // Should fallback to default description
       expect(operation?.responses['200'].content).toBeUndefined();
       expect(operation?.responses['200'].description).toBe('Success');

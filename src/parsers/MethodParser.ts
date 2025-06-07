@@ -185,13 +185,15 @@ class MethodParser {
   }
 
   private cleanReturnsField(text: string): string {
-    return text
-      .replace(/\*\*/g, '') // Remove bold markdown
-      .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
-      // For returns field, preserve entity names but remove the link part: [EntityName](link) -> [EntityName]
-      .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
-      .replace(/\\\s*$/, '') // Remove trailing backslashes
-      .trim();
+    return (
+      text
+        .replace(/\*\*/g, '') // Remove bold markdown
+        .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
+        // For returns field, preserve entity names but remove the link part: [EntityName](link) -> [EntityName]
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
+        .replace(/\\\s*$/, '') // Remove trailing backslashes
+        .trim()
+    );
   }
 }
 
