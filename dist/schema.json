@@ -1388,7 +1388,7 @@
     },
     "/api/v1/announcements/{id}/reactions/{name}": {
       "put": {
-        "operationId": "updateAnnouncementsByIdReactionsByName",
+        "operationId": "updateAnnouncementReaction",
         "summary": "Add a reaction to an announcement",
         "description": "React to an announcement with an emoji.",
         "tags": [
@@ -1426,7 +1426,7 @@
         ]
       },
       "delete": {
-        "operationId": "deleteAnnouncementsByIdReactionsByName",
+        "operationId": "deleteAnnouncementReaction",
         "summary": "Remove a reaction from an announcement",
         "description": "Undo a react emoji to an announcement.",
         "tags": [

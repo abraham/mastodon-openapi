@@ -356,7 +356,26 @@ class OpenAPIGenerator {
         const singular = this.toSingular(resource);
         return semanticMethod + this.toPascalCase(singular);
       } else {
-        // More complex path with parameters
+        // Check for common nested resource pattern: /resource1/{id}/resource2/{param}
+        if (
+          segments.length === 4 &&
+          segments[1].startsWith('{') &&
+          segments[1].endsWith('}') &&
+          segments[3].startsWith('{') &&
+          segments[3].endsWith('}')
+        ) {
+          // Pattern like /announcements/{id}/reactions/{name}
+          // Generate: updateAnnouncementReaction (not updateAnnouncementsByIdReactionsByName)
+          const resource1 = this.toSingular(segments[0]); // announcements -> announcement
+          const resource2 = this.toSingular(segments[2]); // reactions -> reaction
+          return (
+            semanticMethod +
+            this.toPascalCase(resource1) +
+            this.toPascalCase(resource2)
+          );
+        }
+
+        // More complex path with parameters - fallback to original logic
         const pathParts: string[] = [];
         for (let i = 0; i < segments.length; i++) {
           const segment = segments[i];

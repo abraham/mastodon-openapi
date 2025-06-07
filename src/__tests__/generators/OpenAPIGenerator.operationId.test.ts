@@ -209,6 +209,40 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       );
     });
 
+    it('should generate semantic operationIds for nested resource operations', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'announcements',
+          description: 'Announcement methods',
+          methods: [
+            {
+              name: 'Add reaction to announcement',
+              httpMethod: 'PUT',
+              endpoint: '/api/v1/announcements/:id/reactions/:name',
+              description: 'Add reaction to announcement',
+            },
+            {
+              name: 'Remove reaction from announcement',
+              httpMethod: 'DELETE',
+              endpoint: '/api/v1/announcements/:id/reactions/:name',
+              description: 'Remove reaction from announcement',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      expect(
+        spec.paths['/api/v1/announcements/{id}/reactions/{name}']?.put
+          ?.operationId
+      ).toBe('updateAnnouncementReaction');
+      expect(
+        spec.paths['/api/v1/announcements/{id}/reactions/{name}']?.delete
+          ?.operationId
+      ).toBe('deleteAnnouncementReaction');
+    });
+
     it('should ensure all operations have unique operationIds', () => {
       const testMethods: ApiMethodsFile[] = [
         {
