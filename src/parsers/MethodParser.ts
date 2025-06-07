@@ -114,7 +114,7 @@ class MethodParser {
     // Extract returns, oauth, version info
     const returnsMatch = section.match(/\*\*Returns:\*\*\s*([^\\\n]+)/);
     const returns = returnsMatch
-      ? this.cleanMarkdown(returnsMatch[1].trim())
+      ? this.cleanReturnsField(returnsMatch[1].trim())
       : undefined;
 
     const oauthMatch = section.match(/\*\*OAuth:\*\*\s*([^\\\n]+)/);
@@ -180,6 +180,16 @@ class MethodParser {
       .replace(/\*\*/g, '') // Remove bold markdown
       .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
       .replace(/\[[^\]]*\]\([^)]*\)/g, '') // Remove markdown links
+      .replace(/\\\s*$/, '') // Remove trailing backslashes
+      .trim();
+  }
+
+  private cleanReturnsField(text: string): string {
+    return text
+      .replace(/\*\*/g, '') // Remove bold markdown
+      .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
+      // For returns field, preserve entity names but remove the link part: [EntityName](link) -> [EntityName]
+      .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
       .replace(/\\\s*$/, '') // Remove trailing backslashes
       .trim();
   }
