@@ -153,7 +153,7 @@ GET /api/v1/empty HTTP/1.1
     // Test various markdown header levels
     const testCases = [
       '# 401: Unauthorized',
-      '## 401: Unauthorized', 
+      '## 401: Unauthorized',
       '### 401: Unauthorized',
       '#### 401: Unauthorized',
       '##### 401: Unauthorized',
