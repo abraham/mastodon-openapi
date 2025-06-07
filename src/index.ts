@@ -14,12 +14,16 @@ function main() {
 
   console.log('Enriching entities with JSON examples...');
   const enrichedEntities = parser.enrichEntitiesWithExamples(entities);
-  
+
   // Count how many entities were enriched
   const enrichedCount = enrichedEntities.reduce((count, entity, index) => {
-    return entity.attributes.length > entities[index].attributes.length ? count + 1 : count;
+    return entity.attributes.length > entities[index].attributes.length
+      ? count + 1
+      : count;
   }, 0);
-  console.log(`Enriched ${enrichedCount} entities with additional attributes from examples`);
+  console.log(
+    `Enriched ${enrichedCount} entities with additional attributes from examples`
+  );
 
   console.log('Parsing Mastodon API method files...');
 

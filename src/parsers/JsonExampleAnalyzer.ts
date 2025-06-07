@@ -11,7 +11,10 @@ class JsonExampleAnalyzer {
   /**
    * Analyzes a JSON object and extracts attribute information
    */
-  public analyzeJsonObject(jsonObj: any, path: string = ''): JsonAttributeInfo[] {
+  public analyzeJsonObject(
+    jsonObj: any,
+    path: string = ''
+  ): JsonAttributeInfo[] {
     const attributes: JsonAttributeInfo[] = [];
 
     if (typeof jsonObj !== 'object' || jsonObj === null) {
@@ -31,7 +34,10 @@ class JsonExampleAnalyzer {
           const firstItem = value[0];
           if (typeof firstItem === 'object' && firstItem !== null) {
             attribute.type = 'object';
-            attribute.nestedObject = this.analyzeJsonObject(firstItem, `${path}.${key}[0]`);
+            attribute.nestedObject = this.analyzeJsonObject(
+              firstItem,
+              `${path}.${key}[0]`
+            );
           } else {
             attribute.type = this.inferTypeFromValue(firstItem);
           }
@@ -42,7 +48,10 @@ class JsonExampleAnalyzer {
       // Handle nested objects
       else if (typeof value === 'object' && value !== null) {
         attribute.type = 'object';
-        attribute.nestedObject = this.analyzeJsonObject(value, `${path}.${key}`);
+        attribute.nestedObject = this.analyzeJsonObject(
+          value,
+          `${path}.${key}`
+        );
       }
 
       attributes.push(attribute);
@@ -54,7 +63,9 @@ class JsonExampleAnalyzer {
   /**
    * Converts JsonAttributeInfo to EntityAttribute format
    */
-  public convertToEntityAttributes(jsonAttributes: JsonAttributeInfo[]): EntityAttribute[] {
+  public convertToEntityAttributes(
+    jsonAttributes: JsonAttributeInfo[]
+  ): EntityAttribute[] {
     const entityAttributes: EntityAttribute[] = [];
 
     for (const jsonAttr of jsonAttributes) {
@@ -68,7 +79,9 @@ class JsonExampleAnalyzer {
 
       // For nested objects, also add their attributes with prefixed names
       if (jsonAttr.nestedObject) {
-        const nestedAttrs = this.convertToEntityAttributes(jsonAttr.nestedObject);
+        const nestedAttrs = this.convertToEntityAttributes(
+          jsonAttr.nestedObject
+        );
         for (const nestedAttr of nestedAttrs) {
           entityAttributes.push({
             ...nestedAttr,
@@ -90,7 +103,7 @@ class JsonExampleAnalyzer {
     exampleAttributes: EntityAttribute[]
   ): EntityAttribute[] {
     const merged = [...existingAttributes];
-    const existingNames = new Set(existingAttributes.map(attr => attr.name));
+    const existingNames = new Set(existingAttributes.map((attr) => attr.name));
 
     for (const exampleAttr of exampleAttributes) {
       if (!existingNames.has(exampleAttr.name)) {
@@ -109,9 +122,9 @@ class JsonExampleAnalyzer {
     if (value === null) {
       return 'null';
     }
-    
+
     const type = typeof value;
-    
+
     switch (type) {
       case 'boolean':
         return 'Boolean';
@@ -159,7 +172,7 @@ class JsonExampleAnalyzer {
       }
       return `Array of ${jsonAttr.type}`;
     }
-    
+
     return jsonAttr.type;
   }
 }

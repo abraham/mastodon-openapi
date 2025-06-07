@@ -83,39 +83,48 @@ class EntityParser {
     const methodFiles = methodParser.parseAllMethods();
     const analyzer = new JsonExampleAnalyzer();
 
-    const enrichedEntities = entities.map(entity => ({ ...entity, attributes: [...entity.attributes] })); // Deep clone
+    const enrichedEntities = entities.map((entity) => ({
+      ...entity,
+      attributes: [...entity.attributes],
+    })); // Deep clone
 
     for (const methodFile of methodFiles) {
       for (const method of methodFile.methods) {
         if (method.responses && method.returns) {
           // Extract entity names from the returns field
-          const entityNames = this.extractEntityNamesFromReturns(method.returns);
+          const entityNames = this.extractEntityNamesFromReturns(
+            method.returns
+          );
 
           for (const entityName of entityNames) {
             // Find successful responses (200-299 status codes)
-            const successfulResponses = method.responses.filter(
-              response => {
-                const statusCode = parseInt(response.statusCode);
-                return statusCode >= 200 && statusCode < 300 && response.parsedExample;
-              }
-            );
+            const successfulResponses = method.responses.filter((response) => {
+              const statusCode = parseInt(response.statusCode);
+              return (
+                statusCode >= 200 && statusCode < 300 && response.parsedExample
+              );
+            });
 
             for (const response of successfulResponses) {
               // Find the entity to enrich
               const entityToEnrich = enrichedEntities.find(
-                e => e.name.toLowerCase() === entityName.toLowerCase()
+                (e) => e.name.toLowerCase() === entityName.toLowerCase()
               );
 
               if (entityToEnrich && response.parsedExample) {
                 // Analyze the JSON example
-                const jsonAttributes = analyzer.analyzeJsonObject(response.parsedExample);
-                const exampleAttributes = analyzer.convertToEntityAttributes(jsonAttributes);
-                
-                // Merge with existing attributes
-                entityToEnrich.attributes = analyzer.mergeWithExistingAttributes(
-                  entityToEnrich.attributes,
-                  exampleAttributes
+                const jsonAttributes = analyzer.analyzeJsonObject(
+                  response.parsedExample
                 );
+                const exampleAttributes =
+                  analyzer.convertToEntityAttributes(jsonAttributes);
+
+                // Merge with existing attributes
+                entityToEnrich.attributes =
+                  analyzer.mergeWithExistingAttributes(
+                    entityToEnrich.attributes,
+                    exampleAttributes
+                  );
               }
             }
           }
@@ -397,18 +406,18 @@ class EntityParser {
    */
   private extractEntityNamesFromReturns(returns: string): string[] {
     const entityNames: string[] = [];
-    
+
     // Match patterns like [EntityName](link) or [EntityName]
     const entityRegex = /\[([^\]]+)\]/g;
     let match;
-    
+
     while ((match = entityRegex.exec(returns)) !== null) {
       const entityName = match[1];
-      
+
       // Handle special cases like "CredentialAccount" -> "Account"
       // Extract the base entity name if it has a prefix like "Credential"
       let baseEntityName = entityName;
-      
+
       // Check for common prefixes and extract the base name
       const prefixes = ['Credential', 'Admin_', 'Partial', 'V1_'];
       for (const prefix of prefixes) {
@@ -417,12 +426,12 @@ class EntityParser {
           break;
         }
       }
-      
+
       if (baseEntityName && !entityNames.includes(baseEntityName)) {
         entityNames.push(baseEntityName);
       }
     }
-    
+
     return entityNames;
   }
 }

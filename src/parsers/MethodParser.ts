@@ -492,7 +492,7 @@ class MethodParser {
       const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
       if (jsonMatch) {
         const jsonExample = jsonMatch[1].trim();
-        
+
         let parsedExample: any = undefined;
         try {
           parsedExample = JSON.parse(jsonExample);

@@ -76,7 +76,9 @@ Your credential verification will fail if the token is invalid or incorrect.
     expect(result?.responses?.length).toBe(2);
 
     // Check 200 response
-    const response200 = result?.responses?.find((r: ApiResponse) => r.statusCode === '200');
+    const response200 = result?.responses?.find(
+      (r: ApiResponse) => r.statusCode === '200'
+    );
     expect(response200).toBeDefined();
     expect(response200?.example).toContain('"id": "14715"');
     expect(response200?.parsedExample).toBeDefined();
@@ -84,10 +86,16 @@ Your credential verification will fail if the token is invalid or incorrect.
     expect(response200?.parsedExample.username).toBe('trwnh');
 
     // Check 401 response
-    const response401 = result?.responses?.find((r: ApiResponse) => r.statusCode === '401');
+    const response401 = result?.responses?.find(
+      (r: ApiResponse) => r.statusCode === '401'
+    );
     expect(response401).toBeDefined();
-    expect(response401?.example).toContain('"error": "The access token is invalid"');
-    expect(response401?.parsedExample?.error).toBe('The access token is invalid');
+    expect(response401?.example).toContain(
+      '"error": "The access token is invalid"'
+    );
+    expect(response401?.parsedExample?.error).toBe(
+      'The access token is invalid'
+    );
   });
 
   test('should handle methods without examples', () => {
