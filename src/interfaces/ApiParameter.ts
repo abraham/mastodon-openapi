@@ -4,6 +4,7 @@ interface ApiParameter {
   required?: boolean;
   type?: string;
   in?: string; // Location of parameter: 'query', 'formData', 'path', 'header'
+  enumValues?: string[];
 }
 
 export { ApiParameter };

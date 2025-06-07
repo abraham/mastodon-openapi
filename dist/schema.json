@@ -111,7 +111,8 @@
             "in": "query",
             "description": "Array of String. The IDs of the Accounts in the database.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. The IDs of the Accounts in the database."
             }
           }
         ]
@@ -311,7 +312,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -319,7 +321,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -327,7 +330,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -335,7 +339,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
           {
@@ -343,7 +348,8 @@
             "in": "query",
             "description": "Boolean. Filter out statuses without attachments.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Filter out statuses without attachments."
             }
           },
           {
@@ -351,7 +357,8 @@
             "in": "query",
             "description": "Boolean. Filter out statuses in reply to a different account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Filter out statuses in reply to a different account."
             }
           },
           {
@@ -359,7 +366,8 @@
             "in": "query",
             "description": "Boolean. Filter out boosts from the response.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Filter out boosts from the response."
             }
           },
           {
@@ -367,7 +375,8 @@
             "in": "query",
             "description": "Boolean. Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results."
             }
           },
           {
@@ -375,7 +384,8 @@
             "in": "query",
             "description": "String. Filter for statuses using a specific hashtag.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Filter for statuses using a specific hashtag."
             }
           },
           {
@@ -419,7 +429,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -427,7 +438,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -435,7 +447,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -443,7 +456,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -487,7 +501,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -495,7 +510,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -503,7 +519,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -511,7 +528,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -941,7 +959,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -949,7 +968,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -957,7 +977,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -1137,7 +1158,8 @@
             "in": "query",
             "description": "Array of String. Check relationships for the provided account IDs.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Check relationships for the provided account IDs."
             }
           },
           {
@@ -1145,7 +1167,8 @@
             "in": "query",
             "description": "Boolean. Whether relationships should be returned for suspended users, defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Whether relationships should be returned for suspended users, defaults to false."
             }
           }
         ]
@@ -1185,7 +1208,8 @@
             "in": "query",
             "description": "Array of String. Find familiar followers for the provided account IDs.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Find familiar followers for the provided account IDs."
             }
           }
         ]
@@ -1225,7 +1249,8 @@
             "in": "query",
             "description": "String. Search query for accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Search query for accounts."
             }
           },
           {
@@ -1233,7 +1258,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -1241,7 +1267,8 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Skip the first n results."
             }
           },
           {
@@ -1249,7 +1276,8 @@
             "in": "query",
             "description": "Boolean. Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address."
             }
           },
           {
@@ -1257,7 +1285,8 @@
             "in": "query",
             "description": "Boolean. Limit the search to users you are following. Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Limit the search to users you are following. Defaults to false."
             }
           }
         ]
@@ -1289,7 +1318,8 @@
             "in": "query",
             "description": "String. The username or Webfinger address to lookup.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The username or Webfinger address to lookup."
             }
           }
         ]
@@ -1547,7 +1577,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1555,7 +1586,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1563,7 +1595,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1571,7 +1604,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -1611,7 +1645,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1619,7 +1654,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1627,7 +1663,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1635,7 +1672,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]
@@ -1675,7 +1713,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1683,7 +1722,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1691,7 +1731,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1699,7 +1740,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations."
             }
           }
         ]
@@ -1828,7 +1870,8 @@
             "in": "query",
             "description": "Number. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Number. Skip the first n results."
             }
           },
           {
@@ -1836,7 +1879,8 @@
             "in": "query",
             "description": "Number. How many accounts to load. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Number. How many accounts to load. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -1844,7 +1888,8 @@
             "in": "query",
             "description": "String. Use `active` to sort by most recently posted statuses (default) or `new` to sort by most recently created profiles.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Use `active` to sort by most recently posted statuses (default) or `new` to sort by most recently created profiles."
             }
           },
           {
@@ -1852,7 +1897,8 @@
             "in": "query",
             "description": "Boolean. If true, returns only local accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. If true, returns only local accounts."
             }
           }
         ]
@@ -1882,7 +1928,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1890,7 +1937,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1898,7 +1946,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -1906,7 +1955,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks."
             }
           }
         ]
@@ -2056,7 +2106,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2064,7 +2115,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2072,7 +2124,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -2112,7 +2165,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2120,7 +2174,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2128,7 +2183,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2136,7 +2192,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]
@@ -2447,7 +2504,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2455,7 +2513,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2463,7 +2522,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -2579,7 +2639,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2587,7 +2648,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2595,7 +2657,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -2603,7 +2666,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 100 tags. Max 200 tags."
             }
           }
         ]
@@ -2640,7 +2704,8 @@
             "in": "query",
             "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -2648,7 +2713,8 @@
             "in": "query",
             "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -2656,7 +2722,8 @@
             "in": "query",
             "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -2664,7 +2731,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
             }
           },
           {
@@ -2672,7 +2740,8 @@
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to include in the result."
             }
           },
           {
@@ -2680,7 +2749,8 @@
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to exclude from the results."
             }
           },
           {
@@ -2688,7 +2758,8 @@
             "in": "query",
             "description": "String. Return only notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Return only notifications received from the specified account."
             }
           },
           {
@@ -2696,7 +2767,8 @@
             "in": "query",
             "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute."
             }
           },
           {
@@ -2704,7 +2776,8 @@
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency."
             }
           },
           {
@@ -2712,7 +2785,8 @@
             "in": "query",
             "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false."
             }
           }
         ]
@@ -2852,7 +2926,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
           {
@@ -2860,7 +2935,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should count towards unread notifications."
             }
           },
           {
@@ -2868,7 +2944,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications."
             }
           },
           {
@@ -2876,7 +2953,8 @@
             "in": "query",
             "description": "String. Only count unread notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Only count unread notifications received from the specified account."
             }
           },
           {
@@ -2884,7 +2962,8 @@
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead."
             }
           }
         ]
@@ -3354,7 +3433,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -3362,7 +3442,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -3370,7 +3451,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -3378,7 +3460,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination."
             }
           },
           {
@@ -3516,7 +3599,12 @@
             "in": "query",
             "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
+              "enum": [
+                "home",
+                "notifications"
+              ]
             }
           }
         ]
@@ -3788,7 +3876,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -3796,7 +3885,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -3804,7 +3894,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -3844,7 +3935,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -3852,7 +3944,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -3860,7 +3953,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -3868,7 +3962,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications."
             }
           },
           {
@@ -3876,7 +3971,8 @@
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to include in the result."
             }
           },
           {
@@ -3884,7 +3980,8 @@
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to exclude from the results."
             }
           },
           {
@@ -3892,7 +3989,8 @@
             "in": "query",
             "description": "String. Return only notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Return only notifications received from the specified account."
             }
           },
           {
@@ -3900,7 +3998,8 @@
             "in": "query",
             "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false."
             }
           }
         ]
@@ -4036,7 +4135,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
           {
@@ -4044,7 +4144,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should count towards unread notifications."
             }
           },
           {
@@ -4052,7 +4153,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications."
             }
           },
           {
@@ -4060,7 +4162,8 @@
             "in": "query",
             "description": "String. Only count unread notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Only count unread notifications received from the specified account."
             }
           }
         ]
@@ -4127,7 +4230,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -4135,7 +4239,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -4143,7 +4248,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -4151,7 +4257,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests."
             }
           }
         ]
@@ -4348,7 +4455,8 @@
             "in": "query",
             "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -4356,7 +4464,8 @@
             "in": "query",
             "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -4364,7 +4473,8 @@
             "in": "query",
             "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -4372,7 +4482,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
             }
           },
           {
@@ -4380,7 +4491,8 @@
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to include in the result."
             }
           },
           {
@@ -4388,7 +4500,8 @@
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types to exclude from the results."
             }
           },
           {
@@ -4396,7 +4509,8 @@
             "in": "query",
             "description": "String. Return only notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Return only notifications received from the specified account."
             }
           },
           {
@@ -4404,7 +4518,8 @@
             "in": "query",
             "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute."
             }
           },
           {
@@ -4412,7 +4527,8 @@
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead."
             }
           }
         ]
@@ -4511,7 +4627,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
           {
@@ -4519,7 +4636,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should count towards unread notifications."
             }
           },
           {
@@ -4527,7 +4645,8 @@
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications."
             }
           },
           {
@@ -4535,7 +4654,8 @@
             "in": "query",
             "description": "String. Only count unread notifications received from the specified account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Only count unread notifications received from the specified account."
             }
           },
           {
@@ -4543,7 +4663,8 @@
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead."
             }
           }
         ]
@@ -4568,7 +4689,8 @@
             "in": "query",
             "description": "String. Should be set equal to `code`.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Should be set equal to `code`."
             }
           },
           {
@@ -4576,7 +4698,8 @@
             "in": "query",
             "description": "String. The client ID, obtained during app registration.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The client ID, obtained during app registration."
             }
           },
           {
@@ -4584,7 +4707,8 @@
             "in": "query",
             "description": "String. Set a URI to redirect the user to. If this parameter is set to `urn:ietf:wg:oauth:2.0:oob` then the authorization code will be shown instead. Must match one of the `redirect_uris` declared during app registration.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Set a URI to redirect the user to. If this parameter is set to `urn:ietf:wg:oauth:2.0:oob` then the authorization code will be shown instead. Must match one of the `redirect_uris` declared during app registration."
             }
           },
           {
@@ -4592,7 +4716,8 @@
             "in": "query",
             "description": "String. List of requested , separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. List of requested , separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`."
             }
           },
           {
@@ -4600,7 +4725,8 @@
             "in": "query",
             "description": "String. Arbitrary value to passthrough to your server when the user authorizes or rejects the authorization request.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Arbitrary value to passthrough to your server when the user authorizes or rejects the authorization request."
             }
           },
           {
@@ -4608,7 +4734,8 @@
             "in": "query",
             "description": "String. The  for the authorization request.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The  for the authorization request."
             }
           },
           {
@@ -4616,7 +4743,8 @@
             "in": "query",
             "description": "String. Must be `S256`, as this is the only code challenge method that is supported by Mastodon for PKCE.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Must be `S256`, as this is the only code challenge method that is supported by Mastodon for PKCE."
             }
           },
           {
@@ -4624,7 +4752,8 @@
             "in": "query",
             "description": "Boolean. Forces the user to re-login, which is necessary for authorizing with multiple accounts from the same instance.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Forces the user to re-login, which is necessary for authorizing with multiple accounts from the same instance."
             }
           },
           {
@@ -4632,7 +4761,8 @@
             "in": "query",
             "description": "String. The ISO 639-1 two-letter language code to use while rendering the authorization form.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The ISO 639-1 two-letter language code to use while rendering the authorization form."
             }
           }
         ]
@@ -4777,7 +4907,8 @@
             "in": "query",
             "description": "String. URL of a status.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. URL of a status."
             }
           },
           {
@@ -4785,7 +4916,8 @@
             "in": "query",
             "description": "Number. Width of the iframe. Defaults to 400",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Number. Width of the iframe. Defaults to 400"
             }
           },
           {
@@ -4793,7 +4925,8 @@
             "in": "query",
             "description": "Number. Height of the iframe. Defaults to null",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Number. Height of the iframe. Defaults to null"
             }
           }
         ]
@@ -5175,7 +5308,11 @@
                   },
                   "category": {
                     "type": "string",
-                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide)."
+                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
+                    "enum": [
+                      "spam",
+                      "legal"
+                    ]
                   },
                   "rule_ids[]": {
                     "type": "string",
@@ -5222,7 +5359,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -5230,7 +5368,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -5238,7 +5377,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -5246,7 +5386,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]
@@ -5403,7 +5544,8 @@
             "in": "query",
             "description": "String. The search query.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The search query."
             }
           },
           {
@@ -5411,7 +5553,8 @@
             "in": "query",
             "description": "String. Specify whether to search for only `accounts`, `hashtags`, `statuses`",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Specify whether to search for only `accounts`, `hashtags`, `statuses`"
             }
           },
           {
@@ -5419,7 +5562,8 @@
             "in": "query",
             "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account,  is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account,  is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
             }
           },
           {
@@ -5427,7 +5571,8 @@
             "in": "query",
             "description": "Boolean. Only include accounts that the user is following? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Only include accounts that the user is following? Defaults to false."
             }
           },
           {
@@ -5435,7 +5580,8 @@
             "in": "query",
             "description": "String. If provided, will only return statuses authored by this account.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. If provided, will only return statuses authored by this account."
             }
           },
           {
@@ -5443,7 +5589,8 @@
             "in": "query",
             "description": "Boolean. Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags."
             }
           },
           {
@@ -5451,7 +5598,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -5459,7 +5607,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -5467,7 +5616,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category."
             }
           },
           {
@@ -5475,7 +5625,8 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Skip the first n results."
             }
           }
         ]
@@ -5553,7 +5704,13 @@
                   },
                   "visibility": {
                     "type": "string",
-                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`."
+                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
+                    "enum": [
+                      "public",
+                      "unlisted",
+                      "private",
+                      "direct"
+                    ]
                   },
                   "language": {
                     "type": "string",
@@ -5602,7 +5759,8 @@
             "in": "query",
             "description": "Array of String. The IDs of the Statuses in the database.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. The IDs of the Statuses in the database."
             }
           }
         ]
@@ -5675,7 +5833,8 @@
             "in": "query",
             "description": "Boolean. Whether to immediately delete the post's media attachments. If omitted or `false`, media attachments may be kept for approximately 24 hours so they can be re-used in a new post.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Whether to immediately delete the post's media attachments. If omitted or `false`, media attachments may be kept for approximately 24 hours so they can be re-used in a new post."
             }
           },
           {
@@ -5906,7 +6065,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -5914,7 +6074,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -5922,7 +6083,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -5971,7 +6133,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -5979,7 +6142,8 @@
             "in": "query",
             "description": "Internal parameter. Use HTTP `Link` header for pagination.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
             }
           },
           {
@@ -5987,7 +6151,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -6557,7 +6722,8 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
         ]
@@ -6587,7 +6753,8 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
         ]
@@ -6617,7 +6784,8 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
         ]
@@ -6647,7 +6815,8 @@
             "in": "query",
             "description": "String. The name of the hashtag to watch.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The name of the hashtag to watch."
             }
           }
         ]
@@ -6677,7 +6846,8 @@
             "in": "query",
             "description": "String. The name of the hashtag to watch.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The name of the hashtag to watch."
             }
           }
         ]
@@ -6707,7 +6877,8 @@
             "in": "query",
             "description": "String. The ID of the list to watch.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The ID of the list to watch."
             }
           }
         ]
@@ -6767,7 +6938,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -6797,7 +6969,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
           {
@@ -7036,7 +7209,8 @@
             "in": "query",
             "description": "Boolean. Show only local statuses? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Show only local statuses? Defaults to false."
             }
           },
           {
@@ -7044,7 +7218,8 @@
             "in": "query",
             "description": "Boolean. Show only remote statuses? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Show only remote statuses? Defaults to false."
             }
           },
           {
@@ -7052,7 +7227,8 @@
             "in": "query",
             "description": "Boolean. Show only statuses with media attached? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Show only statuses with media attached? Defaults to false."
             }
           },
           {
@@ -7060,7 +7236,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -7068,7 +7245,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -7076,7 +7254,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -7084,7 +7263,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]
@@ -7124,7 +7304,8 @@
             "in": "query",
             "description": "Array of String. Return statuses that contain any of these additional tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Return statuses that contain any of these additional tags."
             }
           },
           {
@@ -7132,7 +7313,8 @@
             "in": "query",
             "description": "Array of String. Return statuses that contain all of these additional tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Return statuses that contain all of these additional tags."
             }
           },
           {
@@ -7140,7 +7322,8 @@
             "in": "query",
             "description": "Array of String. Return statuses that contain none of these additional tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Array of String. Return statuses that contain none of these additional tags."
             }
           },
           {
@@ -7148,7 +7331,8 @@
             "in": "query",
             "description": "Boolean. Return only local statuses? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Return only local statuses? Defaults to false."
             }
           },
           {
@@ -7156,7 +7340,8 @@
             "in": "query",
             "description": "Boolean. Return only remote statuses? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Return only remote statuses? Defaults to false."
             }
           },
           {
@@ -7164,7 +7349,8 @@
             "in": "query",
             "description": "Boolean. Return only statuses with media attachments? Defaults to false.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Boolean. Return only statuses with media attachments? Defaults to false."
             }
           },
           {
@@ -7172,7 +7358,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -7180,7 +7367,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -7188,7 +7376,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -7196,7 +7385,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
           {
@@ -7245,7 +7435,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -7253,7 +7444,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -7261,7 +7453,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -7269,7 +7462,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]
@@ -7309,7 +7503,8 @@
             "in": "query",
             "description": "String. The URL of the trending article.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. The URL of the trending article."
             }
           },
           {
@@ -7317,7 +7512,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -7325,7 +7521,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -7333,7 +7530,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -7341,7 +7539,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
           {
@@ -7390,7 +7589,8 @@
             "in": "query",
             "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
             }
           },
           {
@@ -7398,7 +7598,8 @@
             "in": "query",
             "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
             }
           },
           {
@@ -7406,7 +7607,8 @@
             "in": "query",
             "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
             }
           },
           {
@@ -7414,7 +7616,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
           {
@@ -7458,7 +7661,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 10 tags. Max 20 tags.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 10 tags. Max 20 tags."
             }
           },
           {
@@ -7466,7 +7670,8 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Skip the first n results."
             }
           }
         ]
@@ -7501,7 +7706,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
           {
@@ -7509,7 +7715,8 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Skip the first n results."
             }
           }
         ]
@@ -7544,7 +7751,8 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 10 links. Max 20 links.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 10 links. Max 20 links."
             }
           },
           {
@@ -7552,7 +7760,8 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string"
+              "type": "string",
+              "description": "Integer. Skip the first n results."
             }
           }
         ]
