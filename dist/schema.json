@@ -2039,7 +2039,14 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]"
+            "description": "[GroupedNotificationsResults]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedNotificationsResults"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -2059,7 +2066,14 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]"
+            "description": "[GroupedNotificationsResults]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedNotificationsResults"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3351,7 +3365,14 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]"
+            "description": "[GroupedNotificationsResults]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedNotificationsResults"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -3371,7 +3392,14 @@
         ],
         "responses": {
           "200": {
-            "description": "[GroupedNotificationsResults]"
+            "description": "[GroupedNotificationsResults]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GroupedNotificationsResults"
+                }
+              }
+            }
           }
         },
         "security": [
@@ -9660,6 +9688,167 @@
           "alerts[update]",
           "alerts[admin.sign_up]",
           "alerts[admin.report]"
+        ]
+      },
+      "GroupedNotificationsResults": {
+        "type": "object",
+        "description": "### Attributes",
+        "properties": {
+          "accounts": {
+            "description": "Accounts referenced by grouped notifications.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "partial_accounts": {
+            "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartialAccountWithAvatar"
+            }
+          },
+          "statuses": {
+            "description": "Statuses referenced by grouped notifications.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Status"
+            }
+          },
+          "notification_groups": {
+            "description": "The grouped notifications themselves.",
+            "$ref": "#/components/schemas/NotificationGroup"
+          }
+        },
+        "required": [
+          "accounts",
+          "statuses",
+          "notification_groups"
+        ]
+      },
+      "PartialAccountWithAvatar": {
+        "type": "object",
+        "description": "These are stripped-down versions of [Account]({{< relref \"entities/Account\" >}}) that only contain what is necessary to display a list of avatars, as well as a few other useful properties. The aim is to cut back on expensive server-side serialization and reduce the network payload size of notification groups.",
+        "properties": {
+          "id": {
+            "description": "The account id.",
+            "type": "string"
+          },
+          "acct": {
+            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": "string",
+            "format": "uri"
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile.",
+            "type": "string",
+            "format": "uri"
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": "boolean"
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "acct",
+          "url",
+          "avatar",
+          "avatar_static",
+          "locked",
+          "bot"
+        ]
+      },
+      "NotificationGroup": {
+        "type": "object",
+        "description": "### Attributes",
+        "properties": {
+          "group_key": {
+            "description": "Group key identifying the grouped notifications. Should be treated as an opaque value.",
+            "type": "string"
+          },
+          "notifications_count": {
+            "description": "Total number of individual notifications that are part of this notification group.",
+            "type": "integer"
+          },
+          "type": {
+            "description": "The type of event that resulted in the notifications in this group.",
+            "type": "string",
+            "enum": [
+              "mention",
+              "status",
+              "reblog",
+              "follow",
+              "follow_request",
+              "favourite",
+              "poll",
+              "update",
+              "admin.sign_up",
+              "admin.report",
+              "severed_relationships",
+              "moderation_warning"
+            ]
+          },
+          "most_recent_notification_id": {
+            "description": "ID of the most recent notification in the group.",
+            "type": "string"
+          },
+          "page_min_id": {
+            "description": "ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "type": "string"
+          },
+          "page_max_id": {
+            "description": "ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "type": "string"
+          },
+          "latest_page_notification_at": {
+            "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "sample_account_ids": {
+            "description": "IDs of some of the accounts who most recently triggered notifications in this group.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "status_id": {
+            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, or `update`.",
+            "type": "string"
+          },
+          "report": {
+            "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
+            "$ref": "#/components/schemas/Report"
+          },
+          "event": {
+            "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
+            "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+          },
+          "moderation_warning": {
+            "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
+            "$ref": "#/components/schemas/AccountWarning"
+          }
+        },
+        "required": [
+          "group_key",
+          "notifications_count",
+          "type",
+          "most_recent_notification_id",
+          "sample_account_ids"
         ]
       }
     },

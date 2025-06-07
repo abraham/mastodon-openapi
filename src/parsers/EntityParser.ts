@@ -6,37 +6,113 @@ import { EntityAttribute } from '../interfaces/EntityAttribute';
 
 class EntityParser {
   private entitiesPath: string;
+  private methodsPath: string;
 
   constructor() {
     this.entitiesPath = path.join(
       __dirname,
       '../../mastodon-documentation/content/en/entities'
     );
+    this.methodsPath = path.join(
+      __dirname,
+      '../../mastodon-documentation/content/en/methods'
+    );
   }
 
   public parseAllEntities(): EntityClass[] {
     const entities: EntityClass[] = [];
 
-    if (!fs.existsSync(this.entitiesPath)) {
+    // Parse entities from dedicated entity files
+    if (fs.existsSync(this.entitiesPath)) {
+      const files = fs
+        .readdirSync(this.entitiesPath)
+        .filter((file) => file.endsWith('.md'));
+
+      for (const file of files) {
+        try {
+          const fileEntities = this.parseEntityFile(
+            path.join(this.entitiesPath, file)
+          );
+          if (fileEntities) {
+            entities.push(...fileEntities);
+          }
+        } catch (error) {
+          console.error(`Error parsing entity file ${file}:`, error);
+        }
+      }
+    } else {
       console.error(`Entities path does not exist: ${this.entitiesPath}`);
-      return entities;
     }
 
-    const files = fs
-      .readdirSync(this.entitiesPath)
-      .filter((file) => file.endsWith('.md'));
+    // Parse entities from method files
+    if (fs.existsSync(this.methodsPath)) {
+      const methodFiles = fs
+        .readdirSync(this.methodsPath)
+        .filter((file) => file.endsWith('.md'));
 
-    for (const file of files) {
-      try {
-        const fileEntities = this.parseEntityFile(
-          path.join(this.entitiesPath, file)
-        );
-        if (fileEntities) {
-          entities.push(...fileEntities);
+      for (const file of methodFiles) {
+        try {
+          const methodEntities = this.parseEntitiesFromMethodFile(
+            path.join(this.methodsPath, file)
+          );
+          if (methodEntities.length > 0) {
+            entities.push(...methodEntities);
+          }
+        } catch (error) {
+          console.error(
+            `Error parsing entities from method file ${file}:`,
+            error
+          );
         }
-      } catch (error) {
-        console.error(`Error parsing file ${file}:`, error);
       }
+    } else {
+      console.error(`Methods path does not exist: ${this.methodsPath}`);
+    }
+
+    return entities;
+  }
+
+  private parseEntitiesFromMethodFile(filePath: string): EntityClass[] {
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const parsed = matter(content);
+
+    const entities: EntityClass[] = [];
+
+    // Look for entity definitions in the format: ## `EntityName` entity {#EntityName}
+    const entityRegex = /## `([^`]+)` entity \{#([^}]+)\}/g;
+
+    let match;
+    while ((match = entityRegex.exec(parsed.content)) !== null) {
+      const [fullMatch, entityName, entityId] = match;
+
+      // Find the content for this entity (from this heading to the next ## heading or end of file)
+      const startIndex = match.index + fullMatch.length;
+      const nextSectionMatch = parsed.content
+        .substring(startIndex)
+        .match(/\n## /);
+      const endIndex = nextSectionMatch
+        ? startIndex + (nextSectionMatch.index || 0)
+        : parsed.content.length;
+
+      const entityContent = parsed.content.substring(startIndex, endIndex);
+
+      // Parse attributes for this entity
+      const attributes = this.parseMethodEntityAttributes(entityContent);
+
+      // Extract description from the content or use a default
+      let description = `Entity defined in method documentation`;
+
+      // Try to find a description in the content following the heading
+      const descMatch = entityContent.match(/\n\n([^\n]+)/);
+      if (descMatch) {
+        description = descMatch[1].trim();
+      }
+
+      entities.push({
+        name: entityName.trim(),
+        description,
+        attributes,
+      });
     }
 
     return entities;
@@ -165,6 +241,54 @@ class EntityParser {
       // Extract enum values if this is an enumerable type
       if (cleanedType.toLowerCase().includes('enumerable')) {
         const enumValues = this.extractEnumValues(additionalContent);
+        if (enumValues.length > 0) {
+          attribute.enumValues = enumValues;
+        }
+      }
+
+      attributes.push(attribute);
+    }
+
+    return attributes;
+  }
+
+  private parseMethodEntityAttributes(content: string): EntityAttribute[] {
+    const attributes: EntityAttribute[] = [];
+
+    // Match each attribute definition in method entity format
+    // Method entities use #### `attribute_name` instead of ### `attribute_name`
+    // The format is: #### `attribute_name` {{%optional%}} {#id}
+    // Then: **Description:** text\
+    // Then: **Type:** type text\
+    // Then potentially some enum values or additional content
+    // Then: **Version history:**\
+    const attributeRegex =
+      /#### `([^`]+)`[^{]*?(?:\{\{%([^%]+)%\}\})?\s*(?:\{#[^}]+\})?\s*\n\n\*\*Description:\*\*\s*([^\n]+?)\\?\s*\n\*\*Type:\*\*\s*([^\n]+?)\\?\s*\n(.*?)\*\*Version history:\*\*[^]*?(?=\n#### |$)/gs;
+
+    let match;
+    while ((match = attributeRegex.exec(content)) !== null) {
+      const [, name, modifiers, description, type, enumContent] = match;
+
+      const cleanedType = this.cleanType(type.trim());
+      const attribute: EntityAttribute = {
+        name: name.trim(),
+        type: cleanedType,
+        description: this.cleanDescription(description.trim()),
+      };
+
+      // Check for optional/deprecated modifiers
+      if (modifiers) {
+        if (modifiers.includes('optional')) {
+          attribute.optional = true;
+        }
+        if (modifiers.includes('deprecated')) {
+          attribute.deprecated = true;
+        }
+      }
+
+      // Check for enum values in the content between Type and Version history
+      if (enumContent && enumContent.trim()) {
+        const enumValues = this.extractEnumValues(enumContent);
         if (enumValues.length > 0) {
           attribute.enumValues = enumValues;
         }
