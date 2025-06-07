@@ -45,7 +45,9 @@ describe('EntityParser - Specific Missing Attributes', () => {
 
     // Now check if parser actually captures this attribute
     const entities = parser.parseAllEntities();
-    const webPushEntity = entities.find((e) => e.name === 'WebPushSubscription');
+    const webPushEntity = entities.find(
+      (e) => e.name === 'WebPushSubscription'
+    );
     const standardAttr = webPushEntity?.attributes.find(
       (a) => a.name === 'standard'
     );

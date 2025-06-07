@@ -9,7 +9,9 @@ describe('EntityParser - Audit for Missing Attributes', () => {
 
   test('should parse WebPushSubscription attributes including sub-attributes', () => {
     const entities = parser.parseAllEntities();
-    const webPushEntity = entities.find((e) => e.name === 'WebPushSubscription');
+    const webPushEntity = entities.find(
+      (e) => e.name === 'WebPushSubscription'
+    );
 
     expect(webPushEntity).toBeDefined();
     if (webPushEntity) {
@@ -19,9 +21,9 @@ describe('EntityParser - Audit for Missing Attributes', () => {
       });
 
       // Should have the main attributes
-      expect(
-        webPushEntity.attributes.some((a) => a.name === 'standard')
-      ).toBe(true);
+      expect(webPushEntity.attributes.some((a) => a.name === 'standard')).toBe(
+        true
+      );
       expect(
         webPushEntity.attributes.some((a) => a.name === 'server_key')
       ).toBe(true);
@@ -43,7 +45,9 @@ describe('EntityParser - Audit for Missing Attributes', () => {
 
   test('should parse Admin::Measure correctly without example sections', () => {
     const entities = parser.parseAllEntities();
-    const adminMeasureEntity = entities.find((e) => e.name === 'Admin::Measure');
+    const adminMeasureEntity = entities.find(
+      (e) => e.name === 'Admin::Measure'
+    );
 
     expect(adminMeasureEntity).toBeDefined();
     if (adminMeasureEntity) {
@@ -53,12 +57,12 @@ describe('EntityParser - Audit for Missing Attributes', () => {
       });
 
       // Should have the main attributes but NOT the example section headers
-      expect(
-        adminMeasureEntity.attributes.some((a) => a.name === 'key')
-      ).toBe(true);
-      expect(
-        adminMeasureEntity.attributes.some((a) => a.name === 'unit')
-      ).toBe(true);
+      expect(adminMeasureEntity.attributes.some((a) => a.name === 'key')).toBe(
+        true
+      );
+      expect(adminMeasureEntity.attributes.some((a) => a.name === 'unit')).toBe(
+        true
+      );
 
       // Should NOT have example section headers like 'active_users', 'new_users'
       const exampleHeaders = adminMeasureEntity.attributes.filter((a) =>

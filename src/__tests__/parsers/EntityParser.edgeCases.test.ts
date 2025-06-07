@@ -11,29 +11,33 @@ describe('EntityParser - Edge Cases and Error Handling', () => {
 
   test('should identify potential edge cases in entity parsing', () => {
     const entities = parser.parseAllEntities();
-    
+
     // Check for entities with very few attributes (potential parsing issues)
-    const sparseEntities = entities.filter(e => e.attributes.length <= 1);
+    const sparseEntities = entities.filter((e) => e.attributes.length <= 1);
     console.log('Entities with 1 or fewer attributes:');
-    sparseEntities.forEach(entity => {
+    sparseEntities.forEach((entity) => {
       console.log(`  - ${entity.name}: ${entity.attributes.length} attributes`);
       if (entity.attributes.length === 1) {
-        console.log(`    Attribute: ${entity.attributes[0].name} (${entity.attributes[0].type})`);
+        console.log(
+          `    Attribute: ${entity.attributes[0].name} (${entity.attributes[0].type})`
+        );
       }
     });
 
     // Check for entities with duplicate attribute names (parsing bug indicator)
-    const entitiesWithDuplicates = entities.filter(entity => {
-      const names = entity.attributes.map(a => a.name);
+    const entitiesWithDuplicates = entities.filter((entity) => {
+      const names = entity.attributes.map((a) => a.name);
       const uniqueNames = new Set(names);
       return names.length !== uniqueNames.size;
     });
 
     if (entitiesWithDuplicates.length > 0) {
       console.log('\nEntities with duplicate attributes:');
-      entitiesWithDuplicates.forEach(entity => {
-        const names = entity.attributes.map(a => a.name);
-        const duplicates = names.filter((name, index) => names.indexOf(name) !== index);
+      entitiesWithDuplicates.forEach((entity) => {
+        const names = entity.attributes.map((a) => a.name);
+        const duplicates = names.filter(
+          (name, index) => names.indexOf(name) !== index
+        );
         console.log(`  - ${entity.name}: ${duplicates.join(', ')}`);
       });
     } else {
@@ -42,10 +46,14 @@ describe('EntityParser - Edge Cases and Error Handling', () => {
 
     // Check for entities with unusual attribute names (might indicate parsing errors)
     const suspiciousAttributes: string[] = [];
-    entities.forEach(entity => {
-      entity.attributes.forEach(attr => {
+    entities.forEach((entity) => {
+      entity.attributes.forEach((attr) => {
         // Look for attributes that might be malformed
-        if (attr.name.includes('**') || attr.name.includes('Description') || attr.name.includes('Type')) {
+        if (
+          attr.name.includes('**') ||
+          attr.name.includes('Description') ||
+          attr.name.includes('Type')
+        ) {
           suspiciousAttributes.push(`${entity.name}.${attr.name}`);
         }
       });
@@ -53,7 +61,7 @@ describe('EntityParser - Edge Cases and Error Handling', () => {
 
     if (suspiciousAttributes.length > 0) {
       console.log('\nSuspicious attribute names:');
-      suspiciousAttributes.forEach(attr => console.log(`  - ${attr}`));
+      suspiciousAttributes.forEach((attr) => console.log(`  - ${attr}`));
     } else {
       console.log('\nNo suspicious attribute names found.');
     }
@@ -63,18 +71,21 @@ describe('EntityParser - Edge Cases and Error Handling', () => {
 
   test('should check for missing enum values in enumerable types', () => {
     const entities = parser.parseAllEntities();
-    
+
     const enumerableWithoutValues: string[] = [];
-    entities.forEach(entity => {
-      entity.attributes.forEach(attr => {
-        if (attr.type.toLowerCase().includes('enumerable') && (!attr.enumValues || attr.enumValues.length === 0)) {
+    entities.forEach((entity) => {
+      entity.attributes.forEach((attr) => {
+        if (
+          attr.type.toLowerCase().includes('enumerable') &&
+          (!attr.enumValues || attr.enumValues.length === 0)
+        ) {
           enumerableWithoutValues.push(`${entity.name}.${attr.name}`);
         }
       });
     });
 
     console.log('Enumerable attributes without enum values:');
-    enumerableWithoutValues.forEach(attr => console.log(`  - ${attr}`));
+    enumerableWithoutValues.forEach((attr) => console.log(`  - ${attr}`));
 
     // This is informational - some enumerable types might not have explicit values in the docs
   });
@@ -86,22 +97,29 @@ describe('EntityParser - Edge Cases and Error Handling', () => {
     );
 
     let totalIssues = 0;
-    const files = fs.readdirSync(entitiesPath).filter(file => file.endsWith('.md')).slice(0, 10);
+    const files = fs
+      .readdirSync(entitiesPath)
+      .filter((file) => file.endsWith('.md'))
+      .slice(0, 10);
 
     for (const file of files) {
       const filePath = path.join(entitiesPath, file);
       const content = fs.readFileSync(filePath, 'utf-8');
 
       // Look for attribute patterns that might not be parsed
-      const attributeHeaders = content.match(/^### `[^`]+`/gm) || [];
-      const subAttributeHeaders = content.match(/^#### `[^`]+`/gm) || [];
-      
+      // const attributeHeaders = content.match(/^### `[^`]+`/gm) || [];
+      // const subAttributeHeaders = content.match(/^#### `[^`]+`/gm) || [];
+
       // Look for malformed headers
       const malformedHeaders = content.match(/^### [^`].*$/gm) || [];
-      
+
       if (malformedHeaders.length > 0) {
-        console.log(`${file}: Found ${malformedHeaders.length} potentially malformed headers`);
-        malformedHeaders.slice(0, 3).forEach(header => console.log(`  - ${header}`));
+        console.log(
+          `${file}: Found ${malformedHeaders.length} potentially malformed headers`
+        );
+        malformedHeaders
+          .slice(0, 3)
+          .forEach((header) => console.log(`  - ${header}`));
         totalIssues += malformedHeaders.length;
       }
     }
