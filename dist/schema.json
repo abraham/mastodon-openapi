@@ -948,6 +948,84 @@
         ]
       }
     },
+    "/api/v1/accounts/{id}/pin": {
+      "post": {
+        "operationId": "postAccountsByIdPin",
+        "summary": "Feature account on your profile",
+        "description": "Add the given account to the user's featured profiles. (Featured profiles are currently shown on the user's own public profile.)",
+        "tags": [
+          "accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Relationship]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Relationship"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/{id}/unpin": {
+      "post": {
+        "operationId": "postAccountsByIdUnpin",
+        "summary": "Unfeature account from profile",
+        "description": "Remove the given account from the user's featured profiles.",
+        "tags": [
+          "accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Relationship]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Relationship"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/accounts/{id}/endorsements": {
       "get": {
         "operationId": "getAccountsByIdEndorsements",
@@ -1346,6 +1424,48 @@
         ]
       }
     },
+    "/api/v1/accounts/{id}/identity_proofs": {
+      "get": {
+        "operationId": "getAccountsByIdIdentityProofs",
+        "summary": "Identity proofs",
+        "description": "",
+        "tags": [
+          "accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [IdentityProof]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IdentityProof"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/announcements": {
       "get": {
         "operationId": "getAnnouncements",
@@ -1500,36 +1620,6 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CredentialApplication"
-                }
-              }
-            }
-          }
-        },
-        "parameters": [],
-        "requestBody": {
-          "description": "JSON request body parameters",
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "client_name": {
-                    "type": "string",
-                    "description": "String. A name for your application"
-                  },
-                  "redirect_uris": {
-                    "type": "string",
-                    "description": "String or Array of Strings. Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter."
-                  },
-                  "scopes": {
-                    "type": "string",
-                    "description": "String. Space separated list of scopes. If none is provided, defaults to `read`. See  for a list of possible scopes."
-                  },
-                  "website": {
-                    "type": "string",
-                    "description": "String. A URL to the homepage of your app"
-                  }
                 }
               }
             }
@@ -2357,7 +2447,7 @@
     "/api/v2/filters": {
       "get": {
         "operationId": "getFiltersV2",
-        "summary": "Server-side (v2) methods",
+        "summary": "View all filters",
         "description": "Obtain a list of all filter groups for the current user.",
         "tags": [
           "filters"
@@ -2372,6 +2462,31 @@
                   "items": {
                     "$ref": "#/components/schemas/Filter"
                   }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createFilterV2",
+        "summary": "Create a filter",
+        "description": "Create a filter group with the given parameters.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filter"
                 }
               }
             }
@@ -2433,11 +2548,552 @@
         }
       }
     },
+    "/api/v2/filters/{id}": {
+      "get": {
+        "operationId": "getFilterV2",
+        "summary": "View a specific filter",
+        "description": "Obtain a single filter group owned by the current user.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filter"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "updateFilterV2",
+        "summary": "Update a filter",
+        "description": "Update a filter group with the given parameters.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Filter"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "String. The name of the filter group."
+                  },
+                  "context": {
+                    "type": "array",
+                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "filter_action": {
+                    "type": "string",
+                    "description": "String. The policy to be applied when the filter is matched. Specify `warn`, `hide` or `blur`."
+                  },
+                  "expires_in": {
+                    "type": "string",
+                    "description": "Integer. How many seconds from now should the filter expire?"
+                  },
+                  "keywords_attributes[][keyword]": {
+                    "type": "string",
+                    "description": "String. A keyword to be added to the newly-created filter group."
+                  },
+                  "keywords_attributes[][whole_word]": {
+                    "type": "string",
+                    "description": "Boolean. Whether the keyword should consider word boundaries."
+                  },
+                  "keywords_attributes[][id]": {
+                    "type": "string",
+                    "description": "String. Provide the ID of an existing keyword to modify it, instead of creating a new keyword."
+                  },
+                  "keywords_attributes[][_destroy]": {
+                    "type": "string",
+                    "description": "Boolean. If true, will remove the keyword with the given ID."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteFilterV2",
+        "summary": "Delete a filter",
+        "description": "Delete a filter group with the given id.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty"
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/filters/{filter_id}/keywords": {
+      "get": {
+        "operationId": "getFiltersByFilterIdKeywordsV2",
+        "summary": "View keywords added to a filter",
+        "description": "List all keywords attached to the current filter group.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [FilterKeyword]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilterKeyword"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filter_id",
+            "in": "path",
+            "required": true,
+            "description": "filter_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "postFiltersByFilterIdKeywordsV2",
+        "summary": "Add a keyword to a filter",
+        "description": "Add the given keyword to the specified filter group",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterKeyword]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterKeyword"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filter_id",
+            "in": "path",
+            "required": true,
+            "description": "filter_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "String. The keyword to be added to the filter group."
+                  },
+                  "whole_word": {
+                    "type": "string",
+                    "description": "Boolean. Whether the keyword should consider word boundaries."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/filters/keywords/{id}": {
+      "get": {
+        "operationId": "getFiltersKeywordsByIdV2",
+        "summary": "View a single keyword",
+        "description": "Get one filter keyword by the given id.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterKeyword]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterKeyword"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "updateFiltersKeywordsByIdV2",
+        "summary": "Edit a keyword within a filter",
+        "description": "Update the given filter keyword.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterKeyword]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterKeyword"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "keyword": {
+                    "type": "string",
+                    "description": "String. The keyword to be added to the filter group."
+                  },
+                  "whole_word": {
+                    "type": "string",
+                    "description": "Boolean. Whether the keyword should consider word boundaries."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteFiltersKeywordsByIdV2",
+        "summary": "Remove keywords from a filter",
+        "description": "Deletes the given filter keyword.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty"
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v2/filters/{filter_id}/statuses": {
+      "get": {
+        "operationId": "getFiltersByFilterIdStatusesV2",
+        "summary": "View all status filters",
+        "description": "Obtain a list of all status filters within this filter group.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [FilterStatus]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/FilterStatus"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filter_id",
+            "in": "path",
+            "required": true,
+            "description": "filter_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "post": {
+        "operationId": "postFiltersByFilterIdStatusesV2",
+        "summary": "Add a status to a filter group",
+        "description": "Add a status filter to the current filter group.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterStatus]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterStatus"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "filter_id",
+            "in": "path",
+            "required": true,
+            "description": "filter_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status_id": {
+                    "type": "string",
+                    "description": "String. The status ID to be added to the filter group."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v2/filters/statuses/{id}": {
+      "get": {
+        "operationId": "getFiltersStatusesByIdV2",
+        "summary": "View a single status filter",
+        "description": "Obtain a single status filter.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterStatus]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterStatus"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "delete": {
+        "operationId": "deleteFiltersStatusesByIdV2",
+        "summary": "Remove a status from a filter group",
+        "description": "Remove a status filter from the current filter group.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[FilterStatus]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FilterStatus"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/filters": {
       "get": {
         "operationId": "getFilters",
-        "summary": "Client-side (v1) methods",
-        "description": "Replaces a filter's parameters in-place.",
+        "summary": "View your filters",
+        "description": "",
         "tags": [
           "filters"
         ],
@@ -2453,6 +3109,33 @@
             }
           }
         },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ]
+      },
+      "post": {
+        "operationId": "createFilter",
+        "summary": "Create a filter",
+        "description": "",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[V1::Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1_Filter"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
         "security": [
           {
             "OAuth2": []
@@ -2495,6 +3178,148 @@
             }
           }
         }
+      }
+    },
+    "/api/v1/filters/{id}": {
+      "get": {
+        "operationId": "getFilter",
+        "summary": "View a single filter",
+        "description": "",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[V1::Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1_Filter"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "put": {
+        "operationId": "updateFilter",
+        "summary": "Update a filter",
+        "description": "Replaces a filter's parameters in-place.",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "[V1::Filter]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1_Filter"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phrase": {
+                    "type": "string",
+                    "description": "String. The text to be filtered."
+                  },
+                  "context": {
+                    "type": "array",
+                    "description": "Array of String. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "irreversible": {
+                    "type": "string",
+                    "description": "Boolean. Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
+                  },
+                  "whole_word": {
+                    "type": "string",
+                    "description": "Boolean. Should the filter consider word boundaries? Defaults to false."
+                  },
+                  "expires_in": {
+                    "type": "string",
+                    "description": "Integer. Number of seconds from now that the filter should expire. Otherwise, `null` for a filter that doesn't expire."
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteFilter",
+        "summary": "Remove a filter",
+        "description": "",
+        "tags": [
+          "filters"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty"
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/follow_requests": {
@@ -3235,6 +4060,29 @@
         }
       }
     },
+    "/api/v1/instance": {
+      "get": {
+        "operationId": "getInstance",
+        "summary": "View server information (v1)",
+        "description": "Obtain general information about the server. See [api/v2/instance]({{< relref \"methods/Instance#v2\">}}) instead.",
+        "tags": [
+          "instance"
+        ],
+        "responses": {
+          "200": {
+            "description": "[V1::Instance]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/V1_Instance"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true
+      }
+    },
     "/api/v1/lists": {
       "get": {
         "operationId": "getLists",
@@ -3904,6 +4752,64 @@
         }
       }
     },
+    "/api/v1/media": {
+      "post": {
+        "operationId": "createMedia",
+        "summary": "Upload media as an attachment (v1)",
+        "description": "Creates an attachment to be used with a new status. This method will return after the full sized media is done processing.",
+        "tags": [
+          "media"
+        ],
+        "responses": {
+          "200": {
+            "description": "[MediaAttachment]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MediaAttachment"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "Object. The file to be attached, encoded using multipart form data. The file must have a MIME type."
+                  },
+                  "thumbnail": {
+                    "type": "string",
+                    "description": "Object. The custom thumbnail of the media to be attached, encoded using multipart form data."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "String. A plain-text description of the media, for accessibility purposes."
+                  },
+                  "focus": {
+                    "type": "string",
+                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See  for more information."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/mutes": {
       "get": {
         "operationId": "getMutes",
@@ -4159,24 +5065,7 @@
               "type": "string"
             }
           }
-        ],
-        "requestBody": {
-          "description": "JSON request body parameters",
-          "required": false,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "String. The ID of the notification in the database."
-                  }
-                }
-              }
-            }
-          }
-        }
+        ]
       }
     },
     "/api/v1/notifications/unread_count": {
@@ -6786,6 +7675,45 @@
         ]
       }
     },
+    "/api/v1/statuses/{id}/card": {
+      "get": {
+        "operationId": "getStatusesByIdCard",
+        "summary": "Fetch preview card",
+        "description": "",
+        "tags": [
+          "statuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "[PreviewCard]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PreviewCard"
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/streaming/health": {
       "get": {
         "operationId": "getHealth",
@@ -7108,21 +8036,54 @@
         ],
         "parameters": [
           {
-            "name": "limit",
-            "in": "query",
-            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
-            "schema": {
-              "type": "string",
-              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
-            }
-          },
-          {
             "name": "account_id",
             "in": "path",
             "required": true,
             "description": "account_id parameter",
             "schema": {
               "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/suggestions": {
+      "get": {
+        "operationId": "getSuggestions",
+        "summary": "View follow suggestions (v1)",
+        "description": "Accounts the user has had past positive interactions with, but is not yet following.",
+        "tags": [
+          "suggestions"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [Account]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Account"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
         ]
@@ -7779,6 +8740,75 @@
             "description": "list_id parameter",
             "schema": {
               "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/timelines/direct": {
+      "get": {
+        "operationId": "getDirect",
+        "summary": "View direct timeline",
+        "description": "View statuses with a \"direct\" privacy, from your account or in your notifications.",
+        "tags": [
+          "timelines"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [Status]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Status"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "deprecated": true,
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string",
+              "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results."
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string",
+              "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results."
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string",
+              "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward."
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string",
+              "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
         ]

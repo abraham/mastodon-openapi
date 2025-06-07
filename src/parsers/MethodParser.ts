@@ -74,15 +74,23 @@ class MethodParser {
   private parseMethods(content: string): ApiMethod[] {
     const methods: ApiMethod[] = [];
 
-    // Match method sections: ## Method Name {#anchor}
-    const methodSections = content.split(/(?=^## [^{]*\{#[^}]+\})/m);
+    // Match method sections: ## Method Name {#anchor} or ### Method Name {#anchor}
+    const methodSections = content.split(/(?=^##+ [^{]*\{#[^}]+\})/m);
 
     for (const section of methodSections) {
       if (section.trim() === '') continue;
 
-      const method = this.parseMethodSection(section);
-      if (method) {
-        methods.push(method);
+      // Check if this section contains multiple methods separated by ---
+      // Simple split on --- since it's a clear separator
+      const subSections = section.split(/\n---\n+/);
+
+      for (const subSection of subSections) {
+        if (subSection.trim() === '') continue;
+
+        const method = this.parseMethodSection(subSection.trim());
+        if (method) {
+          methods.push(method);
+        }
       }
     }
 
@@ -90,9 +98,9 @@ class MethodParser {
   }
 
   private parseMethodSection(section: string): ApiMethod | null {
-    // Extract method name from header: ## Method Name {#anchor}
+    // Extract method name from header: ## Method Name {#anchor} or ### Method Name {#anchor}
     // Handle headers that may contain {{%removed%}} or other Hugo shortcodes
-    const nameMatch = section.match(/^## (.+?)\s*\{#[^}]+\}/m);
+    const nameMatch = section.match(/^##+ (.+?)\s*\{#[^}]+\}/m);
     if (!nameMatch) return null;
 
     const name = nameMatch[1].trim();
@@ -101,6 +109,9 @@ class MethodParser {
     if (name.includes('{{%removed%}}')) {
       return null;
     }
+
+    // Check if method is marked as deprecated
+    const isDeprecated = name.includes('{{%deprecated%}}');
 
     // Extract HTTP method and endpoint: ```http\nMETHOD /path\n```
     const httpMatch = section.match(
@@ -136,8 +147,11 @@ class MethodParser {
     // Parse parameters from both Query parameters and Form data parameters sections
     const parameters = this.parseAllParameters(section);
 
+    // Clean the method name by removing Hugo shortcodes
+    const cleanedName = name.replace(/\{\{%deprecated%\}\}/g, '').trim();
+
     return {
-      name,
+      name: cleanedName,
       httpMethod,
       endpoint,
       description,
@@ -145,6 +159,7 @@ class MethodParser {
       returns,
       oauth,
       version,
+      deprecated: isDeprecated || undefined,
     };
   }
 

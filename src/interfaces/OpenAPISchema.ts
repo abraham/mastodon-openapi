@@ -87,6 +87,7 @@ interface OpenAPIOperation {
   parameters?: OpenAPIParameter[];
   requestBody?: OpenAPIRequestBody;
   responses: Record<string, OpenAPIResponse>;
+  deprecated?: boolean;
 }
 
 interface OpenAPIPath {
