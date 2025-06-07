@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.json",
+  "include": ["src/**/*", "*.js", "*.ts"],
+  "exclude": ["node_modules", "dist", "mastodon-documentation"]
+}
