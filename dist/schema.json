@@ -104,7 +104,17 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "id[]",
+            "in": "query",
+            "description": "Array of String. The IDs of the Accounts in the database.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/accounts/verify_credentials": {
@@ -204,9 +214,25 @@
                     "type": "string",
                     "description": "Boolean. Whether public posts should be searchable to anyone."
                   },
+                  "attribution_domains[]": {
+                    "type": "string",
+                    "description": "Array of String. Domains of websites allowed to credit the account."
+                  },
                   "fields_attributes": {
                     "type": "string",
                     "description": "Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields."
+                  },
+                  "source[privacy]": {
+                    "type": "string",
+                    "description": "String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`."
+                  },
+                  "source[sensitive]": {
+                    "type": "string",
+                    "description": "Boolean. Whether to mark authored statuses as sensitive by default."
+                  },
+                  "source[language]": {
+                    "type": "string",
+                    "description": "String. Default language to use for authored statuses (ISO 6391)"
                   }
                 },
                 "required": [
@@ -281,6 +307,78 @@
         ],
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. Filter out statuses without attachments.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_replies",
+            "in": "query",
+            "description": "Boolean. Filter out statuses in reply to a different account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_reblogs",
+            "in": "query",
+            "description": "Boolean. Filter out boosts from the response.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "pinned",
+            "in": "query",
+            "description": "Boolean. Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tagged",
+            "in": "query",
+            "description": "String. Filter for statuses using a specific hashtag.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -317,6 +415,38 @@
         },
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -352,6 +482,38 @@
           }
         },
         "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -492,6 +654,10 @@
                   "notify": {
                     "type": "string",
                     "description": "Boolean. Receive notifications when this account posts a status? Defaults to false."
+                  },
+                  "languages[]": {
+                    "type": "string",
+                    "description": "Array of String (ISO 639-1 language two-letter code). Filter received statuses for these languages. If not provided, you will receive this account's posts in all languages."
                   }
                 }
               }
@@ -771,6 +937,30 @@
         },
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -940,6 +1130,24 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "id[]",
+            "in": "query",
+            "description": "Array of String. Check relationships for the provided account IDs.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "with_suspended",
+            "in": "query",
+            "description": "Boolean. Whether relationships should be returned for suspended users, defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -969,6 +1177,16 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id[]",
+            "in": "query",
+            "description": "Array of String. Find familiar followers for the provided account IDs.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -1000,6 +1218,48 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "String. Search query for accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Integer. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resolve",
+            "in": "query",
+            "description": "Boolean. Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "following",
+            "in": "query",
+            "description": "Boolean. Limit the search to users you are following. Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -1022,7 +1282,17 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "acct",
+            "in": "query",
+            "description": "String. The username or Webfinger address to lookup.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/announcements": {
@@ -1270,6 +1540,40 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -1300,6 +1604,40 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -1329,6 +1667,40 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -1449,7 +1821,41 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Number. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Number. How many accounts to load. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "String. Use `active` to sort by most recently posted statuses (default) or `new` to sort by most recently created profiles.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "local",
+            "in": "query",
+            "description": "Boolean. If true, returns only local accounts.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/domain_blocks": {
@@ -1468,6 +1874,40 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       },
@@ -1609,6 +2049,32 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -1638,6 +2104,40 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -1804,32 +2304,52 @@
             "OAuth2": []
           }
         ],
-        "parameters": [
-          {
-            "name": "title",
-            "in": "query",
-            "description": "String. The name of the filter group.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "filter_action",
-            "in": "query",
-            "description": "String. The policy to be applied when the filter is matched. Specify `warn`, `hide` or `blur`.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expires_in",
-            "in": "query",
-            "description": "Integer. How many seconds from now should the filter expire?",
-            "schema": {
-              "type": "string"
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "String. The name of the filter group."
+                  },
+                  "context[]": {
+                    "type": "string",
+                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`."
+                  },
+                  "filter_action": {
+                    "type": "string",
+                    "description": "String. The policy to be applied when the filter is matched. Specify `warn`, `hide` or `blur`."
+                  },
+                  "expires_in": {
+                    "type": "string",
+                    "description": "Integer. How many seconds from now should the filter expire?"
+                  },
+                  "keywords_attributes[][keyword]": {
+                    "type": "string",
+                    "description": "String. A keyword to be added to the newly-created filter group."
+                  },
+                  "keywords_attributes[][whole_word]": {
+                    "type": "string",
+                    "description": "Boolean. Whether the keyword should consider word boundaries."
+                  },
+                  "keywords_attributes[][id]": {
+                    "type": "string",
+                    "description": "String. Will cause a 404 error if provided."
+                  },
+                  "keywords_attributes[][_destroy]": {
+                    "type": "string",
+                    "description": "Boolean. Will cause the keyword to not be attached if provided."
+                  }
+                }
+              }
             }
           }
-        ]
+        }
       }
     },
     "/api/v1/filters": {
@@ -1857,40 +2377,40 @@
             "OAuth2": []
           }
         ],
-        "parameters": [
-          {
-            "name": "phrase",
-            "in": "query",
-            "description": "String. The text to be filtered.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "irreversible",
-            "in": "query",
-            "description": "Boolean. Should the server irreversibly drop matching entities from home and notifications? Defaults to false.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "whole_word",
-            "in": "query",
-            "description": "Boolean. Should the filter consider word boundaries for this keyword? Defaults to false.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "expires_in",
-            "in": "query",
-            "description": "Integer. Number of seconds from now that the filter should expire. Otherwise, `null` for a filter that doesn't expire.",
-            "schema": {
-              "type": "string"
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phrase": {
+                    "type": "string",
+                    "description": "String. The text to be filtered."
+                  },
+                  "context[]": {
+                    "type": "string",
+                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`."
+                  },
+                  "irreversible": {
+                    "type": "string",
+                    "description": "Boolean. Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
+                  },
+                  "whole_word": {
+                    "type": "string",
+                    "description": "Boolean. Should the filter consider word boundaries for this keyword? Defaults to false."
+                  },
+                  "expires_in": {
+                    "type": "string",
+                    "description": "Integer. Number of seconds from now that the filter should expire. Otherwise, `null` for a filter that doesn't expire."
+                  }
+                }
+              }
             }
           }
-        ]
+        }
       }
     },
     "/api/v1/follow_requests": {
@@ -1919,6 +2439,32 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -2026,6 +2572,40 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -2052,6 +2632,88 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types to include in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types to exclude from the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Return only notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand_accounts",
+            "in": "query",
+            "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "grouped_types[]",
+            "in": "query",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_filtered",
+            "in": "query",
+            "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -2182,6 +2844,48 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Only count unread notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "grouped_types[]",
+            "in": "query",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -2646,6 +3350,38 @@
         ],
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -2683,7 +3419,24 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. The accounts that should be added to the list."
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "operationId": "deleteListsByIdAccounts",
@@ -2712,7 +3465,24 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. The accounts that should be removed from the list."
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/markers": {
@@ -2739,6 +3509,16 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "timeline[]",
+            "in": "query",
+            "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       },
       "post": {
@@ -2764,7 +3544,29 @@
           {
             "OAuth2": []
           }
-        ]
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "home[last_read_id]": {
+                    "type": "string",
+                    "description": "String. ID of the last status read in the home timeline."
+                  },
+                  "notifications[last_read_id]": {
+                    "type": "string",
+                    "description": "String. ID of the last notification read."
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v2/media": {
@@ -2979,6 +3781,32 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -3008,6 +3836,72 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types to include in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types to exclude from the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Return only notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "include_filtered",
+            "in": "query",
+            "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -3135,6 +4029,40 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Only count unread notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -3191,6 +4119,40 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -3379,6 +4341,80 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be about notifications strictly older than this notification ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be about notifications strictly newer than this notification ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results about notifications immediately newer than this notification ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types to include in the result.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types to exclude from the results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Return only notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "expand_accounts",
+            "in": "query",
+            "description": "String. One of `full` (default) or `partial_avatars`. When set to `partial_avatars`, some accounts will not be rendered in full in the returned `accounts` list but will be instead returned in stripped-down form in the `partial_accounts` list. The most recent account in a notification group is always rendered in full in the `accounts` attribute.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "grouped_types[]",
+            "in": "query",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -3468,6 +4504,48 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_types[]",
+            "in": "query",
+            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. Only count unread notifications received from the specified account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "grouped_types[]",
+            "in": "query",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -3483,7 +4561,81 @@
           "200": {
             "description": "String (URL) or HTML response"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "response_type",
+            "in": "query",
+            "description": "String. Should be set equal to `code`.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "client_id",
+            "in": "query",
+            "description": "String. The client ID, obtained during app registration.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "redirect_uri",
+            "in": "query",
+            "description": "String. Set a URI to redirect the user to. If this parameter is set to `urn:ietf:wg:oauth:2.0:oob` then the authorization code will be shown instead. Must match one of the `redirect_uris` declared during app registration.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "scope",
+            "in": "query",
+            "description": "String. List of requested , separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "state",
+            "in": "query",
+            "description": "String. Arbitrary value to passthrough to your server when the user authorizes or rejects the authorization request.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code_challenge",
+            "in": "query",
+            "description": "String. The  for the authorization request.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "code_challenge_method",
+            "in": "query",
+            "description": "String. Must be `S256`, as this is the only code challenge method that is supported by Mastodon for PKCE.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "force_login",
+            "in": "query",
+            "description": "Boolean. Forces the user to re-login, which is necessary for authorizing with multiple accounts from the same instance.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "lang",
+            "in": "query",
+            "description": "String. The ISO 639-1 two-letter language code to use while rendering the authorization form.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/oauth/token": {
@@ -3618,7 +4770,33 @@
           "200": {
             "description": "OEmbed metadata"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "String. URL of a status.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxwidth",
+            "in": "query",
+            "description": "Number. Width of the iframe. Defaults to 400",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "maxheight",
+            "in": "query",
+            "description": "Number. Height of the iframe. Defaults to null",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/polls/{id}": {
@@ -3694,7 +4872,24 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "choices[]": {
+                    "type": "string",
+                    "description": "Array of Integer. Provide your own votes as an index for each option (starting from 0)."
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/preferences": {
@@ -3741,7 +4936,73 @@
           {
             "OAuth2": []
           }
-        ]
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "subscription[endpoint]": {
+                    "type": "string",
+                    "description": "String. The endpoint URL that is called when a notification event occurs."
+                  },
+                  "subscription[keys][p256dh]": {
+                    "type": "string",
+                    "description": "String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the `prime256v1` curve."
+                  },
+                  "subscription[keys][auth]": {
+                    "type": "string",
+                    "description": "String. Auth secret. Base64 encoded string of 16 bytes of random data."
+                  },
+                  "subscription[standard]": {
+                    "type": "string",
+                    "description": "Boolean. Follow standardized webpush (RFC8030+RFC8291+RFC8292) ? Else follow legacy webpush (unpublished version, 4th draft of RFC8291 and 1st draft of RFC8292). Defaults to false."
+                  },
+                  "data[alerts][mention]": {
+                    "type": "string",
+                    "description": "Boolean. Receive mention notifications? Defaults to false."
+                  },
+                  "data[alerts][status]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                  },
+                  "data[alerts][reblog]": {
+                    "type": "string",
+                    "description": "Boolean. Receive reblog notifications? Defaults to false."
+                  },
+                  "data[alerts][follow]": {
+                    "type": "string",
+                    "description": "Boolean. Receive follow notifications? Defaults to false."
+                  },
+                  "data[alerts][follow_request]": {
+                    "type": "string",
+                    "description": "Boolean. Receive follow request notifications? Defaults to false."
+                  },
+                  "data[alerts][favourite]": {
+                    "type": "string",
+                    "description": "Boolean. Receive favourite notifications? Defaults to false."
+                  },
+                  "data[alerts][poll]": {
+                    "type": "string",
+                    "description": "Boolean. Receive poll notifications? Defaults to false."
+                  },
+                  "data[alerts][update]": {
+                    "type": "string",
+                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                  },
+                  "data[policy]": {
+                    "type": "string",
+                    "description": "String. Specify whether to receive push notifications from `all`, `followed`, `follower`, or `none` users."
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "get": {
         "operationId": "getPushSubscription",
@@ -3801,6 +5062,38 @@
               "schema": {
                 "type": "object",
                 "properties": {
+                  "data[alerts][mention]": {
+                    "type": "string",
+                    "description": "Boolean. Receive mention notifications? Defaults to false."
+                  },
+                  "data[alerts][status]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                  },
+                  "data[alerts][reblog]": {
+                    "type": "string",
+                    "description": "Boolean. Receive reblog notifications? Defaults to false."
+                  },
+                  "data[alerts][follow]": {
+                    "type": "string",
+                    "description": "Boolean. Receive follow notifications? Defaults to false."
+                  },
+                  "data[alerts][follow_request]": {
+                    "type": "string",
+                    "description": "Boolean. Receive follow request notifications? Defaults to false."
+                  },
+                  "data[alerts][favourite]": {
+                    "type": "string",
+                    "description": "Boolean. Receive favourite notifications? Defaults to false."
+                  },
+                  "data[alerts][poll]": {
+                    "type": "string",
+                    "description": "Boolean. Receive poll notifications? Defaults to false."
+                  },
+                  "data[alerts][update]": {
+                    "type": "string",
+                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                  },
                   "policy": {
                     "type": "string",
                     "description": "String. Specify whether to receive push notifications from `all`, `followed`, `follower`, or `none` users."
@@ -3868,6 +5161,10 @@
                     "type": "string",
                     "description": "String. ID of the account to report."
                   },
+                  "status_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. You can attach statuses to the report to provide additional context."
+                  },
                   "comment": {
                     "type": "string",
                     "description": "String. The reason for the report. Default maximum of 1000 characters."
@@ -3879,6 +5176,10 @@
                   "category": {
                     "type": "string",
                     "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide)."
+                  },
+                  "rule_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via  and . See  for more information."
                   }
                 }
               }
@@ -3913,6 +5214,40 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -4061,6 +5396,88 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "description": "String. The search query.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "String. Specify whether to search for only `accounts`, `hashtags`, `statuses`",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "resolve",
+            "in": "query",
+            "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account,  is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "following",
+            "in": "query",
+            "description": "Boolean. Only include accounts that the user is following? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "account_id",
+            "in": "query",
+            "description": "String. If provided, will only return statuses authored by this account.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "exclude_unreviewed",
+            "in": "query",
+            "description": "Boolean. Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Integer. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -4101,6 +5518,26 @@
                   "status": {
                     "type": "string",
                     "description": "String. The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+                  },
+                  "media_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used."
+                  },
+                  "poll[options][]": {
+                    "type": "string",
+                    "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided."
+                  },
+                  "poll[expires_in]": {
+                    "type": "string",
+                    "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                  },
+                  "poll[multiple]": {
+                    "type": "string",
+                    "description": "Boolean. Allow multiple choices? Defaults to false."
+                  },
+                  "poll[hide_totals]": {
+                    "type": "string",
+                    "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
                   },
                   "in_reply_to_id": {
                     "type": "string",
@@ -4157,6 +5594,16 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id[]",
+            "in": "query",
+            "description": "Array of String. The IDs of the Statuses in the database.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -4223,6 +5670,14 @@
           }
         ],
         "parameters": [
+          {
+            "name": "delete_media",
+            "in": "query",
+            "description": "Boolean. Whether to immediately delete the post's media attachments. If omitted or `false`, media attachments may be kept for approximately 24 hours so they can be re-used in a new post.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -4292,6 +5747,30 @@
                   "language": {
                     "type": "string",
                     "description": "String. ISO 639 language code for the status."
+                  },
+                  "media_ids[]": {
+                    "type": "string",
+                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used."
+                  },
+                  "media_attributes[][]": {
+                    "type": "string",
+                    "description": "Array of String. Each array includes id, description, and focus."
+                  },
+                  "poll[options][]": {
+                    "type": "string",
+                    "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided."
+                  },
+                  "poll[expires_in]": {
+                    "type": "string",
+                    "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                  },
+                  "poll[multiple]": {
+                    "type": "string",
+                    "description": "Boolean. Allow multiple choices? Defaults to false."
+                  },
+                  "poll[hide_totals]": {
+                    "type": "string",
+                    "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
                   }
                 }
               }
@@ -4423,6 +5902,30 @@
         ],
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -4463,6 +5966,30 @@
           }
         ],
         "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5023,6 +6550,16 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. If true, return only statuses with media attachments.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5042,6 +6579,16 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. If true, return only statuses with media attachments.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -5063,6 +6610,16 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. If true, return only statuses with media attachments.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5082,6 +6639,16 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "String. The name of the hashtag to watch.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -5103,6 +6670,16 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "tag",
+            "in": "query",
+            "description": "String. The name of the hashtag to watch.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5122,6 +6699,16 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "list",
+            "in": "query",
+            "description": "String. The ID of the list to watch.",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -5173,6 +6760,16 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5195,6 +6792,14 @@
           }
         ],
         "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "account_id",
             "in": "path",
@@ -5424,6 +7029,64 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "local",
+            "in": "query",
+            "description": "Boolean. Show only local statuses? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "remote",
+            "in": "query",
+            "description": "Boolean. Show only remote statuses? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. Show only statuses with media attached? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5456,6 +7119,86 @@
           }
         ],
         "parameters": [
+          {
+            "name": "any[]",
+            "in": "query",
+            "description": "Array of String. Return statuses that contain any of these additional tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "all[]",
+            "in": "query",
+            "description": "Array of String. Return statuses that contain all of these additional tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "none[]",
+            "in": "query",
+            "description": "Array of String. Return statuses that contain none of these additional tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "local",
+            "in": "query",
+            "description": "Boolean. Return only local statuses? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "remote",
+            "in": "query",
+            "description": "Boolean. Return only remote statuses? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "only_media",
+            "in": "query",
+            "description": "Boolean. Return only statuses with media attachments? Defaults to false.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "hashtag",
             "in": "path",
@@ -5495,6 +7238,40 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          }
         ]
       }
     },
@@ -5527,6 +7304,46 @@
           }
         ],
         "parameters": [
+          {
+            "name": "url",
+            "in": "query",
+            "description": "String. The URL of the trending article.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          },
           {
             "name": "url",
             "in": "path",
@@ -5569,6 +7386,38 @@
         ],
         "parameters": [
           {
+            "name": "max_id",
+            "in": "query",
+            "description": "String. All results returned will be lesser than this ID. In effect, sets an upper bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "String. All results returned will be greater than this ID. In effect, sets a lower bound on results.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "min_id",
+            "in": "query",
+            "description": "String. Returns results immediately newer than this ID. In effect, sets a cursor at this ID and paginates forward.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "list_id",
             "in": "path",
             "required": true,
@@ -5602,7 +7451,25 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 10 tags. Max 20 tags.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Integer. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/trends/statuses": {
@@ -5627,7 +7494,25 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Integer. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     },
     "/api/v1/trends/links": {
@@ -5652,7 +7537,25 @@
               }
             }
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Integer. Maximum number of results to return. Defaults to 10 links. Max 20 links.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Integer. Skip the first n results.",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       }
     }
   },
