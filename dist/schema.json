@@ -227,7 +227,7 @@
                   },
                   "fields_attributes": {
                     "type": "string",
-                    "description": "Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields."
+                    "description": "Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields. fields_attributes[:index][name] : String. The name of the profile field. By default, max 255 characters. fields_attributes[:index][value] : String. The value of the profile field. By default, max 255 characters."
                   },
                   "source": {
                     "type": "object",
@@ -2531,7 +2531,7 @@
                   },
                   "keywords_attributes[][whole_word]": {
                     "type": "string",
-                    "description": "Boolean. Whether the keyword should consider word boundaries."
+                    "description": "Boolean. Whether the keyword should consider word boundaries. <!-- TODO: Remove when https://github.com/mastodon/mastodon/issues/21727 is fixed"
                   },
                   "keywords_attributes[][id]": {
                     "type": "string",
@@ -2539,7 +2539,7 @@
                   },
                   "keywords_attributes[][_destroy]": {
                     "type": "string",
-                    "description": "Boolean. Will cause the keyword to not be attached if provided."
+                    "description": "Boolean. Will cause the keyword to not be attached if provided. -->"
                   }
                 }
               }
@@ -6101,7 +6101,7 @@
                   },
                   "data[alerts][update]": {
                     "type": "string",
-                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                    "description": "Boolean. Receive status edited notifications? Defaults to false. data[alerts][admin.sign_up] : Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions. data[alerts][admin.report] : Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "subscription": {
                     "type": "object",
@@ -6221,7 +6221,7 @@
                   },
                   "data[alerts][update]": {
                     "type": "string",
-                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                    "description": "Boolean. Receive status edited notifications? Defaults to false. data[alerts][admin.sign_up] : Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions. data[alerts][admin.report] : Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "policy": {
                     "type": "string",

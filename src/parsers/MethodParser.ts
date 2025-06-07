@@ -257,41 +257,146 @@ class MethodParser {
       enumValues?: string[];
     }> = [];
 
-    // Find parameters section
-    const paramMatch = section.match(
-      new RegExp(`##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#|$)`)
-    );
-    if (!paramMatch) return [];
+    // Find parameters section using pattern matching
+    const paramSection = this.extractParameterSection(section, sectionName);
+    if (!paramSection) return [];
 
-    const paramSection = paramMatch[1];
-
-    // Match parameter definitions: parameter_name\n: description
-    const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
-
-    let match;
-    while ((match = paramRegex.exec(paramSection)) !== null) {
-      const [, name, desc] = match;
-
-      const cleanDesc = this.cleanMarkdown(desc.trim());
-      const required =
-        cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
-
-      // Extract enum values from description
-      const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
-
-      const rawParam = {
-        name: name.trim(),
-        description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
-        required: required ? true : undefined,
-        enumValues: enumValues.length > 0 ? enumValues : undefined,
-      };
-
-      rawParameters.push(rawParam);
-    }
+    // Parse parameter definitions using pattern matching
+    const parameters = this.parseParameterDefinitions(paramSection);
+    rawParameters.push(...parameters);
 
     // Process raw parameters to handle complex types
     return this.processComplexParameters(rawParameters, parameterLocation);
+  }
+
+  private extractParameterSection(section: string, sectionName: string): string | null {
+    // Look for the section header: ##### sectionName
+    const headerToFind = `##### ${sectionName}`;
+    const headerIndex = section.indexOf(headerToFind);
+    
+    if (headerIndex === -1) {
+      return null;
+    }
+    
+    // Start after the header
+    const startIndex = headerIndex + headerToFind.length;
+    
+    // Find the end of this section (next header or end of content)
+    const remainingContent = section.substring(startIndex);
+    
+    // Look for the next header (any level starting with #)
+    const lines = remainingContent.split('\n');
+    let endIndex = lines.length;
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i].trim();
+      if (line.startsWith('#')) {
+        endIndex = i;
+        break;
+      }
+    }
+    
+    // Extract the section content
+    const sectionContent = lines.slice(0, endIndex).join('\n');
+    return sectionContent.trim();
+  }
+
+  private parseParameterDefinitions(paramSection: string): Array<{
+    name: string;
+    description: string;
+    required?: boolean;
+    enumValues?: string[];
+  }> {
+    const parameters: Array<{
+      name: string;
+      description: string;
+      required?: boolean;
+      enumValues?: string[];
+    }> = [];
+    
+    const lines = paramSection.split('\n');
+    let i = 0;
+    
+    while (i < lines.length) {
+      const line = lines[i].trim();
+      
+      // Skip empty lines
+      if (line === '') {
+        i++;
+        continue;
+      }
+      
+      // Check if this line could be a parameter name
+      if (this.isValidParameterName(line) && i + 1 < lines.length) {
+        const nextLine = lines[i + 1].trim();
+        
+        // Check if the next line starts with ':' (parameter description)
+        if (nextLine.startsWith(':')) {
+          const paramName = line;
+          let description = nextLine.substring(1).trim(); // Remove the ':'
+          
+          // Collect multi-line descriptions
+          let j = i + 2;
+          while (j < lines.length) {
+            const descLine = lines[j].trim();
+            
+            // Stop if we hit another parameter or empty line followed by parameter
+            if (this.isValidParameterName(descLine) && 
+                j + 1 < lines.length && 
+                lines[j + 1].trim().startsWith(':')) {
+              break;
+            }
+            
+            // Stop if we hit an empty line and the next non-empty line is a parameter
+            if (descLine === '') {
+              let nextNonEmpty = j + 1;
+              while (nextNonEmpty < lines.length && lines[nextNonEmpty].trim() === '') {
+                nextNonEmpty++;
+              }
+              if (nextNonEmpty < lines.length && 
+                  this.isValidParameterName(lines[nextNonEmpty].trim()) &&
+                  nextNonEmpty + 1 < lines.length &&
+                  lines[nextNonEmpty + 1].trim().startsWith(':')) {
+                break;
+              }
+            }
+            
+            // Add to description if it's not empty
+            if (descLine !== '') {
+              description += ' ' + descLine;
+            }
+            
+            j++;
+          }
+          
+          // Process the parameter
+          const cleanDesc = this.cleanMarkdown(description);
+          const required = cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
+          const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
+          
+          parameters.push({
+            name: paramName,
+            description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
+            required: required ? true : undefined,
+            enumValues: enumValues.length > 0 ? enumValues : undefined,
+          });
+          
+          i = j;
+          continue;
+        }
+      }
+      
+      i++;
+    }
+    
+    return parameters;
+  }
+
+  private isValidParameterName(name: string): boolean {
+    // Parameter names should start with letter or underscore
+    // and contain only letters, numbers, underscores, and square brackets
+    const pattern = /^[a-zA-Z_][a-zA-Z0-9_\[\]]*$/;
+    return pattern.test(name);
   }
 
   private processComplexParameters(
