@@ -236,11 +236,12 @@ describe('OpenAPIGenerator Response Types', () => {
         spec.components?.schemas?.['StatusOrScheduledStatus']
       ).toBeDefined();
       expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
-        oneOf: [
-          { $ref: '#/components/schemas/Status' },
-          { $ref: '#/components/schemas/ScheduledStatus' },
-        ],
-        description: 'One of: Status, ScheduledStatus',
+        type: 'object',
+        properties: {
+          status: { $ref: '#/components/schemas/Status' },
+          scheduled_status: { $ref: '#/components/schemas/ScheduledStatus' },
+        },
+        description: 'Object containing one of: status, scheduled_status',
       });
     });
 
@@ -456,6 +457,26 @@ describe('OpenAPIGenerator Response Types', () => {
       ).toBeDefined();
       expect(spec.components?.schemas?.['StatusOrAccount']).toBeDefined();
 
+      // Check the structure of StatusOrScheduledStatus
+      expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
+        type: 'object',
+        properties: {
+          status: { $ref: '#/components/schemas/Status' },
+          scheduled_status: { $ref: '#/components/schemas/ScheduledStatus' },
+        },
+        description: 'Object containing one of: status, scheduled_status',
+      });
+
+      // Check the structure of StatusOrAccount
+      expect(spec.components?.schemas?.['StatusOrAccount']).toEqual({
+        type: 'object',
+        properties: {
+          status: { $ref: '#/components/schemas/Status' },
+          account: { $ref: '#/components/schemas/Account' },
+        },
+        description: 'Object containing one of: status, account',
+      });
+
       const operation1 = spec.paths['/api/v1/test1']?.post;
       const operation2 = spec.paths['/api/v1/test2']?.post;
 
@@ -469,6 +490,53 @@ describe('OpenAPIGenerator Response Types', () => {
         operation2?.responses['200'].content?.['application/json'].schema
       ).toEqual({
         $ref: '#/components/schemas/StatusOrAccount',
+      });
+    });
+
+    it('should correctly convert entity names to property names', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'FamiliarFollowers',
+          description: 'FamiliarFollowers entity',
+          attributes: [
+            { name: 'id', type: 'String', description: 'ID' },
+          ],
+        },
+        {
+          name: 'Account',
+          description: 'Account entity',
+          attributes: [
+            { name: 'id', type: 'String', description: 'Account ID' },
+          ],
+        },
+      ];
+
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'test',
+          description: 'Test methods',
+          methods: [
+            {
+              name: 'Test method',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/test',
+              description: 'Test method',
+              returns: '[FamiliarFollowers] or [Account]',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      // Check that PascalCase entity names are converted to snake_case property names
+      expect(spec.components?.schemas?.['FamiliarFollowersOrAccount']).toEqual({
+        type: 'object',
+        properties: {
+          familiar_followers: { $ref: '#/components/schemas/FamiliarFollowers' },
+          account: { $ref: '#/components/schemas/Account' },
+        },
+        description: 'Object containing one of: familiar_followers, account',
       });
     });
   });

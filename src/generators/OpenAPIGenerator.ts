@@ -474,10 +474,22 @@ class OpenAPIGenerator {
 
     // Check if synthetic schema already exists
     if (!this.spec.components.schemas[syntheticSchemaName]) {
-      // Create the synthetic schema
+      // Create object properties from entity references
+      const properties: Record<string, OpenAPIProperty> = {};
+      const propertyNames: string[] = [];
+
+      for (let i = 0; i < entityNames.length; i++) {
+        const entityName = entityNames[i];
+        const propertyName = this.entityNameToPropertyName(entityName);
+        properties[propertyName] = validEntityRefs[i];
+        propertyNames.push(propertyName);
+      }
+
+      // Create the synthetic schema as an object with optional properties
       this.spec.components.schemas[syntheticSchemaName] = {
-        oneOf: validEntityRefs,
-        description: `One of: ${entityNames.join(', ')}`,
+        type: 'object',
+        properties: properties,
+        description: `Object containing one of: ${propertyNames.join(', ')}`,
       };
     }
 
@@ -485,6 +497,13 @@ class OpenAPIGenerator {
     return {
       $ref: `#/components/schemas/${syntheticSchemaName}`,
     };
+  }
+
+  private entityNameToPropertyName(entityName: string): string {
+    // Convert PascalCase to snake_case
+    return entityName.replace(/([A-Z])/g, (match, letter, index) => {
+      return index === 0 ? letter.toLowerCase() : '_' + letter.toLowerCase();
+    });
   }
 
   private convertMethod(method: ApiMethod, category: string): void {
