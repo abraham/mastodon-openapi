@@ -1658,7 +1658,7 @@
       "get": {
         "operationId": "getBlocks",
         "summary": "View blocked users",
-        "description": "##### 401: Unauthorized",
+        "description": "",
         "tags": [
           "blocks"
         ],
@@ -1794,7 +1794,7 @@
       "get": {
         "operationId": "getConversations",
         "summary": "View all conversations",
-        "description": "##### 401: Unauthorized",
+        "description": "",
         "tags": [
           "conversations"
         ],
@@ -3326,7 +3326,7 @@
       "get": {
         "operationId": "getFollowRequests",
         "summary": "View pending follow requests",
-        "description": "##### 401: Unauthorized",
+        "description": "",
         "tags": [
           "follow_requests"
         ],
@@ -4296,7 +4296,7 @@
       "get": {
         "operationId": "getListsByIdAccounts",
         "summary": "View accounts in a list",
-        "description": "##### 401: Unauthorized",
+        "description": "",
         "tags": [
           "lists"
         ],
