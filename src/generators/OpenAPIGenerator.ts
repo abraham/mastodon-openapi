@@ -532,10 +532,10 @@ class OpenAPIGenerator {
         }
 
         operation.requestBody = {
-          description: 'Form data parameters',
+          description: 'JSON request body parameters',
           required: required.length > 0,
           content: {
-            'application/x-www-form-urlencoded': {
+            'application/json': {
               schema: {
                 type: 'object',
                 properties,

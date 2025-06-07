@@ -39,10 +39,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -161,10 +161,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": true,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -478,10 +478,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -689,10 +689,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -895,10 +895,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1186,10 +1186,10 @@
         },
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1490,10 +1490,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1526,10 +1526,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1564,10 +1564,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -1697,10 +1697,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2462,10 +2462,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2561,10 +2561,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2794,10 +2794,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -2926,10 +2926,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3100,10 +3100,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3508,10 +3508,10 @@
         },
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3565,10 +3565,10 @@
         },
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3794,10 +3794,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3857,10 +3857,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -3990,10 +3990,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -4098,10 +4098,10 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -4277,10 +4277,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -4382,10 +4382,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
@@ -4595,10 +4595,10 @@
           }
         ],
         "requestBody": {
-          "description": "Form data parameters",
+          "description": "JSON request body parameters",
           "required": false,
           "content": {
-            "application/x-www-form-urlencoded": {
+            "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
