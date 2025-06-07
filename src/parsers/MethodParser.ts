@@ -52,6 +52,11 @@ class MethodParser {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
 
+    // Skip draft files
+    if (parsed.data.draft === true) {
+      return null;
+    }
+
     // Extract file name from path (for tagging based on filename)
     const fileName = path.basename(filePath, '.md');
     if (!fileName) {
