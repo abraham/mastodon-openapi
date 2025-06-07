@@ -9,6 +9,68 @@ describe('OpenAPIGenerator OperationId Generation', () => {
   });
 
   describe('operationId generation', () => {
+    it('should generate natural operationId names for the examples in issue #58', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Create status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Create status',
+            },
+          ],
+        },
+        {
+          name: 'profile',
+          description: 'Profile methods',
+          methods: [
+            {
+              name: 'Delete avatar',
+              httpMethod: 'DELETE',
+              endpoint: '/api/v1/profile/avatar',
+              description: 'Delete avatar',
+            },
+          ],
+        },
+        {
+          name: 'lists',
+          description: 'List methods',
+          methods: [
+            {
+              name: 'Get lists',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/lists',
+              description: 'Get lists',
+            },
+            {
+              name: 'Get list',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/lists/:id',
+              description: 'Get list',
+            },
+            {
+              name: 'Update list',
+              httpMethod: 'PUT',
+              endpoint: '/api/v1/lists/:id',
+              description: 'Update list',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      // Examples from issue #58
+      expect(spec.paths['/api/v1/statuses']?.post?.operationId).toBe('createStatus');
+      expect(spec.paths['/api/v1/profile/avatar']?.delete?.operationId).toBe('deleteAvatar');
+      expect(spec.paths['/api/v1/lists']?.get?.operationId).toBe('getLists');
+      expect(spec.paths['/api/v1/lists/{id}']?.get?.operationId).toBe('getList');
+      expect(spec.paths['/api/v1/lists/{id}']?.put?.operationId).toBe('updateList');
+    });
+
     it('should generate correct operationId for various endpoint patterns', () => {
       const testMethods: ApiMethodsFile[] = [
         {
@@ -64,12 +126,12 @@ describe('OpenAPIGenerator OperationId Generation', () => {
 
       // Check path parameter handling
       expect(spec.paths['/api/v1/accounts/{id}']?.get?.operationId).toBe(
-        'getAccountById'
+        'getAccount'
       );
 
       // Check basic endpoints
       expect(spec.paths['/api/v1/accounts']?.post?.operationId).toBe(
-        'postAccounts'
+        'createAccount'
       );
 
       // Check nested path with parameter
@@ -84,7 +146,7 @@ describe('OpenAPIGenerator OperationId Generation', () => {
 
       // Check other HTTP methods
       expect(spec.paths['/api/v1/statuses/{id}']?.delete?.operationId).toBe(
-        'deleteStatusById'
+        'deleteStatus'
       );
     });
 
@@ -131,7 +193,7 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       const spec = generator.generateSchema([], testMethods);
 
       expect(spec.paths['/api/v1/test']?.get?.operationId).toBe('getTest');
-      expect(spec.paths['/api/v1/test']?.post?.operationId).toBe('postTest');
+      expect(spec.paths['/api/v1/test']?.post?.operationId).toBe('createTest');
       expect(spec.paths['/api/v1/test']?.put?.operationId).toBe('putTest');
       expect(spec.paths['/api/v1/test']?.patch?.operationId).toBe('patchTest');
       expect(spec.paths['/api/v1/test']?.delete?.operationId).toBe(
@@ -174,8 +236,8 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       const statusesOpId =
         spec.paths['/api/v1/statuses/{id}']?.get?.operationId;
 
-      expect(accountsOpId).toBe('getAccountById');
-      expect(statusesOpId).toBe('getStatusById');
+      expect(accountsOpId).toBe('getAccount');
+      expect(statusesOpId).toBe('getStatus');
       expect(accountsOpId).not.toBe(statusesOpId);
     });
   });

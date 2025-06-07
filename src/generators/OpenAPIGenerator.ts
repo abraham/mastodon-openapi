@@ -299,10 +299,45 @@ class OpenAPIGenerator {
   }
 
   private generateBaseOperationId(method: string, segments: string[]): string {
+    // Map HTTP methods to more semantic operation names
+    const getSemanticMethod = (httpMethod: string, segments: string[]): string => {
+      const hasPathParams = segments.some(
+        (segment) => segment.startsWith('{') && segment.endsWith('}')
+      );
+      
+      switch (httpMethod.toLowerCase()) {
+        case 'post':
+          // POST to collection endpoints -> create
+          if (!hasPathParams) {
+            return 'create';
+          }
+          // POST to item endpoints -> keep 'post' for actions like follow, etc.
+          return 'post';
+        case 'put':
+        case 'patch':
+          // PUT/PATCH to item endpoints -> update
+          if (hasPathParams) {
+            return 'update';
+          }
+          // PUT/PATCH to collection endpoints -> keep original method
+          return httpMethod.toLowerCase();
+        default:
+          return httpMethod.toLowerCase();
+      }
+    };
+
+    const semanticMethod = getSemanticMethod(method, segments);
+
     // Handle different patterns
     if (segments.length === 1) {
-      // Simple resource: /accounts -> getAccounts
-      return method + this.toPascalCase(segments[0]);
+      // Simple resource: /accounts -> getAccounts, /statuses + POST -> createStatus
+      const resource = segments[0];
+      if (semanticMethod === 'create') {
+        // For create operations, use singular form
+        return semanticMethod + this.toPascalCase(this.toSingular(resource));
+      }
+      // For other operations like GET, use plural form
+      return semanticMethod + this.toPascalCase(resource);
     }
 
     // Check for path parameters
@@ -313,20 +348,10 @@ class OpenAPIGenerator {
     if (hasPathParams) {
       // Handle path parameters
       if (segments.length === 2 && segments[1] === '{id}') {
-        // Pattern like /accounts/{id} -> getAccountById
+        // Pattern like /accounts/{id} -> getAccount, updateList, etc.
         const resource = segments[0];
-        let singular = resource;
-
-        // Handle common plural forms
-        if (resource.endsWith('ies')) {
-          singular = resource.slice(0, -3) + 'y'; // stories -> story
-        } else if (resource.endsWith('es')) {
-          singular = resource.slice(0, -2); // statuses -> status
-        } else if (resource.endsWith('s')) {
-          singular = resource.slice(0, -1); // accounts -> account
-        }
-
-        return method + this.toPascalCase(singular) + 'ById';
+        const singular = this.toSingular(resource);
+        return semanticMethod + this.toPascalCase(singular);
       } else {
         // More complex path with parameters
         const pathParts: string[] = [];
@@ -339,7 +364,7 @@ class OpenAPIGenerator {
             pathParts.push(this.toPascalCase(segment));
           }
         }
-        return method + pathParts.join('');
+        return semanticMethod + pathParts.join('');
       }
     } else {
       // No path parameters
@@ -351,7 +376,7 @@ class OpenAPIGenerator {
 
         // Special case for familiar_followers since it's unique and the issue specifically requested it
         if (lastSegment === 'familiar_followers') {
-          return method + action;
+          return semanticMethod + action;
         }
 
         // Always include context for other actions to avoid conflicts
@@ -359,17 +384,24 @@ class OpenAPIGenerator {
           .slice(0, -1)
           .map((s) => this.toPascalCase(s))
           .join('');
-        return method + context + action;
+        return semanticMethod + context + action;
       }
 
-      // For other multi-segment paths
+      // For multi-segment paths, prefer the last segment if it makes sense
       if (segments.length === 2) {
-        const [resource, action] = segments;
-        return method + this.toPascalCase(resource) + this.toPascalCase(action);
+        const [firstSegment, lastSegment] = segments;
+        
+        // Try to use just the last segment for simpler names
+        // but fall back to full path if it might cause conflicts
+        const simpleOperationId = semanticMethod + this.toPascalCase(lastSegment);
+        
+        // For now, use the simple approach - we can add conflict detection later if needed
+        // For paths like /profile/avatar -> deleteAvatar
+        return simpleOperationId;
       }
 
       // Default: combine all segments
-      return method + segments.map((s) => this.toPascalCase(s)).join('');
+      return semanticMethod + segments.map((s) => this.toPascalCase(s)).join('');
     }
   }
 
@@ -400,6 +432,18 @@ class OpenAPIGenerator {
       .split(/[_-]/)
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join('');
+  }
+
+  private toSingular(word: string): string {
+    // Handle common plural forms
+    if (word.endsWith('ies')) {
+      return word.slice(0, -3) + 'y'; // stories -> story
+    } else if (word.endsWith('es')) {
+      return word.slice(0, -2); // statuses -> status
+    } else if (word.endsWith('s')) {
+      return word.slice(0, -1); // accounts -> account
+    }
+    return word;
   }
 
   private parseResponseSchema(returns?: string): OpenAPIProperty | null {
