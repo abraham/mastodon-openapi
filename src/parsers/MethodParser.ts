@@ -74,15 +74,14 @@ class MethodParser {
   private parseMethods(content: string): ApiMethod[] {
     const methods: ApiMethod[] = [];
 
-    // Match method sections: ## Method Name {#anchor} or ### Method Name {#anchor}
-    const methodSections = content.split(/(?=^##+ [^{]*\{#[^}]+\})/m);
+    // Split method sections using pattern matching instead of complex regex
+    const methodSections = this.splitIntoMethodSections(content);
 
     for (const section of methodSections) {
       if (section.trim() === '') continue;
 
       // Check if this section contains multiple methods separated by ---
-      // Simple split on --- since it's a clear separator
-      const subSections = section.split(/\n---\n+/);
+      const subSections = this.splitByHorizontalRule(section);
 
       for (const subSection of subSections) {
         if (subSection.trim() === '') continue;
@@ -95,6 +94,88 @@ class MethodParser {
     }
 
     return methods;
+  }
+
+  private splitIntoMethodSections(content: string): string[] {
+    const sections: string[] = [];
+    const lines = content.split('\n');
+    let currentSection: string[] = [];
+    
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+      
+      // Check if this line is a method header (## or ### followed by {#anchor})
+      if (this.isMethodHeader(line)) {
+        // If we have a current section, save it
+        if (currentSection.length > 0) {
+          sections.push(currentSection.join('\n'));
+        }
+        // Start a new section
+        currentSection = [line];
+      } else {
+        // Add line to current section
+        currentSection.push(line);
+      }
+    }
+    
+    // Add the last section if it exists
+    if (currentSection.length > 0) {
+      sections.push(currentSection.join('\n'));
+    }
+    
+    return sections;
+  }
+
+  private isMethodHeader(line: string): boolean {
+    const trimmed = line.trim();
+    
+    // Must start with ## or ###
+    if (!trimmed.startsWith('##')) {
+      return false;
+    }
+    
+    // Must have {#anchor} pattern
+    if (!trimmed.includes('{#') || !trimmed.endsWith('}')) {
+      return false;
+    }
+    
+    // Check the basic pattern: ##+ text {#anchor}
+    const headerPattern = /^##+ .+\{#[^}]+\}$/;
+    return headerPattern.test(trimmed);
+  }
+
+  private splitByHorizontalRule(section: string): string[] {
+    // Split by horizontal rules (---) with optional whitespace
+    const parts: string[] = [];
+    const lines = section.split('\n');
+    let currentPart: string[] = [];
+    
+    for (const line of lines) {
+      // Check if this is a horizontal rule line
+      if (this.isHorizontalRule(line)) {
+        // Save current part if it has content
+        if (currentPart.length > 0) {
+          parts.push(currentPart.join('\n'));
+          currentPart = [];
+        }
+        // Skip the horizontal rule line itself
+      } else {
+        currentPart.push(line);
+      }
+    }
+    
+    // Add the last part
+    if (currentPart.length > 0) {
+      parts.push(currentPart.join('\n'));
+    }
+    
+    return parts;
+  }
+
+  private isHorizontalRule(line: string): boolean {
+    const trimmed = line.trim();
+    // Horizontal rule is three or more dashes, possibly with spaces
+    return /^-{3,}$/.test(trimmed);
   }
 
   private parseMethodSection(section: string): ApiMethod | null {
