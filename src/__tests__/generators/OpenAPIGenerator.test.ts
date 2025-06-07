@@ -184,7 +184,7 @@ describe('OpenAPIGenerator', () => {
       expect(spec.components?.schemas?.['Admin_DomainAllow']).toBeDefined();
       expect(spec.components?.schemas?.['Status_Mention']).toBeDefined();
       expect(spec.components?.schemas?.['Field_entity']).toBeDefined();
-      
+
       // Check that original names with :: and spaces are not present
       expect(spec.components?.schemas?.['Admin::DomainAllow']).toBeUndefined();
       expect(spec.components?.schemas?.['Status::Mention']).toBeUndefined();
@@ -192,12 +192,14 @@ describe('OpenAPIGenerator', () => {
 
       // Check that references are also sanitized
       const statusMentionSchema = spec.components!.schemas!['Status_Mention'];
-      expect(statusMentionSchema.properties?.['user']?.$ref).toBe('#/components/schemas/Admin_DomainAllow');
+      expect(statusMentionSchema.properties?.['user']?.$ref).toBe(
+        '#/components/schemas/Admin_DomainAllow'
+      );
 
       // Verify all schema names match OpenAPI regex ^[a-zA-Z0-9\.\-_]+$
       const schemaNames = Object.keys(spec.components?.schemas || {});
       const openApiNameRegex = /^[a-zA-Z0-9\.\-_]+$/;
-      
+
       for (const name of schemaNames) {
         expect(name).toMatch(openApiNameRegex);
       }
