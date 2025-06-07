@@ -74,6 +74,38 @@ describe('MethodParser', () => {
     expect(foundRequiredParam).toBe(true);
   });
 
+  test('should use filename for method file names instead of frontmatter title', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    // Find accounts method file
+    const accountsMethodFile = methodFiles.find((f) => f.name === 'accounts');
+    expect(accountsMethodFile).toBeDefined();
+    
+    // Find apps method file
+    const appsMethodFile = methodFiles.find((f) => f.name === 'apps');
+    expect(appsMethodFile).toBeDefined();
+    
+    // Find statuses method file
+    const statusesMethodFile = methodFiles.find((f) => f.name === 'statuses');
+    expect(statusesMethodFile).toBeDefined();
+
+    // Verify names are exactly the filename (not frontmatter titles like "accounts API methods")
+    if (accountsMethodFile) {
+      expect(accountsMethodFile.name).toBe('accounts');
+      expect(accountsMethodFile.name).not.toContain('API methods');
+    }
+    
+    if (appsMethodFile) {
+      expect(appsMethodFile.name).toBe('apps');
+      expect(appsMethodFile.name).not.toContain('API methods');
+    }
+    
+    if (statusesMethodFile) {
+      expect(statusesMethodFile.name).toBe('statuses');
+      expect(statusesMethodFile.name).not.toContain('API methods');
+    }
+  });
+
   test('should extract HTTP methods and endpoints correctly', () => {
     const methodFiles = methodParser.parseAllMethods();
 
