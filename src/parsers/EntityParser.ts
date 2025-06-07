@@ -180,7 +180,7 @@ class EntityParser {
     const entities: EntityClass[] = [];
 
     // Find all sections that define additional entities
-    // Pattern 1: ## [EntityName] entity attributes {#[id]}
+    // Pattern 1: ## [EntityName] entity attributes {#[id]} - extract just EntityName, not "EntityName entity"
     // Pattern 2: ## [EntityName] attributes {#[id]}
     const entitySectionRegex1 = /## ([^#\n]+?) entity attributes \{#([^}]+)\}/g;
     const entitySectionRegex2 = /## ([^#\n]+?) attributes \{#([^}]+)\}/g;
@@ -189,10 +189,14 @@ class EntityParser {
     [entitySectionRegex1, entitySectionRegex2].forEach((regex) => {
       let match;
       while ((match = regex.exec(content)) !== null) {
-        const [fullMatch, entityName, entityId] = match;
+        const [fullMatch, entityNameRaw, entityId] = match;
+
+        // For Pattern 1 (entity attributes), remove " entity" suffix if present
+        // This handles cases like "CredentialAccount entity attributes" -> "CredentialAccount"
+        const entityName = entityNameRaw.trim().replace(/\s+entity$/, '');
 
         // Skip if we already processed this entity (avoid duplicates)
-        if (entities.some((e) => e.name === entityName.trim())) {
+        if (entities.some((e) => e.name === entityName)) {
           continue;
         }
 
@@ -209,8 +213,8 @@ class EntityParser {
         const attributes = this.parseAttributesFromSection(entityContent);
 
         entities.push({
-          name: entityName.trim(),
-          description: `Additional entity definition for ${entityName.trim()}`,
+          name: entityName,
+          description: `Additional entity definition for ${entityName}`,
           attributes,
         });
       }
