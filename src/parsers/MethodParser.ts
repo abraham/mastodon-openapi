@@ -51,10 +51,10 @@ class MethodParser {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
 
-    // Extract file name from frontmatter title
-    const fileName = parsed.data.title || path.basename(filePath, '.md');
+    // Extract file name from path (for tagging based on filename)
+    const fileName = path.basename(filePath, '.md');
     if (!fileName) {
-      console.warn(`No title found in ${filePath}`);
+      console.warn(`No filename found in ${filePath}`);
       return null;
     }
 

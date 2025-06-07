@@ -17,7 +17,7 @@
         "summary": "Register an account",
         "description": "Creates a user and account records. Returns an account access token for the app that initiated the request. The app should save this token for later, and should wait for the user to confirm their account by clicking a link in their email inbox.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -79,7 +79,7 @@
         "summary": "Get multiple accounts",
         "description": "View information about multiple profiles.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -93,7 +93,7 @@
         "summary": "Verify account credentials",
         "description": "Test to make sure that the user token works.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -112,7 +112,7 @@
         "summary": "Update account credentials",
         "description": "Update the user's display and preferences.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -188,7 +188,7 @@
         "summary": "Get account",
         "description": "View information about a profile.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -213,7 +213,7 @@
         "summary": "Get account's statuses",
         "description": "Statuses posted to the given account.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -243,7 +243,7 @@
         "summary": "Get account's followers",
         "description": "Accounts which follow the given account, if network is not hidden by the account owner.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -268,7 +268,7 @@
         "summary": "Get account's following",
         "description": "Accounts which the given account is following, if network is not hidden by the account owner.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -293,7 +293,7 @@
         "summary": "Get account's featured tags",
         "description": "Tags featured by this account.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -318,7 +318,7 @@
         "summary": "Get lists containing this account",
         "description": "User lists that you have added this account to.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -348,7 +348,7 @@
         "summary": "Follow account",
         "description": "Follow the given account. Can also be used to update whether to show reblogs or enable notifications.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -399,7 +399,7 @@
         "summary": "Unfollow account",
         "description": "Unfollow the given account.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -429,7 +429,7 @@
         "summary": "Remove account from followers",
         "description": "Remove the given account from your followers.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -459,7 +459,7 @@
         "summary": "Block account",
         "description": "Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline)",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -489,7 +489,7 @@
         "summary": "Unblock account",
         "description": "Unblock the given account.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -519,7 +519,7 @@
         "summary": "Mute account",
         "description": "Mute the given account. Clients should filter statuses and notifications from this account, if received (e.g. due to a boost in the Home timeline).",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -570,7 +570,7 @@
         "summary": "Unmute account",
         "description": "Unmute the given account.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -600,7 +600,7 @@
         "summary": "Get featured accounts",
         "description": "Accounts that the user is currently featuring on their profile.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -625,7 +625,7 @@
         "summary": "Feature account on your profile",
         "description": "Add the given account to the user's featured profiles.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -655,7 +655,7 @@
         "summary": "Unfeature account from profile",
         "description": "Remove the given account from the user's featured profiles.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -685,7 +685,7 @@
         "summary": "Set private note on profile",
         "description": "Sets a private note on a user.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -732,7 +732,7 @@
         "summary": "Check relationships to other accounts",
         "description": "Find out whether a given account is followed, blocked, muted, etc.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -751,7 +751,7 @@
         "summary": "Find familiar followers",
         "description": "Obtain a list of all accounts that follow a given account, filtered for accounts you follow.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -770,7 +770,7 @@
         "summary": "Search for matching accounts",
         "description": "Search for matching accounts by username or display name.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -789,7 +789,7 @@
         "summary": "Lookup account ID from Webfinger address",
         "description": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.",
         "tags": [
-          "accounts API methods"
+          "accounts"
         ],
         "responses": {
           "200": {
@@ -803,7 +803,7 @@
         "summary": "View all announcements",
         "description": "See all currently active announcements set by admins.",
         "tags": [
-          "announcements API methods"
+          "announcements"
         ],
         "responses": {
           "200": {
@@ -822,7 +822,7 @@
         "summary": "Dismiss an announcement",
         "description": "Allows a user to mark the announcement as read.",
         "tags": [
-          "announcements API methods"
+          "announcements"
         ],
         "responses": {
           "200": {
@@ -852,7 +852,7 @@
         "summary": "Add a reaction to an announcement",
         "description": "React to an announcement with an emoji.",
         "tags": [
-          "announcements API methods"
+          "announcements"
         ],
         "responses": {
           "200": {
@@ -889,7 +889,7 @@
         "summary": "Remove a reaction from an announcement",
         "description": "Undo a react emoji to an announcement.",
         "tags": [
-          "announcements API methods"
+          "announcements"
         ],
         "responses": {
           "200": {
@@ -928,7 +928,7 @@
         "summary": "Create an application",
         "description": "Create a new application to obtain OAuth2 credentials.",
         "tags": [
-          "apps API methods"
+          "apps"
         ],
         "responses": {
           "200": {
@@ -972,7 +972,7 @@
         "summary": "Verify your app works",
         "description": "Confirm that the app's OAuth2 credentials work.",
         "tags": [
-          "apps API methods"
+          "apps"
         ],
         "responses": {
           "200": {
@@ -991,7 +991,7 @@
         "summary": "View blocked users",
         "description": "##### 401: Unauthorized",
         "tags": [
-          "blocks API methods"
+          "blocks"
         ],
         "responses": {
           "200": {
@@ -1010,7 +1010,7 @@
         "summary": "View bookmarked statuses",
         "description": "Statuses the user has bookmarked.",
         "tags": [
-          "bookmarks API methods"
+          "bookmarks"
         ],
         "responses": {
           "200": {
@@ -1029,7 +1029,7 @@
         "summary": "View all conversations",
         "description": "##### 401: Unauthorized",
         "tags": [
-          "conversations API methods"
+          "conversations"
         ],
         "responses": {
           "200": {
@@ -1048,7 +1048,7 @@
         "summary": "Remove a conversation",
         "description": "Removes a conversation from your list of conversations.",
         "tags": [
-          "conversations API methods"
+          "conversations"
         ],
         "responses": {
           "200": {
@@ -1078,7 +1078,7 @@
         "summary": "Mark a conversation as read",
         "description": "",
         "tags": [
-          "conversations API methods"
+          "conversations"
         ],
         "responses": {
           "200": {
@@ -1108,7 +1108,7 @@
         "summary": "View all custom emoji",
         "description": "Returns custom emojis that are available on the server.",
         "tags": [
-          "custom_emojis API methods"
+          "custom_emojis"
         ],
         "responses": {
           "200": {
@@ -1122,7 +1122,7 @@
         "summary": "View profile directory",
         "description": "List accounts visible in the directory.",
         "tags": [
-          "directory API methods"
+          "directory"
         ],
         "responses": {
           "200": {
@@ -1136,7 +1136,7 @@
         "summary": "Get domain blocks",
         "description": "View domains the user has blocked.",
         "tags": [
-          "domain_blocks API methods"
+          "domain_blocks"
         ],
         "responses": {
           "200": {
@@ -1153,7 +1153,7 @@
         "summary": "Block a domain",
         "description": "Block a domain to:",
         "tags": [
-          "domain_blocks API methods"
+          "domain_blocks"
         ],
         "responses": {
           "200": {
@@ -1188,7 +1188,7 @@
         "summary": "Unblock a domain",
         "description": "Remove a domain block, if it exists in the user's array of blocked domains.",
         "tags": [
-          "domain_blocks API methods"
+          "domain_blocks"
         ],
         "responses": {
           "200": {
@@ -1225,7 +1225,7 @@
         "summary": "Resend confirmation email",
         "description": "Resend a new confirmation email. If an email is provided, updates the unconfirmed user's email before resending the confirmation email.",
         "tags": [
-          "emails API methods"
+          "emails"
         ],
         "responses": {
           "200": {
@@ -1262,7 +1262,7 @@
         "summary": "View currently featured profiles",
         "description": "Accounts that the user is currently featuring on their profile.",
         "tags": [
-          "endorsements API methods"
+          "endorsements"
         ],
         "responses": {
           "200": {
@@ -1281,7 +1281,7 @@
         "summary": "View favourited statuses",
         "description": "Statuses the user has favourited.",
         "tags": [
-          "favourites API methods"
+          "favourites"
         ],
         "responses": {
           "200": {
@@ -1300,7 +1300,7 @@
         "summary": "View your featured tags",
         "description": "List all hashtags featured on your profile.",
         "tags": [
-          "featured_tags API methods"
+          "featured_tags"
         ],
         "responses": {
           "200": {
@@ -1317,7 +1317,7 @@
         "summary": "Feature a tag",
         "description": "Promote a hashtag on your profile.",
         "tags": [
-          "featured_tags API methods"
+          "featured_tags"
         ],
         "responses": {
           "200": {
@@ -1354,7 +1354,7 @@
         "summary": "Unfeature a tag",
         "description": "Stop promoting a hashtag on your profile.",
         "tags": [
-          "featured_tags API methods"
+          "featured_tags"
         ],
         "responses": {
           "200": {
@@ -1384,7 +1384,7 @@
         "summary": "View suggested tags to feature",
         "description": "Shows up to 10 recently-used tags.",
         "tags": [
-          "featured_tags API methods"
+          "featured_tags"
         ],
         "responses": {
           "200": {
@@ -1403,7 +1403,7 @@
         "summary": "Server-side (v2) methods",
         "description": "Obtain a list of all filter groups for the current user.",
         "tags": [
-          "filters API methods"
+          "filters"
         ],
         "responses": {
           "200": {
@@ -1448,7 +1448,7 @@
         "summary": "Client-side (v1) methods",
         "description": "Replaces a filter's parameters in-place.",
         "tags": [
-          "filters API methods"
+          "filters"
         ],
         "responses": {
           "200": {
@@ -1501,7 +1501,7 @@
         "summary": "View pending follow requests",
         "description": "##### 401: Unauthorized",
         "tags": [
-          "follow_requests API methods"
+          "follow_requests"
         ],
         "responses": {
           "200": {
@@ -1520,7 +1520,7 @@
         "summary": "Accept follow request",
         "description": "",
         "tags": [
-          "follow_requests API methods"
+          "follow_requests"
         ],
         "responses": {
           "200": {
@@ -1550,7 +1550,7 @@
         "summary": "Reject follow request",
         "description": "",
         "tags": [
-          "follow_requests API methods"
+          "follow_requests"
         ],
         "responses": {
           "200": {
@@ -1580,7 +1580,7 @@
         "summary": "View all followed tags",
         "description": "List your followed hashtags.",
         "tags": [
-          "followed_tags API methods"
+          "followed_tags"
         ],
         "responses": {
           "200": {
@@ -1599,7 +1599,7 @@
         "summary": "Get all grouped notifications",
         "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
         "tags": [
-          "Grouped notifications API methods"
+          "grouped_notifications"
         ],
         "responses": {
           "200": {
@@ -1618,7 +1618,7 @@
         "summary": "Get a single notification group",
         "description": "View information about a specific notification group with a given group key.",
         "tags": [
-          "Grouped notifications API methods"
+          "grouped_notifications"
         ],
         "responses": {
           "200": {
@@ -1648,7 +1648,7 @@
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
-          "Grouped notifications API methods"
+          "grouped_notifications"
         ],
         "responses": {
           "200": {
@@ -1678,7 +1678,7 @@
         "summary": "Get accounts of all notifications in a notification group",
         "description": "",
         "tags": [
-          "Grouped notifications API methods"
+          "grouped_notifications"
         ],
         "responses": {
           "200": {
@@ -1708,7 +1708,7 @@
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notification groups for the current user.",
         "tags": [
-          "Grouped notifications API methods"
+          "grouped_notifications"
         ],
         "responses": {
           "200": {
@@ -1727,7 +1727,7 @@
         "summary": "View server information",
         "description": "Obtain general information about the server.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1741,7 +1741,7 @@
         "summary": "List of connected domains",
         "description": "Domains that this instance is aware of.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1755,7 +1755,7 @@
         "summary": "Weekly activity",
         "description": "Instance activity over the last 3 months, binned weekly.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1769,7 +1769,7 @@
         "summary": "List of rules",
         "description": "Rules that the users of this service should follow.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1783,7 +1783,7 @@
         "summary": "View moderated servers",
         "description": "Obtain a list of domains that have been blocked.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1802,7 +1802,7 @@
         "summary": "View extended description",
         "description": "Obtain an extended description of this server",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1816,7 +1816,7 @@
         "summary": "View privacy policy",
         "description": "Obtain the contents of this server's privacy policy.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1830,7 +1830,7 @@
         "summary": "View terms of service",
         "description": "Obtain the contents of this server's terms of service, if configured.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1844,7 +1844,7 @@
         "summary": "View a specific version of the terms of service",
         "description": "Obtain the contents of this server's terms of service, for a specified date, if configured.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1869,7 +1869,7 @@
         "summary": "View translation languages",
         "description": "Translation language pairs supported by the translation engine used by the server.",
         "tags": [
-          "instance API methods"
+          "instance"
         ],
         "responses": {
           "200": {
@@ -1883,7 +1883,7 @@
         "summary": "View your lists",
         "description": "Fetch all lists that the user owns.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -1900,7 +1900,7 @@
         "summary": "Create a list",
         "description": "Create a new list.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -1945,7 +1945,7 @@
         "summary": "Show a single list",
         "description": "Fetch the list with the given ID. Used for verifying the title of a list, and which replies to show within that list.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -1973,7 +1973,7 @@
         "summary": "Update a list",
         "description": "Change the title of a list, or which replies to show.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -2026,7 +2026,7 @@
         "summary": "Delete a list",
         "description": "",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -2056,7 +2056,7 @@
         "summary": "View accounts in a list",
         "description": "##### 401: Unauthorized",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -2084,7 +2084,7 @@
         "summary": "Add accounts to a list",
         "description": "Add accounts to the given list. Note that the user must be following these accounts.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -2112,7 +2112,7 @@
         "summary": "Remove accounts from list",
         "description": "Remove accounts from the given list.",
         "tags": [
-          "lists API methods"
+          "lists"
         ],
         "responses": {
           "200": {
@@ -2142,7 +2142,7 @@
         "summary": "Get saved timeline positions",
         "description": "Get current positions in timelines.",
         "tags": [
-          "markers API methods"
+          "markers"
         ],
         "responses": {
           "200": {
@@ -2159,7 +2159,7 @@
         "summary": "Save your position in a timeline",
         "description": "Save current position in timeline.",
         "tags": [
-          "markers API methods"
+          "markers"
         ],
         "responses": {
           "200": {
@@ -2178,7 +2178,7 @@
         "summary": "Upload media as an attachment (async)",
         "description": "Creates a media attachment to be used with a new status. The full sized media will be processed asynchronously in the background for large uploads.",
         "tags": [
-          "media API methods"
+          "media"
         ],
         "responses": {
           "200": {
@@ -2227,7 +2227,7 @@
         "summary": "Get media attachment",
         "description": "Get a media attachment, before it is attached to a status and posted, but after it is accepted for processing. Use this method to check that the full-sized media has finished processing.",
         "tags": [
-          "media API methods"
+          "media"
         ],
         "responses": {
           "200": {
@@ -2255,7 +2255,7 @@
         "summary": "Delete media attachment",
         "description": "Delete a media attachment that is not currently attached to a status.",
         "tags": [
-          "media API methods"
+          "media"
         ],
         "responses": {
           "200": {
@@ -2283,7 +2283,7 @@
         "summary": "Update media attachment",
         "description": "Update a MediaAttachment's parameters, before it is attached to a status and posted.",
         "tags": [
-          "media API methods"
+          "media"
         ],
         "responses": {
           "200": {
@@ -2338,7 +2338,7 @@
         "summary": "View muted accounts",
         "description": "Accounts the user has muted.",
         "tags": [
-          "mutes API methods"
+          "mutes"
         ],
         "responses": {
           "200": {
@@ -2357,7 +2357,7 @@
         "summary": "Get all notifications",
         "description": "Notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2376,7 +2376,7 @@
         "summary": "Get a single notification",
         "description": "View information about a notification with a given ID.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2406,7 +2406,7 @@
         "summary": "Dismiss all notifications",
         "description": "Clear all notifications from the server.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2425,7 +2425,7 @@
         "summary": "Dismiss a single notification",
         "description": "Dismiss a single notification from the server.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2472,7 +2472,7 @@
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notifications for the current user.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2491,7 +2491,7 @@
         "summary": "Get the filtering policy for notifications",
         "description": "Notifications filtering policy for the user.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2510,7 +2510,7 @@
         "summary": "Get all notification requests",
         "description": "Notification requests for notifications filtered by the user's policy. This API returns Link headers containing links to the next/previous page.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2529,7 +2529,7 @@
         "summary": "Get a single notification request",
         "description": "View information about a notification request with a given ID.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2559,7 +2559,7 @@
         "summary": "Accept a single notification request",
         "description": "Accept a notification request, which merges the filtered notifications from that user back into the main notification and accepts any future notification from them.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2589,7 +2589,7 @@
         "summary": "Dismiss a single notification request",
         "description": "Dismiss a notification request, which hides it and prevent it from contributing to the pending notification requests count.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2619,7 +2619,7 @@
         "summary": "Accept multiple notification requests",
         "description": "Accepts multiple notification requests, which merges the filtered notifications from those users back into the main notifications and accepts any future notification from them.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2638,7 +2638,7 @@
         "summary": "Dismiss multiple notification requests",
         "description": "Dismiss multiple notification requests, which hides them and prevent them from contributing to the pending notification requests count.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2657,7 +2657,7 @@
         "summary": "Check if accepted notification requests have been merged",
         "description": "Check whether accepted notification requests have been merged.",
         "tags": [
-          "notifications API methods"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -2676,7 +2676,7 @@
         "summary": "Get all grouped notifications",
         "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
         "tags": [
-          "notifications API alpha methods"
+          "notifications_alpha"
         ],
         "responses": {
           "200": {
@@ -2695,7 +2695,7 @@
         "summary": "Get a single notification group",
         "description": "View information about a specific notification group with a given group key.",
         "tags": [
-          "notifications API alpha methods"
+          "notifications_alpha"
         ],
         "responses": {
           "200": {
@@ -2725,7 +2725,7 @@
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
-          "notifications API alpha methods"
+          "notifications_alpha"
         ],
         "responses": {
           "200": {
@@ -2755,7 +2755,7 @@
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notification groups for the current user.",
         "tags": [
-          "notifications API alpha methods"
+          "notifications_alpha"
         ],
         "responses": {
           "200": {
@@ -2774,7 +2774,7 @@
         "summary": "Authorize a user",
         "description": "Displays an authorization form to the user. If approved, it will create and return an authorization code, then redirect to the desired `redirect_uri`, or show the authorization code if `urn:ietf:wg:oauth:2.0:oob` was requested. The authorization code can be used while requesting a token to obtain access to user-level methods.",
         "tags": [
-          "OAuth API methods"
+          "oauth"
         ],
         "responses": {
           "200": {
@@ -2788,7 +2788,7 @@
         "summary": "Obtain a token",
         "description": "Obtain an access token, to be used during API calls that are not public.",
         "tags": [
-          "OAuth API methods"
+          "oauth"
         ],
         "responses": {
           "200": {
@@ -2844,7 +2844,7 @@
         "summary": "Revoke a token",
         "description": "Revoke an access token to make it no longer valid for use.",
         "tags": [
-          "OAuth API methods"
+          "oauth"
         ],
         "responses": {
           "200": {
@@ -2884,7 +2884,7 @@
         "summary": "Discover OAuth Server Configuration",
         "description": "Returns the OAuth 2 Authorization Server Metadata for the Mastodon server, as defined by [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414#section-3.2).",
         "tags": [
-          "OAuth API methods"
+          "oauth"
         ],
         "responses": {
           "200": {
@@ -2898,7 +2898,7 @@
         "summary": "Get OEmbed info as JSON",
         "description": "",
         "tags": [
-          "oembed API methods"
+          "oembed"
         ],
         "responses": {
           "200": {
@@ -2912,7 +2912,7 @@
         "summary": "View a poll",
         "description": "View a poll attached to a status.",
         "tags": [
-          "polls API methods"
+          "polls"
         ],
         "responses": {
           "200": {
@@ -2942,7 +2942,7 @@
         "summary": "Vote on a poll",
         "description": "Vote on a poll attached to a status.",
         "tags": [
-          "polls API methods"
+          "polls"
         ],
         "responses": {
           "200": {
@@ -2972,7 +2972,7 @@
         "summary": "View user preferences",
         "description": "Preferences defined by the user in their account settings.",
         "tags": [
-          "preferences API methods"
+          "preferences"
         ],
         "responses": {
           "200": {
@@ -2991,7 +2991,7 @@
         "summary": "Subscribe to push notifications",
         "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.",
         "tags": [
-          "push API methods"
+          "push"
         ],
         "responses": {
           "200": {
@@ -3008,7 +3008,7 @@
         "summary": "Get current subscription",
         "description": "View the PushSubscription currently associated with this access token.",
         "tags": [
-          "push API methods"
+          "push"
         ],
         "responses": {
           "200": {
@@ -3025,7 +3025,7 @@
         "summary": "Change types of notifications",
         "description": "Updates the current push subscription. Only the data part can be updated. To change fundamentals, a new subscription must be created instead.",
         "tags": [
-          "push API methods"
+          "push"
         ],
         "responses": {
           "200": {
@@ -3060,7 +3060,7 @@
         "summary": "Remove current subscription",
         "description": "Removes the current Web Push API subscription.",
         "tags": [
-          "push API methods"
+          "push"
         ],
         "responses": {
           "200": {
@@ -3079,7 +3079,7 @@
         "summary": "File a report",
         "description": "",
         "tags": [
-          "reports API methods"
+          "reports"
         ],
         "responses": {
           "200": {
@@ -3128,7 +3128,7 @@
         "summary": "View scheduled statuses",
         "description": "",
         "tags": [
-          "scheduled_statuses API methods"
+          "scheduled_statuses"
         ],
         "responses": {
           "200": {
@@ -3147,7 +3147,7 @@
         "summary": "View a single scheduled status",
         "description": "",
         "tags": [
-          "scheduled_statuses API methods"
+          "scheduled_statuses"
         ],
         "responses": {
           "200": {
@@ -3175,7 +3175,7 @@
         "summary": "Update a scheduled status's publishing date",
         "description": "",
         "tags": [
-          "scheduled_statuses API methods"
+          "scheduled_statuses"
         ],
         "responses": {
           "200": {
@@ -3220,7 +3220,7 @@
         "summary": "Cancel a scheduled status",
         "description": "",
         "tags": [
-          "scheduled_statuses API methods"
+          "scheduled_statuses"
         ],
         "responses": {
           "200": {
@@ -3250,7 +3250,7 @@
         "summary": "Perform a search",
         "description": "",
         "tags": [
-          "search API methods"
+          "search"
         ],
         "responses": {
           "200": {
@@ -3976,7 +3976,7 @@
         "summary": "Check if the server is alive",
         "description": "Verify that the streaming service is alive before connecting to it",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -3990,7 +3990,7 @@
         "summary": "Watch your home timeline and notifications",
         "description": "Returns events that are relevant to the authorized user, i.e. home timeline and notifications",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4009,7 +4009,7 @@
         "summary": "Watch your notifications",
         "description": "Returns events for received notifications",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4028,7 +4028,7 @@
         "summary": "Watch the federated timeline",
         "description": "Returns all public statuses",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4047,7 +4047,7 @@
         "summary": "Watch the local timeline",
         "description": "Returns all local public statuses",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4066,7 +4066,7 @@
         "summary": "Watch for remote statuses",
         "description": "Returns all public statuses from remote servers.",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4085,7 +4085,7 @@
         "summary": "Watch the public timeline for a hashtag",
         "description": "Returns all public statuses for a particular hashtag",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4104,7 +4104,7 @@
         "summary": "Watch the local timeline for a hashtag",
         "description": "Returns all local public statuses for a particular hashtag",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4123,7 +4123,7 @@
         "summary": "Watch for list updates",
         "description": "Returns statuses for a list",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4142,7 +4142,7 @@
         "summary": "Watch for direct messages",
         "description": "Returns events for received direct messages.",
         "tags": [
-          "streaming API methods"
+          "streaming"
         ],
         "responses": {
           "200": {
@@ -4161,7 +4161,7 @@
         "summary": "View follow suggestions (v2)",
         "description": "Accounts that are promoted by staff, or that the user has had past positive interactions with, but is not yet following.",
         "tags": [
-          "suggestions API methods"
+          "suggestions"
         ],
         "responses": {
           "200": {
@@ -4180,7 +4180,7 @@
         "summary": "Remove a suggestion",
         "description": "Remove an account from follow suggestions.",
         "tags": [
-          "suggestions API methods"
+          "suggestions"
         ],
         "responses": {
           "200": {
@@ -4210,7 +4210,7 @@
         "summary": "View information about a single tag",
         "description": "Show a hashtag and its associated information",
         "tags": [
-          "tags API methods"
+          "tags"
         ],
         "responses": {
           "200": {
@@ -4240,7 +4240,7 @@
         "summary": "Follow a hashtag",
         "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.",
         "tags": [
-          "tags API methods"
+          "tags"
         ],
         "responses": {
           "200": {
@@ -4270,7 +4270,7 @@
         "summary": "Unfollow a hashtag",
         "description": "Unfollow a hashtag. Posts containing this hashtag will no longer be inserted into your home timeline.",
         "tags": [
-          "tags API methods"
+          "tags"
         ],
         "responses": {
           "200": {
@@ -4300,7 +4300,7 @@
         "summary": "Feature a hashtag",
         "description": "Feature the hashtag on your profile.",
         "tags": [
-          "tags API methods"
+          "tags"
         ],
         "responses": {
           "200": {
@@ -4330,7 +4330,7 @@
         "summary": "Unfeature a hashtag",
         "description": "Stop featuring the hashtag on your profile.",
         "tags": [
-          "tags API methods"
+          "tags"
         ],
         "responses": {
           "200": {
@@ -4360,7 +4360,7 @@
         "summary": "View public timeline",
         "description": "View public statuses.",
         "tags": [
-          "timelines API methods"
+          "timelines"
         ],
         "responses": {
           "200": {
@@ -4379,7 +4379,7 @@
         "summary": "View hashtag timeline",
         "description": "View public statuses containing the given hashtag.",
         "tags": [
-          "timelines API methods"
+          "timelines"
         ],
         "responses": {
           "200": {
@@ -4409,7 +4409,7 @@
         "summary": "View home timeline",
         "description": "View statuses from followed users and hashtags.",
         "tags": [
-          "timelines API methods"
+          "timelines"
         ],
         "responses": {
           "200": {
@@ -4428,7 +4428,7 @@
         "summary": "View link timeline",
         "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.",
         "tags": [
-          "timelines API methods"
+          "timelines"
         ],
         "responses": {
           "200": {
@@ -4458,7 +4458,7 @@
         "summary": "View list timeline",
         "description": "View statuses in the given list timeline.",
         "tags": [
-          "timelines API methods"
+          "timelines"
         ],
         "responses": {
           "200": {
@@ -4488,7 +4488,7 @@
         "summary": "View trending tags",
         "description": "Tags that are being used more frequently within the past week.",
         "tags": [
-          "trends API methods"
+          "trends"
         ],
         "responses": {
           "200": {
@@ -4502,7 +4502,7 @@
         "summary": "View trending statuses",
         "description": "Statuses that have been interacted with more than others.",
         "tags": [
-          "trends API methods"
+          "trends"
         ],
         "responses": {
           "200": {
@@ -4516,7 +4516,7 @@
         "summary": "View trending links",
         "description": "Links that have been shared more than others.",
         "tags": [
-          "trends API methods"
+          "trends"
         ],
         "responses": {
           "200": {
