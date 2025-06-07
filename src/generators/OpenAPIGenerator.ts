@@ -300,11 +300,14 @@ class OpenAPIGenerator {
 
   private generateBaseOperationId(method: string, segments: string[]): string {
     // Map HTTP methods to more semantic operation names
-    const getSemanticMethod = (httpMethod: string, segments: string[]): string => {
+    const getSemanticMethod = (
+      httpMethod: string,
+      segments: string[]
+    ): string => {
       const hasPathParams = segments.some(
         (segment) => segment.startsWith('{') && segment.endsWith('}')
       );
-      
+
       switch (httpMethod.toLowerCase()) {
         case 'post':
           // POST to collection endpoints -> create
@@ -390,18 +393,21 @@ class OpenAPIGenerator {
       // For multi-segment paths, prefer the last segment if it makes sense
       if (segments.length === 2) {
         const [firstSegment, lastSegment] = segments;
-        
+
         // Try to use just the last segment for simpler names
         // but fall back to full path if it might cause conflicts
-        const simpleOperationId = semanticMethod + this.toPascalCase(lastSegment);
-        
+        const simpleOperationId =
+          semanticMethod + this.toPascalCase(lastSegment);
+
         // For now, use the simple approach - we can add conflict detection later if needed
         // For paths like /profile/avatar -> deleteAvatar
         return simpleOperationId;
       }
 
       // Default: combine all segments
-      return semanticMethod + segments.map((s) => this.toPascalCase(s)).join('');
+      return (
+        semanticMethod + segments.map((s) => this.toPascalCase(s)).join('')
+      );
     }
   }
 

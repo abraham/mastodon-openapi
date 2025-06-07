@@ -64,11 +64,19 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       const spec = generator.generateSchema([], testMethods);
 
       // Examples from issue #58
-      expect(spec.paths['/api/v1/statuses']?.post?.operationId).toBe('createStatus');
-      expect(spec.paths['/api/v1/profile/avatar']?.delete?.operationId).toBe('deleteAvatar');
+      expect(spec.paths['/api/v1/statuses']?.post?.operationId).toBe(
+        'createStatus'
+      );
+      expect(spec.paths['/api/v1/profile/avatar']?.delete?.operationId).toBe(
+        'deleteAvatar'
+      );
       expect(spec.paths['/api/v1/lists']?.get?.operationId).toBe('getLists');
-      expect(spec.paths['/api/v1/lists/{id}']?.get?.operationId).toBe('getList');
-      expect(spec.paths['/api/v1/lists/{id}']?.put?.operationId).toBe('updateList');
+      expect(spec.paths['/api/v1/lists/{id}']?.get?.operationId).toBe(
+        'getList'
+      );
+      expect(spec.paths['/api/v1/lists/{id}']?.put?.operationId).toBe(
+        'updateList'
+      );
     });
 
     it('should generate correct operationId for various endpoint patterns', () => {
