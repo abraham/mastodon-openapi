@@ -146,7 +146,7 @@ class OpenAPIGenerator {
     if (type.$ref) {
       property.$ref = type.$ref;
     }
-    
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       property.enum = attribute.enumValues;

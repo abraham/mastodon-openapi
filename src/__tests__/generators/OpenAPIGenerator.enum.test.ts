@@ -53,7 +53,12 @@ describe('OpenAPIGenerator Enum Support', () => {
       expect(entitySchema.properties?.['visibility']).toBeDefined();
       const visibilityProperty = entitySchema.properties!['visibility'];
       expect(visibilityProperty.type).toBe('string');
-      expect(visibilityProperty.enum).toEqual(['public', 'unlisted', 'private', 'direct']);
+      expect(visibilityProperty.enum).toEqual([
+        'public',
+        'unlisted',
+        'private',
+        'direct',
+      ]);
       expect(visibilityProperty.description).toBe('Visibility setting');
 
       // Check that regular field doesn't have enum
@@ -61,7 +66,9 @@ describe('OpenAPIGenerator Enum Support', () => {
       const regularProperty = entitySchema.properties!['regularField'];
       expect(regularProperty.type).toBe('string');
       expect(regularProperty.enum).toBeUndefined();
-      expect(regularProperty.description).toBe('Regular string field without enum');
+      expect(regularProperty.description).toBe(
+        'Regular string field without enum'
+      );
     });
 
     it('should handle attributes without enum values gracefully', () => {

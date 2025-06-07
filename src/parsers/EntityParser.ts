@@ -187,18 +187,18 @@ class EntityParser {
 
   private extractEnumValues(content: string): string[] {
     const enumValues: string[] = [];
-    
+
     // Look for enum value patterns like `value` = description
     const enumPattern = /`([^`]+)`\s*=\s*[^\n]+/g;
     let match;
-    
+
     while ((match = enumPattern.exec(content)) !== null) {
       const enumValue = match[1].trim();
       if (enumValue) {
         enumValues.push(enumValue);
       }
     }
-    
+
     return enumValues;
   }
 
