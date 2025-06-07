@@ -110,9 +110,16 @@ class OpenAPIGenerator {
       }
 
       if (this.spec.components?.schemas) {
-        this.spec.components.schemas[entity.name] = schema;
+        const sanitizedName = this.sanitizeSchemaName(entity.name);
+        this.spec.components.schemas[sanitizedName] = schema;
       }
     }
+  }
+
+  private sanitizeSchemaName(name: string): string {
+    // Replace :: with _ and spaces with _ to make schema names OpenAPI compliant
+    // OpenAPI schema names must match ^[a-zA-Z0-9\.\-_]+$
+    return name.replace(/::/g, '_').replace(/\s+/g, '_');
   }
 
   private convertAttribute(attribute: EntityAttribute): OpenAPIProperty {
@@ -176,10 +183,11 @@ class OpenAPIGenerator {
           refName.toLowerCase() === 'date';
 
         if (!isDocumentationLink) {
-          // Clean up reference name (preserve :: for nested entities)
+          // Clean up reference name and sanitize for OpenAPI compliance
           const cleanRefName = refName.replace(/[^\w:]/g, '');
+          const sanitizedRefName = this.sanitizeSchemaName(cleanRefName);
           return {
-            $ref: `#/components/schemas/${cleanRefName}`,
+            $ref: `#/components/schemas/${sanitizedRefName}`,
           };
         }
       }

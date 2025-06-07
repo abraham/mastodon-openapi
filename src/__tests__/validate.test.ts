@@ -46,4 +46,24 @@ describe('OpenAPI Schema Validation', () => {
       }
     }).not.toThrow();
   });
+
+  it('should have schema names that comply with OpenAPI regex pattern', () => {
+    const content = fs.readFileSync(schemaPath, 'utf-8');
+    const schema = JSON.parse(content);
+
+    // OpenAPI schema names must match ^[a-zA-Z0-9\.\-_]+$
+    const openApiNameRegex = /^[a-zA-Z0-9\.\-_]+$/;
+
+    if (schema.components && schema.components.schemas) {
+      const schemaNames = Object.keys(schema.components.schemas);
+
+      for (const name of schemaNames) {
+        expect(name).toMatch(openApiNameRegex);
+        expect(name).not.toContain('::');
+      }
+
+      // Ensure we have some schemas to test (should be many from Mastodon)
+      expect(schemaNames.length).toBeGreaterThan(50);
+    }
+  });
 });
