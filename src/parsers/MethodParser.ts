@@ -4,6 +4,7 @@ import matter from 'gray-matter';
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod } from '../interfaces/ApiMethod';
 import { ApiParameter } from '../interfaces/ApiParameter';
+import { ApiResponse } from '../interfaces/ApiResponse';
 
 class MethodParser {
   private methodsPath: string;
@@ -148,6 +149,9 @@ class MethodParser {
     // Parse parameters from both Query parameters and Form data parameters sections
     const parameters = this.parseAllParameters(section);
 
+    // Parse responses with JSON examples
+    const responses = this.parseResponses(section);
+
     // Clean the method name by removing Hugo shortcodes
     const cleanedName = name.replace(/\{\{%deprecated%\}\}/g, '').trim();
 
@@ -161,6 +165,7 @@ class MethodParser {
       oauth,
       version,
       deprecated: isDeprecated || undefined,
+      responses: responses.length > 0 ? responses : undefined,
     };
   }
 
@@ -463,6 +468,49 @@ class MethodParser {
         .replace(/\\\s*$/, '') // Remove trailing backslashes
         .trim()
     );
+  }
+
+  private parseResponses(section: string): ApiResponse[] {
+    const responses: ApiResponse[] = [];
+
+    // Find the Response section - match from "#### Response" to the end of the section
+    const responseMatch = section.match(/#### Response\s*([\s\S]*)$/);
+    if (!responseMatch) {
+      return responses;
+    }
+
+    const responseSection = responseMatch[1];
+
+    // Match response status sections: ##### 200: OK, ##### 401: Unauthorized, etc.
+    const statusRegex = /##### (\d+):\s*([^\n]*)\s*([\s\S]*?)(?=\n#####|$)/g;
+
+    let match;
+    while ((match = statusRegex.exec(responseSection)) !== null) {
+      const [, statusCode, statusDescription, content] = match;
+
+      // Look for JSON code blocks in this status section
+      const jsonMatch = content.match(/```json\s*([\s\S]*?)\s*```/);
+      if (jsonMatch) {
+        const jsonExample = jsonMatch[1].trim();
+        
+        let parsedExample: any = undefined;
+        try {
+          parsedExample = JSON.parse(jsonExample);
+        } catch (error) {
+          // If JSON parsing fails, just store the raw example
+          console.warn(`Failed to parse JSON example for ${statusCode}: ${error}`);
+        }
+
+        responses.push({
+          statusCode,
+          description: statusDescription.trim() || undefined,
+          example: jsonExample,
+          parsedExample,
+        });
+      }
+    }
+
+    return responses;
   }
 }
 

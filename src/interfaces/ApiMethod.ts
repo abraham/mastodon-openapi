@@ -1,4 +1,5 @@
 import { ApiParameter } from './ApiParameter';
+import { ApiResponse } from './ApiResponse';
 
 interface ApiMethod {
   name: string;
@@ -10,6 +11,7 @@ interface ApiMethod {
   oauth?: string;
   version?: string;
   deprecated?: boolean;
+  responses?: ApiResponse[];
 }
 
 export { ApiMethod };

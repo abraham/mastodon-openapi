@@ -3,6 +3,7 @@ export { EntityAttribute } from './interfaces/EntityAttribute';
 export { EntityClass } from './interfaces/EntityClass';
 export { ApiParameter } from './interfaces/ApiParameter';
 export { ApiMethod } from './interfaces/ApiMethod';
+export { ApiResponse } from './interfaces/ApiResponse';
 export { ApiMethodsFile } from './interfaces/ApiMethodsFile';
 export { OpenAPISpec } from './interfaces/OpenAPISchema';
 export { EntityParser } from './parsers/EntityParser';
