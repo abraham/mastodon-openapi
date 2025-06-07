@@ -293,5 +293,44 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       expect(statusesOpId).toBe('getStatus');
       expect(accountsOpId).not.toBe(statusesOpId);
     });
+
+    it('should generate combined operationIds by default for 2-segment paths', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'featured_tags',
+          description: 'Featured tags methods',
+          methods: [
+            {
+              name: 'Get featured tag suggestions',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/featured_tags/suggestions',
+              description: 'Get featured tag suggestions',
+            },
+          ],
+        },
+        {
+          name: 'accounts',
+          description: 'Account methods',
+          methods: [
+            {
+              name: 'Search accounts',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/search',
+              description: 'Search for accounts',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      // By default, 2-segment paths should combine segments for better context
+      expect(
+        spec.paths['/api/v1/featured_tags/suggestions']?.get?.operationId
+      ).toBe('getFeaturedTagSuggestions');
+      expect(spec.paths['/api/v1/accounts/search']?.get?.operationId).toBe(
+        'getAccountSearch'
+      );
+    });
   });
 });

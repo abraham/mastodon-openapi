@@ -430,14 +430,20 @@ class OpenAPIGenerator {
       if (segments.length === 2) {
         const [firstSegment, lastSegment] = segments;
 
-        // Try to use just the last segment for simpler names
-        // but fall back to full path if it might cause conflicts
-        const simpleOperationId =
-          semanticMethod + this.toPascalCase(lastSegment);
+        // List of specific terms that don't need context
+        const specificTerms = ['avatar'];
 
-        // For now, use the simple approach - we can add conflict detection later if needed
-        // For paths like /profile/avatar -> deleteAvatar
-        return simpleOperationId;
+        // If the last segment is specific, use just the last segment
+        if (specificTerms.includes(lastSegment)) {
+          return semanticMethod + this.toPascalCase(lastSegment);
+        }
+
+        // By default, combine both segments for better context
+        return (
+          semanticMethod +
+          this.toPascalCase(this.toSingular(firstSegment)) +
+          this.toPascalCase(lastSegment)
+        );
       }
 
       // Default: combine all segments
