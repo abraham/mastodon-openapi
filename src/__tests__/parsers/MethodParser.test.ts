@@ -1,6 +1,4 @@
 import { MethodParser } from '../../parsers/MethodParser';
-import * as fs from 'fs';
-import * as path from 'path';
 
 describe('MethodParser', () => {
   let methodParser: MethodParser;

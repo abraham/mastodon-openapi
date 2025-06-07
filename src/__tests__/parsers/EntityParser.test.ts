@@ -1,6 +1,4 @@
 import { EntityParser } from '../../parsers/EntityParser';
-import * as fs from 'fs';
-import * as path from 'path';
 
 describe('EntityParser', () => {
   let parser: EntityParser;
