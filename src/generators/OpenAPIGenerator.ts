@@ -576,6 +576,45 @@ class OpenAPIGenerator {
   }
 
   private convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
+    // If parameter has a complex schema, use it
+    if (param.schema) {
+      const schema: OpenAPIProperty = {
+        type: param.schema.type,
+        description: param.description,
+      };
+
+      if (param.schema.type === 'array' && param.schema.items) {
+        schema.items = {
+          type: param.schema.items.type,
+        };
+      } else if (param.schema.type === 'object' && param.schema.properties) {
+        const properties: Record<string, OpenAPIProperty> = {};
+        for (const [propName, propSchema] of Object.entries(
+          param.schema.properties
+        )) {
+          const property: OpenAPIProperty = {
+            type: propSchema.type,
+          };
+
+          if (propSchema.description) {
+            property.description = propSchema.description;
+          }
+
+          if (propSchema.items) {
+            property.items = {
+              type: propSchema.items.type,
+            };
+          }
+
+          properties[propName] = property;
+        }
+        schema.properties = properties;
+      }
+
+      return schema;
+    }
+
+    // Fallback to simple string schema
     const schema: OpenAPIProperty = {
       type: 'string',
       description: param.description,

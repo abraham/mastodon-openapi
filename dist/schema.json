@@ -107,12 +107,15 @@
         },
         "parameters": [
           {
-            "name": "id[]",
+            "name": "id",
             "in": "query",
             "description": "Array of String. The IDs of the Accounts in the database.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. The IDs of the Accounts in the database."
+              "type": "array",
+              "description": "Array of String. The IDs of the Accounts in the database.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -215,25 +218,34 @@
                     "type": "string",
                     "description": "Boolean. Whether public posts should be searchable to anyone."
                   },
-                  "attribution_domains[]": {
-                    "type": "string",
-                    "description": "Array of String. Domains of websites allowed to credit the account."
+                  "attribution_domains": {
+                    "type": "array",
+                    "description": "Array of String. Domains of websites allowed to credit the account.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "fields_attributes": {
                     "type": "string",
                     "description": "Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields."
                   },
-                  "source[privacy]": {
-                    "type": "string",
-                    "description": "String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`."
-                  },
-                  "source[sensitive]": {
-                    "type": "string",
-                    "description": "Boolean. Whether to mark authored statuses as sensitive by default."
-                  },
-                  "source[language]": {
-                    "type": "string",
-                    "description": "String. Default language to use for authored statuses (ISO 6391)"
+                  "source": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "privacy": {
+                        "type": "string",
+                        "description": "String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`."
+                      },
+                      "sensitive": {
+                        "type": "boolean",
+                        "description": "Boolean. Whether to mark authored statuses as sensitive by default."
+                      },
+                      "language": {
+                        "type": "string",
+                        "description": "String. Default language to use for authored statuses (ISO 6391)"
+                      }
+                    }
                   }
                 },
                 "required": [
@@ -673,9 +685,12 @@
                     "type": "string",
                     "description": "Boolean. Receive notifications when this account posts a status? Defaults to false."
                   },
-                  "languages[]": {
-                    "type": "string",
-                    "description": "Array of String (ISO 639-1 language two-letter code). Filter received statuses for these languages. If not provided, you will receive this account's posts in all languages."
+                  "languages": {
+                    "type": "array",
+                    "description": "Array of String (ISO 639-1 language two-letter code). Filter received statuses for these languages. If not provided, you will receive this account's posts in all languages.",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -1154,12 +1169,15 @@
         ],
         "parameters": [
           {
-            "name": "id[]",
+            "name": "id",
             "in": "query",
             "description": "Array of String. Check relationships for the provided account IDs.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Check relationships for the provided account IDs."
+              "type": "array",
+              "description": "Array of String. Check relationships for the provided account IDs.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -1204,12 +1222,15 @@
         ],
         "parameters": [
           {
-            "name": "id[]",
+            "name": "id",
             "in": "query",
             "description": "Array of String. Find familiar followers for the provided account IDs.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Find familiar followers for the provided account IDs."
+              "type": "array",
+              "description": "Array of String. Find familiar followers for the provided account IDs.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -2374,9 +2395,12 @@
                     "type": "string",
                     "description": "String. The name of the filter group."
                   },
-                  "context[]": {
-                    "type": "string",
-                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`."
+                  "context": {
+                    "type": "array",
+                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "filter_action": {
                     "type": "string",
@@ -2447,9 +2471,12 @@
                     "type": "string",
                     "description": "String. The text to be filtered."
                   },
-                  "context[]": {
-                    "type": "string",
-                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`."
+                  "context": {
+                    "type": "array",
+                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "irreversible": {
                     "type": "string",
@@ -2736,21 +2763,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to include in the result."
+              "type": "array",
+              "description": "Array of String. Types to include in the result.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to exclude from the results."
+              "type": "array",
+              "description": "Array of String. Types to exclude from the results.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -2772,12 +2805,15 @@
             }
           },
           {
-            "name": "grouped_types[]",
+            "name": "grouped_types",
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency."
+              "type": "array",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -2931,21 +2967,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -2958,12 +3000,15 @@
             }
           },
           {
-            "name": "grouped_types[]",
+            "name": "grouped_types",
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead."
+              "type": "array",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -3511,9 +3556,12 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "account_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. The accounts that should be added to the list."
+                  "account_ids": {
+                    "type": "array",
+                    "description": "Array of String. The accounts that should be added to the list.",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -3557,9 +3605,12 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "account_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. The accounts that should be removed from the list."
+                  "account_ids": {
+                    "type": "array",
+                    "description": "Array of String. The accounts that should be removed from the list.",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -3595,16 +3646,15 @@
         ],
         "parameters": [
           {
-            "name": "timeline[]",
+            "name": "timeline",
             "in": "query",
             "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
             "schema": {
-              "type": "string",
+              "type": "array",
               "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
-              "enum": [
-                "home",
-                "notifications"
-              ]
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -3642,13 +3692,25 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "home[last_read_id]": {
-                    "type": "string",
-                    "description": "String. ID of the last status read in the home timeline."
+                  "home": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "last_read_id": {
+                        "type": "string",
+                        "description": "String. ID of the last status read in the home timeline."
+                      }
+                    }
                   },
-                  "notifications[last_read_id]": {
-                    "type": "string",
-                    "description": "String. ID of the last notification read."
+                  "notifications": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "last_read_id": {
+                        "type": "string",
+                        "description": "String. ID of the last notification read."
+                      }
+                    }
                   }
                 }
               }
@@ -3967,21 +4029,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to include in the result."
+              "type": "array",
+              "description": "Array of String. Types to include in the result.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to exclude from the results."
+              "type": "array",
+              "description": "Array of String. Types to exclude from the results.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -4140,21 +4208,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -4487,21 +4561,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types to include in the result.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to include in the result."
+              "type": "array",
+              "description": "Array of String. Types to include in the result.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types to exclude from the results.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types to exclude from the results."
+              "type": "array",
+              "description": "Array of String. Types to exclude from the results.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -4523,12 +4603,15 @@
             }
           },
           {
-            "name": "grouped_types[]",
+            "name": "grouped_types",
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead."
+              "type": "array",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -4632,21 +4715,27 @@
             }
           },
           {
-            "name": "types[]",
+            "name": "types",
             "in": "query",
             "description": "Array of String. Types of notifications that should count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "exclude_types[]",
+            "name": "exclude_types",
             "in": "query",
             "description": "Array of String. Types of notifications that should not count towards unread notifications.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications."
+              "type": "array",
+              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
@@ -4659,12 +4748,15 @@
             }
           },
           {
-            "name": "grouped_types[]",
+            "name": "grouped_types",
             "in": "query",
             "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead."
+              "type": "array",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -5014,9 +5106,12 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "choices[]": {
-                    "type": "string",
-                    "description": "Array of Integer. Provide your own votes as an index for each option (starting from 0)."
+                  "choices": {
+                    "type": "array",
+                    "description": "Array of Integer. Provide your own votes as an index for each option (starting from 0).",
+                    "items": {
+                      "type": "integer"
+                    }
                   }
                 }
               }
@@ -5079,10 +5174,6 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "subscription[endpoint]": {
-                    "type": "string",
-                    "description": "String. The endpoint URL that is called when a notification event occurs."
-                  },
                   "subscription[keys][p256dh]": {
                     "type": "string",
                     "description": "String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the `prime256v1` curve."
@@ -5090,10 +5181,6 @@
                   "subscription[keys][auth]": {
                     "type": "string",
                     "description": "String. Auth secret. Base64 encoded string of 16 bytes of random data."
-                  },
-                  "subscription[standard]": {
-                    "type": "string",
-                    "description": "Boolean. Follow standardized webpush (RFC8030+RFC8291+RFC8292) ? Else follow legacy webpush (unpublished version, 4th draft of RFC8291 and 1st draft of RFC8292). Defaults to false."
                   },
                   "data[alerts][mention]": {
                     "type": "string",
@@ -5127,9 +5214,29 @@
                     "type": "string",
                     "description": "Boolean. Receive status edited notifications? Defaults to false."
                   },
-                  "data[policy]": {
-                    "type": "string",
-                    "description": "String. Specify whether to receive push notifications from `all`, `followed`, `follower`, or `none` users."
+                  "subscription": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "endpoint": {
+                        "type": "string",
+                        "description": "String. The endpoint URL that is called when a notification event occurs."
+                      },
+                      "standard": {
+                        "type": "boolean",
+                        "description": "Boolean. Follow standardized webpush (RFC8030+RFC8291+RFC8292) ? Else follow legacy webpush (unpublished version, 4th draft of RFC8291 and 1st draft of RFC8292). Defaults to false."
+                      }
+                    }
+                  },
+                  "data": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "policy": {
+                        "type": "string",
+                        "description": "String. Specify whether to receive push notifications from `all`, `followed`, `follower`, or `none` users."
+                      }
+                    }
                   }
                 }
               }
@@ -5294,9 +5401,12 @@
                     "type": "string",
                     "description": "String. ID of the account to report."
                   },
-                  "status_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. You can attach statuses to the report to provide additional context."
+                  "status_ids": {
+                    "type": "array",
+                    "description": "Array of String. You can attach statuses to the report to provide additional context.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "comment": {
                     "type": "string",
@@ -5314,9 +5424,12 @@
                       "legal"
                     ]
                   },
-                  "rule_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via  and . See  for more information."
+                  "rule_ids": {
+                    "type": "array",
+                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via  and . See  for more information.",
+                    "items": {
+                      "type": "string"
+                    }
                   }
                 }
               }
@@ -5670,25 +5783,12 @@
                     "type": "string",
                     "description": "String. The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
                   },
-                  "media_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used."
-                  },
-                  "poll[options][]": {
-                    "type": "string",
-                    "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided."
-                  },
-                  "poll[expires_in]": {
-                    "type": "string",
-                    "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
-                  },
-                  "poll[multiple]": {
-                    "type": "string",
-                    "description": "Boolean. Allow multiple choices? Defaults to false."
-                  },
-                  "poll[hide_totals]": {
-                    "type": "string",
-                    "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
+                  "media_ids": {
+                    "type": "array",
+                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "in_reply_to_id": {
                     "type": "string",
@@ -5719,6 +5819,31 @@
                   "scheduled_at": {
                     "type": "string",
                     "description": "String.  at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
+                  },
+                  "poll": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "options": {
+                        "type": "array",
+                        "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expires_in": {
+                        "type": "integer",
+                        "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                      },
+                      "multiple": {
+                        "type": "boolean",
+                        "description": "Boolean. Allow multiple choices? Defaults to false."
+                      },
+                      "hide_totals": {
+                        "type": "boolean",
+                        "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
+                      }
+                    }
                   }
                 }
               }
@@ -5755,12 +5880,15 @@
         ],
         "parameters": [
           {
-            "name": "id[]",
+            "name": "id",
             "in": "query",
             "description": "Array of String. The IDs of the Statuses in the database.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. The IDs of the Statuses in the database."
+              "type": "array",
+              "description": "Array of String. The IDs of the Statuses in the database.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -5907,29 +6035,44 @@
                     "type": "string",
                     "description": "String. ISO 639 language code for the status."
                   },
-                  "media_ids[]": {
-                    "type": "string",
-                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used."
+                  "media_ids": {
+                    "type": "array",
+                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
-                  "media_attributes[][]": {
-                    "type": "string",
-                    "description": "Array of String. Each array includes id, description, and focus."
+                  "media_attributes[]": {
+                    "type": "array",
+                    "description": "Array of String. Each array includes id, description, and focus.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
-                  "poll[options][]": {
-                    "type": "string",
-                    "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided."
-                  },
-                  "poll[expires_in]": {
-                    "type": "string",
-                    "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
-                  },
-                  "poll[multiple]": {
-                    "type": "string",
-                    "description": "Boolean. Allow multiple choices? Defaults to false."
-                  },
-                  "poll[hide_totals]": {
-                    "type": "string",
-                    "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
+                  "poll": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "options": {
+                        "type": "array",
+                        "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expires_in": {
+                        "type": "integer",
+                        "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                      },
+                      "multiple": {
+                        "type": "boolean",
+                        "description": "Boolean. Allow multiple choices? Defaults to false."
+                      },
+                      "hide_totals": {
+                        "type": "boolean",
+                        "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
+                      }
+                    }
                   }
                 }
               }
@@ -7300,30 +7443,39 @@
         ],
         "parameters": [
           {
-            "name": "any[]",
+            "name": "any",
             "in": "query",
             "description": "Array of String. Return statuses that contain any of these additional tags.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Return statuses that contain any of these additional tags."
+              "type": "array",
+              "description": "Array of String. Return statuses that contain any of these additional tags.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "all[]",
+            "name": "all",
             "in": "query",
             "description": "Array of String. Return statuses that contain all of these additional tags.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Return statuses that contain all of these additional tags."
+              "type": "array",
+              "description": "Array of String. Return statuses that contain all of these additional tags.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
-            "name": "none[]",
+            "name": "none",
             "in": "query",
             "description": "Array of String. Return statuses that contain none of these additional tags.",
             "schema": {
-              "type": "string",
-              "description": "Array of String. Return statuses that contain none of these additional tags."
+              "type": "array",
+              "description": "Array of String. Return statuses that contain none of these additional tags.",
+              "items": {
+                "type": "string"
+              }
             }
           },
           {
