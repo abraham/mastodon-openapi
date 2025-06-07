@@ -399,6 +399,46 @@ class OpenAPIGenerator {
       .join('');
   }
 
+  private parseResponseSchema(returns?: string): OpenAPIProperty | null {
+    if (!returns) {
+      return null;
+    }
+
+    // Handle array responses: "Array of [EntityName]"
+    const arrayMatch = returns.match(/Array of \[([^\]]+)\]/i);
+    if (arrayMatch) {
+      const entityName = arrayMatch[1];
+      const sanitizedEntityName = this.sanitizeSchemaName(entityName);
+
+      // Check if the entity exists in the components.schemas
+      if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          type: 'array',
+          items: {
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          },
+        };
+      }
+    }
+
+    // Handle single entity responses: "[EntityName]"
+    const entityMatch = returns.match(/\[([^\]]+)\]/);
+    if (entityMatch) {
+      const entityName = entityMatch[1];
+      const sanitizedEntityName = this.sanitizeSchemaName(entityName);
+
+      // Check if the entity exists in the components.schemas
+      if (this.spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          $ref: `#/components/schemas/${sanitizedEntityName}`,
+        };
+      }
+    }
+
+    // If no entity reference found or entity doesn't exist, return null to fallback to description-only
+    return null;
+  }
+
   private convertMethod(method: ApiMethod, category: string): void {
     const path = this.normalizePath(method.endpoint);
     const httpMethod = method.httpMethod.toLowerCase() as keyof OpenAPIPath;
@@ -407,15 +447,28 @@ class OpenAPIGenerator {
       this.spec.paths[path] = {};
     }
 
+    // Parse response schema from returns field
+    const responseSchema = this.parseResponseSchema(method.returns);
+    const response200 = responseSchema
+      ? {
+          description: method.returns || 'Success',
+          content: {
+            'application/json': {
+              schema: responseSchema,
+            },
+          },
+        }
+      : {
+          description: method.returns || 'Success',
+        };
+
     const operation: OpenAPIOperation = {
       operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
       description: method.description,
       tags: [category],
       responses: {
-        '200': {
-          description: method.returns || 'Success',
-        },
+        '200': response200,
       },
     };
 
