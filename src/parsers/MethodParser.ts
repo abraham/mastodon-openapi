@@ -74,8 +74,8 @@ class MethodParser {
   private parseMethods(content: string): ApiMethod[] {
     const methods: ApiMethod[] = [];
 
-    // Match method sections: ## Method Name {#anchor}
-    const methodSections = content.split(/(?=^## [^{]*\{#[^}]+\})/m);
+    // Match method sections: ## Method Name {#anchor} or ### Method Name {#anchor}
+    const methodSections = content.split(/(?=^##+ [^{]*\{#[^}]+\})/m);
 
     for (const section of methodSections) {
       if (section.trim() === '') continue;
@@ -98,9 +98,9 @@ class MethodParser {
   }
 
   private parseMethodSection(section: string): ApiMethod | null {
-    // Extract method name from header: ## Method Name {#anchor}
+    // Extract method name from header: ## Method Name {#anchor} or ### Method Name {#anchor}
     // Handle headers that may contain {{%removed%}} or other Hugo shortcodes
-    const nameMatch = section.match(/^## (.+?)\s*\{#[^}]+\}/m);
+    const nameMatch = section.match(/^##+ (.+?)\s*\{#[^}]+\}/m);
     if (!nameMatch) return null;
 
     const name = nameMatch[1].trim();
