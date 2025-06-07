@@ -76,6 +76,11 @@ class EntityParser {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
 
+    // Skip draft files
+    if (parsed.data.draft === true) {
+      return [];
+    }
+
     const entities: EntityClass[] = [];
 
     // Look for entity definitions in the format: ## `EntityName` entity {#EntityName}
@@ -121,6 +126,11 @@ class EntityParser {
   private parseEntityFile(filePath: string): EntityClass[] {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
+
+    // Skip draft files
+    if (parsed.data.draft === true) {
+      return [];
+    }
 
     const entities: EntityClass[] = [];
 
