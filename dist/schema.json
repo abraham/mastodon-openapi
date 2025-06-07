@@ -4778,7 +4778,7 @@
           "verified_at"
         ]
       },
-      "CredentialAccount entity": {
+      "CredentialAccount_entity": {
         "type": "object",
         "description": "Additional entity definition for CredentialAccount entity",
         "properties": {
@@ -4837,7 +4837,7 @@
           "role"
         ]
       },
-      "MutedAccount entity": {
+      "MutedAccount_entity": {
         "type": "object",
         "description": "Additional entity definition for MutedAccount entity",
         "properties": {
@@ -4851,7 +4851,7 @@
           "mute_expires_at"
         ]
       },
-      "Field entity": {
+      "Field_entity": {
         "type": "object",
         "description": "Additional entity definition for Field entity",
         "properties": {
@@ -4922,7 +4922,7 @@
           "created_at"
         ]
       },
-      "Admin::Account": {
+      "Admin_Account": {
         "type": "object",
         "description": "Admin-level information about a given account.",
         "properties": {
@@ -4955,7 +4955,7 @@
             "description": "All known IP addresses associated with this account.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Admin::Ip"
+              "$ref": "#/components/schemas/Admin_Ip"
             }
           },
           "locale": {
@@ -5022,7 +5022,7 @@
           "account"
         ]
       },
-      "Admin::CanonicalEmailBlock": {
+      "Admin_CanonicalEmailBlock": {
         "type": "object",
         "description": "Represents a canonical email block (hashed).",
         "properties": {
@@ -5040,7 +5040,7 @@
           "canonical_email_hash"
         ]
       },
-      "Admin::Cohort": {
+      "Admin_Cohort": {
         "type": "object",
         "description": "Represents a retention metric.",
         "properties": {
@@ -5091,7 +5091,7 @@
           "value"
         ]
       },
-      "CohortData entity": {
+      "CohortData_entity": {
         "type": "object",
         "description": "Additional entity definition for CohortData entity",
         "properties": {
@@ -5115,7 +5115,7 @@
           "value"
         ]
       },
-      "Admin::Dimension": {
+      "Admin_Dimension": {
         "type": "object",
         "description": "Represents qualitative data about the server.",
         "properties": {
@@ -5136,7 +5136,7 @@
           "data"
         ]
       },
-      "Admin::DomainAllow": {
+      "Admin_DomainAllow": {
         "type": "object",
         "description": "Represents a domain allowed to federate.",
         "properties": {
@@ -5160,7 +5160,7 @@
           "created_at"
         ]
       },
-      "Admin::DomainBlock": {
+      "Admin_DomainBlock": {
         "type": "object",
         "description": "Represents a domain limited from federating.",
         "properties": {
@@ -5219,7 +5219,7 @@
           "obfuscate"
         ]
       },
-      "Admin::EmailDomainBlock": {
+      "Admin_EmailDomainBlock": {
         "type": "object",
         "description": "Represents an email domain that cannot be used to sign up.",
         "properties": {
@@ -5266,7 +5266,7 @@
           "history[][uses]"
         ]
       },
-      "Admin::Ip": {
+      "Admin_Ip": {
         "type": "object",
         "description": "Represents an IP address associated with a user.",
         "properties": {
@@ -5285,7 +5285,7 @@
           "used_at"
         ]
       },
-      "Admin::IpBlock": {
+      "Admin_IpBlock": {
         "type": "object",
         "description": "Represents an IP address range that cannot be used to sign up.",
         "properties": {
@@ -5325,7 +5325,7 @@
           "expires_at"
         ]
       },
-      "Admin::Measure": {
+      "Admin_Measure": {
         "type": "object",
         "description": "Represents quantitative data about the server.",
         "properties": {
@@ -5375,7 +5375,7 @@
           "data[][value]"
         ]
       },
-      "Admin::Report": {
+      "Admin_Report": {
         "type": "object",
         "description": "Admin-level information about a filed report.",
         "properties": {
@@ -5416,19 +5416,19 @@
           },
           "account": {
             "description": "The account which filed the report.",
-            "$ref": "#/components/schemas/Admin::Account"
+            "$ref": "#/components/schemas/Admin_Account"
           },
           "target_account": {
             "description": "The account being reported.",
-            "$ref": "#/components/schemas/Admin::Account"
+            "$ref": "#/components/schemas/Admin_Account"
           },
           "assigned_account": {
             "description": "The account of the moderator assigned to this report.",
-            "$ref": "#/components/schemas/Admin::Account"
+            "$ref": "#/components/schemas/Admin_Account"
           },
           "action_taken_by_account": {
             "description": "The account of the moderator who handled the report.",
-            "$ref": "#/components/schemas/Admin::Account"
+            "$ref": "#/components/schemas/Admin_Account"
           },
           "statuses": {
             "description": "Statuses attached to the report, for context.",
@@ -5510,21 +5510,21 @@
             "description": "Accounts mentioned in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Announcement::Account"
+              "$ref": "#/components/schemas/Announcement_Account"
             }
           },
           "statuses": {
             "description": "Statuses linked in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Announcement::Status"
+              "$ref": "#/components/schemas/Announcement_Status"
             }
           },
           "tags": {
             "description": "Tags linked in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status::Tag"
+              "$ref": "#/components/schemas/Status_Tag"
             }
           },
           "emojis": {
@@ -5558,7 +5558,7 @@
           "reactions"
         ]
       },
-      "Announcement::Account": {
+      "Announcement_Account": {
         "type": "object",
         "description": "Additional entity definition for Announcement::Account",
         "properties": {
@@ -5587,7 +5587,7 @@
           "acct"
         ]
       },
-      "Announcement::Status": {
+      "Announcement_Status": {
         "type": "object",
         "description": "Additional entity definition for Announcement::Status",
         "properties": {
@@ -6676,7 +6676,7 @@
             "description": "Possible answers for the poll.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Poll::Option"
+              "$ref": "#/components/schemas/Poll_Option"
             }
           },
           "emojis": {
@@ -6709,7 +6709,7 @@
           "emojis"
         ]
       },
-      "Poll::Option": {
+      "Poll_Option": {
         "type": "object",
         "description": "Additional entity definition for Poll::Option",
         "properties": {
@@ -6851,7 +6851,7 @@
           "blurhash"
         ]
       },
-      "Trends::Link": {
+      "Trends_Link": {
         "type": "object",
         "description": "Additional entity definition for Trends::Link",
         "properties": {
@@ -6882,7 +6882,7 @@
           "history[][uses]"
         ]
       },
-      "Trends::Link entity": {
+      "Trends_Link_entity": {
         "type": "object",
         "description": "Additional entity definition for Trends::Link entity",
         "properties": {
@@ -7494,14 +7494,14 @@
             "description": "Mentions of users within the status content.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status::Mention"
+              "$ref": "#/components/schemas/Status_Mention"
             }
           },
           "tags": {
             "description": "Hashtags used within the status content.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status::Tag"
+              "$ref": "#/components/schemas/Status_Tag"
             }
           },
           "emojis": {
@@ -7618,7 +7618,7 @@
           "edited_at"
         ]
       },
-      "Status::Mention": {
+      "Status_Mention": {
         "type": "object",
         "description": "Additional entity definition for Status::Mention",
         "properties": {
@@ -7647,7 +7647,7 @@
           "acct"
         ]
       },
-      "Status::Tag": {
+      "Status_Tag": {
         "type": "object",
         "description": "Additional entity definition for Status::Tag",
         "properties": {
@@ -7832,7 +7832,7 @@
           "history[][accounts]"
         ]
       },
-      "Admin::Tag": {
+      "Admin_Tag": {
         "type": "object",
         "description": "Additional entity definition for Admin::Tag",
         "properties": {
@@ -7932,13 +7932,13 @@
           },
           "poll": {
             "description": "The translated poll of the status.",
-            "$ref": "#/components/schemas/Translation::Poll"
+            "$ref": "#/components/schemas/Translation_Poll"
           },
           "media_attachments": {
             "description": "The translated media descriptions of the status.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Translation::Attachment"
+              "$ref": "#/components/schemas/Translation_Attachment"
             }
           },
           "detected_source_language": {
@@ -7958,7 +7958,7 @@
           "provider"
         ]
       },
-      "Translation::Poll": {
+      "Translation_Poll": {
         "type": "object",
         "description": "Additional entity definition for Translation::Poll",
         "properties": {
@@ -7970,7 +7970,7 @@
             "description": "The translated poll options.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Translation::Poll::Option"
+              "$ref": "#/components/schemas/Translation_Poll_Option"
             }
           }
         },
@@ -7979,7 +7979,7 @@
           "options"
         ]
       },
-      "Translation::Poll::Option": {
+      "Translation_Poll_Option": {
         "type": "object",
         "description": "Additional entity definition for Translation::Poll::Option",
         "properties": {
@@ -7992,7 +7992,7 @@
           "title"
         ]
       },
-      "Translation::Attachment": {
+      "Translation_Attachment": {
         "type": "object",
         "description": "Additional entity definition for Translation::Attachment",
         "properties": {
@@ -8010,7 +8010,7 @@
           "description"
         ]
       },
-      "V1::Filter": {
+      "V1_Filter": {
         "type": "object",
         "description": "Represents a user-defined filter for determining which statuses should not be shown to the user. Contains a single keyword or phrase.",
         "properties": {
@@ -8052,7 +8052,7 @@
           "whole_word"
         ]
       },
-      "V1::Instance": {
+      "V1_Instance": {
         "type": "object",
         "description": "Represents the software instance of Mastodon running on this domain.",
         "properties": {
@@ -8261,7 +8261,7 @@
           "rules"
         ]
       },
-      "V1::NotificationPolicy": {
+      "V1_NotificationPolicy": {
         "type": "object",
         "description": "Represents the notification filtering policy of the user.",
         "properties": {

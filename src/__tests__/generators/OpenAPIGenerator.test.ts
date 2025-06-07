@@ -130,6 +130,78 @@ describe('OpenAPIGenerator', () => {
       expect(spec.paths).toEqual({});
       expect(spec.components?.schemas).toEqual({});
     });
+
+    it('should sanitize schema names with :: characters', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Admin::DomainAllow',
+          description: 'Admin domain allow entity',
+          attributes: [
+            {
+              name: 'id',
+              type: 'Integer',
+              description: 'The ID',
+            },
+            {
+              name: 'domain',
+              type: 'String',
+              description: 'The domain',
+            },
+          ],
+        },
+        {
+          name: 'Status::Mention',
+          description: 'Status mention entity',
+          attributes: [
+            {
+              name: 'id',
+              type: 'Integer',
+              description: 'The ID',
+            },
+            {
+              name: 'user',
+              type: '[Admin::DomainAllow]',
+              description: 'Reference to admin domain allow',
+            },
+          ],
+        },
+        {
+          name: 'Field entity',
+          description: 'Field entity with spaces',
+          attributes: [
+            {
+              name: 'name',
+              type: 'String',
+              description: 'The name',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      // Check that schema names are sanitized (:: replaced with _, spaces replaced with _)
+      expect(spec.components?.schemas?.['Admin_DomainAllow']).toBeDefined();
+      expect(spec.components?.schemas?.['Status_Mention']).toBeDefined();
+      expect(spec.components?.schemas?.['Field_entity']).toBeDefined();
+      
+      // Check that original names with :: and spaces are not present
+      expect(spec.components?.schemas?.['Admin::DomainAllow']).toBeUndefined();
+      expect(spec.components?.schemas?.['Status::Mention']).toBeUndefined();
+      expect(spec.components?.schemas?.['Field entity']).toBeUndefined();
+
+      // Check that references are also sanitized
+      const statusMentionSchema = spec.components!.schemas!['Status_Mention'];
+      expect(statusMentionSchema.properties?.['user']?.$ref).toBe('#/components/schemas/Admin_DomainAllow');
+
+      // Verify all schema names match OpenAPI regex ^[a-zA-Z0-9\.\-_]+$
+      const schemaNames = Object.keys(spec.components?.schemas || {});
+      const openApiNameRegex = /^[a-zA-Z0-9\.\-_]+$/;
+      
+      for (const name of schemaNames) {
+        expect(name).toMatch(openApiNameRegex);
+      }
+    });
   });
 
   describe('toJSON', () => {
