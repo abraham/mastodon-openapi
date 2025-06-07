@@ -9,7 +9,7 @@ describe('EntityParser - Nested Attributes', () => {
 
   test('should parse double nested entity attributes correctly', () => {
     const entities = parser.parseAllEntities();
-    
+
     // Find the Instance entity which contains double nested attributes
     const instanceEntity = entities.find((e) => e.name === 'Instance');
     expect(instanceEntity).toBeDefined();
@@ -63,7 +63,7 @@ describe('EntityParser - Nested Attributes', () => {
 
   test('should handle both {{%optional%}} and {{<optional>}} Hugo shortcode patterns', () => {
     const entities = parser.parseAllEntities();
-    
+
     const instanceEntity = entities.find((e) => e.name === 'Instance');
     expect(instanceEntity).toBeDefined();
 
@@ -75,21 +75,24 @@ describe('EntityParser - Nested Attributes', () => {
 
       // Should include the thumbnail nested attributes that use {{<optional>}}
       const thumbnailOptionalAttrs = optionalAttrs.filter(
-        (attr) => attr.name.includes('thumbnail[') && attr.name !== 'thumbnail[url]'
+        (attr) =>
+          attr.name.includes('thumbnail[') && attr.name !== 'thumbnail[url]'
       );
-      
+
       expect(thumbnailOptionalAttrs.length).toBeGreaterThanOrEqual(4); // blurhash, versions, @1x, @2x
-      
+
       // Verify specific ones exist
       const expectedOptional = [
         'thumbnail[blurhash]',
         'thumbnail[versions]',
         'thumbnail[versions][@1x]',
-        'thumbnail[versions][@2x]'
+        'thumbnail[versions][@2x]',
       ];
-      
-      expectedOptional.forEach(expectedName => {
-        const attr = instanceEntity.attributes.find(a => a.name === expectedName);
+
+      expectedOptional.forEach((expectedName) => {
+        const attr = instanceEntity.attributes.find(
+          (a) => a.name === expectedName
+        );
         expect(attr).toBeDefined();
         expect(attr?.optional).toBe(true);
       });
