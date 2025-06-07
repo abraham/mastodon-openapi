@@ -9,11 +9,24 @@ interface OpenAPIServer {
   description?: string;
 }
 
+interface OAuthFlow {
+  authorizationUrl?: string;
+  tokenUrl: string;
+  refreshUrl?: string;
+  scopes: Record<string, string>;
+}
+
 interface OpenAPISecurityScheme {
   type: string;
   scheme?: string;
   bearerFormat?: string;
   description?: string;
+  flows?: {
+    implicit?: OAuthFlow;
+    password?: OAuthFlow;
+    clientCredentials?: OAuthFlow;
+    authorizationCode?: OAuthFlow;
+  };
 }
 
 interface OpenAPIProperty {
@@ -95,6 +108,7 @@ export {
   OpenAPIInfo,
   OpenAPIServer,
   OpenAPISecurityScheme,
+  OAuthFlow,
   OpenAPIProperty,
   OpenAPISchema,
   OpenAPIParameter,

@@ -9,6 +9,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "generate": "ts-node src/generate.ts",
+    "validate": "validate-api dist/schema.json",
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",
@@ -24,6 +25,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
+    "@seriousme/openapi-schema-validator": "^2.4.1",
     "@types/jest": "^29.5.0",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.15.30",

@@ -4630,11 +4630,13 @@
           },
           "created_at": {
             "description": "When the account was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "last_status_at": {
             "description": "When the most recent status was posted.",
-            "$ref": "#/components/schemas/Date"
+            "type": "string",
+            "format": "date-time"
           },
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
@@ -4679,6 +4681,200 @@
           "hide_collections"
         ]
       },
+      "CredentialAccount": {
+        "type": "object",
+        "description": "Additional entity definition for CredentialAccount",
+        "properties": {
+          "source": {
+            "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
+            "type": "object"
+          },
+          "source[attribution_domains]": {
+            "description": "Domains of websites allowed to credit the account.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source[note]": {
+            "description": "Profile bio, in plain-text instead of in HTML.",
+            "type": "string"
+          },
+          "source[fields]": {
+            "description": "Metadata about the account.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "source[privacy]": {
+            "description": "The default post privacy to be used for new statuses.",
+            "type": "string"
+          },
+          "source[sensitive]": {
+            "description": "Whether new statuses should be marked sensitive by default.",
+            "type": "boolean"
+          },
+          "source[language]": {
+            "description": "The default posting language for new statuses.",
+            "type": "string"
+          },
+          "source[follow_requests_count]": {
+            "description": "The number of pending follow requests.",
+            "type": "integer"
+          },
+          "role": {
+            "description": "The role assigned to the currently authorized user.",
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "required": [
+          "source",
+          "source[attribution_domains]",
+          "source[note]",
+          "source[fields]",
+          "source[privacy]",
+          "source[sensitive]",
+          "source[language]",
+          "source[follow_requests_count]",
+          "role"
+        ]
+      },
+      "MutedAccount": {
+        "type": "object",
+        "description": "Additional entity definition for MutedAccount",
+        "properties": {
+          "mute_expires_at": {
+            "description": "When a timed mute will expire, if applicable.",
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "mute_expires_at"
+        ]
+      },
+      "Field": {
+        "type": "object",
+        "description": "Additional entity definition for Field",
+        "properties": {
+          "name": {
+            "description": "The key of a given field's key-value pair.",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value associated with the `name` key.",
+            "type": "string"
+          },
+          "verified_at": {
+            "description": "Timestamp of when the server verified a URL value for a rel=\"me\" link.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "value",
+          "verified_at"
+        ]
+      },
+      "CredentialAccount entity": {
+        "type": "object",
+        "description": "Additional entity definition for CredentialAccount entity",
+        "properties": {
+          "source": {
+            "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
+            "type": "object"
+          },
+          "source[attribution_domains]": {
+            "description": "Domains of websites allowed to credit the account.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "source[note]": {
+            "description": "Profile bio, in plain-text instead of in HTML.",
+            "type": "string"
+          },
+          "source[fields]": {
+            "description": "Metadata about the account.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "source[privacy]": {
+            "description": "The default post privacy to be used for new statuses.",
+            "type": "string"
+          },
+          "source[sensitive]": {
+            "description": "Whether new statuses should be marked sensitive by default.",
+            "type": "boolean"
+          },
+          "source[language]": {
+            "description": "The default posting language for new statuses.",
+            "type": "string"
+          },
+          "source[follow_requests_count]": {
+            "description": "The number of pending follow requests.",
+            "type": "integer"
+          },
+          "role": {
+            "description": "The role assigned to the currently authorized user.",
+            "$ref": "#/components/schemas/Role"
+          }
+        },
+        "required": [
+          "source",
+          "source[attribution_domains]",
+          "source[note]",
+          "source[fields]",
+          "source[privacy]",
+          "source[sensitive]",
+          "source[language]",
+          "source[follow_requests_count]",
+          "role"
+        ]
+      },
+      "MutedAccount entity": {
+        "type": "object",
+        "description": "Additional entity definition for MutedAccount entity",
+        "properties": {
+          "mute_expires_at": {
+            "description": "When a timed mute will expire, if applicable.",
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "mute_expires_at"
+        ]
+      },
+      "Field entity": {
+        "type": "object",
+        "description": "Additional entity definition for Field entity",
+        "properties": {
+          "name": {
+            "description": "The key of a given field's key-value pair.",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value associated with the `name` key.",
+            "type": "string"
+          },
+          "verified_at": {
+            "description": "Timestamp of when the server verified a URL value for a rel=\"me\" link.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "value",
+          "verified_at"
+        ]
+      },
       "AccountWarning": {
         "type": "object",
         "description": "Moderation warning against a particular account.",
@@ -4712,7 +4908,8 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -4743,7 +4940,8 @@
           },
           "created_at": {
             "description": "When the account was first discovered.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "email": {
             "description": "The email address associated with the account.",
@@ -4848,7 +5046,8 @@
         "properties": {
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "frequency": {
             "description": "The size of the bucket for the returned data.",
@@ -4866,6 +5065,54 @@
           "period",
           "frequency",
           "data"
+        ]
+      },
+      "CohortData": {
+        "type": "object",
+        "description": "Additional entity definition for CohortData",
+        "properties": {
+          "date": {
+            "description": "The timestamp for the start of the bucket, at midnight.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "rate": {
+            "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
+            "type": "number"
+          },
+          "value": {
+            "description": "How many users registered in the specified `period` and were active for the given `date` bucket.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "rate",
+          "value"
+        ]
+      },
+      "CohortData entity": {
+        "type": "object",
+        "description": "Additional entity definition for CohortData entity",
+        "properties": {
+          "date": {
+            "description": "The timestamp for the start of the bucket, at midnight.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "rate": {
+            "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
+            "type": "number"
+          },
+          "value": {
+            "description": "How many users registered in the specified `period` and were active for the given `date` bucket.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "rate",
+          "value"
         ]
       },
       "Admin::Dimension": {
@@ -4903,7 +5150,8 @@
           },
           "created_at": {
             "description": "When the domain was allowed to federate.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -4930,7 +5178,8 @@
           },
           "created_at": {
             "description": "When the domain was blocked from federating.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "severity": {
             "description": "The policy to be applied by this domain block.",
@@ -4984,7 +5233,8 @@
           },
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
@@ -5026,7 +5276,8 @@
           },
           "used_at": {
             "description": "The timestamp of when the IP address was last used for this account.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -5056,11 +5307,13 @@
           },
           "created_at": {
             "description": "When the IP block was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -5105,7 +5358,8 @@
           },
           "data[][date]": {
             "description": "Midnight on the requested day in the time period.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "data[][value]": {
             "description": "The numeric value for the requested measure.",
@@ -5135,7 +5389,8 @@
           },
           "action_taken_at": {
             "description": "When an action was taken, if this report is currently resolved.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "category": {
             "description": "The category under which the report is classified.",
@@ -5151,11 +5406,13 @@
           },
           "created_at": {
             "description": "The time the report was filed.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "The time of last action on this report.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account which filed the report.",
@@ -5219,11 +5476,13 @@
           },
           "starts_at": {
             "description": "When the announcement will start.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "ends_at": {
             "description": "When the announcement will end.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "published": {
             "description": "Whether the announcement is currently active.",
@@ -5235,11 +5494,13 @@
           },
           "published_at": {
             "description": "When the announcement was published.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "When the announcement was last updated.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
@@ -5295,6 +5556,54 @@
           "tags",
           "emojis",
           "reactions"
+        ]
+      },
+      "Announcement::Account": {
+        "type": "object",
+        "description": "Additional entity definition for Announcement::Account",
+        "properties": {
+          "id": {
+            "description": "The account ID of the mentioned user.",
+            "type": "string"
+          },
+          "username": {
+            "description": "The username of the mentioned user.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The location of the mentioned user's profile.",
+            "type": "string",
+            "format": "uri"
+          },
+          "acct": {
+            "description": "The webfinger acct: URI of the mentioned user. Equivalent to `username` for local users, or `username@domain` for remote users.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "url",
+          "acct"
+        ]
+      },
+      "Announcement::Status": {
+        "type": "object",
+        "description": "Additional entity definition for Announcement::Status",
+        "properties": {
+          "id": {
+            "description": "The ID of an attached Status in the database.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The URL of an attached Status.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "id",
+          "url"
         ]
       },
       "Appeal": {
@@ -5353,6 +5662,29 @@
           "scopes",
           "redirect_uris",
           "vapid_key"
+        ]
+      },
+      "CredentialApplication": {
+        "type": "object",
+        "description": "Additional entity definition for CredentialApplication",
+        "properties": {
+          "client_id": {
+            "description": "Client ID key, to be used for obtaining OAuth tokens",
+            "type": "string"
+          },
+          "client_secret": {
+            "description": "Client secret key, to be used for obtaining OAuth tokens",
+            "type": "string"
+          },
+          "client_secret_expires_at": {
+            "description": "When the client secret key will expire at, presently this always returns `0` indicating that OAuth Clients do not expire",
+            "type": "string"
+          }
+        },
+        "required": [
+          "client_id",
+          "client_secret",
+          "client_secret_expires_at"
         ]
       },
       "Context": {
@@ -5506,7 +5838,8 @@
           },
           "created_at": {
             "description": "A timestamp for when the message was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -5543,7 +5876,8 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the extended description was last updated.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "content": {
             "description": "The rendered HTML content of the extended description.",
@@ -5599,7 +5933,8 @@
           },
           "last_status_at": {
             "description": "The date of the last authored status containing this hashtag.",
-            "$ref": "#/components/schemas/Date"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -5631,7 +5966,8 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
@@ -5744,7 +6080,8 @@
           },
           "updated_at": {
             "description": "When the identity proof was last updated.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "proof_url": {
             "description": "A link to a statement of identity proof, hosted by the identity provider.",
@@ -6047,6 +6384,24 @@
           "rules"
         ]
       },
+      "InstanceIcon": {
+        "type": "object",
+        "description": "Additional entity definition for InstanceIcon",
+        "properties": {
+          "src": {
+            "description": "The URL of this icon.",
+            "type": "string"
+          },
+          "size": {
+            "description": "The size of this icon.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "src",
+          "size"
+        ]
+      },
       "List": {
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
@@ -6084,7 +6439,8 @@
           },
           "updated_at": {
             "description": "The timestamp of when the marker was set.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -6168,7 +6524,8 @@
           },
           "created_at": {
             "description": "The timestamp of the notification.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that performed the action that generated the notification.",
@@ -6257,11 +6614,13 @@
           },
           "created_at": {
             "description": "The timestamp of the notification request, i.e. when the first filtered notification from that user was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "The timestamp of when the notification request was last updated.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that performed the action that generated the filtered notifications.",
@@ -6294,7 +6653,8 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "expired": {
             "description": "Is the poll currently expired?",
@@ -6347,6 +6707,24 @@
           "voters_count",
           "options",
           "emojis"
+        ]
+      },
+      "Poll::Option": {
+        "type": "object",
+        "description": "Additional entity definition for Poll::Option",
+        "properties": {
+          "title": {
+            "description": "The text value of the poll option.",
+            "type": "string"
+          },
+          "votes_count": {
+            "description": "The total number of received votes for this option.",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "votes_count"
         ]
       },
       "Preferences": {
@@ -6473,6 +6851,68 @@
           "blurhash"
         ]
       },
+      "Trends::Link": {
+        "type": "object",
+        "description": "Additional entity definition for Trends::Link",
+        "properties": {
+          "history": {
+            "description": "Usage statistics for given days (typically the past week).",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "history[][day]": {
+            "description": "UNIX timestamp on midnight of the given day.",
+            "type": "string"
+          },
+          "history[][accounts]": {
+            "description": "The counted accounts using the link within that day.",
+            "type": "string"
+          },
+          "history[][uses]": {
+            "description": "The counted statuses using the link within that day.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "history",
+          "history[][day]",
+          "history[][accounts]",
+          "history[][uses]"
+        ]
+      },
+      "Trends::Link entity": {
+        "type": "object",
+        "description": "Additional entity definition for Trends::Link entity",
+        "properties": {
+          "history": {
+            "description": "Usage statistics for given days (typically the past week).",
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "history[][day]": {
+            "description": "UNIX timestamp on midnight of the given day.",
+            "type": "string"
+          },
+          "history[][accounts]": {
+            "description": "The counted accounts using the link within that day.",
+            "type": "string"
+          },
+          "history[][uses]": {
+            "description": "The counted statuses using the link within that day.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "history",
+          "history[][day]",
+          "history[][accounts]",
+          "history[][uses]"
+        ]
+      },
       "PreviewCardAuthor": {
         "type": "object",
         "description": "Represents an author in a rich preview card.",
@@ -6503,7 +6943,8 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the privacy policy was last updated.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "content": {
             "description": "The rendered HTML content of the privacy policy.",
@@ -6681,7 +7122,8 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -6708,7 +7150,8 @@
           },
           "action_taken_at": {
             "description": "When an action was taken against the report.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "category": {
             "description": "The generic reason for the report.",
@@ -6724,7 +7167,8 @@
           },
           "created_at": {
             "description": "When the report was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "status_ids": {
             "description": "IDs of statuses that have been attached to this report for additional context.",
@@ -6829,7 +7273,8 @@
           },
           "scheduled_at": {
             "description": "The timestamp for when the status will be posted.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "params": {
             "description": "The parameters that were used when scheduling the status, to be used when the status is posted.",
@@ -7002,7 +7447,8 @@
           },
           "created_at": {
             "description": "The date when this status was created.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that authored this status.",
@@ -7112,7 +7558,8 @@
           },
           "edited_at": {
             "description": "Timestamp of when the status was last edited.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "favourited": {
             "description": "If the current token has an authorized user: Have you favourited this status?",
@@ -7171,6 +7618,54 @@
           "edited_at"
         ]
       },
+      "Status::Mention": {
+        "type": "object",
+        "description": "Additional entity definition for Status::Mention",
+        "properties": {
+          "id": {
+            "description": "The account ID of the mentioned user.",
+            "type": "string"
+          },
+          "username": {
+            "description": "The username of the mentioned user.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The location of the mentioned user's profile.",
+            "type": "string",
+            "format": "uri"
+          },
+          "acct": {
+            "description": "The webfinger acct: URI of the mentioned user. Equivalent to `username` for local users, or `username@domain` for remote users.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "url",
+          "acct"
+        ]
+      },
+      "Status::Tag": {
+        "type": "object",
+        "description": "Additional entity definition for Status::Tag",
+        "properties": {
+          "name": {
+            "description": "The value of the hashtag after the # sign.",
+            "type": "string"
+          },
+          "url": {
+            "description": "A link to the hashtag on the instance.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "url"
+        ]
+      },
       "StatusEdit": {
         "type": "object",
         "description": "Represents a revision of a status that has been edited.",
@@ -7189,7 +7684,8 @@
           },
           "created_at": {
             "description": "The timestamp of when the revision was published.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that published this revision.",
@@ -7336,13 +7832,42 @@
           "history[][accounts]"
         ]
       },
+      "Admin::Tag": {
+        "type": "object",
+        "description": "Additional entity definition for Admin::Tag",
+        "properties": {
+          "id": {
+            "description": "The ID of the Tag in the database.",
+            "type": "string"
+          },
+          "trendable": {
+            "description": "Whether the hashtag has been approved to trend.",
+            "type": "boolean"
+          },
+          "usable": {
+            "description": "Whether the hashtag has not been disabled from auto-linking.",
+            "type": "boolean"
+          },
+          "requires_review": {
+            "description": "Whether the hashtag has not been reviewed yet to approve or deny its trending.",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "trendable",
+          "usable",
+          "requires_review"
+        ]
+      },
       "TermsOfService": {
         "type": "object",
         "description": "Represents the terms of service of the instance.",
         "properties": {
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
-            "$ref": "#/components/schemas/Date"
+            "type": "string",
+            "format": "date-time"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
@@ -7354,7 +7879,8 @@
           },
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
-            "$ref": "#/components/schemas/Date"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -7432,6 +7958,58 @@
           "provider"
         ]
       },
+      "Translation::Poll": {
+        "type": "object",
+        "description": "Additional entity definition for Translation::Poll",
+        "properties": {
+          "id": {
+            "description": "The ID of the poll.",
+            "type": "string"
+          },
+          "options": {
+            "description": "The translated poll options.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Translation::Poll::Option"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "options"
+        ]
+      },
+      "Translation::Poll::Option": {
+        "type": "object",
+        "description": "Additional entity definition for Translation::Poll::Option",
+        "properties": {
+          "title": {
+            "description": "The translated title of the poll option.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title"
+        ]
+      },
+      "Translation::Attachment": {
+        "type": "object",
+        "description": "Additional entity definition for Translation::Attachment",
+        "properties": {
+          "id": {
+            "description": "The id of the attachment.",
+            "type": "string"
+          },
+          "description": {
+            "description": "The translated description of the attachment.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "description"
+        ]
+      },
       "V1::Filter": {
         "type": "object",
         "description": "Represents a user-defined filter for determining which statuses should not be shown to the user. Contains a single keyword or phrase.",
@@ -7453,7 +8031,8 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "$ref": "#/components/schemas/Datetime"
+            "type": "string",
+            "format": "date-time"
           },
           "irreversible": {
             "description": "Should matching entities in home and notifications be dropped by the server? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
@@ -7813,7 +8392,26 @@
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",
-        "description": "OAuth 2.0 authentication"
+        "description": "OAuth 2.0 authentication",
+        "flows": {
+          "authorizationCode": {
+            "authorizationUrl": "https://mastodon.example/oauth/authorize",
+            "tokenUrl": "https://mastodon.example/oauth/token",
+            "scopes": {
+              "read": "Read access",
+              "write": "Write access",
+              "follow": "Follow/unfollow accounts",
+              "push": "Push notifications"
+            }
+          },
+          "clientCredentials": {
+            "tokenUrl": "https://mastodon.example/oauth/token",
+            "scopes": {
+              "read": "Read access",
+              "write": "Write access"
+            }
+          }
+        }
       },
       "BearerAuth": {
         "type": "http",
