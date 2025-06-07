@@ -1,4 +1,4 @@
-import { main } from '../main';
+import { main } from '../index';
 import * as fs from 'fs';
 import * as path from 'path';
 
