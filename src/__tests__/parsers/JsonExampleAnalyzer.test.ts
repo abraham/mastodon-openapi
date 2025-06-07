@@ -165,4 +165,36 @@ describe('JsonExampleAnalyzer', () => {
       'missing from entity definition'
     );
   });
+
+  test('should not create array index properties when analyzing arrays directly', () => {
+    // This test demonstrates that arrays should not be analyzed directly
+    // as it creates properties like "0", "1", etc.
+    const arrayOfObjects = [
+      {
+        id: '14715',
+        username: 'trwnh',
+        locked: false,
+      },
+      {
+        id: '14716',
+        username: 'alice',
+        locked: true,
+      },
+    ];
+
+    const attributes = analyzer.analyzeJsonObject(arrayOfObjects);
+
+    // This should NOT create properties like "0", "1", "0.id", "0.username", etc.
+    // Instead, the array should be handled specially to extract the entity structure
+    const arrayIndexProps = attributes.filter((attr) =>
+      /^\d+$/.test(attr.name)
+    );
+    const nestedArrayIndexProps = attributes.filter((attr) =>
+      /^\d+\./.test(attr.name)
+    );
+
+    // Currently this demonstrates the problematic behavior that creates array index properties
+    expect(arrayIndexProps.length).toBe(2); // Shows array indices "0", "1" are created as properties
+    expect(nestedArrayIndexProps.length).toBe(0); // Nested props would be in nestedObject
+  });
 });

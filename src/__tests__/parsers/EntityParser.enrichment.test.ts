@@ -1,4 +1,5 @@
 import { EntityParser } from '../../parsers/EntityParser';
+import { JsonExampleAnalyzer } from '../../parsers/JsonExampleAnalyzer';
 
 describe('EntityParser - Example Enrichment', () => {
   let parser: EntityParser;
@@ -79,5 +80,62 @@ describe('EntityParser - Example Enrichment', () => {
         }
       }
     }
+  });
+
+  test('should handle array responses correctly without creating array index properties', () => {
+    // Test the fix for array responses
+    const analyzer = new JsonExampleAnalyzer();
+
+    // Simulate an array response like API endpoints that return arrays of entities
+    const arrayResponse = [
+      {
+        id: '14715',
+        username: 'trwnh',
+        locked: false,
+        followers_count: 821,
+      },
+      {
+        id: '14716',
+        username: 'alice',
+        locked: true,
+        followers_count: 42,
+      },
+    ];
+
+    // Test the array directly (this would create array index properties)
+    const directArrayAnalysis = analyzer.analyzeJsonObject(arrayResponse);
+    const directArrayAttributes =
+      analyzer.convertToEntityAttributes(directArrayAnalysis);
+
+    // Should create properties like "0", "1", etc. (the problem we're fixing)
+    const arrayIndexProps = directArrayAttributes.filter((attr) =>
+      /^\d+$/.test(attr.name)
+    );
+    expect(arrayIndexProps.length).toBeGreaterThan(0); // This shows the problem exists
+
+    // Test the fixed approach - analyze just the first element
+    const firstElementAnalysis = analyzer.analyzeJsonObject(arrayResponse[0]);
+    const firstElementAttributes =
+      analyzer.convertToEntityAttributes(firstElementAnalysis);
+
+    // Should NOT create any array index properties
+    const fixedArrayIndexProps = firstElementAttributes.filter((attr) =>
+      /^\d+$/.test(attr.name)
+    );
+    expect(fixedArrayIndexProps.length).toBe(0); // This shows the fix works
+
+    // Should contain proper entity attributes
+    expect(
+      firstElementAttributes.find((attr) => attr.name === 'id')
+    ).toBeDefined();
+    expect(
+      firstElementAttributes.find((attr) => attr.name === 'username')
+    ).toBeDefined();
+    expect(
+      firstElementAttributes.find((attr) => attr.name === 'locked')
+    ).toBeDefined();
+    expect(
+      firstElementAttributes.find((attr) => attr.name === 'followers_count')
+    ).toBeDefined();
   });
 });

@@ -112,10 +112,19 @@ class EntityParser {
               );
 
               if (entityToEnrich && response.parsedExample) {
+                // Check if the response is an array of entities
+                let dataToAnalyze = response.parsedExample;
+                if (
+                  Array.isArray(response.parsedExample) &&
+                  response.parsedExample.length > 0
+                ) {
+                  // If it's an array, analyze the first element which should be an entity
+                  dataToAnalyze = response.parsedExample[0];
+                }
+
                 // Analyze the JSON example
-                const jsonAttributes = analyzer.analyzeJsonObject(
-                  response.parsedExample
-                );
+                const jsonAttributes =
+                  analyzer.analyzeJsonObject(dataToAnalyze);
                 const exampleAttributes =
                   analyzer.convertToEntityAttributes(jsonAttributes);
 

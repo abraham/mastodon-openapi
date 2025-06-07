@@ -8956,14 +8956,6 @@
         "type": "object",
         "description": "Represents a user of Mastodon and their associated profile.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "1": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "The account id.",
             "type": "string"
@@ -9159,216 +9151,6 @@
           "fields.verified_at": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string"
-          },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.username": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.acct": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.display_name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.locked": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.bot": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.created_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.note": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.avatar": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.avatar_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.header": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.header_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.followers_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.following_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.statuses_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.last_status_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.emojis": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.fields": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "0.fields.name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.fields.value": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.fields.verified_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.username": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.acct": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.display_name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.locked": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.bot": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.created_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "1.note": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.avatar": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.avatar_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.header": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.header_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.followers_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "1.following_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "1.statuses_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "1.last_status_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "1.emojis": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "1.emojis.shortcode": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.emojis.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.emojis.static_url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "1.emojis.visible_in_picker": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.fields": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
           }
         },
         "required": [
@@ -9411,54 +9193,7 @@
           "emojis.visible_in_picker",
           "fields.name",
           "fields.value",
-          "fields.verified_at",
-          "0",
-          "0.id",
-          "0.username",
-          "0.acct",
-          "0.display_name",
-          "0.locked",
-          "0.bot",
-          "0.created_at",
-          "0.note",
-          "0.url",
-          "0.avatar",
-          "0.avatar_static",
-          "0.header",
-          "0.header_static",
-          "0.followers_count",
-          "0.following_count",
-          "0.statuses_count",
-          "0.last_status_at",
-          "0.emojis",
-          "0.fields",
-          "0.fields.name",
-          "0.fields.value",
-          "0.fields.verified_at",
-          "1",
-          "1.id",
-          "1.username",
-          "1.acct",
-          "1.display_name",
-          "1.locked",
-          "1.bot",
-          "1.created_at",
-          "1.note",
-          "1.url",
-          "1.avatar",
-          "1.avatar_static",
-          "1.header",
-          "1.header_static",
-          "1.followers_count",
-          "1.following_count",
-          "1.statuses_count",
-          "1.last_status_at",
-          "1.emojis",
-          "1.emojis.shortcode",
-          "1.emojis.url",
-          "1.emojis.static_url",
-          "1.emojis.visible_in_picker",
-          "1.fields"
+          "fields.verified_at"
         ]
       },
       "CredentialAccount": {
@@ -10286,10 +10021,6 @@
         "type": "object",
         "description": "Represents an announcement set by an administrator.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "The ID of the announcement in the database.",
             "type": "string"
@@ -10365,97 +10096,24 @@
               "$ref": "#/components/schemas/Reaction"
             }
           },
-          "0.id": {
+          "reactions.name": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string"
           },
-          "0.content": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.starts_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.ends_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.all_day": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.published_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.updated_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.read": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.mentions": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.statuses": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.tags": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.emojis": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.reactions": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "0.reactions.name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.reactions.count": {
+          "reactions.count": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "integer"
           },
-          "0.reactions.me": {
+          "reactions.me": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "boolean"
           },
-          "0.reactions.url": {
+          "reactions.url": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string",
             "format": "uri"
           },
-          "0.reactions.static_url": {
+          "reactions.static_url": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string",
             "format": "uri"
@@ -10475,25 +10133,11 @@
           "tags",
           "emojis",
           "reactions",
-          "0",
-          "0.id",
-          "0.content",
-          "0.starts_at",
-          "0.ends_at",
-          "0.all_day",
-          "0.published_at",
-          "0.updated_at",
-          "0.read",
-          "0.mentions",
-          "0.statuses",
-          "0.tags",
-          "0.emojis",
-          "0.reactions",
-          "0.reactions.name",
-          "0.reactions.count",
-          "0.reactions.me",
-          "0.reactions.url",
-          "0.reactions.static_url"
+          "reactions.name",
+          "reactions.count",
+          "reactions.me",
+          "reactions.url",
+          "reactions.static_url"
         ]
       },
       "Announcement_Account": {
@@ -10871,10 +10515,6 @@
         "type": "object",
         "description": "Represents a hashtag that is featured on a profile.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "The internal ID of the featured tag in the database.",
             "type": "string"
@@ -10896,28 +10536,6 @@
             "description": "The date of the last authored status containing this hashtag.",
             "type": "string",
             "format": "date-time"
-          },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.statuses_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.last_status_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
           }
         },
         "required": [
@@ -10925,13 +10543,7 @@
           "name",
           "url",
           "statuses_count",
-          "last_status_at",
-          "0",
-          "0.id",
-          "0.name",
-          "0.statuses_count",
-          "0.last_status_at",
-          "0.url"
+          "last_status_at"
         ]
       },
       "Filter": {
@@ -11086,10 +10698,6 @@
         "type": "object",
         "description": "Represents a proof from an external identity provider.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "provider": {
             "description": "The name of the identity provider.",
             "type": "string"
@@ -11112,29 +10720,6 @@
             "description": "The account owner's profile URL on the identity provider.",
             "type": "string",
             "format": "uri"
-          },
-          "0.provider": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.provider_username": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.updated_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.proof_url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.profile_url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
           }
         },
         "required": [
@@ -11142,13 +10727,7 @@
           "provider_username",
           "updated_at",
           "proof_url",
-          "profile_url",
-          "0",
-          "0.provider",
-          "0.provider_username",
-          "0.updated_at",
-          "0.proof_url",
-          "0.profile_url"
+          "profile_url"
         ]
       },
       "Instance": {
@@ -11816,14 +11395,6 @@
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "1": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "The internal database ID of the list.",
             "type": "string"
@@ -11841,38 +11412,6 @@
               "none"
             ]
           },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.title": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.replies_policy": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.exclusive": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.title": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.replies_policy": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.exclusive": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
           "exclusive": {
             "description": "Attribute discovered from JSON example (missing from entity definition)",
             "type": "boolean"
@@ -11882,16 +11421,6 @@
           "id",
           "title",
           "replies_policy",
-          "0",
-          "0.id",
-          "0.title",
-          "0.replies_policy",
-          "0.exclusive",
-          "1",
-          "1.id",
-          "1.title",
-          "1.replies_policy",
-          "1.exclusive",
           "exclusive"
         ]
       },
@@ -12673,14 +12202,6 @@
         "type": "object",
         "description": "Represents the relationship between accounts, such as following / blocking / muting / etc.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "1": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "The account ID.",
             "type": "string"
@@ -12743,102 +12264,6 @@
           "note": {
             "description": "This user's profile bio",
             "type": "string"
-          },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.following": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.showing_reblogs": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.notifying": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.followed_by": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.blocking": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.blocked_by": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.muting": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.muting_notifications": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.requested": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.domain_blocking": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.endorsed": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.following": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.showing_reblogs": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.notifying": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.followed_by": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.blocking": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.blocked_by": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.muting": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.muting_notifications": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.requested": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.domain_blocking": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "1.endorsed": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
           }
         },
         "required": [
@@ -12856,33 +12281,7 @@
           "requested_by",
           "domain_blocking",
           "endorsed",
-          "note",
-          "0",
-          "0.id",
-          "0.following",
-          "0.showing_reblogs",
-          "0.notifying",
-          "0.followed_by",
-          "0.blocking",
-          "0.blocked_by",
-          "0.muting",
-          "0.muting_notifications",
-          "0.requested",
-          "0.domain_blocking",
-          "0.endorsed",
-          "1",
-          "1.id",
-          "1.following",
-          "1.showing_reblogs",
-          "1.notifying",
-          "1.followed_by",
-          "1.blocking",
-          "1.blocked_by",
-          "1.muting",
-          "1.muting_notifications",
-          "1.requested",
-          "1.domain_blocking",
-          "1.endorsed"
+          "note"
         ]
       },
       "RelationshipSeveranceEvent": {
@@ -13161,30 +12560,6 @@
         "type": "object",
         "description": "Represents a rule that server users should follow.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "1": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "2": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "3": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "4": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "5": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "An identifier for the rule.",
             "type": "string"
@@ -13200,89 +12575,19 @@
           "translations": {
             "description": "Available translations for this rule's `text` and `hint`, as a Hash where keys are locale codes and values are hashes with `text` and `hint` keys.",
             "type": "object"
-          },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "1.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "2.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "2.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "3.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "3.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "4.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "4.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "5.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "5.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
           }
         },
         "required": [
           "id",
           "text",
           "hint",
-          "translations",
-          "0",
-          "0.id",
-          "0.text",
-          "1",
-          "1.id",
-          "1.text",
-          "2",
-          "2.id",
-          "2.text",
-          "3",
-          "3.id",
-          "3.text",
-          "4",
-          "4.id",
-          "4.text",
-          "5",
-          "5.id",
-          "5.text"
+          "translations"
         ]
       },
       "ScheduledStatus": {
         "type": "object",
         "description": "Represents a status that will be published at a future scheduled date.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "ID of the scheduled status in the database.",
             "type": "string"
@@ -13381,67 +12686,6 @@
               "$ref": "#/components/schemas/MediaAttachment"
             }
           },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.scheduled_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.params": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "0.params.poll": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.media_ids": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.sensitive": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.visibility": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.idempotency": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.scheduled_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.spoiler_text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.params.application_id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.params.in_reply_to_id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.media_attachments": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
           "params.poll": {
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string"
@@ -13504,21 +12748,6 @@
           "params[idempotency]",
           "params[with_rate_limit]",
           "media_attachments",
-          "0",
-          "0.id",
-          "0.scheduled_at",
-          "0.params",
-          "0.params.poll",
-          "0.params.text",
-          "0.params.media_ids",
-          "0.params.sensitive",
-          "0.params.visibility",
-          "0.params.idempotency",
-          "0.params.scheduled_at",
-          "0.params.spoiler_text",
-          "0.params.application_id",
-          "0.params.in_reply_to_id",
-          "0.media_attachments",
           "params.poll",
           "params.text",
           "params.media_ids",
@@ -13593,10 +12822,6 @@
         "type": "object",
         "description": "Represents a status posted by an account.",
         "properties": {
-          "0": {
-            "description": "Attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
           "id": {
             "description": "ID of the status in the database.",
             "type": "string"
@@ -13860,235 +13085,6 @@
             "description": "Nested attribute discovered from JSON example (missing from entity definition)",
             "type": "string"
           },
-          "0.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.created_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.in_reply_to_id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.in_reply_to_account_id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.sensitive": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.spoiler_text": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.visibility": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.language": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.uri": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.replies_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.reblogs_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.favourites_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.favourited": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.reblogged": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.muted": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.bookmarked": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.content": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.reblog": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.application": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "object"
-          },
-          "0.account.id": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.username": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.acct": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.display_name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.locked": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.account.bot": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "boolean"
-          },
-          "0.account.created_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.account.note": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.url": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.account.avatar": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.account.avatar_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.account.header": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.account.header_static": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "uri"
-          },
-          "0.account.followers_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.account.following_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.account.statuses_count": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "integer"
-          },
-          "0.account.last_status_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string",
-            "format": "date"
-          },
-          "0.account.emojis": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.account.fields": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "0.account.fields.name": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.fields.value": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.account.fields.verified_at": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.media_attachments": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.mentions": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.tags": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.emojis": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "array",
-            "items": {
-              "type": "string",
-              "description": "Original type: unknown"
-            }
-          },
-          "0.card": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
-          "0.poll": {
-            "description": "Nested attribute discovered from JSON example (missing from entity definition)",
-            "type": "string"
-          },
           "error": {
             "description": "Attribute discovered from JSON example (missing from entity definition)",
             "type": "string"
@@ -14145,56 +13141,6 @@
           "account.fields.name",
           "account.fields.value",
           "account.fields.verified_at",
-          "0",
-          "0.id",
-          "0.created_at",
-          "0.in_reply_to_id",
-          "0.in_reply_to_account_id",
-          "0.sensitive",
-          "0.spoiler_text",
-          "0.visibility",
-          "0.language",
-          "0.uri",
-          "0.url",
-          "0.replies_count",
-          "0.reblogs_count",
-          "0.favourites_count",
-          "0.favourited",
-          "0.reblogged",
-          "0.muted",
-          "0.bookmarked",
-          "0.content",
-          "0.reblog",
-          "0.application",
-          "0.account",
-          "0.account.id",
-          "0.account.username",
-          "0.account.acct",
-          "0.account.display_name",
-          "0.account.locked",
-          "0.account.bot",
-          "0.account.created_at",
-          "0.account.note",
-          "0.account.url",
-          "0.account.avatar",
-          "0.account.avatar_static",
-          "0.account.header",
-          "0.account.header_static",
-          "0.account.followers_count",
-          "0.account.following_count",
-          "0.account.statuses_count",
-          "0.account.last_status_at",
-          "0.account.emojis",
-          "0.account.fields",
-          "0.account.fields.name",
-          "0.account.fields.value",
-          "0.account.fields.verified_at",
-          "0.media_attachments",
-          "0.mentions",
-          "0.tags",
-          "0.emojis",
-          "0.card",
-          "0.poll",
           "error"
         ]
       },
