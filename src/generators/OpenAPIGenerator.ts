@@ -162,16 +162,26 @@ class OpenAPIGenerator {
       return { type: 'array' };
     }
 
-    // Handle references to other entities
+    // Handle references to other entities (only for actual entity names, not documentation links)
     if (typeString.includes('[') && typeString.includes(']')) {
       const refMatch = typeString.match(/\[([^\]]+)\]/);
       if (refMatch) {
         const refName = refMatch[1];
-        // Clean up reference name
-        const cleanRefName = refName.replace(/[^\w:]/g, '');
-        return {
-          $ref: `#/components/schemas/${cleanRefName}`,
-        };
+
+        // Only treat as entity reference if it's an actual entity name
+        // Skip documentation references like "Datetime", "Date", etc.
+        const isDocumentationLink =
+          refName.toLowerCase().includes('/') ||
+          refName.toLowerCase() === 'datetime' ||
+          refName.toLowerCase() === 'date';
+
+        if (!isDocumentationLink) {
+          // Clean up reference name (preserve :: for nested entities)
+          const cleanRefName = refName.replace(/[^\w:]/g, '');
+          return {
+            $ref: `#/components/schemas/${cleanRefName}`,
+          };
+        }
       }
     }
 

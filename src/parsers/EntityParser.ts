@@ -28,9 +28,11 @@ class EntityParser {
 
     for (const file of files) {
       try {
-        const entity = this.parseEntityFile(path.join(this.entitiesPath, file));
-        if (entity) {
-          entities.push(entity);
+        const fileEntities = this.parseEntityFile(
+          path.join(this.entitiesPath, file)
+        );
+        if (fileEntities) {
+          entities.push(...fileEntities);
         }
       } catch (error) {
         console.error(`Error parsing file ${file}:`, error);
@@ -40,49 +42,106 @@ class EntityParser {
     return entities;
   }
 
-  private parseEntityFile(filePath: string): EntityClass | null {
+  private parseEntityFile(filePath: string): EntityClass[] {
     const content = fs.readFileSync(filePath, 'utf-8');
     const parsed = matter(content);
 
-    // Extract class name from frontmatter title
+    const entities: EntityClass[] = [];
+
+    // Extract main class name from frontmatter title
     const className = parsed.data.title;
     if (!className) {
       console.warn(`No title found in ${filePath}`);
-      return null;
+      return entities;
     }
 
     // Extract description from frontmatter
     const description = parsed.data.description || '';
 
-    // Parse attributes from markdown content
+    // Parse main entity attributes from markdown content
     const attributes = this.parseAttributes(parsed.content);
 
-    return {
+    entities.push({
       name: className,
       description,
       attributes,
-    };
+    });
+
+    // Parse additional entity definitions in the same file
+    const additionalEntities = this.parseAdditionalEntities(parsed.content);
+    entities.push(...additionalEntities);
+
+    return entities;
   }
 
   private parseAttributes(content: string): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
-    // Find the "## Attributes" section
+    // Find the "## Attributes" section (for main entity only)
+    // Stop at any additional entity definitions
     const attributesMatch = content.match(
-      /## Attributes\s*([\s\S]*?)(?=\n## |$)/
+      /## Attributes\s*([\s\S]*?)(?=\n## .* entity attributes|\n## |$)/
     );
     if (!attributesMatch) {
       return attributes;
     }
 
     const attributesSection = attributesMatch[1];
+    return this.parseAttributesFromSection(attributesSection);
+  }
 
-    // Match each attribute definition
+  private parseAdditionalEntities(content: string): EntityClass[] {
+    const entities: EntityClass[] = [];
+
+    // Find all sections that define additional entities
+    // Pattern 1: ## [EntityName] entity attributes {#[id]}
+    // Pattern 2: ## [EntityName] attributes {#[id]}
+    const entitySectionRegex1 = /## ([^#\n]+?) entity attributes \{#([^}]+)\}/g;
+    const entitySectionRegex2 = /## ([^#\n]+?) attributes \{#([^}]+)\}/g;
+
+    // Process both patterns
+    [entitySectionRegex1, entitySectionRegex2].forEach((regex) => {
+      let match;
+      while ((match = regex.exec(content)) !== null) {
+        const [fullMatch, entityName, entityId] = match;
+
+        // Skip if we already processed this entity (avoid duplicates)
+        if (entities.some((e) => e.name === entityName.trim())) {
+          continue;
+        }
+
+        // Find the content for this entity (from this heading to the next ## heading or end of file)
+        const startIndex = match.index + fullMatch.length;
+        const nextSectionMatch = content.substring(startIndex).match(/\n## /);
+        const endIndex = nextSectionMatch
+          ? startIndex + (nextSectionMatch.index || 0)
+          : content.length;
+
+        const entityContent = content.substring(startIndex, endIndex);
+
+        // Parse attributes for this entity
+        const attributes = this.parseAttributesFromSection(entityContent);
+
+        entities.push({
+          name: entityName.trim(),
+          description: `Additional entity definition for ${entityName.trim()}`,
+          attributes,
+        });
+      }
+    });
+
+    return entities;
+  }
+
+  private parseAttributesFromSection(content: string): EntityAttribute[] {
+    const attributes: EntityAttribute[] = [];
+
+    // Match each attribute definition in this section
     const attributeRegex =
       /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)/g;
 
     let match;
-    while ((match = attributeRegex.exec(attributesSection)) !== null) {
+    while ((match = attributeRegex.exec(content)) !== null) {
       const [, name, modifiers, description, type] = match;
 
       const attribute: EntityAttribute = {
