@@ -303,8 +303,10 @@ class EntityParser {
 
     // Match each attribute definition in this section
     // Capture more content after Type to get enum values
+    // Updated to match level 3 (###), 4 (####), and 5 (#####) headings for nested attributes
+    // Fixed to handle both {{%...%}} and {{<...>}} Hugo shortcode patterns
     const attributeRegex =
-      /### `([^`]+)`[^{]*(?:\{\{%([^%]+)%\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)(.*?)(?=\n\*\*Version history:\*\*|\n\*\*|\n###|$)/gs;
+      /#{3,5} `([^`]+)`[^{]*(?:\{\{[%<]([^%>]+)[%>]\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)(.*?)(?=\n\*\*Version history:\*\*|\n\*\*|\n#{3,5}|$)/gs;
 
     let match;
     while ((match = attributeRegex.exec(content)) !== null) {
