@@ -168,6 +168,11 @@ class OpenAPIGenerator {
       property.oneOf = type.oneOf;
     }
 
+    // Special handling for _at properties that should be date-time format
+    if (attribute.name.endsWith('_at') && property.type === 'string' && !property.format) {
+      property.format = 'date-time';
+    }
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       property.enum = attribute.enumValues;
@@ -693,12 +698,17 @@ class OpenAPIGenerator {
       return schema;
     }
 
-    // Check for email format
-    const hasEmailPattern =
-      param.description &&
-      param.description.toLowerCase().includes('email');
+    // Check for email format - only for actual email fields, not descriptions mentioning email
+    const isEmailField =
+      param.name.toLowerCase().includes('email') ||
+      (param.description &&
+        (param.description.toLowerCase().includes('email address') ||
+          param.description.toLowerCase().includes('e-mail address') ||
+          (param.description.toLowerCase().includes('email') &&
+            !param.description.toLowerCase().includes('confirmation email') &&
+            !param.description.toLowerCase().includes('email that will be sent'))));
 
-    if (hasEmailPattern) {
+    if (isEmailField) {
       const schema: OpenAPIProperty = {
         type: 'string',
         format: 'email',

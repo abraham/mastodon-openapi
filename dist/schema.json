@@ -65,7 +65,6 @@
                   },
                   "locale": {
                     "type": "string",
-                    "format": "email",
                     "description": "String. The language of the confirmation email that will be sent."
                   },
                   "reason": {
@@ -9065,7 +9064,8 @@
           },
           "created_at": {
             "description": "When the account was created.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "last_status_at": {
             "description": "When the most recent status was posted.",
@@ -9186,7 +9186,8 @@
         "properties": {
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -9259,7 +9260,8 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -9290,7 +9292,8 @@
           },
           "created_at": {
             "description": "When the account was first discovered.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "email": {
             "description": "The email address associated with the account.",
@@ -9477,7 +9480,8 @@
           },
           "created_at": {
             "description": "When the domain was allowed to federate.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -9504,7 +9508,8 @@
           },
           "created_at": {
             "description": "When the domain was blocked from federating.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "severity": {
             "description": "The policy to be applied by this domain block.",
@@ -9563,7 +9568,8 @@
           },
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
@@ -9605,7 +9611,8 @@
           },
           "used_at": {
             "description": "The timestamp of when the IP address was last used for this account.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -9640,11 +9647,13 @@
           },
           "created_at": {
             "description": "When the IP block was created.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -9719,7 +9728,8 @@
           },
           "action_taken_at": {
             "description": "When an action was taken, if this report is currently resolved.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "category": {
             "description": "The category under which the report is classified.",
@@ -9740,11 +9750,13 @@
           },
           "created_at": {
             "description": "The time the report was filed.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "The time of last action on this report.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account which filed the report.",
@@ -9808,11 +9820,13 @@
           },
           "starts_at": {
             "description": "When the announcement will start.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "ends_at": {
             "description": "When the announcement will end.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "published": {
             "description": "Whether the announcement is currently active.",
@@ -9824,11 +9838,13 @@
           },
           "published_at": {
             "description": "When the announcement was published.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "When the announcement was last updated.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
@@ -10017,7 +10033,8 @@
           },
           "client_secret_expires_at": {
             "description": "When the client secret key will expire at, presently this always returns `0` indicating that OAuth Clients do not expire",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -10170,7 +10187,8 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the extended description was last updated.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "content": {
             "description": "The rendered HTML content of the extended description.",
@@ -10266,7 +10284,8 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
@@ -10384,7 +10403,8 @@
           },
           "updated_at": {
             "description": "When the identity proof was last updated.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "proof_url": {
             "description": "A link to a statement of identity proof, hosted by the identity provider.",
@@ -10765,7 +10785,8 @@
           },
           "updated_at": {
             "description": "The timestamp of when the marker was set.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -10870,7 +10891,8 @@
           },
           "created_at": {
             "description": "The timestamp of the notification.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that performed the action that generated the notification.",
@@ -10959,11 +10981,13 @@
           },
           "created_at": {
             "description": "The timestamp of the notification request, i.e. when the first filtered notification from that user was created.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "updated_at": {
             "description": "The timestamp of when the notification request was last updated.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that performed the action that generated the filtered notifications.",
@@ -10996,7 +11020,8 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "expired": {
             "description": "Is the poll currently expired?",
@@ -11271,7 +11296,8 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the privacy policy was last updated.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "content": {
             "description": "The rendered HTML content of the privacy policy.",
@@ -11462,7 +11488,8 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -11489,7 +11516,8 @@
           },
           "action_taken_at": {
             "description": "When an action was taken against the report.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "category": {
             "description": "The generic reason for the report.",
@@ -11510,7 +11538,8 @@
           },
           "created_at": {
             "description": "When the report was created.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "status_ids": {
             "description": "IDs of statuses that have been attached to this report for additional context.",
@@ -11615,7 +11644,8 @@
           },
           "scheduled_at": {
             "description": "The timestamp for when the status will be posted.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "params": {
             "description": "The parameters that were used when scheduling the status, to be used when the status is posted.",
@@ -11802,7 +11832,8 @@
           },
           "created_at": {
             "description": "The date when this status was created.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that authored this status.",
@@ -11918,7 +11949,8 @@
           },
           "edited_at": {
             "description": "Timestamp of when the status was last edited.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "quote": {
             "description": "Information about the status being quoted, if any",
@@ -12044,7 +12076,8 @@
           },
           "created_at": {
             "description": "The timestamp of when the revision was published.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "account": {
             "description": "The account that published this revision.",
@@ -12409,7 +12442,8 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "irreversible": {
             "description": "Should matching entities in home and notifications be dropped by the server? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
@@ -12891,7 +12925,8 @@
           },
           "latest_page_notification_at": {
             "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "sample_account_ids": {
             "description": "IDs of some of the accounts who most recently triggered notifications in this group.",
