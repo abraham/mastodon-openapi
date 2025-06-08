@@ -28,6 +28,19 @@ describe('MethodParser Type Inference', () => {
       expect(type).toBe('object');
     });
 
+    it('should correctly infer string type for hashtag descriptions', () => {
+      const descriptions = [
+        'String. Filter for statuses using a specific hashtag.',
+        'String. Search for hashtag content.',
+        'Filter by hashtag name.',
+      ];
+
+      descriptions.forEach((description) => {
+        const type = (parser as any).inferTypeFromDescription(description);
+        expect(type).toBe('string');
+      });
+    });
+
     it('should still correctly infer other types', () => {
       const testCases = [
         { description: 'String. Some string parameter', expected: 'string' },

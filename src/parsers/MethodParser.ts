@@ -405,7 +405,7 @@ class MethodParser {
 
     if (lowerDesc.includes('boolean')) {
       return 'boolean';
-    } else if (lowerDesc.includes('hash')) {
+    } else if (lowerDesc.match(/\bhash\b/) && !lowerDesc.includes('hashtag')) {
       return 'object';
     } else if (lowerDesc.includes('integer') || lowerDesc.includes('number')) {
       return 'integer';
