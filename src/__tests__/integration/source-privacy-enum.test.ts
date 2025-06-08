@@ -17,12 +17,17 @@ describe('Integration: source[privacy] enum support', () => {
 
     // Check that the update_credentials endpoint exists
     expect(schema.paths['/api/v1/accounts/update_credentials']).toBeDefined();
-    expect(schema.paths['/api/v1/accounts/update_credentials'].patch).toBeDefined();
+    expect(
+      schema.paths['/api/v1/accounts/update_credentials'].patch
+    ).toBeDefined();
 
-    const operation = schema.paths['/api/v1/accounts/update_credentials'].patch!;
+    const operation =
+      schema.paths['/api/v1/accounts/update_credentials'].patch!;
     expect(operation.requestBody).toBeDefined();
 
-    const requestBodySchema = operation.requestBody!.content!['application/json'].schema as any;
+    const requestBodySchema = operation.requestBody!.content![
+      'application/json'
+    ].schema as any;
     expect(requestBodySchema.properties).toBeDefined();
 
     // Check that source object exists
