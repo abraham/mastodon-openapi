@@ -53,12 +53,16 @@ class EntityParser {
 
       for (const file of methodFiles) {
         try {
-          const methodEntities = this.entityFileParser.parseEntitiesFromMethodFile(
-            path.join(this.methodsPath, file)
-          );
+          const methodEntities =
+            this.entityFileParser.parseEntitiesFromMethodFile(
+              path.join(this.methodsPath, file)
+            );
           entities.push(...methodEntities);
         } catch (error) {
-          console.error(`Error parsing entities from method file ${file}:`, error);
+          console.error(
+            `Error parsing entities from method file ${file}:`,
+            error
+          );
         }
       }
     } else {

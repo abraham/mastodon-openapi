@@ -4,7 +4,6 @@ import { ApiParameter } from '../interfaces/ApiParameter';
  * Handles parsing of API parameters from markdown sections
  */
 export class ParameterParser {
-  
   /**
    * Parse all parameters from section (both query and form data)
    */

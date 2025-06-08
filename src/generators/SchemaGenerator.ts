@@ -207,7 +207,10 @@ export class SchemaGenerator {
   /**
    * Parse response schema from returns field
    */
-  public parseResponseSchema(returns?: string, spec?: OpenAPISpec): OpenAPIProperty | null {
+  public parseResponseSchema(
+    returns?: string,
+    spec?: OpenAPISpec
+  ): OpenAPIProperty | null {
     if (!returns) {
       return null;
     }
@@ -250,7 +253,11 @@ export class SchemaGenerator {
 
       // If we found multiple valid entities, create a synthetic schema
       if (validEntityRefs.length > 1) {
-        return this.createSyntheticOneOfSchemaImmediate(validEntityRefs, entityNames, spec);
+        return this.createSyntheticOneOfSchemaImmediate(
+          validEntityRefs,
+          entityNames,
+          spec
+        );
       }
       // If we found exactly one valid entity, return it directly
       else if (validEntityRefs.length === 1) {
@@ -286,7 +293,10 @@ export class SchemaGenerator {
     }
 
     // Check if synthetic schema already exists
-    if (spec?.components?.schemas && !spec.components.schemas[syntheticSchemaName]) {
+    if (
+      spec?.components?.schemas &&
+      !spec.components.schemas[syntheticSchemaName]
+    ) {
       // Create object properties from entity references
       const properties: Record<string, OpenAPIProperty> = {};
       const propertyNames: string[] = [];
@@ -325,7 +335,10 @@ export class SchemaGenerator {
   /**
    * Generate synthetic schemas for oneOf combinations and add them to spec
    */
-  public generateSyntheticSchemas(spec: OpenAPISpec, syntheticSchemas: Set<string>): void {
+  public generateSyntheticSchemas(
+    spec: OpenAPISpec,
+    syntheticSchemas: Set<string>
+  ): void {
     if (!spec.components?.schemas) {
       spec.components = { schemas: {} };
     }
@@ -335,7 +348,7 @@ export class SchemaGenerator {
         // Parse the schema name to get constituent entities
         const entities = schemaName.split('Or');
         const properties: Record<string, OpenAPIProperty> = {};
-        
+
         for (const entity of entities) {
           const propertyName = this.entityNameToPropertyName(entity);
           properties[propertyName] = {
@@ -346,7 +359,7 @@ export class SchemaGenerator {
         spec.components.schemas[schemaName] = {
           type: 'object',
           properties,
-          description: `Object containing one of: ${entities.map(e => this.entityNameToPropertyName(e)).join(', ')}`,
+          description: `Object containing one of: ${entities.map((e) => this.entityNameToPropertyName(e)).join(', ')}`,
         };
       }
     }

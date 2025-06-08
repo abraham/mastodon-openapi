@@ -66,7 +66,9 @@ export class MethodFileParser {
       for (const subSection of subSections) {
         if (subSection.trim() === '') continue;
 
-        const method = this.methodSectionParser.parseMethodSection(subSection.trim());
+        const method = this.methodSectionParser.parseMethodSection(
+          subSection.trim()
+        );
         if (method) {
           methods.push(method);
         }

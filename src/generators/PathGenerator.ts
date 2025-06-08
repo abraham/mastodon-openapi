@@ -22,7 +22,10 @@ export class PathGenerator {
   /**
    * Convert method files to OpenAPI paths and add them to spec
    */
-  public convertMethods(methodFiles: ApiMethodsFile[], spec: OpenAPISpec): void {
+  public convertMethods(
+    methodFiles: ApiMethodsFile[],
+    spec: OpenAPISpec
+  ): void {
     for (const methodFile of methodFiles) {
       for (const method of methodFile.methods) {
         this.convertMethod(method, methodFile.name, spec);
@@ -33,7 +36,11 @@ export class PathGenerator {
   /**
    * Convert a single API method to OpenAPI operation
    */
-  private convertMethod(method: ApiMethod, category: string, spec: OpenAPISpec): void {
+  private convertMethod(
+    method: ApiMethod,
+    category: string,
+    spec: OpenAPISpec
+  ): void {
     const path = this.normalizePath(method.endpoint);
     const httpMethod = method.httpMethod.toLowerCase() as keyof OpenAPIPath;
 
@@ -42,7 +49,10 @@ export class PathGenerator {
     }
 
     // Parse response schema from returns field
-    const responseSchema = this.parseResponseSchemaWithSynthetics(method.returns, spec);
+    const responseSchema = this.parseResponseSchemaWithSynthetics(
+      method.returns,
+      spec
+    );
     const response200 = responseSchema
       ? {
           description: method.returns || 'Success',
@@ -163,9 +173,12 @@ export class PathGenerator {
   }
 
   /**
-   * Parse response schema 
+   * Parse response schema
    */
-  private parseResponseSchemaWithSynthetics(returns?: string, spec?: OpenAPISpec): OpenAPIProperty | null {
+  private parseResponseSchemaWithSynthetics(
+    returns?: string,
+    spec?: OpenAPISpec
+  ): OpenAPIProperty | null {
     return this.schemaGenerator.parseResponseSchema(returns, spec);
   }
 

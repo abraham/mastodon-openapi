@@ -47,7 +47,8 @@ export class EntityFileParser {
       const entityContent = parsed.content.substring(startIndex, endIndex);
 
       // Parse attributes from this entity section
-      const attributes = this.attributeParser.parseMethodEntityAttributes(entityContent);
+      const attributes =
+        this.attributeParser.parseMethodEntityAttributes(entityContent);
 
       if (attributes.length > 0) {
         entities.push({
@@ -134,7 +135,8 @@ export class EntityFileParser {
         const entityContent = content.substring(startIndex, endIndex);
 
         // Parse attributes for this entity
-        const attributes = this.attributeParser.parseAttributesFromSection(entityContent);
+        const attributes =
+          this.attributeParser.parseAttributesFromSection(entityContent);
 
         entities.push({
           name: entityName,

@@ -4,7 +4,6 @@ import { EntityAttribute } from '../interfaces/EntityAttribute';
  * Handles parsing of entity attributes from markdown content
  */
 export class AttributeParser {
-  
   /**
    * Parse attributes from markdown content
    */
@@ -74,15 +73,18 @@ export class AttributeParser {
     // Looking for patterns like:
     // - id (String): The ID of the entity
     // - name (String, optional): The name
-    const methodAttrRegex = /^-\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\(([^)]+)\)\s*:\s*([^]*?)(?=\n-|\n\n|$)/gm;
+    const methodAttrRegex =
+      /^-\s+([a-zA-Z_][a-zA-Z0-9_]*)\s*\(([^)]+)\)\s*:\s*([^]*?)(?=\n-|\n\n|$)/gm;
 
     let match;
     while ((match = methodAttrRegex.exec(content)) !== null) {
       const [, name, typeInfo, desc] = match;
 
       const cleanDesc = this.cleanDescription(desc.trim());
-      const optional = typeInfo.includes('optional') || cleanDesc.includes('optional');
-      const deprecated = typeInfo.includes('deprecated') || cleanDesc.includes('deprecated');
+      const optional =
+        typeInfo.includes('optional') || cleanDesc.includes('optional');
+      const deprecated =
+        typeInfo.includes('deprecated') || cleanDesc.includes('deprecated');
 
       // Extract type from type info
       let type = typeInfo.replace(/,?\s*(optional|deprecated)/gi, '').trim();
