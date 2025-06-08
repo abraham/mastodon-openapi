@@ -1,0 +1,351 @@
+import { ApiParameter } from '../interfaces/ApiParameter';
+import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
+import { UtilityHelpers } from './UtilityHelpers';
+
+/**
+ * Type parser for converting various type formats to OpenAPI properties
+ */
+class TypeParser {
+  private utilityHelpers: UtilityHelpers;
+
+  constructor(utilityHelpers: UtilityHelpers) {
+    this.utilityHelpers = utilityHelpers;
+  }
+
+  /**
+   * Parse type string to OpenAPI property
+   */
+  public parseType(typeString: string): OpenAPIProperty {
+    const cleanType = typeString.toLowerCase().trim();
+
+    // Handle arrays
+    if (cleanType.includes('array of')) {
+      const itemTypeMatch = typeString.match(/array of\s+(.+?)(?:\s|$)/i);
+      if (itemTypeMatch) {
+        const itemType = this.parseType(itemTypeMatch[1]);
+        return {
+          type: 'array',
+          items: itemType,
+        };
+      }
+      return { type: 'array' };
+    }
+
+    // Handle references to other entities (only for actual entity names, not documentation links)
+    if (typeString.includes('[') && typeString.includes(']')) {
+      const refMatch = typeString.match(/\[([^\]]+)\]/);
+      if (refMatch) {
+        const refName = refMatch[1];
+
+        // Only treat as entity reference if it's an actual entity name
+        // Skip documentation references like "Datetime", "Date", etc.
+        const isDocumentationLink =
+          refName.toLowerCase().includes('/') ||
+          refName.toLowerCase() === 'datetime' ||
+          refName.toLowerCase() === 'date' ||
+          refName.toLowerCase().includes('iso8601');
+
+        if (!isDocumentationLink) {
+          // Clean up reference name and sanitize for OpenAPI compliance
+          const cleanRefName = refName.replace(/[^\w:]/g, '');
+          const sanitizedRefName =
+            this.utilityHelpers.sanitizeSchemaName(cleanRefName);
+          return {
+            $ref: `#/components/schemas/${sanitizedRefName}`,
+          };
+        }
+      }
+    }
+
+    // Handle basic types
+    if (cleanType.includes('string')) {
+      const property: OpenAPIProperty = { type: 'string' };
+
+      if (cleanType.includes('url')) {
+        property.format = 'uri';
+      } else if (
+        cleanType.includes('iso8601') ||
+        (cleanType.includes('datetime') &&
+          !cleanType.includes('datetime-format'))
+      ) {
+        property.format = 'date-time';
+      } else if (
+        typeString.includes('[Date]') &&
+        !typeString.toLowerCase().includes('[datetime]') &&
+        !typeString.toLowerCase().includes('[iso8601') &&
+        !typeString.toLowerCase().includes('iso8601')
+      ) {
+        // Specific [Date] reference should use date format
+        property.format = 'date';
+      } else if (cleanType.includes('email')) {
+        property.format = 'email';
+      } else if (cleanType.includes('html')) {
+        property.description = (property.description || '') + ' (HTML content)';
+      }
+
+      return property;
+    }
+
+    if (
+      cleanType.includes('integer') ||
+      cleanType.includes('cast from an integer')
+    ) {
+      return { type: 'integer' };
+    }
+
+    if (cleanType.includes('boolean')) {
+      return { type: 'boolean' };
+    }
+
+    if (cleanType.includes('number') || cleanType.includes('float')) {
+      return { type: 'number' };
+    }
+
+    if (cleanType.includes('hash') || cleanType.includes('object')) {
+      return { type: 'object' };
+    }
+
+    // Handle enums
+    if (cleanType.includes('enumerable') || cleanType.includes('oneof')) {
+      return {
+        type: 'string',
+        description: typeString.includes('Enumerable')
+          ? 'Enumerable value'
+          : '',
+      };
+    }
+
+    // Default to string for unknown types
+    return {
+      type: 'string',
+      description: `Original type: ${typeString}`,
+    };
+  }
+
+  /**
+   * Parse response schema from returns field
+   */
+  public parseResponseSchema(
+    returns: string | undefined,
+    spec: OpenAPISpec
+  ): OpenAPIProperty | null {
+    if (!returns) {
+      return null;
+    }
+
+    // Handle array responses: "Array of [EntityName]"
+    const arrayMatch = returns.match(/Array of \[([^\]]+)\]/i);
+    if (arrayMatch) {
+      const entityName = arrayMatch[1];
+      const sanitizedEntityName =
+        this.utilityHelpers.sanitizeSchemaName(entityName);
+
+      // Check if the entity exists in the components.schemas
+      if (spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          type: 'array',
+          items: {
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          },
+        };
+      }
+    }
+
+    // Find all entity references: "[EntityName]"
+    const entityMatches = returns.match(/\[([^\]]+)\]/g);
+    if (entityMatches && entityMatches.length > 0) {
+      const validEntityRefs: OpenAPIProperty[] = [];
+      const entityNames: string[] = [];
+
+      for (const match of entityMatches) {
+        const entityName = match.slice(1, -1); // Remove [ and ]
+        const sanitizedEntityName =
+          this.utilityHelpers.sanitizeSchemaName(entityName);
+
+        // Check if the entity exists in the components.schemas
+        if (spec.components?.schemas?.[sanitizedEntityName]) {
+          validEntityRefs.push({
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          });
+          entityNames.push(sanitizedEntityName);
+        }
+      }
+
+      // If we found multiple valid entities, create a synthetic schema
+      if (validEntityRefs.length > 1) {
+        return this.createSyntheticOneOfSchema(
+          validEntityRefs,
+          entityNames,
+          spec
+        );
+      }
+      // If we found exactly one valid entity, return it directly
+      else if (validEntityRefs.length === 1) {
+        return validEntityRefs[0];
+      }
+    }
+
+    // If no entity reference found or entity doesn't exist, return null to fallback to description-only
+    return null;
+  }
+
+  /**
+   * Create synthetic oneOf schema for multiple entity references
+   */
+  public createSyntheticOneOfSchema(
+    validEntityRefs: OpenAPIProperty[],
+    entityNames: string[],
+    spec: OpenAPISpec
+  ): OpenAPIProperty {
+    // Generate synthetic schema name by joining entity names with "Or"
+    const syntheticSchemaName = entityNames.join('Or');
+
+    // Initialize components if not present
+    if (!spec.components) {
+      spec.components = { schemas: {} };
+    }
+    if (!spec.components.schemas) {
+      spec.components.schemas = {};
+    }
+
+    // Check if synthetic schema already exists
+    if (!spec.components.schemas[syntheticSchemaName]) {
+      // Create object properties from entity references
+      const properties: Record<string, OpenAPIProperty> = {};
+      const propertyNames: string[] = [];
+
+      for (let i = 0; i < entityNames.length; i++) {
+        const entityName = entityNames[i];
+        const propertyName =
+          this.utilityHelpers.entityNameToPropertyName(entityName);
+        properties[propertyName] = validEntityRefs[i];
+        propertyNames.push(propertyName);
+      }
+
+      // Create the synthetic schema as an object with optional properties
+      spec.components.schemas[syntheticSchemaName] = {
+        type: 'object',
+        properties: properties,
+        description: `Object containing one of: ${propertyNames.join(', ')}`,
+      };
+    }
+
+    // Return reference to the synthetic schema
+    return {
+      $ref: `#/components/schemas/${syntheticSchemaName}`,
+    };
+  }
+
+  /**
+   * Convert API parameter to OpenAPI schema
+   */
+  public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
+    // If parameter has a complex schema, use it
+    if (param.schema) {
+      const schema: OpenAPIProperty = {
+        type: param.schema.type,
+        description: param.description,
+      };
+
+      if (param.schema.type === 'array' && param.schema.items) {
+        schema.items = {
+          type: param.schema.items.type,
+        };
+      } else if (param.schema.type === 'object' && param.schema.properties) {
+        const properties: Record<string, OpenAPIProperty> = {};
+        for (const [propName, propSchema] of Object.entries(
+          param.schema.properties
+        )) {
+          const property: OpenAPIProperty = {
+            type: propSchema.type,
+          };
+
+          if (propSchema.description) {
+            property.description = propSchema.description;
+          }
+
+          if (propSchema.enum && propSchema.enum.length > 0) {
+            property.enum = propSchema.enum;
+          }
+
+          if (propSchema.items) {
+            property.items = {
+              type: propSchema.items.type,
+            };
+          }
+
+          properties[propName] = property;
+        }
+        schema.properties = properties;
+      }
+
+      return schema;
+    }
+
+    // Fallback to parsing type from description for basic string parameters
+    // Check if this is a parameter that might have date/datetime format
+    const hasDateTimePattern =
+      param.description &&
+      (param.description.includes('[Date]') ||
+        param.description.includes('[Datetime]') ||
+        param.description.toLowerCase().includes('datetime') ||
+        param.description.toLowerCase().includes('iso8601'));
+
+    if (hasDateTimePattern) {
+      const parsedType = this.parseType(param.description || '');
+      const schema: OpenAPIProperty = {
+        description: param.description,
+        ...parsedType,
+      };
+
+      // Add enum values if available (override any enum from parseType)
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Check for email format - only for actual email fields, not descriptions mentioning email
+    const isEmailField =
+      param.name.toLowerCase().includes('email') ||
+      (param.description &&
+        (param.description.toLowerCase().includes('email address') ||
+          param.description.toLowerCase().includes('e-mail address') ||
+          (param.description.toLowerCase().includes('email') &&
+            !param.description.toLowerCase().includes('confirmation email') &&
+            !param.description
+              .toLowerCase()
+              .includes('email that will be sent'))));
+
+    if (isEmailField) {
+      const schema: OpenAPIProperty = {
+        type: 'string',
+        format: 'email',
+        description: param.description,
+      };
+
+      // Add enum values if available
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Default fallback for other parameters
+    const schema: OpenAPIProperty = {
+      type: 'string',
+      description: param.description,
+    };
+
+    // Add enum values if available
+    if (param.enumValues && param.enumValues.length > 0) {
+      schema.enum = param.enumValues;
+    }
+
+    return schema;
+  }
+}
+
+export { TypeParser };
