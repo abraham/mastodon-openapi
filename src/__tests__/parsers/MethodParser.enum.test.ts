@@ -8,9 +8,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual(['public', 'unlisted', 'private', 'direct']);
     });
@@ -19,9 +18,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. The type of the report to create to `spam`, `legal`.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual(['spam', 'legal']);
     });
@@ -30,9 +28,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Set equal to `authorization_code` if code is provided in order to gain user-level access.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       // Single values should not be extracted as enums (they're typically example values)
       expect(enumValues).toEqual([]);
@@ -42,9 +39,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Some regular description without any specific values mentioned.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual([]);
     });
@@ -52,9 +48,8 @@ describe('Parameter and Type Inference Support', () => {
     it('should not extract enum values from single backtick values', () => {
       const description = 'String. Set this to `true` for some option.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual([]);
     });
@@ -63,9 +58,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Choose from `option1`, `option2`, `option3`.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual(['option1', 'option2', 'option3']);
     });
@@ -74,9 +68,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual(['public', 'unlisted', 'private']);
     });
@@ -85,9 +78,8 @@ describe('Parameter and Type Inference Support', () => {
       const description =
         'String. Some parameter. Can be `value1`, `value2`, or `value3`.';
 
-      const enumValues = TypeInference.extractEnumValuesFromDescription(
-        description
-      );
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
 
       expect(enumValues).toEqual(['value1', 'value2', 'value3']);
     });

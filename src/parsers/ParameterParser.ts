@@ -67,7 +67,8 @@ export class ParameterParser {
         cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
 
       // Extract enum values from description
-      const enumValues = TypeInference.extractEnumValuesFromDescription(cleanDesc);
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(cleanDesc);
 
       const rawParam = {
         name: name.trim(),
@@ -80,7 +81,10 @@ export class ParameterParser {
     }
 
     // Process raw parameters to handle complex types
-    return ParameterParser.processComplexParameters(rawParameters, parameterLocation);
+    return ParameterParser.processComplexParameters(
+      rawParameters,
+      parameterLocation
+    );
   }
 
   /**
@@ -143,7 +147,9 @@ export class ParameterParser {
             schema: {
               type: 'array',
               items: {
-                type: TypeInference.inferTypeFromDescription(rawParam.description),
+                type: TypeInference.inferTypeFromDescription(
+                  rawParam.description
+                ),
               },
             },
           });
@@ -202,7 +208,9 @@ export class ParameterParser {
       let hasRequiredProperty = false;
 
       for (const prop of properties) {
-        const propType = TypeInference.inferTypeFromDescription(prop.description);
+        const propType = TypeInference.inferTypeFromDescription(
+          prop.description
+        );
         const enumValues = TypeInference.extractEnumValuesFromDescription(
           prop.description
         );

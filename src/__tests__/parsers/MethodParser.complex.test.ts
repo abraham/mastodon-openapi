@@ -184,14 +184,32 @@ visibility
 
   describe('Type inference', () => {
     it('should infer correct types from descriptions', () => {
-      expect(TypeInference.inferTypeFromDescription('Boolean. Allow multiple choices?')).toBe('boolean');
-      expect(TypeInference.inferTypeFromDescription('Integer. Duration in seconds.')).toBe('integer');
-      expect(TypeInference.inferTypeFromDescription('Number. The count value.')).toBe('integer');
-      expect(TypeInference.inferTypeFromDescription('Array of String. List of IDs.')).toBe('string');
-      expect(TypeInference.inferTypeFromDescription('Array of values.')).toBe('string');
-      expect(TypeInference.inferTypeFromDescription('String. The text content.')).toBe('string');
-      expect(TypeInference.inferTypeFromDescription('Some description without type.')).toBe('string');
-      expect(TypeInference.inferTypeFromDescription('Hash. User profile data.')).toBe('object');
+      expect(
+        TypeInference.inferTypeFromDescription(
+          'Boolean. Allow multiple choices?'
+        )
+      ).toBe('boolean');
+      expect(
+        TypeInference.inferTypeFromDescription('Integer. Duration in seconds.')
+      ).toBe('integer');
+      expect(
+        TypeInference.inferTypeFromDescription('Number. The count value.')
+      ).toBe('integer');
+      expect(
+        TypeInference.inferTypeFromDescription('Array of String. List of IDs.')
+      ).toBe('string');
+      expect(TypeInference.inferTypeFromDescription('Array of values.')).toBe(
+        'string'
+      );
+      expect(
+        TypeInference.inferTypeFromDescription('String. The text content.')
+      ).toBe('string');
+      expect(
+        TypeInference.inferTypeFromDescription('Some description without type.')
+      ).toBe('string');
+      expect(
+        TypeInference.inferTypeFromDescription('Hash. User profile data.')
+      ).toBe('object');
     });
   });
 });
