@@ -1,6 +1,6 @@
 # mastodon-openapi
 
-A tool for generating OpenAPI schemas from Mastodon API documentation.
+This project provides a comprehensive tool for generating OpenAPI schemas from Mastodon's API documentation. Mastodon is a decentralized social networking platform that provides a rich REST API for client applications and integrations. This tool automatically parses Mastodon's entity definitions and API method documentation to produce OpenAPI 3.0.3 compliant schemas, making it easier for developers to build applications, generate client libraries, and maintain accurate API documentation for Mastodon integrations.
 
 ## Features
 
