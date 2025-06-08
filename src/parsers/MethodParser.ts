@@ -345,6 +345,9 @@ class MethodParser {
 
       for (const prop of properties) {
         const propType = this.inferTypeFromDescription(prop.description);
+        const enumValues = this.extractEnumValuesFromDescription(
+          prop.description
+        );
 
         if (prop.isArray) {
           objectProperties[prop.property] = {
@@ -353,10 +356,16 @@ class MethodParser {
             items: { type: propType },
           };
         } else {
-          objectProperties[prop.property] = {
+          const property: any = {
             type: propType,
             description: prop.description,
           };
+
+          if (enumValues.length > 0) {
+            property.enum = enumValues;
+          }
+
+          objectProperties[prop.property] = property;
         }
 
         if (prop.required) {
@@ -424,6 +433,7 @@ class MethodParser {
       const patterns = [
         /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
       ];
 
       for (const pattern of patterns) {
