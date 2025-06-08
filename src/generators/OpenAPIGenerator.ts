@@ -205,7 +205,8 @@ class OpenAPIGenerator {
         const isDocumentationLink =
           refName.toLowerCase().includes('/') ||
           refName.toLowerCase() === 'datetime' ||
-          refName.toLowerCase() === 'date';
+          refName.toLowerCase() === 'date' ||
+          refName.toLowerCase().includes('iso8601');
 
         if (!isDocumentationLink) {
           // Clean up reference name and sanitize for OpenAPI compliance
@@ -224,10 +225,13 @@ class OpenAPIGenerator {
 
       if (cleanType.includes('url')) {
         property.format = 'uri';
-      } else if (cleanType.includes('datetime')) {
+      } else if (
+        cleanType.includes('datetime') ||
+        cleanType.includes('iso8601')
+      ) {
         property.format = 'date-time';
       } else if (cleanType.includes('date')) {
-        property.format = 'date';
+        property.format = 'date-time'; // Treat date references as datetime per issue requirement
       } else if (cleanType.includes('email')) {
         property.format = 'email';
       } else if (cleanType.includes('html')) {
@@ -659,7 +663,30 @@ class OpenAPIGenerator {
       return schema;
     }
 
-    // Fallback to simple string schema
+    // Fallback to parsing type from description for basic string parameters
+    // Check if this is a parameter that might have date/datetime format
+    const hasDateTimePattern =
+      param.description &&
+      (param.description.toLowerCase().includes('date') ||
+        param.description.toLowerCase().includes('datetime') ||
+        param.description.toLowerCase().includes('iso8601'));
+
+    if (hasDateTimePattern) {
+      const parsedType = this.parseType(param.description || '');
+      const schema: OpenAPIProperty = {
+        description: param.description,
+        ...parsedType,
+      };
+
+      // Add enum values if available (override any enum from parseType)
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Default fallback for other parameters
     const schema: OpenAPIProperty = {
       type: 'string',
       description: param.description,
