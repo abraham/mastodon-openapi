@@ -169,7 +169,11 @@ class OpenAPIGenerator {
     }
 
     // Special handling for _at properties that should be date-time format
-    if (attribute.name.endsWith('_at') && property.type === 'string' && !property.format) {
+    if (
+      attribute.name.endsWith('_at') &&
+      property.type === 'string' &&
+      !property.format
+    ) {
       property.format = 'date-time';
     }
 
@@ -232,11 +236,12 @@ class OpenAPIGenerator {
         property.format = 'uri';
       } else if (
         cleanType.includes('iso8601') ||
-        (cleanType.includes('datetime') && !cleanType.includes('datetime-format'))
+        (cleanType.includes('datetime') &&
+          !cleanType.includes('datetime-format'))
       ) {
         property.format = 'date-time';
       } else if (
-        typeString.includes('[Date]') && 
+        typeString.includes('[Date]') &&
         !typeString.toLowerCase().includes('[datetime]') &&
         !typeString.toLowerCase().includes('[iso8601') &&
         !typeString.toLowerCase().includes('iso8601')
@@ -706,7 +711,9 @@ class OpenAPIGenerator {
           param.description.toLowerCase().includes('e-mail address') ||
           (param.description.toLowerCase().includes('email') &&
             !param.description.toLowerCase().includes('confirmation email') &&
-            !param.description.toLowerCase().includes('email that will be sent'))));
+            !param.description
+              .toLowerCase()
+              .includes('email that will be sent'))));
 
     if (isEmailField) {
       const schema: OpenAPIProperty = {

@@ -82,13 +82,15 @@ describe('OpenAPIGenerator - Date Parameter Handling', () => {
               },
               {
                 name: 'email_param',
-                description: 'String. If provided, updates the user\'s email address',
+                description:
+                  "String. If provided, updates the user's email address",
                 required: false,
                 in: 'formData',
               },
               {
                 name: 'token_param',
-                description: 'String. The previously obtained token, to be invalidated.',
+                description:
+                  'String. The previously obtained token, to be invalidated.',
                 required: false,
                 in: 'formData',
               },
