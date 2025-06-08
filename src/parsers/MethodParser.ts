@@ -323,13 +323,25 @@ class MethodParser {
           });
         } else {
           // Simple parameter
-          parameters.push({
+          const inferredType = this.inferTypeFromDescription(
+            rawParam.description
+          );
+          const param: ApiParameter = {
             name: rawParam.name,
             description: rawParam.description,
             required: rawParam.required,
             in: parameterLocation,
             enumValues: rawParam.enumValues,
-          });
+          };
+
+          // If inferred as object, create a schema for it
+          if (inferredType === 'object') {
+            param.schema = {
+              type: 'object',
+            };
+          }
+
+          parameters.push(param);
         }
       }
     }
@@ -393,6 +405,8 @@ class MethodParser {
 
     if (lowerDesc.includes('boolean')) {
       return 'boolean';
+    } else if (lowerDesc.includes('hash')) {
+      return 'object';
     } else if (lowerDesc.includes('integer') || lowerDesc.includes('number')) {
       return 'integer';
     } else if (

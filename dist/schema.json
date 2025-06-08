@@ -226,7 +226,7 @@
                     }
                   },
                   "fields_attributes": {
-                    "type": "string",
+                    "type": "object",
                     "description": "Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields."
                   },
                   "source": {
@@ -401,7 +401,7 @@
             "in": "query",
             "description": "String. Filter for statuses using a specific hashtag.",
             "schema": {
-              "type": "string",
+              "type": "object",
               "description": "String. Filter for statuses using a specific hashtag."
             }
           },
@@ -2378,7 +2378,7 @@
                 "type": "object",
                 "properties": {
                   "name": {
-                    "type": "string",
+                    "type": "object",
                     "description": "String. The hashtag to be featured, without the hash sign."
                   }
                 }
@@ -6560,7 +6560,7 @@
             "in": "query",
             "description": "String. Specify whether to search for only `accounts`, `hashtags`, `statuses`",
             "schema": {
-              "type": "string",
+              "type": "object",
               "description": "String. Specify whether to search for only `accounts`, `hashtags`, `statuses`"
             }
           },
@@ -7891,7 +7891,7 @@
             "in": "query",
             "description": "String. The name of the hashtag to watch.",
             "schema": {
-              "type": "string",
+              "type": "object",
               "description": "String. The name of the hashtag to watch."
             }
           }
@@ -7922,7 +7922,7 @@
             "in": "query",
             "description": "String. The name of the hashtag to watch.",
             "schema": {
-              "type": "string",
+              "type": "object",
               "description": "String. The name of the hashtag to watch."
             }
           }
