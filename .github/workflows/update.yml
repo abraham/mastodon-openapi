@@ -1,9 +1,9 @@
 name: Update Schema
 
 on:
-  schedule:
-    # Run weekly on Sundays at 8:00 AM UTC
-    - cron: '0 8 * * 0'
+  # schedule:
+  #   # Run weekly on Sundays at 8:00 AM UTC
+  #   - cron: '0 8 * * 0'
   workflow_dispatch: # Allow manual trigger
 
 jobs:
