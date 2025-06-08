@@ -641,6 +641,10 @@ class OpenAPIGenerator {
             property.description = propSchema.description;
           }
 
+          if (propSchema.enum && propSchema.enum.length > 0) {
+            property.enum = propSchema.enum;
+          }
+
           if (propSchema.items) {
             property.items = {
               type: propSchema.items.type,

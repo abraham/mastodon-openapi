@@ -16,6 +16,7 @@ interface ApiParameter {
         type: string;
         description?: string;
         items?: { type: string };
+        enum?: string[];
       }
     >;
   };

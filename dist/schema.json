@@ -235,7 +235,12 @@
                     "properties": {
                       "privacy": {
                         "type": "string",
-                        "description": "String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`."
+                        "description": "String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`.",
+                        "enum": [
+                          "public",
+                          "unlisted",
+                          "private"
+                        ]
                       },
                       "sensitive": {
                         "type": "boolean",

@@ -75,6 +75,28 @@ describe('MethodParser Enum Support', () => {
 
       expect(enumValues).toEqual(['option1', 'option2', 'option3']);
     });
+
+    it('should extract enum values from "Can be" pattern', () => {
+      const description =
+        'String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`.';
+
+      const enumValues = (parser as any).extractEnumValuesFromDescription(
+        description
+      );
+
+      expect(enumValues).toEqual(['public', 'unlisted', 'private']);
+    });
+
+    it('should extract enum values from "Can be" pattern with "or" variations', () => {
+      const description =
+        'String. Some parameter. Can be `value1`, `value2`, or `value3`.';
+
+      const enumValues = (parser as any).extractEnumValuesFromDescription(
+        description
+      );
+
+      expect(enumValues).toEqual(['value1', 'value2', 'value3']);
+    });
   });
 
   describe('Parameter parsing with enum values', () => {
