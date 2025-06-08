@@ -474,12 +474,15 @@ class MethodParser {
   }
 
   private cleanMarkdown(text: string): string {
-    return text
-      .replace(/\*\*/g, '') // Remove bold markdown
-      .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
-      .replace(/\[[^\]]*\]\([^)]*\)/g, '') // Remove markdown links
-      .replace(/\\\s*$/, '') // Remove trailing backslashes
-      .trim();
+    return (
+      text
+        .replace(/\*\*/g, '') // Remove bold markdown
+        .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
+        // Preserve type information in brackets but remove the link part: [Date](link) -> [Date]
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
+        .replace(/\\\s*$/, '') // Remove trailing backslashes
+        .trim()
+    );
   }
 
   private cleanReturnsField(text: string): string {

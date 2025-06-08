@@ -168,6 +168,15 @@ class OpenAPIGenerator {
       property.oneOf = type.oneOf;
     }
 
+    // Special handling for _at properties that should be date-time format
+    if (
+      attribute.name.endsWith('_at') &&
+      property.type === 'string' &&
+      !property.format
+    ) {
+      property.format = 'date-time';
+    }
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       property.enum = attribute.enumValues;
@@ -205,7 +214,8 @@ class OpenAPIGenerator {
         const isDocumentationLink =
           refName.toLowerCase().includes('/') ||
           refName.toLowerCase() === 'datetime' ||
-          refName.toLowerCase() === 'date';
+          refName.toLowerCase() === 'date' ||
+          refName.toLowerCase().includes('iso8601');
 
         if (!isDocumentationLink) {
           // Clean up reference name and sanitize for OpenAPI compliance
@@ -224,9 +234,19 @@ class OpenAPIGenerator {
 
       if (cleanType.includes('url')) {
         property.format = 'uri';
-      } else if (cleanType.includes('datetime')) {
+      } else if (
+        cleanType.includes('iso8601') ||
+        (cleanType.includes('datetime') &&
+          !cleanType.includes('datetime-format'))
+      ) {
         property.format = 'date-time';
-      } else if (cleanType.includes('date')) {
+      } else if (
+        typeString.includes('[Date]') &&
+        !typeString.toLowerCase().includes('[datetime]') &&
+        !typeString.toLowerCase().includes('[iso8601') &&
+        !typeString.toLowerCase().includes('iso8601')
+      ) {
+        // Specific [Date] reference should use date format
         property.format = 'date';
       } else if (cleanType.includes('email')) {
         property.format = 'email';
@@ -659,7 +679,58 @@ class OpenAPIGenerator {
       return schema;
     }
 
-    // Fallback to simple string schema
+    // Fallback to parsing type from description for basic string parameters
+    // Check if this is a parameter that might have date/datetime format
+    const hasDateTimePattern =
+      param.description &&
+      (param.description.includes('[Date]') ||
+        param.description.includes('[Datetime]') ||
+        param.description.toLowerCase().includes('datetime') ||
+        param.description.toLowerCase().includes('iso8601'));
+
+    if (hasDateTimePattern) {
+      const parsedType = this.parseType(param.description || '');
+      const schema: OpenAPIProperty = {
+        description: param.description,
+        ...parsedType,
+      };
+
+      // Add enum values if available (override any enum from parseType)
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Check for email format - only for actual email fields, not descriptions mentioning email
+    const isEmailField =
+      param.name.toLowerCase().includes('email') ||
+      (param.description &&
+        (param.description.toLowerCase().includes('email address') ||
+          param.description.toLowerCase().includes('e-mail address') ||
+          (param.description.toLowerCase().includes('email') &&
+            !param.description.toLowerCase().includes('confirmation email') &&
+            !param.description
+              .toLowerCase()
+              .includes('email that will be sent'))));
+
+    if (isEmailField) {
+      const schema: OpenAPIProperty = {
+        type: 'string',
+        format: 'email',
+        description: param.description,
+      };
+
+      // Add enum values if available
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Default fallback for other parameters
     const schema: OpenAPIProperty = {
       type: 'string',
       description: param.description,

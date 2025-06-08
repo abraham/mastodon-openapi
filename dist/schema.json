@@ -52,6 +52,7 @@
                   },
                   "email": {
                     "type": "string",
+                    "format": "email",
                     "description": "String. The email address to be used for login"
                   },
                   "password": {
@@ -71,8 +72,9 @@
                     "description": "String. If registrations require manual approval, this text will be reviewed by moderators."
                   },
                   "date_of_birth": {
+                    "description": "String ([Date]), required if the server has a minimum age requirement.",
                     "type": "string",
-                    "description": "String (), required if the server has a minimum age requirement."
+                    "format": "date"
                   }
                 },
                 "required": [
@@ -2179,6 +2181,7 @@
                 "properties": {
                   "email": {
                     "type": "string",
+                    "format": "email",
                     "description": "String. If provided, updates the unconfirmed user's email before resending the confirmation email."
                   }
                 }
@@ -3637,10 +3640,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use  instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
               "items": {
                 "type": "string"
               }
@@ -3649,10 +3652,10 @@
           {
             "name": "include_filtered",
             "in": "query",
-            "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
+            "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
               "type": "string",
-              "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false."
+              "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
             }
           }
         ]
@@ -3832,10 +3835,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
               "items": {
                 "type": "string"
               }
@@ -4620,7 +4623,7 @@
                   },
                   "focus": {
                     "type": "string",
-                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See  for more information."
+                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See [Focal points for cropping media thumbnails] for more information."
                   }
                 }
               }
@@ -4748,7 +4751,7 @@
                   },
                   "focus": {
                     "type": "string",
-                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See  for more information."
+                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See [Focal points for cropping media thumbnails] for more information."
                   }
                 }
               }
@@ -4806,7 +4809,7 @@
                   },
                   "focus": {
                     "type": "string",
-                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See  for more information."
+                    "description": "String. Two floating points (x,y), comma-delimited, ranging from -1.0 to 1.0. See [Focal points for cropping media thumbnails] for more information."
                   }
                 }
               }
@@ -4975,10 +4978,10 @@
           {
             "name": "include_filtered",
             "in": "query",
-            "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false.",
+            "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
               "type": "string",
-              "description": "Boolean. Whether to include notifications filtered by the user's . Defaults to false."
+              "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
             }
           }
         ]
@@ -5499,10 +5502,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
               "items": {
                 "type": "string"
               }
@@ -5644,10 +5647,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use  instead.",
+              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
               "items": {
                 "type": "string"
               }
@@ -5700,10 +5703,10 @@
           {
             "name": "scope",
             "in": "query",
-            "description": "String. List of requested , separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
+            "description": "String. List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
             "schema": {
               "type": "string",
-              "description": "String. List of requested , separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`."
+              "description": "String. List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`."
             }
           },
           {
@@ -5718,10 +5721,10 @@
           {
             "name": "code_challenge",
             "in": "query",
-            "description": "String. The  for the authorization request.",
+            "description": "String. The [PKCE code challenge] for the authorization request.",
             "schema": {
               "type": "string",
-              "description": "String. The  for the authorization request."
+              "description": "String. The [PKCE code challenge] for the authorization request."
             }
           },
           {
@@ -5789,7 +5792,7 @@
                   },
                   "code": {
                     "type": "string",
-                    "description": "String. A user authorization code, obtained from the redirect after an  is approved. May alternatively be displayed to the user if `urn:ietf:wg:oauth:2.0:oob` is used as the `redirect_uri`."
+                    "description": "String. A user authorization code, obtained from the redirect after an [Authorization request] is approved. May alternatively be displayed to the user if `urn:ietf:wg:oauth:2.0:oob` is used as the `redirect_uri`."
                   },
                   "client_id": {
                     "type": "string",
@@ -5801,11 +5804,11 @@
                   },
                   "redirect_uri": {
                     "type": "string",
-                    "description": "String. Must match the `redirect_uri` used during the ."
+                    "description": "String. Must match the `redirect_uri` used during the [Authorization request]."
                   },
                   "code_verifier": {
                     "type": "string",
-                    "description": "String. Required if  is used during the authorization request. This is the code verifier which was used to create the `code_challenge` using the `code_challenge_method` for the authorization request."
+                    "description": "String. Required if [PKCE] is used during the authorization request. This is the code verifier which was used to create the `code_challenge` using the `code_challenge_method` for the authorization request."
                   },
                   "scope": {
                     "type": "string",
@@ -6320,7 +6323,7 @@
                   },
                   "rule_ids": {
                     "type": "array",
-                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via  and . See  for more information.",
+                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via [GET /api/v1/instance/rules] and [GET /api/v1/instance]. See [Handling and sorting IDs] for more information.",
                     "items": {
                       "type": "string"
                     }
@@ -6481,8 +6484,9 @@
                 "type": "object",
                 "properties": {
                   "scheduled_at": {
+                    "description": "String. [Datetime] at which the status will be published. Must be at least 5 minutes into the future.",
                     "type": "string",
-                    "description": "String.  at which the status will be published. Must be at least 5 minutes into the future."
+                    "format": "date-time"
                   }
                 }
               }
@@ -6567,10 +6571,10 @@
           {
             "name": "resolve",
             "in": "query",
-            "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account,  is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
+            "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
             "schema": {
               "type": "string",
-              "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account,  is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
+              "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
             }
           },
           {
@@ -6711,8 +6715,9 @@
                     "description": "String. ISO 639 language code for this status."
                   },
                   "scheduled_at": {
+                    "description": "String. [Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
                     "type": "string",
-                    "description": "String.  at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
+                    "format": "date-time"
                   },
                   "poll": {
                     "type": "object",
@@ -9065,7 +9070,7 @@
           "last_status_at": {
             "description": "When the most recent status was posted.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
@@ -9393,8 +9398,7 @@
         "properties": {
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "frequency": {
             "description": "The size of the bucket for the returned data.",
@@ -9424,8 +9428,7 @@
         "properties": {
           "date": {
             "description": "The timestamp for the start of the bucket, at midnight.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "rate": {
             "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
@@ -9695,8 +9698,7 @@
           },
           "data[][date]": {
             "description": "Midnight on the requested day in the time period.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "data[][value]": {
             "description": "The numeric value for the requested measure.",
@@ -10031,7 +10033,8 @@
           },
           "client_secret_expires_at": {
             "description": "When the client secret key will expire at, presently this always returns `0` indicating that OAuth Clients do not expire",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           }
         },
         "required": [
@@ -10242,7 +10245,7 @@
           "last_status_at": {
             "description": "The date of the last authored status containing this hashtag.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "required": [
@@ -12268,7 +12271,7 @@
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
@@ -12281,7 +12284,7 @@
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "required": [
