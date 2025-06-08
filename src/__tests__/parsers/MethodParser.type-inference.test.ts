@@ -1,12 +1,6 @@
-import { MethodParser } from '../../parsers/MethodParser';
+import { TypeInference } from '../../parsers/TypeInference';
 
-describe('MethodParser Type Inference', () => {
-  let parser: MethodParser;
-
-  beforeEach(() => {
-    parser = new MethodParser();
-  });
-
+describe('TypeInference', () => {
   describe('inferTypeFromDescription', () => {
     it('should correctly infer object type for Hash descriptions', () => {
       const descriptions = [
@@ -16,7 +10,7 @@ describe('MethodParser Type Inference', () => {
       ];
 
       descriptions.forEach((description) => {
-        const type = (parser as any).inferTypeFromDescription(description);
+        const type = TypeInference.inferTypeFromDescription(description);
         expect(type).toBe('object');
       });
     });
@@ -24,7 +18,7 @@ describe('MethodParser Type Inference', () => {
     it('should prioritize hash over integer when both are present', () => {
       const description =
         'Hash. The profile fields to be set. Inside this hash, the key is an integer cast to a string...';
-      const type = (parser as any).inferTypeFromDescription(description);
+      const type = TypeInference.inferTypeFromDescription(description);
       expect(type).toBe('object');
     });
 
@@ -36,7 +30,7 @@ describe('MethodParser Type Inference', () => {
       ];
 
       descriptions.forEach((description) => {
-        const type = (parser as any).inferTypeFromDescription(description);
+        const type = TypeInference.inferTypeFromDescription(description);
         expect(type).toBe('string');
       });
     });
@@ -53,7 +47,7 @@ describe('MethodParser Type Inference', () => {
       ];
 
       testCases.forEach(({ description, expected }) => {
-        const type = (parser as any).inferTypeFromDescription(description);
+        const type = TypeInference.inferTypeFromDescription(description);
         expect(type).toBe(expected);
       });
     });

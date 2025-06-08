@@ -7,6 +7,9 @@ export { ApiMethodsFile } from './interfaces/ApiMethodsFile';
 export { OpenAPISpec } from './interfaces/OpenAPISchema';
 export { EntityParser } from './parsers/EntityParser';
 export { MethodParser } from './parsers/MethodParser';
+export { ParameterParser } from './parsers/ParameterParser';
+export { TextUtils } from './parsers/TextUtils';
+export { TypeInference } from './parsers/TypeInference';
 export { OpenAPIGenerator } from './generators/OpenAPIGenerator';
 export { main } from './index';
 

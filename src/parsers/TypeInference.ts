@@ -1,0 +1,83 @@
+/**
+ * Type inference and enum extraction utilities
+ */
+export class TypeInference {
+  /**
+   * Infer type from parameter description
+   */
+  static inferTypeFromDescription(description: string): string {
+    const lowerDesc = description.toLowerCase();
+
+    if (lowerDesc.includes('boolean')) {
+      return 'boolean';
+    } else if (lowerDesc.match(/\bhash\b/) && !lowerDesc.includes('hashtag')) {
+      return 'object';
+    } else if (lowerDesc.includes('integer') || lowerDesc.includes('number')) {
+      return 'integer';
+    } else if (
+      lowerDesc.includes('array of string') ||
+      lowerDesc.includes('array of id')
+    ) {
+      return 'string';
+    } else if (lowerDesc.includes('array')) {
+      return 'string'; // Default for arrays if not specified
+    }
+
+    return 'string';
+  }
+
+  /**
+   * Extract enum values from parameter description
+   */
+  static extractEnumValuesFromDescription(description: string): string[] {
+    const enumValues: string[] = [];
+
+    // Look for patterns like "to `value1`, `value2`, `value3`"
+    // This pattern matches the visibility parameter format specifically
+    const toPattern = /to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
+    let match = toPattern.exec(description);
+    if (match) {
+      const valuesList = match[1];
+      const values = valuesList.match(/`([^`]+)`/g);
+      if (values && values.length > 1) {
+        // Only extract if multiple values found
+        for (const value of values) {
+          const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+          if (cleanValue && !enumValues.includes(cleanValue)) {
+            enumValues.push(cleanValue);
+          }
+        }
+      }
+    }
+
+    // If we didn't find the "to" pattern, try other patterns
+    if (enumValues.length === 0) {
+      const patterns = [
+        /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
+      ];
+
+      for (const pattern of patterns) {
+        pattern.lastIndex = 0; // Reset regex state
+        const match = pattern.exec(description);
+        if (match) {
+          const valuesList = match[1];
+          const values = valuesList.match(/`([^`]+)`/g);
+          if (values && values.length > 1) {
+            // Only extract if multiple values found
+            for (const value of values) {
+              const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+              if (cleanValue && !enumValues.includes(cleanValue)) {
+                enumValues.push(cleanValue);
+              }
+            }
+          }
+          break; // Found a pattern, don't try others
+        }
+      }
+    }
+
+    return enumValues;
+  }
+}

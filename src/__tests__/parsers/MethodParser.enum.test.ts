@@ -1,20 +1,14 @@
-import { MethodParser } from '../../parsers/MethodParser';
+import { TypeInference } from '../../parsers/TypeInference';
+import { ParameterParser } from '../../parsers/ParameterParser';
 
-describe('MethodParser Enum Support', () => {
-  let parser: MethodParser;
-
-  beforeEach(() => {
-    parser = new MethodParser();
-  });
-
+describe('Parameter and Type Inference Support', () => {
   describe('Enum value extraction from parameter descriptions', () => {
     it('should extract enum values from visibility parameter description', () => {
       // Test the visibility parameter description format from the statuses API
       const description =
         'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.';
 
-      // Use the private method through type assertion for testing
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -25,7 +19,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. The type of the report to create to `spam`, `legal`.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -36,7 +30,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. Set equal to `authorization_code` if code is provided in order to gain user-level access.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -48,7 +42,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. Some regular description without any specific values mentioned.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -58,7 +52,7 @@ describe('MethodParser Enum Support', () => {
     it('should not extract enum values from single backtick values', () => {
       const description = 'String. Set this to `true` for some option.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -69,7 +63,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. Choose from `option1`, `option2`, `option3`.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -80,7 +74,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -91,7 +85,7 @@ describe('MethodParser Enum Support', () => {
       const description =
         'String. Some parameter. Can be `value1`, `value2`, or `value3`.';
 
-      const enumValues = (parser as any).extractEnumValuesFromDescription(
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
         description
       );
 
@@ -122,7 +116,7 @@ category
 : String. Report category to \`spam\`, \`legal\`.
 `;
 
-      const parameters = (parser as any).parseParametersByType(
+      const parameters = ParameterParser.parseParametersByType(
         mockSection,
         'Form data parameters',
         'formData'
@@ -134,7 +128,7 @@ category
         (p: any) => p.name === 'visibility'
       );
       expect(visibilityParam).toBeDefined();
-      expect(visibilityParam.enumValues).toEqual([
+      expect(visibilityParam!.enumValues).toEqual([
         'public',
         'unlisted',
         'private',
@@ -143,11 +137,11 @@ category
 
       const categoryParam = parameters.find((p: any) => p.name === 'category');
       expect(categoryParam).toBeDefined();
-      expect(categoryParam.enumValues).toEqual(['spam', 'legal']);
+      expect(categoryParam!.enumValues).toEqual(['spam', 'legal']);
 
       const statusParam = parameters.find((p: any) => p.name === 'status');
       expect(statusParam).toBeDefined();
-      expect(statusParam.enumValues).toBeUndefined();
+      expect(statusParam!.enumValues).toBeUndefined();
     });
   });
 });
