@@ -226,12 +226,18 @@ class OpenAPIGenerator {
       if (cleanType.includes('url')) {
         property.format = 'uri';
       } else if (
-        cleanType.includes('datetime') ||
-        cleanType.includes('iso8601')
+        cleanType.includes('iso8601') ||
+        (cleanType.includes('datetime') && !cleanType.includes('datetime-format'))
       ) {
         property.format = 'date-time';
-      } else if (cleanType.includes('date')) {
-        property.format = 'date-time'; // Treat date references as datetime per issue requirement
+      } else if (
+        typeString.includes('[Date]') && 
+        !typeString.toLowerCase().includes('[datetime]') &&
+        !typeString.toLowerCase().includes('[iso8601') &&
+        !typeString.toLowerCase().includes('iso8601')
+      ) {
+        // Specific [Date] reference should use date format
+        property.format = 'date';
       } else if (cleanType.includes('email')) {
         property.format = 'email';
       } else if (cleanType.includes('html')) {
@@ -667,7 +673,8 @@ class OpenAPIGenerator {
     // Check if this is a parameter that might have date/datetime format
     const hasDateTimePattern =
       param.description &&
-      (param.description.toLowerCase().includes('date') ||
+      (param.description.includes('[Date]') ||
+        param.description.includes('[Datetime]') ||
         param.description.toLowerCase().includes('datetime') ||
         param.description.toLowerCase().includes('iso8601'));
 
@@ -679,6 +686,26 @@ class OpenAPIGenerator {
       };
 
       // Add enum values if available (override any enum from parseType)
+      if (param.enumValues && param.enumValues.length > 0) {
+        schema.enum = param.enumValues;
+      }
+
+      return schema;
+    }
+
+    // Check for email format
+    const hasEmailPattern =
+      param.description &&
+      param.description.toLowerCase().includes('email');
+
+    if (hasEmailPattern) {
+      const schema: OpenAPIProperty = {
+        type: 'string',
+        format: 'email',
+        description: param.description,
+      };
+
+      // Add enum values if available
       if (param.enumValues && param.enumValues.length > 0) {
         schema.enum = param.enumValues;
       }

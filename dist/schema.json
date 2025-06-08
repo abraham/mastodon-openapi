@@ -52,6 +52,7 @@
                   },
                   "email": {
                     "type": "string",
+                    "format": "email",
                     "description": "String. The email address to be used for login"
                   },
                   "password": {
@@ -64,6 +65,7 @@
                   },
                   "locale": {
                     "type": "string",
+                    "format": "email",
                     "description": "String. The language of the confirmation email that will be sent."
                   },
                   "reason": {
@@ -73,7 +75,7 @@
                   "date_of_birth": {
                     "description": "String ([Date]), required if the server has a minimum age requirement.",
                     "type": "string",
-                    "format": "date-time"
+                    "format": "date"
                   }
                 },
                 "required": [
@@ -2179,9 +2181,9 @@
                 "type": "object",
                 "properties": {
                   "email": {
-                    "description": "String. If provided, updates the unconfirmed user's email before resending the confirmation email.",
                     "type": "string",
-                    "format": "date-time"
+                    "format": "email",
+                    "description": "String. If provided, updates the unconfirmed user's email before resending the confirmation email."
                   }
                 }
               }
@@ -5851,9 +5853,8 @@
                     "description": "String. The client secret, obtained during app registration."
                   },
                   "token": {
-                    "description": "String. The previously obtained token, to be invalidated.",
                     "type": "string",
-                    "format": "date-time"
+                    "description": "String. The previously obtained token, to be invalidated."
                   }
                 }
               }
@@ -9064,13 +9065,12 @@
           },
           "created_at": {
             "description": "When the account was created.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "last_status_at": {
             "description": "When the most recent status was posted.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
@@ -9186,8 +9186,7 @@
         "properties": {
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -9260,8 +9259,7 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -9292,8 +9290,7 @@
           },
           "created_at": {
             "description": "When the account was first discovered.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "email": {
             "description": "The email address associated with the account.",
@@ -9398,8 +9395,7 @@
         "properties": {
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "frequency": {
             "description": "The size of the bucket for the returned data.",
@@ -9429,8 +9425,7 @@
         "properties": {
           "date": {
             "description": "The timestamp for the start of the bucket, at midnight.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "rate": {
             "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
@@ -9482,8 +9477,7 @@
           },
           "created_at": {
             "description": "When the domain was allowed to federate.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -9510,8 +9504,7 @@
           },
           "created_at": {
             "description": "When the domain was blocked from federating.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "severity": {
             "description": "The policy to be applied by this domain block.",
@@ -9570,8 +9563,7 @@
           },
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
@@ -9613,8 +9605,7 @@
           },
           "used_at": {
             "description": "The timestamp of when the IP address was last used for this account.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -9649,13 +9640,11 @@
           },
           "created_at": {
             "description": "When the IP block was created.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -9700,8 +9689,7 @@
           },
           "data[][date]": {
             "description": "Midnight on the requested day in the time period.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "data[][value]": {
             "description": "The numeric value for the requested measure.",
@@ -9731,8 +9719,7 @@
           },
           "action_taken_at": {
             "description": "When an action was taken, if this report is currently resolved.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "category": {
             "description": "The category under which the report is classified.",
@@ -9753,13 +9740,11 @@
           },
           "created_at": {
             "description": "The time the report was filed.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updated_at": {
             "description": "The time of last action on this report.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "account": {
             "description": "The account which filed the report.",
@@ -9823,13 +9808,11 @@
           },
           "starts_at": {
             "description": "When the announcement will start.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "ends_at": {
             "description": "When the announcement will end.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "published": {
             "description": "Whether the announcement is currently active.",
@@ -9841,13 +9824,11 @@
           },
           "published_at": {
             "description": "When the announcement was published.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updated_at": {
             "description": "When the announcement was last updated.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
@@ -10189,8 +10170,7 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the extended description was last updated.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "content": {
             "description": "The rendered HTML content of the extended description.",
@@ -10247,7 +10227,7 @@
           "last_status_at": {
             "description": "The date of the last authored status containing this hashtag.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "required": [
@@ -10286,8 +10266,7 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
@@ -10405,8 +10384,7 @@
           },
           "updated_at": {
             "description": "When the identity proof was last updated.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "proof_url": {
             "description": "A link to a statement of identity proof, hosted by the identity provider.",
@@ -10787,8 +10765,7 @@
           },
           "updated_at": {
             "description": "The timestamp of when the marker was set.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -10893,8 +10870,7 @@
           },
           "created_at": {
             "description": "The timestamp of the notification.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "account": {
             "description": "The account that performed the action that generated the notification.",
@@ -10983,13 +10959,11 @@
           },
           "created_at": {
             "description": "The timestamp of the notification request, i.e. when the first filtered notification from that user was created.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "updated_at": {
             "description": "The timestamp of when the notification request was last updated.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "account": {
             "description": "The account that performed the action that generated the filtered notifications.",
@@ -11022,8 +10996,7 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "expired": {
             "description": "Is the poll currently expired?",
@@ -11298,8 +11271,7 @@
         "properties": {
           "updated_at": {
             "description": "A timestamp of when the privacy policy was last updated.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "content": {
             "description": "The rendered HTML content of the privacy policy.",
@@ -11490,8 +11462,7 @@
           },
           "created_at": {
             "description": "When the event took place.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [
@@ -11518,8 +11489,7 @@
           },
           "action_taken_at": {
             "description": "When an action was taken against the report.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "category": {
             "description": "The generic reason for the report.",
@@ -11540,8 +11510,7 @@
           },
           "created_at": {
             "description": "When the report was created.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "status_ids": {
             "description": "IDs of statuses that have been attached to this report for additional context.",
@@ -11646,8 +11615,7 @@
           },
           "scheduled_at": {
             "description": "The timestamp for when the status will be posted.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "params": {
             "description": "The parameters that were used when scheduling the status, to be used when the status is posted.",
@@ -11834,8 +11802,7 @@
           },
           "created_at": {
             "description": "The date when this status was created.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "account": {
             "description": "The account that authored this status.",
@@ -11951,8 +11918,7 @@
           },
           "edited_at": {
             "description": "Timestamp of when the status was last edited.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "quote": {
             "description": "Information about the status being quoted, if any",
@@ -12078,8 +12044,7 @@
           },
           "created_at": {
             "description": "The timestamp of when the revision was published.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "account": {
             "description": "The account that published this revision.",
@@ -12273,7 +12238,7 @@
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
@@ -12286,7 +12251,7 @@
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
             "type": "string",
-            "format": "date-time"
+            "format": "date"
           }
         },
         "required": [
@@ -12444,8 +12409,7 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "irreversible": {
             "description": "Should matching entities in home and notifications be dropped by the server? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
@@ -12927,8 +12891,7 @@
           },
           "latest_page_notification_at": {
             "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           },
           "sample_account_ids": {
             "description": "IDs of some of the accounts who most recently triggered notifications in this group.",
