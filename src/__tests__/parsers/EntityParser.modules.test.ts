@@ -20,13 +20,17 @@ describe('EntityParser Modules', () => {
   });
 
   test('utility functions should work', () => {
-    const cleanedType = EntityParsingUtils.cleanType('**String** {{<test>}} \\');
+    const cleanedType = EntityParsingUtils.cleanType(
+      '**String** {{<test>}} \\'
+    );
     expect(cleanedType).toBe('String');
 
     const cleanedDesc = EntityParsingUtils.cleanDescription('**Bold text** \\');
     expect(cleanedDesc).toBe('Bold text');
 
-    const enumValues = EntityParsingUtils.extractEnumValues('`value1` = description1\n`value2` = description2');
+    const enumValues = EntityParsingUtils.extractEnumValues(
+      '`value1` = description1\n`value2` = description2'
+    );
     expect(enumValues).toEqual(['value1', 'value2']);
   });
 });
