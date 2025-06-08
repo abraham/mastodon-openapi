@@ -3,7 +3,8 @@ import * as path from 'path';
 import matter from 'gray-matter';
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod } from '../interfaces/ApiMethod';
-import { ApiParameter } from '../interfaces/ApiParameter';
+import { ParameterParser } from './ParameterParser';
+import { TextUtils } from './TextUtils';
 
 class MethodParser {
   private methodsPath: string;
@@ -137,21 +138,21 @@ class MethodParser {
     // Extract returns, oauth, version info
     const returnsMatch = section.match(/\*\*Returns:\*\*\s*([^\\\n]+)/);
     const returns = returnsMatch
-      ? this.cleanReturnsField(returnsMatch[1].trim())
+      ? TextUtils.cleanReturnsField(returnsMatch[1].trim())
       : undefined;
 
     const oauthMatch = section.match(/\*\*OAuth:\*\*\s*([^\\\n]+)/);
     const oauth = oauthMatch
-      ? this.cleanMarkdown(oauthMatch[1].trim())
+      ? TextUtils.cleanMarkdown(oauthMatch[1].trim())
       : undefined;
 
     const versionMatch = section.match(/\*\*Version history:\*\*\s*([^\n]*)/);
     const version = versionMatch
-      ? this.cleanMarkdown(versionMatch[1].trim())
+      ? TextUtils.cleanMarkdown(versionMatch[1].trim())
       : undefined;
 
     // Parse parameters from both Query parameters and Form data parameters sections
-    const parameters = this.parseAllParameters(section);
+    const parameters = ParameterParser.parseAllParameters(section);
 
     // Clean the method name by removing Hugo shortcodes
     const cleanedName = name.replace(/\{\{%deprecated%\}\}/g, '').trim();
@@ -167,334 +168,6 @@ class MethodParser {
       version,
       deprecated: isDeprecated || undefined,
     };
-  }
-
-  private parseAllParameters(section: string): ApiParameter[] {
-    const parameters: ApiParameter[] = [];
-
-    // Parse query parameters
-    const queryParams = this.parseParametersByType(
-      section,
-      'Query parameters',
-      'query'
-    );
-    parameters.push(...queryParams);
-
-    // Parse form data parameters
-    const formParams = this.parseParametersByType(
-      section,
-      'Form data parameters',
-      'formData'
-    );
-    parameters.push(...formParams);
-
-    return parameters;
-  }
-
-  private parseParametersByType(
-    section: string,
-    sectionName: string,
-    parameterLocation: string
-  ): ApiParameter[] {
-    const rawParameters: Array<{
-      name: string;
-      description: string;
-      required?: boolean;
-      enumValues?: string[];
-    }> = [];
-
-    // Find parameters section
-    const paramMatch = section.match(
-      new RegExp(`##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#|$)`)
-    );
-    if (!paramMatch) return [];
-
-    const paramSection = paramMatch[1];
-
-    // Match parameter definitions: parameter_name\n: description
-    const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
-
-    let match;
-    while ((match = paramRegex.exec(paramSection)) !== null) {
-      const [, name, desc] = match;
-
-      const cleanDesc = this.cleanMarkdown(desc.trim());
-      const required =
-        cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
-
-      // Extract enum values from description
-      const enumValues = this.extractEnumValuesFromDescription(cleanDesc);
-
-      const rawParam = {
-        name: name.trim(),
-        description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
-        required: required ? true : undefined,
-        enumValues: enumValues.length > 0 ? enumValues : undefined,
-      };
-
-      rawParameters.push(rawParam);
-    }
-
-    // Process raw parameters to handle complex types
-    return this.processComplexParameters(rawParameters, parameterLocation);
-  }
-
-  private processComplexParameters(
-    rawParameters: Array<{
-      name: string;
-      description: string;
-      required?: boolean;
-      enumValues?: string[];
-    }>,
-    parameterLocation: string
-  ): ApiParameter[] {
-    const parameters: ApiParameter[] = [];
-    const objectGroups: Record<
-      string,
-      Array<{
-        name: string;
-        property: string;
-        isArray: boolean;
-        description: string;
-        required?: boolean;
-        enumValues?: string[];
-      }>
-    > = {};
-
-    for (const rawParam of rawParameters) {
-      const { name } = rawParam;
-
-      // Check if it's an array parameter (ends with [])
-      if (name.endsWith('[]')) {
-        const baseName = name.slice(0, -2);
-
-        // Check if it's an object property array like poll[options][]
-        const objectPropertyArrayMatch = baseName.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
-        );
-        if (objectPropertyArrayMatch) {
-          const [, objectName, propertyName] = objectPropertyArrayMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: true,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else {
-          // Simple array parameter like media_ids[]
-          parameters.push({
-            name: baseName,
-            description: rawParam.description,
-            required: rawParam.required,
-            in: parameterLocation,
-            enumValues: rawParam.enumValues,
-            schema: {
-              type: 'array',
-              items: {
-                type: this.inferTypeFromDescription(rawParam.description),
-              },
-            },
-          });
-        }
-      }
-      // Check if it's an object property like poll[expires_in]
-      else {
-        const objectPropertyMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
-        );
-        if (objectPropertyMatch) {
-          const [, objectName, propertyName] = objectPropertyMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: false,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else {
-          // Simple parameter
-          const inferredType = this.inferTypeFromDescription(
-            rawParam.description
-          );
-          const param: ApiParameter = {
-            name: rawParam.name,
-            description: rawParam.description,
-            required: rawParam.required,
-            in: parameterLocation,
-            enumValues: rawParam.enumValues,
-          };
-
-          // If inferred as object, create a schema for it
-          if (inferredType === 'object') {
-            param.schema = {
-              type: 'object',
-            };
-          }
-
-          parameters.push(param);
-        }
-      }
-    }
-
-    // Process object groups
-    for (const [objectName, properties] of Object.entries(objectGroups)) {
-      const objectProperties: Record<
-        string,
-        { type: string; description?: string; items?: { type: string } }
-      > = {};
-      let objectDescription = `Object containing the following properties:`;
-      let hasRequiredProperty = false;
-
-      for (const prop of properties) {
-        const propType = this.inferTypeFromDescription(prop.description);
-        const enumValues = this.extractEnumValuesFromDescription(
-          prop.description
-        );
-
-        if (prop.isArray) {
-          objectProperties[prop.property] = {
-            type: 'array',
-            description: prop.description,
-            items: { type: propType },
-          };
-        } else {
-          const property: any = {
-            type: propType,
-            description: prop.description,
-          };
-
-          if (enumValues.length > 0) {
-            property.enum = enumValues;
-          }
-
-          objectProperties[prop.property] = property;
-        }
-
-        if (prop.required) {
-          hasRequiredProperty = true;
-        }
-      }
-
-      parameters.push({
-        name: objectName,
-        description: objectDescription,
-        required: hasRequiredProperty ? true : undefined,
-        in: parameterLocation,
-        schema: {
-          type: 'object',
-          properties: objectProperties,
-        },
-      });
-    }
-
-    return parameters;
-  }
-
-  private inferTypeFromDescription(description: string): string {
-    const lowerDesc = description.toLowerCase();
-
-    if (lowerDesc.includes('boolean')) {
-      return 'boolean';
-    } else if (lowerDesc.match(/\bhash\b/) && !lowerDesc.includes('hashtag')) {
-      return 'object';
-    } else if (lowerDesc.includes('integer') || lowerDesc.includes('number')) {
-      return 'integer';
-    } else if (
-      lowerDesc.includes('array of string') ||
-      lowerDesc.includes('array of id')
-    ) {
-      return 'string';
-    } else if (lowerDesc.includes('array')) {
-      return 'string'; // Default for arrays if not specified
-    }
-
-    return 'string';
-  }
-
-  private extractEnumValuesFromDescription(description: string): string[] {
-    const enumValues: string[] = [];
-
-    // Look for patterns like "to `value1`, `value2`, `value3`"
-    // This pattern matches the visibility parameter format specifically
-    const toPattern = /to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
-    let match = toPattern.exec(description);
-    if (match) {
-      const valuesList = match[1];
-      const values = valuesList.match(/`([^`]+)`/g);
-      if (values && values.length > 1) {
-        // Only extract if multiple values found
-        for (const value of values) {
-          const cleanValue = value.slice(1, -1).trim(); // Remove backticks
-          if (cleanValue && !enumValues.includes(cleanValue)) {
-            enumValues.push(cleanValue);
-          }
-        }
-      }
-    }
-
-    // If we didn't find the "to" pattern, try other patterns
-    if (enumValues.length === 0) {
-      const patterns = [
-        /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
-        /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
-        /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
-      ];
-
-      for (const pattern of patterns) {
-        pattern.lastIndex = 0; // Reset regex state
-        const match = pattern.exec(description);
-        if (match) {
-          const valuesList = match[1];
-          const values = valuesList.match(/`([^`]+)`/g);
-          if (values && values.length > 1) {
-            // Only extract if multiple values found
-            for (const value of values) {
-              const cleanValue = value.slice(1, -1).trim(); // Remove backticks
-              if (cleanValue && !enumValues.includes(cleanValue)) {
-                enumValues.push(cleanValue);
-              }
-            }
-          }
-          break; // Found a pattern, don't try others
-        }
-      }
-    }
-
-    return enumValues;
-  }
-
-  private cleanMarkdown(text: string): string {
-    return (
-      text
-        .replace(/\*\*/g, '') // Remove bold markdown
-        .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
-        // Preserve type information in brackets but remove the link part: [Date](link) -> [Date]
-        .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
-        .replace(/\\\s*$/, '') // Remove trailing backslashes
-        .trim()
-    );
-  }
-
-  private cleanReturnsField(text: string): string {
-    return (
-      text
-        .replace(/\*\*/g, '') // Remove bold markdown
-        .replace(/\{\{<[^>]+>\}\}/g, '') // Remove Hugo shortcodes
-        // For returns field, preserve entity names but remove the link part: [EntityName](link) -> [EntityName]
-        .replace(/\[([^\]]+)\]\([^)]*\)/g, '[$1]')
-        .replace(/\\\s*$/, '') // Remove trailing backslashes
-        .trim()
-    );
   }
 }
 

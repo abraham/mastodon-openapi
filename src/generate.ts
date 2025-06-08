@@ -11,6 +11,9 @@ export { MethodEntityParser } from './parsers/MethodEntityParser';
 export { AttributeParser } from './parsers/AttributeParser';
 export { EntityParsingUtils } from './parsers/EntityParsingUtils';
 export { MethodParser } from './parsers/MethodParser';
+export { ParameterParser } from './parsers/ParameterParser';
+export { TextUtils } from './parsers/TextUtils';
+export { TypeInference } from './parsers/TypeInference';
 export { OpenAPIGenerator } from './generators/OpenAPIGenerator';
 // Export new generator modules
 export { UtilityHelpers } from './generators/UtilityHelpers';

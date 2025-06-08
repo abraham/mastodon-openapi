@@ -1,12 +1,6 @@
-import { MethodParser } from '../../parsers/MethodParser';
+import { ParameterParser } from '../../parsers/ParameterParser';
 
-describe('MethodParser source[privacy] parameter', () => {
-  let parser: MethodParser;
-
-  beforeEach(() => {
-    parser = new MethodParser();
-  });
-
+describe('ParameterParser source[privacy] parameter', () => {
   it('should parse source[privacy] parameter with correct enum values in update_credentials', () => {
     const mockSection = `
 ## Update account credentials {#update_credentials}
@@ -29,7 +23,7 @@ source[sensitive]
 : Boolean. Whether to mark authored statuses as sensitive by default.
 `;
 
-    const parameters = (parser as any).parseParametersByType(
+    const parameters = ParameterParser.parseParametersByType(
       mockSection,
       'Form data parameters',
       'formData'
@@ -38,11 +32,11 @@ source[sensitive]
     // Find the source object parameter
     const sourceParam = parameters.find((p: any) => p.name === 'source');
     expect(sourceParam).toBeDefined();
-    expect(sourceParam.schema.type).toBe('object');
-    expect(sourceParam.schema.properties).toBeDefined();
+    expect(sourceParam!.schema!.type).toBe('object');
+    expect(sourceParam!.schema!.properties).toBeDefined();
 
     // Check that privacy property has the correct enum values
-    const privacyProperty = sourceParam.schema.properties.privacy;
+    const privacyProperty = sourceParam!.schema!.properties!.privacy;
     expect(privacyProperty).toBeDefined();
     expect(privacyProperty.type).toBe('string');
     expect(privacyProperty.enum).toEqual(['public', 'unlisted', 'private']);
