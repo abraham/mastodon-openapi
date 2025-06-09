@@ -12495,10 +12495,10 @@
             },
             "enum": [
               "featured",
+              "friends_of_friends",
               "most_followed",
               "most_interactions",
-              "similar_to_recently_followed",
-              "friends_of_friends"
+              "similar_to_recently_followed"
             ]
           },
           "account": {

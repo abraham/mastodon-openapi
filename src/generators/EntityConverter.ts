@@ -120,8 +120,7 @@ class EntityConverter {
       if (
         property.type === 'array' &&
         property.enum &&
-        Array.isArray(property.enum) &&
-        propName === 'context' // Specifically target context enums for FilterContext
+        Array.isArray(property.enum)
       ) {
         const enumSignature = JSON.stringify(property.enum.sort());
 
@@ -154,8 +153,7 @@ class EntityConverter {
       if (
         property.type === 'array' &&
         property.enum &&
-        Array.isArray(property.enum) &&
-        propName === 'context'
+        Array.isArray(property.enum)
       ) {
         const enumSignature = JSON.stringify(property.enum.sort());
         const componentName = enumPatterns.get(enumSignature);
@@ -178,14 +176,16 @@ class EntityConverter {
     propertyName: string,
     enumValues: any[]
   ): string {
-    // For context enums, generate "FilterContext"
+    // Create a descriptive name based on property name
+    const capitalizedName =
+      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+
+    // Special cases for well-known property names
     if (propertyName === 'context') {
       return 'FilterContext';
     }
 
-    // Fallback for other enum types
-    const capitalizedName =
-      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+    // For other enum types, create a generic name
     return `${capitalizedName}Enum`;
   }
 

@@ -22,10 +22,16 @@ describe('Integration: Filter context deduplication', () => {
     expect(filterContext.enum).toBeDefined();
     expect(Array.isArray(filterContext.enum)).toBe(true);
     expect(filterContext.enum.length).toBe(5);
-    
+
     // Check that it contains the expected context values (order may vary)
     const contextValues = filterContext.enum.sort();
-    expect(contextValues).toEqual(['account', 'home', 'notifications', 'public', 'thread']);
+    expect(contextValues).toEqual([
+      'account',
+      'home',
+      'notifications',
+      'public',
+      'thread',
+    ]);
 
     // Check that both Filter and V1_Filter exist
     expect(schema.components?.schemas?.Filter).toBeDefined();
@@ -44,9 +50,13 @@ describe('Integration: Filter context deduplication', () => {
     // Both should be arrays with items referencing FilterContext
     expect(filterContextProp.type).toBe('array');
     expect(v1FilterContextProp.type).toBe('array');
-    
-    expect(filterContextProp.items?.$ref).toBe('#/components/schemas/FilterContext');
-    expect(v1FilterContextProp.items?.$ref).toBe('#/components/schemas/FilterContext');
+
+    expect(filterContextProp.items?.$ref).toBe(
+      '#/components/schemas/FilterContext'
+    );
+    expect(v1FilterContextProp.items?.$ref).toBe(
+      '#/components/schemas/FilterContext'
+    );
 
     // Should not have inline enum values anymore
     expect(filterContextProp.enum).toBeUndefined();

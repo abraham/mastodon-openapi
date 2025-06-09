@@ -103,6 +103,68 @@ describe('EntityConverter enum deduplication', () => {
     expect(filterContext2.enum).toBeUndefined();
   });
 
+  it('should create shared components for any identical enum pattern (generic)', () => {
+    const entities: EntityClass[] = [
+      {
+        name: 'StatusOne',
+        description: 'A status',
+        attributes: [
+          {
+            name: 'visibility',
+            type: 'Array of String (Enumerable, anyOf)',
+            description: 'The visibility settings.',
+            enumValues: ['public', 'unlisted', 'private', 'direct'],
+          },
+        ],
+      },
+      {
+        name: 'StatusTwo',
+        description: 'Another status',
+        attributes: [
+          {
+            name: 'visibility',
+            type: 'Array of String (Enumerable anyOf)',
+            description: 'The visibility settings.',
+            enumValues: ['public', 'unlisted', 'private', 'direct'],
+          },
+        ],
+      },
+    ];
+
+    converter.convertEntities(entities, spec);
+
+    // Check that both entities exist
+    expect(spec.components?.schemas?.StatusOne).toBeDefined();
+    expect(spec.components?.schemas?.StatusTwo).toBeDefined();
+
+    // Check that VisibilityEnum component is created
+    expect(spec.components?.schemas?.VisibilityEnum).toBeDefined();
+    const visibilityEnum = spec.components!.schemas!.VisibilityEnum as any;
+    expect(visibilityEnum.type).toBe('string');
+    expect(visibilityEnum.enum.sort()).toEqual([
+      'direct',
+      'private',
+      'public',
+      'unlisted',
+    ]);
+
+    // Check that both entities reference the shared component
+    const status1Schema = spec.components!.schemas!.StatusOne;
+    const status2Schema = spec.components!.schemas!.StatusTwo;
+
+    const visibility1 = status1Schema.properties!.visibility;
+    const visibility2 = status2Schema.properties!.visibility;
+
+    expect(visibility1.type).toBe('array');
+    expect(visibility2.type).toBe('array');
+    expect(visibility1.items?.$ref).toBe('#/components/schemas/VisibilityEnum');
+    expect(visibility2.items?.$ref).toBe('#/components/schemas/VisibilityEnum');
+
+    // Should not have inline enum values
+    expect(visibility1.enum).toBeUndefined();
+    expect(visibility2.enum).toBeUndefined();
+  });
+
   it('should not create shared component for different enum values', () => {
     const entities: EntityClass[] = [
       {
