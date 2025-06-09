@@ -103,7 +103,9 @@ describe('EntityConverter - Nested Properties', () => {
     expect(configProps?.accounts?.type).toBe('object');
     expect(configProps?.accounts?.properties).toBeDefined();
     expect(configProps?.accounts?.properties?.max_featured_tags).toBeDefined();
-    expect(configProps?.accounts?.properties?.max_featured_tags?.type).toBe('integer');
+    expect(configProps?.accounts?.properties?.max_featured_tags?.type).toBe(
+      'integer'
+    );
 
     // Check nested configuration.urls structure
     expect(configProps?.urls).toBeDefined();
@@ -130,7 +132,9 @@ describe('EntityConverter - Nested Properties', () => {
 
     // Check that flat properties with brackets don't exist
     expect(schema?.properties?.['configuration[accounts]']).toBeUndefined();
-    expect(schema?.properties?.['configuration[accounts][max_featured_tags]']).toBeUndefined();
+    expect(
+      schema?.properties?.['configuration[accounts][max_featured_tags]']
+    ).toBeUndefined();
     expect(schema?.properties?.['thumbnail[url]']).toBeUndefined();
     expect(schema?.properties?.['thumbnail[versions][@1x]']).toBeUndefined();
 

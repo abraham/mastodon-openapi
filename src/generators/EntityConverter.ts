@@ -117,10 +117,10 @@ class EntityConverter {
     for (const attribute of attributes) {
       // Check if this is a nested attribute pattern
       const nestedMatch = this.parseNestedAttributeName(attribute.name);
-      
+
       if (nestedMatch) {
         const { parentName, fullPath } = nestedMatch;
-        
+
         if (!nestedGroups.has(parentName)) {
           nestedGroups.set(parentName, []);
         }
@@ -152,7 +152,9 @@ class EntityConverter {
   /**
    * Parse nested attribute name to extract parent and path information
    */
-  private parseNestedAttributeName(name: string): { parentName: string; fullPath: string[] } | null {
+  private parseNestedAttributeName(
+    name: string
+  ): { parentName: string; fullPath: string[] } | null {
     // Match patterns like "parent[child]" or "parent[child][grandchild]"
     const match = name.match(/^([^[]+)(\[.+\])$/);
     if (!match) {
@@ -161,7 +163,7 @@ class EntityConverter {
 
     const parentName = match[1];
     const bracketPart = match[2];
-    
+
     // Extract all bracket segments
     const segments = bracketPart.match(/\[([^\]]+)\]/g);
     if (!segments) {
@@ -193,7 +195,7 @@ class EntityConverter {
     let parentProperty = parentSchema.properties[parentName];
     if (!parentProperty) {
       // Find the parent attribute definition
-      const parentAttr = attributes.find(attr => attr.name === parentName);
+      const parentAttr = attributes.find((attr) => attr.name === parentName);
       if (parentAttr) {
         parentProperty = this.convertAttribute(parentAttr);
       } else {
@@ -227,10 +229,11 @@ class EntityConverter {
         if (parsed && parsed.fullPath.length > 1) {
           // Create a new attribute for the nested structure
           const newPath = parsed.fullPath.slice(1); // Remove parent name
-          const newName = newPath.length === 1 
-            ? newPath[0] 
-            : newPath[0] + '[' + newPath.slice(1).join('][') + ']';
-          
+          const newName =
+            newPath.length === 1
+              ? newPath[0]
+              : newPath[0] + '[' + newPath.slice(1).join('][') + ']';
+
           const nestedAttr: EntityAttribute = {
             ...attr,
             name: newName,
@@ -258,13 +261,18 @@ class EntityConverter {
     }
 
     // Check if parent should be required (any non-optional attribute in this group makes parent required)
-    const hasRequiredChild = attributes.some(attr => 
-      attr.name !== parentName && !attr.optional
+    const hasRequiredChild = attributes.some(
+      (attr) => attr.name !== parentName && !attr.optional
     );
-    const parentAttr = attributes.find(attr => attr.name === parentName);
-    const parentIsRequired = (parentAttr && !parentAttr.optional) || hasRequiredChild;
+    const parentAttr = attributes.find((attr) => attr.name === parentName);
+    const parentIsRequired =
+      (parentAttr && !parentAttr.optional) || hasRequiredChild;
 
-    if (parentIsRequired && parentSchema.required && !parentSchema.required.includes(parentName)) {
+    if (
+      parentIsRequired &&
+      parentSchema.required &&
+      !parentSchema.required.includes(parentName)
+    ) {
       parentSchema.required.push(parentName);
     }
   }

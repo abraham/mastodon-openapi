@@ -12,31 +12,42 @@ export class AttributeParser {
     const attributes: EntityAttribute[] = [];
 
     // First, find all attribute headings with their positions
-    const headingRegex = /#{3,5} `([^`]+)`(?:[^{\n]*(?:\{\{[%<]([^%>]+)[%>]\})?[^{\n]*)?(?:\{#[^}]+\})?\s*\n\n/g;
-    const headings: Array<{ name: string; modifiers?: string; start: number; end: number }> = [];
-    
+    const headingRegex =
+      /#{3,5} `([^`]+)`(?:[^{\n]*(?:\{\{[%<]([^%>]+)[%>]\})?[^{\n]*)?(?:\{#[^}]+\})?\s*\n\n/g;
+    const headings: Array<{
+      name: string;
+      modifiers?: string;
+      start: number;
+      end: number;
+    }> = [];
+
     let headingMatch;
     while ((headingMatch = headingRegex.exec(content)) !== null) {
       headings.push({
         name: headingMatch[1],
         modifiers: headingMatch[2],
         start: headingMatch.index,
-        end: headingRegex.lastIndex
+        end: headingRegex.lastIndex,
       });
     }
 
     // For each heading, extract the description and type that immediately follow
     for (let i = 0; i < headings.length; i++) {
       const heading = headings[i];
-      const nextHeadingStart = i + 1 < headings.length ? headings[i + 1].start : content.length;
-      
+      const nextHeadingStart =
+        i + 1 < headings.length ? headings[i + 1].start : content.length;
+
       // Get the content between this heading and the next one (or end of content)
       const sectionContent = content.substring(heading.end, nextHeadingStart);
-      
+
       // Look for Description and Type in this specific section
-      const descMatch = sectionContent.match(/\*\*Description:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/);
-      const typeMatch = sectionContent.match(/\*\*Type:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/);
-      
+      const descMatch = sectionContent.match(
+        /\*\*Description:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+      );
+      const typeMatch = sectionContent.match(
+        /\*\*Type:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+      );
+
       if (descMatch && typeMatch) {
         const description = descMatch[1].trim();
         const typeStr = typeMatch[1].trim();
@@ -70,7 +81,8 @@ export class AttributeParser {
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
-          const enumValues = EntityParsingUtils.extractEnumValues(sectionContent);
+          const enumValues =
+            EntityParsingUtils.extractEnumValues(sectionContent);
           if (enumValues.length > 0) {
             attribute.enumValues = enumValues;
           }
