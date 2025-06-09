@@ -136,9 +136,10 @@ export class ParameterParser {
         const malformedNestedBracketMatch = name.match(
           /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\[\]\]$/
         );
-        
+
         if (malformedNestedBracketMatch) {
-          const [, rootName, objectName, propertyName] = malformedNestedBracketMatch;
+          const [, rootName, objectName, propertyName] =
+            malformedNestedBracketMatch;
           const fullObjectName = `${rootName}[${objectName}]`;
           if (!objectGroups[fullObjectName]) {
             objectGroups[fullObjectName] = [];
@@ -152,7 +153,8 @@ export class ParameterParser {
             enumValues: rawParam.enumValues,
           });
         } else if (nestedBracketArrayMatch) {
-          const [, rootName, objectName, propertyName] = nestedBracketArrayMatch;
+          const [, rootName, objectName, propertyName] =
+            nestedBracketArrayMatch;
           const fullObjectName = `${rootName}[${objectName}]`;
           if (!objectGroups[fullObjectName]) {
             objectGroups[fullObjectName] = [];
@@ -228,9 +230,10 @@ export class ParameterParser {
         const malformedNestedBracketMatch = name.match(
           /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\[\]\]$/
         );
-        
+
         if (malformedNestedBracketMatch) {
-          const [, rootName, objectName, propertyName] = malformedNestedBracketMatch;
+          const [, rootName, objectName, propertyName] =
+            malformedNestedBracketMatch;
           const fullObjectName = `${rootName}[${objectName}]`;
           if (!objectGroups[fullObjectName]) {
             objectGroups[fullObjectName] = [];

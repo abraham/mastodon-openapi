@@ -23,7 +23,7 @@ poll.options[].title
 
       // Should successfully parse dotted properties without errors
       expect(parameters.length).toBe(2);
-      
+
       // First parameter: poll object with options array property
       const pollParam = parameters.find((p: any) => p.name === 'poll');
       expect(pollParam).toBeDefined();
@@ -35,9 +35,11 @@ poll.options[].title
         description: 'Array of Hash. The poll options at this revision.',
         items: { type: 'object' },
       });
-      
-      // Second parameter: poll.options[] object with title property  
-      const pollOptionsParam = parameters.find((p: any) => p.name === 'poll.options[]');
+
+      // Second parameter: poll.options[] object with title property
+      const pollOptionsParam = parameters.find(
+        (p: any) => p.name === 'poll.options[]'
+      );
       expect(pollOptionsParam).toBeDefined();
       expect(pollOptionsParam!.schema).toBeDefined();
       expect(pollOptionsParam!.schema!.type).toBe('object');
@@ -69,21 +71,23 @@ params[poll][expires_in]
 
       // Should correctly parse nested bracket structures
       expect(parameters.length).toBe(1);
-      
+
       // Should create a params[poll] object with options and expires_in properties
-      const paramsParam = parameters.find((p: any) => p.name === 'params[poll]');
+      const paramsParam = parameters.find(
+        (p: any) => p.name === 'params[poll]'
+      );
       expect(paramsParam).toBeDefined();
       expect(paramsParam!.schema).toBeDefined();
       expect(paramsParam!.schema!.type).toBe('object');
       expect(paramsParam!.schema!.properties).toBeDefined();
-      
+
       // Should have options as an array property (normalized from options[])
       expect(paramsParam!.schema!.properties!.options).toEqual({
         type: 'array',
         description: 'Array of String. The poll options to be used.',
         items: { type: 'string' },
       });
-      
+
       // Should have expires_in as a string property
       expect(paramsParam!.schema!.properties!.expires_in).toEqual({
         type: 'string',
@@ -111,7 +115,7 @@ poll[expires_in]
       );
 
       expect(parameters).toHaveLength(1);
-      
+
       const pollParam = parameters.find((p: any) => p.name === 'poll');
       expect(pollParam).toBeDefined();
       expect(pollParam!.schema).toBeDefined();
