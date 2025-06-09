@@ -56,7 +56,7 @@ export class ParameterParser {
 
     // Match parameter definitions: parameter_name\n: description
     const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_.\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_.]|\n\n|$)/gm;
+      /^([a-zA-Z_][a-zA-Z0-9_\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
     let match;
     while ((match = paramRegex.exec(paramSection)) !== null) {
@@ -123,65 +123,8 @@ export class ParameterParser {
         const objectPropertyArrayMatch = baseName.match(
           /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
         );
-        // Check if it's a dotted property array like poll.options[]
-        const dottedPropertyArrayMatch = baseName.match(
-          /^([a-zA-Z_][a-zA-Z0-9_.]*?)\.([a-zA-Z_][a-zA-Z0-9_]*)$/
-        );
-        // Check if it's a nested bracket array like params[poll][options][]
-        const nestedBracketArrayMatch = baseName.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
-        );
-        // Check if it's a malformed nested bracket like params[poll][options[]]
-        // where the property name contains brackets (should be normalized)
-        const malformedNestedBracketMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\[\]\]$/
-        );
-
-        if (malformedNestedBracketMatch) {
-          const [, rootName, objectName, propertyName] =
-            malformedNestedBracketMatch;
-          const fullObjectName = `${rootName}[${objectName}]`;
-          if (!objectGroups[fullObjectName]) {
-            objectGroups[fullObjectName] = [];
-          }
-          objectGroups[fullObjectName].push({
-            name: rawParam.name,
-            property: propertyName, // Remove the brackets from property name
-            isArray: true, // It's an array since the original had []
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (nestedBracketArrayMatch) {
-          const [, rootName, objectName, propertyName] =
-            nestedBracketArrayMatch;
-          const fullObjectName = `${rootName}[${objectName}]`;
-          if (!objectGroups[fullObjectName]) {
-            objectGroups[fullObjectName] = [];
-          }
-          objectGroups[fullObjectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: true,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (objectPropertyArrayMatch) {
+        if (objectPropertyArrayMatch) {
           const [, objectName, propertyName] = objectPropertyArrayMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: true,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (dottedPropertyArrayMatch) {
-          const [, objectName, propertyName] = dottedPropertyArrayMatch;
           if (!objectGroups[objectName]) {
             objectGroups[objectName] = [];
           }
@@ -217,64 +160,8 @@ export class ParameterParser {
         const objectPropertyMatch = name.match(
           /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
         );
-        // Check if it's a dotted property like poll.options[].title
-        const dottedPropertyMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_.\[\]]*?)\.([a-zA-Z_][a-zA-Z0-9_]*)$/
-        );
-        // Check if it's a nested bracket property like params[poll][expires_in]
-        const nestedBracketMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
-        );
-        // Check if it's a malformed nested bracket like params[poll][options[]]
-        // where the property name contains brackets (should be normalized)
-        const malformedNestedBracketMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]\[([a-zA-Z_][a-zA-Z0-9_]*)\[\]\]$/
-        );
-
-        if (malformedNestedBracketMatch) {
-          const [, rootName, objectName, propertyName] =
-            malformedNestedBracketMatch;
-          const fullObjectName = `${rootName}[${objectName}]`;
-          if (!objectGroups[fullObjectName]) {
-            objectGroups[fullObjectName] = [];
-          }
-          objectGroups[fullObjectName].push({
-            name: rawParam.name,
-            property: propertyName, // Remove the brackets from property name
-            isArray: true, // It's an array since the original had []
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (nestedBracketMatch) {
-          const [, rootName, objectName, propertyName] = nestedBracketMatch;
-          const fullObjectName = `${rootName}[${objectName}]`;
-          if (!objectGroups[fullObjectName]) {
-            objectGroups[fullObjectName] = [];
-          }
-          objectGroups[fullObjectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: false,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (objectPropertyMatch) {
+        if (objectPropertyMatch) {
           const [, objectName, propertyName] = objectPropertyMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: false,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else if (dottedPropertyMatch) {
-          const [, objectName, propertyName] = dottedPropertyMatch;
           if (!objectGroups[objectName]) {
             objectGroups[objectName] = [];
           }
