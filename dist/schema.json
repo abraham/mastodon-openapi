@@ -9417,47 +9417,58 @@
         "properties": {
           "source": {
             "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
-            "type": "object"
-          },
-          "source[attribution_domains]": {
-            "description": "Domains of websites allowed to credit the account.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "source[note]": {
-            "description": "Profile bio, in plain-text instead of in HTML.",
-            "type": "string"
-          },
-          "source[fields]": {
-            "description": "Metadata about the account.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Field"
-            }
-          },
-          "source[privacy]": {
-            "description": "The default post privacy to be used for new statuses.",
-            "type": "string",
-            "enum": [
-              "public",
-              "unlisted",
-              "private",
-              "direct"
+            "type": "object",
+            "properties": {
+              "attribution_domains": {
+                "description": "Domains of websites allowed to credit the account.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "note": {
+                "description": "Profile bio, in plain-text instead of in HTML.",
+                "type": "string"
+              },
+              "fields": {
+                "description": "Metadata about the account.",
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/Field"
+                }
+              },
+              "privacy": {
+                "description": "The default post privacy to be used for new statuses.",
+                "type": "string",
+                "enum": [
+                  "public",
+                  "unlisted",
+                  "private",
+                  "direct"
+                ]
+              },
+              "sensitive": {
+                "description": "Whether new statuses should be marked sensitive by default.",
+                "type": "boolean"
+              },
+              "language": {
+                "description": "The default posting language for new statuses.",
+                "type": "string"
+              },
+              "follow_requests_count": {
+                "description": "The number of pending follow requests.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "attribution_domains",
+              "note",
+              "fields",
+              "privacy",
+              "sensitive",
+              "language",
+              "follow_requests_count"
             ]
-          },
-          "source[sensitive]": {
-            "description": "Whether new statuses should be marked sensitive by default.",
-            "type": "boolean"
-          },
-          "source[language]": {
-            "description": "The default posting language for new statuses.",
-            "type": "string"
-          },
-          "source[follow_requests_count]": {
-            "description": "The number of pending follow requests.",
-            "type": "integer"
           },
           "role": {
             "description": "The role assigned to the currently authorized user.",
@@ -9466,13 +9477,6 @@
         },
         "required": [
           "source",
-          "source[attribution_domains]",
-          "source[note]",
-          "source[fields]",
-          "source[privacy]",
-          "source[sensitive]",
-          "source[language]",
-          "source[follow_requests_count]",
           "role"
         ]
       },
@@ -10743,42 +10747,59 @@
           },
           "usage": {
             "description": "Usage data for this instance.",
-            "type": "object"
-          },
-          "usage[users]": {
-            "description": "Usage data related to users on this instance.",
-            "type": "object"
-          },
-          "usage[users][active_month]": {
-            "description": "The number of active users in the past 4 weeks. This is set to zero for servers with `configuration[limited_federation]`.",
-            "type": "integer"
+            "type": "object",
+            "properties": {
+              "users": {
+                "description": "Usage data related to users on this instance.",
+                "type": "object",
+                "properties": {
+                  "active_month": {
+                    "description": "The number of active users in the past 4 weeks. This is set to zero for servers with `configuration[limited_federation]`.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "active_month"
+                ]
+              }
+            },
+            "required": [
+              "users"
+            ]
           },
           "thumbnail": {
             "description": "An image used to represent this instance.",
-            "type": "object"
-          },
-          "thumbnail[url]": {
-            "description": "The URL for the thumbnail image.",
-            "type": "string",
-            "format": "uri"
-          },
-          "thumbnail[blurhash]": {
-            "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
-            "type": "string"
-          },
-          "thumbnail[versions]": {
-            "description": "Links to scaled resolution images, for high DPI screens.",
-            "type": "object"
-          },
-          "thumbnail[versions][@1x]": {
-            "description": "The URL for the thumbnail image at 1x resolution.",
-            "type": "string",
-            "format": "uri"
-          },
-          "thumbnail[versions][@2x]": {
-            "description": "The URL for the thumbnail image at 2x resolution.",
-            "type": "string",
-            "format": "uri"
+            "type": "object",
+            "properties": {
+              "url": {
+                "description": "The URL for the thumbnail image.",
+                "type": "string",
+                "format": "uri"
+              },
+              "blurhash": {
+                "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+                "type": "string"
+              },
+              "versions": {
+                "description": "Links to scaled resolution images, for high DPI screens.",
+                "type": "object",
+                "properties": {
+                  "@1x": {
+                    "description": "The URL for the thumbnail image at 1x resolution.",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "@2x": {
+                    "description": "The URL for the thumbnail image at 2x resolution.",
+                    "type": "string",
+                    "format": "uri"
+                  }
+                }
+              }
+            },
+            "required": [
+              "url"
+            ]
           },
           "icon": {
             "description": "The list of available size variants for this instance configured icon.",
@@ -10796,163 +10817,241 @@
           },
           "configuration": {
             "description": "Configured values and limits for this website.",
-            "type": "object"
-          },
-          "configuration[urls]": {
-            "description": "URLs of interest for clients apps.",
-            "type": "object"
-          },
-          "configuration[urls][streaming]": {
-            "description": "The Websockets URL for connecting to the streaming API.",
-            "type": "string",
-            "format": "uri"
-          },
-          "configuration[urls][about]": {
-            "description": "The URL of the server's about page.",
-            "type": "string",
-            "format": "uri"
-          },
-          "configuration[urls][privacy_policy]": {
-            "description": "The URL of the server's privacy policy.",
-            "type": "string",
-            "format": "uri"
-          },
-          "configuration[urls][terms_of_service]": {
-            "description": "The URL of the server's current terms of service, if any.",
-            "type": "string",
-            "format": "uri"
-          },
-          "configuration[accounts]": {
-            "description": "Limits related to accounts.",
-            "type": "object"
-          },
-          "configuration[accounts][max_featured_tags]": {
-            "description": "The maximum number of featured tags allowed for each account.",
-            "type": "integer"
-          },
-          "configuration[accounts][max_pinned_statuses]": {
-            "description": "The maximum number of pinned statuses for each account.",
-            "type": "integer"
-          },
-          "configuration[statuses]": {
-            "description": "Limits related to authoring statuses.",
-            "type": "object"
-          },
-          "configuration[statuses][max_characters]": {
-            "description": "The maximum number of allowed characters per status.",
-            "type": "integer"
-          },
-          "configuration[statuses][max_media_attachments]": {
-            "description": "The maximum number of media attachments that can be added to a status.",
-            "type": "integer"
-          },
-          "configuration[statuses][characters_reserved_per_url]": {
-            "description": "Each URL in a status will be assumed to be exactly this many characters.",
-            "type": "integer"
-          },
-          "configuration[media_attachments]": {
-            "description": "Hints for which attachments will be accepted.",
-            "type": "object"
-          },
-          "configuration[media_attachments][supported_mime_types]": {
-            "description": "Contains MIME types that can be uploaded.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "configuration[media_attachments][description_limit]": {
-            "description": "The maximum size of a description, in characters.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][image_size_limit]": {
-            "description": "The maximum size of any uploaded image, in bytes.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][image_matrix_limit]": {
-            "description": "The maximum number of pixels (width times height) for image uploads.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_size_limit]": {
-            "description": "The maximum size of any uploaded video, in bytes.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_frame_rate_limit]": {
-            "description": "The maximum frame rate for any uploaded video.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_matrix_limit]": {
-            "description": "The maximum number of pixels (width times height) for video uploads.",
-            "type": "integer"
-          },
-          "configuration[polls]": {
-            "description": "Limits related to polls.",
-            "type": "object"
-          },
-          "configuration[polls][max_options]": {
-            "description": "Each poll is allowed to have up to this many options.",
-            "type": "integer"
-          },
-          "configuration[polls][max_characters_per_option]": {
-            "description": "Each poll option is allowed to have this many characters.",
-            "type": "integer"
-          },
-          "configuration[polls][min_expiration]": {
-            "description": "The shortest allowed poll duration, in seconds.",
-            "type": "integer"
-          },
-          "configuration[polls][max_expiration]": {
-            "description": "The longest allowed poll duration, in seconds.",
-            "type": "integer"
-          },
-          "configuration[translation]": {
-            "description": "Hints related to translation.",
-            "type": "object"
-          },
-          "configuration[translation][enabled]": {
-            "description": "Whether the Translations API is available on this instance.",
-            "type": "boolean"
-          },
-          "configuration[limited_federation]": {
-            "description": "Whether federation is limited to explicitly allowed domains.",
-            "type": "boolean"
+            "type": "object",
+            "properties": {
+              "urls": {
+                "description": "URLs of interest for clients apps.",
+                "type": "object",
+                "properties": {
+                  "streaming": {
+                    "description": "The Websockets URL for connecting to the streaming API.",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "about": {
+                    "description": "The URL of the server's about page.",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "privacy_policy": {
+                    "description": "The URL of the server's privacy policy.",
+                    "type": "string",
+                    "format": "uri"
+                  },
+                  "terms_of_service": {
+                    "description": "The URL of the server's current terms of service, if any.",
+                    "type": "string",
+                    "format": "uri"
+                  }
+                },
+                "required": [
+                  "streaming",
+                  "about"
+                ]
+              },
+              "accounts": {
+                "description": "Limits related to accounts.",
+                "type": "object",
+                "properties": {
+                  "max_featured_tags": {
+                    "description": "The maximum number of featured tags allowed for each account.",
+                    "type": "integer"
+                  },
+                  "max_pinned_statuses": {
+                    "description": "The maximum number of pinned statuses for each account.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_featured_tags",
+                  "max_pinned_statuses"
+                ]
+              },
+              "statuses": {
+                "description": "Limits related to authoring statuses.",
+                "type": "object",
+                "properties": {
+                  "max_characters": {
+                    "description": "The maximum number of allowed characters per status.",
+                    "type": "integer"
+                  },
+                  "max_media_attachments": {
+                    "description": "The maximum number of media attachments that can be added to a status.",
+                    "type": "integer"
+                  },
+                  "characters_reserved_per_url": {
+                    "description": "Each URL in a status will be assumed to be exactly this many characters.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_characters",
+                  "max_media_attachments",
+                  "characters_reserved_per_url"
+                ]
+              },
+              "media_attachments": {
+                "description": "Hints for which attachments will be accepted.",
+                "type": "object",
+                "properties": {
+                  "supported_mime_types": {
+                    "description": "Contains MIME types that can be uploaded.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "description_limit": {
+                    "description": "The maximum size of a description, in characters.",
+                    "type": "integer"
+                  },
+                  "image_size_limit": {
+                    "description": "The maximum size of any uploaded image, in bytes.",
+                    "type": "integer"
+                  },
+                  "image_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for image uploads.",
+                    "type": "integer"
+                  },
+                  "video_size_limit": {
+                    "description": "The maximum size of any uploaded video, in bytes.",
+                    "type": "integer"
+                  },
+                  "video_frame_rate_limit": {
+                    "description": "The maximum frame rate for any uploaded video.",
+                    "type": "integer"
+                  },
+                  "video_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for video uploads.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "supported_mime_types",
+                  "description_limit",
+                  "image_size_limit",
+                  "image_matrix_limit",
+                  "video_size_limit",
+                  "video_frame_rate_limit",
+                  "video_matrix_limit"
+                ]
+              },
+              "polls": {
+                "description": "Limits related to polls.",
+                "type": "object",
+                "properties": {
+                  "max_options": {
+                    "description": "Each poll is allowed to have up to this many options.",
+                    "type": "integer"
+                  },
+                  "max_characters_per_option": {
+                    "description": "Each poll option is allowed to have this many characters.",
+                    "type": "integer"
+                  },
+                  "min_expiration": {
+                    "description": "The shortest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  },
+                  "max_expiration": {
+                    "description": "The longest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_options",
+                  "max_characters_per_option",
+                  "min_expiration",
+                  "max_expiration"
+                ]
+              },
+              "translation": {
+                "description": "Hints related to translation.",
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "description": "Whether the Translations API is available on this instance.",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "enabled"
+                ]
+              },
+              "limited_federation": {
+                "description": "Whether federation is limited to explicitly allowed domains.",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "urls",
+              "accounts",
+              "statuses",
+              "media_attachments",
+              "polls",
+              "translation",
+              "limited_federation"
+            ]
           },
           "registrations": {
-            "description": "Whether registrations are enabled.",
-            "type": "boolean"
-          },
-          "registrations[approval_required]": {
-            "description": "Whether registrations require moderator approval.",
-            "type": "boolean"
-          },
-          "registrations[message]": {
-            "description": "A custom message to be shown when registrations are closed.",
-            "type": "string"
-          },
-          "registrations[min_age]": {
-            "description": "A minimum age required to register, if configured.",
-            "type": "integer"
-          },
-          "registrations[reason_required]": {
-            "description": "Whether registrations require the user to provide a reason for joining. Only applicable when `registrations[approval_required]` is true.",
-            "type": "boolean"
+            "description": "Information about registering for this website.",
+            "type": "object",
+            "properties": {
+              "enabled": {
+                "description": "Whether registrations are enabled.",
+                "type": "boolean"
+              },
+              "approval_required": {
+                "description": "Whether registrations require moderator approval.",
+                "type": "boolean"
+              },
+              "message": {
+                "description": "A custom message to be shown when registrations are closed.",
+                "type": "string"
+              },
+              "min_age": {
+                "description": "A minimum age required to register, if configured.",
+                "type": "integer"
+              },
+              "reason_required": {
+                "description": "Whether registrations require the user to provide a reason for joining. Only applicable when `registrations[approval_required]` is true.",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "enabled",
+              "approval_required"
+            ]
           },
           "api_versions": {
             "description": "Information about which version of the API is implemented by this server. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
-            "type": "object"
+            "type": "object",
+            "properties": {
+              "mastodon": {
+                "description": "API version number that this server implements. Starting from Mastodon v4.3.0, API changes will come with a version number, which clients can check against this value.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "mastodon"
+            ]
           },
-          "api_versions[mastodon]": {
+          "contact": {
             "description": "Hints related to contacting a representative of the website.",
-            "type": "object"
-          },
-          "contact[email]": {
-            "description": "An email address that can be messaged regarding inquiries or issues.",
-            "type": "string",
-            "format": "email"
-          },
-          "contact[account]": {
-            "description": "An account that can be contacted natively over the network regarding inquiries or issues.",
-            "$ref": "#/components/schemas/Account"
+            "type": "object",
+            "properties": {
+              "email": {
+                "description": "An email address that can be messaged regarding inquiries or issues.",
+                "type": "string",
+                "format": "email"
+              },
+              "account": {
+                "description": "An account that can be contacted natively over the network regarding inquiries or issues.",
+                "$ref": "#/components/schemas/Account"
+              }
+            },
+            "required": [
+              "email"
+            ]
           },
           "rules": {
             "description": "An itemized list of rules for this website.",
@@ -10969,44 +11068,13 @@
           "source_url",
           "description",
           "usage",
-          "usage[users]",
-          "usage[users][active_month]",
           "thumbnail",
-          "thumbnail[url]",
           "icon",
           "languages",
           "configuration",
-          "configuration[urls]",
-          "configuration[urls][streaming]",
-          "configuration[urls][about]",
-          "configuration[accounts]",
-          "configuration[accounts][max_featured_tags]",
-          "configuration[accounts][max_pinned_statuses]",
-          "configuration[statuses]",
-          "configuration[statuses][max_characters]",
-          "configuration[statuses][max_media_attachments]",
-          "configuration[statuses][characters_reserved_per_url]",
-          "configuration[media_attachments]",
-          "configuration[media_attachments][supported_mime_types]",
-          "configuration[media_attachments][description_limit]",
-          "configuration[media_attachments][image_size_limit]",
-          "configuration[media_attachments][image_matrix_limit]",
-          "configuration[media_attachments][video_size_limit]",
-          "configuration[media_attachments][video_frame_rate_limit]",
-          "configuration[media_attachments][video_matrix_limit]",
-          "configuration[polls]",
-          "configuration[polls][max_options]",
-          "configuration[polls][max_characters_per_option]",
-          "configuration[polls][min_expiration]",
-          "configuration[polls][max_expiration]",
-          "configuration[translation]",
-          "configuration[translation][enabled]",
-          "configuration[limited_federation]",
           "registrations",
-          "registrations[approval_required]",
           "api_versions",
-          "api_versions[mastodon]",
-          "contact[email]",
+          "contact",
           "rules"
         ]
       },
@@ -11230,15 +11298,21 @@
           },
           "summary": {
             "description": "Summary of the filtered notifications",
-            "type": "object"
-          },
-          "summary[pending_requests_count]": {
-            "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
-            "type": "integer"
-          },
-          "summary[pending_notifications_count]": {
-            "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
-            "type": "integer"
+            "type": "object",
+            "properties": {
+              "pending_requests_count": {
+                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
+                "type": "integer"
+              },
+              "pending_notifications_count": {
+                "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "pending_requests_count",
+              "pending_notifications_count"
+            ]
           }
         },
         "required": [
@@ -11247,9 +11321,7 @@
           "for_new_accounts",
           "for_private_mentions",
           "for_limited_accounts",
-          "summary",
-          "summary[pending_requests_count]",
-          "summary[pending_notifications_count]"
+          "summary"
         ]
       },
       "NotificationRequest": {
@@ -11377,7 +11449,7 @@
         "description": "Represents a user's preferences.",
         "properties": {
           "posting:default:visibility": {
-            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
+            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source",
             "type": "string",
             "enum": [
               "public",
@@ -11387,11 +11459,11 @@
             ]
           },
           "posting:default:sensitive": {
-            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]]({{< relref \"entities/Account#source-sensitive\" >}}).",
+            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source",
             "type": "boolean"
           },
           "posting:default:language": {
-            "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
+            "description": "Default language for new posts. Equivalent to [CredentialAccount#source",
             "type": "string"
           },
           "reading:expand:media": {
@@ -11520,25 +11592,10 @@
             "items": {
               "type": "object"
             }
-          },
-          "history[][day]": {
-            "description": "UNIX timestamp on midnight of the given day.",
-            "type": "string"
-          },
-          "history[][accounts]": {
-            "description": "The counted accounts using the link within that day.",
-            "type": "string"
-          },
-          "history[][uses]": {
-            "description": "The counted statuses using the link within that day.",
-            "type": "string"
           }
         },
         "required": [
-          "history",
-          "history[][day]",
-          "history[][accounts]",
-          "history[][uses]"
+          "history"
         ]
       },
       "PreviewCardAuthor": {
@@ -11920,85 +11977,103 @@
           },
           "params": {
             "description": "The parameters that were used when scheduling the status, to be used when the status is posted.",
-            "type": "object"
-          },
-          "params[text]": {
-            "description": "Text to be used as status content.",
-            "type": "string"
-          },
-          "params[poll]": {
-            "description": "Poll to be attached to the status.",
-            "type": "object"
-          },
-          "params[poll][options[]]": {
-            "description": "The poll options to be used.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "params[poll][expires_in]": {
-            "description": "How many seconds the poll should last before closing.",
-            "type": "string"
-          },
-          "params[poll][multiple]": {
-            "description": "Whether the poll allows multiple choices.",
-            "type": "boolean"
-          },
-          "params[poll][hide_totals]": {
-            "description": "Whether the poll should hide total votes until after voting has ended.",
-            "type": "boolean"
-          },
-          "params[media_ids]": {
-            "description": "IDs of the MediaAttachments that will be attached to the status.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "params[sensitive]": {
-            "description": "Whether the status will be marked as sensitive.",
-            "type": "boolean"
-          },
-          "params[spoiler_text]": {
-            "description": "The text of the content warning or summary for the status.",
-            "type": "string"
-          },
-          "params[visibility]": {
-            "description": "The visibility that the status will have once it is posted.",
-            "type": "string",
-            "enum": [
-              "public",
-              "unlisted",
-              "private",
-              "direct"
+            "type": "object",
+            "properties": {
+              "text": {
+                "description": "Text to be used as status content.",
+                "type": "string"
+              },
+              "poll": {
+                "description": "Poll to be attached to the status.",
+                "type": "object",
+                "properties": {
+                  "options[": {
+                    "description": "The poll options to be used.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expires_in": {
+                    "description": "How many seconds the poll should last before closing.",
+                    "type": "string"
+                  },
+                  "multiple": {
+                    "description": "Whether the poll allows multiple choices.",
+                    "type": "boolean"
+                  },
+                  "hide_totals": {
+                    "description": "Whether the poll should hide total votes until after voting has ended.",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "options[",
+                  "expires_in",
+                  "multiple",
+                  "hide_totals"
+                ]
+              },
+              "media_ids": {
+                "description": "IDs of the MediaAttachments that will be attached to the status.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "sensitive": {
+                "description": "Whether the status will be marked as sensitive.",
+                "type": "boolean"
+              },
+              "spoiler_text": {
+                "description": "The text of the content warning or summary for the status.",
+                "type": "string"
+              },
+              "visibility": {
+                "description": "The visibility that the status will have once it is posted.",
+                "type": "string",
+                "enum": [
+                  "public",
+                  "unlisted",
+                  "private",
+                  "direct"
+                ]
+              },
+              "in_reply_to_id": {
+                "description": "ID of the Status that will be replied to.",
+                "type": "integer"
+              },
+              "language": {
+                "description": "The language that will be used for the status.",
+                "type": "string"
+              },
+              "application_id": {
+                "description": "Internal ID of the Application that posted the status. Provided for historical compatibility only and can be ignored.",
+                "deprecated": true,
+                "type": "integer"
+              },
+              "scheduled_at": {
+                "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
+                "type": "string",
+                "format": "date-time"
+              },
+              "idempotency": {
+                "description": "Idempotency key to prevent duplicate statuses.",
+                "type": "string"
+              },
+              "with_rate_limit": {
+                "description": "Whether status creation is subject to rate limiting. Provided for historical compatibility only and can be ignored.",
+                "deprecated": true,
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "text",
+              "visibility",
+              "application_id",
+              "with_rate_limit",
+              "poll"
             ]
-          },
-          "params[in_reply_to_id]": {
-            "description": "ID of the Status that will be replied to.",
-            "type": "integer"
-          },
-          "params[language]": {
-            "description": "The language that will be used for the status.",
-            "type": "string"
-          },
-          "params[application_id]": {
-            "description": "Internal ID of the Application that posted the status. Provided for historical compatibility only and can be ignored.",
-            "deprecated": true,
-            "type": "integer"
-          },
-          "params[scheduled_at]": {
-            "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
-            "type": "string"
-          },
-          "params[idempotency]": {
-            "description": "Idempotency key to prevent duplicate statuses.",
-            "type": "string"
-          },
-          "params[with_rate_limit]": {
-            "description": "Whether status creation is subject to rate limiting. Provided for historical compatibility only and can be ignored.",
-            "deprecated": true,
-            "type": "boolean"
           },
           "media_attachments": {
             "description": "Media that will be attached when the status is posted.",
@@ -12012,14 +12087,6 @@
           "id",
           "scheduled_at",
           "params",
-          "params[text]",
-          "params[poll][options[]]",
-          "params[poll][expires_in]",
-          "params[poll][multiple]",
-          "params[poll][hide_totals]",
-          "params[visibility]",
-          "params[application_id]",
-          "params[with_rate_limit]",
           "media_attachments"
         ]
       },
@@ -12132,16 +12199,21 @@
           },
           "application": {
             "description": "The application used to post this status.",
-            "type": "object"
-          },
-          "application[name]": {
-            "description": "The name of the application that posted this status.",
-            "type": "string"
-          },
-          "application[website]": {
-            "description": "The website associated with the application that posted this status.",
-            "type": "string",
-            "format": "uri"
+            "type": "object",
+            "properties": {
+              "name": {
+                "description": "The name of the application that posted this status.",
+                "type": "string"
+              },
+              "website": {
+                "description": "The website associated with the application that posted this status.",
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "name"
+            ]
           },
           "mentions": {
             "description": "Mentions of users within the status content.",
@@ -12214,8 +12286,8 @@
             "type": "string",
             "format": "date-time"
           },
-          "quote": {
-            "description": "Information about the status being quoted, if any",
+          "favourited": {
+            "description": "If the current token has an authorized user: Have you favourited this status?",
             "type": "boolean"
           },
           "reblogged": {
@@ -12252,14 +12324,13 @@
           "sensitive",
           "spoiler_text",
           "media_attachments",
-          "application[name]",
           "mentions",
           "tags",
           "emojis",
           "reblogs_count",
           "favourites_count",
           "replies_count",
-          "quote"
+          "application"
         ]
       },
       "Status_Mention": {
@@ -12752,28 +12823,40 @@
           },
           "urls": {
             "description": "URLs of interest for clients apps.",
-            "type": "object"
-          },
-          "urls[streaming_api]": {
-            "description": "The Websockets URL for connecting to the streaming API.",
-            "type": "string",
-            "format": "uri"
+            "type": "object",
+            "properties": {
+              "streaming_api": {
+                "description": "The Websockets URL for connecting to the streaming API.",
+                "type": "string",
+                "format": "uri"
+              }
+            },
+            "required": [
+              "streaming_api"
+            ]
           },
           "stats": {
             "description": "Statistics about how much information the instance contains.",
-            "type": "object"
-          },
-          "stats[user_count]": {
-            "description": "Total users on this instance.",
-            "type": "integer"
-          },
-          "stats[status_count]": {
-            "description": "Total statuses on this instance.",
-            "type": "integer"
-          },
-          "stats[domain_count]": {
-            "description": "Total domains discovered by this instance.",
-            "type": "integer"
+            "type": "object",
+            "properties": {
+              "user_count": {
+                "description": "Total users on this instance.",
+                "type": "integer"
+              },
+              "status_count": {
+                "description": "Total statuses on this instance.",
+                "type": "integer"
+              },
+              "domain_count": {
+                "description": "Total domains discovered by this instance.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "user_count",
+              "status_count",
+              "domain_count"
+            ]
           },
           "thumbnail": {
             "description": "Banner image for the website.",
@@ -12801,82 +12884,120 @@
           },
           "configuration": {
             "description": "Configured values and limits for this website.",
-            "type": "object"
-          },
-          "configuration[accounts]": {
-            "description": "Limits related to accounts.",
-            "type": "object"
-          },
-          "configuration[accounts][max_featured_tags]": {
-            "description": "The maximum number of featured tags allowed for each account.",
-            "type": "integer"
-          },
-          "configuration[statuses]": {
-            "description": "Limits related to authoring statuses.",
-            "type": "object"
-          },
-          "configuration[statuses][max_characters]": {
-            "description": "The maximum number of allowed characters per status.",
-            "type": "integer"
-          },
-          "configuration[statuses][max_media_attachments]": {
-            "description": "The maximum number of media attachments that can be added to a status.",
-            "type": "integer"
-          },
-          "configuration[statuses][characters_reserved_per_url]": {
-            "description": "Each URL in a status will be assumed to be exactly this many characters.",
-            "type": "integer"
-          },
-          "configuration[media_attachments]": {
-            "description": "Hints for which attachments will be accepted.",
-            "type": "object"
-          },
-          "configuration[media_attachments][supported_mime_types]": {
-            "description": "Contains MIME types that can be uploaded.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "configuration[media_attachments][image_size_limit]": {
-            "description": "The maximum size of any uploaded image, in bytes.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][image_matrix_limit]": {
-            "description": "The maximum number of pixels (width times height) for image uploads.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_size_limit]": {
-            "description": "The maximum size of any uploaded video, in bytes.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_frame_rate_limit]": {
-            "description": "The maximum frame rate for any uploaded video.",
-            "type": "integer"
-          },
-          "configuration[media_attachments][video_matrix_limit]": {
-            "description": "The maximum number of pixels (width times height) for video uploads.",
-            "type": "integer"
-          },
-          "configuration[polls]": {
-            "description": "Limits related to polls.",
-            "type": "object"
-          },
-          "configuration[polls][max_options]": {
-            "description": "Each poll is allowed to have up to this many options.",
-            "type": "integer"
-          },
-          "configuration[polls][max_characters_per_option]": {
-            "description": "Each poll option is allowed to have this many characters.",
-            "type": "integer"
-          },
-          "configuration[polls][min_expiration]": {
-            "description": "The shortest allowed poll duration, in seconds.",
-            "type": "integer"
-          },
-          "configuration[polls][max_expiration]": {
-            "description": "The longest allowed poll duration, in seconds.",
-            "type": "integer"
+            "type": "object",
+            "properties": {
+              "accounts": {
+                "description": "Limits related to accounts.",
+                "type": "object",
+                "properties": {
+                  "max_featured_tags": {
+                    "description": "The maximum number of featured tags allowed for each account.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_featured_tags"
+                ]
+              },
+              "statuses": {
+                "description": "Limits related to authoring statuses.",
+                "type": "object",
+                "properties": {
+                  "max_characters": {
+                    "description": "The maximum number of allowed characters per status.",
+                    "type": "integer"
+                  },
+                  "max_media_attachments": {
+                    "description": "The maximum number of media attachments that can be added to a status.",
+                    "type": "integer"
+                  },
+                  "characters_reserved_per_url": {
+                    "description": "Each URL in a status will be assumed to be exactly this many characters.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_characters",
+                  "max_media_attachments",
+                  "characters_reserved_per_url"
+                ]
+              },
+              "media_attachments": {
+                "description": "Hints for which attachments will be accepted.",
+                "type": "object",
+                "properties": {
+                  "supported_mime_types": {
+                    "description": "Contains MIME types that can be uploaded.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "image_size_limit": {
+                    "description": "The maximum size of any uploaded image, in bytes.",
+                    "type": "integer"
+                  },
+                  "image_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for image uploads.",
+                    "type": "integer"
+                  },
+                  "video_size_limit": {
+                    "description": "The maximum size of any uploaded video, in bytes.",
+                    "type": "integer"
+                  },
+                  "video_frame_rate_limit": {
+                    "description": "The maximum frame rate for any uploaded video.",
+                    "type": "integer"
+                  },
+                  "video_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for video uploads.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "supported_mime_types",
+                  "image_size_limit",
+                  "image_matrix_limit",
+                  "video_size_limit",
+                  "video_frame_rate_limit",
+                  "video_matrix_limit"
+                ]
+              },
+              "polls": {
+                "description": "Limits related to polls.",
+                "type": "object",
+                "properties": {
+                  "max_options": {
+                    "description": "Each poll is allowed to have up to this many options.",
+                    "type": "integer"
+                  },
+                  "max_characters_per_option": {
+                    "description": "Each poll option is allowed to have this many characters.",
+                    "type": "integer"
+                  },
+                  "min_expiration": {
+                    "description": "The shortest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  },
+                  "max_expiration": {
+                    "description": "The longest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_options",
+                  "max_characters_per_option",
+                  "min_expiration",
+                  "max_expiration"
+                ]
+              }
+            },
+            "required": [
+              "accounts",
+              "statuses",
+              "media_attachments",
+              "polls"
+            ]
           },
           "contact_account": {
             "description": "A user that can be contacted, as an alternative to `email`.",
@@ -12898,34 +13019,12 @@
           "email",
           "version",
           "urls",
-          "urls[streaming_api]",
           "stats",
-          "stats[user_count]",
-          "stats[status_count]",
-          "stats[domain_count]",
           "languages",
           "registrations",
           "approval_required",
           "invites_enabled",
           "configuration",
-          "configuration[accounts]",
-          "configuration[accounts][max_featured_tags]",
-          "configuration[statuses]",
-          "configuration[statuses][max_characters]",
-          "configuration[statuses][max_media_attachments]",
-          "configuration[statuses][characters_reserved_per_url]",
-          "configuration[media_attachments]",
-          "configuration[media_attachments][supported_mime_types]",
-          "configuration[media_attachments][image_size_limit]",
-          "configuration[media_attachments][image_matrix_limit]",
-          "configuration[media_attachments][video_size_limit]",
-          "configuration[media_attachments][video_frame_rate_limit]",
-          "configuration[media_attachments][video_matrix_limit]",
-          "configuration[polls]",
-          "configuration[polls][max_options]",
-          "configuration[polls][max_characters_per_option]",
-          "configuration[polls][min_expiration]",
-          "configuration[polls][max_expiration]",
           "rules"
         ]
       },
@@ -12951,15 +13050,21 @@
           },
           "summary": {
             "description": "Summary of the filtered notifications",
-            "type": "object"
-          },
-          "summary[pending_requests_count]": {
-            "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
-            "type": "integer"
-          },
-          "summary[pending_notifications_count]": {
-            "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
-            "type": "integer"
+            "type": "object",
+            "properties": {
+              "pending_requests_count": {
+                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
+                "type": "integer"
+              },
+              "pending_notifications_count": {
+                "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "pending_requests_count",
+              "pending_notifications_count"
+            ]
           }
         },
         "required": [
@@ -12967,9 +13072,7 @@
           "filter_not_followers",
           "filter_new_accounts",
           "filter_private_mentions",
-          "summary",
-          "summary[pending_requests_count]",
-          "summary[pending_notifications_count]"
+          "summary"
         ]
       },
       "WebPushSubscription": {
@@ -12995,47 +13098,61 @@
           },
           "alerts": {
             "description": "Which alerts should be delivered to the `endpoint`.",
-            "type": "object"
-          },
-          "alerts[mention]": {
-            "description": "Receive a push notification when someone else has mentioned you in a status?",
-            "type": "boolean"
-          },
-          "alerts[status]": {
-            "description": "Receive a push notification when a subscribed account posts a status?",
-            "type": "boolean"
-          },
-          "alerts[reblog]": {
-            "description": "Receive a push notification when a status you created has been boosted by someone else?",
-            "type": "boolean"
-          },
-          "alerts[follow]": {
-            "description": "Receive a push notification when someone has followed you?",
-            "type": "boolean"
-          },
-          "alerts[follow_request]": {
-            "description": "Receive a push notification when someone has requested to followed you?",
-            "type": "boolean"
-          },
-          "alerts[favourite]": {
-            "description": "Receive a push notification when a status you created has been favourited by someone else?",
-            "type": "boolean"
-          },
-          "alerts[poll]": {
-            "description": "Receive a push notification when a poll you voted in or created has ended?",
-            "type": "boolean"
-          },
-          "alerts[update]": {
-            "description": "Receive a push notification when a status you interacted with has been edited?",
-            "type": "boolean"
-          },
-          "alerts[admin.sign_up]": {
-            "description": "Receive a push notification when a new user has signed up?",
-            "type": "boolean"
-          },
-          "alerts[admin.report]": {
-            "description": "Receive a push notification when a new report has been filed?",
-            "type": "boolean"
+            "type": "object",
+            "properties": {
+              "mention": {
+                "description": "Receive a push notification when someone else has mentioned you in a status?",
+                "type": "boolean"
+              },
+              "status": {
+                "description": "Receive a push notification when a subscribed account posts a status?",
+                "type": "boolean"
+              },
+              "reblog": {
+                "description": "Receive a push notification when a status you created has been boosted by someone else?",
+                "type": "boolean"
+              },
+              "follow": {
+                "description": "Receive a push notification when someone has followed you?",
+                "type": "boolean"
+              },
+              "follow_request": {
+                "description": "Receive a push notification when someone has requested to followed you?",
+                "type": "boolean"
+              },
+              "favourite": {
+                "description": "Receive a push notification when a status you created has been favourited by someone else?",
+                "type": "boolean"
+              },
+              "poll": {
+                "description": "Receive a push notification when a poll you voted in or created has ended?",
+                "type": "boolean"
+              },
+              "update": {
+                "description": "Receive a push notification when a status you interacted with has been edited?",
+                "type": "boolean"
+              },
+              "admin.sign_up": {
+                "description": "Receive a push notification when a new user has signed up?",
+                "type": "boolean"
+              },
+              "admin.report": {
+                "description": "Receive a push notification when a new report has been filed?",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "mention",
+              "status",
+              "reblog",
+              "follow",
+              "follow_request",
+              "favourite",
+              "poll",
+              "update",
+              "admin.sign_up",
+              "admin.report"
+            ]
           }
         },
         "required": [
@@ -13043,17 +13160,7 @@
           "endpoint",
           "standard",
           "server_key",
-          "alerts",
-          "alerts[mention]",
-          "alerts[status]",
-          "alerts[reblog]",
-          "alerts[follow]",
-          "alerts[follow_request]",
-          "alerts[favourite]",
-          "alerts[poll]",
-          "alerts[update]",
-          "alerts[admin.sign_up]",
-          "alerts[admin.report]"
+          "alerts"
         ]
       },
       "GroupedNotificationsResults": {
