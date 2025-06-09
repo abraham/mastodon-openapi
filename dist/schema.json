@@ -6273,45 +6273,13 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "subscription[keys][p256dh]": {
+                  "data[alerts][admin.sign_up]": {
                     "type": "string",
-                    "description": "String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the `prime256v1` curve."
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
-                  "subscription[keys][auth]": {
+                  "data[alerts][admin.report]": {
                     "type": "string",
-                    "description": "String. Auth secret. Base64 encoded string of 16 bytes of random data."
-                  },
-                  "data[alerts][mention]": {
-                    "type": "string",
-                    "description": "Boolean. Receive mention notifications? Defaults to false."
-                  },
-                  "data[alerts][status]": {
-                    "type": "string",
-                    "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
-                  },
-                  "data[alerts][reblog]": {
-                    "type": "string",
-                    "description": "Boolean. Receive reblog notifications? Defaults to false."
-                  },
-                  "data[alerts][follow]": {
-                    "type": "string",
-                    "description": "Boolean. Receive follow notifications? Defaults to false."
-                  },
-                  "data[alerts][follow_request]": {
-                    "type": "string",
-                    "description": "Boolean. Receive follow request notifications? Defaults to false."
-                  },
-                  "data[alerts][favourite]": {
-                    "type": "string",
-                    "description": "Boolean. Receive favourite notifications? Defaults to false."
-                  },
-                  "data[alerts][poll]": {
-                    "type": "string",
-                    "description": "Boolean. Receive poll notifications? Defaults to false."
-                  },
-                  "data[alerts][update]": {
-                    "type": "string",
-                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "subscription": {
                     "type": "object",
@@ -6324,6 +6292,58 @@
                       "standard": {
                         "type": "boolean",
                         "description": "Boolean. Follow standardized webpush (RFC8030+RFC8291+RFC8292) ? Else follow legacy webpush (unpublished version, 4th draft of RFC8291 and 1st draft of RFC8292). Defaults to false."
+                      }
+                    }
+                  },
+                  "subscription[keys]": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "p256dh": {
+                        "type": "string",
+                        "description": "String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the `prime256v1` curve."
+                      },
+                      "auth": {
+                        "type": "string",
+                        "description": "String. Auth secret. Base64 encoded string of 16 bytes of random data."
+                      }
+                    }
+                  },
+                  "data[alerts]": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "mention": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive mention notifications? Defaults to false."
+                      },
+                      "status": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                      },
+                      "reblog": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive reblog notifications? Defaults to false."
+                      },
+                      "follow": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive follow notifications? Defaults to false."
+                      },
+                      "follow_request": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive follow request notifications? Defaults to false."
+                      },
+                      "favourite": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive favourite notifications? Defaults to false."
+                      },
+                      "poll": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive poll notifications? Defaults to false."
+                      },
+                      "update": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive status edited notifications? Defaults to false."
                       }
                     }
                   },
@@ -6401,41 +6421,55 @@
               "schema": {
                 "type": "object",
                 "properties": {
-                  "data[alerts][mention]": {
+                  "data[alerts][admin.sign_up]": {
                     "type": "string",
-                    "description": "Boolean. Receive mention notifications? Defaults to false."
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
-                  "data[alerts][status]": {
+                  "data[alerts][admin.report]": {
                     "type": "string",
-                    "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
-                  },
-                  "data[alerts][reblog]": {
-                    "type": "string",
-                    "description": "Boolean. Receive reblog notifications? Defaults to false."
-                  },
-                  "data[alerts][follow]": {
-                    "type": "string",
-                    "description": "Boolean. Receive follow notifications? Defaults to false."
-                  },
-                  "data[alerts][follow_request]": {
-                    "type": "string",
-                    "description": "Boolean. Receive follow request notifications? Defaults to false."
-                  },
-                  "data[alerts][favourite]": {
-                    "type": "string",
-                    "description": "Boolean. Receive favourite notifications? Defaults to false."
-                  },
-                  "data[alerts][poll]": {
-                    "type": "string",
-                    "description": "Boolean. Receive poll notifications? Defaults to false."
-                  },
-                  "data[alerts][update]": {
-                    "type": "string",
-                    "description": "Boolean. Receive status edited notifications? Defaults to false."
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "policy": {
                     "type": "string",
                     "description": "String. Specify whether to receive push notifications from `all`, `followed`, `follower`, or `none` users."
+                  },
+                  "data[alerts]": {
+                    "type": "object",
+                    "description": "Object containing the following properties:",
+                    "properties": {
+                      "mention": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive mention notifications? Defaults to false."
+                      },
+                      "status": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                      },
+                      "reblog": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive reblog notifications? Defaults to false."
+                      },
+                      "follow": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive follow notifications? Defaults to false."
+                      },
+                      "follow_request": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive follow request notifications? Defaults to false."
+                      },
+                      "favourite": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive favourite notifications? Defaults to false."
+                      },
+                      "poll": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive poll notifications? Defaults to false."
+                      },
+                      "update": {
+                        "type": "boolean",
+                        "description": "Boolean. Receive status edited notifications? Defaults to false."
+                      }
+                    }
                   }
                 }
               }
