@@ -86,7 +86,8 @@ class MethodConverter {
 
     // Add security if OAuth is required
     if (method.oauth && method.oauth !== 'Public') {
-      operation.security = [{ OAuth2: [] }];
+      const scopes = this.extractOAuthScopes(method.oauth);
+      operation.security = [{ OAuth2: scopes }];
     }
 
     // Add parameters
@@ -422,6 +423,28 @@ class MethodConverter {
   public extractPathParameters(path: string): string[] {
     const matches = path.match(/\{([^}]+)\}/g);
     return matches ? matches.map((match) => match.slice(1, -1)) : [];
+  }
+
+  /**
+   * Extract OAuth scopes from OAuth text
+   * Parses strings like "User token + `write:blocks`" to extract ["write:blocks"]
+   */
+  private extractOAuthScopes(oauthText: string): string[] {
+    const scopes: string[] = [];
+
+    // Match scope patterns in backticks, e.g., `write:blocks`, `read:accounts`
+    const scopeMatches = oauthText.match(/`([^`]+)`/g);
+
+    if (scopeMatches) {
+      for (const match of scopeMatches) {
+        const scope = match.slice(1, -1); // Remove backticks
+        if (scope && scope.includes(':')) {
+          scopes.push(scope);
+        }
+      }
+    }
+
+    return scopes;
   }
 }
 
