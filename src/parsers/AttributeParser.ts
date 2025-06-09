@@ -22,7 +22,13 @@ export class AttributeParser {
     while ((match = attributeRegex.exec(content)) !== null) {
       const [, name, modifiers, description, type, additionalContent] = match;
 
-      const cleanedType = EntityParsingUtils.cleanType(type.trim());
+      const typeStr = type.trim();
+      const cleanedType = EntityParsingUtils.cleanType(typeStr);
+
+      // Check if this is a nullable field
+      const isNullable =
+        typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+
       const attribute: EntityAttribute = {
         name: name.trim(),
         type: cleanedType,
@@ -37,6 +43,11 @@ export class AttributeParser {
         if (modifiers.includes('deprecated')) {
           attribute.deprecated = true;
         }
+      }
+
+      // Mark as optional if nullable pattern is detected
+      if (isNullable) {
+        attribute.optional = true;
       }
 
       // Extract enum values if this is an enumerable type
@@ -74,7 +85,13 @@ export class AttributeParser {
     while ((match = attributeRegex.exec(content)) !== null) {
       const [, name, modifiers, description, type, enumContent] = match;
 
-      const cleanedType = EntityParsingUtils.cleanType(type.trim());
+      const typeStr = type.trim();
+      const cleanedType = EntityParsingUtils.cleanType(typeStr);
+
+      // Check if this is a nullable field
+      const isNullable =
+        typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+
       const attribute: EntityAttribute = {
         name: name.trim(),
         type: cleanedType,
@@ -89,6 +106,11 @@ export class AttributeParser {
         if (modifiers.includes('deprecated')) {
           attribute.deprecated = true;
         }
+      }
+
+      // Mark as optional if nullable pattern is detected
+      if (isNullable) {
+        attribute.optional = true;
       }
 
       // Check for enum values in the content between Type and Version history
