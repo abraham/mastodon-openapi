@@ -9260,6 +9260,16 @@
   },
   "components": {
     "schemas": {
+      "FilterContext": {
+        "type": "string",
+        "enum": [
+          "account",
+          "home",
+          "notifications",
+          "public",
+          "thread"
+        ]
+      },
       "Account": {
         "type": "object",
         "description": "Represents a user of Mastodon and their associated profile.",
@@ -10570,15 +10580,8 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "type": "string"
-            },
-            "enum": [
-              "home",
-              "notifications",
-              "public",
-              "thread",
-              "account"
-            ]
+              "$ref": "#/components/schemas/FilterContext"
+            }
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
@@ -12761,15 +12764,8 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "type": "string"
-            },
-            "enum": [
-              "home",
-              "notifications",
-              "public",
-              "thread",
-              "account"
-            ]
+              "$ref": "#/components/schemas/FilterContext"
+            }
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
