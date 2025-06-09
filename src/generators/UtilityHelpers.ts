@@ -19,6 +19,8 @@ class UtilityHelpers {
     // Handle common plural forms
     if (word.endsWith('ies')) {
       return word.slice(0, -3) + 'y'; // stories -> story
+    } else if (word.endsWith('ines')) {
+      return word.slice(0, -1); // timelines -> timeline
     } else if (word.endsWith('es')) {
       return word.slice(0, -2); // statuses -> status
     } else if (word.endsWith('s')) {
