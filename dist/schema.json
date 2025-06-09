@@ -9106,9 +9106,7 @@
           "emojis",
           "bot",
           "group",
-          "discoverable",
           "created_at",
-          "last_status_at",
           "statuses_count",
           "followers_count",
           "following_count",
@@ -9189,10 +9187,7 @@
             "type": "string",
             "format": "date-time"
           }
-        },
-        "required": [
-          "mute_expires_at"
-        ]
+        }
       },
       "Field": {
         "type": "object",
@@ -9214,8 +9209,7 @@
         },
         "required": [
           "name",
-          "value",
-          "verified_at"
+          "value"
         ]
       },
       "AccountWarning": {
@@ -9268,9 +9262,7 @@
           "id",
           "action",
           "text",
-          "status_ids",
           "target_account",
-          "appeal",
           "created_at"
         ]
       },
@@ -9358,13 +9350,10 @@
         "required": [
           "id",
           "username",
-          "domain",
           "created_at",
           "email",
-          "ip",
           "ips",
           "locale",
-          "invite_request",
           "role",
           "confirmed",
           "approved",
@@ -9549,8 +9538,6 @@
           "severity",
           "reject_media",
           "reject_reports",
-          "private_comment",
-          "public_comment",
           "obfuscate"
         ]
       },
@@ -9661,8 +9648,7 @@
           "ip",
           "severity",
           "comment",
-          "created_at",
-          "expires_at"
+          "created_at"
         ]
       },
       "Admin_Measure": {
@@ -9707,7 +9693,6 @@
         },
         "required": [
           "key",
-          "unit",
           "total",
           "data",
           "data[][date]",
@@ -9792,7 +9777,6 @@
         "required": [
           "id",
           "action_taken",
-          "action_taken_at",
           "category",
           "comment",
           "forwarded",
@@ -9800,8 +9784,6 @@
           "updated_at",
           "account",
           "target_account",
-          "assigned_account",
-          "action_taken_by_account",
           "statuses",
           "rules"
         ]
@@ -9889,8 +9871,6 @@
         "required": [
           "id",
           "content",
-          "starts_at",
-          "ends_at",
           "published",
           "all_day",
           "published_at",
@@ -10094,8 +10074,7 @@
         "required": [
           "id",
           "unread",
-          "accounts",
-          "last_status"
+          "accounts"
         ]
       },
       "CustomEmoji": {
@@ -10129,8 +10108,7 @@
           "shortcode",
           "url",
           "static_url",
-          "visible_in_picker",
-          "category"
+          "visible_in_picker"
         ]
       },
       "DomainBlock": {
@@ -10315,7 +10293,6 @@
           "id",
           "title",
           "context",
-          "expires_at",
           "filter_action"
         ]
       },
@@ -10366,9 +10343,7 @@
           }
         },
         "required": [
-          "filter",
-          "keyword_matches",
-          "status_matches"
+          "filter"
         ]
       },
       "FilterStatus": {
@@ -10688,8 +10663,6 @@
           "configuration[urls]",
           "configuration[urls][streaming]",
           "configuration[urls][about]",
-          "configuration[urls][privacy_policy]",
-          "configuration[urls][terms_of_service]",
           "configuration[accounts]",
           "configuration[accounts][max_featured_tags]",
           "configuration[accounts][max_pinned_statuses]",
@@ -10715,13 +10688,9 @@
           "configuration[limited_federation]",
           "registrations",
           "registrations[approval_required]",
-          "registrations[message]",
-          "registrations[min_age]",
-          "registrations[reason_required]",
           "api_versions",
           "api_versions[mastodon]",
           "contact[email]",
-          "contact[account]",
           "rules"
         ]
       },
@@ -10851,11 +10820,7 @@
           "id",
           "type",
           "url",
-          "preview_url",
-          "remote_url",
           "meta",
-          "description",
-          "blurhash",
           "text_url"
         ]
       },
@@ -11067,11 +11032,9 @@
         },
         "required": [
           "id",
-          "expires_at",
           "expired",
           "multiple",
           "votes_count",
-          "voters_count",
           "options",
           "emojis"
         ]
@@ -11090,8 +11053,7 @@
           }
         },
         "required": [
-          "title",
-          "votes_count"
+          "title"
         ]
       },
       "Preferences": {
@@ -11133,7 +11095,6 @@
         "required": [
           "posting:default:visibility",
           "posting:default:sensitive",
-          "posting:default:language",
           "reading:expand:media",
           "reading:expand:spoilers"
         ]
@@ -11230,9 +11191,7 @@
           "html",
           "width",
           "height",
-          "image",
-          "embed_url",
-          "blurhash"
+          "embed_url"
         ]
       },
       "Trends_Link": {
@@ -11331,8 +11290,7 @@
           }
         },
         "required": [
-          "state",
-          "status"
+          "state"
         ]
       },
       "Reaction": {
@@ -11563,13 +11521,10 @@
         "required": [
           "id",
           "action_taken",
-          "action_taken_at",
           "category",
           "comment",
           "forwarded",
           "created_at",
-          "status_ids",
-          "rule_ids",
           "target_account"
         ]
       },
@@ -11742,20 +11697,12 @@
           "scheduled_at",
           "params",
           "params[text]",
-          "params[poll]",
           "params[poll][options[]]",
           "params[poll][expires_in]",
           "params[poll][multiple]",
           "params[poll][hide_totals]",
-          "params[media_ids]",
-          "params[sensitive]",
-          "params[spoiler_text]",
           "params[visibility]",
-          "params[in_reply_to_id]",
-          "params[language]",
           "params[application_id]",
-          "params[scheduled_at]",
-          "params[idempotency]",
           "params[with_rate_limit]",
           "media_attachments"
         ]
@@ -11814,8 +11761,7 @@
           }
         },
         "required": [
-          "state",
-          "status_id"
+          "state"
         ]
       },
       "Status": {
@@ -11991,22 +11937,12 @@
           "spoiler_text",
           "media_attachments",
           "application[name]",
-          "application[website]",
           "mentions",
           "tags",
           "emojis",
           "reblogs_count",
           "favourites_count",
           "replies_count",
-          "url",
-          "in_reply_to_id",
-          "in_reply_to_account_id",
-          "reblog",
-          "poll",
-          "card",
-          "language",
-          "text",
-          "edited_at",
           "quote"
         ]
       },
@@ -12290,8 +12226,7 @@
         "required": [
           "effective_date",
           "effective",
-          "content",
-          "succeeded_by"
+          "content"
         ]
       },
       "Token": {
@@ -12458,7 +12393,6 @@
           "id",
           "phrase",
           "context",
-          "expires_at",
           "irreversible",
           "whole_word"
         ]
@@ -12644,7 +12578,6 @@
           "stats[user_count]",
           "stats[status_count]",
           "stats[domain_count]",
-          "thumbnail",
           "languages",
           "registrations",
           "approval_required",
@@ -12668,7 +12601,6 @@
           "configuration[polls][max_characters_per_option]",
           "configuration[polls][min_expiration]",
           "configuration[polls][max_expiration]",
-          "contact_account",
           "rules"
         ]
       },
