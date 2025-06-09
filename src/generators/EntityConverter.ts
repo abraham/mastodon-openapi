@@ -28,6 +28,9 @@ class EntityConverter {
       spec.components = { schemas: {} };
     }
 
+    // First pass: collect all entities and their schemas
+    const entitySchemas = new Map<string, OpenAPISchema>();
+
     for (const entity of entities) {
       const schema: OpenAPISchema = {
         type: 'object',
@@ -44,13 +47,146 @@ class EntityConverter {
         delete schema.required;
       }
 
+      const sanitizedName = this.utilityHelpers.sanitizeSchemaName(entity.name);
+      entitySchemas.set(sanitizedName, schema);
+    }
+
+    // Second pass: detect and deduplicate identical enums
+    this.deduplicateEnums(entitySchemas, spec);
+
+    // Add all schemas to the spec
+    for (const [name, schema] of entitySchemas) {
       if (spec.components?.schemas) {
-        const sanitizedName = this.utilityHelpers.sanitizeSchemaName(
-          entity.name
-        );
-        spec.components.schemas[sanitizedName] = schema;
+        spec.components.schemas[name] = schema;
       }
     }
+  }
+
+  /**
+   * Detect and deduplicate identical enums across entities
+   */
+  private deduplicateEnums(
+    entitySchemas: Map<string, OpenAPISchema>,
+    spec: OpenAPISpec
+  ): void {
+    // Track enum patterns: key = enum signature, value = shared component name
+    const enumPatterns = new Map<string, string>();
+
+    // First pass: identify all enum patterns
+    const enumSignatureToOriginalValues = new Map<string, any[]>();
+
+    for (const [entityName, schema] of entitySchemas) {
+      this.collectEnumPatterns(
+        schema,
+        entityName,
+        enumPatterns,
+        enumSignatureToOriginalValues
+      );
+    }
+
+    // Create shared components for patterns that appear in multiple entities
+    for (const [enumSignature, componentName] of enumPatterns) {
+      if (componentName) {
+        const originalValues = enumSignatureToOriginalValues.get(enumSignature);
+
+        if (spec.components?.schemas) {
+          spec.components.schemas[componentName] = {
+            type: 'string',
+            enum: originalValues || JSON.parse(enumSignature),
+          } as any;
+        }
+      }
+    }
+
+    // Second pass: replace inline enums with references to shared components
+    for (const [entityName, schema] of entitySchemas) {
+      this.replaceEnumsWithReferences(schema, enumPatterns);
+    }
+  }
+
+  /**
+   * Collect all enum patterns from a schema
+   */
+  private collectEnumPatterns(
+    schema: OpenAPISchema,
+    entityName: string,
+    enumPatterns: Map<string, string>,
+    enumSignatureToOriginalValues: Map<string, any[]>
+  ): void {
+    if (!schema.properties) return;
+
+    for (const [propName, property] of Object.entries(schema.properties)) {
+      // Look for array properties with enum values
+      if (
+        property.type === 'array' &&
+        property.enum &&
+        Array.isArray(property.enum)
+      ) {
+        const enumSignature = JSON.stringify(property.enum.sort());
+
+        if (!enumPatterns.has(enumSignature)) {
+          // First occurrence - save original values and mark it
+          enumPatterns.set(enumSignature, '');
+          enumSignatureToOriginalValues.set(enumSignature, property.enum);
+        } else if (enumPatterns.get(enumSignature) === '') {
+          // Second occurrence - create shared component
+          const componentName = this.generateSharedEnumComponentName(
+            propName,
+            property.enum
+          );
+          enumPatterns.set(enumSignature, componentName);
+        }
+      }
+    }
+  }
+
+  /**
+   * Replace inline enums with references to shared components
+   */
+  private replaceEnumsWithReferences(
+    schema: OpenAPISchema,
+    enumPatterns: Map<string, string>
+  ): void {
+    if (!schema.properties) return;
+
+    for (const [propName, property] of Object.entries(schema.properties)) {
+      if (
+        property.type === 'array' &&
+        property.enum &&
+        Array.isArray(property.enum)
+      ) {
+        const enumSignature = JSON.stringify(property.enum.sort());
+        const componentName = enumPatterns.get(enumSignature);
+
+        if (componentName) {
+          // Replace with reference to shared component
+          delete property.enum;
+          property.items = {
+            $ref: `#/components/schemas/${componentName}`,
+          };
+        }
+      }
+    }
+  }
+
+  /**
+   * Generate a name for a shared enum component
+   */
+  private generateSharedEnumComponentName(
+    propertyName: string,
+    enumValues: any[]
+  ): string {
+    // Create a descriptive name based on property name
+    const capitalizedName =
+      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+
+    // Special cases for well-known property names
+    if (propertyName === 'context') {
+      return 'FilterContext';
+    }
+
+    // For other enum types, create a generic name
+    return `${capitalizedName}Enum`;
   }
 
   /**
