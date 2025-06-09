@@ -39,6 +39,7 @@ interface OpenAPIProperty {
   enum?: string[];
   deprecated?: boolean;
   properties?: Record<string, OpenAPIProperty>;
+  required?: string[];
 }
 
 interface OpenAPISchema {

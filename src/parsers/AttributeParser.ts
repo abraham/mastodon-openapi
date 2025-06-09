@@ -11,55 +11,85 @@ export class AttributeParser {
   static parseAttributesFromSection(content: string): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
-    // Match each attribute definition in this section
-    // Capture more content after Type to get enum values
-    // Updated to match level 3 (###), 4 (####), and 5 (#####) headings for nested attributes
-    // Fixed to handle both {{%...%}} and {{<...>}} Hugo shortcode patterns
-    const attributeRegex =
-      /#{3,5} `([^`]+)`[^{]*(?:\{\{[%<]([^%>]+)[%>]\}\})?\s*\{#[^}]+\}\s*\n\n\*\*Description:\*\*\s*([^\n]+).*?\n\*\*Type:\*\*\s*([^\n]+)(.*?)(?=\n\*\*Version history:\*\*|\n\*\*|\n#{3,5}|$)/gs;
+    // First, find all attribute headings with their positions
+    const headingRegex =
+      /#{3,5} `([^`]+)`(?:[^{\n]*(?:\{\{[%<]([^%>]+)[%>]\})?[^{\n]*)?(?:\{#[^}]+\})?\s*\n\n/g;
+    const headings: Array<{
+      name: string;
+      modifiers?: string;
+      start: number;
+      end: number;
+    }> = [];
 
-    let match;
-    while ((match = attributeRegex.exec(content)) !== null) {
-      const [, name, modifiers, description, type, additionalContent] = match;
+    let headingMatch;
+    while ((headingMatch = headingRegex.exec(content)) !== null) {
+      headings.push({
+        name: headingMatch[1],
+        modifiers: headingMatch[2],
+        start: headingMatch.index,
+        end: headingRegex.lastIndex,
+      });
+    }
 
-      const typeStr = type.trim();
-      const cleanedType = EntityParsingUtils.cleanType(typeStr);
+    // For each heading, extract the description and type that immediately follow
+    for (let i = 0; i < headings.length; i++) {
+      const heading = headings[i];
+      const nextHeadingStart =
+        i + 1 < headings.length ? headings[i + 1].start : content.length;
 
-      // Check if this is a nullable field
-      const isNullable =
-        typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+      // Get the content between this heading and the next one (or end of content)
+      const sectionContent = content.substring(heading.end, nextHeadingStart);
 
-      const attribute: EntityAttribute = {
-        name: name.trim(),
-        type: cleanedType,
-        description: EntityParsingUtils.cleanDescription(description.trim()),
-      };
+      // Look for Description and Type in this specific section
+      const descMatch = sectionContent.match(
+        /\*\*Description:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+      );
+      const typeMatch = sectionContent.match(
+        /\*\*Type:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+      );
 
-      // Check for optional/deprecated modifiers
-      if (modifiers) {
-        if (modifiers.includes('optional')) {
+      if (descMatch && typeMatch) {
+        const description = descMatch[1].trim();
+        const typeStr = typeMatch[1].trim();
+        const cleanedType = EntityParsingUtils.cleanType(typeStr);
+
+        // Check if this is a nullable field
+        const isNullable =
+          typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+
+        const attribute: EntityAttribute = {
+          name: heading.name.trim(),
+          type: cleanedType,
+          description: EntityParsingUtils.cleanDescription(description),
+        };
+
+        // Check for optional/deprecated modifiers
+        if (heading.modifiers) {
+          if (heading.modifiers.includes('optional')) {
+            attribute.optional = true;
+          }
+          if (heading.modifiers.includes('deprecated')) {
+            attribute.deprecated = true;
+          }
+        }
+
+        // Mark as optional if nullable pattern is detected
+        if (isNullable) {
           attribute.optional = true;
         }
-        if (modifiers.includes('deprecated')) {
-          attribute.deprecated = true;
+
+        // Extract enum values if this is an enumerable type
+        if (cleanedType.toLowerCase().includes('enumerable')) {
+          // Look for enum values in the section content
+          const enumValues =
+            EntityParsingUtils.extractEnumValues(sectionContent);
+          if (enumValues.length > 0) {
+            attribute.enumValues = enumValues;
+          }
         }
-      }
 
-      // Mark as optional if nullable pattern is detected
-      if (isNullable) {
-        attribute.optional = true;
+        attributes.push(attribute);
       }
-
-      // Extract enum values if this is an enumerable type
-      if (cleanedType.toLowerCase().includes('enumerable')) {
-        const enumValues =
-          EntityParsingUtils.extractEnumValues(additionalContent);
-        if (enumValues.length > 0) {
-          attribute.enumValues = enumValues;
-        }
-      }
-
-      attributes.push(attribute);
     }
 
     return attributes;
