@@ -35,10 +35,9 @@ Some text after
 `;
 
       const enumValues = EntityParsingUtils.extractEnumValues(content);
-      console.log('Debug: extractEnumValues result:', enumValues);
       expect(enumValues).toEqual([
         'mention',
-        'status', 
+        'status',
         'reblog',
         'follow',
         'follow_request',
@@ -48,7 +47,7 @@ Some text after
         'admin.sign_up',
         'admin.report',
         'severed_relationships',
-        'moderation_warning'
+        'moderation_warning',
       ]);
     });
 
@@ -61,7 +60,12 @@ Some text after
 `;
 
       const enumValues = EntityParsingUtils.extractEnumValues(content);
-      expect(enumValues).toEqual(['single', 'multi1', 'multi2', 'another_single']);
+      expect(enumValues).toEqual([
+        'single',
+        'multi1',
+        'multi2',
+        'another_single',
+      ]);
     });
 
     it('should return empty array when no enum values found', () => {

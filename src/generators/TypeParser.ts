@@ -251,6 +251,11 @@ class TypeParser {
         schema.items = {
           type: param.schema.items.type,
         };
+
+        // Add enum values to array items if available
+        if (param.enumValues && param.enumValues.length > 0) {
+          schema.items.enum = param.enumValues;
+        }
       } else if (param.schema.type === 'object' && param.schema.properties) {
         const properties: Record<string, OpenAPIProperty> = {};
         for (const [propName, propSchema] of Object.entries(

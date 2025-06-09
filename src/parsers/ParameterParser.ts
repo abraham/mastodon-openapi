@@ -1,6 +1,7 @@
 import { ApiParameter } from '../interfaces/ApiParameter';
 import { TextUtils } from './TextUtils';
 import { TypeInference } from './TypeInference';
+import { ParameterEnumProvider } from './ParameterEnumProvider';
 
 /**
  * Handles parsing of API parameters from method documentation
@@ -138,12 +139,19 @@ export class ParameterParser {
           });
         } else {
           // Simple array parameter like media_ids[]
+
+          // Check if this parameter should have notification type enums
+          let enumValues = rawParam.enumValues;
+          if (ParameterEnumProvider.shouldHaveNotificationTypeEnum(baseName)) {
+            enumValues = ParameterEnumProvider.getNotificationTypeEnums();
+          }
+
           parameters.push({
             name: baseName,
             description: rawParam.description,
             required: rawParam.required,
             in: parameterLocation,
-            enumValues: rawParam.enumValues,
+            enumValues: enumValues,
             schema: {
               type: 'array',
               items: {
