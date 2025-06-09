@@ -9562,30 +9562,39 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "string",
+              "description": "Original type: Admin::EmailDomainBlockHistory"
             }
-          },
-          "history[][day]": {
-            "description": "UNIX timestamp on midnight of the given day.",
-            "type": "string"
-          },
-          "history[][accounts]": {
-            "description": "The counted accounts signup attempts using that email domain within that day.",
-            "type": "string"
-          },
-          "history[][uses]": {
-            "description": "The counted IP signup attempts of that email domain within that day.",
-            "type": "string"
           }
         },
         "required": [
           "id",
           "domain",
           "created_at",
-          "history",
-          "history[][day]",
-          "history[][accounts]",
-          "history[][uses]"
+          "history"
+        ]
+      },
+      "Admin_EmailDomainBlockHistory": {
+        "type": "object",
+        "description": "Nested entity extracted from Admin::EmailDomainBlock.history",
+        "properties": {
+          "day": {
+            "description": "UNIX timestamp on midnight of the given day.",
+            "type": "string"
+          },
+          "accounts": {
+            "description": "The counted accounts signup attempts using that email domain within that day.",
+            "type": "string"
+          },
+          "uses": {
+            "description": "The counted IP signup attempts of that email domain within that day.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "day",
+          "accounts",
+          "uses"
         ]
       },
       "Admin_Ip": {
@@ -9679,24 +9688,33 @@
             "description": "The data available for the requested measure, split into daily buckets.",
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "string",
+              "description": "Original type: Admin::MeasureData"
             }
-          },
-          "data[][date]": {
-            "description": "Midnight on the requested day in the time period.",
-            "type": "string"
-          },
-          "data[][value]": {
-            "description": "The numeric value for the requested measure.",
-            "type": "string"
           }
         },
         "required": [
           "key",
           "total",
-          "data",
-          "data[][date]",
-          "data[][value]"
+          "data"
+        ]
+      },
+      "Admin_MeasureData": {
+        "type": "object",
+        "description": "Nested entity extracted from Admin::Measure.data",
+        "properties": {
+          "date": {
+            "description": "Midnight on the requested day in the time period.",
+            "type": "string"
+          },
+          "value": {
+            "description": "The numeric value for the requested measure.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "date",
+          "value"
         ]
       },
       "Admin_Report": {
@@ -12139,20 +12157,9 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "string",
+              "description": "Original type: TagHistory"
             }
-          },
-          "history[][day]": {
-            "description": "UNIX timestamp on midnight of the given day.",
-            "type": "string"
-          },
-          "history[][uses]": {
-            "description": "The counted usage of the tag within that day.",
-            "type": "string"
-          },
-          "history[][accounts]": {
-            "description": "The total of accounts using the tag within that day.",
-            "type": "string"
           },
           "following": {
             "description": "Whether the current token's authorized user is following this tag.",
@@ -12166,10 +12173,30 @@
         "required": [
           "name",
           "url",
-          "history",
-          "history[][day]",
-          "history[][uses]",
-          "history[][accounts]"
+          "history"
+        ]
+      },
+      "TagHistory": {
+        "type": "object",
+        "description": "Nested entity extracted from Tag.history",
+        "properties": {
+          "day": {
+            "description": "UNIX timestamp on midnight of the given day.",
+            "type": "string"
+          },
+          "uses": {
+            "description": "The counted usage of the tag within that day.",
+            "type": "string"
+          },
+          "accounts": {
+            "description": "The total of accounts using the tag within that day.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "day",
+          "uses",
+          "accounts"
         ]
       },
       "Admin_Tag": {

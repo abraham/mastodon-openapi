@@ -35,11 +35,18 @@ export class EntityFileParser {
     // Parse main entity attributes from markdown content
     const attributes = this.parseAttributes(parsed.content);
 
+    // Extract nested hash entities and update parent attributes
+    const { processedAttributes, nestedEntities } =
+      this.extractNestedHashEntities(className, attributes);
+
     entities.push({
       name: className,
       description,
-      attributes,
+      attributes: processedAttributes,
     });
+
+    // Add extracted nested entities
+    entities.push(...nestedEntities);
 
     // Parse additional entity definitions in the same file
     const additionalEntities = this.parseAdditionalEntities(parsed.content);
@@ -116,5 +123,72 @@ export class EntityFileParser {
     });
 
     return entities;
+  }
+
+  /**
+   * Extracts nested hash entities from attributes and updates parent attributes
+   */
+  private static extractNestedHashEntities(
+    parentEntityName: string,
+    attributes: EntityAttribute[]
+  ): { processedAttributes: EntityAttribute[]; nestedEntities: EntityClass[] } {
+    const nestedEntities: EntityClass[] = [];
+    const processedAttributes: EntityAttribute[] = [];
+    const nestedFieldGroups = new Map<string, EntityAttribute[]>();
+
+    // Group attributes by nested field pattern (e.g., "history[][day]" -> "history")
+    for (const attribute of attributes) {
+      const nestedMatch = attribute.name.match(/^([^[]+)\[\]\[([^\]]+)\]$/);
+
+      if (nestedMatch) {
+        const [, parentFieldName, childFieldName] = nestedMatch;
+
+        if (!nestedFieldGroups.has(parentFieldName)) {
+          nestedFieldGroups.set(parentFieldName, []);
+        }
+
+        // Create a new attribute for the child field (without the parent prefix)
+        const childAttribute: EntityAttribute = {
+          name: childFieldName,
+          type: attribute.type,
+          description: attribute.description,
+          optional: attribute.optional,
+          deprecated: attribute.deprecated,
+          enumValues: attribute.enumValues,
+        };
+
+        nestedFieldGroups.get(parentFieldName)!.push(childAttribute);
+      } else {
+        // Regular attribute, keep as-is
+        processedAttributes.push(attribute);
+      }
+    }
+
+    // Create nested entities and update parent attributes
+    for (const [
+      parentFieldName,
+      childAttributes,
+    ] of nestedFieldGroups.entries()) {
+      // Generate entity name by combining parent entity name and field name
+      // This ensures uniqueness and clarity
+      const nestedEntityName = `${parentEntityName}${parentFieldName.charAt(0).toUpperCase() + parentFieldName.slice(1)}`;
+
+      // Create the nested entity
+      nestedEntities.push({
+        name: nestedEntityName,
+        description: `Nested entity extracted from ${parentEntityName}.${parentFieldName}`,
+        attributes: childAttributes,
+      });
+
+      // Update the parent attribute type from "Array of Hash" to "Array of EntityName"
+      const parentAttribute = processedAttributes.find(
+        (attr) => attr.name === parentFieldName
+      );
+      if (parentAttribute && parentAttribute.type === 'Array of Hash') {
+        parentAttribute.type = `Array of ${nestedEntityName}`;
+      }
+    }
+
+    return { processedAttributes, nestedEntities };
   }
 }
