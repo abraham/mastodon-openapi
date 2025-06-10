@@ -112,12 +112,39 @@ export class ParameterParser {
         enumValues?: string[];
       }>
     > = {};
+    const arrayOfObjectGroups: Record<
+      string,
+      Array<{
+        name: string;
+        property: string;
+        description: string;
+        required?: boolean;
+        enumValues?: string[];
+      }>
+    > = {};
 
     for (const rawParam of rawParameters) {
       const { name } = rawParam;
 
+      // Check if it's an array of objects parameter like name[][property]
+      const arrayOfObjectsMatch = name.match(
+        /^([a-zA-Z_][a-zA-Z0-9_]*)\[\]\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
+      );
+      if (arrayOfObjectsMatch) {
+        const [, arrayName, propertyName] = arrayOfObjectsMatch;
+        if (!arrayOfObjectGroups[arrayName]) {
+          arrayOfObjectGroups[arrayName] = [];
+        }
+        arrayOfObjectGroups[arrayName].push({
+          name: rawParam.name,
+          property: propertyName,
+          description: rawParam.description,
+          required: rawParam.required,
+          enumValues: rawParam.enumValues,
+        });
+      }
       // Check if it's an array parameter (ends with [])
-      if (name.endsWith('[]')) {
+      else if (name.endsWith('[]')) {
         const baseName = name.slice(0, -2);
 
         // Check if it's an object property array like poll[options][]
@@ -197,6 +224,47 @@ export class ParameterParser {
           parameters.push(param);
         }
       }
+    }
+
+    // Process array of objects groups first
+    for (const [arrayName, properties] of Object.entries(arrayOfObjectGroups)) {
+      const objectProperties: Record<
+        string,
+        { type: string; description?: string; enum?: string[] }
+      > = {};
+
+      for (const prop of properties) {
+        const propType = TypeInference.inferTypeFromDescription(
+          prop.description
+        );
+        const enumValues = TypeInference.extractEnumValuesFromDescription(
+          prop.description
+        );
+
+        const property: any = {
+          type: propType,
+          description: prop.description,
+        };
+
+        if (enumValues.length > 0) {
+          property.enum = enumValues;
+        }
+
+        objectProperties[prop.property] = property;
+      }
+
+      parameters.push({
+        name: arrayName,
+        description: `Array of objects with properties: ${Object.keys(objectProperties).join(', ')}`,
+        in: parameterLocation,
+        schema: {
+          type: 'array',
+          items: {
+            type: 'object',
+            properties: objectProperties,
+          },
+        },
+      });
     }
 
     // Process object groups

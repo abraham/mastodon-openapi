@@ -2611,21 +2611,30 @@
                     "type": "string",
                     "description": "Integer. How many seconds from now should the filter expire?"
                   },
-                  "keywords_attributes[][keyword]": {
-                    "type": "string",
-                    "description": "String. A keyword to be added to the newly-created filter group."
-                  },
-                  "keywords_attributes[][whole_word]": {
-                    "type": "string",
-                    "description": "Boolean. Whether the keyword should consider word boundaries."
-                  },
-                  "keywords_attributes[][id]": {
-                    "type": "string",
-                    "description": "String. Will cause a 404 error if provided."
-                  },
-                  "keywords_attributes[][_destroy]": {
-                    "type": "string",
-                    "description": "Boolean. Will cause the keyword to not be attached if provided."
+                  "keywords_attributes": {
+                    "type": "array",
+                    "description": "Array of objects with properties: keyword, whole_word, id, _destroy",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "keyword": {
+                          "type": "string",
+                          "description": "String. A keyword to be added to the newly-created filter group."
+                        },
+                        "whole_word": {
+                          "type": "boolean",
+                          "description": "Boolean. Whether the keyword should consider word boundaries."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "String. Will cause a 404 error if provided."
+                        },
+                        "_destroy": {
+                          "type": "boolean",
+                          "description": "Boolean. Will cause the keyword to not be attached if provided."
+                        }
+                      }
+                    }
                   }
                 }
               }
@@ -2737,21 +2746,30 @@
                     "type": "string",
                     "description": "Integer. How many seconds from now should the filter expire?"
                   },
-                  "keywords_attributes[][keyword]": {
-                    "type": "string",
-                    "description": "String. A keyword to be added to the newly-created filter group."
-                  },
-                  "keywords_attributes[][whole_word]": {
-                    "type": "string",
-                    "description": "Boolean. Whether the keyword should consider word boundaries."
-                  },
-                  "keywords_attributes[][id]": {
-                    "type": "string",
-                    "description": "String. Provide the ID of an existing keyword to modify it, instead of creating a new keyword."
-                  },
-                  "keywords_attributes[][_destroy]": {
-                    "type": "string",
-                    "description": "Boolean. If true, will remove the keyword with the given ID."
+                  "keywords_attributes": {
+                    "type": "array",
+                    "description": "Array of objects with properties: keyword, whole_word, id, _destroy",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "keyword": {
+                          "type": "string",
+                          "description": "String. A keyword to be added to the newly-created filter group."
+                        },
+                        "whole_word": {
+                          "type": "boolean",
+                          "description": "Boolean. Whether the keyword should consider word boundaries."
+                        },
+                        "id": {
+                          "type": "string",
+                          "description": "String. Provide the ID of an existing keyword to modify it, instead of creating a new keyword."
+                        },
+                        "_destroy": {
+                          "type": "boolean",
+                          "description": "Boolean. If true, will remove the keyword with the given ID."
+                        }
+                      }
+                    }
                   }
                 }
               }
