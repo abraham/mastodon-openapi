@@ -12678,15 +12678,6 @@
         "type": "object",
         "description": "Represents a suggested account to follow and an associated reason for the suggestion.",
         "properties": {
-          "source": {
-            "description": "The reason this account is being suggested.",
-            "type": "string",
-            "enum": [
-              "staff",
-              "past_interactions",
-              "global"
-            ]
-          },
           "sources": {
             "description": "A list of reasons this account is being suggested. This replaces `source`",
             "type": "array",
@@ -12707,7 +12698,6 @@
           }
         },
         "required": [
-          "source",
           "sources",
           "account"
         ]

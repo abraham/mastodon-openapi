@@ -8,7 +8,10 @@ export class AttributeParser {
   /**
    * Parses attributes from a section of content (for entity files)
    */
-  static parseAttributesFromSection(content: string): EntityAttribute[] {
+  static parseAttributesFromSection(
+    content: string,
+    entityName?: string
+  ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
     // First, find all attribute headings with their positions
@@ -37,6 +40,11 @@ export class AttributeParser {
 
       // Skip attributes marked as removed
       if (heading.modifiers && heading.modifiers.includes('removed')) {
+        continue;
+      }
+
+      // Special exception: exclude 'source' attribute from Suggestion entity
+      if (entityName === 'Suggestion' && heading.name === 'source') {
         continue;
       }
 
