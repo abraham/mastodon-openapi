@@ -227,7 +227,10 @@ describe('AttributeParser - Nullable Patterns', () => {
 4.3.0 - added
 `;
 
-      const attributes = AttributeParser.parseAttributesFromSection(content, 'Account');
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'Account'
+      );
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('hide_collections');
