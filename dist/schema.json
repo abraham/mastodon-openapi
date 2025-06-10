@@ -10813,7 +10813,8 @@
                     "type": "string",
                     "format": "uri"
                   }
-                }
+                },
+                "required": []
               }
             },
             "required": [
@@ -12092,8 +12093,7 @@
               },
               "scheduled_at": {
                 "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               "idempotency": {
                 "description": "Idempotency key to prevent duplicate statuses.",
@@ -13171,6 +13171,14 @@
               "update": {
                 "description": "Receive a push notification when a status you interacted with has been edited?",
                 "type": "boolean"
+              },
+              "admin.sign_up": {
+                "description": "Receive a push notification when a new user has signed up?",
+                "type": "boolean"
+              },
+              "admin.report": {
+                "description": "Receive a push notification when a new report has been filed?",
+                "type": "boolean"
               }
             },
             "required": [
@@ -13181,25 +13189,9 @@
               "follow_request",
               "favourite",
               "poll",
-              "update"
-            ]
-          },
-          "alerts[admin": {
-            "type": "object",
-            "description": "alerts[admin object",
-            "properties": {
-              "sign_up]": {
-                "description": "Receive a push notification when a new user has signed up?",
-                "type": "boolean"
-              },
-              "report]": {
-                "description": "Receive a push notification when a new report has been filed?",
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "sign_up]",
-              "report]"
+              "update",
+              "admin.sign_up",
+              "admin.report"
             ]
           }
         },
@@ -13208,8 +13200,7 @@
           "endpoint",
           "standard",
           "server_key",
-          "alerts",
-          "alerts[admin"
+          "alerts"
         ]
       },
       "GroupedNotificationsResults": {

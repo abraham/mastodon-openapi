@@ -334,22 +334,31 @@ class EntityConverter {
     if (name.includes('.')) {
       const parts = name.split('.');
       if (parts.length >= 2) {
-        const parentName = parts[0];
-        const fullPath = [parentName];
-        const arrayPositions: number[] = [];
+        // Check if this is a bracket pattern with dots inside
+        const bracketMatch = name.match(/^([^[]+)(\[.+\])$/);
+        if (bracketMatch) {
+          // This is a bracket pattern like "alerts[admin.sign_up]"
+          // Don't split on dots, handle as bracket pattern
+          // Fall through to bracket parsing logic below
+        } else {
+          // This is a regular dotted pattern like "poll.options[]"
+          const parentName = parts[0];
+          const fullPath = [parentName];
+          const arrayPositions: number[] = [];
 
-        for (let i = 1; i < parts.length; i++) {
-          const part = parts[i];
-          // Handle array notation in dotted paths
-          if (part.endsWith('[]')) {
-            fullPath.push(part.slice(0, -2)); // Remove []
-            arrayPositions.push(fullPath.length - 1); // Mark this position as an array
-          } else {
-            fullPath.push(part);
+          for (let i = 1; i < parts.length; i++) {
+            const part = parts[i];
+            // Handle array notation in dotted paths
+            if (part.endsWith('[]')) {
+              fullPath.push(part.slice(0, -2)); // Remove []
+              arrayPositions.push(fullPath.length - 1); // Mark this position as an array
+            } else {
+              fullPath.push(part);
+            }
           }
-        }
 
-        return { parentName, fullPath, arrayPositions };
+          return { parentName, fullPath, arrayPositions };
+        }
       }
     }
 
@@ -460,8 +469,10 @@ class EntityConverter {
         parentProperty.required = [];
       }
 
-      // Build nested structure recursively
+      // Build nested structure
       const nestedAttributes: EntityAttribute[] = [];
+      const directProperties = new Map<string, EntityAttribute>();
+
       for (const attr of attributes) {
         if (attr.name === parentName) {
           // Skip the parent definition itself
@@ -470,36 +481,52 @@ class EntityConverter {
 
         const parsed = this.parseNestedAttributeName(attr.name);
         if (parsed && parsed.fullPath.length > 1) {
-          // Create a new attribute for the nested structure
           const newPath = parsed.fullPath.slice(1); // Remove parent name
-          const newName =
-            newPath.length === 1
-              ? newPath[0]
-              : newPath[0] + '[' + newPath.slice(1).join('][') + ']';
 
-          const nestedAttr: EntityAttribute = {
-            ...attr,
-            name: newName,
-          };
-          nestedAttributes.push(nestedAttr);
+          // If the new path has only one element, treat it as a direct property
+          // This handles cases like alerts[admin.sign_up] where admin.sign_up should be a single property
+          if (newPath.length === 1) {
+            directProperties.set(newPath[0], attr);
+          } else {
+            // For complex nested structures, reconstruct the name
+            const newName =
+              newPath[0] + '[' + newPath.slice(1).join('][') + ']';
+            const nestedAttr: EntityAttribute = {
+              ...attr,
+              name: newName,
+            };
+            nestedAttributes.push(nestedAttr);
+          }
         }
       }
 
-      // Recursively process nested attributes
-      const nestedSchema: OpenAPISchema = {
-        type: 'object',
-        properties: parentProperty.properties,
-        required: parentProperty.required,
-      };
+      // Process direct properties first (these should not be parsed further)
+      for (const [propName, attr] of directProperties.entries()) {
+        const property = this.convertAttribute(attr);
+        parentProperty.properties[propName] = property;
 
-      this.processAttributesRecursively(nestedAttributes, nestedSchema);
+        if (!attr.optional && parentProperty.required) {
+          parentProperty.required.push(propName);
+        }
+      }
 
-      // Update parent property with processed nested structure
-      parentProperty.properties = nestedSchema.properties;
-      if (nestedSchema.required && nestedSchema.required.length > 0) {
-        parentProperty.required = nestedSchema.required;
-      } else {
-        delete parentProperty.required;
+      // Recursively process nested attributes only if there are any
+      if (nestedAttributes.length > 0) {
+        const nestedSchema: OpenAPISchema = {
+          type: 'object',
+          properties: parentProperty.properties,
+          required: parentProperty.required,
+        };
+
+        this.processAttributesRecursively(nestedAttributes, nestedSchema);
+
+        // Update parent property with processed nested structure
+        parentProperty.properties = nestedSchema.properties;
+        if (nestedSchema.required && nestedSchema.required.length > 0) {
+          parentProperty.required = nestedSchema.required;
+        } else {
+          delete parentProperty.required;
+        }
       }
     }
 
