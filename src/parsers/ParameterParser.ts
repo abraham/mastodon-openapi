@@ -1,6 +1,18 @@
-import { ApiParameter } from '../interfaces/ApiParameter';
+import { ApiParameter, ApiProperty } from '../interfaces/ApiParameter';
 import { TextUtils } from './TextUtils';
 import { TypeInference } from './TypeInference';
+
+/**
+ * Parsed parameter structure for nested objects
+ */
+interface ParsedParameter {
+  rootName: string;
+  path: string[];
+  isArray: boolean;
+  description: string;
+  required?: boolean;
+  enumValues?: string[];
+}
 
 /**
  * Handles parsing of API parameters from method documentation
@@ -29,6 +41,121 @@ export class ParameterParser {
     parameters.push(...formParams);
 
     return parameters;
+  }
+
+  /**
+   * Parse a parameter name with nested brackets into a structured format
+   * Examples:
+   * - "subscription[keys][auth]" -> { rootName: "subscription", path: ["keys", "auth"], isArray: false }
+   * - "data[alerts][mention]" -> { rootName: "data", path: ["alerts", "mention"], isArray: false }
+   * - "poll[options][]" -> { rootName: "poll", path: ["options"], isArray: true }
+   */
+  static parseNestedParameter(name: string): ParsedParameter | null {
+    // Check if it contains brackets
+    if (!name.includes('[')) {
+      return null;
+    }
+
+    // Parse the bracket structure
+    const match = name.match(/^([a-zA-Z_][a-zA-Z0-9_]*)((\[.*?\])+)$/);
+    if (!match) {
+      return null;
+    }
+
+    const rootName = match[1];
+    const bracketsPart = match[2];
+
+    // Extract all bracket contents
+    const bracketMatches = bracketsPart.match(/\[([^\]]*)\]/g);
+    if (!bracketMatches) {
+      return null;
+    }
+
+    const path: string[] = [];
+    let isArray = false;
+
+    for (const bracket of bracketMatches) {
+      const content = bracket.slice(1, -1); // Remove [ and ]
+      if (content === '') {
+        // Empty brackets indicate array
+        isArray = true;
+      } else {
+        path.push(content);
+      }
+    }
+
+    return {
+      rootName,
+      path,
+      isArray,
+      description: '',
+      required: undefined,
+      enumValues: undefined,
+    };
+  }
+
+  /**
+   * Build nested object structure from parsed parameters
+   */
+  static buildNestedObject(
+    parameters: Array<
+      ParsedParameter & {
+        description: string;
+        required?: boolean;
+        enumValues?: string[];
+      }
+    >
+  ): ApiProperty {
+    const properties: Record<string, ApiProperty> = {};
+
+    for (const param of parameters) {
+      let current = properties;
+
+      // Navigate through the path, creating nested objects as needed
+      for (let i = 0; i < param.path.length - 1; i++) {
+        const pathSegment = param.path[i];
+        if (!current[pathSegment]) {
+          current[pathSegment] = {
+            type: 'object',
+            properties: {},
+          };
+        }
+        current = current[pathSegment].properties!;
+      }
+
+      // Set the final property
+      const finalProperty = param.path[param.path.length - 1];
+      const propType = TypeInference.inferTypeFromDescription(
+        param.description
+      );
+      const enumValues = TypeInference.extractEnumValuesFromDescription(
+        param.description
+      );
+
+      const property: ApiProperty = {
+        type: propType,
+        description: param.description,
+      };
+
+      if (enumValues.length > 0) {
+        property.enum = enumValues;
+      }
+
+      if (param.isArray) {
+        current[finalProperty] = {
+          type: 'array',
+          items: property,
+          description: param.description,
+        };
+      } else {
+        current[finalProperty] = property;
+      }
+    }
+
+    return {
+      type: 'object',
+      properties,
+    };
   }
 
   /**
@@ -101,16 +228,25 @@ export class ParameterParser {
     parameterLocation: string
   ): ApiParameter[] {
     const parameters: ApiParameter[] = [];
-    const objectGroups: Record<
+    const allObjectGroups: Record<
       string,
-      Array<{
-        name: string;
-        property: string;
-        isArray: boolean;
-        description: string;
-        required?: boolean;
-        enumValues?: string[];
-      }>
+      {
+        nested: Array<
+          ParsedParameter & {
+            description: string;
+            required?: boolean;
+            enumValues?: string[];
+          }
+        >;
+        simple: Array<{
+          name: string;
+          property: string;
+          isArray: boolean;
+          description: string;
+          required?: boolean;
+          enumValues?: string[];
+        }>;
+      }
     > = {};
     const arrayOfObjectGroups: Record<
       string,
@@ -126,7 +262,7 @@ export class ParameterParser {
     for (const rawParam of rawParameters) {
       const { name } = rawParam;
 
-      // Check if it's an array of objects parameter like name[][property]
+      // Check if it's an array of objects parameter like name[][property] FIRST
       const arrayOfObjectsMatch = name.match(
         /^([a-zA-Z_][a-zA-Z0-9_]*)\[\]\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
       );
@@ -142,96 +278,157 @@ export class ParameterParser {
           required: rawParam.required,
           enumValues: rawParam.enumValues,
         });
+        continue;
+      }
+
+      // Then try to parse as nested parameter
+      const nestedParam = ParameterParser.parseNestedParameter(name);
+      if (nestedParam && nestedParam.path.length > 0) {
+        // Only use nested parsing for bracket parameters that are not simple arrays
+        // Simple arrays like "media_ids[]" should be handled by the array logic below
+        if (
+          name.endsWith('[]') &&
+          nestedParam.path.length === 1 &&
+          !nestedParam.path[0]
+        ) {
+          // This is a simple array like media_ids[] - handle below
+        } else {
+          if (!allObjectGroups[nestedParam.rootName]) {
+            allObjectGroups[nestedParam.rootName] = { nested: [], simple: [] };
+          }
+
+          if (nestedParam.path.length > 1) {
+            // Multi-level nesting like subscription[keys][auth]
+            allObjectGroups[nestedParam.rootName].nested.push({
+              ...nestedParam,
+              description: rawParam.description,
+              required: rawParam.required,
+              enumValues: rawParam.enumValues,
+            });
+          } else {
+            // Single-level nesting like subscription[endpoint]
+            allObjectGroups[nestedParam.rootName].simple.push({
+              name: rawParam.name,
+              property: nestedParam.path[0],
+              isArray: nestedParam.isArray,
+              description: rawParam.description,
+              required: rawParam.required,
+              enumValues: rawParam.enumValues,
+            });
+          }
+          continue;
+        }
       }
       // Check if it's an array parameter (ends with [])
       else if (name.endsWith('[]')) {
         const baseName = name.slice(0, -2);
 
-        // Check if it's an object property array like poll[options][]
-        const objectPropertyArrayMatch = baseName.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
-        );
-        if (objectPropertyArrayMatch) {
-          const [, objectName, propertyName] = objectPropertyArrayMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: true,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else {
-          // Simple array parameter like media_ids[]
-          parameters.push({
-            name: baseName,
-            description: rawParam.description,
-            required: rawParam.required,
-            in: parameterLocation,
-            enumValues: rawParam.enumValues,
-            schema: {
-              type: 'array',
-              items: {
-                type: TypeInference.inferTypeFromDescription(
-                  rawParam.description
-                ),
-              },
+        // Simple array parameter like media_ids[]
+        parameters.push({
+          name: baseName,
+          description: rawParam.description,
+          required: rawParam.required,
+          in: parameterLocation,
+          enumValues: rawParam.enumValues,
+          schema: {
+            type: 'array',
+            items: {
+              type: TypeInference.inferTypeFromDescription(
+                rawParam.description
+              ),
             },
-          });
-        }
-      }
-      // Check if it's an object property like poll[expires_in]
-      else {
-        const objectPropertyMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
+          },
+        });
+      } else {
+        // Simple parameter
+        const inferredType = TypeInference.inferTypeFromDescription(
+          rawParam.description
         );
-        if (objectPropertyMatch) {
-          const [, objectName, propertyName] = objectPropertyMatch;
-          if (!objectGroups[objectName]) {
-            objectGroups[objectName] = [];
-          }
-          objectGroups[objectName].push({
-            name: rawParam.name,
-            property: propertyName,
-            isArray: false,
-            description: rawParam.description,
-            required: rawParam.required,
-            enumValues: rawParam.enumValues,
-          });
-        } else {
-          // Simple parameter
-          const inferredType = TypeInference.inferTypeFromDescription(
-            rawParam.description
-          );
-          const param: ApiParameter = {
-            name: rawParam.name,
-            description: rawParam.description,
-            required: rawParam.required,
-            in: parameterLocation,
-            enumValues: rawParam.enumValues,
+        const param: ApiParameter = {
+          name: rawParam.name,
+          description: rawParam.description,
+          required: rawParam.required,
+          in: parameterLocation,
+          enumValues: rawParam.enumValues,
+        };
+
+        // If inferred as object, create a schema for it
+        if (inferredType === 'object') {
+          param.schema = {
+            type: 'object',
           };
-
-          // If inferred as object, create a schema for it
-          if (inferredType === 'object') {
-            param.schema = {
-              type: 'object',
-            };
-          }
-
-          parameters.push(param);
         }
+
+        parameters.push(param);
       }
     }
 
-    // Process array of objects groups first
+    // Process all object groups (combining nested and simple properties)
+    for (const [rootName, groups] of Object.entries(allObjectGroups)) {
+      const allProperties: Record<string, ApiProperty> = {};
+      let hasRequiredProperty = false;
+
+      // Process nested properties first
+      if (groups.nested.length > 0) {
+        const nestedSchema = ParameterParser.buildNestedObject(groups.nested);
+        Object.assign(allProperties, nestedSchema.properties);
+
+        // Check if any nested property is required
+        for (const param of groups.nested) {
+          if (param.required) {
+            hasRequiredProperty = true;
+          }
+        }
+      }
+
+      // Process simple properties
+      for (const prop of groups.simple) {
+        const propType = TypeInference.inferTypeFromDescription(
+          prop.description
+        );
+        const enumValues = TypeInference.extractEnumValuesFromDescription(
+          prop.description
+        );
+
+        if (prop.isArray) {
+          allProperties[prop.property] = {
+            type: 'array',
+            description: prop.description,
+            items: { type: propType },
+          };
+        } else {
+          const property: ApiProperty = {
+            type: propType,
+            description: prop.description,
+          };
+
+          if (enumValues.length > 0) {
+            property.enum = enumValues;
+          }
+
+          allProperties[prop.property] = property;
+        }
+
+        if (prop.required) {
+          hasRequiredProperty = true;
+        }
+      }
+
+      parameters.push({
+        name: rootName,
+        description: `Object containing properties`,
+        required: hasRequiredProperty ? true : undefined,
+        in: parameterLocation,
+        schema: {
+          type: 'object',
+          properties: allProperties,
+        },
+      });
+    }
+
+    // Process array of objects groups
     for (const [arrayName, properties] of Object.entries(arrayOfObjectGroups)) {
-      const objectProperties: Record<
-        string,
-        { type: string; description?: string; enum?: string[] }
-      > = {};
+      const objectProperties: Record<string, ApiProperty> = {};
 
       for (const prop of properties) {
         const propType = TypeInference.inferTypeFromDescription(
@@ -241,7 +438,7 @@ export class ParameterParser {
           prop.description
         );
 
-        const property: any = {
+        const property: ApiProperty = {
           type: propType,
           description: prop.description,
         };
@@ -263,59 +460,6 @@ export class ParameterParser {
             type: 'object',
             properties: objectProperties,
           },
-        },
-      });
-    }
-
-    // Process object groups
-    for (const [objectName, properties] of Object.entries(objectGroups)) {
-      const objectProperties: Record<
-        string,
-        { type: string; description?: string; items?: { type: string } }
-      > = {};
-      let objectDescription = `Object containing the following properties:`;
-      let hasRequiredProperty = false;
-
-      for (const prop of properties) {
-        const propType = TypeInference.inferTypeFromDescription(
-          prop.description
-        );
-        const enumValues = TypeInference.extractEnumValuesFromDescription(
-          prop.description
-        );
-
-        if (prop.isArray) {
-          objectProperties[prop.property] = {
-            type: 'array',
-            description: prop.description,
-            items: { type: propType },
-          };
-        } else {
-          const property: any = {
-            type: propType,
-            description: prop.description,
-          };
-
-          if (enumValues.length > 0) {
-            property.enum = enumValues;
-          }
-
-          objectProperties[prop.property] = property;
-        }
-
-        if (prop.required) {
-          hasRequiredProperty = true;
-        }
-      }
-
-      parameters.push({
-        name: objectName,
-        description: objectDescription,
-        required: hasRequiredProperty ? true : undefined,
-        in: parameterLocation,
-        schema: {
-          type: 'object',
-          properties: objectProperties,
         },
       });
     }
