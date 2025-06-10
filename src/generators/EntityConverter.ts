@@ -325,9 +325,7 @@ class EntityConverter {
   /**
    * Parse nested attribute name to extract parent and path information
    */
-  private parseNestedAttributeName(
-    name: string
-  ): {
+  private parseNestedAttributeName(name: string): {
     parentName: string;
     fullPath: string[];
     arrayPositions: number[];

@@ -6313,6 +6313,14 @@
                     "type": "string",
                     "description": "Boolean. Receive status edited notifications? Defaults to false."
                   },
+                  "data[alerts][admin.sign_up]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
+                  "data[alerts][admin.report]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
                   "subscription": {
                     "type": "object",
                     "description": "Object containing the following properties:",
@@ -6432,6 +6440,14 @@
                   "data[alerts][update]": {
                     "type": "string",
                     "description": "Boolean. Receive status edited notifications? Defaults to false."
+                  },
+                  "data[alerts][admin.sign_up]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
+                  "data[alerts][admin.report]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "policy": {
                     "type": "string",
