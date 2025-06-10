@@ -69,17 +69,19 @@ data[policy]
     expect(parameters).toHaveLength(2);
 
     // Verify subscription parameter structure
-    const subscriptionParam = parameters.find((p: any) => p.name === 'subscription');
+    const subscriptionParam = parameters.find(
+      (p: any) => p.name === 'subscription'
+    );
     expect(subscriptionParam).toBeDefined();
     expect(subscriptionParam!.schema!.type).toBe('object');
     expect(subscriptionParam!.schema!.properties).toBeDefined();
 
     const subscriptionProps = subscriptionParam!.schema!.properties!;
-    
+
     // Check simple properties
     expect(subscriptionProps.endpoint.type).toBe('string');
     expect(subscriptionProps.standard.type).toBe('boolean');
-    
+
     // Check nested keys object
     expect(subscriptionProps.keys.type).toBe('object');
     expect(subscriptionProps.keys.properties).toBeDefined();
@@ -93,14 +95,14 @@ data[policy]
     expect(dataParam!.schema!.properties).toBeDefined();
 
     const dataProps = dataParam!.schema!.properties!;
-    
+
     // Check simple property
     expect(dataProps.policy.type).toBe('string');
-    
+
     // Check nested alerts object
     expect(dataProps.alerts.type).toBe('object');
     expect(dataProps.alerts.properties).toBeDefined();
-    
+
     const alertsProps = dataProps.alerts.properties!;
     expect(alertsProps.mention.type).toBe('boolean');
     expect(alertsProps.status.type).toBe('boolean');
@@ -122,8 +124,16 @@ data[policy]
     );
     expect(Object.keys(alertsProps)).toEqual(
       expect.arrayContaining([
-        'mention', 'status', 'reblog', 'follow', 'follow_request', 
-        'favourite', 'poll', 'update', 'admin.sign_up', 'admin.report'
+        'mention',
+        'status',
+        'reblog',
+        'follow',
+        'follow_request',
+        'favourite',
+        'poll',
+        'update',
+        'admin.sign_up',
+        'admin.report',
       ])
     );
   });
