@@ -34,6 +34,12 @@ export class AttributeParser {
     // For each heading, extract the description and type that immediately follow
     for (let i = 0; i < headings.length; i++) {
       const heading = headings[i];
+
+      // Skip attributes marked as removed
+      if (heading.modifiers && heading.modifiers.includes('removed')) {
+        continue;
+      }
+
       const nextHeadingStart =
         i + 1 < headings.length ? headings[i + 1].start : content.length;
 
@@ -116,6 +122,11 @@ export class AttributeParser {
     let match;
     while ((match = attributeRegex.exec(content)) !== null) {
       const [, name, modifiers, description, type, enumContent] = match;
+
+      // Skip attributes marked as removed
+      if (modifiers && modifiers.includes('removed')) {
+        continue;
+      }
 
       const typeStr = type.trim();
       const cleanedType = EntityParsingUtils.cleanType(typeStr);
