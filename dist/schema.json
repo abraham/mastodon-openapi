@@ -9455,6 +9455,7 @@
           },
           "hide_collections": {
             "description": "Whether the user hides the contents of their follows and followers collections.",
+            "nullable": true,
             "type": "boolean"
           }
         },
