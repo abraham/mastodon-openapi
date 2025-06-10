@@ -181,16 +181,19 @@ class MethodConverter {
    * Generate operation ID from HTTP method and endpoint
    */
   public generateOperationId(httpMethod: string, endpoint: string): string {
+    // Strip query parameters before processing
+    const pathWithoutQuery = endpoint.split('?')[0];
+
     // Convert HTTP method to lowercase
     const method = httpMethod.toLowerCase();
 
     // Extract API version and path
-    const versionMatch = endpoint.match(
+    const versionMatch = pathWithoutQuery.match(
       /^\/api\/(v\d+(?:\.\d+)?(?:_alpha)?)\/(.*)$/
     );
     if (!versionMatch) {
       // Fallback if no version found
-      const path = endpoint.replace(/^\/api\//, '');
+      const path = pathWithoutQuery.replace(/^\/api\//, '');
       return method + this.utilityHelpers.toPascalCase(path);
     }
 

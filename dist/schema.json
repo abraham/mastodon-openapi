@@ -8941,7 +8941,7 @@
     },
     "/api/v1/timelines/link?url={url}": {
       "get": {
-        "operationId": "getTimelineLinkUrlUrl",
+        "operationId": "getTimelineLink",
         "summary": "View link timeline",
         "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.",
         "tags": [

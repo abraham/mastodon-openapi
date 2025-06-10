@@ -11,18 +11,26 @@ describe('UtilityHelpers', () => {
     it('should handle basic underscore and hyphen cases', () => {
       expect(utilityHelpers.toPascalCase('hello_world')).toBe('HelloWorld');
       expect(utilityHelpers.toPascalCase('hello-world')).toBe('HelloWorld');
-      expect(utilityHelpers.toPascalCase('hello_world-test')).toBe('HelloWorldTest');
+      expect(utilityHelpers.toPascalCase('hello_world-test')).toBe(
+        'HelloWorldTest'
+      );
     });
 
     it('should strip non-alphanumeric characters like forward slashes and dots', () => {
       // This test demonstrates the issue described in the GitHub issue
-      expect(utilityHelpers.toPascalCase('.well-known/oauth-authorization-server'))
-        .toBe('WellKnownOauthAuthorizationServer');
-      
-      expect(utilityHelpers.toPascalCase('path/with/slashes')).toBe('PathWithSlashes');
-      expect(utilityHelpers.toPascalCase('file.name.extension')).toBe('FileNameExtension');
-      expect(utilityHelpers.toPascalCase('mixed/path.with_different-separators'))
-        .toBe('MixedPathWithDifferentSeparators');
+      expect(
+        utilityHelpers.toPascalCase('.well-known/oauth-authorization-server')
+      ).toBe('WellKnownOauthAuthorizationServer');
+
+      expect(utilityHelpers.toPascalCase('path/with/slashes')).toBe(
+        'PathWithSlashes'
+      );
+      expect(utilityHelpers.toPascalCase('file.name.extension')).toBe(
+        'FileNameExtension'
+      );
+      expect(
+        utilityHelpers.toPascalCase('mixed/path.with_different-separators')
+      ).toBe('MixedPathWithDifferentSeparators');
     });
 
     it('should handle edge cases', () => {
@@ -33,9 +41,15 @@ describe('UtilityHelpers', () => {
     });
 
     it('should handle special characters and preserve alphanumeric content', () => {
-      expect(utilityHelpers.toPascalCase('test@example.com')).toBe('TestExampleCom');
-      expect(utilityHelpers.toPascalCase('test#hash$symbol')).toBe('TestHashSymbol');
-      expect(utilityHelpers.toPascalCase('path\\with\\backslashes')).toBe('PathWithBackslashes');
+      expect(utilityHelpers.toPascalCase('test@example.com')).toBe(
+        'TestExampleCom'
+      );
+      expect(utilityHelpers.toPascalCase('test#hash$symbol')).toBe(
+        'TestHashSymbol'
+      );
+      expect(utilityHelpers.toPascalCase('path\\with\\backslashes')).toBe(
+        'PathWithBackslashes'
+      );
     });
   });
 
@@ -57,17 +71,29 @@ describe('UtilityHelpers', () => {
 
   describe('entityNameToPropertyName', () => {
     it('should convert PascalCase to snake_case', () => {
-      expect(utilityHelpers.entityNameToPropertyName('TestEntity')).toBe('test_entity');
-      expect(utilityHelpers.entityNameToPropertyName('SimpleTest')).toBe('simple_test');
-      expect(utilityHelpers.entityNameToPropertyName('VeryLongEntityName')).toBe('very_long_entity_name');
+      expect(utilityHelpers.entityNameToPropertyName('TestEntity')).toBe(
+        'test_entity'
+      );
+      expect(utilityHelpers.entityNameToPropertyName('SimpleTest')).toBe(
+        'simple_test'
+      );
+      expect(
+        utilityHelpers.entityNameToPropertyName('VeryLongEntityName')
+      ).toBe('very_long_entity_name');
     });
   });
 
   describe('sanitizeSchemaName', () => {
     it('should replace :: with _ and spaces with _', () => {
-      expect(utilityHelpers.sanitizeSchemaName('Test::Entity')).toBe('Test_Entity');
-      expect(utilityHelpers.sanitizeSchemaName('Test Entity')).toBe('Test_Entity');
-      expect(utilityHelpers.sanitizeSchemaName('Test::Entity Name')).toBe('Test_Entity_Name');
+      expect(utilityHelpers.sanitizeSchemaName('Test::Entity')).toBe(
+        'Test_Entity'
+      );
+      expect(utilityHelpers.sanitizeSchemaName('Test Entity')).toBe(
+        'Test_Entity'
+      );
+      expect(utilityHelpers.sanitizeSchemaName('Test::Entity Name')).toBe(
+        'Test_Entity_Name'
+      );
     });
   });
 });

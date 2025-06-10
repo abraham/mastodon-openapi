@@ -40,15 +40,18 @@ describe('OpenAPIGenerator Non-Alpha OperationId Generation', () => {
       const spec = generator.generateSchema([], testMethods);
 
       // Test the specific case mentioned in the GitHub issue
-      expect(spec.paths['/.well-known/oauth-authorization-server']?.get?.operationId)
-        .toBe('getWellKnownOauthAuthorizationServer');
+      expect(
+        spec.paths['/.well-known/oauth-authorization-server']?.get?.operationId
+      ).toBe('getWellKnownOauthAuthorizationServer');
 
       // Test other similar cases
-      expect(spec.paths['/.well-known/openid-connect']?.get?.operationId)
-        .toBe('getWellKnownOpenidConnect');
+      expect(spec.paths['/.well-known/openid-connect']?.get?.operationId).toBe(
+        'getWellKnownOpenidConnect'
+      );
 
-      expect(spec.paths['/path/with.dots_and-dashes/example']?.get?.operationId)
-        .toBe('getPathWithDotsAndDashesExample');
+      expect(
+        spec.paths['/path/with.dots_and-dashes/example']?.get?.operationId
+      ).toBe('getPathWithDotsAndDashesExample');
     });
 
     it('should handle paths with special characters in API endpoints', () => {
@@ -76,10 +79,12 @@ describe('OpenAPIGenerator Non-Alpha OperationId Generation', () => {
       const spec = generator.generateSchema([], testMethods);
 
       // Should strip @ and # characters and apply normal operationId logic
-      expect(spec.paths['/api/v1/accounts/@username']?.get?.operationId)
-        .toBe('getAccountUsername');
-      expect(spec.paths['/api/v1/tags#trending']?.get?.operationId)
-        .toBe('getTagsTrending');
+      expect(spec.paths['/api/v1/accounts/@username']?.get?.operationId).toBe(
+        'getAccountUsername'
+      );
+      expect(spec.paths['/api/v1/tags#trending']?.get?.operationId).toBe(
+        'getTagsTrending'
+      );
     });
 
     it('should handle paths with multiple consecutive non-alphanumeric characters', () => {
@@ -101,8 +106,10 @@ describe('OpenAPIGenerator Non-Alpha OperationId Generation', () => {
       const spec = generator.generateSchema([], testMethods);
 
       // Should handle multiple consecutive separators
-      expect(spec.paths['/api/v1/path...with///multiple---separators']?.get?.operationId)
-        .toBe('getPathWithMultipleSeparators');
+      expect(
+        spec.paths['/api/v1/path...with///multiple---separators']?.get
+          ?.operationId
+      ).toBe('getPathWithMultipleSeparators');
     });
   });
 });
