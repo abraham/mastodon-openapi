@@ -1,3 +1,11 @@
+interface ApiProperty {
+  type: string;
+  description?: string;
+  items?: { type: string } | ApiProperty;
+  enum?: string[];
+  properties?: Record<string, ApiProperty>;
+}
+
 interface ApiParameter {
   name: string;
   description: string;
@@ -7,28 +15,9 @@ interface ApiParameter {
   enumValues?: string[];
   schema?: {
     type: 'array' | 'object';
-    items?: {
-      type: string;
-      properties?: Record<
-        string,
-        {
-          type: string;
-          description?: string;
-          items?: { type: string };
-          enum?: string[];
-        }
-      >;
-    };
-    properties?: Record<
-      string,
-      {
-        type: string;
-        description?: string;
-        items?: { type: string };
-        enum?: string[];
-      }
-    >;
+    items?: ApiProperty;
+    properties?: Record<string, ApiProperty>;
   };
 }
 
-export { ApiParameter };
+export { ApiParameter, ApiProperty };
