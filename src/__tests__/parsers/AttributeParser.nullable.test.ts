@@ -59,6 +59,25 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('[SomeEntity]() or null');
     });
 
+    it('should mark fields with {{%nullable%}} modifier as optional and nullable', () => {
+      const content = `
+### \`account\` {{%nullable%}} {#account}
+
+**Description:** The fediverse account of the author.\\
+**Type:** [Account]({{< relref "entities/Account" >}})\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('account');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('[Account]()');
+    });
+
     it('should not mark regular entity references as optional', () => {
       const content = `
 ### \`account\` {#account}
@@ -156,6 +175,25 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].optional).toBe(true);
       expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[PreviewCard]() or null');
+    });
+
+    it('should mark method entity fields with {{%nullable%}} modifier as optional and nullable', () => {
+      const content = `
+#### \`account\` {{%nullable%}} {#account}
+
+**Description:** The fediverse account of the author.\\
+**Type:** [Account]({{< relref "entities/Account" >}})\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('account');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('[Account]()');
     });
 
     it('should mark optional fields as nullable (Status#application example)', () => {
