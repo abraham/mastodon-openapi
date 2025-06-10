@@ -66,12 +66,33 @@ export class EntityFileParser {
     const attributesMatch = content.match(
       /## Attributes\s*([\s\S]*?)(?=\n## .* entity attributes|\n## |$)/
     );
-    if (!attributesMatch) {
-      return attributes;
+    if (attributesMatch) {
+      const attributesSection = attributesMatch[1];
+      attributes.push(
+        ...AttributeParser.parseAttributesFromSection(attributesSection)
+      );
     }
 
-    const attributesSection = attributesMatch[1];
-    return AttributeParser.parseAttributesFromSection(attributesSection);
+    // Also look for "## Data attributes" section and convert to data[][] format
+    const dataAttributesMatch = content.match(
+      /## Data attributes\s*([\s\S]*?)(?=\n## |$)/
+    );
+    if (dataAttributesMatch) {
+      const dataAttributesSection = dataAttributesMatch[1];
+      const dataAttributes = AttributeParser.parseAttributesFromSection(
+        dataAttributesSection
+      );
+
+      // Convert each data attribute to data[][fieldname] format
+      for (const dataAttr of dataAttributes) {
+        attributes.push({
+          ...dataAttr,
+          name: `data[][${dataAttr.name}]`,
+        });
+      }
+    }
+
+    return attributes;
   }
 
   /**
@@ -180,12 +201,12 @@ export class EntityFileParser {
         attributes: childAttributes,
       });
 
-      // Update the parent attribute type from "Array of Hash" to "Array of EntityName"
+      // Update the parent attribute type from "Array of Hash" to "Array of [EntityName]"
       const parentAttribute = processedAttributes.find(
         (attr) => attr.name === parentFieldName
       );
       if (parentAttribute && parentAttribute.type === 'Array of Hash') {
-        parentAttribute.type = `Array of ${nestedEntityName}`;
+        parentAttribute.type = `Array of [${nestedEntityName}]`;
       }
     }
 
