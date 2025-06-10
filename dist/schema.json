@@ -6313,6 +6313,14 @@
                     "type": "string",
                     "description": "Boolean. Receive status edited notifications? Defaults to false."
                   },
+                  "data[alerts][admin.sign_up]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
+                  "data[alerts][admin.report]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
                   "subscription": {
                     "type": "object",
                     "description": "Object containing the following properties:",
@@ -6432,6 +6440,14 @@
                   "data[alerts][update]": {
                     "type": "string",
                     "description": "Boolean. Receive status edited notifications? Defaults to false."
+                  },
+                  "data[alerts][admin.sign_up]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                  },
+                  "data[alerts][admin.report]": {
+                    "type": "string",
+                    "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
                   },
                   "policy": {
                     "type": "string",
@@ -11593,7 +11609,26 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "day": {
+                  "description": "UNIX timestamp on midnight of the given day.",
+                  "type": "string"
+                },
+                "accounts": {
+                  "description": "The counted accounts using the link within that day.",
+                  "type": "string"
+                },
+                "uses": {
+                  "description": "The counted statuses using the link within that day.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "day",
+                "accounts",
+                "uses"
+              ]
             }
           }
         },
@@ -11990,7 +12025,7 @@
                 "description": "Poll to be attached to the status.",
                 "type": "object",
                 "properties": {
-                  "options[": {
+                  "options": {
                     "description": "The poll options to be used.",
                     "type": "array",
                     "items": {
@@ -12011,7 +12046,7 @@
                   }
                 },
                 "required": [
-                  "options[",
+                  "options",
                   "expires_in",
                   "multiple",
                   "hide_totals"
@@ -12057,8 +12092,7 @@
               },
               "scheduled_at": {
                 "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
-                "type": "string",
-                "format": "date-time"
+                "type": "string"
               },
               "idempotency": {
                 "description": "Idempotency key to prevent duplicate statuses.",
@@ -12411,18 +12445,28 @@
           },
           "poll": {
             "description": "The current state of the poll options at this revision. Note that edits changing the poll options will be collapsed together into one edit, since this action resets the poll.",
-            "type": "object"
-          },
-          "poll.options[]": {
-            "description": "The poll options at this revision.",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "poll.options[].title": {
-            "description": "The text for a poll option.",
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "options": {
+                "description": "The poll options at this revision.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "description": "The text for a poll option.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "options"
+            ]
           },
           "media_attachments": {
             "description": "The current state of the media attachments at this revision.",
@@ -12445,10 +12489,9 @@
           "sensitive",
           "created_at",
           "account",
-          "poll.options[]",
-          "poll.options[].title",
           "media_attachments",
-          "emojis"
+          "emojis",
+          "poll"
         ]
       },
       "StatusSource": {

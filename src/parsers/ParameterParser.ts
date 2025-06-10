@@ -55,8 +55,9 @@ export class ParameterParser {
     const paramSection = paramMatch[1];
 
     // Match parameter definitions: parameter_name\n: description
+    // Allow dots in parameter names to support patterns like alerts[admin.sign_up]
     const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
+      /^([a-zA-Z_][a-zA-Z0-9_.\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
     let match;
     while ((match = paramRegex.exec(paramSection)) !== null) {
@@ -121,7 +122,7 @@ export class ParameterParser {
 
         // Check if it's an object property array like poll[options][]
         const objectPropertyArrayMatch = baseName.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
+          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
         );
         if (objectPropertyArrayMatch) {
           const [, objectName, propertyName] = objectPropertyArrayMatch;
@@ -158,7 +159,7 @@ export class ParameterParser {
       // Check if it's an object property like poll[expires_in]
       else {
         const objectPropertyMatch = name.match(
-          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_]*)\]$/
+          /^([a-zA-Z_][a-zA-Z0-9_]*)\[([a-zA-Z_][a-zA-Z0-9_.]*)\]$/
         );
         if (objectPropertyMatch) {
           const [, objectName, propertyName] = objectPropertyMatch;
