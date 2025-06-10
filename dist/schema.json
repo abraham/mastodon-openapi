@@ -11593,7 +11593,26 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "object"
+              "type": "object",
+              "properties": {
+                "day": {
+                  "description": "UNIX timestamp on midnight of the given day.",
+                  "type": "string"
+                },
+                "accounts": {
+                  "description": "The counted accounts using the link within that day.",
+                  "type": "string"
+                },
+                "uses": {
+                  "description": "The counted statuses using the link within that day.",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "day",
+                "accounts",
+                "uses"
+              ]
             }
           }
         },
@@ -11990,7 +12009,7 @@
                 "description": "Poll to be attached to the status.",
                 "type": "object",
                 "properties": {
-                  "options[": {
+                  "options": {
                     "description": "The poll options to be used.",
                     "type": "array",
                     "items": {
@@ -12011,7 +12030,7 @@
                   }
                 },
                 "required": [
-                  "options[",
+                  "options",
                   "expires_in",
                   "multiple",
                   "hide_totals"
@@ -12411,18 +12430,28 @@
           },
           "poll": {
             "description": "The current state of the poll options at this revision. Note that edits changing the poll options will be collapsed together into one edit, since this action resets the poll.",
-            "type": "object"
-          },
-          "poll.options[]": {
-            "description": "The poll options at this revision.",
-            "type": "array",
-            "items": {
-              "type": "object"
-            }
-          },
-          "poll.options[].title": {
-            "description": "The text for a poll option.",
-            "type": "string"
+            "type": "object",
+            "properties": {
+              "options": {
+                "description": "The poll options at this revision.",
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "title": {
+                      "description": "The text for a poll option.",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "title"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "options"
+            ]
           },
           "media_attachments": {
             "description": "The current state of the media attachments at this revision.",
@@ -12445,10 +12474,9 @@
           "sensitive",
           "created_at",
           "account",
-          "poll.options[]",
-          "poll.options[].title",
           "media_attachments",
-          "emojis"
+          "emojis",
+          "poll"
         ]
       },
       "StatusSource": {
@@ -13127,14 +13155,6 @@
               "update": {
                 "description": "Receive a push notification when a status you interacted with has been edited?",
                 "type": "boolean"
-              },
-              "admin.sign_up": {
-                "description": "Receive a push notification when a new user has signed up?",
-                "type": "boolean"
-              },
-              "admin.report": {
-                "description": "Receive a push notification when a new report has been filed?",
-                "type": "boolean"
               }
             },
             "required": [
@@ -13145,9 +13165,25 @@
               "follow_request",
               "favourite",
               "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report"
+              "update"
+            ]
+          },
+          "alerts[admin": {
+            "type": "object",
+            "description": "alerts[admin object",
+            "properties": {
+              "sign_up]": {
+                "description": "Receive a push notification when a new user has signed up?",
+                "type": "boolean"
+              },
+              "report]": {
+                "description": "Receive a push notification when a new report has been filed?",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "sign_up]",
+              "report]"
             ]
           }
         },
@@ -13156,7 +13192,8 @@
           "endpoint",
           "standard",
           "server_key",
-          "alerts"
+          "alerts",
+          "alerts[admin"
         ]
       },
       "GroupedNotificationsResults": {

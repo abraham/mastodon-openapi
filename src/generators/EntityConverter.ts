@@ -249,18 +249,50 @@ class EntityConverter {
     // Group attributes by their structure
     const flatAttributes: EntityAttribute[] = [];
     const nestedGroups = new Map<string, EntityAttribute[]>();
+    const arrayItemGroups = new Map<string, EntityAttribute[]>();
 
     for (const attribute of attributes) {
       // Check if this is a nested attribute pattern
       const nestedMatch = this.parseNestedAttributeName(attribute.name);
 
       if (nestedMatch) {
-        const { parentName, fullPath } = nestedMatch;
+        const { parentName, fullPath, arrayPositions } = nestedMatch;
 
-        if (!nestedGroups.has(parentName)) {
-          nestedGroups.set(parentName, []);
+        // Check if this is an array item property (e.g., "poll.options[].title")
+        // Look for array positions and check if we have properties after an array
+        let isArrayItemProperty = false;
+        let arrayPath = '';
+
+        for (const arrayPos of arrayPositions) {
+          if (arrayPos < fullPath.length - 1) {
+            // There are properties after this array position
+            isArrayItemProperty = true;
+            arrayPath = fullPath.slice(0, arrayPos + 1).join('.');
+            break;
+          }
         }
-        nestedGroups.get(parentName)!.push(attribute);
+
+        if (isArrayItemProperty && arrayPath) {
+          // This is a property of array items
+          const propertyName = fullPath[fullPath.length - 1];
+
+          if (!arrayItemGroups.has(arrayPath)) {
+            arrayItemGroups.set(arrayPath, []);
+          }
+
+          // Create an attribute for the array item property
+          const arrayItemAttr: EntityAttribute = {
+            ...attribute,
+            name: propertyName,
+          };
+          arrayItemGroups.get(arrayPath)!.push(arrayItemAttr);
+        } else {
+          // Regular nested structure
+          if (!nestedGroups.has(parentName)) {
+            nestedGroups.set(parentName, []);
+          }
+          nestedGroups.get(parentName)!.push(attribute);
+        }
       } else {
         flatAttributes.push(attribute);
       }
@@ -283,6 +315,11 @@ class EntityConverter {
     for (const [parentName, groupAttributes] of nestedGroups.entries()) {
       this.processNestedGroup(parentName, groupAttributes, schema);
     }
+
+    // Process array item groups
+    for (const [arrayPath, itemProperties] of arrayItemGroups.entries()) {
+      this.processArrayItemGroup(arrayPath, itemProperties, schema);
+    }
   }
 
   /**
@@ -290,7 +327,34 @@ class EntityConverter {
    */
   private parseNestedAttributeName(
     name: string
-  ): { parentName: string; fullPath: string[] } | null {
+  ): {
+    parentName: string;
+    fullPath: string[];
+    arrayPositions: number[];
+  } | null {
+    // Handle dotted patterns like "poll.options[]" or "poll.options[].title"
+    if (name.includes('.')) {
+      const parts = name.split('.');
+      if (parts.length >= 2) {
+        const parentName = parts[0];
+        const fullPath = [parentName];
+        const arrayPositions: number[] = [];
+
+        for (let i = 1; i < parts.length; i++) {
+          const part = parts[i];
+          // Handle array notation in dotted paths
+          if (part.endsWith('[]')) {
+            fullPath.push(part.slice(0, -2)); // Remove []
+            arrayPositions.push(fullPath.length - 1); // Mark this position as an array
+          } else {
+            fullPath.push(part);
+          }
+        }
+
+        return { parentName, fullPath, arrayPositions };
+      }
+    }
+
     // Match patterns like "parent[child]" or "parent[child][grandchild]"
     const match = name.match(/^([^[]+)(\[.+\])$/);
     if (!match) {
@@ -300,19 +364,64 @@ class EntityConverter {
     const parentName = match[1];
     const bracketPart = match[2];
 
-    // Extract all bracket segments
-    const segments = bracketPart.match(/\[([^\]]+)\]/g);
-    if (!segments) {
-      return null;
-    }
-
+    // Parse bracket segments manually to handle nested brackets properly
     const fullPath = [parentName];
-    for (const segment of segments) {
-      // Remove brackets and add to path
-      fullPath.push(segment.slice(1, -1));
+    const arrayPositions: number[] = [];
+    let i = 0;
+
+    while (i < bracketPart.length) {
+      if (bracketPart[i] === '[') {
+        // Find the matching closing bracket
+        let depth = 0;
+        let j = i;
+        let segmentContent = '';
+
+        // Skip the opening bracket
+        j++;
+
+        while (j < bracketPart.length) {
+          const char = bracketPart[j];
+          if (char === '[') {
+            depth++;
+            segmentContent += char;
+          } else if (char === ']') {
+            if (depth === 0) {
+              // Found the matching closing bracket
+              break;
+            } else {
+              depth--;
+              segmentContent += char;
+            }
+          } else {
+            segmentContent += char;
+          }
+          j++;
+        }
+
+        // Process the segment content
+        if (segmentContent === '') {
+          // Empty brackets indicate the previous element is an array
+          if (fullPath.length > 0) {
+            arrayPositions.push(fullPath.length - 1);
+          }
+        } else if (segmentContent.endsWith('[]')) {
+          // Handle patterns like "options[]" - extract the name and mark as array
+          const arrayName = segmentContent.slice(0, -2);
+          fullPath.push(arrayName);
+          arrayPositions.push(fullPath.length - 1);
+        } else {
+          // Regular nested property
+          fullPath.push(segmentContent);
+        }
+
+        // Move to the next segment
+        i = j + 1;
+      } else {
+        i++;
+      }
     }
 
-    return { parentName, fullPath };
+    return { parentName, fullPath, arrayPositions };
   }
 
   /**
@@ -410,6 +519,82 @@ class EntityConverter {
       !parentSchema.required.includes(parentName)
     ) {
       parentSchema.required.push(parentName);
+    }
+  }
+
+  /**
+   * Process array item properties to update array item schemas
+   */
+  private processArrayItemGroup(
+    arrayPath: string,
+    itemProperties: EntityAttribute[],
+    schema: OpenAPISchema
+  ): void {
+    // Parse the array path to find the array property
+    const pathParts = arrayPath.split('.');
+    let currentProperty = schema.properties;
+
+    if (!currentProperty) {
+      return;
+    }
+
+    // Navigate to the array property
+    for (let i = 0; i < pathParts.length; i++) {
+      const part = pathParts[i];
+      const cleanPart = part.replace('[]', ''); // Remove array notation for property lookup
+
+      if (!currentProperty || !currentProperty[cleanPart]) {
+        // Array property doesn't exist yet, skip
+        return;
+      }
+
+      if (i === pathParts.length - 1) {
+        // This is the array property
+        const arrayProperty = currentProperty[cleanPart];
+
+        if (arrayProperty.type === 'array' && arrayProperty.items) {
+          // Update the array items schema with the properties
+          if (
+            typeof arrayProperty.items === 'object' &&
+            !Array.isArray(arrayProperty.items)
+          ) {
+            if (!arrayProperty.items.properties) {
+              arrayProperty.items.properties = {};
+            }
+            if (!arrayProperty.items.required) {
+              arrayProperty.items.required = [];
+            }
+
+            // Add each property to the array items schema
+            for (const prop of itemProperties) {
+              const propertySchema = this.convertAttribute(prop);
+              arrayProperty.items.properties[prop.name] = propertySchema;
+
+              // Add to required if not optional
+              if (
+                !prop.optional &&
+                !arrayProperty.items.required.includes(prop.name)
+              ) {
+                arrayProperty.items.required.push(prop.name);
+              }
+            }
+
+            // Clean up empty required array
+            if (arrayProperty.items.required.length === 0) {
+              delete arrayProperty.items.required;
+            }
+          }
+        }
+      } else {
+        // Navigate deeper into the structure
+        const nextProperty: any = currentProperty[cleanPart];
+        if (nextProperty && nextProperty.properties) {
+          currentProperty = nextProperty.properties;
+        } else {
+          // Can't navigate further, skip
+          return;
+        }
+      }
     }
   }
 }
