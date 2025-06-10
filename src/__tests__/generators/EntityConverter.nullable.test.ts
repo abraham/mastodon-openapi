@@ -190,15 +190,17 @@ describe('EntityConverter - Nullable Properties', () => {
     // The application object should be nullable due to being optional
     expect(schema?.properties?.application).toBeDefined();
     expect(schema?.properties?.application?.nullable).toBe(true);
-    
+
     // The application object should have proper nested structure
     expect(schema?.properties?.application?.properties?.name).toBeDefined();
     expect(schema?.properties?.application?.properties?.website).toBeDefined();
-    expect(schema?.properties?.application?.properties?.website?.nullable).toBe(true);
-    
+    expect(schema?.properties?.application?.properties?.website?.nullable).toBe(
+      true
+    );
+
     // The application's required array should only contain 'name'
     expect(schema?.properties?.application?.required).toEqual(['name']);
-    
+
     // This is the key question: should 'application' be in the parent's required array?
     // Based on the issue description, optional should mean not required
     if (schema?.required) {
