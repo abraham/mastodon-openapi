@@ -9813,13 +9813,44 @@
             "description": "The data available for the requested dimension.",
             "type": "array",
             "items": {
-              "type": "object"
+              "$ref": "#/components/schemas/Admin_DimensionData"
             }
           }
         },
         "required": [
           "key",
           "data"
+        ]
+      },
+      "Admin_DimensionData": {
+        "type": "object",
+        "description": "Nested entity extracted from Admin::Dimension.data",
+        "properties": {
+          "key": {
+            "description": "The unique keystring for this data item.",
+            "type": "string"
+          },
+          "human_key": {
+            "description": "A human-readable key for this data item.",
+            "type": "string"
+          },
+          "value": {
+            "description": "The value for this data item.",
+            "type": "string"
+          },
+          "unit": {
+            "description": "The units associated with this data item's value, if applicable.",
+            "type": "string"
+          },
+          "human_value": {
+            "description": "A human-readable formatted value for this data item.",
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "human_key",
+          "value"
         ]
       },
       "Admin_DomainAllow": {
@@ -9929,8 +9960,7 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "string",
-              "description": "Original type: Admin::EmailDomainBlockHistory"
+              "$ref": "#/components/schemas/Admin_EmailDomainBlockHistory"
             }
           }
         },
@@ -10055,8 +10085,7 @@
             "description": "The data available for the requested measure, split into daily buckets.",
             "type": "array",
             "items": {
-              "type": "string",
-              "description": "Original type: Admin::MeasureData"
+              "$ref": "#/components/schemas/Admin_MeasureData"
             }
           }
         },
@@ -12611,8 +12640,7 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "type": "string",
-              "description": "Original type: TagHistory"
+              "$ref": "#/components/schemas/TagHistory"
             }
           },
           "following": {

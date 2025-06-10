@@ -21,7 +21,7 @@ describe('EntityParser - Array of Hash Extraction', () => {
       );
       expect(historyAttr).toBeDefined();
       // After the fix, this should reference the TagHistory entity
-      expect(historyAttr?.type).toBe('Array of TagHistory');
+      expect(historyAttr?.type).toBe('Array of [TagHistory]');
 
       // The individual hash fields should NOT be direct attributes of Tag
       const historyDayAttr = tagEntity.attributes.find(
@@ -86,7 +86,7 @@ describe('EntityParser - Array of Hash Extraction', () => {
       );
       expect(historyAttr).toBeDefined();
       // After the fix, this should reference the TagHistory entity
-      expect(historyAttr?.type).toBe('Array of TagHistory');
+      expect(historyAttr?.type).toBe('Array of [TagHistory]');
     }
   });
 });
