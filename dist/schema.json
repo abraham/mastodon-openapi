@@ -11777,13 +11777,13 @@
           },
           "account": {
             "description": "The fediverse account of the author.",
+            "nullable": true,
             "$ref": "#/components/schemas/Account"
           }
         },
         "required": [
           "name",
-          "url",
-          "account"
+          "url"
         ]
       },
       "PrivacyPolicy": {

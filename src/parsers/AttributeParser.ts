@@ -69,7 +69,7 @@ export class AttributeParser {
 
         // Check if this is a nullable field
         const isNullable =
-          typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+          typeStr.includes('{{<nullable>}}') || typeStr.includes('{{%nullable%}}') || typeStr.includes(' or null');
 
         const attribute: EntityAttribute = {
           name: heading.name.trim(),
@@ -77,9 +77,13 @@ export class AttributeParser {
           description: EntityParsingUtils.cleanDescription(description),
         };
 
-        // Check for optional/deprecated modifiers
+        // Check for optional/deprecated/nullable modifiers
         if (heading.modifiers) {
           if (heading.modifiers.includes('optional')) {
+            attribute.optional = true;
+            attribute.nullable = true;
+          }
+          if (heading.modifiers.includes('nullable')) {
             attribute.optional = true;
             attribute.nullable = true;
           }
@@ -141,7 +145,7 @@ export class AttributeParser {
 
       // Check if this is a nullable field
       const isNullable =
-        typeStr.includes('{{<nullable>}}') || typeStr.includes(' or null');
+        typeStr.includes('{{<nullable>}}') || typeStr.includes('{{%nullable%}}') || typeStr.includes(' or null');
 
       const attribute: EntityAttribute = {
         name: name.trim(),
@@ -149,9 +153,13 @@ export class AttributeParser {
         description: EntityParsingUtils.cleanDescription(description.trim()),
       };
 
-      // Check for optional/deprecated modifiers
+      // Check for optional/deprecated/nullable modifiers
       if (modifiers) {
         if (modifiers.includes('optional')) {
+          attribute.optional = true;
+          attribute.nullable = true;
+        }
+        if (modifiers.includes('nullable')) {
           attribute.optional = true;
           attribute.nullable = true;
         }
