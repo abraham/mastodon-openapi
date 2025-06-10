@@ -69,7 +69,9 @@ export class AttributeParser {
 
         // Check if this is a nullable field
         const isNullable =
-          typeStr.includes('{{<nullable>}}') || typeStr.includes('{{%nullable%}}') || typeStr.includes(' or null');
+          typeStr.includes('{{<nullable>}}') ||
+          typeStr.includes('{{%nullable%}}') ||
+          typeStr.includes(' or null');
 
         const attribute: EntityAttribute = {
           name: heading.name.trim(),
@@ -145,7 +147,9 @@ export class AttributeParser {
 
       // Check if this is a nullable field
       const isNullable =
-        typeStr.includes('{{<nullable>}}') || typeStr.includes('{{%nullable%}}') || typeStr.includes(' or null');
+        typeStr.includes('{{<nullable>}}') ||
+        typeStr.includes('{{%nullable%}}') ||
+        typeStr.includes(' or null');
 
       const attribute: EntityAttribute = {
         name: name.trim(),
