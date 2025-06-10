@@ -6296,7 +6296,17 @@
                     "description": "Object containing properties",
                     "properties": {
                       "keys": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                          "p256dh": {
+                            "type": "string",
+                            "description": "String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the `prime256v1` curve."
+                          },
+                          "auth": {
+                            "type": "string",
+                            "description": "String. Auth secret. Base64 encoded string of 16 bytes of random data."
+                          }
+                        }
                       },
                       "endpoint": {
                         "type": "string",
@@ -6313,7 +6323,49 @@
                     "description": "Object containing properties",
                     "properties": {
                       "alerts": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                          "mention": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive mention notifications? Defaults to false."
+                          },
+                          "status": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                          },
+                          "reblog": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive reblog notifications? Defaults to false."
+                          },
+                          "follow": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive follow notifications? Defaults to false."
+                          },
+                          "follow_request": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive follow request notifications? Defaults to false."
+                          },
+                          "favourite": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive favourite notifications? Defaults to false."
+                          },
+                          "poll": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive poll notifications? Defaults to false."
+                          },
+                          "update": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive status edited notifications? Defaults to false."
+                          },
+                          "admin.sign_up": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                          },
+                          "admin.report": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
+                          }
+                        }
                       },
                       "policy": {
                         "type": "string",
@@ -6394,7 +6446,49 @@
                     "description": "Object containing properties",
                     "properties": {
                       "alerts": {
-                        "type": "object"
+                        "type": "object",
+                        "properties": {
+                          "mention": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive mention notifications? Defaults to false."
+                          },
+                          "status": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new subscribed account notifications? Defaults to false."
+                          },
+                          "reblog": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive reblog notifications? Defaults to false."
+                          },
+                          "follow": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive follow notifications? Defaults to false."
+                          },
+                          "follow_request": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive follow request notifications? Defaults to false."
+                          },
+                          "favourite": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive favourite notifications? Defaults to false."
+                          },
+                          "poll": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive poll notifications? Defaults to false."
+                          },
+                          "update": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive status edited notifications? Defaults to false."
+                          },
+                          "admin.sign_up": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new user signup notifications? Defaults to false. Must have a role with the appropriate permissions."
+                          },
+                          "admin.report": {
+                            "type": "boolean",
+                            "description": "Boolean. Receive new report notifications? Defaults to false. Must have a role with the appropriate permissions."
+                          }
+                        }
                       }
                     }
                   }

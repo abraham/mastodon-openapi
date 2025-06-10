@@ -303,6 +303,36 @@ class TypeParser {
             };
           }
 
+          // Handle nested object properties recursively
+          if (propSchema.type === 'object' && propSchema.properties) {
+            const nestedProperties: Record<string, OpenAPIProperty> = {};
+            for (const [nestedPropName, nestedPropSchema] of Object.entries(
+              propSchema.properties
+            )) {
+              const nestedProperty: OpenAPIProperty = {
+                type: nestedPropSchema.type,
+              };
+
+              if (nestedPropSchema.description) {
+                nestedProperty.description = nestedPropSchema.description;
+              }
+
+              if (nestedPropSchema.enum && nestedPropSchema.enum.length > 0) {
+                nestedProperty.enum = nestedPropSchema.enum;
+              }
+
+              if (nestedPropSchema.items) {
+                nestedProperty.items = {
+                  type: nestedPropSchema.items.type,
+                };
+              }
+
+              // TODO: Could be made more recursive for deeper nesting if needed
+              nestedProperties[nestedPropName] = nestedProperty;
+            }
+            property.properties = nestedProperties;
+          }
+
           properties[propName] = property;
         }
         schema.properties = properties;
