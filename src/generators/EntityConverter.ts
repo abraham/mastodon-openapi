@@ -544,13 +544,11 @@ class EntityConverter {
       }
     }
 
-    // Check if parent should be required (any non-optional attribute in this group makes parent required)
-    const hasRequiredChild = attributes.some(
-      (attr) => attr.name !== parentName && !attr.optional
-    );
+    // Check if parent should be required
+    // Only consider parent required if it's explicitly not optional
+    // Having required children doesn't make an optional parent required
     const parentAttr = attributes.find((attr) => attr.name === parentName);
-    const parentIsRequired =
-      (parentAttr && !parentAttr.optional) || hasRequiredChild;
+    const parentIsRequired = parentAttr && !parentAttr.optional;
 
     if (
       parentIsRequired &&

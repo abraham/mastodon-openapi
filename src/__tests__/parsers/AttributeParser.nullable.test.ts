@@ -98,6 +98,25 @@ describe('AttributeParser - Nullable Patterns', () => {
         'String (ISO 639 Part 1 two-letter language code) or null'
       );
     });
+
+    it('should mark optional fields as nullable (entity file format)', () => {
+      const content = `
+### \`application\` {{%optional%}} {#application}
+
+**Description:** The application used to post this status.\\
+**Type:** Hash\\
+**Version history:**\\
+0.9.9 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('application');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true); // This should be true for optional fields
+      expect(attributes[0].type).toBe('Hash');
+    });
   });
 
   describe('parseMethodEntityAttributes', () => {
@@ -137,6 +156,25 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].optional).toBe(true);
       expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[PreviewCard]() or null');
+    });
+
+    it('should mark optional fields as nullable (Status#application example)', () => {
+      const content = `
+#### \`application\` {{%optional%}} {#application}
+
+**Description:** The application used to post this status.\\
+**Type:** Hash\\
+**Version history:**\\
+0.9.9 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('application');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true); // This should be true for optional fields
+      expect(attributes[0].type).toBe('Hash');
     });
   });
 });

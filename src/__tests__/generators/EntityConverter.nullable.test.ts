@@ -108,4 +108,106 @@ describe('EntityConverter - Nullable Properties', () => {
     expect(nullableProperty.nullable).toBe(true);
     expect(nullableProperty.type).toBe('string');
   });
+
+  test('should mark optional fields as nullable in the schema and exclude from required', () => {
+    const mockEntity: EntityClass = {
+      name: 'TestOptionalNullable',
+      description: 'Test entity with optional field',
+      attributes: [
+        {
+          name: 'required_field',
+          type: 'String',
+          description: 'A required field',
+        },
+        {
+          name: 'optional_field',
+          type: 'Hash',
+          description: 'An optional field marked as nullable',
+          optional: true,
+          nullable: true,
+        },
+      ],
+    };
+
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test API', version: '1.0.0' },
+      paths: {},
+      components: { schemas: {} },
+    };
+
+    entityConverter.convertEntities([mockEntity], spec);
+
+    const schema = spec.components?.schemas?.TestOptionalNullable;
+    expect(schema).toBeDefined();
+
+    // Check optional field is nullable and not in required array
+    expect(schema?.properties?.optional_field).toBeDefined();
+    expect(schema?.properties?.optional_field?.nullable).toBe(true);
+    expect(schema?.required).toContain('required_field');
+    expect(schema?.required).not.toContain('optional_field');
+  });
+
+  test('should handle optional parent with required children correctly', () => {
+    const mockEntity: EntityClass = {
+      name: 'TestOptionalParent',
+      description: 'Test entity with optional parent and required children',
+      attributes: [
+        {
+          name: 'application',
+          type: 'Hash',
+          description: 'Optional application object',
+          optional: true,
+          nullable: true,
+        },
+        {
+          name: 'application[name]',
+          type: 'String',
+          description: 'Required name within application',
+        },
+        {
+          name: 'application[website]',
+          type: 'String',
+          description: 'Optional website within application',
+          optional: true,
+          nullable: true,
+        },
+      ],
+    };
+
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test API', version: '1.0.0' },
+      paths: {},
+      components: { schemas: {} },
+    };
+
+    entityConverter.convertEntities([mockEntity], spec);
+
+    const schema = spec.components?.schemas?.TestOptionalParent;
+    expect(schema).toBeDefined();
+
+    // The application object should be nullable due to being optional
+    expect(schema?.properties?.application).toBeDefined();
+    expect(schema?.properties?.application?.nullable).toBe(true);
+
+    // The application object should have proper nested structure
+    expect(schema?.properties?.application?.properties?.name).toBeDefined();
+    expect(schema?.properties?.application?.properties?.website).toBeDefined();
+    expect(schema?.properties?.application?.properties?.website?.nullable).toBe(
+      true
+    );
+
+    // The application's required array should only contain 'name'
+    expect(schema?.properties?.application?.required).toEqual(['name']);
+
+    // This is the key question: should 'application' be in the parent's required array?
+    // Based on the issue description, optional should mean not required
+    if (schema?.required) {
+      expect(schema.required).not.toContain('application');
+    } else {
+      // If there's no required array, that's also fine - it means nothing is required
+      expect(schema?.required).toBeUndefined();
+    }
+  });
 });
