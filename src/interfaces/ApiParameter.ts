@@ -9,6 +9,15 @@ interface ApiParameter {
     type: 'array' | 'object';
     items?: {
       type: string;
+      properties?: Record<
+        string,
+        {
+          type: string;
+          description?: string;
+          items?: { type: string };
+          enum?: string[];
+        }
+      >;
     };
     properties?: Record<
       string,

@@ -251,6 +251,35 @@ class TypeParser {
         schema.items = {
           type: param.schema.items.type,
         };
+
+        // Handle array items with properties (objects)
+        if (param.schema.items.properties) {
+          const itemProperties: Record<string, OpenAPIProperty> = {};
+          for (const [propName, propSchema] of Object.entries(
+            param.schema.items.properties
+          )) {
+            const property: OpenAPIProperty = {
+              type: propSchema.type,
+            };
+
+            if (propSchema.description) {
+              property.description = propSchema.description;
+            }
+
+            if (propSchema.enum && propSchema.enum.length > 0) {
+              property.enum = propSchema.enum;
+            }
+
+            if (propSchema.items) {
+              property.items = {
+                type: propSchema.items.type,
+              };
+            }
+
+            itemProperties[propName] = property;
+          }
+          schema.items.properties = itemProperties;
+        }
       } else if (param.schema.type === 'object' && param.schema.properties) {
         const properties: Record<string, OpenAPIProperty> = {};
         for (const [propName, propSchema] of Object.entries(
