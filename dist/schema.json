@@ -12255,8 +12255,7 @@
               "text",
               "visibility",
               "application_id",
-              "with_rate_limit",
-              "poll"
+              "with_rate_limit"
             ]
           },
           "media_attachments": {
@@ -12531,8 +12530,7 @@
           "emojis",
           "reblogs_count",
           "favourites_count",
-          "replies_count",
-          "application"
+          "replies_count"
         ]
       },
       "Status_Mention": {
@@ -12656,8 +12654,7 @@
           "created_at",
           "account",
           "media_attachments",
-          "emojis",
-          "poll"
+          "emojis"
         ]
       },
       "StatusSource": {
