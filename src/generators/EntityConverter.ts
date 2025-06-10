@@ -309,8 +309,8 @@ class EntityConverter {
         schema.properties[attribute.name] = property;
       }
 
-      // Add to required array if not optional
-      if (!attribute.optional && schema.required) {
+      // Add to required array if not optional and not nullable
+      if (!attribute.optional && !attribute.nullable && schema.required) {
         schema.required.push(attribute.name);
       }
     }
@@ -509,7 +509,7 @@ class EntityConverter {
         const property = this.convertAttribute(attr);
         parentProperty.properties[propName] = property;
 
-        if (!attr.optional && parentProperty.required) {
+        if (!attr.optional && !attr.nullable && parentProperty.required) {
           parentProperty.required.push(propName);
         }
       }
@@ -545,10 +545,11 @@ class EntityConverter {
     }
 
     // Check if parent should be required
-    // Only consider parent required if it's explicitly not optional
+    // Only consider parent required if it's explicitly not optional and not nullable
     // Having required children doesn't make an optional parent required
     const parentAttr = attributes.find((attr) => attr.name === parentName);
-    const parentIsRequired = parentAttr && !parentAttr.optional;
+    const parentIsRequired =
+      parentAttr && !parentAttr.optional && !parentAttr.nullable;
 
     if (
       parentIsRequired &&
@@ -607,9 +608,10 @@ class EntityConverter {
               const propertySchema = this.convertAttribute(prop);
               arrayProperty.items.properties[prop.name] = propertySchema;
 
-              // Add to required if not optional
+              // Add to required if not optional and not nullable
               if (
                 !prop.optional &&
+                !prop.nullable &&
                 !arrayProperty.items.required.includes(prop.name)
               ) {
                 arrayProperty.items.required.push(prop.name);
