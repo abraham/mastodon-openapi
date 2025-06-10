@@ -33,7 +33,7 @@ export class EntityFileParser {
     const description = parsed.data.description || '';
 
     // Parse main entity attributes from markdown content
-    const attributes = this.parseAttributes(parsed.content);
+    const attributes = this.parseAttributes(parsed.content, className);
 
     // Extract nested hash entities and update parent attributes
     const { processedAttributes, nestedEntities } =
@@ -58,7 +58,10 @@ export class EntityFileParser {
   /**
    * Parses main entity attributes from content
    */
-  private static parseAttributes(content: string): EntityAttribute[] {
+  private static parseAttributes(
+    content: string,
+    entityName: string
+  ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
     // Find the "## Attributes" section (for main entity only)
@@ -69,7 +72,10 @@ export class EntityFileParser {
     if (attributesMatch) {
       const attributesSection = attributesMatch[1];
       attributes.push(
-        ...AttributeParser.parseAttributesFromSection(attributesSection)
+        ...AttributeParser.parseAttributesFromSection(
+          attributesSection,
+          entityName
+        )
       );
     }
 
@@ -80,7 +86,8 @@ export class EntityFileParser {
     if (dataAttributesMatch) {
       const dataAttributesSection = dataAttributesMatch[1];
       const dataAttributes = AttributeParser.parseAttributesFromSection(
-        dataAttributesSection
+        dataAttributesSection,
+        entityName
       );
 
       // Convert each data attribute to data[][fieldname] format
@@ -132,8 +139,10 @@ export class EntityFileParser {
         const entityContent = content.substring(startIndex, endIndex);
 
         // Parse attributes for this entity
-        const attributes =
-          AttributeParser.parseAttributesFromSection(entityContent);
+        const attributes = AttributeParser.parseAttributesFromSection(
+          entityContent,
+          entityName
+        );
 
         entities.push({
           name: entityName,
