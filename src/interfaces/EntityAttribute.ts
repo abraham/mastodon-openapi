@@ -4,6 +4,7 @@ interface EntityAttribute {
   description: string;
   optional?: boolean;
   deprecated?: boolean;
+  nullable?: boolean;
   enumValues?: string[];
 }
 

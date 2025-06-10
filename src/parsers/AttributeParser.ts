@@ -76,6 +76,7 @@ export class AttributeParser {
         // Mark as optional if nullable pattern is detected
         if (isNullable) {
           attribute.optional = true;
+          attribute.nullable = true;
         }
 
         // Extract enum values if this is an enumerable type
@@ -141,6 +142,7 @@ export class AttributeParser {
       // Mark as optional if nullable pattern is detected
       if (isNullable) {
         attribute.optional = true;
+        attribute.nullable = true;
       }
 
       // Check for enum values in the content between Type and Version history

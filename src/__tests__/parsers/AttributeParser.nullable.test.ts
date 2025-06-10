@@ -17,6 +17,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('poll');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[Poll]() or null');
     });
 
@@ -35,6 +36,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('card');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[PreviewCard]() or null');
     });
 
@@ -53,6 +55,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('test_field');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[SomeEntity]() or null');
     });
 
@@ -71,6 +74,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('account');
       expect(attributes[0].optional).toBeUndefined();
+      expect(attributes[0].nullable).toBeUndefined();
       expect(attributes[0].type).toBe('[Account]()');
     });
 
@@ -89,6 +93,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('language');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe(
         'String (ISO 639 Part 1 two-letter language code) or null'
       );
@@ -111,6 +116,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('poll');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[Poll]() or null');
     });
 
@@ -129,6 +135,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('card');
       expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('[PreviewCard]() or null');
     });
   });

@@ -201,6 +201,10 @@ class EntityConverter {
       property.deprecated = true;
     }
 
+    if (attribute.nullable) {
+      property.nullable = true;
+    }
+
     // Parse type information to determine OpenAPI type
     const type = this.typeParser.parseType(attribute.type);
 

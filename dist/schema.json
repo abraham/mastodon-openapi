@@ -9407,14 +9407,17 @@
           },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
+            "nullable": true,
             "type": "boolean"
           },
           "noindex": {
             "description": "Whether the local user has opted out of being indexed by search engines.",
+            "nullable": true,
             "type": "boolean"
           },
           "moved": {
             "description": "Indicates that the profile is currently inactive and that its user has moved to a new account.",
+            "nullable": true,
             "$ref": "#/components/schemas/Account"
           },
           "suspended": {
@@ -9432,6 +9435,7 @@
           },
           "last_status_at": {
             "description": "When the most recent status was posted.",
+            "nullable": true,
             "type": "string",
             "format": "date"
           },
@@ -9551,6 +9555,7 @@
         "properties": {
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           }
@@ -9570,6 +9575,7 @@
           },
           "verified_at": {
             "description": "Timestamp of when the server verified a URL value for a rel=\"me\" link.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           }
@@ -9606,6 +9612,7 @@
           },
           "status_ids": {
             "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -9617,6 +9624,7 @@
           },
           "appeal": {
             "description": "Appeal submitted by the target account, if any.",
+            "nullable": true,
             "$ref": "#/components/schemas/Appeal"
           },
           "created_at": {
@@ -9647,6 +9655,7 @@
           },
           "domain": {
             "description": "The domain of the account, if it is remote.",
+            "nullable": true,
             "type": "string"
           },
           "created_at": {
@@ -9660,6 +9669,7 @@
           },
           "ip": {
             "description": "The IP address last used to login to this account.",
+            "nullable": true,
             "type": "string"
           },
           "ips": {
@@ -9675,6 +9685,7 @@
           },
           "invite_request": {
             "description": "The reason given when requesting an invite (for instances that require manual approval of registrations)",
+            "nullable": true,
             "type": "string"
           },
           "role": {
@@ -9917,10 +9928,12 @@
           },
           "private_comment": {
             "description": "",
+            "nullable": true,
             "type": "string"
           },
           "public_comment": {
             "description": "",
+            "nullable": true,
             "type": "string"
           },
           "obfuscate": {
@@ -10045,6 +10058,7 @@
           },
           "expires_at": {
             "description": "When the IP block will expire.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           }
@@ -10067,6 +10081,7 @@
           },
           "unit": {
             "description": "The units associated with this data item's value, if applicable.",
+            "nullable": true,
             "type": "string"
           },
           "total": {
@@ -10127,6 +10142,7 @@
           },
           "action_taken_at": {
             "description": "When an action was taken, if this report is currently resolved.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -10167,10 +10183,12 @@
           },
           "assigned_account": {
             "description": "The account of the moderator assigned to this report.",
+            "nullable": true,
             "$ref": "#/components/schemas/Admin_Account"
           },
           "action_taken_by_account": {
             "description": "The account of the moderator who handled the report.",
+            "nullable": true,
             "$ref": "#/components/schemas/Admin_Account"
           },
           "statuses": {
@@ -10216,11 +10234,13 @@
           },
           "starts_at": {
             "description": "When the announcement will start.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
           "ends_at": {
             "description": "When the announcement will end.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -10377,6 +10397,7 @@
           },
           "website": {
             "description": "The website associated with your application.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
@@ -10482,6 +10503,7 @@
           },
           "last_status": {
             "description": "The last status in the conversation.",
+            "nullable": true,
             "$ref": "#/components/schemas/Status"
           }
         },
@@ -10515,6 +10537,7 @@
           },
           "category": {
             "description": "Used for sorting custom emoji in the picker.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -10669,6 +10692,7 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -10736,6 +10760,7 @@
           },
           "keyword_matches": {
             "description": "The keyword within the filter that was matched.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -10743,6 +10768,7 @@
           },
           "status_matches": {
             "description": "The status ID within the filter that was matched.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -10922,11 +10948,13 @@
                   },
                   "privacy_policy": {
                     "description": "The URL of the server's privacy policy.",
+                    "nullable": true,
                     "type": "string",
                     "format": "uri"
                   },
                   "terms_of_service": {
                     "description": "The URL of the server's current terms of service, if any.",
+                    "nullable": true,
                     "type": "string",
                     "format": "uri"
                   }
@@ -11093,14 +11121,17 @@
               },
               "message": {
                 "description": "A custom message to be shown when registrations are closed.",
+                "nullable": true,
                 "type": "string"
               },
               "min_age": {
                 "description": "A minimum age required to register, if configured.",
+                "nullable": true,
                 "type": "integer"
               },
               "reason_required": {
                 "description": "Whether registrations require the user to provide a reason for joining. Only applicable when `registrations[approval_required]` is true.",
+                "nullable": true,
                 "type": "boolean"
               }
             },
@@ -11133,6 +11164,7 @@
               },
               "account": {
                 "description": "An account that can be contacted natively over the network regarding inquiries or issues.",
+                "nullable": true,
                 "$ref": "#/components/schemas/Account"
               }
             },
@@ -11261,11 +11293,13 @@
           },
           "preview_url": {
             "description": "The location of a scaled-down preview of the attachment.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
           "remote_url": {
             "description": "The location of the full-size original attachment on the remote website.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
@@ -11275,10 +11309,12 @@
           },
           "description": {
             "description": "Alternate text that describes what is in the media attachment, to be used for the visually impaired or when media attachments do not load.",
+            "nullable": true,
             "type": "string"
           },
           "blurhash": {
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+            "nullable": true,
             "type": "string"
           },
           "text_url": {
@@ -11460,6 +11496,7 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -11477,6 +11514,7 @@
           },
           "voters_count": {
             "description": "How many unique accounts have voted on a multiple-choice poll.",
+            "nullable": true,
             "type": "integer"
           },
           "options": {
@@ -11524,6 +11562,7 @@
           },
           "votes_count": {
             "description": "The total number of received votes for this option.",
+            "nullable": true,
             "type": "integer"
           }
         },
@@ -11551,6 +11590,7 @@
           },
           "posting:default:language": {
             "description": "Default language for new posts. Equivalent to [CredentialAccount#source",
+            "nullable": true,
             "type": "string"
           },
           "reading:expand:media": {
@@ -11640,6 +11680,7 @@
           },
           "image": {
             "description": "Preview thumbnail.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
@@ -11650,6 +11691,7 @@
           },
           "blurhash": {
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -11765,6 +11807,7 @@
           },
           "status": {
             "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
+            "nullable": true,
             "$ref": "#/components/schemas/Status"
           }
         },
@@ -11953,6 +11996,7 @@
           },
           "action_taken_at": {
             "description": "When an action was taken against the report.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -11980,6 +12024,7 @@
           },
           "status_ids": {
             "description": "IDs of statuses that have been attached to this report for additional context.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -11987,6 +12032,7 @@
           },
           "rule_ids": {
             "description": "IDs of the rules that have been cited as a violation by this report.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -12091,6 +12137,7 @@
               },
               "poll": {
                 "description": "Poll to be attached to the status.",
+                "nullable": true,
                 "type": "object",
                 "properties": {
                   "options": {
@@ -12122,6 +12169,7 @@
               },
               "media_ids": {
                 "description": "IDs of the MediaAttachments that will be attached to the status.",
+                "nullable": true,
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -12129,10 +12177,12 @@
               },
               "sensitive": {
                 "description": "Whether the status will be marked as sensitive.",
+                "nullable": true,
                 "type": "boolean"
               },
               "spoiler_text": {
                 "description": "The text of the content warning or summary for the status.",
+                "nullable": true,
                 "type": "string"
               },
               "visibility": {
@@ -12147,10 +12197,12 @@
               },
               "in_reply_to_id": {
                 "description": "ID of the Status that will be replied to.",
+                "nullable": true,
                 "type": "integer"
               },
               "language": {
                 "description": "The language that will be used for the status.",
+                "nullable": true,
                 "type": "string"
               },
               "application_id": {
@@ -12160,10 +12212,12 @@
               },
               "scheduled_at": {
                 "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
+                "nullable": true,
                 "type": "string"
               },
               "idempotency": {
                 "description": "Idempotency key to prevent duplicate statuses.",
+                "nullable": true,
                 "type": "string"
               },
               "with_rate_limit": {
@@ -12245,6 +12299,7 @@
           },
           "status_id": {
             "description": "The identifier of the status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -12312,6 +12367,7 @@
               },
               "website": {
                 "description": "The website associated with the application that posted this status.",
+                "nullable": true,
                 "type": "string",
                 "format": "uri"
               }
@@ -12355,39 +12411,48 @@
           },
           "url": {
             "description": "A link to the status's HTML representation.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
           "in_reply_to_id": {
             "description": "ID of the status being replied to.",
+            "nullable": true,
             "type": "string"
           },
           "in_reply_to_account_id": {
             "description": "ID of the account that authored the status being replied to.",
+            "nullable": true,
             "type": "string"
           },
           "reblog": {
             "description": "The status being reblogged.",
+            "nullable": true,
             "$ref": "#/components/schemas/Status"
           },
           "poll": {
             "description": "The poll attached to the status.",
+            "nullable": true,
             "$ref": "#/components/schemas/Poll"
           },
           "card": {
             "description": "Preview card for links included within status content.",
+            "nullable": true,
             "$ref": "#/components/schemas/PreviewCard"
           },
           "language": {
             "description": "Primary language of this status.",
+            "nullable": true,
             "type": "string"
           },
           "text": {
             "description": "Plain-text source of a status. Returned instead of `content` when status is deleted, so the user may redraft from the source text without the client having to reverse-engineer the original text from the HTML content.",
+            "nullable": true,
             "type": "string"
           },
           "edited_at": {
             "description": "Timestamp of when the status was last edited.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -12728,6 +12793,7 @@
           },
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
+            "nullable": true,
             "type": "string",
             "format": "date"
           }
@@ -12879,6 +12945,7 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -12966,6 +13033,7 @@
           },
           "thumbnail": {
             "description": "Banner image for the website.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
@@ -13107,6 +13175,7 @@
           },
           "contact_account": {
             "description": "A user that can be contacted, as an alternative to `email`.",
+            "nullable": true,
             "$ref": "#/components/schemas/Account"
           },
           "rules": {
