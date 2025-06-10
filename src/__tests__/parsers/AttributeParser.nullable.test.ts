@@ -215,4 +215,42 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Hash');
     });
   });
+
+  describe('Special cases', () => {
+    it('should mark Account#hide_collections as nullable due to servers returning null values', () => {
+      const content = `
+### \`hide_collections\` {#hide_collections}
+
+**Description:** Whether the user hides the contents of their follows and followers collections.\\
+**Type:** Boolean\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content, 'Account');
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('hide_collections');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Boolean');
+    });
+
+    it('should mark hide_collections as nullable in method entities as well', () => {
+      const content = `
+#### \`hide_collections\` {#hide_collections}
+
+**Description:** Whether the user hides the contents of their follows and followers collections.\\
+**Type:** Boolean\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('hide_collections');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Boolean');
+    });
+  });
 });
