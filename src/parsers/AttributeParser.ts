@@ -67,6 +67,7 @@ export class AttributeParser {
         if (heading.modifiers) {
           if (heading.modifiers.includes('optional')) {
             attribute.optional = true;
+            attribute.nullable = true;
           }
           if (heading.modifiers.includes('deprecated')) {
             attribute.deprecated = true;
@@ -133,6 +134,7 @@ export class AttributeParser {
       if (modifiers) {
         if (modifiers.includes('optional')) {
           attribute.optional = true;
+          attribute.nullable = true;
         }
         if (modifiers.includes('deprecated')) {
           attribute.deprecated = true;

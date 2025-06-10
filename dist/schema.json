@@ -9422,10 +9422,12 @@
           },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
+            "nullable": true,
             "type": "boolean"
           },
           "limited": {
             "description": "An extra attribute returned only when an account is silenced. If true, indicates that the account should be hidden behind a warning screen.",
+            "nullable": true,
             "type": "boolean"
           },
           "created_at": {
@@ -9718,10 +9720,12 @@
           },
           "created_by_application_id": {
             "description": "The ID of the [Application]({{< relref \"entities/application\" >}}) that created this account, if applicable.",
+            "nullable": true,
             "type": "string"
           },
           "invited_by_account_id": {
             "description": "The ID of the [Account]({{< relref \"entities/account\" >}}) that invited this user, if applicable.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -10090,10 +10094,12 @@
           },
           "human_value": {
             "description": "A human-readable formatted value for this data item.",
+            "nullable": true,
             "type": "string"
           },
           "previous_total": {
             "description": "The numeric total associated with the requested measure, in the previous period. Previous period is calculated by subtracting the start_at and end_at dates, then offsetting both start and end dates backwards by the length of the time period.",
+            "nullable": true,
             "type": "string"
           },
           "data": {
@@ -10264,6 +10270,7 @@
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
+            "nullable": true,
             "type": "boolean"
           },
           "mentions": {
@@ -10570,6 +10577,7 @@
           },
           "comment": {
             "description": "An optional reason for the domain block.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -10589,6 +10597,7 @@
           },
           "error_description": {
             "description": "A longer description of the error, mainly provided with the OAuth API.",
+            "nullable": true,
             "type": "string"
           }
         },
@@ -10707,6 +10716,7 @@
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FilterKeyword"
@@ -10714,6 +10724,7 @@
           },
           "statuses": {
             "description": "The statuses grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FilterStatus"
@@ -10891,19 +10902,23 @@
               },
               "blurhash": {
                 "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+                "nullable": true,
                 "type": "string"
               },
               "versions": {
                 "description": "Links to scaled resolution images, for high DPI screens.",
+                "nullable": true,
                 "type": "object",
                 "properties": {
                   "@1x": {
                     "description": "The URL for the thumbnail image at 1x resolution.",
+                    "nullable": true,
                     "type": "string",
                     "format": "uri"
                   },
                   "@2x": {
                     "description": "The URL for the thumbnail image at 2x resolution.",
+                    "nullable": true,
                     "type": "string",
                     "format": "uri"
                   }
@@ -11372,18 +11387,22 @@
           },
           "status": {
             "description": "Status that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, or `update`.",
+            "nullable": true,
             "$ref": "#/components/schemas/Status"
           },
           "report": {
             "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
+            "nullable": true,
             "$ref": "#/components/schemas/Report"
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
+            "nullable": true,
             "$ref": "#/components/schemas/RelationshipSeveranceEvent"
           },
           "moderation_warning": {
             "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
+            "nullable": true,
             "$ref": "#/components/schemas/AccountWarning"
           }
         },
@@ -11475,6 +11494,7 @@
           },
           "last_status": {
             "description": "Most recent status associated with a filtered notification from that account.",
+            "nullable": true,
             "$ref": "#/components/schemas/Status"
           }
         },
@@ -11533,10 +11553,12 @@
           },
           "voted": {
             "description": "When called with a user token, has the authorized user voted?",
+            "nullable": true,
             "type": "boolean"
           },
           "own_votes": {
             "description": "When called with a user token, which options has the authorized user chosen? Contains an array of index values for `options`.",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "integer"
@@ -11829,15 +11851,18 @@
           },
           "me": {
             "description": "If there is a currently authorized user: Have you added this reaction?",
+            "nullable": true,
             "type": "boolean"
           },
           "url": {
             "description": "If the reaction is a custom emoji: A link to the custom emoji.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           },
           "static_url": {
             "description": "If the reaction is a custom emoji: A link to a non-animated version of the custom emoji.",
+            "nullable": true,
             "type": "string",
             "format": "uri"
           }
@@ -12359,6 +12384,7 @@
           },
           "application": {
             "description": "The application used to post this status.",
+            "nullable": true,
             "type": "object",
             "properties": {
               "name": {
@@ -12458,26 +12484,32 @@
           },
           "favourited": {
             "description": "If the current token has an authorized user: Have you favourited this status?",
+            "nullable": true,
             "type": "boolean"
           },
           "reblogged": {
             "description": "If the current token has an authorized user: Have you boosted this status?",
+            "nullable": true,
             "type": "boolean"
           },
           "muted": {
             "description": "If the current token has an authorized user: Have you muted notifications for this status's conversation?",
+            "nullable": true,
             "type": "boolean"
           },
           "bookmarked": {
             "description": "If the current token has an authorized user: Have you bookmarked this status?",
+            "nullable": true,
             "type": "boolean"
           },
           "pinned": {
             "description": "If the current token has an authorized user: Have you pinned this status? Only appears if the status is pinnable.",
+            "nullable": true,
             "type": "boolean"
           },
           "filtered": {
             "description": "If the current token has an authorized user: The filter and keywords that matched this status.",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/FilterResult"
@@ -12578,6 +12610,7 @@
           },
           "poll": {
             "description": "The current state of the poll options at this revision. Note that edits changing the poll options will be collapsed together into one edit, since this action resets the poll.",
+            "nullable": true,
             "type": "object",
             "properties": {
               "options": {
@@ -12710,10 +12743,12 @@
           },
           "following": {
             "description": "Whether the current token's authorized user is following this tag.",
+            "nullable": true,
             "type": "boolean"
           },
           "featuring": {
             "description": "Whether the current token's authorized user is featuring this tag on their profile.",
+            "nullable": true,
             "type": "boolean"
           }
         },
@@ -12846,6 +12881,7 @@
           },
           "poll": {
             "description": "The translated poll of the status.",
+            "nullable": true,
             "$ref": "#/components/schemas/Translation_Poll"
           },
           "media_attachments": {
@@ -13351,6 +13387,7 @@
           },
           "partial_accounts": {
             "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
+            "nullable": true,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/PartialAccountWithAvatar"
@@ -13456,14 +13493,17 @@
           },
           "page_min_id": {
             "description": "ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "nullable": true,
             "type": "string"
           },
           "page_max_id": {
             "description": "ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "nullable": true,
             "type": "string"
           },
           "latest_page_notification_at": {
             "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
+            "nullable": true,
             "type": "string",
             "format": "date-time"
           },
@@ -13476,18 +13516,22 @@
           },
           "status_id": {
             "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, or `update`.",
+            "nullable": true,
             "type": "string"
           },
           "report": {
             "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
+            "nullable": true,
             "$ref": "#/components/schemas/Report"
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
+            "nullable": true,
             "$ref": "#/components/schemas/RelationshipSeveranceEvent"
           },
           "moderation_warning": {
             "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
+            "nullable": true,
             "$ref": "#/components/schemas/AccountWarning"
           }
         },

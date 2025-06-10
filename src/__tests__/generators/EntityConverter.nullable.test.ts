@@ -108,4 +108,43 @@ describe('EntityConverter - Nullable Properties', () => {
     expect(nullableProperty.nullable).toBe(true);
     expect(nullableProperty.type).toBe('string');
   });
+
+  test('should mark optional fields as nullable in the schema and exclude from required', () => {
+    const mockEntity: EntityClass = {
+      name: 'TestOptionalNullable',
+      description: 'Test entity with optional field',
+      attributes: [
+        {
+          name: 'required_field',
+          type: 'String',
+          description: 'A required field',
+        },
+        {
+          name: 'optional_field',
+          type: 'Hash',
+          description: 'An optional field marked as nullable',
+          optional: true,
+          nullable: true,
+        },
+      ],
+    };
+
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test API', version: '1.0.0' },
+      paths: {},
+      components: { schemas: {} },
+    };
+
+    entityConverter.convertEntities([mockEntity], spec);
+
+    const schema = spec.components?.schemas?.TestOptionalNullable;
+    expect(schema).toBeDefined();
+
+    // Check optional field is nullable and not in required array
+    expect(schema?.properties?.optional_field).toBeDefined();
+    expect(schema?.properties?.optional_field?.nullable).toBe(true);
+    expect(schema?.required).toContain('required_field');
+    expect(schema?.required).not.toContain('optional_field');
+  });
 });
