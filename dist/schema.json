@@ -11331,19 +11331,13 @@
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
             "nullable": true,
             "type": "string"
-          },
-          "text_url": {
-            "description": "A shorter URL for the attachment.",
-            "type": "string",
-            "format": "uri"
           }
         },
         "required": [
           "id",
           "type",
           "url",
-          "meta",
-          "text_url"
+          "meta"
         ]
       },
       "Notification": {
