@@ -510,6 +510,11 @@ class EntityConverter {
         }
       }
 
+      // Clean up empty required array after processing direct properties
+      if (parentProperty.required && parentProperty.required.length === 0) {
+        delete parentProperty.required;
+      }
+
       // Recursively process nested attributes only if there are any
       if (nestedAttributes.length > 0) {
         const nestedSchema: OpenAPISchema = {
@@ -525,6 +530,11 @@ class EntityConverter {
         if (nestedSchema.required && nestedSchema.required.length > 0) {
           parentProperty.required = nestedSchema.required;
         } else {
+          delete parentProperty.required;
+        }
+      } else {
+        // No nested attributes to process, just clean up empty required array
+        if (parentProperty.required && parentProperty.required.length === 0) {
           delete parentProperty.required;
         }
       }

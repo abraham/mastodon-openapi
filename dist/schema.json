@@ -10813,8 +10813,7 @@
                     "type": "string",
                     "format": "uri"
                   }
-                },
-                "required": []
+                }
               }
             },
             "required": [
