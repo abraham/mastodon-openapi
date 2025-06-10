@@ -5875,7 +5875,7 @@
     },
     "/oauth/authorize": {
       "get": {
-        "operationId": "get/oauth/authorize",
+        "operationId": "getOauthAuthorize",
         "summary": "Authorize a user",
         "description": "Displays an authorization form to the user. If approved, it will create and return an authorization code, then redirect to the desired `redirect_uri`, or show the authorization code if `urn:ietf:wg:oauth:2.0:oob` was requested. The authorization code can be used while requesting a token to obtain access to user-level methods.",
         "tags": [
@@ -5973,7 +5973,7 @@
     },
     "/oauth/token": {
       "post": {
-        "operationId": "post/oauth/token",
+        "operationId": "postOauthToken",
         "summary": "Obtain a token",
         "description": "Obtain an access token, to be used during API calls that are not public.",
         "tags": [
@@ -6037,7 +6037,7 @@
     },
     "/oauth/revoke": {
       "post": {
-        "operationId": "post/oauth/revoke",
+        "operationId": "postOauthRevoke",
         "summary": "Revoke a token",
         "description": "Revoke an access token to make it no longer valid for use.",
         "tags": [
@@ -6078,7 +6078,7 @@
     },
     "/.well-known/oauth-authorization-server": {
       "get": {
-        "operationId": "get/.wellKnown/oauthAuthorizationServer",
+        "operationId": "getWellKnownOauthAuthorizationServer",
         "summary": "Discover OAuth Server Configuration",
         "description": "Returns the OAuth 2 Authorization Server Metadata for the Mastodon server, as defined by [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414#section-3.2).",
         "tags": [
@@ -8941,7 +8941,7 @@
     },
     "/api/v1/timelines/link?url={url}": {
       "get": {
-        "operationId": "getTimelineLink?url={url}",
+        "operationId": "getTimelineLinkUrlUrl",
         "summary": "View link timeline",
         "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.",
         "tags": [
