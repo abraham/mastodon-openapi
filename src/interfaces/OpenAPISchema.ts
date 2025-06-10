@@ -38,6 +38,7 @@ interface OpenAPIProperty {
   oneOf?: OpenAPIProperty[];
   enum?: string[];
   deprecated?: boolean;
+  nullable?: boolean;
   properties?: Record<string, OpenAPIProperty>;
   required?: string[];
 }
