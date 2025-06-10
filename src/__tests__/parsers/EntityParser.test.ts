@@ -85,4 +85,21 @@ describe('EntityParser', () => {
       expect(nameAttribute?.type).toBe('String');
     }
   });
+
+  test('should parse Account#hide_collections as nullable', () => {
+    const entities = parser.parseAllEntities();
+
+    const accountEntity = entities.find((e) => e.name === 'Account');
+    expect(accountEntity).toBeDefined();
+
+    if (accountEntity) {
+      const hideCollectionsAttribute = accountEntity.attributes.find(
+        (attr) => attr.name === 'hide_collections'
+      );
+      expect(hideCollectionsAttribute).toBeDefined();
+      expect(hideCollectionsAttribute?.type).toBe('Boolean');
+      expect(hideCollectionsAttribute?.optional).toBe(true);
+      expect(hideCollectionsAttribute?.nullable).toBe(true);
+    }
+  });
 });

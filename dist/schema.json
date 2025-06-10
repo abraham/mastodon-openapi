@@ -9455,6 +9455,7 @@
           },
           "hide_collections": {
             "description": "Whether the user hides the contents of their follows and followers collections.",
+            "nullable": true,
             "type": "boolean"
           }
         },
@@ -9478,8 +9479,7 @@
           "created_at",
           "statuses_count",
           "followers_count",
-          "following_count",
-          "hide_collections"
+          "following_count"
         ]
       },
       "CredentialAccount": {
