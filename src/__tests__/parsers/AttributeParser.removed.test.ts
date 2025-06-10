@@ -85,8 +85,13 @@ describe('AttributeParser - Removed Attributes', () => {
 
       // Should include url and description but not text_url
       expect(attributes).toHaveLength(2);
-      expect(attributes.map((attr) => attr.name)).toEqual(['url', 'description']);
-      expect(attributes.find((attr) => attr.name === 'text_url')).toBeUndefined();
+      expect(attributes.map((attr) => attr.name)).toEqual([
+        'url',
+        'description',
+      ]);
+      expect(
+        attributes.find((attr) => attr.name === 'text_url')
+      ).toBeUndefined();
     });
   });
 
