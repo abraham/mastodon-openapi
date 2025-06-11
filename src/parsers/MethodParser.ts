@@ -2,7 +2,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 import matter from 'gray-matter';
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
-import { ApiMethod } from '../interfaces/ApiMethod';
+import { ApiMethod, HashAttribute } from '../interfaces/ApiMethod';
 import { ParameterParser } from './ParameterParser';
 import { TextUtils } from './TextUtils';
 
@@ -154,6 +154,12 @@ class MethodParser {
     // Parse parameters from both Query parameters and Form data parameters sections
     const parameters = ParameterParser.parseAllParameters(section);
 
+    // Parse hash attributes if returns is "Array of Hash"
+    let hashAttributes: HashAttribute[] | undefined;
+    if (returns && returns.toLowerCase().includes('array of hash')) {
+      hashAttributes = this.parseHashAttributes(section);
+    }
+
     // Clean the method name by removing Hugo shortcodes
     const cleanedName = name.replace(/\{\{%deprecated%\}\}/g, '').trim();
 
@@ -164,10 +170,65 @@ class MethodParser {
       description,
       parameters: parameters.length > 0 ? parameters : undefined,
       returns,
+      hashAttributes:
+        hashAttributes && hashAttributes.length > 0
+          ? hashAttributes
+          : undefined,
       oauth,
       version,
       deprecated: isDeprecated || undefined,
     };
+  }
+
+  /**
+   * Parse hash attributes from "Each hash in the array will contain the following attributes:" section
+   */
+  private parseHashAttributes(section: string): HashAttribute[] {
+    const attributes: HashAttribute[] = [];
+
+    // Look for the "Each hash in the array will contain the following attributes:" section
+    const hashAttributesMatch = section.match(
+      /Each hash in the array will contain the following attributes:\s*([\s\S]*?)(?=\n```|\n#+|$)/i
+    );
+
+    if (!hashAttributesMatch) {
+      return attributes;
+    }
+
+    const attributesSection = hashAttributesMatch[1];
+
+    // Parse each attribute definition (field name followed by description with type)
+    // Pattern: field_name\n: Type. Description text
+    const attributePattern = /^([a-zA-Z_][a-zA-Z0-9_]*)\s*\n:\s*([^\n]+)/gm;
+    let match;
+
+    while ((match = attributePattern.exec(attributesSection)) !== null) {
+      const fieldName = match[1].trim();
+      const typeAndDescription = match[2].trim();
+
+      // Split type and description - type is typically at the beginning
+      // Patterns like "String (cast from an integer). Description text"
+      // or "String (UNIX Timestamp). Description text"
+      const typeMatch = typeAndDescription.match(/^([^.]+)\.\s*(.*)$/);
+
+      if (typeMatch) {
+        let type = typeMatch[1].trim();
+        const description = typeMatch[2].trim();
+
+        // Clean up the type by removing extra info in parentheses for OpenAPI
+        // "String (cast from an integer)" -> "String"
+        // "String (UNIX Timestamp)" -> "String"
+        type = type.replace(/\s*\([^)]+\).*$/, '').trim();
+
+        attributes.push({
+          name: fieldName,
+          type: type,
+          description: description,
+        });
+      }
+    }
+
+    return attributes;
   }
 }
 

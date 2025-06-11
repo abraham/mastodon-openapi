@@ -5320,7 +5320,25 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "type": "string"
+                    "type": "object",
+                    "properties": {
+                      "week": {
+                        "type": "string",
+                        "description": "Midnight at the first day of the week."
+                      },
+                      "statuses": {
+                        "type": "string",
+                        "description": "The number of Statuses created since the week began."
+                      },
+                      "logins": {
+                        "type": "string",
+                        "description": "The number of user logins since the week began."
+                      },
+                      "registrations": {
+                        "type": "string",
+                        "description": "The number of user registrations since the week began."
+                      }
+                    }
                   }
                 }
               }

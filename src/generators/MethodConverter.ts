@@ -58,7 +58,8 @@ class MethodConverter {
     // Parse response schema from returns field
     const responseSchema = this.typeParser.parseResponseSchema(
       method.returns,
-      spec
+      spec,
+      method.hashAttributes
     );
 
     // Build responses object with all available response codes
