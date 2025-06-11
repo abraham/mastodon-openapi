@@ -113,6 +113,121 @@ describe('OpenAPIGenerator Response Types', () => {
       });
     });
 
+    it('should generate response schema for array of string', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'instance',
+          description: 'Instance methods',
+          methods: [
+            {
+              name: 'View federated instances',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/instance/peers',
+              description:
+                'Obtain a list of all domains that your instance knows about.',
+              returns: 'Array of String',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      const operation = spec.paths['/api/v1/instance/peers']?.get;
+      expect(operation).toBeDefined();
+      expect(operation?.responses['200']).toBeDefined();
+
+      // Should have content with application/json schema for array of strings
+      expect(operation?.responses['200'].content).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json']
+      ).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        type: 'array',
+        items: {
+          type: 'string',
+        },
+      });
+    });
+
+    it('should generate response schema for array of integer', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'test',
+          description: 'Test methods',
+          methods: [
+            {
+              name: 'Get numbers',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/test/numbers',
+              description: 'Get array of numbers.',
+              returns: 'Array of Integer',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      const operation = spec.paths['/api/v1/test/numbers']?.get;
+      expect(operation).toBeDefined();
+      expect(operation?.responses['200']).toBeDefined();
+
+      // Should have content with application/json schema for array of integers
+      expect(operation?.responses['200'].content).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json']
+      ).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        type: 'array',
+        items: {
+          type: 'integer',
+        },
+      });
+    });
+
+    it('should generate response schema for array of boolean', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'test',
+          description: 'Test methods',
+          methods: [
+            {
+              name: 'Get flags',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/test/flags',
+              description: 'Get array of flags.',
+              returns: 'Array of Boolean',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      const operation = spec.paths['/api/v1/test/flags']?.get;
+      expect(operation).toBeDefined();
+      expect(operation?.responses['200']).toBeDefined();
+
+      // Should have content with application/json schema for array of booleans
+      expect(operation?.responses['200'].content).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json']
+      ).toBeDefined();
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
+        type: 'array',
+        items: {
+          type: 'boolean',
+        },
+      });
+    });
+
     it('should fallback to description-only when returns field cannot be parsed', () => {
       const methodFiles: ApiMethodsFile[] = [
         {
