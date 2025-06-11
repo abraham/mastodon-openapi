@@ -56,6 +56,7 @@ export class TypeInference {
         /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
+        /(?:include|includes)\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
       ];
 
       for (const pattern of patterns) {
