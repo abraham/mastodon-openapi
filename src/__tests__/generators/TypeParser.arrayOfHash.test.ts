@@ -1,6 +1,7 @@
 import { TypeParser } from '../../generators/TypeParser';
 import { UtilityHelpers } from '../../generators/UtilityHelpers';
 import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
+import { HashAttribute } from '../../interfaces/ApiMethod';
 
 describe('TypeParser - Array of Hash handling', () => {
   let typeParser: TypeParser;
@@ -48,6 +49,63 @@ describe('TypeParser - Array of Hash handling', () => {
       type: 'array',
       items: {
         type: 'string',
+      },
+    });
+  });
+
+  test('should handle "Array of Hash" with hash attributes', () => {
+    const hashAttributes: HashAttribute[] = [
+      {
+        name: 'week',
+        type: 'String',
+        description: 'Midnight at the first day of the week.',
+      },
+      {
+        name: 'statuses',
+        type: 'String',
+        description: 'The number of Statuses created since the week began.',
+      },
+      {
+        name: 'logins',
+        type: 'String',
+        description: 'The number of user logins since the week began.',
+      },
+      {
+        name: 'registrations',
+        type: 'String',
+        description: 'The number of user registrations since the week began.',
+      },
+    ];
+
+    const result = typeParser.parseResponseSchema(
+      'Array of Hash',
+      spec,
+      hashAttributes
+    );
+
+    expect(result).toEqual({
+      type: 'array',
+      items: {
+        type: 'object',
+        properties: {
+          week: {
+            type: 'string',
+            description: 'Midnight at the first day of the week.',
+          },
+          statuses: {
+            type: 'string',
+            description: 'The number of Statuses created since the week began.',
+          },
+          logins: {
+            type: 'string',
+            description: 'The number of user logins since the week began.',
+          },
+          registrations: {
+            type: 'string',
+            description:
+              'The number of user registrations since the week began.',
+          },
+        },
       },
     });
   });

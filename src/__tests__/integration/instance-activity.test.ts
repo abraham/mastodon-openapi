@@ -28,12 +28,31 @@ describe('Instance Activity endpoint - Array of Hash fix', () => {
     expect(response200).toBeDefined();
     expect(response200?.description).toBe('Array of Hash');
 
-    // Most importantly: verify the schema is array of objects, not strings
+    // Most importantly: verify the schema is array of objects with specific properties
     const responseSchema = response200?.content?.['application/json']?.schema;
     expect(responseSchema).toEqual({
       type: 'array',
       items: {
         type: 'object',
+        properties: {
+          week: {
+            type: 'string',
+            description: 'Midnight at the first day of the week.',
+          },
+          statuses: {
+            type: 'string',
+            description: 'The number of Statuses created since the week began.',
+          },
+          logins: {
+            type: 'string',
+            description: 'The number of user logins since the week began.',
+          },
+          registrations: {
+            type: 'string',
+            description:
+              'The number of user registrations since the week began.',
+          },
+        },
       },
     });
 
@@ -44,5 +63,15 @@ describe('Instance Activity endpoint - Array of Hash fix', () => {
     //     type: 'string'
     //   }
     // }
+    //
+    // With the basic fix, it would have been:
+    // {
+    //   type: 'array',
+    //   items: {
+    //     type: 'object'
+    //   }
+    // }
+    //
+    // Now with hash attributes parsing, it includes the specific properties!
   });
 });

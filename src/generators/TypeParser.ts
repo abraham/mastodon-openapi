@@ -1,4 +1,5 @@
 import { ApiParameter } from '../interfaces/ApiParameter';
+import { HashAttribute } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { UtilityHelpers } from './UtilityHelpers';
 
@@ -127,7 +128,8 @@ class TypeParser {
    */
   public parseResponseSchema(
     returns: string | undefined,
-    spec: OpenAPISpec
+    spec: OpenAPISpec,
+    hashAttributes?: HashAttribute[]
   ): OpenAPIProperty | null {
     if (!returns) {
       return null;
@@ -164,7 +166,27 @@ class TypeParser {
       } else if (itemType === 'string') {
         openApiType = 'string';
       } else if (itemType === 'hash' || itemType === 'object') {
-        openApiType = 'object';
+        // If we have hash attributes, create a proper object schema with properties
+        if (hashAttributes && hashAttributes.length > 0) {
+          const properties: Record<string, OpenAPIProperty> = {};
+
+          for (const attr of hashAttributes) {
+            properties[attr.name] = this.parseType(attr.type);
+            if (attr.description) {
+              properties[attr.name].description = attr.description;
+            }
+          }
+
+          return {
+            type: 'array',
+            items: {
+              type: 'object',
+              properties: properties,
+            },
+          };
+        } else {
+          openApiType = 'object';
+        }
       }
 
       return {
