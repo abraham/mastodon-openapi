@@ -37,7 +37,8 @@ alerts[mention]
     // Check endpoint parameter (simple string)
     const endpointParam = parameters.find((p: any) => p.name === 'endpoint');
     expect(endpointParam).toBeDefined();
-    expect(endpointParam!.schema).toBeUndefined();
+    expect(endpointParam!.schema).toBeDefined();
+    expect(endpointParam!.schema!.type).toBe('string');
 
     // Check alerts parameter (object)
     const alertsParam = parameters.find((p: any) => p.name === 'alerts');

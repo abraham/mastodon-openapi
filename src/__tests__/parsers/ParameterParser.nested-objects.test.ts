@@ -138,7 +138,8 @@ object[nested][other]
     // Check simple parameter
     const simpleParam = parameters.find((p: any) => p.name === 'simple_param');
     expect(simpleParam).toBeDefined();
-    expect(simpleParam!.schema).toBeUndefined();
+    expect(simpleParam!.schema).toBeDefined();
+    expect(simpleParam!.schema!.type).toBe('string');
 
     // Check object parameter with nested structure
     const objectParam = parameters.find((p: any) => p.name === 'object');
