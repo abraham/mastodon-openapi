@@ -16394,7 +16394,7 @@
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",
-        "description": "OAuth 2.0 authentication",
+        "description": "OAuth 2.0 authentication flows for Mastodon API. Supports authorization code flow for user tokens and client credentials flow for application tokens. Mastodon uses Doorkeeper to implement OAuth 2.0 as per RFC 6749. PKCE (RFC 7636) is supported for enhanced security.",
         "flows": {
           "authorizationCode": {
             "authorizationUrl": "https://mastodon.example/oauth/authorize",
@@ -16481,8 +16481,7 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT",
-        "description": "Bearer token authentication"
+        "description": "Bearer token authentication using OAuth access tokens. Supports both User tokens (obtained via authorization code flow) and App tokens (obtained via client credentials flow). The token should be included in the Authorization header as \"Bearer <access_token>\"."
       }
     }
   }
