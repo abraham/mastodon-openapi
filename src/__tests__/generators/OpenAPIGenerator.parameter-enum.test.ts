@@ -50,10 +50,24 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
       const requestBodySchema = operation.requestBody!.content![
         'application/json'
       ].schema as any;
-      expect(requestBodySchema.properties).toBeDefined();
 
-      // Check visibility parameter has enum values
-      const visibilityProperty = requestBodySchema.properties!['visibility'];
+      // The createStatus endpoint now uses oneOf, so we need to check the component schemas
+      expect(requestBodySchema.oneOf).toBeDefined();
+      expect(requestBodySchema.oneOf).toHaveLength(2);
+
+      // Check that both StatusRequest and ScheduledStatusRequest schemas exist
+      expect(spec.components?.schemas?.['StatusRequest']).toBeDefined();
+      expect(
+        spec.components?.schemas?.['ScheduledStatusRequest']
+      ).toBeDefined();
+
+      // Check visibility parameter has enum values in StatusRequest
+      const statusRequestSchema = spec.components!.schemas![
+        'StatusRequest'
+      ] as any;
+      expect(statusRequestSchema.properties).toBeDefined();
+
+      const visibilityProperty = statusRequestSchema.properties!['visibility'];
       expect(visibilityProperty).toBeDefined();
       expect(visibilityProperty.type).toBe('string');
       expect(visibilityProperty.enum).toEqual([
@@ -63,11 +77,28 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
         'direct',
       ]);
 
-      // Check status parameter does not have enum values
-      const statusProperty = requestBodySchema.properties!['status'];
+      // Check status parameter does not have enum values in StatusRequest
+      const statusProperty = statusRequestSchema.properties!['status'];
       expect(statusProperty).toBeDefined();
       expect(statusProperty.type).toBe('string');
       expect(statusProperty.enum).toBeUndefined();
+
+      // Also check ScheduledStatusRequest has the same enum values
+      const scheduledStatusRequestSchema = spec.components!.schemas![
+        'ScheduledStatusRequest'
+      ] as any;
+      expect(scheduledStatusRequestSchema.properties).toBeDefined();
+
+      const scheduledVisibilityProperty =
+        scheduledStatusRequestSchema.properties!['visibility'];
+      expect(scheduledVisibilityProperty).toBeDefined();
+      expect(scheduledVisibilityProperty.type).toBe('string');
+      expect(scheduledVisibilityProperty.enum).toEqual([
+        'public',
+        'unlisted',
+        'private',
+        'direct',
+      ]);
     });
 
     it('should generate enum values for query parameters with enumValues', () => {

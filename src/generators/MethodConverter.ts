@@ -130,30 +130,36 @@ class MethodConverter {
 
       // Add request body for form data parameters
       if (bodyParams.length > 0) {
-        const properties: Record<string, OpenAPIProperty> = {};
-        const required: string[] = [];
+        // Special handling for createStatus endpoint
+        if (httpMethod === 'post' && path === '/api/v1/statuses') {
+          this.createStatusRequestBody(bodyParams, operation, spec);
+        } else {
+          // Standard request body handling for all other endpoints
+          const properties: Record<string, OpenAPIProperty> = {};
+          const required: string[] = [];
 
-        for (const param of bodyParams) {
-          properties[param.name] =
-            this.typeParser.convertParameterToSchema(param);
-          if (param.required) {
-            required.push(param.name);
+          for (const param of bodyParams) {
+            properties[param.name] =
+              this.typeParser.convertParameterToSchema(param);
+            if (param.required) {
+              required.push(param.name);
+            }
           }
-        }
 
-        operation.requestBody = {
-          description: 'JSON request body parameters',
-          required: required.length > 0,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties,
-                required: required.length > 0 ? required : undefined,
-              } as OpenAPIProperty,
+          operation.requestBody = {
+            description: 'JSON request body parameters',
+            required: required.length > 0,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties,
+                  required: required.length > 0 ? required : undefined,
+                } as OpenAPIProperty,
+              },
             },
-          },
-        };
+          };
+        }
       }
     }
 
@@ -448,6 +454,88 @@ class MethodConverter {
     }
 
     return scopes;
+  }
+
+  /**
+   * Create special oneOf request body for createStatus endpoint
+   */
+  private createStatusRequestBody(
+    bodyParams: ApiParameter[],
+    operation: OpenAPIOperation,
+    spec: OpenAPISpec
+  ): void {
+    // Initialize components if not present
+    if (!spec.components) {
+      spec.components = { schemas: {} };
+    }
+    if (!spec.components.schemas) {
+      spec.components.schemas = {};
+    }
+
+    // Separate scheduled_at from other parameters
+    const scheduledAtParam = bodyParams.find(
+      (param) => param.name === 'scheduled_at'
+    );
+    const otherParams = bodyParams.filter(
+      (param) => param.name !== 'scheduled_at'
+    );
+
+    // Create StatusRequest schema (without scheduled_at)
+    const statusRequestProperties: Record<string, OpenAPIProperty> = {};
+    const statusRequestRequired: string[] = [];
+
+    for (const param of otherParams) {
+      statusRequestProperties[param.name] =
+        this.typeParser.convertParameterToSchema(param);
+      if (param.required) {
+        statusRequestRequired.push(param.name);
+      }
+    }
+
+    spec.components.schemas['StatusRequest'] = {
+      type: 'object',
+      properties: statusRequestProperties,
+      required:
+        statusRequestRequired.length > 0 ? statusRequestRequired : undefined,
+      description: 'Request body for creating a regular status',
+    };
+
+    // Create ScheduledStatusRequest schema (with required scheduled_at)
+    const scheduledStatusRequestProperties: Record<string, OpenAPIProperty> =
+      {};
+    const scheduledStatusRequestRequired: string[] = ['scheduled_at'];
+
+    // Add all parameters including scheduled_at
+    for (const param of bodyParams) {
+      scheduledStatusRequestProperties[param.name] =
+        this.typeParser.convertParameterToSchema(param);
+      if (param.required) {
+        scheduledStatusRequestRequired.push(param.name);
+      }
+    }
+
+    spec.components.schemas['ScheduledStatusRequest'] = {
+      type: 'object',
+      properties: scheduledStatusRequestProperties,
+      required: scheduledStatusRequestRequired,
+      description: 'Request body for creating a scheduled status',
+    };
+
+    // Set the request body to use oneOf
+    operation.requestBody = {
+      description: 'JSON request body parameters',
+      required: false,
+      content: {
+        'application/json': {
+          schema: {
+            oneOf: [
+              { $ref: '#/components/schemas/StatusRequest' },
+              { $ref: '#/components/schemas/ScheduledStatusRequest' },
+            ],
+          } as OpenAPIProperty,
+        },
+      },
+    };
   }
 }
 
