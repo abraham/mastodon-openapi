@@ -274,6 +274,11 @@ class TypeParser {
           type: param.schema.items.type,
         };
 
+        // Copy enum values from array items if they exist
+        if (param.schema.items.enum && param.schema.items.enum.length > 0) {
+          schema.items.enum = param.schema.items.enum;
+        }
+
         // Handle array items with properties (objects)
         if (param.schema.items.properties) {
           const itemProperties: Record<string, OpenAPIProperty> = {};

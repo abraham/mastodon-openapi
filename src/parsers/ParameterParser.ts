@@ -19,6 +19,30 @@ interface ParsedParameter {
  */
 export class ParameterParser {
   /**
+   * Extract notification types from "Types to filter include" section
+   */
+  static extractNotificationTypes(section: string): string[] {
+    const typesSection = section.match(
+      /Types to filter include:([\s\S]*?)(?=\n#{1,5}\s|\n\*\*Returns|\n\*\*OAuth|$)/i
+    );
+
+    if (!typesSection) return [];
+
+    const types: string[] = [];
+    const typePattern = /^\s*-\s*`([^`]+)`/gm;
+    let match;
+
+    while ((match = typePattern.exec(typesSection[1])) !== null) {
+      const type = match[1].trim();
+      if (type && !types.includes(type)) {
+        types.push(type);
+      }
+    }
+
+    return types;
+  }
+
+  /**
    * Parse all parameters from a method section
    */
   static parseAllParameters(section: string): ApiParameter[] {
@@ -39,6 +63,25 @@ export class ParameterParser {
       'formData'
     );
     parameters.push(...formParams);
+
+    // Apply special handling for notification type parameters
+    const notificationTypes = ParameterParser.extractNotificationTypes(section);
+    if (notificationTypes.length > 0) {
+      for (const param of parameters) {
+        if (
+          (param.name === 'grouped_types' ||
+            param.name === 'types' ||
+            param.name === 'exclude_types') &&
+          param.schema?.type === 'array'
+        ) {
+          // Apply notification types as enum values to array items
+          if (param.schema.items && !param.schema.items.enum) {
+            param.schema.items.enum = notificationTypes;
+            param.enumValues = notificationTypes;
+          }
+        }
+      }
+    }
 
     return parameters;
   }
@@ -323,6 +366,15 @@ export class ParameterParser {
       else if (name.endsWith('[]')) {
         const baseName = name.slice(0, -2);
 
+        // Create items schema with enum values if available
+        const itemsSchema: any = {
+          type: TypeInference.inferTypeFromDescription(rawParam.description),
+        };
+
+        if (rawParam.enumValues && rawParam.enumValues.length > 0) {
+          itemsSchema.enum = rawParam.enumValues;
+        }
+
         // Simple array parameter like media_ids[]
         parameters.push({
           name: baseName,
@@ -332,11 +384,7 @@ export class ParameterParser {
           enumValues: rawParam.enumValues,
           schema: {
             type: 'array',
-            items: {
-              type: TypeInference.inferTypeFromDescription(
-                rawParam.description
-              ),
-            },
+            items: itemsSchema,
           },
         });
       } else {

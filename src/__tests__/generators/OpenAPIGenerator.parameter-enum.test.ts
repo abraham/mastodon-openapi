@@ -127,6 +127,61 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
       expect((limitParam!.schema as any).enum).toBeUndefined();
     });
 
+    it('should handle array parameters with enum values for items', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'notifications',
+          description: 'Notification API methods',
+          methods: [
+            {
+              name: 'Get grouped notifications',
+              httpMethod: 'GET',
+              endpoint: '/api/v2/notifications',
+              description: 'Get grouped notifications',
+              parameters: [
+                {
+                  name: 'grouped_types',
+                  description: 'Array of notification types',
+                  in: 'query',
+                  enumValues: ['mention', 'reblog', 'favourite'],
+                  schema: {
+                    type: 'array',
+                    items: {
+                      type: 'string',
+                      enum: ['mention', 'reblog', 'favourite'],
+                    },
+                  },
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      expect(spec.paths).toBeDefined();
+      expect(spec.paths['/api/v2/notifications']).toBeDefined();
+      expect(spec.paths['/api/v2/notifications'].get).toBeDefined();
+
+      const operation = spec.paths['/api/v2/notifications'].get!;
+      expect(operation.parameters).toBeDefined();
+      expect(operation.parameters).toHaveLength(1);
+
+      // Check grouped_types parameter has enum values on items
+      const groupedTypesParam = operation.parameters!.find(
+        (p) => p.name === 'grouped_types'
+      );
+      expect(groupedTypesParam).toBeDefined();
+      expect(groupedTypesParam!.schema!.type).toBe('array');
+      expect(groupedTypesParam!.schema!.items).toBeDefined();
+      expect(groupedTypesParam!.schema!.items!.enum).toEqual([
+        'mention',
+        'reblog',
+        'favourite',
+      ]);
+    });
+
     it('should handle parameters without enum values gracefully', () => {
       const methodFiles: ApiMethodsFile[] = [
         {
