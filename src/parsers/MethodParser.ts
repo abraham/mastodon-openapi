@@ -163,6 +163,12 @@ class MethodParser {
     // Clean the method name by removing Hugo shortcodes
     const cleanedName = name.replace(/\{\{%deprecated%\}\}/g, '').trim();
 
+    // Check if this is a streaming endpoint (Server Sent Events)
+    // Streaming endpoints are all /api/v1/streaming/* except /health which returns plain text
+    const isStreaming =
+      endpoint.startsWith('/api/v1/streaming/') &&
+      !endpoint.endsWith('/health');
+
     return {
       name: cleanedName,
       httpMethod,
@@ -177,6 +183,7 @@ class MethodParser {
       oauth,
       version,
       deprecated: isDeprecated || undefined,
+      isStreaming: isStreaming || undefined,
     };
   }
 
