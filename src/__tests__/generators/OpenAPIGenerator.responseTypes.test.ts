@@ -168,7 +168,7 @@ describe('OpenAPIGenerator Response Types', () => {
 
       // Should fallback to default description
       expect(operation?.responses['200'].content).toBeUndefined();
-      expect(operation?.responses['200'].description).toBe('Success');
+      expect(operation?.responses['200'].description).toBe('OK.');
     });
 
     it('should generate synthetic schema for multiple return types', () => {
@@ -538,6 +538,56 @@ describe('OpenAPIGenerator Response Types', () => {
         },
         description: 'Object containing one of: familiar_followers, account',
       });
+    });
+
+    it('should include all HTTP response codes from intro.md', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'accounts',
+          description: 'Account methods',
+          methods: [
+            {
+              name: 'Test method',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/test',
+              description: 'Test method.',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      const operation = spec.paths['/api/v1/accounts/test']?.get;
+      expect(operation).toBeDefined();
+      expect(operation?.responses).toBeDefined();
+
+      // Should include 200 response
+      expect(operation?.responses['200']).toBeDefined();
+      expect(operation?.responses['200'].description).toBe('OK.');
+
+      // Should include error response codes from intro.md
+      expect(operation?.responses['401']).toBeDefined();
+      expect(operation?.responses['401'].description).toBe('Unauthorized');
+
+      expect(operation?.responses['404']).toBeDefined();
+      expect(operation?.responses['404'].description).toBe('Not Found');
+
+      expect(operation?.responses['410']).toBeDefined();
+      expect(operation?.responses['410'].description).toBe('Gone');
+
+      expect(operation?.responses['422']).toBeDefined();
+      expect(operation?.responses['422'].description).toBe('Unprocessed');
+
+      expect(operation?.responses['503']).toBeDefined();
+      expect(operation?.responses['503'].description).toBe('Unavailable');
+
+      // Error responses should not have content, only descriptions
+      expect(operation?.responses['401'].content).toBeUndefined();
+      expect(operation?.responses['404'].content).toBeUndefined();
+      expect(operation?.responses['410'].content).toBeUndefined();
+      expect(operation?.responses['422'].content).toBeUndefined();
+      expect(operation?.responses['503'].content).toBeUndefined();
     });
   });
 });

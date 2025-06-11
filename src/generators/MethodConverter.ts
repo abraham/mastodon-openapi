@@ -9,6 +9,7 @@ import {
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
+import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -16,10 +17,13 @@ import { UtilityHelpers } from './UtilityHelpers';
 class MethodConverter {
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
+  private responseCodes: Array<{ code: string; description: string }>;
 
   constructor(typeParser: TypeParser, utilityHelpers: UtilityHelpers) {
     this.typeParser = typeParser;
     this.utilityHelpers = utilityHelpers;
+    // Parse response codes once during initialization
+    this.responseCodes = ResponseCodeParser.parseResponseCodes();
   }
 
   /**
@@ -56,27 +60,39 @@ class MethodConverter {
       method.returns,
       spec
     );
-    const response200 = responseSchema
-      ? {
-          description: method.returns || 'Success',
-          content: {
-            'application/json': {
-              schema: responseSchema,
-            },
-          },
-        }
-      : {
-          description: method.returns || 'Success',
+
+    // Build responses object with all available response codes
+    const responses: Record<string, any> = {};
+
+    for (const responseCode of this.responseCodes) {
+      if (responseCode.code === '200') {
+        // 200 response includes the schema from the returns field
+        responses[responseCode.code] = responseSchema
+          ? {
+              description: method.returns || responseCode.description,
+              content: {
+                'application/json': {
+                  schema: responseSchema,
+                },
+              },
+            }
+          : {
+              description: method.returns || responseCode.description,
+            };
+      } else {
+        // Other response codes are error responses with simple descriptions
+        responses[responseCode.code] = {
+          description: responseCode.description,
         };
+      }
+    }
 
     const operation: OpenAPIOperation = {
       operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
       description: method.description,
       tags: [category],
-      responses: {
-        '200': response200,
-      },
+      responses,
     };
 
     // Add deprecated flag if method is deprecated
