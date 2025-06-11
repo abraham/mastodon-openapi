@@ -25,7 +25,7 @@ jobs:
             [
               {
                 "openapi-json-filepath": "dist/schema.json",
-                "api-doc-filepath": "latest/docs.html"
+                "api-doc-filepath": "index.html"
               }
             ]
           api-docs-dir: docs
