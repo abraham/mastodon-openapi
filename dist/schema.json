@@ -73,7 +73,6 @@
                   },
                   "email": {
                     "type": "string",
-                    "format": "email",
                     "description": "String. The email address to be used for login"
                   },
                   "password": {
@@ -81,7 +80,7 @@
                     "description": "String. The password to be used for login"
                   },
                   "agreement": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the user agrees to the local rules, terms, and policies. These should be presented to the user in order to allow them to consent before setting this parameter to TRUE."
                   },
                   "locale": {
@@ -93,9 +92,8 @@
                     "description": "String. If registrations require manual approval, this text will be reviewed by moderators."
                   },
                   "date_of_birth": {
-                    "description": "String ([Date]), required if the server has a minimum age requirement.",
                     "type": "string",
-                    "format": "date"
+                    "description": "String ([Date]), required if the server has a minimum age requirement."
                   }
                 },
                 "required": [
@@ -271,23 +269,23 @@
                     "description": "Header image encoded using `multipart/form-data`"
                   },
                   "locked": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether manual approval of follow requests is required."
                   },
                   "bot": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the account has a bot flag."
                   },
                   "discoverable": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the account should be shown in the profile directory."
                   },
                   "hide_collections": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether to hide followers and followed accounts."
                   },
                   "indexable": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether public posts should be searchable to anyone."
                   },
                   "attribution_domains": {
@@ -460,7 +458,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
@@ -469,7 +467,7 @@
             "in": "query",
             "description": "Boolean. Filter out statuses without attachments.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Filter out statuses without attachments."
             }
           },
@@ -478,7 +476,7 @@
             "in": "query",
             "description": "Boolean. Filter out statuses in reply to a different account.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Filter out statuses in reply to a different account."
             }
           },
@@ -487,7 +485,7 @@
             "in": "query",
             "description": "Boolean. Filter out boosts from the response.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Filter out boosts from the response."
             }
           },
@@ -496,7 +494,7 @@
             "in": "query",
             "description": "Boolean. Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results."
             }
           },
@@ -592,7 +590,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -679,7 +677,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -866,11 +864,11 @@
                 "type": "object",
                 "properties": {
                   "reblogs": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Receive this account's reblogs in home timeline? Defaults to true."
                   },
                   "notify": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Receive notifications when this account posts a status? Defaults to false."
                   },
                   "languages": {
@@ -1169,11 +1167,11 @@
                 "type": "object",
                 "properties": {
                   "notifications": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Mute notifications in addition to statuses? Defaults to true."
                   },
                   "duration": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Number. How long the mute should last, in seconds. Defaults to 0 (indefinite)."
                   }
                 }
@@ -1409,7 +1407,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -1670,7 +1668,7 @@
             "in": "query",
             "description": "Boolean. Whether relationships should be returned for suspended users, defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Whether relationships should be returned for suspended users, defaults to false."
             }
           }
@@ -1798,7 +1796,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -1807,7 +1805,7 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Skip the first n results."
             }
           },
@@ -1816,7 +1814,7 @@
             "in": "query",
             "description": "Boolean. Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address."
             }
           },
@@ -1825,7 +1823,7 @@
             "in": "query",
             "description": "Boolean. Limit the search to users you are following. Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Limit the search to users you are following. Defaults to false."
             }
           }
@@ -2299,7 +2297,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -2384,7 +2382,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -2469,7 +2467,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations."
             }
           }
@@ -2663,7 +2661,7 @@
             "in": "query",
             "description": "Number. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Number. Skip the first n results."
             }
           },
@@ -2672,7 +2670,7 @@
             "in": "query",
             "description": "Number. How many accounts to load. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Number. How many accounts to load. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -2690,7 +2688,7 @@
             "in": "query",
             "description": "Boolean. If true, returns only local accounts.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. If true, returns only local accounts."
             }
           }
@@ -2765,7 +2763,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks."
             }
           }
@@ -2922,7 +2920,6 @@
                 "properties": {
                   "email": {
                     "type": "string",
-                    "format": "email",
                     "description": "String. If provided, updates the unconfirmed user's email before resending the confirmation email."
                   }
                 }
@@ -3001,7 +2998,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -3086,7 +3083,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -3407,7 +3404,7 @@
                     "description": "String. The policy to be applied when the filter is matched. Specify `warn`, `hide` or `blur`."
                   },
                   "expires_in": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Integer. How many seconds from now should the filter expire?"
                   },
                   "keywords_attributes": {
@@ -3572,7 +3569,7 @@
                     "description": "String. The policy to be applied when the filter is matched. Specify `warn`, `hide` or `blur`."
                   },
                   "expires_in": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Integer. How many seconds from now should the filter expire?"
                   },
                   "keywords_attributes": {
@@ -3775,7 +3772,7 @@
                     "description": "String. The keyword to be added to the filter group."
                   },
                   "whole_word": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the keyword should consider word boundaries."
                   }
                 }
@@ -3904,7 +3901,7 @@
                     "description": "String. The keyword to be added to the filter group."
                   },
                   "whole_word": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the keyword should consider word boundaries."
                   }
                 }
@@ -4303,15 +4300,15 @@
                     }
                   },
                   "irreversible": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
                   },
                   "whole_word": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Should the filter consider word boundaries for this keyword? Defaults to false."
                   },
                   "expires_in": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Integer. Number of seconds from now that the filter should expire. Otherwise, `null` for a filter that doesn't expire."
                   }
                 }
@@ -4449,15 +4446,15 @@
                     }
                   },
                   "irreversible": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
                   },
                   "whole_word": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Should the filter consider word boundaries? Defaults to false."
                   },
                   "expires_in": {
-                    "type": "string",
+                    "type": "integer",
                     "description": "Integer. Number of seconds from now that the filter should expire. Otherwise, `null` for a filter that doesn't expire."
                   }
                 }
@@ -4583,7 +4580,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -4778,7 +4775,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 100 tags. Max 200 tags."
             }
           }
@@ -4860,7 +4857,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
             }
           },
@@ -4923,7 +4920,7 @@
             "in": "query",
             "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
             }
           }
@@ -5132,7 +5129,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
@@ -5698,7 +5695,7 @@
                     "description": "String. One of `followed`, `list`, or `none`. Defaults to `list`."
                   },
                   "exclusive": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether members of this list need to get removed from the “Home” feed"
                   }
                 }
@@ -5831,7 +5828,7 @@
                     "description": "String. One of `followed`, `list`, or `none`. Defaults to `list`."
                   },
                   "exclusive": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether members of this list need to get removed from the “Home” feed"
                   }
                 }
@@ -5965,7 +5962,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination."
             }
           },
@@ -6644,7 +6641,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -6729,7 +6726,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications."
             }
           },
@@ -6771,7 +6768,7 @@
             "in": "query",
             "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
             }
           }
@@ -6959,7 +6956,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
@@ -7121,7 +7118,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests."
             }
           }
@@ -7465,7 +7462,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
             }
           },
@@ -7670,7 +7667,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
             }
           },
@@ -7819,7 +7816,7 @@
             "in": "query",
             "description": "Boolean. Forces the user to re-login, which is necessary for authorizing with multiple accounts from the same instance.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Forces the user to re-login, which is necessary for authorizing with multiple accounts from the same instance."
             }
           },
@@ -8043,7 +8040,7 @@
             "in": "query",
             "description": "Number. Width of the iframe. Defaults to 400",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Number. Width of the iframe. Defaults to 400"
             }
           },
@@ -8052,7 +8049,7 @@
             "in": "query",
             "description": "Number. Height of the iframe. Defaults to null",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Number. Height of the iframe. Defaults to null"
             }
           }
@@ -8613,16 +8610,12 @@
                     "description": "String. The reason for the report. Default maximum of 1000 characters."
                   },
                   "forward": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. If the account is remote, should the report be forwarded to the remote admin? Defaults to false."
                   },
                   "category": {
                     "type": "string",
-                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
-                    "enum": [
-                      "spam",
-                      "legal"
-                    ]
+                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide)."
                   },
                   "rule_ids": {
                     "type": "array",
@@ -8716,7 +8709,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -8838,9 +8831,8 @@
                 "type": "object",
                 "properties": {
                   "scheduled_at": {
-                    "description": "String. [Datetime] at which the status will be published. Must be at least 5 minutes into the future.",
                     "type": "string",
-                    "format": "date-time"
+                    "description": "String. [Datetime] at which the status will be published. Must be at least 5 minutes into the future."
                   }
                 }
               }
@@ -8961,7 +8953,7 @@
             "in": "query",
             "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
             }
           },
@@ -8970,7 +8962,7 @@
             "in": "query",
             "description": "Boolean. Only include accounts that the user is following? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Only include accounts that the user is following? Defaults to false."
             }
           },
@@ -8988,7 +8980,7 @@
             "in": "query",
             "description": "Boolean. Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags."
             }
           },
@@ -9015,7 +9007,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category."
             }
           },
@@ -9024,7 +9016,7 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Skip the first n results."
             }
           }
@@ -9098,7 +9090,7 @@
                     "description": "String. ID of the status being replied to, if status is a reply."
                   },
                   "sensitive": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Mark status and attached media as sensitive? Defaults to false."
                   },
                   "spoiler_text": {
@@ -9107,22 +9099,15 @@
                   },
                   "visibility": {
                     "type": "string",
-                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
-                    "enum": [
-                      "public",
-                      "unlisted",
-                      "private",
-                      "direct"
-                    ]
+                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`."
                   },
                   "language": {
                     "type": "string",
                     "description": "String. ISO 639 language code for this status."
                   },
                   "scheduled_at": {
-                    "description": "String. [Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
                     "type": "string",
-                    "format": "date-time"
+                    "description": "String. [Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
                   },
                   "poll": {
                     "type": "object",
@@ -9316,7 +9301,7 @@
             "in": "query",
             "description": "Boolean. Whether to immediately delete the post's media attachments. If omitted or `false`, media attachments may be kept for approximately 24 hours so they can be re-used in a new post.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Whether to immediately delete the post's media attachments. If omitted or `false`, media attachments may be kept for approximately 24 hours so they can be re-used in a new post."
             }
           },
@@ -9400,7 +9385,7 @@
                     "description": "String. The plain text subject or content warning of the status."
                   },
                   "sensitive": {
-                    "type": "string",
+                    "type": "boolean",
                     "description": "Boolean. Whether the status should be marked as sensitive."
                   },
                   "language": {
@@ -9649,7 +9634,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -9734,7 +9719,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           },
@@ -10633,7 +10618,7 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
@@ -10681,7 +10666,7 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
@@ -10729,7 +10714,7 @@
             "in": "query",
             "description": "Boolean. If true, return only statuses with media attachments.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. If true, return only statuses with media attachments."
             }
           }
@@ -10966,7 +10951,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -11069,7 +11054,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
             }
           }
@@ -11400,7 +11385,7 @@
             "in": "query",
             "description": "Boolean. Show only local statuses? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Show only local statuses? Defaults to false."
             }
           },
@@ -11409,7 +11394,7 @@
             "in": "query",
             "description": "Boolean. Show only remote statuses? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Show only remote statuses? Defaults to false."
             }
           },
@@ -11418,7 +11403,7 @@
             "in": "query",
             "description": "Boolean. Show only statuses with media attached? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Show only statuses with media attached? Defaults to false."
             }
           },
@@ -11454,7 +11439,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -11548,7 +11533,7 @@
             "in": "query",
             "description": "Boolean. Return only local statuses? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Return only local statuses? Defaults to false."
             }
           },
@@ -11557,7 +11542,7 @@
             "in": "query",
             "description": "Boolean. Return only remote statuses? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Return only remote statuses? Defaults to false."
             }
           },
@@ -11566,7 +11551,7 @@
             "in": "query",
             "description": "Boolean. Return only statuses with media attachments? Defaults to false.",
             "schema": {
-              "type": "string",
+              "type": "boolean",
               "description": "Boolean. Return only statuses with media attachments? Defaults to false."
             }
           },
@@ -11602,7 +11587,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
@@ -11696,7 +11681,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -11790,7 +11775,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
@@ -11884,7 +11869,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
@@ -11979,7 +11964,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           }
@@ -12030,7 +12015,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 10 tags. Max 20 tags.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 10 tags. Max 20 tags."
             }
           },
@@ -12039,7 +12024,7 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Skip the first n results."
             }
           }
@@ -12090,7 +12075,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
             }
           },
@@ -12099,7 +12084,7 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Skip the first n results."
             }
           }
@@ -12150,7 +12135,7 @@
             "in": "query",
             "description": "Integer. Maximum number of results to return. Defaults to 10 links. Max 20 links.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Maximum number of results to return. Defaults to 10 links. Max 20 links."
             }
           },
@@ -12159,7 +12144,7 @@
             "in": "query",
             "description": "Integer. Skip the first n results.",
             "schema": {
-              "type": "string",
+              "type": "integer",
               "description": "Integer. Skip the first n results."
             }
           }

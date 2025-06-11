@@ -352,12 +352,16 @@ export class ParameterParser {
           enumValues: rawParam.enumValues,
         };
 
-        // If inferred as object, create a schema for it
-        if (inferredType === 'object') {
-          param.schema = {
-            type: 'object',
-          };
-        }
+        // Create schema with the inferred type
+        param.schema = {
+          type: inferredType as
+            | 'string'
+            | 'number'
+            | 'boolean'
+            | 'object'
+            | 'array'
+            | 'integer',
+        };
 
         parameters.push(param);
       }

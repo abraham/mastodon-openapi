@@ -14,7 +14,7 @@ interface ApiParameter {
   in?: string; // Location of parameter: 'query', 'formData', 'path', 'header'
   enumValues?: string[];
   schema?: {
-    type: 'array' | 'object';
+    type: 'array' | 'object' | 'string' | 'integer' | 'boolean' | 'number';
     items?: ApiProperty;
     properties?: Record<string, ApiProperty>;
   };

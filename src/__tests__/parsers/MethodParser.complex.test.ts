@@ -36,7 +36,8 @@ media_attributes[]
       // Check status parameter (simple string)
       const statusParam = parameters.find((p: any) => p.name === 'status');
       expect(statusParam).toBeDefined();
-      expect(statusParam!.schema).toBeUndefined();
+      expect(statusParam!.schema).toBeDefined();
+      expect(statusParam!.schema!.type).toBe('string');
 
       // Check media_ids parameter (array)
       const mediaIdsParam = parameters.find((p: any) => p.name === 'media_ids');
@@ -94,7 +95,8 @@ poll[hide_totals]
       // Check status parameter (simple string)
       const statusParam = parameters.find((p: any) => p.name === 'status');
       expect(statusParam).toBeDefined();
-      expect(statusParam!.schema).toBeUndefined();
+      expect(statusParam!.schema).toBeDefined();
+      expect(statusParam!.schema!.type).toBe('string');
 
       // Check poll parameter (object)
       const pollParam = parameters.find((p: any) => p.name === 'poll');

@@ -40,7 +40,8 @@ keywords_attributes[][_destroy]
     // Check title parameter (simple string)
     const titleParam = parameters.find((p: any) => p.name === 'title');
     expect(titleParam).toBeDefined();
-    expect(titleParam!.schema).toBeUndefined();
+    expect(titleParam!.schema).toBeDefined();
+    expect(titleParam!.schema!.type).toBe('string');
 
     // Check keywords_attributes parameter (array of objects)
     const keywordsAttributesParam = parameters.find(
@@ -126,7 +127,8 @@ other_object[property]
     // Check simple parameter
     const simpleParam = parameters.find((p: any) => p.name === 'simple_param');
     expect(simpleParam).toBeDefined();
-    expect(simpleParam!.schema).toBeUndefined();
+    expect(simpleParam!.schema).toBeDefined();
+    expect(simpleParam!.schema!.type).toBe('string');
 
     // Check simple array parameter
     const arrayParam = parameters.find((p: any) => p.name === 'array_param');
