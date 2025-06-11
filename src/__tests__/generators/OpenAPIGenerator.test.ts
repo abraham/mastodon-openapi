@@ -217,4 +217,19 @@ describe('OpenAPIGenerator', () => {
       expect(parsed.openapi).toBe('3.0.3');
     });
   });
+
+  describe('externalDocs', () => {
+    it('should include externalDocs section in the generated schema', () => {
+      const entities: EntityClass[] = [];
+      const methodFiles: ApiMethodsFile[] = [];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      expect(spec.externalDocs).toBeDefined();
+      expect(spec.externalDocs?.url).toBe('https://docs.joinmastodon.org/api/');
+      expect(spec.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
+  });
 });

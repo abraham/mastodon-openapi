@@ -41,6 +41,10 @@ class SpecBuilder {
         version: '4.2.0',
         description: 'Documentation for the Mastodon API',
       },
+      externalDocs: {
+        url: 'https://docs.joinmastodon.org/api/',
+        description: 'Official Mastodon API documentation',
+      },
       servers: [
         {
           url: 'https://mastodon.example',
