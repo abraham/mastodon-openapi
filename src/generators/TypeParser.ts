@@ -151,6 +151,28 @@ class TypeParser {
       }
     }
 
+    // Handle array responses: "Array of String", "Array of Integer", etc.
+    const basicArrayMatch = returns.match(/Array of (\w+)/i);
+    if (basicArrayMatch) {
+      const itemType = basicArrayMatch[1].toLowerCase();
+      let openApiType = 'string'; // default
+
+      if (itemType === 'integer' || itemType === 'number') {
+        openApiType = 'integer';
+      } else if (itemType === 'boolean') {
+        openApiType = 'boolean';
+      } else if (itemType === 'string') {
+        openApiType = 'string';
+      }
+
+      return {
+        type: 'array',
+        items: {
+          type: openApiType,
+        },
+      };
+    }
+
     // Find all entity references: "[EntityName]"
     const entityMatches = returns.match(/\[([^\]]+)\]/g);
     if (entityMatches && entityMatches.length > 0) {
