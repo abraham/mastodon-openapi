@@ -9,6 +9,11 @@ interface OpenAPIServer {
   description?: string;
 }
 
+interface OpenAPIExternalDocs {
+  url: string;
+  description?: string;
+}
+
 interface OAuthFlow {
   authorizationUrl?: string;
   tokenUrl: string;
@@ -103,6 +108,7 @@ interface OpenAPIPath {
 interface OpenAPISpec {
   openapi: string;
   info: OpenAPIInfo;
+  externalDocs?: OpenAPIExternalDocs;
   servers?: OpenAPIServer[];
   paths: Record<string, OpenAPIPath>;
   components?: {
@@ -114,6 +120,7 @@ interface OpenAPISpec {
 export {
   OpenAPIInfo,
   OpenAPIServer,
+  OpenAPIExternalDocs,
   OpenAPISecurityScheme,
   OAuthFlow,
   OpenAPIProperty,
