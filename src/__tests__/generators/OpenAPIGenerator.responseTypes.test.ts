@@ -171,7 +171,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation?.responses['200'].description).toBe('Success');
     });
 
-    it('should generate synthetic schema for multiple return types', () => {
+    it('should not generate synthetic schema for Status/ScheduledStatus returns field', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -220,7 +220,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
 
-      // Should have content with application/json schema referencing synthetic type
+      // Should have content with application/json schema referencing Status (not synthetic type)
       expect(operation?.responses['200'].content).toBeDefined();
       expect(
         operation?.responses['200'].content?.['application/json']
@@ -228,21 +228,13 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(
         operation?.responses['200'].content?.['application/json'].schema
       ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
+        $ref: '#/components/schemas/Status',
       });
 
-      // Check that the synthetic schema was created in components
+      // Check that the synthetic schema was NOT created in components
       expect(
         spec.components?.schemas?.['StatusOrScheduledStatus']
-      ).toBeDefined();
-      expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
-        type: 'object',
-        properties: {
-          status: { $ref: '#/components/schemas/Status' },
-          scheduled_status: { $ref: '#/components/schemas/ScheduledStatus' },
-        },
-        description: 'Object containing one of: status, scheduled_status',
-      });
+      ).toBeUndefined();
     });
 
     it('should handle multiple return types with non-existent entities', () => {
@@ -326,7 +318,7 @@ describe('OpenAPIGenerator Response Types', () => {
       );
     });
 
-    it('should reuse synthetic schemas for identical entity combinations', () => {
+    it('should not create StatusOrScheduledStatus synthetic schema even with multiple methods', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -378,14 +370,14 @@ describe('OpenAPIGenerator Response Types', () => {
 
       const spec = generator.generateSchema(entities, methodFiles);
 
-      // Both operations should reference the same synthetic schema
+      // Both operations should reference Status (not synthetic schema)
       const postOperation = spec.paths['/api/v1/statuses']?.post;
       const putOperation = spec.paths['/api/v1/statuses/{id}']?.put;
 
       expect(
         postOperation?.responses['200'].content?.['application/json'].schema
       ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
+        $ref: '#/components/schemas/Status',
       });
 
       expect(
@@ -394,11 +386,10 @@ describe('OpenAPIGenerator Response Types', () => {
         $ref: '#/components/schemas/StatusOrScheduledStatus',
       });
 
-      // Should have created exactly one synthetic schema
-      const synthetics = Object.keys(spec.components?.schemas || {}).filter(
-        (name) => name.includes('Or')
-      );
-      expect(synthetics).toEqual(['StatusOrScheduledStatus']);
+      // Should not have created StatusOrScheduledStatus for POST, but PUT should still use it
+      expect(
+        spec.components?.schemas?.['StatusOrScheduledStatus']
+      ).toBeDefined();
     });
 
     it('should generate different synthetic schemas for different entity combinations', () => {

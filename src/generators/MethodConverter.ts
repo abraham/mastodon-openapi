@@ -31,7 +31,15 @@ class MethodConverter {
   ): void {
     for (const methodFile of methodFiles) {
       for (const method of methodFile.methods) {
-        this.convertMethod(method, methodFile.name, spec);
+        // Check if this is the special case that needs to be split
+        if (this.shouldSplitStatusMethod(method)) {
+          const splitMethods = this.splitStatusMethod(method);
+          for (const splitMethod of splitMethods) {
+            this.convertMethod(splitMethod, methodFile.name, spec);
+          }
+        } else {
+          this.convertMethod(method, methodFile.name, spec);
+        }
       }
     }
   }
@@ -54,7 +62,8 @@ class MethodConverter {
     // Parse response schema from returns field
     const responseSchema = this.typeParser.parseResponseSchema(
       method.returns,
-      spec
+      spec,
+      method
     );
     const response200 = responseSchema
       ? {
@@ -70,7 +79,7 @@ class MethodConverter {
         };
 
     const operation: OpenAPIOperation = {
-      operationId: this.generateOperationId(method.httpMethod, path),
+      operationId: this.getOperationId(method, path),
       summary: method.name,
       description: method.description,
       tags: [category],
@@ -175,6 +184,19 @@ class MethodConverter {
     }
 
     spec.paths[path][httpMethod] = operation;
+  }
+
+  /**
+   * Get operation ID, with special handling for split methods
+   */
+  private getOperationId(method: ApiMethod, path: string): string {
+    // Special case for scheduleStatus
+    if (path === '/api/v1/statuses#schedule') {
+      return 'scheduleStatus';
+    }
+
+    // Use the standard generation logic
+    return this.generateOperationId(method.httpMethod, path);
   }
 
   /**
@@ -448,6 +470,61 @@ class MethodConverter {
     }
 
     return scopes;
+  }
+
+  /**
+   * Check if a method should be split into createStatus and scheduleStatus
+   */
+  private shouldSplitStatusMethod(method: ApiMethod): boolean {
+    return (
+      method.httpMethod.toUpperCase() === 'POST' &&
+      method.endpoint === '/api/v1/statuses' &&
+      (method.returns?.includes('[Status]') ?? false) &&
+      (method.returns?.includes('[ScheduledStatus]') ?? false) &&
+      ((method.returns?.includes('When scheduled_at is present') ?? false) ||
+        (method.returns?.includes('When `scheduled_at` is present') ?? false))
+    );
+  }
+
+  /**
+   * Split a status method into createStatus and scheduleStatus methods
+   */
+  private splitStatusMethod(method: ApiMethod): ApiMethod[] {
+    const baseParameters = method.parameters || [];
+
+    // Parameters for createStatus (excluding scheduled_at)
+    const createStatusParams = baseParameters.filter(
+      (p) => p.name !== 'scheduled_at'
+    );
+
+    // Parameters for scheduleStatus (including scheduled_at as required)
+    const scheduleStatusParams = baseParameters.map((p) => {
+      if (p.name === 'scheduled_at') {
+        return { ...p, required: true };
+      }
+      return p;
+    });
+
+    const createStatusMethod: ApiMethod = {
+      ...method,
+      name: 'Create status',
+      description: 'Publish a status with the given parameters.',
+      returns: '[Status]',
+      parameters: createStatusParams,
+    };
+
+    const scheduleStatusMethod: ApiMethod = {
+      ...method,
+      name: 'Schedule status',
+      description:
+        'Schedule a status to be posted at a specific time. This calls the same endpoint as createStatus but with the scheduled_at parameter.',
+      returns: '[ScheduledStatus]',
+      parameters: scheduleStatusParams,
+      // Use a virtual endpoint to avoid OpenAPI conflicts, but document that it calls the same endpoint
+      endpoint: '/api/v1/statuses#schedule',
+    };
+
+    return [createStatusMethod, scheduleStatusMethod];
   }
 }
 

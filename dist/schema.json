@@ -6915,18 +6915,18 @@
     "/api/v1/statuses": {
       "post": {
         "operationId": "createStatus",
-        "summary": "Post a new status",
+        "summary": "Create status",
         "description": "Publish a status with the given parameters.",
         "tags": [
           "statuses"
         ],
         "responses": {
           "200": {
-            "description": "[Status]. When `scheduled_at` is present, [ScheduledStatus] is returned instead.",
+            "description": "[Status]",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StatusOrScheduledStatus"
+                  "$ref": "#/components/schemas/Status"
                 }
               }
             }
@@ -6984,11 +6984,6 @@
                   "language": {
                     "type": "string",
                     "description": "String. ISO 639 language code for this status."
-                  },
-                  "scheduled_at": {
-                    "description": "String. [Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
-                    "type": "string",
-                    "format": "date-time"
                   },
                   "poll": {
                     "type": "object",
@@ -7064,6 +7059,119 @@
             }
           }
         ]
+      }
+    },
+    "/api/v1/statuses#schedule": {
+      "post": {
+        "operationId": "scheduleStatus",
+        "summary": "Schedule status",
+        "description": "Schedule a status to be posted at a specific time. This calls the same endpoint as createStatus but with the scheduled_at parameter.",
+        "tags": [
+          "statuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "[ScheduledStatus]",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ScheduledStatus"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:statuses"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "status": {
+                    "type": "string",
+                    "description": "String. The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+                  },
+                  "media_ids": {
+                    "type": "array",
+                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "in_reply_to_id": {
+                    "type": "string",
+                    "description": "String. ID of the status being replied to, if status is a reply."
+                  },
+                  "sensitive": {
+                    "type": "string",
+                    "description": "Boolean. Mark status and attached media as sensitive? Defaults to false."
+                  },
+                  "spoiler_text": {
+                    "type": "string",
+                    "description": "String. Text to be shown as a warning or subject before the actual content. Statuses are generally collapsed behind this field."
+                  },
+                  "visibility": {
+                    "type": "string",
+                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
+                    "enum": [
+                      "public",
+                      "unlisted",
+                      "private",
+                      "direct"
+                    ]
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "String. ISO 639 language code for this status."
+                  },
+                  "scheduled_at": {
+                    "description": "String. [Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "poll": {
+                    "type": "object",
+                    "description": "Object containing properties",
+                    "properties": {
+                      "options": {
+                        "type": "array",
+                        "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                        "items": {
+                          "type": "string"
+                        }
+                      },
+                      "expires_in": {
+                        "type": "integer",
+                        "description": "Integer. Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                      },
+                      "multiple": {
+                        "type": "boolean",
+                        "description": "Boolean. Allow multiple choices? Defaults to false."
+                      },
+                      "hide_totals": {
+                        "type": "boolean",
+                        "description": "Boolean. Hide vote counts until the poll ends? Defaults to false."
+                      }
+                    }
+                  }
+                },
+                "required": [
+                  "scheduled_at"
+                ]
+              }
+            }
+          }
+        }
       }
     },
     "/api/v1/statuses/{id}": {
@@ -13523,18 +13631,6 @@
           "most_recent_notification_id",
           "sample_account_ids"
         ]
-      },
-      "StatusOrScheduledStatus": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "$ref": "#/components/schemas/Status"
-          },
-          "scheduled_status": {
-            "$ref": "#/components/schemas/ScheduledStatus"
-          }
-        },
-        "description": "Object containing one of: status, scheduled_status"
       }
     },
     "securitySchemes": {

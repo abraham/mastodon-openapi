@@ -1,4 +1,5 @@
 import { ApiParameter } from '../interfaces/ApiParameter';
+import { ApiMethod } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { UtilityHelpers } from './UtilityHelpers';
 
@@ -127,7 +128,8 @@ class TypeParser {
    */
   public parseResponseSchema(
     returns: string | undefined,
-    spec: OpenAPISpec
+    spec: OpenAPISpec,
+    method?: ApiMethod
   ): OpenAPIProperty | null {
     if (!returns) {
       return null;
@@ -171,8 +173,14 @@ class TypeParser {
         }
       }
 
-      // If we found multiple valid entities, create a synthetic schema
+      // If we found multiple valid entities, check for special cases first
       if (validEntityRefs.length > 1) {
+        // Special case: avoid creating StatusOrScheduledStatus synthetic schema for POST /api/v1/statuses
+        if (this.shouldAvoidSyntheticSchema(entityNames, returns, method)) {
+          // Return the first entity (Status) as the default
+          return validEntityRefs[0];
+        }
+
         return this.createSyntheticOneOfSchema(
           validEntityRefs,
           entityNames,
@@ -404,6 +412,23 @@ class TypeParser {
     }
 
     return schema;
+  }
+
+  /**
+   * Check if we should avoid creating a synthetic schema for specific cases
+   */
+  private shouldAvoidSyntheticSchema(
+    entityNames: string[],
+    returns: string,
+    method?: ApiMethod
+  ): boolean {
+    // Avoid StatusOrScheduledStatus synthetic schema only for POST /api/v1/statuses
+    return (
+      entityNames.includes('Status') &&
+      entityNames.includes('ScheduledStatus') &&
+      method?.httpMethod.toUpperCase() === 'POST' &&
+      method?.endpoint === '/api/v1/statuses'
+    );
   }
 }
 
