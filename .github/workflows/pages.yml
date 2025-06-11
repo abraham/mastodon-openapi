@@ -1,0 +1,31 @@
+name: Generate API docs and deploy to GitHub Pages
+
+on:
+  # Automatically trigger when push to main branch
+  push:
+    branches: ["main"]
+  # Enable running workflow manually from GitHub Actions
+  workflow_dispatch:
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  generate-api-docs:
+    name: Generate API Documentation
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate API docs and deploy to GitHub Pages
+        uses: msayson/openapi-github-pages-action@v2
+        with:
+          api-configs: |-
+            [
+              {
+                "openapi-json-filepath": "dist/schema.json",
+                "api-doc-filepath": "latest/docs.html"
+              }
+            ]
+          api-docs-dir: docs
