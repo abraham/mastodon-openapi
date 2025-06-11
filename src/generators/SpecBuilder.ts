@@ -39,7 +39,8 @@ class SpecBuilder {
       info: {
         title: 'Mastodon API',
         version: '4.2.0',
-        description: 'Documentation for the Mastodon API',
+        description:
+          'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
       },
       externalDocs: {
         url: 'https://docs.joinmastodon.org/api/',
