@@ -3,7 +3,7 @@ name: Generate API docs and deploy to GitHub Pages
 on:
   # Automatically trigger when push to main branch
   push:
-    branches: ["main"]
+    branches: ['main']
   # Enable running workflow manually from GitHub Actions
   workflow_dispatch:
 
