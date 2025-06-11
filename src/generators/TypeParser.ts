@@ -163,6 +163,8 @@ class TypeParser {
         openApiType = 'boolean';
       } else if (itemType === 'string') {
         openApiType = 'string';
+      } else if (itemType === 'hash' || itemType === 'object') {
+        openApiType = 'object';
       }
 
       return {

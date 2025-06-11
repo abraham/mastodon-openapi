@@ -21,16 +21,28 @@ describe('TypeParser - Array of Hash handling', () => {
 
   test('should handle "Array of Hash" return type', () => {
     const result = typeParser.parseResponseSchema('Array of Hash', spec);
-    console.log('Result for "Array of Hash":', result);
     
-    // Currently this probably returns null, but we want it to return a proper schema
-    // Let's see what happens
-    expect(result).toBeDefined();
+    expect(result).toEqual({
+      type: 'array',
+      items: {
+        type: 'object'
+      }
+    });
+  });
+
+  test('should handle "Array of Object" return type', () => {
+    const result = typeParser.parseResponseSchema('Array of Object', spec);
+    
+    expect(result).toEqual({
+      type: 'array',
+      items: {
+        type: 'object'
+      }
+    });
   });
 
   test('should handle "Array of String" for comparison', () => {
     const result = typeParser.parseResponseSchema('Array of String', spec);
-    console.log('Result for "Array of String":', result);
     
     expect(result).toEqual({
       type: 'array',
