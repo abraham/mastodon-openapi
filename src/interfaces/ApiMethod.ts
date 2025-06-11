@@ -10,6 +10,7 @@ interface ApiMethod {
   oauth?: string;
   version?: string;
   deprecated?: boolean;
+  isStreaming?: boolean;
 }
 
 export { ApiMethod };

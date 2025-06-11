@@ -10526,7 +10526,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `notification`, `filters_changed`, `announcement`, `announcement.reaction`, `announcement.delete`, `status.update`"
+            "description": "`update`, `delete`, `notification`, `filters_changed`, `announcement`, `announcement.reaction`, `announcement.delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10564,7 +10567,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`notification`"
+            "description": "`notification`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10602,7 +10608,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10650,7 +10659,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10698,7 +10710,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10746,7 +10761,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10794,7 +10812,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10842,7 +10863,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`update`, `delete`, `status.update`"
+            "description": "`update`, `delete`, `status.update`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -10890,7 +10914,10 @@
         ],
         "responses": {
           "200": {
-            "description": "`conversation`"
+            "description": "`conversation`",
+            "content": {
+              "text/event-stream": {}
+            }
           },
           "401": {
             "description": "Unauthorized"

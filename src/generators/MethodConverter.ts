@@ -67,18 +67,35 @@ class MethodConverter {
     for (const responseCode of this.responseCodes) {
       if (responseCode.code === '200') {
         // 200 response includes the schema from the returns field
-        responses[responseCode.code] = responseSchema
-          ? {
-              description: method.returns || responseCode.description,
-              content: {
-                'application/json': {
-                  schema: responseSchema,
+        // For streaming endpoints, use text/event-stream content type
+        const contentType = method.isStreaming
+          ? 'text/event-stream'
+          : 'application/json';
+
+        if (method.isStreaming) {
+          // Streaming endpoints always have content with text/event-stream
+          // even if no specific schema is parsed from the returns field
+          responses[responseCode.code] = {
+            description: method.returns || responseCode.description,
+            content: {
+              [contentType]: responseSchema ? { schema: responseSchema } : {},
+            },
+          };
+        } else {
+          // Non-streaming endpoints use the existing logic
+          responses[responseCode.code] = responseSchema
+            ? {
+                description: method.returns || responseCode.description,
+                content: {
+                  [contentType]: {
+                    schema: responseSchema,
+                  },
                 },
-              },
-            }
-          : {
-              description: method.returns || responseCode.description,
-            };
+              }
+            : {
+                description: method.returns || responseCode.description,
+              };
+        }
       } else {
         // Other response codes are error responses with simple descriptions
         responses[responseCode.code] = {
