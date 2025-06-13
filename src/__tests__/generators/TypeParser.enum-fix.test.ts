@@ -48,7 +48,8 @@ describe('TypeParser Enum Values Fix', () => {
 
     expect(schema.type).toBe('array');
     expect(schema.description).toBe(parameter.description);
-    expect(schema.enum).toEqual(['mention', 'reblog', 'favourite']);
+    // Array properties should NOT have enum on the array itself, only on items
+    expect(schema.enum).toBeUndefined();
     expect(schema.items).toBeDefined();
     expect(schema.items!.type).toBe('string');
     expect(schema.items!.enum).toEqual(['mention', 'reblog', 'favourite']);

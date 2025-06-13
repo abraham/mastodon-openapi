@@ -293,9 +293,14 @@ class TypeParser {
         description: param.description,
       };
 
-      // Add enum values if available
+      // Add enum values if available - for arrays, put enum on items instead of array
       if (param.enumValues && param.enumValues.length > 0) {
-        schema.enum = param.enumValues;
+        if (param.schema.type === 'array') {
+          // For arrays, enum values should be on items, not on the array itself
+          // Will be handled below when processing items
+        } else {
+          schema.enum = param.enumValues;
+        }
       }
 
       if (param.schema.type === 'array' && param.schema.items) {
@@ -303,9 +308,13 @@ class TypeParser {
           type: param.schema.items.type,
         };
 
-        // Copy enum values from array items if they exist
+        // Copy enum values from array items if they exist in the schema
         if (param.schema.items.enum && param.schema.items.enum.length > 0) {
           schema.items.enum = param.schema.items.enum;
+        }
+        // If no enum on items but parameter has enumValues, apply them to items
+        else if (param.enumValues && param.enumValues.length > 0) {
+          schema.items.enum = param.enumValues;
         }
 
         // Handle array items with properties (objects)
