@@ -82,7 +82,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <app_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <app_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -206,6 +217,18 @@
                 "type": "string"
               }
             }
+          },
+          {
+            "name": "id",
+            "in": "header",
+            "description": "The IDs of the Accounts in the database.",
+            "schema": {
+              "type": "array",
+              "description": "The IDs of the Accounts in the database.",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         ]
       }
@@ -274,6 +297,18 @@
             "OAuth2": [
               "read:accounts"
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -344,7 +379,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -493,6 +539,15 @@
           }
         },
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -659,6 +714,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -768,6 +832,15 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           },
           {
@@ -883,6 +956,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -957,6 +1039,15 @@
           }
         },
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1040,6 +1131,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1118,6 +1219,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1228,6 +1339,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1306,6 +1427,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1386,6 +1517,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1465,6 +1606,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1543,6 +1694,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1646,6 +1807,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1726,6 +1897,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1805,6 +1986,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -1906,6 +2097,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -1984,6 +2184,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -2064,6 +2274,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -2142,6 +2362,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -2262,6 +2492,16 @@
               "description": "Whether relationships should be returned for suspended users, defaults to false.",
               "default": "false"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -2346,6 +2586,16 @@
               "items": {
                 "type": "string"
               }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -2468,6 +2718,16 @@
               "type": "boolean",
               "description": "Limit the search to users you are following. Defaults to false.",
               "default": "false"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -2693,6 +2953,18 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -2756,6 +3028,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -2828,6 +3110,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -2907,6 +3199,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -3134,6 +3436,18 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <app_token>` to gain authorized access to this API method. `<app_token>` may be either a `client_credential` or `access_token` returned from [`/oauth/token`]",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <app_token>` to gain authorized access to this API method. `<app_token>` may be either a `client_credential` or `access_token` returned from [`/oauth/token`]"
+            }
+          }
         ]
       }
     },
@@ -3242,6 +3556,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -3353,6 +3677,16 @@
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -3463,6 +3797,16 @@
               "description": "Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
               "default": "20"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -3527,6 +3871,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -3606,6 +3960,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -3891,6 +4255,16 @@
               "description": "Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
               "default": "100"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       },
@@ -3952,7 +4326,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -4032,7 +4417,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -4112,7 +4508,18 @@
             "OAuth2": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": false,
@@ -4229,6 +4636,16 @@
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -4339,6 +4756,16 @@
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -4411,6 +4838,18 @@
               "read:accounts"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       },
       "post": {
@@ -4478,7 +4917,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -4562,6 +5012,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -4641,6 +5101,18 @@
               "read:accounts"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -4712,6 +5184,18 @@
               "read:filters"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       },
       "post": {
@@ -4779,7 +5263,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -4911,6 +5406,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -4987,6 +5492,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5115,6 +5630,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -5197,6 +5722,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "filter_id",
             "in": "path",
             "required": true,
@@ -5273,6 +5808,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "filter_id",
             "in": "path",
@@ -5377,6 +5922,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -5453,6 +6008,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5548,6 +6113,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -5630,6 +6205,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "filter_id",
             "in": "path",
             "required": true,
@@ -5706,6 +6291,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "filter_id",
             "in": "path",
@@ -5806,6 +6401,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -5882,6 +6487,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -5960,6 +6575,18 @@
               "read:filters"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       },
       "post": {
@@ -6028,7 +6655,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -6142,6 +6780,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -6219,6 +6867,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -6333,6 +6991,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -6441,6 +7109,16 @@
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -6512,6 +7190,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "account_id",
             "in": "path",
@@ -6591,6 +7279,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "account_id",
             "in": "path",
@@ -6708,6 +7406,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
               "default": "100"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -6880,6 +7588,16 @@
               "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
               "default": "false"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -6952,6 +7670,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "group_key",
             "in": "path",
             "required": true,
@@ -7023,6 +7751,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "group_key",
             "in": "path",
@@ -7105,6 +7843,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "group_key",
             "in": "path",
@@ -7230,6 +7978,16 @@
               "items": {
                 "type": "string"
               }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -7357,7 +8115,18 @@
           "503": {
             "description": "Unavailable"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ]
       }
     },
     "/api/v1/instance/activity": {
@@ -7439,7 +8208,18 @@
           "503": {
             "description": "Unavailable"
           }
-        }
+        },
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ]
       }
     },
     "/api/v1/instance/rules": {
@@ -7571,6 +8351,17 @@
         "security": [
           {
             "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -8014,6 +8805,18 @@
               "read:lists"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       },
       "post": {
@@ -8081,7 +8884,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -8182,6 +8996,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -8258,6 +9082,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -8358,6 +9192,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -8478,6 +9322,16 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -8547,6 +9401,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -8640,6 +9504,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -8757,6 +9631,16 @@
                 ]
               }
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       },
@@ -8825,7 +9709,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": false,
@@ -8927,7 +9822,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -9030,6 +9936,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -9099,6 +10015,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -9176,6 +10102,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -9280,7 +10216,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -9411,6 +10358,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -9565,6 +10522,16 @@
               "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
               "default": "false"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -9637,6 +10604,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -9706,6 +10683,18 @@
               "write:notifications"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -9769,6 +10758,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -9883,6 +10882,16 @@
               "type": "string",
               "description": "Only count unread notifications received from the specified account."
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -9951,6 +10960,18 @@
             "OAuth2": [
               "read:notifications"
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -10061,6 +11082,16 @@
               "description": "Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
               "default": "40"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -10132,6 +11163,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -10205,6 +11246,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -10277,6 +11328,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -10346,6 +11407,18 @@
               "write:notifications"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -10407,6 +11480,18 @@
               "write:notifications"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -10467,6 +11552,18 @@
             "OAuth2": [
               "read:notifications"
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -10628,6 +11725,16 @@
                 "$ref": "#/components/schemas/TypesEnum"
               }
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -10700,6 +11807,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "group_key",
             "in": "path",
             "required": true,
@@ -10771,6 +11888,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "group_key",
             "in": "path",
@@ -10896,6 +12023,16 @@
               "items": {
                 "type": "string"
               }
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -11446,6 +12583,15 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -11524,6 +12670,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -11617,6 +12773,18 @@
               "read:accounts"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -11684,7 +12852,18 @@
             "OAuth2": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -11846,6 +13025,18 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       },
       "put": {
@@ -11911,7 +13102,18 @@
             "OAuth2": []
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": false,
@@ -12036,6 +13238,18 @@
           {
             "OAuth2": []
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -12105,7 +13319,18 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -12268,6 +13493,16 @@
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -12339,6 +13574,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -12416,6 +13661,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -12503,6 +13758,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -12675,6 +13940,16 @@
               "type": "integer",
               "description": "Skip the first n results."
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -12745,7 +14020,27 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "Provide this header with any arbitrary string to prevent duplicate submissions of the same status. Consider using a hash or UUID generated client-side. Idempotency keys are stored for up to 1 hour.",
+            "schema": {
+              "type": "object",
+              "description": "Provide this header with any arbitrary string to prevent duplicate submissions of the same status. Consider using a hash or UUID generated client-side. Idempotency keys are stored for up to 1 hour."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
@@ -12907,6 +14202,15 @@
                 "type": "string"
               }
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -12978,6 +14282,15 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -13065,6 +14378,16 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -13141,6 +14464,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -13289,6 +14622,15 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -13367,6 +14709,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -13496,6 +14848,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -13606,6 +14967,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -13684,6 +15054,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -13764,6 +15144,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -13842,6 +15232,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -13940,6 +15340,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -14018,6 +15428,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -14098,6 +15518,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -14176,6 +15606,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -14256,6 +15696,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -14335,6 +15785,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -14413,6 +15873,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -14496,6 +15966,15 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -14574,6 +16053,15 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -14654,6 +16142,15 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -14782,6 +16279,18 @@
               "read:notifications"
             ]
           }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          }
         ]
       }
     },
@@ -14846,6 +16355,18 @@
               "read:statuses",
               "read:notifications"
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -14920,6 +16441,15 @@
             "schema": {
               "type": "boolean",
               "description": "If true, return only statuses with media attachments."
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -14996,6 +16526,15 @@
               "type": "boolean",
               "description": "If true, return only statuses with media attachments."
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15070,6 +16609,15 @@
             "schema": {
               "type": "boolean",
               "description": "If true, return only statuses with media attachments."
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -15147,6 +16695,15 @@
               "type": "string",
               "description": "The name of the hashtag to watch."
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15222,6 +16779,15 @@
             "schema": {
               "type": "string",
               "description": "The name of the hashtag to watch."
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -15299,6 +16865,16 @@
               "type": "string",
               "description": "The ID of the list to watch."
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15363,6 +16939,18 @@
             "OAuth2": [
               "read:statuses"
             ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15444,6 +17032,16 @@
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15506,6 +17104,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "account_id",
             "in": "path",
@@ -15596,6 +17204,16 @@
               "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
               "default": "40"
             }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
           }
         ]
       }
@@ -15665,6 +17283,15 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -15745,6 +17372,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -15823,6 +17460,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -15903,6 +17550,16 @@
         ],
         "parameters": [
           {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "id",
             "in": "path",
             "required": true,
@@ -15981,6 +17638,16 @@
           }
         ],
         "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
           {
             "name": "id",
             "in": "path",
@@ -16128,6 +17795,15 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -16307,6 +17983,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "hashtag",
             "in": "path",
             "required": true,
@@ -16423,6 +18108,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]
@@ -16546,6 +18241,15 @@
             }
           },
           {
+            "name": "Authorization",
+            "in": "header",
+            "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user token>` to gain authorized access to this API method."
+            }
+          },
+          {
             "name": "url",
             "in": "path",
             "required": true,
@@ -16662,6 +18366,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           },
           {
@@ -16782,6 +18496,16 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
+            }
+          },
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method.",
+            "schema": {
+              "type": "string",
+              "description": "Provide this header with `Bearer <user_token>` to gain authorized access to this API method."
             }
           }
         ]

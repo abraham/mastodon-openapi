@@ -67,6 +67,14 @@ export class ParameterParser {
     );
     parameters.push(...formParams);
 
+    // Parse header parameters
+    const headerParams = ParameterParser.parseParametersByType(
+      section,
+      'Headers',
+      'header'
+    );
+    parameters.push(...headerParams);
+
     // Apply special handling for notification type parameters
     const notificationTypes = ParameterParser.extractNotificationTypes(section);
     if (notificationTypes.length > 0) {
@@ -246,9 +254,9 @@ export class ParameterParser {
     const paramSection = paramMatch[1];
 
     // Match parameter definitions: parameter_name\n: description
-    // Allow dots in parameter names to support patterns like alerts[admin.sign_up]
+    // Allow dots, brackets, and hyphens in parameter names to support patterns like alerts[admin.sign_up] and Idempotency-Key
     const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_.\[\]]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
+      /^([a-zA-Z_][a-zA-Z0-9_.\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
     let match;
     while ((match = paramRegex.exec(paramSection)) !== null) {
