@@ -13575,7 +13575,8 @@
             "description": "The registered redirection URI(s) for your application.",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "uri"
             }
           },
           "redirect_uri": {
@@ -13622,7 +13623,8 @@
             "description": "The registered redirection URI(s) for your application.",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "uri"
             }
           },
           "redirect_uri": {
