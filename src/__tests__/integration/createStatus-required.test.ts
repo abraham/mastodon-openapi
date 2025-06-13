@@ -10,7 +10,7 @@ describe('createStatus requestBody required fields', () => {
     methodParser = new MethodParser();
   });
 
-  it('should not require all of status, media_ids, and poll simultaneously', () => {
+  it('should use oneOf schema to handle different status types', () => {
     // Parse the actual statuses.md file to get the real parameters
     const methodFiles = methodParser.parseAllMethods();
     const statusesFile = methodFiles.find((file) => file.name === 'statuses');
@@ -37,27 +37,39 @@ describe('createStatus requestBody required fields', () => {
       'application/json'
     ]!.schema as any;
     expect(requestBodySchema).toBeDefined();
-    expect(requestBodySchema.type).toBe('object');
-    expect(requestBodySchema.properties).toBeDefined();
 
-    // Verify the properties exist
-    expect(requestBodySchema.properties.status).toBeDefined();
-    expect(requestBodySchema.properties.media_ids).toBeDefined();
-    expect(requestBodySchema.properties.poll).toBeDefined();
+    // Verify oneOf structure exists
+    expect(requestBodySchema.oneOf).toBeDefined();
+    expect(requestBodySchema.oneOf).toHaveLength(3);
 
-    // The key issue: these should NOT all be required simultaneously
-    // According to the API docs, these are conditionally required
-    const required = requestBodySchema.required || [];
+    // Check Text Status schema
+    const textStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Text Status'
+    );
+    expect(textStatus).toBeDefined();
+    expect(textStatus.required).toContain('status');
+    expect(textStatus.properties.status).toBeDefined();
 
-    // This is the problem: currently ALL are required
-    // After the fix, none of these should be in the required array
-    // because they are conditionally required
-    expect(required).not.toContain('status');
-    expect(required).not.toContain('media_ids');
-    expect(required).not.toContain('poll');
+    // Check Media Status schema
+    const mediaStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Media Status'
+    );
+    expect(mediaStatus).toBeDefined();
+    expect(mediaStatus.required).toContain('media_ids');
+    expect(mediaStatus.properties.media_ids).toBeDefined();
+    expect(mediaStatus.properties.status).toBeDefined(); // Optional for media posts
+
+    // Check Poll Status schema
+    const pollStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Poll Status'
+    );
+    expect(pollStatus).toBeDefined();
+    expect(pollStatus.required).toContain('poll');
+    expect(pollStatus.properties.poll).toBeDefined();
+    expect(pollStatus.properties.status).toBeDefined(); // Optional for poll posts
   });
 
-  it('should have proper descriptions explaining conditional requirements', () => {
+  it('should have proper titles and descriptions for different status types', () => {
     const methodFiles = methodParser.parseAllMethods();
     const spec = generator.generateSchema([], methodFiles);
 
@@ -66,13 +78,25 @@ describe('createStatus requestBody required fields', () => {
       'application/json'
     ]!.schema as any;
 
-    // Check that descriptions explain the conditional logic
-    expect(requestBodySchema.properties.status.description).toMatch(
-      /If.*media_ids.*provided.*becomes optional/
+    // Check that each oneOf schema has proper titles and descriptions
+    const textStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Text Status'
     );
-    expect(requestBodySchema.properties.media_ids.description).toMatch(
-      /If provided.*status.*becomes optional/
+    expect(textStatus.title).toBe('Text Status');
+    expect(textStatus.description).toMatch(/text-only status/);
+
+    const mediaStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Media Status'
     );
-    expect(requestBodySchema.properties.poll.description).toBeDefined();
+    expect(mediaStatus.title).toBe('Media Status');
+    expect(mediaStatus.description).toMatch(/media attachments/);
+
+    const pollStatus = requestBodySchema.oneOf.find(
+      (schema: any) => schema.title === 'Poll Status'
+    );
+    expect(pollStatus.title).toBe('Poll Status');
+    expect(pollStatus.description).toMatch(
+      /poll.*Cannot be combined with media/
+    );
   });
 });

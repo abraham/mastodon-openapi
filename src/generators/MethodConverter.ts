@@ -242,8 +242,7 @@ class MethodConverter {
         }
 
         // Special handling for POST /api/v1/statuses endpoint
-        // The status, media_ids, and poll parameters have conditional requirements
-        // that cannot be properly expressed with simple required arrays
+        // Split into different status types using oneOf to handle mutual exclusivity
         if (
           method.httpMethod === 'POST' &&
           path === '/api/v1/statuses' &&
@@ -251,23 +250,63 @@ class MethodConverter {
           required.includes('media_ids') &&
           required.includes('poll')
         ) {
-          // Remove these from required array since they are conditionally required
+          // Create oneOf schema for different status creation scenarios
+          const commonProperties = { ...properties };
+          delete commonProperties.status;
+          delete commonProperties.media_ids;
+          delete commonProperties.poll;
+
+          // Extract non-conditional required fields
           const conditionallyRequiredParams = ['status', 'media_ids', 'poll'];
-          const filteredRequired = required.filter(
+          const commonRequired = required.filter(
             (param) => !conditionallyRequiredParams.includes(param)
           );
 
+          const oneOfSchemas = [
+            {
+              title: 'Text Status',
+              type: 'object',
+              required: ['status', ...commonRequired],
+              properties: {
+                status: properties.status,
+                ...commonProperties,
+              },
+              description: 'Create a text-only status',
+            },
+            {
+              title: 'Media Status',
+              type: 'object',
+              required: ['media_ids', ...commonRequired],
+              properties: {
+                media_ids: properties.media_ids,
+                status: properties.status, // Optional for media posts
+                ...commonProperties,
+              },
+              description:
+                'Create a status with media attachments. Status text is optional.',
+            },
+            {
+              title: 'Poll Status',
+              type: 'object',
+              required: ['poll', ...commonRequired],
+              properties: {
+                poll: properties.poll,
+                status: properties.status, // Optional for poll posts
+                ...commonProperties,
+              },
+              description:
+                'Create a status with a poll. Cannot be combined with media.',
+            },
+          ];
+
           operation.requestBody = {
             description:
-              'JSON request body parameters. Note: status, media_ids, and poll have conditional requirements - at least one of status or media_ids must be provided, but not both media_ids and poll simultaneously.',
-            required: filteredRequired.length > 0,
+              'JSON request body parameters for creating a status. Different types of statuses have different requirements.',
+            required: true,
             content: {
               'application/json': {
                 schema: {
-                  type: 'object',
-                  properties,
-                  required:
-                    filteredRequired.length > 0 ? filteredRequired : undefined,
+                  oneOf: oneOfSchemas,
                 } as OpenAPIProperty,
               },
             },
