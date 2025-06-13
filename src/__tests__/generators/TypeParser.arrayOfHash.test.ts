@@ -13,7 +13,7 @@ describe('TypeParser - Array of Hash handling', () => {
 
     // Create a minimal spec to test with
     spec = {
-      openapi: '3.0.3',
+      openapi: '3.1.0',
       info: { title: 'Test', version: '1.0.0' },
       paths: {},
       components: { schemas: {} },

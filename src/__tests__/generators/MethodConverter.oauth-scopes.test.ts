@@ -14,7 +14,7 @@ describe('MethodConverter OAuth Scopes', () => {
     methodConverter = new MethodConverter(typeParser, utilityHelpers);
 
     spec = {
-      openapi: '3.0.3',
+      openapi: '3.1.0',
       info: { title: 'Test API', version: '1.0.0' },
       paths: {},
       components: { schemas: {} },

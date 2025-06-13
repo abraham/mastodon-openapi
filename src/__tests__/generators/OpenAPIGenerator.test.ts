@@ -75,7 +75,7 @@ describe('OpenAPIGenerator', () => {
       const spec = generator.generateSchema(entities, methodFiles);
 
       // Check basic structure
-      expect(spec.openapi).toBe('3.0.3');
+      expect(spec.openapi).toBe('3.1.0');
       expect(spec.info.title).toBe('Mastodon API');
       expect(spec.paths).toBeDefined();
       expect(spec.components?.schemas).toBeDefined();
@@ -124,7 +124,7 @@ describe('OpenAPIGenerator', () => {
     it('should handle empty inputs', () => {
       const spec = generator.generateSchema([], []);
 
-      expect(spec.openapi).toBe('3.0.3');
+      expect(spec.openapi).toBe('3.1.0');
       expect(spec.paths).toEqual({});
       expect(spec.components?.schemas).toEqual({});
     });
@@ -214,7 +214,7 @@ describe('OpenAPIGenerator', () => {
 
       expect(() => JSON.parse(json)).not.toThrow();
       const parsed = JSON.parse(json);
-      expect(parsed.openapi).toBe('3.0.3');
+      expect(parsed.openapi).toBe('3.1.0');
     });
   });
 
