@@ -13,7 +13,8 @@ describe('TypeParser Enum Values Fix', () => {
   it('should preserve enum values when parameter has schema and enumValues', () => {
     const parameter: ApiParameter = {
       name: 'visibility',
-      description: 'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.',
+      description:
+        'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.',
       in: 'formData',
       enumValues: ['public', 'unlisted', 'private', 'direct'],
       schema: {
@@ -56,7 +57,8 @@ describe('TypeParser Enum Values Fix', () => {
   it('should work correctly when parameter has no schema (fallback path)', () => {
     const parameter: ApiParameter = {
       name: 'visibility',
-      description: 'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.',
+      description:
+        'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.',
       in: 'formData',
       enumValues: ['public', 'unlisted', 'private', 'direct'],
       // No schema property
