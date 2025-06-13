@@ -11,7 +11,10 @@ import {
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
-import { RateLimitHeaderParser, RateLimitHeader } from '../parsers/RateLimitHeaderParser';
+import {
+  RateLimitHeaderParser,
+  RateLimitHeader,
+} from '../parsers/RateLimitHeaderParser';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -73,7 +76,7 @@ class MethodConverter {
 
     for (const responseCode of this.responseCodes) {
       const isSuccessResponse = responseCode.code.startsWith('2');
-      
+
       if (responseCode.code === '200') {
         // 200 response includes the schema from the returns field
         // For streaming endpoints, use text/event-stream content type
@@ -238,10 +241,13 @@ class MethodConverter {
       let schema: { type: string; format?: string } = { type: 'string' };
 
       // Set appropriate schema types based on header name
-      if (header.name === 'X-RateLimit-Limit' || header.name === 'X-RateLimit-Remaining') {
+      if (
+        header.name === 'X-RateLimit-Limit' ||
+        header.name === 'X-RateLimit-Remaining'
+      ) {
         schema = { type: 'integer' };
       } else if (header.name === 'X-RateLimit-Reset') {
-        schema = { type: 'integer', format: 'int64' };
+        schema = { type: 'string', format: 'date-time' };
       }
 
       headers[header.name] = {

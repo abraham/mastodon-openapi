@@ -40,17 +40,31 @@ describe('OpenAPIGenerator Rate Limit Headers', () => {
 
         // Should include rate limit headers
         expect(response200.headers?.['X-RateLimit-Limit']).toBeDefined();
-        expect(response200.headers?.['X-RateLimit-Limit'].description).toContain('Number of requests permitted');
-        expect(response200.headers?.['X-RateLimit-Limit'].schema.type).toBe('integer');
+        expect(
+          response200.headers?.['X-RateLimit-Limit'].description
+        ).toContain('Number of requests permitted');
+        expect(response200.headers?.['X-RateLimit-Limit'].schema.type).toBe(
+          'integer'
+        );
 
         expect(response200.headers?.['X-RateLimit-Remaining']).toBeDefined();
-        expect(response200.headers?.['X-RateLimit-Remaining'].description).toContain('Number of requests you can still make');
-        expect(response200.headers?.['X-RateLimit-Remaining'].schema.type).toBe('integer');
+        expect(
+          response200.headers?.['X-RateLimit-Remaining'].description
+        ).toContain('Number of requests you can still make');
+        expect(response200.headers?.['X-RateLimit-Remaining'].schema.type).toBe(
+          'integer'
+        );
 
         expect(response200.headers?.['X-RateLimit-Reset']).toBeDefined();
-        expect(response200.headers?.['X-RateLimit-Reset'].description).toContain('Timestamp when your rate limit will reset');
-        expect(response200.headers?.['X-RateLimit-Reset'].schema.type).toBe('integer');
-        expect(response200.headers?.['X-RateLimit-Reset'].schema.format).toBe('int64');
+        expect(
+          response200.headers?.['X-RateLimit-Reset'].description
+        ).toContain('Timestamp when your rate limit will reset');
+        expect(response200.headers?.['X-RateLimit-Reset'].schema.type).toBe(
+          'string'
+        );
+        expect(response200.headers?.['X-RateLimit-Reset'].schema.format).toBe(
+          'date-time'
+        );
       }
     });
 

@@ -11,17 +11,23 @@ describe('RateLimitHeaderParser', () => {
       // Should include the standard rate limit headers
       const limitHeader = headers.find((h) => h.name === 'X-RateLimit-Limit');
       expect(limitHeader).toBeDefined();
-      expect(limitHeader?.description).toContain('Number of requests permitted');
+      expect(limitHeader?.description).toContain(
+        'Number of requests permitted'
+      );
 
       const remainingHeader = headers.find(
         (h) => h.name === 'X-RateLimit-Remaining'
       );
       expect(remainingHeader).toBeDefined();
-      expect(remainingHeader?.description).toContain('Number of requests you can still make');
+      expect(remainingHeader?.description).toContain(
+        'Number of requests you can still make'
+      );
 
       const resetHeader = headers.find((h) => h.name === 'X-RateLimit-Reset');
       expect(resetHeader).toBeDefined();
-      expect(resetHeader?.description).toContain('Timestamp when your rate limit will reset');
+      expect(resetHeader?.description).toContain(
+        'Timestamp when your rate limit will reset'
+      );
     });
 
     it('should return default headers if file cannot be parsed', () => {

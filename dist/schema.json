@@ -43,8 +43,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -159,8 +159,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -237,8 +237,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -305,8 +305,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -460,8 +460,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -532,8 +532,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -697,8 +697,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -809,8 +809,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -921,8 +921,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -996,8 +996,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1078,8 +1078,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1187,8 +1187,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1266,8 +1266,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1345,8 +1345,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1424,8 +1424,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1503,8 +1503,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1605,8 +1605,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1684,8 +1684,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1764,8 +1764,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1844,8 +1844,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -1944,8 +1944,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2023,8 +2023,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2102,8 +2102,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2198,8 +2198,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2293,8 +2293,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2378,8 +2378,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2500,8 +2500,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2573,8 +2573,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2654,8 +2654,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -2723,8 +2723,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -2795,8 +2795,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -2874,8 +2874,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -2955,8 +2955,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3098,8 +3098,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3164,8 +3164,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3274,8 +3274,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3384,8 +3384,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3494,8 +3494,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -3566,8 +3566,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3645,8 +3645,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3709,8 +3709,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3812,8 +3812,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -3920,8 +3920,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -4000,8 +4000,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -4082,8 +4082,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -4159,8 +4159,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4260,8 +4260,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4370,8 +4370,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4439,8 +4439,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4528,8 +4528,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -4600,8 +4600,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4671,8 +4671,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4740,8 +4740,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4870,8 +4870,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -4947,8 +4947,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5081,8 +5081,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -5153,8 +5153,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5233,8 +5233,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5336,8 +5336,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5413,8 +5413,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5514,8 +5514,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -5586,8 +5586,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5666,8 +5666,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5765,8 +5765,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5842,8 +5842,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5921,8 +5921,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -5988,8 +5988,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6100,8 +6100,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6178,8 +6178,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6298,8 +6298,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -6371,8 +6371,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6472,8 +6472,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6551,8 +6551,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6630,8 +6630,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6740,8 +6740,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6911,8 +6911,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -6990,8 +6990,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -7062,8 +7062,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7144,8 +7144,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -7262,8 +7262,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7323,8 +7323,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7387,8 +7387,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7469,8 +7469,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7533,8 +7533,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7602,8 +7602,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7663,8 +7663,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7724,8 +7724,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7785,8 +7785,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7857,8 +7857,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -7911,8 +7911,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -7973,8 +7973,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8042,8 +8042,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8141,8 +8141,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8218,8 +8218,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8325,8 +8325,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -8397,8 +8397,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8514,8 +8514,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -8607,8 +8607,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -8702,8 +8702,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8786,8 +8786,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8888,8 +8888,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -8989,8 +8989,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9066,8 +9066,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -9136,8 +9136,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9240,8 +9240,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9342,8 +9342,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9443,8 +9443,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9596,8 +9596,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9675,8 +9675,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -9736,8 +9736,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -9808,8 +9808,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -9914,8 +9914,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -9982,8 +9982,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -10092,8 +10092,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -10171,8 +10171,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10243,8 +10243,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10315,8 +10315,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10376,8 +10376,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10437,8 +10437,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10498,8 +10498,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -10659,8 +10659,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -10738,8 +10738,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10810,8 +10810,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -10928,8 +10928,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -11069,8 +11069,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -11180,8 +11180,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -11265,8 +11265,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -11319,8 +11319,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -11405,8 +11405,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -11484,8 +11484,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -11586,8 +11586,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -11647,8 +11647,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -11810,8 +11810,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -11874,8 +11874,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12007,8 +12007,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -12066,8 +12066,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12189,8 +12189,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12299,8 +12299,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12376,8 +12376,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12470,8 +12470,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -12542,8 +12542,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12706,8 +12706,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12853,8 +12853,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -12938,8 +12938,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13015,8 +13015,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13101,8 +13101,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13248,8 +13248,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13327,8 +13327,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13424,8 +13424,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13534,8 +13534,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13644,8 +13644,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13723,8 +13723,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13802,8 +13802,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13899,8 +13899,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -13978,8 +13978,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14057,8 +14057,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14136,8 +14136,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14215,8 +14215,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14294,8 +14294,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14373,8 +14373,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14452,8 +14452,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14534,8 +14534,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14613,8 +14613,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14693,8 +14693,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -14747,8 +14747,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14812,8 +14812,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14877,8 +14877,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -14952,8 +14952,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15027,8 +15027,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15102,8 +15102,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15178,8 +15178,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15254,8 +15254,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15330,8 +15330,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15394,8 +15394,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15475,8 +15475,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             }
@@ -15545,8 +15545,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15627,8 +15627,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15704,8 +15704,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15783,8 +15783,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15862,8 +15862,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -15941,8 +15941,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16020,8 +16020,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16160,8 +16160,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16345,8 +16345,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16455,8 +16455,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16584,8 +16584,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16703,8 +16703,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16814,8 +16814,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16899,8 +16899,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
@@ -16984,8 +16984,8 @@
               "X-RateLimit-Reset": {
                 "description": "Timestamp when your rate limit will reset",
                 "schema": {
-                  "type": "integer",
-                  "format": "int64"
+                  "type": "string",
+                  "format": "date-time"
                 }
               }
             },
