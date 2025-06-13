@@ -36,15 +36,25 @@ export class ExampleParser {
   static parseMethodResponseExamples(content: string): Record<string, any> {
     const examples: Record<string, any> = {};
 
-    // Look for response sections like "##### 200: OK" followed by JSON blocks
-    const responseRegex =
-      /##### (\d{3}):[^\n]*\n\s*```json\s*\n([\s\S]*?)\n\s*```/gi;
+    // Split content by response headers to process each response section individually
+    const responseSections = content.split(/(?=##### \d{3}:)/);
 
-    let match;
-    while ((match = responseRegex.exec(content)) !== null) {
-      const statusCode = match[1];
-      const jsonContent = match[2].trim();
+    for (const section of responseSections) {
+      // Check if this section contains a response status header
+      const headerMatch = section.match(/^##### (\d{3}):/);
+      if (!headerMatch) {
+        continue;
+      }
 
+      const statusCode = headerMatch[1];
+
+      // Look for JSON blocks within this response section
+      const jsonMatch = section.match(/```json\s*\n([\s\S]*?)\n\s*```/);
+      if (!jsonMatch) {
+        continue;
+      }
+
+      const jsonContent = jsonMatch[1].trim();
       if (jsonContent) {
         try {
           examples[statusCode] = JSON.parse(jsonContent);
