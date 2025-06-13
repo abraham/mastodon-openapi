@@ -57,6 +57,8 @@ export class TypeInference {
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
         /(?:include|includes)\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        // Pattern for "One of X, Y, or Z" without backticks
+        /one\s+of\s+([a-z_,\s]+?)(?=\.|\s+defaults|\s+$)/gi,
       ];
 
       for (const pattern of patterns) {
@@ -64,13 +66,33 @@ export class TypeInference {
         const match = pattern.exec(description);
         if (match) {
           const valuesList = match[1];
-          const values = valuesList.match(/`([^`]+)`/g);
-          if (values && values.length > 1) {
-            // Only extract if multiple values found
-            for (const value of values) {
-              const cleanValue = value.slice(1, -1).trim(); // Remove backticks
-              if (cleanValue && !enumValues.includes(cleanValue)) {
-                enumValues.push(cleanValue);
+          
+          // Handle "One of" pattern without backticks
+          if (pattern.source.includes('one\\s+of')) {
+            // Split by comma and "or", then clean up
+            const values = valuesList
+              .split(/,|\s+or\s+/)
+              .map(v => v.trim())
+              .filter(v => v && v.length > 0);
+            
+            if (values.length > 1) {
+              for (const value of values) {
+                const cleanValue = value.trim();
+                if (cleanValue && !enumValues.includes(cleanValue)) {
+                  enumValues.push(cleanValue);
+                }
+              }
+            }
+          } else {
+            // Original logic for backtick patterns
+            const values = valuesList.match(/`([^`]+)`/g);
+            if (values && values.length > 1) {
+              // Only extract if multiple values found
+              for (const value of values) {
+                const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+                if (cleanValue && !enumValues.includes(cleanValue)) {
+                  enumValues.push(cleanValue);
+                }
               }
             }
           }
