@@ -25,6 +25,9 @@ describe('ResponseCodeParser', () => {
 
       const unavailable = codes.find((c) => c.code === '503');
       expect(unavailable).toBeDefined();
+
+      const rateLimited = codes.find((c) => c.code === '429');
+      expect(rateLimited).toBeDefined();
     });
 
     it('should return default codes if file cannot be parsed', () => {
