@@ -15839,76 +15839,22 @@
           }
         ],
         "requestBody": {
-          "description": "JSON request body parameters. Note: status, media_ids, and poll have conditional requirements - at least one of status or media_ids must be provided, but not both media_ids and poll simultaneously.",
-          "required": false,
+          "description": "JSON request body parameters for creating a status. Different types of statuses have different requirements.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
-                "type": "object",
-                "properties": {
-                  "status": {
-                    "type": "string",
-                    "description": "The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/TextStatus"
                   },
-                  "media_ids": {
-                    "type": "array",
-                    "description": "Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
-                    "items": {
-                      "type": "string"
-                    }
+                  {
+                    "$ref": "#/components/schemas/MediaStatus"
                   },
-                  "in_reply_to_id": {
-                    "type": "string",
-                    "description": "ID of the status being replied to, if status is a reply."
-                  },
-                  "sensitive": {
-                    "type": "boolean",
-                    "description": "Mark status and attached media as sensitive? Defaults to false.",
-                    "default": "false"
-                  },
-                  "spoiler_text": {
-                    "type": "string",
-                    "description": "Text to be shown as a warning or subject before the actual content. Statuses are generally collapsed behind this field."
-                  },
-                  "visibility": {
-                    "type": "string",
-                    "description": "Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
-                    "$ref": "#/components/schemas/VisibilityEnum"
-                  },
-                  "language": {
-                    "type": "string",
-                    "description": "ISO 639 language code for this status."
-                  },
-                  "scheduled_at": {
-                    "type": "string",
-                    "description": "[Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
-                  },
-                  "poll": {
-                    "type": "object",
-                    "description": "Object containing properties",
-                    "properties": {
-                      "options": {
-                        "type": "array",
-                        "description": "Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
-                        "items": {
-                          "type": "string"
-                        }
-                      },
-                      "expires_in": {
-                        "type": "integer",
-                        "description": "Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
-                      },
-                      "multiple": {
-                        "type": "boolean",
-                        "description": "Allow multiple choices? Defaults to false."
-                      },
-                      "hide_totals": {
-                        "type": "boolean",
-                        "description": "Hide vote counts until the poll ends? Defaults to false."
-                      }
-                    }
+                  {
+                    "$ref": "#/components/schemas/PollStatus"
                   }
-                }
+                ]
               }
             }
           }
@@ -25895,6 +25841,130 @@
           }
         },
         "description": "Object containing one of: status, scheduled_status"
+      },
+      "BaseStatus": {
+        "type": "object",
+        "description": "Common fields for all status creation requests",
+        "properties": {
+          "in_reply_to_id": {
+            "type": "string",
+            "description": "ID of the status being replied to, if status is a reply."
+          },
+          "sensitive": {
+            "type": "boolean",
+            "description": "Mark status and attached media as sensitive? Defaults to false.",
+            "default": "false"
+          },
+          "spoiler_text": {
+            "type": "string",
+            "description": "Text to be shown as a warning or subject before the actual content. Statuses are generally collapsed behind this field."
+          },
+          "visibility": {
+            "type": "string",
+            "description": "Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
+            "$ref": "#/components/schemas/VisibilityEnum"
+          },
+          "language": {
+            "type": "string",
+            "description": "ISO 639 language code for this status."
+          },
+          "scheduled_at": {
+            "type": "string",
+            "description": "[Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
+          }
+        }
+      },
+      "TextStatus": {
+        "description": "Create a text-only status",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseStatus"
+          },
+          {
+            "type": "object",
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+              }
+            }
+          }
+        ]
+      },
+      "MediaStatus": {
+        "description": "Create a status with media attachments. Status text is optional.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseStatus"
+          },
+          {
+            "type": "object",
+            "required": [
+              "media_ids"
+            ],
+            "properties": {
+              "media_ids": {
+                "type": "array",
+                "description": "Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+              }
+            }
+          }
+        ]
+      },
+      "PollStatus": {
+        "description": "Create a status with a poll. Cannot be combined with media.",
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/BaseStatus"
+          },
+          {
+            "type": "object",
+            "required": [
+              "poll"
+            ],
+            "properties": {
+              "poll": {
+                "type": "object",
+                "description": "Object containing properties",
+                "properties": {
+                  "options": {
+                    "type": "array",
+                    "description": "Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "expires_in": {
+                    "type": "integer",
+                    "description": "Duration that the poll should be open, in seconds. If provided, `media_ids` cannot be used, and `poll[options]` must be provided."
+                  },
+                  "multiple": {
+                    "type": "boolean",
+                    "description": "Allow multiple choices? Defaults to false."
+                  },
+                  "hide_totals": {
+                    "type": "boolean",
+                    "description": "Hide vote counts until the poll ends? Defaults to false."
+                  }
+                }
+              },
+              "status": {
+                "type": "string",
+                "description": "The text content of the status. If `media_ids` is provided, this becomes optional. Attaching a `poll` is optional while `status` is provided."
+              }
+            }
+          }
+        ]
       },
       "CategoryEnum": {
         "type": "string",

@@ -242,8 +242,7 @@ class MethodConverter {
         }
 
         // Special handling for POST /api/v1/statuses endpoint
-        // The status, media_ids, and poll parameters have conditional requirements
-        // that cannot be properly expressed with simple required arrays
+        // Split into different status types using oneOf with component references
         if (
           method.httpMethod === 'POST' &&
           path === '/api/v1/statuses' &&
@@ -251,23 +250,21 @@ class MethodConverter {
           required.includes('media_ids') &&
           required.includes('poll')
         ) {
-          // Remove these from required array since they are conditionally required
-          const conditionallyRequiredParams = ['status', 'media_ids', 'poll'];
-          const filteredRequired = required.filter(
-            (param) => !conditionallyRequiredParams.includes(param)
-          );
+          // Create status components for reusability
+          this.createStatusComponents(properties, required, spec);
 
           operation.requestBody = {
             description:
-              'JSON request body parameters. Note: status, media_ids, and poll have conditional requirements - at least one of status or media_ids must be provided, but not both media_ids and poll simultaneously.',
-            required: filteredRequired.length > 0,
+              'JSON request body parameters for creating a status. Different types of statuses have different requirements.',
+            required: true,
             content: {
               'application/json': {
                 schema: {
-                  type: 'object',
-                  properties,
-                  required:
-                    filteredRequired.length > 0 ? filteredRequired : undefined,
+                  oneOf: [
+                    { $ref: '#/components/schemas/TextStatus' },
+                    { $ref: '#/components/schemas/MediaStatus' },
+                    { $ref: '#/components/schemas/PollStatus' },
+                  ],
                 } as OpenAPIProperty,
               },
             },
@@ -904,6 +901,93 @@ class MethodConverter {
       type: 'object',
       properties,
       required: required.length > 0 ? required : undefined,
+    };
+  }
+
+  /**
+   * Create status components for the POST /api/v1/statuses endpoint
+   * Creates BaseStatus, TextStatus, MediaStatus, and PollStatus components
+   */
+  private createStatusComponents(
+    properties: Record<string, OpenAPIProperty>,
+    required: string[],
+    spec: OpenAPISpec
+  ): void {
+    // Ensure components section exists
+    if (!spec.components) {
+      spec.components = {};
+    }
+    if (!spec.components.schemas) {
+      spec.components.schemas = {};
+    }
+
+    // Extract common properties (exclude the conditional ones)
+    const commonProperties = { ...properties };
+    delete commonProperties.status;
+    delete commonProperties.media_ids;
+    delete commonProperties.poll;
+
+    // Extract non-conditional required fields
+    const conditionallyRequiredParams = ['status', 'media_ids', 'poll'];
+    const commonRequired = required.filter(
+      (param) => !conditionallyRequiredParams.includes(param)
+    );
+
+    // Create BaseStatus component with common fields
+    spec.components.schemas['BaseStatus'] = {
+      type: 'object',
+      description: 'Common fields for all status creation requests',
+      properties: commonProperties,
+      required: commonRequired.length > 0 ? commonRequired : undefined,
+    };
+
+    // Create TextStatus component using allOf
+    spec.components.schemas['TextStatus'] = {
+      description: 'Create a text-only status',
+      allOf: [
+        { $ref: '#/components/schemas/BaseStatus' },
+        {
+          type: 'object',
+          required: ['status'],
+          properties: {
+            status: properties.status,
+          },
+        },
+      ],
+    };
+
+    // Create MediaStatus component using allOf
+    spec.components.schemas['MediaStatus'] = {
+      description:
+        'Create a status with media attachments. Status text is optional.',
+      allOf: [
+        { $ref: '#/components/schemas/BaseStatus' },
+        {
+          type: 'object',
+          required: ['media_ids'],
+          properties: {
+            media_ids: properties.media_ids,
+            status: properties.status, // Optional for media posts
+          },
+        },
+      ],
+    };
+
+    // Create PollStatus component using allOf
+    spec.components.schemas['PollStatus'] = {
+      description:
+        'Create a status with a poll. Cannot be combined with media.',
+      allOf: [
+        { $ref: '#/components/schemas/BaseStatus' },
+        {
+          type: 'object',
+          required: ['poll'],
+          properties: {
+            poll: properties.poll,
+            status: properties.status, // Optional for poll posts
+          },
+        },
+      ],
     };
   }
 }
