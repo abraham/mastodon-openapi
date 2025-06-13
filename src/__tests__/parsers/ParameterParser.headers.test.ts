@@ -27,19 +27,16 @@ status
 
     const parameters = ParameterParser.parseAllParameters(mockSection);
 
-    // Should find both header and form data parameters
+    // Should find header and form data parameters (Authorization excluded)
     const headerParams = parameters.filter((p) => p.in === 'header');
     const formParams = parameters.filter((p) => p.in === 'formData');
 
-    expect(headerParams).toHaveLength(2);
+    expect(headerParams).toHaveLength(1); // Only Idempotency-Key, Authorization excluded
     expect(formParams).toHaveLength(1);
 
-    // Check Authorization header
+    // Authorization header should be excluded (handled by OAuth)
     const authHeader = headerParams.find((p) => p.name === 'Authorization');
-    expect(authHeader).toBeDefined();
-    expect(authHeader!.in).toBe('header');
-    expect(authHeader!.description).toContain('Bearer');
-    expect(authHeader!.description).toContain('user_token');
+    expect(authHeader).toBeUndefined();
 
     // Check Idempotency-Key header
     const idempotencyHeader = headerParams.find(
@@ -75,12 +72,12 @@ Custom-Header
 
     const parameters = ParameterParser.parseAllParameters(mockSection);
 
-    expect(parameters).toHaveLength(2);
+    expect(parameters).toHaveLength(1); // Only Custom-Header, Authorization excluded
     expect(parameters[0].in).toBe('header');
-    expect(parameters[1].in).toBe('header');
 
+    // Authorization header should be excluded (handled by OAuth)
     const authHeader = parameters.find((p) => p.name === 'Authorization');
-    expect(authHeader).toBeDefined();
+    expect(authHeader).toBeUndefined();
 
     const customHeader = parameters.find((p) => p.name === 'Custom-Header');
     expect(customHeader).toBeDefined();
@@ -129,12 +126,11 @@ Optional-Header
     const parameters = ParameterParser.parseAllParameters(mockSection);
     const headerParams = parameters.filter((p) => p.in === 'header');
 
-    expect(headerParams).toHaveLength(2);
+    expect(headerParams).toHaveLength(1); // Only Optional-Header, Authorization excluded
 
+    // Authorization header should be excluded (handled by OAuth)
     const authHeader = headerParams.find((p) => p.name === 'Authorization');
-    expect(authHeader).toBeDefined();
-    expect(authHeader!.required).toBe(true);
-    expect(authHeader!.description).toContain('Provide this header');
+    expect(authHeader).toBeUndefined();
 
     const optionalHeader = headerParams.find(
       (p) => p.name === 'Optional-Header'

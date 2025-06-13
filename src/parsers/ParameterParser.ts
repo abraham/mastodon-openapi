@@ -67,12 +67,12 @@ export class ParameterParser {
     );
     parameters.push(...formParams);
 
-    // Parse header parameters
+    // Parse header parameters, excluding Authorization headers (handled by OAuth)
     const headerParams = ParameterParser.parseParametersByType(
       section,
       'Headers',
       'header'
-    );
+    ).filter((param) => param.name !== 'Authorization');
     parameters.push(...headerParams);
 
     // Apply special handling for notification type parameters

@@ -18,16 +18,15 @@ describe('MethodParser - Headers integration', () => {
       expect(createStatusMethod).toBeDefined();
 
       if (createStatusMethod && createStatusMethod.parameters) {
-        // Should have header parameters
+        // Should have header parameters (excluding Authorization)
         const headerParams = createStatusMethod.parameters.filter(
           (p) => p.in === 'header'
         );
         expect(headerParams.length).toBeGreaterThan(0);
 
-        // Should have Authorization header
+        // Authorization header should be excluded (handled by OAuth)
         const authHeader = headerParams.find((p) => p.name === 'Authorization');
-        expect(authHeader).toBeDefined();
-        expect(authHeader!.required).toBe(true);
+        expect(authHeader).toBeUndefined();
 
         // Should have Idempotency-Key header
         const idempotencyHeader = headerParams.find(
