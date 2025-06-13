@@ -692,7 +692,9 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation?.responses['410'].description).toBe('Gone');
 
       expect(operation?.responses['422']).toBeDefined();
-      expect(operation?.responses['422'].description).toBe('Unprocessed');
+      expect(operation?.responses['422'].description).toBe(
+        'Unprocessable Content'
+      );
 
       expect(operation?.responses['503']).toBeDefined();
       expect(operation?.responses['503'].description).toBe('Unavailable');
