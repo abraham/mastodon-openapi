@@ -132,7 +132,7 @@ describe('EntityConverter - Email format detection', () => {
     test('should apply email format when attribute description contains "email address" even if type and name do not mention email', () => {
       const attribute: EntityAttribute = {
         name: 'contact_info',
-        type: 'String', 
+        type: 'String',
         description: 'The user email address for notifications',
       };
 
@@ -151,6 +151,90 @@ describe('EntityConverter - Email format detection', () => {
 
       const result = entityConverter.convertAttribute(attribute);
       expect(result.type).toBe('string');
+      expect(result.format).toBeUndefined();
+    });
+
+    test('should apply email format when attribute name contains "email" with suffix', () => {
+      const attribute: EntityAttribute = {
+        name: 'backup_email',
+        type: 'String',
+        description: 'Backup contact information',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBe('email');
+    });
+
+    test('should apply email format when attribute name contains "email" with prefix', () => {
+      const attribute: EntityAttribute = {
+        name: 'email_address',
+        type: 'String',
+        description: 'Contact information',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBe('email');
+    });
+
+    test('should apply email format when attribute description contains "e-mail address"', () => {
+      const attribute: EntityAttribute = {
+        name: 'contact_info',
+        type: 'String',
+        description: 'The user e-mail address for notifications',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBe('email');
+    });
+
+    test('should apply email format when description contains "email" but not exclusion patterns', () => {
+      const attribute: EntityAttribute = {
+        name: 'contact_method',
+        type: 'String',
+        description: 'Primary email for user contact',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBe('email');
+    });
+
+    test('should NOT apply email format when description mentions "email that will be sent"', () => {
+      const attribute: EntityAttribute = {
+        name: 'notification_type',
+        type: 'String',
+        description: 'The email that will be sent to users',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBeUndefined();
+    });
+
+    test('should NOT override existing format from type parsing', () => {
+      const attribute: EntityAttribute = {
+        name: 'email_timestamp',
+        type: 'String (ISO8601)',
+        description: 'Email sent timestamp',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('string');
+      expect(result.format).toBe('date-time'); // Should keep date-time format, not change to email
+    });
+
+    test('should NOT apply email format to non-string types', () => {
+      const attribute: EntityAttribute = {
+        name: 'emails_count',
+        type: 'Integer',
+        description: 'Number of email addresses',
+      };
+
+      const result = entityConverter.convertAttribute(attribute);
+      expect(result.type).toBe('integer');
       expect(result.format).toBeUndefined();
     });
   });

@@ -283,6 +283,24 @@ class EntityConverter {
       property.format = 'date-time';
     }
 
+    // Check for email format - only for actual email fields, not descriptions mentioning email
+    const isEmailField =
+      attribute.name.toLowerCase().includes('email') ||
+      (attribute.description &&
+        (attribute.description.toLowerCase().includes('email address') ||
+          attribute.description.toLowerCase().includes('e-mail address') ||
+          (attribute.description.toLowerCase().includes('email') &&
+            !attribute.description
+              .toLowerCase()
+              .includes('confirmation email') &&
+            !attribute.description
+              .toLowerCase()
+              .includes('email that will be sent'))));
+
+    if (isEmailField && property.type === 'string' && !property.format) {
+      property.format = 'email';
+    }
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       if (property.type === 'array') {

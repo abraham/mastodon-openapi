@@ -12827,7 +12827,8 @@
           },
           "email": {
             "description": "The email address associated with the account.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "ip": {
             "description": "The IP address last used to login to this account.",
@@ -12911,11 +12912,13 @@
         "properties": {
           "id": {
             "description": "The ID of the email block in the database.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "canonical_email_hash": {
             "description": "The SHA256 hash of the canonical email address.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           }
         },
         "required": [
@@ -13122,11 +13125,13 @@
         "properties": {
           "id": {
             "description": "The ID of the EmailDomainBlock in the database.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "domain": {
             "description": "The email domain that is not allowed to be used for signups.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
@@ -13158,11 +13163,13 @@
           },
           "accounts": {
             "description": "The counted accounts signup attempts using that email domain within that day.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "uses": {
             "description": "The counted IP signup attempts of that email domain within that day.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           }
         },
         "required": [
@@ -16157,7 +16164,8 @@
           },
           "email": {
             "description": "An email that may be contacted for any inquiries.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "version": {
             "description": "The version of Mastodon installed on the instance.",
