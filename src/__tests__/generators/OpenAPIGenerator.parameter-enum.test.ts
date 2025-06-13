@@ -1,5 +1,6 @@
 import { OpenAPIGenerator } from '../../generators/OpenAPIGenerator';
 import { ApiMethodsFile } from '../../interfaces/ApiMethodsFile';
+import { ParameterParser } from '../../parsers/ParameterParser';
 
 describe('OpenAPIGenerator Parameter Enum Support', () => {
   let generator: OpenAPIGenerator;
@@ -180,6 +181,135 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
         'reblog',
         'favourite',
       ]);
+    });
+
+    it('should generate enum values for formData parameters with "One of" pattern', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'lists',
+          description: 'List API methods',
+          methods: [
+            {
+              name: 'Update a list',
+              httpMethod: 'PUT',
+              endpoint: '/api/v1/lists/{id}',
+              description: 'Update a list',
+              parameters: [
+                {
+                  name: 'replies_policy',
+                  description:
+                    'String. One of followed, list, or none. Defaults to list.',
+                  in: 'formData',
+                  enumValues: ['followed', 'list', 'none'], // Simulate what would be extracted during parsing
+                },
+                {
+                  name: 'title',
+                  description: 'String. The title of the list.',
+                  in: 'formData',
+                },
+              ],
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      expect(spec.paths).toBeDefined();
+      expect(spec.paths['/api/v1/lists/{id}']).toBeDefined();
+      expect(spec.paths['/api/v1/lists/{id}'].put).toBeDefined();
+
+      const operation = spec.paths['/api/v1/lists/{id}'].put!;
+      expect(operation.requestBody).toBeDefined();
+
+      const requestBodySchema = operation.requestBody!.content![
+        'application/json'
+      ].schema as any;
+      expect(requestBodySchema.properties).toBeDefined();
+
+      // Check replies_policy parameter has enum values
+      const repliesPolicyProperty =
+        requestBodySchema.properties!['replies_policy'];
+      expect(repliesPolicyProperty).toBeDefined();
+      expect(repliesPolicyProperty.type).toBe('string');
+      expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
+
+      // Check title parameter does not have enum values
+      const titleProperty = requestBodySchema.properties!['title'];
+      expect(titleProperty).toBeDefined();
+      expect(titleProperty.type).toBe('string');
+      expect(titleProperty.enum).toBeUndefined();
+    });
+
+    it('should correctly parse enum values from ParameterParser integration', () => {
+      // Test the full flow from documentation parsing to schema generation
+      const mockSection = `
+## Update a list {#update}
+
+\`\`\`http
+PUT /api/v1/lists/{id} HTTP/1.1
+\`\`\`
+
+Update a list.
+
+##### Form data parameters
+
+replies_policy
+: String. One of followed, list, or none. Defaults to list.
+
+title
+: String. The title of the list.
+`;
+
+      // Use ParameterParser to parse the section (simulating real parsing)
+      const parameters = ParameterParser.parseParametersByType(
+        mockSection,
+        'Form data parameters',
+        'formData'
+      );
+
+      // Verify that enum values were extracted correctly
+      const repliesPolicyParam = parameters.find(
+        (p) => p.name === 'replies_policy'
+      );
+      expect(repliesPolicyParam).toBeDefined();
+      expect(repliesPolicyParam!.enumValues).toEqual([
+        'followed',
+        'list',
+        'none',
+      ]);
+
+      const titleParam = parameters.find((p) => p.name === 'title');
+      expect(titleParam).toBeDefined();
+      expect(titleParam!.enumValues).toBeUndefined();
+
+      // Now test that these parameters flow through to OpenAPI generation
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'lists',
+          description: 'List API methods',
+          methods: [
+            {
+              name: 'Update a list',
+              httpMethod: 'PUT',
+              endpoint: '/api/v1/lists/{id}',
+              description: 'Update a list',
+              parameters: parameters,
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+      const operation = spec.paths['/api/v1/lists/{id}'].put!;
+      const requestBodySchema = operation.requestBody!.content![
+        'application/json'
+      ].schema as any;
+
+      // Verify enum values made it through to the final schema
+      const repliesPolicyProperty =
+        requestBodySchema.properties!['replies_policy'];
+      expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
     });
 
     it('should handle parameters without enum values gracefully', () => {
