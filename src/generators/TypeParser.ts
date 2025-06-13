@@ -258,23 +258,10 @@ class TypeParser {
 
     // Check if synthetic schema already exists
     if (!spec.components.schemas[syntheticSchemaName]) {
-      // Create object properties from entity references
-      const properties: Record<string, OpenAPIProperty> = {};
-      const propertyNames: string[] = [];
-
-      for (let i = 0; i < entityNames.length; i++) {
-        const entityName = entityNames[i];
-        const propertyName =
-          this.utilityHelpers.entityNameToPropertyName(entityName);
-        properties[propertyName] = validEntityRefs[i];
-        propertyNames.push(propertyName);
-      }
-
-      // Create the synthetic schema as an object with optional properties
+      // Create the synthetic schema using oneOf with direct entity references
       spec.components.schemas[syntheticSchemaName] = {
-        type: 'object',
-        properties: properties,
-        description: `Object containing one of: ${propertyNames.join(', ')}`,
+        oneOf: validEntityRefs,
+        description: `Either ${entityNames.join(' or ')}`,
       };
     }
 

@@ -351,12 +351,11 @@ describe('OpenAPIGenerator Response Types', () => {
         spec.components?.schemas?.['StatusOrScheduledStatus']
       ).toBeDefined();
       expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
-        type: 'object',
-        properties: {
-          status: { $ref: '#/components/schemas/Status' },
-          scheduled_status: { $ref: '#/components/schemas/ScheduledStatus' },
-        },
-        description: 'Object containing one of: status, scheduled_status',
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/ScheduledStatus' },
+        ],
+        description: 'Either Status or ScheduledStatus',
       });
     });
 
@@ -574,22 +573,20 @@ describe('OpenAPIGenerator Response Types', () => {
 
       // Check the structure of StatusOrScheduledStatus
       expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
-        type: 'object',
-        properties: {
-          status: { $ref: '#/components/schemas/Status' },
-          scheduled_status: { $ref: '#/components/schemas/ScheduledStatus' },
-        },
-        description: 'Object containing one of: status, scheduled_status',
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/ScheduledStatus' },
+        ],
+        description: 'Either Status or ScheduledStatus',
       });
 
       // Check the structure of StatusOrAccount
       expect(spec.components?.schemas?.['StatusOrAccount']).toEqual({
-        type: 'object',
-        properties: {
-          status: { $ref: '#/components/schemas/Status' },
-          account: { $ref: '#/components/schemas/Account' },
-        },
-        description: 'Object containing one of: status, account',
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/Account' },
+        ],
+        description: 'Either Status or Account',
       });
 
       const operation1 = spec.paths['/api/v1/test1']?.post;
@@ -644,14 +641,11 @@ describe('OpenAPIGenerator Response Types', () => {
 
       // Check that PascalCase entity names are converted to snake_case property names
       expect(spec.components?.schemas?.['FamiliarFollowersOrAccount']).toEqual({
-        type: 'object',
-        properties: {
-          familiar_followers: {
-            $ref: '#/components/schemas/FamiliarFollowers',
-          },
-          account: { $ref: '#/components/schemas/Account' },
-        },
-        description: 'Object containing one of: familiar_followers, account',
+        oneOf: [
+          { $ref: '#/components/schemas/FamiliarFollowers' },
+          { $ref: '#/components/schemas/Account' },
+        ],
+        description: 'Either FamiliarFollowers or Account',
       });
     });
 
