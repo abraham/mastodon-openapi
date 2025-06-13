@@ -37,19 +37,22 @@ export class ExampleParser {
     const examples: Record<string, any> = {};
 
     // Look for response sections like "##### 200: OK" followed by JSON blocks
-    const responseRegex = /##### (\d{3}):[^\n]*\n\s*```json\s*\n([\s\S]*?)\n\s*```/gi;
-    
+    const responseRegex =
+      /##### (\d{3}):[^\n]*\n\s*```json\s*\n([\s\S]*?)\n\s*```/gi;
+
     let match;
     while ((match = responseRegex.exec(content)) !== null) {
       const statusCode = match[1];
       const jsonContent = match[2].trim();
-      
+
       if (jsonContent) {
         try {
           examples[statusCode] = JSON.parse(jsonContent);
         } catch (error) {
           // If JSON parsing fails, skip this example (don't break the build)
-          console.warn(`Failed to parse response example for ${statusCode}: ${error}`);
+          console.warn(
+            `Failed to parse response example for ${statusCode}: ${error}`
+          );
         }
       }
     }

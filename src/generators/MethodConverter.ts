@@ -126,7 +126,7 @@ class MethodConverter {
           description: responseCode.description,
           headers: rateLimitHeaders,
         };
-        
+
         // Add example if available
         if (responseExample) {
           response.content = {
@@ -135,14 +135,14 @@ class MethodConverter {
             },
           };
         }
-        
+
         responses[responseCode.code] = response;
       } else {
         // Other response codes are error responses with simple descriptions
         const response: any = {
           description: responseCode.description,
         };
-        
+
         // Add example if available
         if (responseExample) {
           response.content = {
@@ -151,7 +151,7 @@ class MethodConverter {
             },
           };
         }
-        
+
         responses[responseCode.code] = response;
       }
     }

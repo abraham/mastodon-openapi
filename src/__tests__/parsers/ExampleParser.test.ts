@@ -19,12 +19,12 @@ describe('ExampleParser', () => {
       `;
 
       const result = ExampleParser.parseEntityExample(content);
-      
+
       expect(result).toEqual({
-        id: "23634",
-        username: "noiob",
-        display_name: "ikea shark fan account",
-        locked: false
+        id: '23634',
+        username: 'noiob',
+        display_name: 'ikea shark fan account',
+        locked: false,
       });
     });
 
@@ -113,19 +113,19 @@ POST /api/v1/accounts HTTP/1.1
       `;
 
       const result = ExampleParser.parseMethodResponseExamples(content);
-      
+
       expect(result).toEqual({
         '200': {
-          id: "12345",
-          access_token: "token123"
+          id: '12345',
+          access_token: 'token123',
         },
         '401': {
-          error: "The access token is invalid"
+          error: 'The access token is invalid',
         },
         '422': {
-          error: "Validation failed",
-          details: {}
-        }
+          error: 'Validation failed',
+          details: {},
+        },
       });
     });
 
@@ -150,12 +150,12 @@ POST /api/v1/accounts HTTP/1.1
       `;
 
       const result = ExampleParser.parseMethodResponseExamples(content);
-      
+
       // Should only include the valid JSON
       expect(result).toEqual({
         '401': {
-          error: "The access token is invalid"
-        }
+          error: 'The access token is invalid',
+        },
       });
     });
 

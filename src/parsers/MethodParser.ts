@@ -198,9 +198,8 @@ class MethodParser {
       versions: versions.length > 0 ? versions : undefined,
       deprecated: isDeprecated || undefined,
       isStreaming: isStreaming || undefined,
-      responseExamples: Object.keys(responseExamples).length > 0 
-        ? responseExamples 
-        : undefined,
+      responseExamples:
+        Object.keys(responseExamples).length > 0 ? responseExamples : undefined,
     };
   }
 
