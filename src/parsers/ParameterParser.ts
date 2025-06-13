@@ -2,6 +2,7 @@ import { ApiParameter, ApiProperty } from '../interfaces/ApiParameter';
 import { TextUtils } from './TextUtils';
 import { TypeInference } from './TypeInference';
 import { EntityParsingUtils } from './EntityParsingUtils';
+import { OAuthScopeParser } from './OAuthScopeParser';
 
 /**
  * Parsed parameter structure for nested objects
@@ -81,6 +82,21 @@ export class ParameterParser {
             param.schema.items.enum = notificationTypes;
             param.enumValues = notificationTypes;
           }
+        }
+      }
+    }
+
+    // Apply special handling for OAuth scope parameters
+    for (const param of parameters) {
+      if (param.name === 'scopes' && param.schema?.type === 'string') {
+        // Parse OAuth scopes and apply as enum values for the scopes parameter
+        const oauthParser = new OAuthScopeParser();
+        const oauthScopes = oauthParser.parseOAuthScopes();
+        const scopeNames = oauthScopes.scopes.map((scope) => scope.name);
+
+        if (scopeNames.length > 0) {
+          param.schema.enum = scopeNames;
+          param.enumValues = scopeNames;
         }
       }
     }
@@ -239,9 +255,10 @@ export class ParameterParser {
       const [, name, desc] = match;
 
       const originalDesc = desc.trim();
-      const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
       const required =
-        cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
+        originalDesc.includes('{{<required>}}') ||
+        originalDesc.includes('required');
+      const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
 
       // Extract enum values from description
       const enumValues =
