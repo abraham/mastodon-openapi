@@ -147,12 +147,19 @@ class MethodConverter {
           description: responseCode.description,
         };
 
-        // Add example if available
+        // Add example and potentially schema if available
         if (responseExample) {
+          const errorSchema = this.generateErrorSchema(responseExample, responseCode.code, spec);
+          const content: any = {
+            example: responseExample,
+          };
+          
+          if (errorSchema) {
+            content.schema = errorSchema;
+          }
+
           response.content = {
-            'application/json': {
-              example: responseExample,
-            },
+            'application/json': content,
           };
         }
 
@@ -756,6 +763,136 @@ class MethodConverter {
     statusCode: string
   ): string {
     return `${componentName}Example`;
+  }
+
+  /**
+   * Generate an error schema for custom error response formats
+   * Returns a schema reference if a custom schema is created, or null for simple errors
+   */
+  private generateErrorSchema(
+    errorExample: any,
+    statusCode: string,
+    spec: OpenAPISpec
+  ): any | null {
+    // Ensure components section exists
+    if (!spec.components) {
+      spec.components = {};
+    }
+    if (!spec.components.schemas) {
+      spec.components.schemas = {};
+    }
+
+    // Check if this is a simple error (just has 'error' field)
+    const isSimpleError = typeof errorExample === 'object' && 
+      errorExample !== null &&
+      Object.keys(errorExample).length === 1 &&
+      typeof errorExample.error === 'string';
+
+    if (isSimpleError) {
+      // Use the existing Error schema for simple errors
+      return { $ref: '#/components/schemas/Error' };
+    }
+
+    // Check if this is a validation error with details
+    const isValidationError = typeof errorExample === 'object' &&
+      errorExample !== null &&
+      typeof errorExample.error === 'string' &&
+      errorExample.details &&
+      typeof errorExample.details === 'object';
+
+    if (isValidationError) {
+      // Create or reference a ValidationError schema
+      const schemaName = 'ValidationError';
+      
+      if (!spec.components.schemas[schemaName]) {
+        spec.components.schemas[schemaName] = {
+          type: 'object',
+          description: 'Represents a validation error with field-specific details.',
+          properties: {
+            error: {
+              type: 'string',
+              description: 'The overall validation error message.',
+            },
+            details: {
+              type: 'object',
+              description: 'Detailed validation errors for each field.',
+              additionalProperties: {
+                type: 'array',
+                items: {
+                  type: 'object',
+                  properties: {
+                    error: {
+                      type: 'string',
+                      description: 'The error code (e.g., ERR_BLANK, ERR_INVALID).',
+                    },
+                    description: {
+                      type: 'string',
+                      description: 'Human-readable description of the error.',
+                    },
+                  },
+                  required: ['error', 'description'],
+                },
+              },
+            },
+          },
+          required: ['error', 'details'],
+        };
+      }
+
+      return { $ref: `#/components/schemas/${schemaName}` };
+    }
+
+    // For other complex error formats, create a generic custom error schema
+    if (typeof errorExample === 'object' && errorExample !== null) {
+      const schemaName = `CustomError${statusCode}`;
+      
+      if (!spec.components.schemas[schemaName]) {
+        spec.components.schemas[schemaName] = this.generateSchemaFromExample(errorExample);
+      }
+
+      return { $ref: `#/components/schemas/${schemaName}` };
+    }
+
+    return null;
+  }
+
+  /**
+   * Generate a schema definition from an example object
+   */
+  private generateSchemaFromExample(example: any): any {
+    if (typeof example !== 'object' || example === null) {
+      return { type: typeof example };
+    }
+
+    const properties: Record<string, any> = {};
+    const required: string[] = [];
+
+    for (const [key, value] of Object.entries(example)) {
+      if (value !== null && value !== undefined) {
+        required.push(key);
+      }
+
+      if (typeof value === 'string') {
+        properties[key] = { type: 'string' };
+      } else if (typeof value === 'number') {
+        properties[key] = { type: 'number' };
+      } else if (typeof value === 'boolean') {
+        properties[key] = { type: 'boolean' };
+      } else if (Array.isArray(value)) {
+        properties[key] = {
+          type: 'array',
+          items: value.length > 0 ? this.generateSchemaFromExample(value[0]) : {},
+        };
+      } else if (typeof value === 'object') {
+        properties[key] = this.generateSchemaFromExample(value);
+      }
+    }
+
+    return {
+      type: 'object',
+      properties,
+      required: required.length > 0 ? required : undefined,
+    };
   }
 }
 
