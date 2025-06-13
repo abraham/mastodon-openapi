@@ -1,6 +1,7 @@
 import { MethodConverter } from '../../generators/MethodConverter';
 import { TypeParser } from '../../generators/TypeParser';
 import { UtilityHelpers } from '../../generators/UtilityHelpers';
+import { ErrorExampleRegistry } from '../../generators/ErrorExampleRegistry';
 import { ApiMethod } from '../../interfaces/ApiMethod';
 import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
 
@@ -11,7 +12,12 @@ describe('MethodConverter OAuth Scopes', () => {
   beforeEach(() => {
     const utilityHelpers = new UtilityHelpers();
     const typeParser = new TypeParser(utilityHelpers);
-    methodConverter = new MethodConverter(typeParser, utilityHelpers);
+    const errorExampleRegistry = new ErrorExampleRegistry();
+    methodConverter = new MethodConverter(
+      typeParser,
+      utilityHelpers,
+      errorExampleRegistry
+    );
 
     spec = {
       openapi: '3.1.0',

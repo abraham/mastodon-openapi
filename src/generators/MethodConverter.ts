@@ -11,6 +11,7 @@ import {
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
+import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
 import {
   RateLimitHeaderParser,
@@ -23,12 +24,18 @@ import {
 class MethodConverter {
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
+  private errorExampleRegistry: ErrorExampleRegistry;
   private responseCodes: Array<{ code: string; description: string }>;
   private rateLimitHeaders: RateLimitHeader[];
 
-  constructor(typeParser: TypeParser, utilityHelpers: UtilityHelpers) {
+  constructor(
+    typeParser: TypeParser,
+    utilityHelpers: UtilityHelpers,
+    errorExampleRegistry: ErrorExampleRegistry
+  ) {
     this.typeParser = typeParser;
     this.utilityHelpers = utilityHelpers;
+    this.errorExampleRegistry = errorExampleRegistry;
     // Parse response codes once during initialization
     this.responseCodes = ResponseCodeParser.parseResponseCodes();
     // Parse rate limit headers once during initialization
@@ -80,7 +87,13 @@ class MethodConverter {
 
     for (const responseCode of this.responseCodes) {
       const isSuccessResponse = responseCode.code.startsWith('2');
-      const responseExample = method.responseExamples?.[responseCode.code];
+      // First try to get method-specific example, then fall back to common error example
+      let responseExample = method.responseExamples?.[responseCode.code];
+      if (!responseExample && !isSuccessResponse) {
+        responseExample = this.errorExampleRegistry.getErrorExample(
+          responseCode.code
+        );
+      }
 
       if (responseCode.code === '200') {
         // 200 response includes the schema from the returns field
@@ -763,7 +776,7 @@ class MethodConverter {
     componentName: string,
     statusCode: string
   ): string {
-    return `${componentName}Example`;
+    return `${componentName}${statusCode}Example`;
   }
 
   /**

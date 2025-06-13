@@ -10,6 +10,7 @@ import { EntityConverter } from './EntityConverter';
 import { MethodConverter } from './MethodConverter';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
+import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 
 class OpenAPIGenerator {
   private spec: OpenAPISpec;
@@ -18,18 +19,21 @@ class OpenAPIGenerator {
   private methodConverter: MethodConverter;
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
+  private errorExampleRegistry: ErrorExampleRegistry;
 
   constructor() {
     // Initialize helper modules
     this.utilityHelpers = new UtilityHelpers();
     this.typeParser = new TypeParser(this.utilityHelpers);
+    this.errorExampleRegistry = new ErrorExampleRegistry();
     this.entityConverter = new EntityConverter(
       this.typeParser,
       this.utilityHelpers
     );
     this.methodConverter = new MethodConverter(
       this.typeParser,
-      this.utilityHelpers
+      this.utilityHelpers,
+      this.errorExampleRegistry
     );
     this.specBuilder = new SpecBuilder();
 
@@ -46,6 +50,9 @@ class OpenAPIGenerator {
     if (maxVersion) {
       this.spec.info.version = maxVersion;
     }
+
+    // First, collect error examples from all method files
+    this.errorExampleRegistry.collectErrorExamples(methodFiles);
 
     // Convert entities to OpenAPI schemas (without deduplication)
     this.entityConverter.convertEntities(entities, this.spec);

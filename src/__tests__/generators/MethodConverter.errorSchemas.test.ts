@@ -1,6 +1,7 @@
 import { MethodConverter } from '../../generators/MethodConverter';
 import { TypeParser } from '../../generators/TypeParser';
 import { UtilityHelpers } from '../../generators/UtilityHelpers';
+import { ErrorExampleRegistry } from '../../generators/ErrorExampleRegistry';
 import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
 import { ApiMethod } from '../../interfaces/ApiMethod';
 import { ApiMethodsFile } from '../../interfaces/ApiMethodsFile';
@@ -9,11 +10,17 @@ describe('MethodConverter Error Schemas', () => {
   let methodConverter: MethodConverter;
   let typeParser: TypeParser;
   let utilityHelpers: UtilityHelpers;
+  let errorExampleRegistry: ErrorExampleRegistry;
 
   beforeEach(() => {
     utilityHelpers = new UtilityHelpers();
     typeParser = new TypeParser(utilityHelpers);
-    methodConverter = new MethodConverter(typeParser, utilityHelpers);
+    errorExampleRegistry = new ErrorExampleRegistry();
+    methodConverter = new MethodConverter(
+      typeParser,
+      utilityHelpers,
+      errorExampleRegistry
+    );
   });
 
   it('should generate schemas for custom error formats', () => {
