@@ -12827,7 +12827,8 @@
           },
           "email": {
             "description": "The email address associated with the account.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "ip": {
             "description": "The IP address last used to login to this account.",
@@ -16157,7 +16158,8 @@
           },
           "email": {
             "description": "An email that may be contacted for any inquiries.",
-            "type": "string"
+            "type": "string",
+            "format": "email"
           },
           "version": {
             "description": "The version of Mastodon installed on the instance.",
