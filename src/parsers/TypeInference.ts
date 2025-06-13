@@ -118,4 +118,23 @@ export class TypeInference {
 
     return enumValues;
   }
+
+  /**
+   * Extract default value from parameter description
+   */
+  static extractDefaultValueFromDescription(
+    description: string
+  ): string | undefined {
+    // Look for patterns like "Defaults to value" where value can be alphanumeric, underscore, numbers, or surrounded by backticks
+    const defaultsToPattern =
+      /defaults?\s+to\s+(?:`([^`]+)`|([a-zA-Z_][a-zA-Z0-9_]*|\d+))/gi;
+    const match = defaultsToPattern.exec(description);
+
+    if (match) {
+      // Return the first captured group (backtick content) or second (non-backtick content)
+      return (match[1] || match[2]).trim();
+    }
+
+    return undefined;
+  }
 }

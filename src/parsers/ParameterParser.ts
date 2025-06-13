@@ -247,6 +247,10 @@ export class ParameterParser {
       const enumValues =
         TypeInference.extractEnumValuesFromDescription(cleanDesc);
 
+      // Extract default value from description
+      const defaultValue =
+        TypeInference.extractDefaultValueFromDescription(cleanDesc);
+
       // Infer type from original description before cleaning
       const inferredType = TypeInference.inferTypeFromDescription(originalDesc);
 
@@ -257,6 +261,7 @@ export class ParameterParser {
         inferredType: inferredType, // Store pre-computed type
         required: required ? true : undefined,
         enumValues: enumValues.length > 0 ? enumValues : undefined,
+        defaultValue: defaultValue,
       };
 
       rawParameters.push(rawParam);
@@ -280,6 +285,7 @@ export class ParameterParser {
       inferredType?: string;
       required?: boolean;
       enumValues?: string[];
+      defaultValue?: string;
     }>,
     parameterLocation: string
   ): ApiParameter[] {
@@ -293,6 +299,7 @@ export class ParameterParser {
             inferredType?: string;
             required?: boolean;
             enumValues?: string[];
+            defaultValue?: string;
           }
         >;
         simple: Array<{
@@ -303,6 +310,7 @@ export class ParameterParser {
           inferredType?: string;
           required?: boolean;
           enumValues?: string[];
+          defaultValue?: string;
         }>;
       }
     > = {};
@@ -315,6 +323,7 @@ export class ParameterParser {
         inferredType?: string;
         required?: boolean;
         enumValues?: string[];
+        defaultValue?: string;
       }>
     > = {};
 
@@ -337,6 +346,7 @@ export class ParameterParser {
           inferredType: rawParam.inferredType,
           required: rawParam.required,
           enumValues: rawParam.enumValues,
+          defaultValue: rawParam.defaultValue,
         });
         continue;
       }
@@ -367,6 +377,7 @@ export class ParameterParser {
               inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
+              defaultValue: rawParam.defaultValue,
             });
           } else {
             // Single-level nesting like subscription[endpoint]
@@ -380,6 +391,7 @@ export class ParameterParser {
               inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
+              defaultValue: rawParam.defaultValue,
             });
           }
           continue;
@@ -409,6 +421,7 @@ export class ParameterParser {
           required: rawParam.required,
           in: parameterLocation,
           enumValues: rawParam.enumValues,
+          defaultValue: rawParam.defaultValue,
           schema: {
             type: 'array',
             items: itemsSchema,
@@ -427,6 +440,7 @@ export class ParameterParser {
           required: rawParam.required,
           in: parameterLocation,
           enumValues: rawParam.enumValues,
+          defaultValue: rawParam.defaultValue,
         };
 
         // Create schema with the inferred type
