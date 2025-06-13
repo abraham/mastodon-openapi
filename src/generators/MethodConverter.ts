@@ -76,6 +76,7 @@ class MethodConverter {
 
     for (const responseCode of this.responseCodes) {
       const isSuccessResponse = responseCode.code.startsWith('2');
+      const responseExample = method.responseExamples?.[responseCode.code];
 
       if (responseCode.code === '200') {
         // 200 response includes the schema from the returns field
@@ -87,41 +88,71 @@ class MethodConverter {
         if (method.isStreaming) {
           // Streaming endpoints always have content with text/event-stream
           // even if no specific schema is parsed from the returns field
+          const content: any = responseSchema ? { schema: responseSchema } : {};
+          if (responseExample) {
+            content.example = responseExample;
+          }
           responses[responseCode.code] = {
             description: method.returns || responseCode.description,
             headers: rateLimitHeaders,
             content: {
-              [contentType]: responseSchema ? { schema: responseSchema } : {},
+              [contentType]: content,
             },
           };
         } else {
           // Non-streaming endpoints use the existing logic
-          responses[responseCode.code] = responseSchema
-            ? {
-                description: method.returns || responseCode.description,
-                headers: rateLimitHeaders,
-                content: {
-                  [contentType]: {
-                    schema: responseSchema,
-                  },
-                },
-              }
-            : {
-                description: method.returns || responseCode.description,
-                headers: rateLimitHeaders,
-              };
+          if (responseSchema) {
+            const content: any = { schema: responseSchema };
+            if (responseExample) {
+              content.example = responseExample;
+            }
+            responses[responseCode.code] = {
+              description: method.returns || responseCode.description,
+              headers: rateLimitHeaders,
+              content: {
+                [contentType]: content,
+              },
+            };
+          } else {
+            responses[responseCode.code] = {
+              description: method.returns || responseCode.description,
+              headers: rateLimitHeaders,
+            };
+          }
         }
       } else if (isSuccessResponse) {
         // Other 2xx responses also get rate limit headers
-        responses[responseCode.code] = {
+        const response: any = {
           description: responseCode.description,
           headers: rateLimitHeaders,
         };
+        
+        // Add example if available
+        if (responseExample) {
+          response.content = {
+            'application/json': {
+              example: responseExample,
+            },
+          };
+        }
+        
+        responses[responseCode.code] = response;
       } else {
         // Other response codes are error responses with simple descriptions
-        responses[responseCode.code] = {
+        const response: any = {
           description: responseCode.description,
         };
+        
+        // Add example if available
+        if (responseExample) {
+          response.content = {
+            'application/json': {
+              example: responseExample,
+            },
+          };
+        }
+        
+        responses[responseCode.code] = response;
       }
     }
 

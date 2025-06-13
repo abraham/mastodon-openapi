@@ -47,6 +47,7 @@ interface OpenAPIProperty {
   nullable?: boolean;
   properties?: Record<string, OpenAPIProperty>;
   required?: string[];
+  example?: any;
 }
 
 interface OpenAPISchema {
@@ -55,6 +56,7 @@ interface OpenAPISchema {
   required?: string[];
   description?: string;
   oneOf?: OpenAPIProperty[];
+  example?: any;
 }
 
 interface OpenAPIParameter {
@@ -83,6 +85,7 @@ interface OpenAPIResponse {
     string,
     {
       schema: OpenAPIProperty | { $ref: string };
+      example?: any;
     }
   >;
 }
