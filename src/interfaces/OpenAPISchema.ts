@@ -41,6 +41,7 @@ interface OpenAPIProperty {
   items?: OpenAPIProperty;
   $ref?: string;
   oneOf?: OpenAPIProperty[];
+  allOf?: (OpenAPIProperty | { $ref: string })[];
   enum?: string[];
   default?: string;
   deprecated?: boolean;
@@ -57,6 +58,7 @@ interface OpenAPISchema {
   required?: string[];
   description?: string;
   oneOf?: OpenAPIProperty[];
+  allOf?: (OpenAPIProperty | { $ref: string })[];
   example?: any;
   additionalProperties?: OpenAPIProperty | boolean;
 }
