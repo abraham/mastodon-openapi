@@ -5,6 +5,7 @@ import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod, HashAttribute } from '../interfaces/ApiMethod';
 import { ParameterParser } from './ParameterParser';
 import { TextUtils } from './TextUtils';
+import { VersionParser } from './VersionParser';
 
 class MethodParser {
   private methodsPath: string;
@@ -147,10 +148,17 @@ class MethodParser {
       ? TextUtils.cleanMarkdown(oauthMatch[1].trim())
       : undefined;
 
-    const versionMatch = section.match(/\*\*Version history:\*\*\s*([^\n]*)/);
+    const versionMatch = section.match(
+      /\*\*Version history:\*\*\\?\s*([\s\S]*?)(?=\n####|\n##|$)/
+    );
     const version = versionMatch
       ? TextUtils.cleanMarkdown(versionMatch[1].trim())
       : undefined;
+
+    // Extract version numbers from the version history
+    const versions = version
+      ? VersionParser.extractVersionNumbers(version)
+      : [];
 
     // Parse parameters from both Query parameters and Form data parameters sections
     const parameters = ParameterParser.parseAllParameters(section);
@@ -183,6 +191,7 @@ class MethodParser {
           : undefined,
       oauth,
       version,
+      versions: versions.length > 0 ? versions : undefined,
       deprecated: isDeprecated || undefined,
       isStreaming: isStreaming || undefined,
     };

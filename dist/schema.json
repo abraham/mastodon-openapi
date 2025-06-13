@@ -2,7 +2,7 @@
   "openapi": "3.0.3",
   "info": {
     "title": "Mastodon API",
-    "version": "4.2.0",
+    "version": "4.4.0",
     "description": "Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation."
   },
   "externalDocs": {

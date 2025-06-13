@@ -3,6 +3,7 @@ import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { AttributeParser } from './AttributeParser';
+import { VersionParser } from './VersionParser';
 
 /**
  * Handles parsing entities from dedicated entity files
@@ -39,10 +40,19 @@ export class EntityFileParser {
     const { processedAttributes, nestedEntities } =
       this.extractNestedHashEntities(className, attributes);
 
+    // Collect all version numbers from attributes
+    const allVersions: string[] = [];
+    for (const attr of processedAttributes) {
+      if (attr.versions) {
+        allVersions.push(...attr.versions);
+      }
+    }
+
     entities.push({
       name: className,
       description,
       attributes: processedAttributes,
+      versions: allVersions.length > 0 ? allVersions : undefined,
     });
 
     // Add extracted nested entities
@@ -144,10 +154,19 @@ export class EntityFileParser {
           entityName
         );
 
+        // Collect all version numbers from attributes
+        const entityVersions: string[] = [];
+        for (const attr of attributes) {
+          if (attr.versions) {
+            entityVersions.push(...attr.versions);
+          }
+        }
+
         entities.push({
           name: entityName,
           description: `Additional entity definition for ${entityName}`,
           attributes,
+          versions: entityVersions.length > 0 ? entityVersions : undefined,
         });
       }
     });
@@ -185,6 +204,7 @@ export class EntityFileParser {
           optional: attribute.optional,
           deprecated: attribute.deprecated,
           enumValues: attribute.enumValues,
+          versions: attribute.versions,
         };
 
         nestedFieldGroups.get(parentFieldName)!.push(childAttribute);
@@ -203,11 +223,20 @@ export class EntityFileParser {
       // This ensures uniqueness and clarity
       const nestedEntityName = `${parentEntityName}${parentFieldName.charAt(0).toUpperCase() + parentFieldName.slice(1)}`;
 
+      // Collect all version numbers from child attributes
+      const childVersions: string[] = [];
+      for (const childAttr of childAttributes) {
+        if (childAttr.versions) {
+          childVersions.push(...childAttr.versions);
+        }
+      }
+
       // Create the nested entity
       nestedEntities.push({
         name: nestedEntityName,
         description: `Nested entity extracted from ${parentEntityName}.${parentFieldName}`,
         attributes: childAttributes,
+        versions: childVersions.length > 0 ? childVersions : undefined,
       });
 
       // Update the parent attribute type from "Array of Hash" to "Array of [EntityName]"
