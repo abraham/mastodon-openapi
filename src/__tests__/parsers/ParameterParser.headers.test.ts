@@ -84,7 +84,9 @@ Custom-Header
 
     const customHeader = parameters.find((p) => p.name === 'Custom-Header');
     expect(customHeader).toBeDefined();
-    expect(customHeader!.description).toBe('Some custom header for this endpoint.');
+    expect(customHeader!.description).toBe(
+      'Some custom header for this endpoint.'
+    );
   });
 
   it('should return empty array when no Headers section exists', () => {
@@ -134,7 +136,9 @@ Optional-Header
     expect(authHeader!.required).toBe(true);
     expect(authHeader!.description).toContain('Provide this header');
 
-    const optionalHeader = headerParams.find((p) => p.name === 'Optional-Header');
+    const optionalHeader = headerParams.find(
+      (p) => p.name === 'Optional-Header'
+    );
     expect(optionalHeader).toBeDefined();
     expect(optionalHeader!.required).toBeUndefined(); // Should be undefined, not false
   });

@@ -64,6 +64,8 @@ describe('MethodParser - Headers integration', () => {
     expect(totalHeadersFound).toBeGreaterThan(0);
     expect(methodsWithHeaders).toBeGreaterThan(0);
 
-    console.log(`Found ${totalHeadersFound} headers across ${methodsWithHeaders} methods`);
+    console.log(
+      `Found ${totalHeadersFound} headers across ${methodsWithHeaders} methods`
+    );
   });
 });
