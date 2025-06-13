@@ -13033,8 +13033,8 @@
           }
         ],
         "requestBody": {
-          "description": "JSON request body parameters",
-          "required": true,
+          "description": "JSON request body parameters. Note: status, media_ids, and poll have conditional requirements - at least one of status or media_ids must be provided, but not both media_ids and poll simultaneously.",
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
@@ -13102,12 +13102,7 @@
                       }
                     }
                   }
-                },
-                "required": [
-                  "status",
-                  "media_ids",
-                  "poll"
-                ]
+                }
               }
             }
           }
