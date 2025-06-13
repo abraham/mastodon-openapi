@@ -123,6 +123,17 @@ describe('Parameter and Type Inference Support', () => {
 
       expect(enumValues).toEqual(['spam', 'legal', 'violation', 'other']);
     });
+
+    it('should still handle normal "to" patterns correctly', () => {
+      // Make sure we didn't break existing functionality
+      const description =
+        'String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.';
+
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
+
+      expect(enumValues).toEqual(['public', 'unlisted', 'private', 'direct']);
+    });
   });
 
   describe('Parameter parsing with enum values', () => {
