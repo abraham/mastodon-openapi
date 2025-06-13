@@ -697,12 +697,16 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation?.responses['503']).toBeDefined();
       expect(operation?.responses['503'].description).toBe('Unavailable');
 
+      expect(operation?.responses['429']).toBeDefined();
+      expect(operation?.responses['429'].description).toBe('Too Many Requests');
+
       // Error responses should not have content, only descriptions
       expect(operation?.responses['401'].content).toBeUndefined();
       expect(operation?.responses['404'].content).toBeUndefined();
       expect(operation?.responses['410'].content).toBeUndefined();
       expect(operation?.responses['422'].content).toBeUndefined();
       expect(operation?.responses['503'].content).toBeUndefined();
+      expect(operation?.responses['429'].content).toBeUndefined();
     });
   });
 });

@@ -71,6 +71,15 @@ export class ResponseCodeParser {
         }
       }
 
+      // Always ensure 429 rate limiting response is included
+      const has429 = codes.some((code) => code.code === '429');
+      if (!has429) {
+        codes.push({
+          code: '429',
+          description: 'Too Many Requests',
+        });
+      }
+
       return codes.length > 0 ? codes : this.getDefaultResponseCodes();
     } catch (error) {
       console.warn(
@@ -91,6 +100,7 @@ export class ResponseCodeParser {
       { code: '404', description: 'Not Found' },
       { code: '410', description: 'Gone' },
       { code: '422', description: 'Unprocessable Entity' },
+      { code: '429', description: 'Too Many Requests' },
       { code: '503', description: 'Service Unavailable' },
     ];
   }
