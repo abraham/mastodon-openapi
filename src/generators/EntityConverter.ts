@@ -56,6 +56,11 @@ class EntityConverter {
         required: [],
       };
 
+      // Add example if available
+      if (entity.example) {
+        schema.example = entity.example;
+      }
+
       // Process attributes to build nested structure
       this.processAttributesRecursively(allAttributes, schema);
 

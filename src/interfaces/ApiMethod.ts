@@ -19,6 +19,7 @@ interface ApiMethod {
   versions?: string[]; // New field for parsed version numbers
   deprecated?: boolean;
   isStreaming?: boolean;
+  responseExamples?: Record<string, any>; // Response examples by status code
 }
 
 export { ApiMethod, HashAttribute };

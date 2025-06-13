@@ -4,6 +4,7 @@ import { EntityClass } from '../interfaces/EntityClass';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { AttributeParser } from './AttributeParser';
 import { VersionParser } from './VersionParser';
+import { ExampleParser } from './ExampleParser';
 
 /**
  * Handles parsing entities from dedicated entity files
@@ -40,6 +41,9 @@ export class EntityFileParser {
     const { processedAttributes, nestedEntities } =
       this.extractNestedHashEntities(className, attributes);
 
+    // Parse example from the content
+    const example = ExampleParser.parseEntityExample(parsed.content);
+
     // Collect all version numbers from attributes
     const allVersions: string[] = [];
     for (const attr of processedAttributes) {
@@ -53,6 +57,7 @@ export class EntityFileParser {
       description,
       attributes: processedAttributes,
       versions: allVersions.length > 0 ? allVersions : undefined,
+      example: example || undefined,
     });
 
     // Add extracted nested entities

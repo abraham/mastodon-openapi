@@ -6,6 +6,7 @@ import { ApiMethod, HashAttribute } from '../interfaces/ApiMethod';
 import { ParameterParser } from './ParameterParser';
 import { TextUtils } from './TextUtils';
 import { VersionParser } from './VersionParser';
+import { ExampleParser } from './ExampleParser';
 
 class MethodParser {
   private methodsPath: string;
@@ -178,6 +179,9 @@ class MethodParser {
       endpoint.startsWith('/api/v1/streaming/') &&
       !endpoint.endsWith('/health');
 
+    // Parse response examples from the section
+    const responseExamples = ExampleParser.parseMethodResponseExamples(section);
+
     return {
       name: cleanedName,
       httpMethod,
@@ -194,6 +198,8 @@ class MethodParser {
       versions: versions.length > 0 ? versions : undefined,
       deprecated: isDeprecated || undefined,
       isStreaming: isStreaming || undefined,
+      responseExamples:
+        Object.keys(responseExamples).length > 0 ? responseExamples : undefined,
     };
   }
 
