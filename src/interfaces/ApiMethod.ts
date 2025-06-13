@@ -16,6 +16,7 @@ interface ApiMethod {
   hashAttributes?: HashAttribute[];
   oauth?: string;
   version?: string;
+  versions?: string[]; // New field for parsed version numbers
   deprecated?: boolean;
   isStreaming?: boolean;
 }

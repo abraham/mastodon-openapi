@@ -1,5 +1,6 @@
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { EntityParsingUtils } from './EntityParsingUtils';
+import { VersionParser } from './VersionParser';
 
 /**
  * Handles parsing of entity attributes from different content formats
@@ -62,6 +63,11 @@ export class AttributeParser {
         /\*\*Type:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
       );
 
+      // Look for Version history in this specific section
+      const versionMatch = sectionContent.match(
+        /\*\*Version history:\*\*\\?\s*([\s\S]*?)(?=\n####|\n###|\n##|$)/
+      );
+
       if (descMatch && typeMatch) {
         const description = descMatch[1].trim();
         const typeStr = typeMatch[1].trim();
@@ -115,6 +121,15 @@ export class AttributeParser {
           }
         }
 
+        // Extract version numbers from version history
+        if (versionMatch) {
+          const versionHistory = versionMatch[1].trim();
+          const versions = VersionParser.extractVersionNumbers(versionHistory);
+          if (versions.length > 0) {
+            attribute.versions = versions;
+          }
+        }
+
         attributes.push(attribute);
       }
     }
@@ -136,11 +151,19 @@ export class AttributeParser {
     // Then potentially some enum values or additional content
     // Then: **Version history:**\
     const attributeRegex =
-      /#### `([^`]+)`[^{]*?(?:\{\{%([^%]+)%\}\})?\s*(?:\{#[^}]+\})?\s*\n\n\*\*Description:\*\*\s*([^\n]+?)\\?\s*\n\*\*Type:\*\*\s*([^\n]+?)\\?\s*\n(.*?)\*\*Version history:\*\*[^]*?(?=\n#### |$)/gs;
+      /#### `([^`]+)`[^{]*?(?:\{\{%([^%]+)%\}\})?\s*(?:\{#[^}]+\})?\s*\n\n\*\*Description:\*\*\s*([^\n]+?)\\?\s*\n\*\*Type:\*\*\s*([^\n]+?)\\?\s*\n(.*?)\*\*Version history:\*\*\\?\s*([\s\S]*?)(?=\n#### |$)/gs;
 
     let match;
     while ((match = attributeRegex.exec(content)) !== null) {
-      const [, name, modifiers, description, type, enumContent] = match;
+      const [
+        ,
+        name,
+        modifiers,
+        description,
+        type,
+        enumContent,
+        versionHistory,
+      ] = match;
 
       // Skip attributes marked as removed
       if (modifiers && modifiers.includes('removed')) {
@@ -194,6 +217,16 @@ export class AttributeParser {
         const enumValues = EntityParsingUtils.extractEnumValues(enumContent);
         if (enumValues.length > 0) {
           attribute.enumValues = enumValues;
+        }
+      }
+
+      // Extract version numbers from version history
+      if (versionHistory && versionHistory.trim()) {
+        const versions = VersionParser.extractVersionNumbers(
+          versionHistory.trim()
+        );
+        if (versions.length > 0) {
+          attribute.versions = versions;
         }
       }
 

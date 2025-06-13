@@ -39,8 +39,14 @@ class OpenAPIGenerator {
 
   public generateSchema(
     entities: EntityClass[],
-    methodFiles: ApiMethodsFile[]
+    methodFiles: ApiMethodsFile[],
+    maxVersion?: string
   ): OpenAPISpec {
+    // Update the version in the spec if provided
+    if (maxVersion) {
+      this.spec.info.version = maxVersion;
+    }
+
     // Convert entities to OpenAPI schemas (without deduplication)
     this.entityConverter.convertEntities(entities, this.spec);
 

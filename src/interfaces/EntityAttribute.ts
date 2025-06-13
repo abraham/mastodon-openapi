@@ -6,6 +6,7 @@ interface EntityAttribute {
   deprecated?: boolean;
   nullable?: boolean;
   enumValues?: string[];
+  versions?: string[]; // New field for parsed version numbers
 }
 
 export { EntityAttribute };

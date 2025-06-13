@@ -1,6 +1,7 @@
 import { EntityParser } from './parsers/EntityParser';
 import { MethodParser } from './parsers/MethodParser';
 import { OpenAPIGenerator } from './generators/OpenAPIGenerator';
+import { VersionParser } from './parsers/VersionParser';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -25,10 +26,42 @@ function main() {
   );
   console.log(`Total API methods parsed: ${totalMethods}`);
 
+  // Collect all version numbers from entities and methods
+  console.log('Collecting version numbers...');
+  const allVersions: string[] = [];
+
+  // Collect versions from entities
+  for (const entity of entities) {
+    if (entity.versions) {
+      allVersions.push(...entity.versions);
+    }
+    // Also collect from attributes
+    for (const attr of entity.attributes) {
+      if (attr.versions) {
+        allVersions.push(...attr.versions);
+      }
+    }
+  }
+
+  // Collect versions from methods
+  for (const methodFile of methodFiles) {
+    for (const method of methodFile.methods) {
+      if (method.versions) {
+        allVersions.push(...method.versions);
+      }
+    }
+  }
+
+  // Find the maximum version
+  const maxVersion = VersionParser.findMaxVersion(allVersions);
+  console.log(
+    `Found ${allVersions.length} version numbers, maximum version: ${maxVersion}`
+  );
+
   console.log('Generating OpenAPI schema...');
 
   const generator = new OpenAPIGenerator();
-  const schema = generator.generateSchema(entities, methodFiles);
+  const schema = generator.generateSchema(entities, methodFiles, maxVersion);
 
   console.log('OpenAPI schema generated successfully');
 
