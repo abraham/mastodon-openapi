@@ -34,7 +34,8 @@ export class TypeInference {
 
     // Look for patterns like "to `value1`, `value2`, `value3`"
     // This pattern matches the visibility parameter format specifically
-    const toPattern = /to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
+    // Make sure it's not part of "due to" by using negative lookbehind
+    const toPattern = /(?<!due\s+)to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
     let match = toPattern.exec(description);
     if (match) {
       const valuesList = match[1];
@@ -53,6 +54,8 @@ export class TypeInference {
     // If we didn't find the "to" pattern, try other patterns
     if (enumValues.length === 0) {
       const patterns = [
+        // Pattern for "due to" with mixed backticks and additional text between values
+        /due\s+to\s+(.*?)(?:\s+reason|\s+defaults|\.|$)/gi,
         /values?\s*:\s*(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
@@ -69,8 +72,24 @@ export class TypeInference {
         if (match) {
           const valuesList = match[1];
 
+          // Handle "due to" pattern with mixed formatting
+          if (pattern.source.includes('due\\s+to')) {
+            // Special handling for "due to" pattern - extract all backticked values
+            const backtickValues = valuesList.match(/`([^`]+)`/g) || [];
+            const cleanBacktickValues = backtickValues.map((v) =>
+              v.slice(1, -1).trim()
+            );
+
+            if (cleanBacktickValues.length > 1) {
+              for (const value of cleanBacktickValues) {
+                if (value && !enumValues.includes(value)) {
+                  enumValues.push(value);
+                }
+              }
+            }
+          }
           // Handle "One of" pattern - both with and without backticks
-          if (pattern.source.includes('one\\s+of')) {
+          else if (pattern.source.includes('one\\s+of')) {
             if (valuesList.includes('`')) {
               // Pattern with backticks - use original logic
               const values = valuesList.match(/`([^`]+)`/g);
