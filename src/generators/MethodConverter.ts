@@ -6,10 +6,12 @@ import {
   OpenAPIPath,
   OpenAPIProperty,
   OpenAPISpec,
+  OpenAPIHeader,
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
+import { RateLimitHeaderParser, RateLimitHeader } from '../parsers/RateLimitHeaderParser';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -18,12 +20,15 @@ class MethodConverter {
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
   private responseCodes: Array<{ code: string; description: string }>;
+  private rateLimitHeaders: RateLimitHeader[];
 
   constructor(typeParser: TypeParser, utilityHelpers: UtilityHelpers) {
     this.typeParser = typeParser;
     this.utilityHelpers = utilityHelpers;
     // Parse response codes once during initialization
     this.responseCodes = ResponseCodeParser.parseResponseCodes();
+    // Parse rate limit headers once during initialization
+    this.rateLimitHeaders = RateLimitHeaderParser.parseRateLimitHeaders();
   }
 
   /**
@@ -64,8 +69,11 @@ class MethodConverter {
 
     // Build responses object with all available response codes
     const responses: Record<string, any> = {};
+    const rateLimitHeaders = this.generateRateLimitHeaders();
 
     for (const responseCode of this.responseCodes) {
+      const isSuccessResponse = responseCode.code.startsWith('2');
+      
       if (responseCode.code === '200') {
         // 200 response includes the schema from the returns field
         // For streaming endpoints, use text/event-stream content type
@@ -78,6 +86,7 @@ class MethodConverter {
           // even if no specific schema is parsed from the returns field
           responses[responseCode.code] = {
             description: method.returns || responseCode.description,
+            headers: rateLimitHeaders,
             content: {
               [contentType]: responseSchema ? { schema: responseSchema } : {},
             },
@@ -87,6 +96,7 @@ class MethodConverter {
           responses[responseCode.code] = responseSchema
             ? {
                 description: method.returns || responseCode.description,
+                headers: rateLimitHeaders,
                 content: {
                   [contentType]: {
                     schema: responseSchema,
@@ -95,8 +105,15 @@ class MethodConverter {
               }
             : {
                 description: method.returns || responseCode.description,
+                headers: rateLimitHeaders,
               };
         }
+      } else if (isSuccessResponse) {
+        // Other 2xx responses also get rate limit headers
+        responses[responseCode.code] = {
+          description: responseCode.description,
+          headers: rateLimitHeaders,
+        };
       } else {
         // Other response codes are error responses with simple descriptions
         responses[responseCode.code] = {
@@ -209,6 +226,31 @@ class MethodConverter {
     }
 
     spec.paths[path][httpMethod] = operation;
+  }
+
+  /**
+   * Generate rate limit headers for 2xx responses
+   */
+  private generateRateLimitHeaders(): Record<string, OpenAPIHeader> {
+    const headers: Record<string, OpenAPIHeader> = {};
+
+    for (const header of this.rateLimitHeaders) {
+      let schema: { type: string; format?: string } = { type: 'string' };
+
+      // Set appropriate schema types based on header name
+      if (header.name === 'X-RateLimit-Limit' || header.name === 'X-RateLimit-Remaining') {
+        schema = { type: 'integer' };
+      } else if (header.name === 'X-RateLimit-Reset') {
+        schema = { type: 'integer', format: 'int64' };
+      }
+
+      headers[header.name] = {
+        description: header.description,
+        schema,
+      };
+    }
+
+    return headers;
   }
 
   /**

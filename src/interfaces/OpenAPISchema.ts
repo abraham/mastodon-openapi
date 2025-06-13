@@ -78,12 +78,21 @@ interface OpenAPIRequestBody {
 
 interface OpenAPIResponse {
   description: string;
+  headers?: Record<string, OpenAPIHeader>;
   content?: Record<
     string,
     {
       schema: OpenAPIProperty | { $ref: string };
     }
   >;
+}
+
+interface OpenAPIHeader {
+  description: string;
+  schema: {
+    type: string;
+    format?: string;
+  };
 }
 
 interface OpenAPIOperation {
@@ -129,6 +138,7 @@ export {
   OpenAPIParameter,
   OpenAPIRequestBody,
   OpenAPIResponse,
+  OpenAPIHeader,
   OpenAPIOperation,
   OpenAPIPath,
   OpenAPISpec,

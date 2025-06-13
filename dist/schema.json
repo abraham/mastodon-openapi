@@ -27,6 +27,27 @@
         "responses": {
           "200": {
             "description": "[Token]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -122,6 +143,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -179,6 +221,27 @@
         "responses": {
           "200": {
             "description": "[CredentialAccount]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -226,6 +289,27 @@
         "responses": {
           "200": {
             "description": "[CredentialAccount]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -360,6 +444,27 @@
         "responses": {
           "200": {
             "description": "[Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -411,6 +516,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -555,6 +681,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -646,6 +793,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -737,6 +905,27 @@
         "responses": {
           "200": {
             "description": "Array of [FeaturedTag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -791,6 +980,27 @@
         "responses": {
           "200": {
             "description": "Array of [List]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -852,6 +1062,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -940,6 +1171,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -998,6 +1250,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1056,6 +1329,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1114,6 +1408,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1172,6 +1487,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1253,6 +1589,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1311,6 +1668,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1370,6 +1748,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1429,6 +1828,27 @@
         "responses": {
           "200": {
             "description": "[Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1508,6 +1928,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1566,6 +2007,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1624,6 +2086,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1699,6 +2182,27 @@
         "responses": {
           "200": {
             "description": "Array of [Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1773,6 +2277,27 @@
         "responses": {
           "200": {
             "description": "Array of [FamiliarFollowers]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1837,6 +2362,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1938,6 +2484,27 @@
         "responses": {
           "200": {
             "description": "[Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -1990,6 +2557,27 @@
         "responses": {
           "200": {
             "description": "Array of [IdentityProof]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2050,6 +2638,27 @@
         "responses": {
           "200": {
             "description": "Array of [Announcement]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2097,7 +2706,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -2148,7 +2778,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -2206,7 +2857,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -2267,6 +2939,27 @@
         "responses": {
           "200": {
             "description": "[CredentialApplication]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2389,6 +3082,27 @@
         "responses": {
           "200": {
             "description": "[Application]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2434,6 +3148,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2523,6 +3258,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2612,6 +3368,27 @@
         "responses": {
           "200": {
             "description": "Array of [Conversation]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2700,7 +3477,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -2752,6 +3550,27 @@
         "responses": {
           "200": {
             "description": "[Conversation]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2810,6 +3629,27 @@
         "responses": {
           "200": {
             "description": "Array of [CustomEmoji]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2853,6 +3693,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -2935,6 +3796,27 @@
         "responses": {
           "200": {
             "description": "Array of String",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3021,7 +3903,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -3080,7 +3983,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -3141,7 +4065,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -3198,6 +4143,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3278,6 +4244,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3367,6 +4354,27 @@
         "responses": {
           "200": {
             "description": "Array of [FeaturedTag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3415,6 +4423,27 @@
         "responses": {
           "200": {
             "description": "[FeaturedTag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3482,7 +4511,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -3534,6 +4584,27 @@
         "responses": {
           "200": {
             "description": "Array of [Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3584,6 +4655,27 @@
         "responses": {
           "200": {
             "description": "Array of [Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3632,6 +4724,27 @@
         "responses": {
           "200": {
             "description": "[Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3741,6 +4854,27 @@
         "responses": {
           "200": {
             "description": "[Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3797,6 +4931,27 @@
         "responses": {
           "200": {
             "description": "[Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -3909,7 +5064,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -3961,6 +5137,27 @@
         "responses": {
           "200": {
             "description": "Array of [FilterKeyword]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4020,6 +5217,27 @@
         "responses": {
           "200": {
             "description": "[FilterKeyword]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4102,6 +5320,27 @@
         "responses": {
           "200": {
             "description": "[FilterKeyword]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4158,6 +5397,27 @@
         "responses": {
           "200": {
             "description": "[FilterKeyword]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4237,7 +5497,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -4289,6 +5570,27 @@
         "responses": {
           "200": {
             "description": "Array of [FilterStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4348,6 +5650,27 @@
         "responses": {
           "200": {
             "description": "[FilterStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4426,6 +5749,27 @@
         "responses": {
           "200": {
             "description": "[FilterStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4482,6 +5826,27 @@
         "responses": {
           "200": {
             "description": "[FilterStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4540,6 +5905,27 @@
         "responses": {
           "200": {
             "description": "List of [V1::Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4586,6 +5972,27 @@
         "responses": {
           "200": {
             "description": "[V1::Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4677,6 +6084,27 @@
         "responses": {
           "200": {
             "description": "[V1::Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4734,6 +6162,27 @@
         "responses": {
           "200": {
             "description": "[V1::Filter]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4832,7 +6281,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -4885,6 +6355,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -4965,6 +6456,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5023,6 +6535,27 @@
         "responses": {
           "200": {
             "description": "[Relationship]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5081,6 +6614,27 @@
         "responses": {
           "200": {
             "description": "Array of [Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5170,6 +6724,27 @@
         "responses": {
           "200": {
             "description": "[GroupedNotificationsResults]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5320,6 +6895,27 @@
         "responses": {
           "200": {
             "description": "[GroupedNotificationsResults]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5377,7 +6973,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -5429,6 +7046,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5489,7 +7127,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Hash with a single key of `count`"
+            "description": "Hash with a single key of `count`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -5587,6 +7246,27 @@
         "responses": {
           "200": {
             "description": "[Instance]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5627,6 +7307,27 @@
         "responses": {
           "200": {
             "description": "Array of String",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5670,6 +7371,27 @@
         "responses": {
           "200": {
             "description": "Array of Hash",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5731,6 +7453,27 @@
         "responses": {
           "200": {
             "description": "Array of [Rule]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5774,6 +7517,27 @@
         "responses": {
           "200": {
             "description": "Array of [DomainBlock]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5822,6 +7586,27 @@
         "responses": {
           "200": {
             "description": "[ExtendedDescription]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5862,6 +7647,27 @@
         "responses": {
           "200": {
             "description": "[PrivacyPolicy]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5902,6 +7708,27 @@
         "responses": {
           "200": {
             "description": "[TermsOfService]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5942,6 +7769,27 @@
         "responses": {
           "200": {
             "description": "[TermsOfService]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -5992,7 +7840,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Object with source language codes as keys and arrays of target language codes as values."
+            "description": "Object with source language codes as keys and arrays of target language codes as values.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -6026,6 +7895,27 @@
         "responses": {
           "200": {
             "description": "[V1::Instance]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6067,6 +7957,27 @@
         "responses": {
           "200": {
             "description": "Array of [List]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6115,6 +8026,27 @@
         "responses": {
           "200": {
             "description": "[List]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6193,6 +8125,27 @@
         "responses": {
           "200": {
             "description": "[List]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6249,6 +8202,27 @@
         "responses": {
           "200": {
             "description": "[List]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6334,7 +8308,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -6386,6 +8381,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6481,7 +8497,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -6553,7 +8590,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -6628,6 +8686,27 @@
         "responses": {
           "200": {
             "description": "Hash of timeline key and associated [Marker]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6691,6 +8770,27 @@
         "responses": {
           "200": {
             "description": "[Marker]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6772,6 +8872,27 @@
         "responses": {
           "200": {
             "description": "[MediaAttachment], but without a URL",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6852,6 +8973,27 @@
         "responses": {
           "200": {
             "description": "[MediaAttachment]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -6907,7 +9049,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -6957,6 +9120,27 @@
         "responses": {
           "200": {
             "description": "[MediaAttachment]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7040,6 +9224,27 @@
         "responses": {
           "200": {
             "description": "[MediaAttachment]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7121,6 +9326,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7201,6 +9427,27 @@
         "responses": {
           "200": {
             "description": "Array of [Notification]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7333,6 +9580,27 @@
         "responses": {
           "200": {
             "description": "[Notification]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7390,7 +9658,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7430,7 +9719,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7481,7 +9791,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Hash with a single key of `count`"
+            "description": "Hash with a single key of `count`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7567,6 +9898,27 @@
         "responses": {
           "200": {
             "description": "[NotificationPolicy]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7614,6 +9966,27 @@
         "responses": {
           "200": {
             "description": "Array of [NotificationRequest]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7703,6 +10076,27 @@
         "responses": {
           "200": {
             "description": "[NotificationRequest]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -7760,7 +10154,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7811,7 +10226,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7862,7 +10298,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7902,7 +10359,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7942,7 +10420,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Hash with a single boolean attribute `merged`"
+            "description": "Hash with a single boolean attribute `merged`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -7983,6 +10482,27 @@
         "responses": {
           "200": {
             "description": "[GroupedNotificationsResults]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8123,6 +10643,27 @@
         "responses": {
           "200": {
             "description": "[GroupedNotificationsResults]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8180,7 +10721,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8231,7 +10793,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Hash with a single key of `count`"
+            "description": "Hash with a single key of `count`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8328,7 +10911,28 @@
         ],
         "responses": {
           "200": {
-            "description": "String (URL) or HTML response"
+            "description": "String (URL) or HTML response",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8449,6 +11053,27 @@
         "responses": {
           "200": {
             "description": "[Token]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8538,7 +11163,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8602,7 +11248,28 @@
         ],
         "responses": {
           "200": {
-            "description": "JSON as per the above description"
+            "description": "JSON as per the above description",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8635,7 +11302,28 @@
         ],
         "responses": {
           "200": {
-            "description": "OEmbed metadata"
+            "description": "OEmbed metadata",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8701,6 +11389,27 @@
         "responses": {
           "200": {
             "description": "[Poll]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8759,6 +11468,27 @@
         "responses": {
           "200": {
             "description": "[Poll]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -8839,7 +11569,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Preferences by key and value"
+            "description": "Preferences by key and value",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -8880,6 +11631,27 @@
         "responses": {
           "200": {
             "description": "[WebPushSubscription]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9022,6 +11794,27 @@
         "responses": {
           "200": {
             "description": "[WebPushSubscription]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9065,6 +11858,27 @@
         "responses": {
           "200": {
             "description": "[WebPushSubscription]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9176,7 +11990,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -9215,6 +12050,27 @@
         "responses": {
           "200": {
             "description": "[Report]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9317,6 +12173,27 @@
         "responses": {
           "200": {
             "description": "Array of [ScheduledStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9406,6 +12283,27 @@
         "responses": {
           "200": {
             "description": "[ScheduledStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9462,6 +12360,27 @@
         "responses": {
           "200": {
             "description": "[ScheduledStatus]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9534,7 +12453,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -9586,6 +12526,27 @@
         "responses": {
           "200": {
             "description": "[Search]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9729,6 +12690,27 @@
         "responses": {
           "200": {
             "description": "[Status]. When `scheduled_at` is present, [ScheduledStatus] is returned instead.",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9855,6 +12837,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9919,6 +12922,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -9975,6 +12999,27 @@
         "responses": {
           "200": {
             "description": "[Status] with source `text` and `poll` or `media_attachments`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10040,6 +13085,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10166,6 +13232,27 @@
         "responses": {
           "200": {
             "description": "[Context]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10224,6 +13311,27 @@
         "responses": {
           "200": {
             "description": "[Translation]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10300,6 +13408,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10389,6 +13518,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10478,6 +13628,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10536,6 +13707,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10594,6 +13786,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10670,6 +13883,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10728,6 +13962,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10786,6 +14041,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10844,6 +14120,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10902,6 +14199,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -10960,6 +14278,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11018,6 +14357,27 @@
         "responses": {
           "200": {
             "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11076,6 +14436,27 @@
         "responses": {
           "200": {
             "description": "Array of [StatusEdit]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11137,6 +14518,27 @@
         "responses": {
           "200": {
             "description": "[StatusSource]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11195,6 +14597,27 @@
         "responses": {
           "200": {
             "description": "[PreviewCard]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11253,7 +14676,28 @@
         ],
         "responses": {
           "200": {
-            "description": "String"
+            "description": "String",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -11287,6 +14731,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `notification`, `filters_changed`, `announcement`, `announcement.reaction`, `announcement.delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11331,6 +14796,27 @@
         "responses": {
           "200": {
             "description": "`notification`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11375,6 +14861,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11429,6 +14936,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11483,6 +15011,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11537,6 +15086,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11592,6 +15162,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11647,6 +15238,27 @@
         "responses": {
           "200": {
             "description": "`update`, `delete`, `status.update`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11702,6 +15314,27 @@
         "responses": {
           "200": {
             "description": "`conversation`",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "text/event-stream": {}
             }
@@ -11745,6 +15378,27 @@
         "responses": {
           "200": {
             "description": "Array of [Suggestion]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11804,7 +15458,28 @@
         ],
         "responses": {
           "200": {
-            "description": "Empty"
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            }
           },
           "401": {
             "description": "Unauthorized"
@@ -11854,6 +15529,27 @@
         "responses": {
           "200": {
             "description": "Array of [Account]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11915,6 +15611,27 @@
         "responses": {
           "200": {
             "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -11971,6 +15688,27 @@
         "responses": {
           "200": {
             "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12029,6 +15767,27 @@
         "responses": {
           "200": {
             "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12087,6 +15846,27 @@
         "responses": {
           "200": {
             "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12145,6 +15925,27 @@
         "responses": {
           "200": {
             "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12203,6 +16004,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12322,6 +16144,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12486,6 +16329,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12575,6 +16439,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12683,6 +16568,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12781,6 +16687,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12871,6 +16798,27 @@
         "responses": {
           "200": {
             "description": "Array of [Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12935,6 +16883,27 @@
         "responses": {
           "200": {
             "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
@@ -12999,6 +16968,27 @@
         "responses": {
           "200": {
             "description": "Array of [Trends::Link]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "integer",
+                  "format": "int64"
+                }
+              }
+            },
             "content": {
               "application/json": {
                 "schema": {
