@@ -12745,7 +12745,17 @@
             ]
           }
         ],
-        "parameters": [],
+        "parameters": [
+          {
+            "name": "Idempotency-Key",
+            "in": "header",
+            "description": "Provide this header with any arbitrary string to prevent duplicate submissions of the same status. Consider using a hash or UUID generated client-side. Idempotency keys are stored for up to 1 hour.",
+            "schema": {
+              "type": "object",
+              "description": "Provide this header with any arbitrary string to prevent duplicate submissions of the same status. Consider using a hash or UUID generated client-side. Idempotency keys are stored for up to 1 hour."
+            }
+          }
+        ],
         "requestBody": {
           "description": "JSON request body parameters",
           "required": true,
