@@ -18,6 +18,7 @@ interface ApiParameter {
     type: 'array' | 'object' | 'string' | 'integer' | 'boolean' | 'number';
     items?: ApiProperty;
     properties?: Record<string, ApiProperty>;
+    enum?: string[];
   };
 }
 

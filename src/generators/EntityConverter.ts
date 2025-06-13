@@ -32,6 +32,23 @@ class EntityConverter {
     const entitySchemas = new Map<string, OpenAPISchema>();
 
     for (const entity of entities) {
+      let allAttributes = entity.attributes;
+
+      // Special handling for CredentialApplication inheritance
+      if (entity.name === 'CredentialApplication') {
+        // Find the Application entity to inherit from
+        const applicationEntity = entities.find(
+          (e) => e.name === 'Application'
+        );
+        if (applicationEntity) {
+          // Combine Application attributes with CredentialApplication attributes
+          allAttributes = [
+            ...applicationEntity.attributes,
+            ...entity.attributes,
+          ];
+        }
+      }
+
       const schema: OpenAPISchema = {
         type: 'object',
         description: entity.description,
@@ -40,7 +57,7 @@ class EntityConverter {
       };
 
       // Process attributes to build nested structure
-      this.processAttributesRecursively(entity.attributes, schema);
+      this.processAttributesRecursively(allAttributes, schema);
 
       // Remove empty required array
       if (schema.required && schema.required.length === 0) {

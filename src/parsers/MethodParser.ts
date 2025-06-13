@@ -80,8 +80,9 @@ class MethodParser {
   private parseMethods(content: string): ApiMethod[] {
     const methods: ApiMethod[] = [];
 
-    // Match method sections: ## Method Name {#anchor} or ### Method Name {#anchor}
-    const methodSections = content.split(/(?=^##+ [^{]*\{#[^}]+\})/m);
+    // Match method sections: only ## Method Name {#anchor} (level 2 headers)
+    // Level 3+ headers (###, ####, etc.) should be treated as subsections of the method
+    const methodSections = content.split(/(?=^## [^{]*\{#[^}]+\})/m);
 
     for (const section of methodSections) {
       if (section.trim() === '') continue;
