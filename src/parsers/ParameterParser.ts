@@ -1,6 +1,7 @@
 import { ApiParameter, ApiProperty } from '../interfaces/ApiParameter';
 import { TextUtils } from './TextUtils';
 import { TypeInference } from './TypeInference';
+import { EntityParsingUtils } from './EntityParsingUtils';
 
 /**
  * Parsed parameter structure for nested objects
@@ -10,6 +11,7 @@ interface ParsedParameter {
   path: string[];
   isArray: boolean;
   description: string;
+  originalDescription?: string;
   required?: boolean;
   enumValues?: string[];
 }
@@ -144,6 +146,7 @@ export class ParameterParser {
     parameters: Array<
       ParsedParameter & {
         description: string;
+        inferredType?: string;
         required?: boolean;
         enumValues?: string[];
       }
@@ -168,7 +171,7 @@ export class ParameterParser {
 
       // Set the final property
       const finalProperty = param.path[param.path.length - 1];
-      const propType = TypeInference.inferTypeFromDescription(
+      const propType = param.inferredType || TypeInference.inferTypeFromDescription(
         param.description
       );
       const enumValues = TypeInference.extractEnumValuesFromDescription(
@@ -177,7 +180,7 @@ export class ParameterParser {
 
       const property: ApiProperty = {
         type: propType,
-        description: param.description,
+        description: EntityParsingUtils.stripTypePrefix(param.description),
       };
 
       if (enumValues.length > 0) {
@@ -188,7 +191,7 @@ export class ParameterParser {
         current[finalProperty] = {
           type: 'array',
           items: property,
-          description: param.description,
+          description: EntityParsingUtils.stripTypePrefix(param.description),
         };
       } else {
         current[finalProperty] = property;
@@ -212,6 +215,8 @@ export class ParameterParser {
     const rawParameters: Array<{
       name: string;
       description: string;
+      originalDescription?: string;
+      inferredType?: string;
       required?: boolean;
       enumValues?: string[];
     }> = [];
@@ -233,7 +238,8 @@ export class ParameterParser {
     while ((match = paramRegex.exec(paramSection)) !== null) {
       const [, name, desc] = match;
 
-      const cleanDesc = TextUtils.cleanMarkdown(desc.trim());
+      const originalDesc = desc.trim();
+      const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
       const required =
         cleanDesc.includes('{{<required>}}') || cleanDesc.includes('required');
 
@@ -241,9 +247,14 @@ export class ParameterParser {
       const enumValues =
         TypeInference.extractEnumValuesFromDescription(cleanDesc);
 
+      // Infer type from original description before cleaning
+      const inferredType = TypeInference.inferTypeFromDescription(originalDesc);
+
       const rawParam = {
         name: name.trim(),
         description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
+        originalDescription: originalDesc, // Store original for type inference
+        inferredType: inferredType, // Store pre-computed type
         required: required ? true : undefined,
         enumValues: enumValues.length > 0 ? enumValues : undefined,
       };
@@ -265,6 +276,8 @@ export class ParameterParser {
     rawParameters: Array<{
       name: string;
       description: string;
+      originalDescription?: string;
+      inferredType?: string;
       required?: boolean;
       enumValues?: string[];
     }>,
@@ -277,6 +290,7 @@ export class ParameterParser {
         nested: Array<
           ParsedParameter & {
             description: string;
+            inferredType?: string;
             required?: boolean;
             enumValues?: string[];
           }
@@ -286,6 +300,7 @@ export class ParameterParser {
           property: string;
           isArray: boolean;
           description: string;
+          inferredType?: string;
           required?: boolean;
           enumValues?: string[];
         }>;
@@ -297,6 +312,7 @@ export class ParameterParser {
         name: string;
         property: string;
         description: string;
+        inferredType?: string;
         required?: boolean;
         enumValues?: string[];
       }>
@@ -317,7 +333,8 @@ export class ParameterParser {
         arrayOfObjectGroups[arrayName].push({
           name: rawParam.name,
           property: propertyName,
-          description: rawParam.description,
+          description: EntityParsingUtils.stripTypePrefix(rawParam.description),
+          inferredType: rawParam.inferredType,
           required: rawParam.required,
           enumValues: rawParam.enumValues,
         });
@@ -344,7 +361,8 @@ export class ParameterParser {
             // Multi-level nesting like subscription[keys][auth]
             allObjectGroups[nestedParam.rootName].nested.push({
               ...nestedParam,
-              description: rawParam.description,
+              description: EntityParsingUtils.stripTypePrefix(rawParam.description),
+              inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
             });
@@ -354,7 +372,8 @@ export class ParameterParser {
               name: rawParam.name,
               property: nestedParam.path[0],
               isArray: nestedParam.isArray,
-              description: rawParam.description,
+              description: EntityParsingUtils.stripTypePrefix(rawParam.description),
+              inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
             });
@@ -368,7 +387,7 @@ export class ParameterParser {
 
         // Create items schema with enum values if available
         const itemsSchema: any = {
-          type: TypeInference.inferTypeFromDescription(rawParam.description),
+          type: rawParam.inferredType || TypeInference.inferTypeFromDescription(rawParam.originalDescription || rawParam.description),
         };
 
         if (rawParam.enumValues && rawParam.enumValues.length > 0) {
@@ -378,7 +397,7 @@ export class ParameterParser {
         // Simple array parameter like media_ids[]
         parameters.push({
           name: baseName,
-          description: rawParam.description,
+          description: EntityParsingUtils.stripTypePrefix(rawParam.description),
           required: rawParam.required,
           in: parameterLocation,
           enumValues: rawParam.enumValues,
@@ -389,12 +408,12 @@ export class ParameterParser {
         });
       } else {
         // Simple parameter
-        const inferredType = TypeInference.inferTypeFromDescription(
-          rawParam.description
+        const inferredType = rawParam.inferredType || TypeInference.inferTypeFromDescription(
+          rawParam.originalDescription || rawParam.description
         );
         const param: ApiParameter = {
           name: rawParam.name,
-          description: rawParam.description,
+          description: EntityParsingUtils.stripTypePrefix(rawParam.description),
           required: rawParam.required,
           in: parameterLocation,
           enumValues: rawParam.enumValues,
@@ -435,7 +454,7 @@ export class ParameterParser {
 
       // Process simple properties
       for (const prop of groups.simple) {
-        const propType = TypeInference.inferTypeFromDescription(
+        const propType = prop.inferredType || TypeInference.inferTypeFromDescription(
           prop.description
         );
         const enumValues = TypeInference.extractEnumValuesFromDescription(
@@ -483,7 +502,7 @@ export class ParameterParser {
       const objectProperties: Record<string, ApiProperty> = {};
 
       for (const prop of properties) {
-        const propType = TypeInference.inferTypeFromDescription(
+        const propType = prop.inferredType || TypeInference.inferTypeFromDescription(
           prop.description
         );
         const enumValues = TypeInference.extractEnumValuesFromDescription(
