@@ -66,6 +66,8 @@ class TypeParser {
         property.format = 'uri';
       } else if (
         cleanType.includes('iso8601') ||
+        typeString.includes('[Datetime]') ||
+        typeString.includes('[ISO8601') ||
         (cleanType.includes('datetime') &&
           !cleanType.includes('datetime-format'))
       ) {

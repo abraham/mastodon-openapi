@@ -17500,7 +17500,8 @@
         "properties": {
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "frequency": {
             "description": "The size of the bucket for the returned data.",
@@ -17530,7 +17531,8 @@
         "properties": {
           "date": {
             "description": "The timestamp for the start of the bucket, at midnight.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "rate": {
             "description": "The percentage rate of users who registered in the specified `period` and were active for the given `date` bucket.",
@@ -17853,7 +17855,8 @@
         "properties": {
           "date": {
             "description": "Midnight on the requested day in the time period.",
-            "type": "string"
+            "type": "string",
+            "format": "date-time"
           },
           "value": {
             "description": "The numeric value for the requested measure.",
