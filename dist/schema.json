@@ -34075,16 +34075,15 @@
         ]
       },
       "StatusOrScheduledStatus": {
-        "type": "object",
-        "properties": {
-          "status": {
+        "oneOf": [
+          {
             "$ref": "#/components/schemas/Status"
           },
-          "scheduled_status": {
+          {
             "$ref": "#/components/schemas/ScheduledStatus"
           }
-        },
-        "description": "Object containing one of: status, scheduled_status"
+        ],
+        "description": "Either Status or ScheduledStatus"
       },
       "BaseStatus": {
         "type": "object",
