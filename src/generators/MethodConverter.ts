@@ -782,14 +782,15 @@ class MethodConverter {
       spec.components.schemas = {};
     }
 
-    // Check if this is a simple error (just has 'error' field)
-    const isSimpleError = typeof errorExample === 'object' && 
+    // Check if this is a simple error (basic Error schema pattern)
+    const isBasicError = typeof errorExample === 'object' && 
       errorExample !== null &&
-      Object.keys(errorExample).length === 1 &&
-      typeof errorExample.error === 'string';
+      typeof errorExample.error === 'string' &&
+      (Object.keys(errorExample).length === 1 ||
+       (Object.keys(errorExample).length === 2 && typeof errorExample.error_description === 'string'));
 
-    if (isSimpleError) {
-      // Use the existing Error schema for simple errors
+    if (isBasicError) {
+      // Use the existing Error schema for simple errors (with or without error_description)
       return { $ref: '#/components/schemas/Error' };
     }
 

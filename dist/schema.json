@@ -13788,11 +13788,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/CustomError401"
+                  "$ref": "#/components/schemas/Error"
                 },
                 "examples": {
-                  "CustomError401Example": {
-                    "$ref": "#/components/examples/CustomError401Example"
+                  "ErrorExample": {
+                    "$ref": "#/components/examples/ErrorExample"
                   }
                 }
               }
@@ -25884,21 +25884,6 @@
           "details"
         ]
       },
-      "CustomError401": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string"
-          },
-          "error_description": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "error",
-          "error_description"
-        ]
-      },
       "StatusOrScheduledStatus": {
         "type": "object",
         "properties": {
@@ -26839,13 +26824,6 @@
           "token_type": "Bearer",
           "scope": "read write follow push",
           "created_at": 1573979017
-        }
-      },
-      "CustomError401Example": {
-        "summary": "Example for CustomError401",
-        "value": {
-          "error": "invalid_client",
-          "error_description": "Client authentication failed due to unknown client, no client authentication included, or unsupported authentication method."
         }
       },
       "PollExample": {
