@@ -4878,6 +4878,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to include in the result.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -4902,6 +4914,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to exclude from the results.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -4944,6 +4968,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -6244,6 +6280,10 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
+              "enum": [
+                "home",
+                "notifications"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -6825,6 +6865,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to include in the result.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -6849,6 +6901,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to exclude from the results.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -7585,6 +7649,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to include in the result.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -7609,6 +7685,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Types to exclude from the results.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -7651,6 +7739,18 @@
             "schema": {
               "type": "array",
               "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
+              "enum": [
+                "mention",
+                "status",
+                "reblog",
+                "follow",
+                "follow_request",
+                "favourite",
+                "poll",
+                "update",
+                "admin.sign_up",
+                "admin.report"
+              ],
               "items": {
                 "type": "string",
                 "enum": [
@@ -8763,7 +8863,11 @@
                   },
                   "category": {
                     "type": "string",
-                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide)."
+                    "description": "String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
+                    "enum": [
+                      "spam",
+                      "legal"
+                    ]
                   },
                   "rule_ids": {
                     "type": "array",
@@ -9247,7 +9351,13 @@
                   },
                   "visibility": {
                     "type": "string",
-                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`."
+                    "description": "String. Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
+                    "enum": [
+                      "public",
+                      "unlisted",
+                      "private",
+                      "direct"
+                    ]
                   },
                   "language": {
                     "type": "string",
