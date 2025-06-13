@@ -21,7 +21,7 @@ class TypeParser {
 
     // Handle arrays
     if (cleanType.includes('array of')) {
-      const itemTypeMatch = typeString.match(/array of\s+(.+?)(?:\s|$)/i);
+      const itemTypeMatch = typeString.match(/array of\s+(.+)/i);
       if (itemTypeMatch) {
         const itemType = this.parseType(itemTypeMatch[1]);
         return {
