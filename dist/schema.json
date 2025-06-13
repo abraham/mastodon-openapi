@@ -549,6 +549,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -714,6 +720,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -825,6 +837,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -1865,6 +1883,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -3205,6 +3229,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -3315,6 +3345,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -3424,6 +3460,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -3853,6 +3895,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -4200,6 +4248,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -4300,6 +4354,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -6449,6 +6509,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -6708,6 +6774,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -6817,6 +6889,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -8510,6 +8588,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -9462,6 +9546,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -9562,6 +9652,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -10102,6 +10198,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -10617,6 +10719,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -12319,6 +12427,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -12693,6 +12807,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -13605,6 +13725,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -13714,6 +13840,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -16216,6 +16348,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -16355,6 +16493,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -16541,6 +16685,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -16650,6 +16800,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
@@ -16780,6 +16936,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {
@@ -16898,6 +17060,12 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
                 }
               }
             },
