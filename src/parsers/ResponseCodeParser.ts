@@ -80,6 +80,12 @@ export class ResponseCodeParser {
         });
       }
 
+      // Fix incorrect 422 description from documentation
+      const code422 = codes.find((code) => code.code === '422');
+      if (code422 && code422.description === 'Unprocessed') {
+        code422.description = 'Unprocessable Content';
+      }
+
       return codes.length > 0 ? codes : this.getDefaultResponseCodes();
     } catch (error) {
       console.warn(
@@ -99,7 +105,7 @@ export class ResponseCodeParser {
       { code: '401', description: 'Unauthorized' },
       { code: '404', description: 'Not Found' },
       { code: '410', description: 'Gone' },
-      { code: '422', description: 'Unprocessable Entity' },
+      { code: '422', description: 'Unprocessable Content' },
       { code: '429', description: 'Too Many Requests' },
       { code: '503', description: 'Service Unavailable' },
     ];
