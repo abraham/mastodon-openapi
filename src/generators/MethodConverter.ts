@@ -76,7 +76,7 @@ class MethodConverter {
 
     // Build responses object with all available response codes
     const responses: Record<string, any> = {};
-    const rateLimitHeaders = this.generateRateLimitHeaders();
+    const responseHeaders = this.generateResponseHeaders(method);
 
     for (const responseCode of this.responseCodes) {
       const isSuccessResponse = responseCode.code.startsWith('2');
@@ -98,7 +98,7 @@ class MethodConverter {
           }
           responses[responseCode.code] = {
             description: method.returns || responseCode.description,
-            headers: rateLimitHeaders,
+            headers: responseHeaders,
             content: {
               [contentType]: content,
             },
@@ -112,7 +112,7 @@ class MethodConverter {
             }
             responses[responseCode.code] = {
               description: method.returns || responseCode.description,
-              headers: rateLimitHeaders,
+              headers: responseHeaders,
               content: {
                 [contentType]: content,
               },
@@ -120,7 +120,7 @@ class MethodConverter {
           } else {
             responses[responseCode.code] = {
               description: method.returns || responseCode.description,
-              headers: rateLimitHeaders,
+              headers: responseHeaders,
             };
           }
         }
@@ -128,7 +128,7 @@ class MethodConverter {
         // Other 2xx responses also get rate limit headers
         const response: any = {
           description: responseCode.description,
-          headers: rateLimitHeaders,
+          headers: responseHeaders,
         };
 
         // Add example if available
@@ -289,6 +289,51 @@ class MethodConverter {
         description: header.description,
         schema,
       };
+    }
+
+    return headers;
+  }
+
+  /**
+   * Check if a method has pagination parameters (max_id, since_id, min_id)
+   */
+  private hasPaginationParameters(method: ApiMethod): boolean {
+    if (!method.parameters) {
+      return false;
+    }
+
+    const paginationParams = ['max_id', 'since_id', 'min_id'];
+    return method.parameters.some((param) =>
+      paginationParams.includes(param.name)
+    );
+  }
+
+  /**
+   * Generate Link header for pagination
+   */
+  private generateLinkHeader(): OpenAPIHeader {
+    return {
+      description:
+        'Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel="next", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel="prev"',
+      schema: {
+        type: 'string',
+      },
+    };
+  }
+
+  /**
+   * Generate combined headers for 2xx responses (rate limit + Link if applicable)
+   */
+  private generateResponseHeaders(
+    method: ApiMethod
+  ): Record<string, OpenAPIHeader> {
+    const headers: Record<string, OpenAPIHeader> = {
+      ...this.generateRateLimitHeaders(),
+    };
+
+    // Add Link header for methods with pagination parameters
+    if (this.hasPaginationParameters(method)) {
+      headers['Link'] = this.generateLinkHeader();
     }
 
     return headers;
