@@ -57,6 +57,8 @@ export class TypeInference {
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
         /(?:include|includes)\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
+        // Pattern for "One of" with backticks
+        /one\s+of\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
         // Pattern for "One of X, Y, or Z" without backticks
         /one\s+of\s+([a-z_,\s]+?)(?=\.|\s+defaults|\s+$)/gi,
       ];
@@ -67,19 +69,32 @@ export class TypeInference {
         if (match) {
           const valuesList = match[1];
           
-          // Handle "One of" pattern without backticks
+          // Handle "One of" pattern - both with and without backticks
           if (pattern.source.includes('one\\s+of')) {
-            // Split by comma and "or", then clean up
-            const values = valuesList
-              .split(/,|\s+or\s+/)
-              .map(v => v.trim())
-              .filter(v => v && v.length > 0);
-            
-            if (values.length > 1) {
-              for (const value of values) {
-                const cleanValue = value.trim();
-                if (cleanValue && !enumValues.includes(cleanValue)) {
-                  enumValues.push(cleanValue);
+            if (valuesList.includes('`')) {
+              // Pattern with backticks - use original logic
+              const values = valuesList.match(/`([^`]+)`/g);
+              if (values && values.length > 1) {
+                for (const value of values) {
+                  const cleanValue = value.slice(1, -1).trim(); // Remove backticks
+                  if (cleanValue && !enumValues.includes(cleanValue)) {
+                    enumValues.push(cleanValue);
+                  }
+                }
+              }
+            } else {
+              // Pattern without backticks - split by comma and "or"
+              const values = valuesList
+                .split(/,|\s+or\s+/)
+                .map(v => v.trim())
+                .filter(v => v && v.length > 0);
+              
+              if (values.length > 1) {
+                for (const value of values) {
+                  const cleanValue = value.trim();
+                  if (cleanValue && !enumValues.includes(cleanValue)) {
+                    enumValues.push(cleanValue);
+                  }
                 }
               }
             }

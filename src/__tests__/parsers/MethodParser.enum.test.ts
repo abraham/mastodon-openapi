@@ -103,6 +103,16 @@ describe('Parameter and Type Inference Support', () => {
 
       expect(enumValues).toEqual(['public', 'unlisted', 'private', 'direct']);
     });
+
+    it('should extract enum values from "One of" pattern with backticks', () => {
+      const description =
+        'String. One of `followed`, `list`, or `none`. Defaults to `list`.';
+
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
+
+      expect(enumValues).toEqual(['followed', 'list', 'none']);
+    });
   });
 
   describe('Parameter parsing with enum values', () => {

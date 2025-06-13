@@ -3405,8 +3405,22 @@
                   "context": {
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "enum": [
+                      "home",
+                      "notifications",
+                      "public",
+                      "thread",
+                      "account"
+                    ],
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "home",
+                        "notifications",
+                        "public",
+                        "thread",
+                        "account"
+                      ]
                     }
                   },
                   "filter_action": {
@@ -3570,8 +3584,22 @@
                   "context": {
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "enum": [
+                      "home",
+                      "notifications",
+                      "public",
+                      "thread",
+                      "account"
+                    ],
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "home",
+                        "notifications",
+                        "public",
+                        "thread",
+                        "account"
+                      ]
                     }
                   },
                   "filter_action": {
@@ -4305,8 +4333,22 @@
                   "context": {
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "enum": [
+                      "home",
+                      "notifications",
+                      "public",
+                      "thread",
+                      "account"
+                    ],
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "home",
+                        "notifications",
+                        "public",
+                        "thread",
+                        "account"
+                      ]
                     }
                   },
                   "irreversible": {
@@ -4451,8 +4493,22 @@
                   "context": {
                     "type": "array",
                     "description": "Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "enum": [
+                      "home",
+                      "notifications",
+                      "public",
+                      "thread",
+                      "account"
+                    ],
                     "items": {
-                      "type": "string"
+                      "type": "string",
+                      "enum": [
+                        "home",
+                        "notifications",
+                        "public",
+                        "thread",
+                        "account"
+                      ]
                     }
                   },
                   "irreversible": {
@@ -5812,7 +5868,12 @@
                   },
                   "replies_policy": {
                     "type": "string",
-                    "description": "One of `followed`, `list`, or `none`. Defaults to `list`."
+                    "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
+                    "enum": [
+                      "followed",
+                      "list",
+                      "none"
+                    ]
                   },
                   "exclusive": {
                     "type": "boolean",
@@ -5945,7 +6006,12 @@
                   },
                   "replies_policy": {
                     "type": "string",
-                    "description": "One of `followed`, `list`, or `none`. Defaults to `list`."
+                    "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
+                    "enum": [
+                      "followed",
+                      "list",
+                      "none"
+                    ]
                   },
                   "exclusive": {
                     "type": "boolean",
