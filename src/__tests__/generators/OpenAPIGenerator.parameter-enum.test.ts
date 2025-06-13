@@ -201,6 +201,7 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
                     'String. One of followed, list, or none. Defaults to list.',
                   in: 'formData',
                   enumValues: ['followed', 'list', 'none'], // Simulate what would be extracted during parsing
+                  defaultValue: 'list', // Simulate what would be extracted during parsing
                 },
                 {
                   name: 'title',
@@ -233,12 +234,14 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
       expect(repliesPolicyProperty).toBeDefined();
       expect(repliesPolicyProperty.type).toBe('string');
       expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
+      expect(repliesPolicyProperty.default).toBe('list');
 
-      // Check title parameter does not have enum values
+      // Check title parameter does not have enum values or default
       const titleProperty = requestBodySchema.properties!['title'];
       expect(titleProperty).toBeDefined();
       expect(titleProperty.type).toBe('string');
       expect(titleProperty.enum).toBeUndefined();
+      expect(titleProperty.default).toBeUndefined();
     });
 
     it('should correctly parse enum values from ParameterParser integration', () => {
@@ -278,10 +281,12 @@ title
         'list',
         'none',
       ]);
+      expect(repliesPolicyParam!.defaultValue).toBe('list');
 
       const titleParam = parameters.find((p) => p.name === 'title');
       expect(titleParam).toBeDefined();
       expect(titleParam!.enumValues).toBeUndefined();
+      expect(titleParam!.defaultValue).toBeUndefined();
 
       // Now test that these parameters flow through to OpenAPI generation
       const methodFiles: ApiMethodsFile[] = [
@@ -310,6 +315,7 @@ title
       const repliesPolicyProperty =
         requestBodySchema.properties!['replies_policy'];
       expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
+      expect(repliesPolicyProperty.default).toBe('list');
     });
 
     it('should handle parameters without enum values gracefully', () => {

@@ -303,6 +303,11 @@ class TypeParser {
         }
       }
 
+      // Add default value if available
+      if (param.defaultValue) {
+        schema.default = param.defaultValue;
+      }
+
       if (param.schema.type === 'array' && param.schema.items) {
         schema.items = {
           type: param.schema.items.type,
@@ -427,6 +432,11 @@ class TypeParser {
         schema.enum = param.enumValues;
       }
 
+      // Add default value if available
+      if (param.defaultValue) {
+        schema.default = param.defaultValue;
+      }
+
       return schema;
     }
 
@@ -454,6 +464,11 @@ class TypeParser {
         schema.enum = param.enumValues;
       }
 
+      // Add default value if available
+      if (param.defaultValue) {
+        schema.default = param.defaultValue;
+      }
+
       return schema;
     }
 
@@ -466,6 +481,11 @@ class TypeParser {
     // Add enum values if available
     if (param.enumValues && param.enumValues.length > 0) {
       schema.enum = param.enumValues;
+    }
+
+    // Add default value if available
+    if (param.defaultValue) {
+      schema.default = param.defaultValue;
     }
 
     return schema;

@@ -459,7 +459,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           },
           {
@@ -495,7 +496,8 @@
             "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
             "schema": {
               "type": "boolean",
-              "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results."
+              "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
+              "default": "false"
             }
           },
           {
@@ -591,7 +593,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -678,7 +681,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -865,11 +869,13 @@
                 "properties": {
                   "reblogs": {
                     "type": "boolean",
-                    "description": "Receive this account's reblogs in home timeline? Defaults to true."
+                    "description": "Receive this account's reblogs in home timeline? Defaults to true.",
+                    "default": "true"
                   },
                   "notify": {
                     "type": "boolean",
-                    "description": "Receive notifications when this account posts a status? Defaults to false."
+                    "description": "Receive notifications when this account posts a status? Defaults to false.",
+                    "default": "false"
                   },
                   "languages": {
                     "type": "array",
@@ -1168,11 +1174,13 @@
                 "properties": {
                   "notifications": {
                     "type": "boolean",
-                    "description": "Mute notifications in addition to statuses? Defaults to true."
+                    "description": "Mute notifications in addition to statuses? Defaults to true.",
+                    "default": "true"
                   },
                   "duration": {
                     "type": "integer",
-                    "description": "How long the mute should last, in seconds. Defaults to 0 (indefinite)."
+                    "description": "How long the mute should last, in seconds. Defaults to 0 (indefinite).",
+                    "default": "0"
                   }
                 }
               }
@@ -1408,7 +1416,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -1669,7 +1678,8 @@
             "description": "Whether relationships should be returned for suspended users, defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Whether relationships should be returned for suspended users, defaults to false."
+              "description": "Whether relationships should be returned for suspended users, defaults to false.",
+              "default": "false"
             }
           }
         ]
@@ -1797,7 +1807,8 @@
             "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -1815,7 +1826,8 @@
             "description": "Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address.",
             "schema": {
               "type": "boolean",
-              "description": "Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address."
+              "description": "Attempt WebFinger lookup. Defaults to false. Use this when `q` is an exact address.",
+              "default": "false"
             }
           },
           {
@@ -1824,7 +1836,8 @@
             "description": "Limit the search to users you are following. Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Limit the search to users you are following. Defaults to false."
+              "description": "Limit the search to users you are following. Defaults to false.",
+              "default": "false"
             }
           }
         ]
@@ -2298,7 +2311,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -2383,7 +2397,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -2468,7 +2483,8 @@
             "description": "Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations."
+              "description": "Maximum number of results to return. Defaults to 20 conversations. Max 40 conversations.",
+              "default": "20"
             }
           }
         ]
@@ -2671,7 +2687,8 @@
             "description": "How many accounts to load. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "How many accounts to load. Defaults to 40 accounts. Max 80 accounts."
+              "description": "How many accounts to load. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -2774,7 +2791,8 @@
             "description": "Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks."
+              "description": "Maximum number of results to return. Defaults to 100 domain blocks. Max 200 domain blocks.",
+              "default": "100"
             }
           }
         ]
@@ -3009,7 +3027,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -3094,7 +3113,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -4332,11 +4352,13 @@
                   },
                   "irreversible": {
                     "type": "boolean",
-                    "description": "Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
+                    "description": "Should the server irreversibly drop matching entities from home and notifications? Defaults to false.",
+                    "default": "false"
                   },
                   "whole_word": {
                     "type": "boolean",
-                    "description": "Should the filter consider word boundaries for this keyword? Defaults to false."
+                    "description": "Should the filter consider word boundaries for this keyword? Defaults to false.",
+                    "default": "false"
                   },
                   "expires_in": {
                     "type": "integer",
@@ -4485,11 +4507,13 @@
                   },
                   "irreversible": {
                     "type": "boolean",
-                    "description": "Should the server irreversibly drop matching entities from home and notifications? Defaults to false."
+                    "description": "Should the server irreversibly drop matching entities from home and notifications? Defaults to false.",
+                    "default": "false"
                   },
                   "whole_word": {
                     "type": "boolean",
-                    "description": "Should the filter consider word boundaries? Defaults to false."
+                    "description": "Should the filter consider word boundaries? Defaults to false.",
+                    "default": "false"
                   },
                   "expires_in": {
                     "type": "integer",
@@ -4619,7 +4643,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -4814,7 +4839,8 @@
             "description": "Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 100 tags. Max 200 tags."
+              "description": "Maximum number of results to return. Defaults to 100 tags. Max 200 tags.",
+              "default": "100"
             }
           }
         ]
@@ -4896,7 +4922,8 @@
             "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
+              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
+              "default": "40"
             }
           },
           {
@@ -4995,7 +5022,8 @@
             "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
+              "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
+              "default": "false"
             }
           }
         ]
@@ -5204,7 +5232,8 @@
             "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
+              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+              "default": "100"
             }
           },
           {
@@ -5809,7 +5838,8 @@
                       "followed",
                       "list",
                       "none"
-                    ]
+                    ],
+                    "default": "list"
                   },
                   "exclusive": {
                     "type": "boolean",
@@ -5947,7 +5977,8 @@
                       "followed",
                       "list",
                       "none"
-                    ]
+                    ],
+                    "default": "list"
                   },
                   "exclusive": {
                     "type": "boolean",
@@ -6085,7 +6116,8 @@
             "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination."
+              "description": "Maximum number of results. Defaults to 40 accounts. Max 80 accounts. Set to 0 in order to get all accounts without pagination.",
+              "default": "40"
             }
           },
           {
@@ -6768,7 +6800,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -6853,7 +6886,8 @@
             "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications."
+              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notifications.",
+              "default": "40"
             }
           },
           {
@@ -6919,7 +6953,8 @@
             "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false."
+              "description": "Whether to include notifications filtered by the user's [NotificationPolicy]. Defaults to false.",
+              "default": "false"
             }
           }
         ]
@@ -7107,7 +7142,8 @@
             "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
+              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+              "default": "100"
             }
           },
           {
@@ -7269,7 +7305,8 @@
             "description": "Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests."
+              "description": "Maximum number of results to return. Defaults to 40 notification requests. Max 80 notification requests.",
+              "default": "40"
             }
           }
         ]
@@ -7613,7 +7650,8 @@
             "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups."
+              "description": "Maximum number of results to return. Defaults to 40 notifications. Max 80 notification groups.",
+              "default": "40"
             }
           },
           {
@@ -7854,7 +7892,8 @@
             "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications."
+              "description": "Maximum number of results to return. Defaults to 100 notifications. Max 1000 notifications.",
+              "default": "100"
             }
           },
           {
@@ -7967,7 +8006,8 @@
             "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
             "schema": {
               "type": "string",
-              "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`."
+              "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
+              "default": "read"
             }
           },
           {
@@ -8088,7 +8128,8 @@
                   },
                   "scope": {
                     "type": "string",
-                    "description": "When `grant_type` is set to `client_credentials`, the list of requested OAuth scopes, separated by spaces (or pluses, if using query parameters). Must be a subset of the scopes requested at the time the application was created. If omitted, it defaults to `read`. Has no effect when `grant_type` is `authorization_code`."
+                    "description": "When `grant_type` is set to `client_credentials`, the list of requested OAuth scopes, separated by spaces (or pluses, if using query parameters). Must be a subset of the scopes requested at the time the application was created. If omitted, it defaults to `read`. Has no effect when `grant_type` is `authorization_code`.",
+                    "default": "read"
                   }
                 }
               }
@@ -8227,7 +8268,8 @@
             "description": "Width of the iframe. Defaults to 400",
             "schema": {
               "type": "integer",
-              "description": "Width of the iframe. Defaults to 400"
+              "description": "Width of the iframe. Defaults to 400",
+              "default": "400"
             }
           },
           {
@@ -8236,7 +8278,8 @@
             "description": "Height of the iframe. Defaults to null",
             "schema": {
               "type": "integer",
-              "description": "Height of the iframe. Defaults to null"
+              "description": "Height of the iframe. Defaults to null",
+              "default": "null"
             }
           }
         ]
@@ -8797,7 +8840,8 @@
                   },
                   "forward": {
                     "type": "boolean",
-                    "description": "If the account is remote, should the report be forwarded to the remote admin? Defaults to false."
+                    "description": "If the account is remote, should the report be forwarded to the remote admin? Defaults to false.",
+                    "default": "false"
                   },
                   "category": {
                     "type": "string",
@@ -8805,7 +8849,8 @@
                     "enum": [
                       "spam",
                       "legal"
-                    ]
+                    ],
+                    "default": "other"
                   },
                   "rule_ids": {
                     "type": "array",
@@ -8900,7 +8945,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -9153,7 +9199,8 @@
             "description": "Only include accounts that the user is following? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Only include accounts that the user is following? Defaults to false."
+              "description": "Only include accounts that the user is following? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -9171,7 +9218,8 @@
             "description": "Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.",
             "schema": {
               "type": "boolean",
-              "description": "Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags."
+              "description": "Filter out unreviewed tags? Defaults to false. Use true when trying to find trending tags.",
+              "default": "false"
             }
           },
           {
@@ -9198,7 +9246,8 @@
             "description": "Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category."
+              "description": "Maximum number of results to return, per type. Defaults to 20 results per category. Max 40 results per category.",
+              "default": "20"
             }
           },
           {
@@ -9281,7 +9330,8 @@
                   },
                   "sensitive": {
                     "type": "boolean",
-                    "description": "Mark status and attached media as sensitive? Defaults to false."
+                    "description": "Mark status and attached media as sensitive? Defaults to false.",
+                    "default": "false"
                   },
                   "spoiler_text": {
                     "type": "string",
@@ -9752,7 +9802,8 @@
                 "properties": {
                   "lang": {
                     "type": "string",
-                    "description": "String (ISO 639 language code). The status content will be translated into this language. Defaults to the user's current locale."
+                    "description": "String (ISO 639 language code). The status content will be translated into this language. Defaults to the user's current locale.",
+                    "default": "the"
                   }
                 }
               }
@@ -9831,7 +9882,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -9916,7 +9968,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           },
           {
@@ -10104,7 +10157,8 @@
                 "properties": {
                   "visibility": {
                     "type": "string",
-                    "description": "Any visibility except `limited` or `direct` (i.e. `public`, `unlisted`, `private`). Defaults to public."
+                    "description": "Any visibility except `limited` or `direct` (i.e. `public`, `unlisted`, `private`). Defaults to public.",
+                    "default": "public"
                   }
                 }
               }
@@ -11175,7 +11229,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -11278,7 +11333,8 @@
             "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts."
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": "40"
             }
           }
         ]
@@ -11609,7 +11665,8 @@
             "description": "Show only local statuses? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Show only local statuses? Defaults to false."
+              "description": "Show only local statuses? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11618,7 +11675,8 @@
             "description": "Show only remote statuses? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Show only remote statuses? Defaults to false."
+              "description": "Show only remote statuses? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11627,7 +11685,8 @@
             "description": "Show only statuses with media attached? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Show only statuses with media attached? Defaults to false."
+              "description": "Show only statuses with media attached? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11663,7 +11722,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -11757,7 +11817,8 @@
             "description": "Return only local statuses? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Return only local statuses? Defaults to false."
+              "description": "Return only local statuses? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11766,7 +11827,8 @@
             "description": "Return only remote statuses? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Return only remote statuses? Defaults to false."
+              "description": "Return only remote statuses? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11775,7 +11837,8 @@
             "description": "Return only statuses with media attachments? Defaults to false.",
             "schema": {
               "type": "boolean",
-              "description": "Return only statuses with media attachments? Defaults to false."
+              "description": "Return only statuses with media attachments? Defaults to false.",
+              "default": "false"
             }
           },
           {
@@ -11811,7 +11874,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           },
           {
@@ -11905,7 +11969,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -11999,7 +12064,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           },
           {
@@ -12093,7 +12159,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           },
           {
@@ -12188,7 +12255,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           }
         ]
@@ -12239,7 +12307,8 @@
             "description": "Maximum number of results to return. Defaults to 10 tags. Max 20 tags.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 10 tags. Max 20 tags."
+              "description": "Maximum number of results to return. Defaults to 10 tags. Max 20 tags.",
+              "default": "10"
             }
           },
           {
@@ -12299,7 +12368,8 @@
             "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses."
+              "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
+              "default": "20"
             }
           },
           {
@@ -12359,7 +12429,8 @@
             "description": "Maximum number of results to return. Defaults to 10 links. Max 20 links.",
             "schema": {
               "type": "integer",
-              "description": "Maximum number of results to return. Defaults to 10 links. Max 20 links."
+              "description": "Maximum number of results to return. Defaults to 10 links. Max 20 links.",
+              "default": "10"
             }
           },
           {
