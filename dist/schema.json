@@ -145,10 +145,10 @@
           {
             "name": "id",
             "in": "query",
-            "description": "Array of String. The IDs of the Accounts in the database.",
+            "description": "The IDs of the Accounts in the database.",
             "schema": {
               "type": "array",
-              "description": "Array of String. The IDs of the Accounts in the database.",
+              "description": "The IDs of the Accounts in the database.",
               "items": {
                 "type": "string"
               }
@@ -290,7 +290,7 @@
                   },
                   "attribution_domains": {
                     "type": "array",
-                    "description": "Array of String. Domains of websites allowed to credit the account.",
+                    "description": "Domains of websites allowed to credit the account.",
                     "items": {
                       "type": "string"
                     }
@@ -1654,10 +1654,10 @@
           {
             "name": "id",
             "in": "query",
-            "description": "Array of String. Check relationships for the provided account IDs.",
+            "description": "Check relationships for the provided account IDs.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Check relationships for the provided account IDs.",
+              "description": "Check relationships for the provided account IDs.",
               "items": {
                 "type": "string"
               }
@@ -1724,10 +1724,10 @@
           {
             "name": "id",
             "in": "query",
-            "description": "Array of String. Find familiar followers for the provided account IDs.",
+            "description": "Find familiar followers for the provided account IDs.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Find familiar followers for the provided account IDs.",
+              "description": "Find familiar followers for the provided account IDs.",
               "items": {
                 "type": "string"
               }
@@ -3404,7 +3404,7 @@
                   },
                   "context": {
                     "type": "array",
-                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
                       "type": "string"
                     }
@@ -3569,7 +3569,7 @@
                   },
                   "context": {
                     "type": "array",
-                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
                       "type": "string"
                     }
@@ -4304,7 +4304,7 @@
                   },
                   "context": {
                     "type": "array",
-                    "description": "Array of String. Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
                       "type": "string"
                     }
@@ -4450,7 +4450,7 @@
                   },
                   "context": {
                     "type": "array",
-                    "description": "Array of String. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
+                    "description": "Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
                       "type": "string"
                     }
@@ -4874,10 +4874,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types to include in the result.",
+            "description": "Types to include in the result.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to include in the result.",
+              "description": "Types to include in the result.",
               "enum": [
                 "mention",
                 "status",
@@ -4910,10 +4910,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types to exclude from the results.",
+            "description": "Types to exclude from the results.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to exclude from the results.",
+              "description": "Types to exclude from the results.",
               "enum": [
                 "mention",
                 "status",
@@ -4964,10 +4964,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+            "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
+              "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
               "enum": [
                 "mention",
                 "status",
@@ -5218,10 +5218,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "description": "Types of notifications that should count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "description": "Types of notifications that should count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -5230,10 +5230,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "description": "Types of notifications that should not count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "description": "Types of notifications that should not count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -5251,10 +5251,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
+            "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
+              "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
               "items": {
                 "type": "string"
               }
@@ -6152,7 +6152,7 @@
                 "properties": {
                   "account_ids": {
                     "type": "array",
-                    "description": "Array of String. The accounts that should be added to the list.",
+                    "description": "The accounts that should be added to the list.",
                     "items": {
                       "type": "string"
                     }
@@ -6218,7 +6218,7 @@
                 "properties": {
                   "account_ids": {
                     "type": "array",
-                    "description": "Array of String. The accounts that should be removed from the list.",
+                    "description": "The accounts that should be removed from the list.",
                     "items": {
                       "type": "string"
                     }
@@ -6276,10 +6276,10 @@
           {
             "name": "timeline",
             "in": "query",
-            "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
+            "description": "Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
+              "description": "Specify the timeline(s) for which markers should be fetched. Possible values: `home`, `notifications`. If not provided, an empty object will be returned.",
               "enum": [
                 "home",
                 "notifications"
@@ -6861,10 +6861,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types to include in the result.",
+            "description": "Types to include in the result.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to include in the result.",
+              "description": "Types to include in the result.",
               "enum": [
                 "mention",
                 "status",
@@ -6897,10 +6897,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types to exclude from the results.",
+            "description": "Types to exclude from the results.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to exclude from the results.",
+              "description": "Types to exclude from the results.",
               "enum": [
                 "mention",
                 "status",
@@ -7139,10 +7139,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "description": "Types of notifications that should count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "description": "Types of notifications that should count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -7151,10 +7151,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "description": "Types of notifications that should not count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "description": "Types of notifications that should not count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -7645,10 +7645,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types to include in the result.",
+            "description": "Types to include in the result.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to include in the result.",
+              "description": "Types to include in the result.",
               "enum": [
                 "mention",
                 "status",
@@ -7681,10 +7681,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types to exclude from the results.",
+            "description": "Types to exclude from the results.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types to exclude from the results.",
+              "description": "Types to exclude from the results.",
               "enum": [
                 "mention",
                 "status",
@@ -7735,10 +7735,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
+            "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
+              "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
               "enum": [
                 "mention",
                 "status",
@@ -7922,10 +7922,10 @@
           {
             "name": "types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should count towards unread notifications.",
+            "description": "Types of notifications that should count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should count towards unread notifications.",
+              "description": "Types of notifications that should count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -7934,10 +7934,10 @@
           {
             "name": "exclude_types",
             "in": "query",
-            "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+            "description": "Types of notifications that should not count towards unread notifications.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Types of notifications that should not count towards unread notifications.",
+              "description": "Types of notifications that should not count towards unread notifications.",
               "items": {
                 "type": "string"
               }
@@ -7955,10 +7955,10 @@
           {
             "name": "grouped_types",
             "in": "query",
-            "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
+            "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
+              "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications/unread_count`] instead.",
               "items": {
                 "type": "string"
               }
@@ -8422,7 +8422,7 @@
                 "properties": {
                   "choices": {
                     "type": "array",
-                    "description": "Array of Integer. Provide your own votes as an index for each option (starting from 0).",
+                    "description": "Provide your own votes as an index for each option (starting from 0).",
                     "items": {
                       "type": "integer"
                     }
@@ -8848,7 +8848,7 @@
                   },
                   "status_ids": {
                     "type": "array",
-                    "description": "Array of String. You can attach statuses to the report to provide additional context.",
+                    "description": "You can attach statuses to the report to provide additional context.",
                     "items": {
                       "type": "string"
                     }
@@ -8871,7 +8871,7 @@
                   },
                   "rule_ids": {
                     "type": "array",
-                    "description": "Array of String. For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via [GET /api/v1/instance/rules] and [GET /api/v1/instance]. See [Handling and sorting IDs] for more information.",
+                    "description": "For `violation` category reports, specify the ID of the exact rules broken. Rules and their IDs are available via [GET /api/v1/instance/rules] and [GET /api/v1/instance]. See [Handling and sorting IDs] for more information.",
                     "items": {
                       "type": "string"
                     }
@@ -9332,7 +9332,7 @@
                   },
                   "media_ids": {
                     "type": "array",
-                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                    "description": "Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
                     "items": {
                       "type": "string"
                     }
@@ -9373,7 +9373,7 @@
                     "properties": {
                       "options": {
                         "type": "array",
-                        "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                        "description": "Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
                         "items": {
                           "type": "string"
                         }
@@ -9446,10 +9446,10 @@
           {
             "name": "id",
             "in": "query",
-            "description": "Array of String. The IDs of the Statuses in the database.",
+            "description": "The IDs of the Statuses in the database.",
             "schema": {
               "type": "array",
-              "description": "Array of String. The IDs of the Statuses in the database.",
+              "description": "The IDs of the Statuses in the database.",
               "items": {
                 "type": "string"
               }
@@ -9652,14 +9652,14 @@
                   },
                   "media_ids": {
                     "type": "array",
-                    "description": "Array of String. Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
+                    "description": "Include Attachment IDs to be attached as media. If provided, `status` becomes optional, and `poll` cannot be used.",
                     "items": {
                       "type": "string"
                     }
                   },
                   "media_attributes[]": {
                     "type": "array",
-                    "description": "Array of String. Each array includes id, description, and focus.",
+                    "description": "Each array includes id, description, and focus.",
                     "items": {
                       "type": "string"
                     }
@@ -9670,7 +9670,7 @@
                     "properties": {
                       "options": {
                         "type": "array",
-                        "description": "Array of String. Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
+                        "description": "Possible answers to the poll. If provided, `media_ids` cannot be used, and `poll[expires_in]` must be provided.",
                         "items": {
                           "type": "string"
                         }
@@ -11780,10 +11780,10 @@
           {
             "name": "any",
             "in": "query",
-            "description": "Array of String. Return statuses that contain any of these additional tags.",
+            "description": "Return statuses that contain any of these additional tags.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Return statuses that contain any of these additional tags.",
+              "description": "Return statuses that contain any of these additional tags.",
               "items": {
                 "type": "string"
               }
@@ -11792,10 +11792,10 @@
           {
             "name": "all",
             "in": "query",
-            "description": "Array of String. Return statuses that contain all of these additional tags.",
+            "description": "Return statuses that contain all of these additional tags.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Return statuses that contain all of these additional tags.",
+              "description": "Return statuses that contain all of these additional tags.",
               "items": {
                 "type": "string"
               }
@@ -11804,10 +11804,10 @@
           {
             "name": "none",
             "in": "query",
-            "description": "Array of String. Return statuses that contain none of these additional tags.",
+            "description": "Return statuses that contain none of these additional tags.",
             "schema": {
               "type": "array",
-              "description": "Array of String. Return statuses that contain none of these additional tags.",
+              "description": "Return statuses that contain none of these additional tags.",
               "items": {
                 "type": "string"
               }
