@@ -94,7 +94,8 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     expect(postOperation).toBeDefined();
     const requestBody = postOperation!.requestBody;
     expect(requestBody).toBeDefined();
-    const requestBodySchema = requestBody!.content!['application/json']!.schema as any;
+    const requestBodySchema = requestBody!.content!['application/json']!
+      .schema as any;
     expect(requestBodySchema.properties?.context).toBeDefined();
     const methodContextProp = requestBodySchema.properties!.context;
     expect(methodContextProp.type).toBe('array');
@@ -167,12 +168,13 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     // Method parameter should also have inline enum
     const postOperation = schema.paths['/api/v2/filters']?.post;
     const requestBody = postOperation!.requestBody;
-    const requestBodySchema = requestBody!.content!['application/json']!.schema as any;
+    const requestBodySchema = requestBody!.content!['application/json']!
+      .schema as any;
     const methodContextProp = requestBodySchema.properties!.context;
     expect(methodContextProp.type).toBe('array');
     expect(methodContextProp.items?.enum).toEqual([
       'home',
-      'notifications', 
+      'notifications',
       'different',
     ]);
   });

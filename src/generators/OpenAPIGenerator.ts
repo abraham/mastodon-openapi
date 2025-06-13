@@ -1,6 +1,10 @@
 import { EntityClass } from '../interfaces/EntityClass';
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
-import { OpenAPISpec, OpenAPISchema, OpenAPIProperty } from '../interfaces/OpenAPISchema';
+import {
+  OpenAPISpec,
+  OpenAPISchema,
+  OpenAPIProperty,
+} from '../interfaces/OpenAPISchema';
 import { SpecBuilder } from './SpecBuilder';
 import { EntityConverter } from './EntityConverter';
 import { MethodConverter } from './MethodConverter';
@@ -62,15 +66,17 @@ class OpenAPIGenerator {
    * Perform global enum deduplication across entities and method parameters
    */
   private deduplicateEnumsGlobally(spec: OpenAPISpec): void {
-    // Track enum patterns: key = enum signature, value = shared component name  
+    // Track enum patterns: key = enum signature, value = shared component name
     const enumPatterns = new Map<string, string>();
-    
+
     // First pass: identify all enum patterns from entities and methods
     const enumSignatureToOriginalValues = new Map<string, any[]>();
-    
+
     // Collect enums from entity schemas
     if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+      for (const [entityName, schema] of Object.entries(
+        spec.components.schemas
+      )) {
         this.collectEnumPatternsFromSchema(
           schema as OpenAPISchema,
           entityName,
@@ -79,7 +85,7 @@ class OpenAPIGenerator {
         );
       }
     }
-    
+
     // Collect enums from method parameters and request bodies
     if (spec.paths) {
       for (const [path, pathItem] of Object.entries(spec.paths)) {
@@ -98,10 +104,11 @@ class OpenAPIGenerator {
                 }
               }
             }
-            
+
             // Collect from request body
             if (operation.requestBody?.content?.['application/json']?.schema) {
-              const schema = operation.requestBody.content['application/json'].schema;
+              const schema =
+                operation.requestBody.content['application/json'].schema;
               this.collectEnumPatternsFromSchema(
                 schema as OpenAPISchema,
                 `${method}_${path}_requestBody`,
@@ -113,12 +120,12 @@ class OpenAPIGenerator {
         }
       }
     }
-    
+
     // Create shared components for patterns that appear in multiple places
     for (const [enumSignature, componentName] of enumPatterns) {
       if (componentName) {
         const originalValues = enumSignatureToOriginalValues.get(enumSignature);
-        
+
         if (spec.components?.schemas) {
           spec.components.schemas[componentName] = {
             type: 'string',
@@ -127,14 +134,16 @@ class OpenAPIGenerator {
         }
       }
     }
-    
+
     // Second pass: replace inline enums with references to shared components
     if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+      for (const [entityName, schema] of Object.entries(
+        spec.components.schemas
+      )) {
         this.replaceEnumsWithReferences(schema as OpenAPISchema, enumPatterns);
       }
     }
-    
+
     if (spec.paths) {
       for (const [path, pathItem] of Object.entries(spec.paths)) {
         for (const [method, operation] of Object.entries(pathItem)) {
@@ -147,11 +156,15 @@ class OpenAPIGenerator {
                 }
               }
             }
-            
+
             // Replace in request body
             if (operation.requestBody?.content?.['application/json']?.schema) {
-              const schema = operation.requestBody.content['application/json'].schema;
-              this.replaceEnumsWithReferences(schema as OpenAPISchema, enumPatterns);
+              const schema =
+                operation.requestBody.content['application/json'].schema;
+              this.replaceEnumsWithReferences(
+                schema as OpenAPISchema,
+                enumPatterns
+              );
             }
           }
         }
@@ -253,7 +266,7 @@ class OpenAPIGenerator {
     // Extract property name from context
     const parts = contextName.split('_');
     const propertyName = parts[parts.length - 1];
-    
+
     // Create a descriptive name based on property name
     const capitalizedName =
       propertyName.charAt(0).toUpperCase() + propertyName.slice(1);

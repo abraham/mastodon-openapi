@@ -60,7 +60,7 @@ describe('EntityConverter enum deduplication', () => {
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toEqual([
       'account',
-      'home', 
+      'home',
       'notifications',
       'public',
       'thread',
@@ -196,8 +196,16 @@ describe('EntityConverter enum deduplication', () => {
     // Should still have inline enums since they're different, preserving original order
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
-    expect(filterContext1.items?.enum).toEqual(['home', 'notifications', 'public']);
-    expect(filterContext2.items?.enum).toEqual(['home', 'notifications', 'different']);
+    expect(filterContext1.items?.enum).toEqual([
+      'home',
+      'notifications',
+      'public',
+    ]);
+    expect(filterContext2.items?.enum).toEqual([
+      'home',
+      'notifications',
+      'different',
+    ]);
   });
 
   it('should handle single entity with context enum normally', () => {
