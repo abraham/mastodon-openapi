@@ -206,18 +206,6 @@
                 "type": "string"
               }
             }
-          },
-          {
-            "name": "id",
-            "in": "header",
-            "description": "The IDs of the Accounts in the database.",
-            "schema": {
-              "type": "array",
-              "description": "The IDs of the Accounts in the database.",
-              "items": {
-                "type": "string"
-              }
-            }
           }
         ]
       }

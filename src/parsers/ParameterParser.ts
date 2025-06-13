@@ -245,51 +245,73 @@ export class ParameterParser {
       enumValues?: string[];
     }> = [];
 
-    // Find parameters section
-    const paramMatch = section.match(
-      new RegExp(`##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#|$)`)
+    // Find all parameter sections with the given name
+    const regex = new RegExp(
+      `##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#{1,5}|$)`,
+      'g'
     );
-    if (!paramMatch) return [];
+    const matches: RegExpExecArray[] = [];
+    let sectionMatch;
 
-    const paramSection = paramMatch[1];
+    while ((sectionMatch = regex.exec(section)) !== null) {
+      matches.push(sectionMatch);
+    }
 
-    // Match parameter definitions: parameter_name\n: description
-    // Allow dots, brackets, and hyphens in parameter names to support patterns like alerts[admin.sign_up] and Idempotency-Key
-    const paramRegex =
-      /^([a-zA-Z_][a-zA-Z0-9_.\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
+    if (matches.length === 0) return [];
 
-    let match;
-    while ((match = paramRegex.exec(paramSection)) !== null) {
-      const [, name, desc] = match;
+    // Process each matching section
+    for (const sectionMatchResult of matches) {
+      const paramSection = sectionMatchResult[1];
 
-      const originalDesc = desc.trim();
-      const required =
-        originalDesc.includes('{{<required>}}') ||
-        originalDesc.includes('required');
-      const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
+      // Skip empty sections (sections that don't contain any parameter definitions)
+      const hasParams = /^[a-zA-Z_][a-zA-Z0-9_.\[\]-]*\s*\n:\s*/m.test(
+        paramSection
+      );
+      if (!hasParams) continue;
 
-      // Extract enum values from description
-      const enumValues =
-        TypeInference.extractEnumValuesFromDescription(cleanDesc);
+      // Skip sections that contain other section headers (indicating we captured too much)
+      // This happens when an empty section captures content until the next heading
+      if (paramSection.includes(`##### `)) continue;
 
-      // Extract default value from description
-      const defaultValue =
-        TypeInference.extractDefaultValueFromDescription(cleanDesc);
+      // Match parameter definitions: parameter_name\n: description
+      // Allow dots, brackets, and hyphens in parameter names to support patterns like alerts[admin.sign_up] and Idempotency-Key
+      const paramRegex =
+        /^([a-zA-Z_][a-zA-Z0-9_.\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
-      // Infer type from original description before cleaning
-      const inferredType = TypeInference.inferTypeFromDescription(originalDesc);
+      let paramMatch;
+      while ((paramMatch = paramRegex.exec(paramSection)) !== null) {
+        const [, name, desc] = paramMatch;
 
-      const rawParam = {
-        name: name.trim(),
-        description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
-        originalDescription: originalDesc, // Store original for type inference
-        inferredType: inferredType, // Store pre-computed type
-        required: required ? true : undefined,
-        enumValues: enumValues.length > 0 ? enumValues : undefined,
-        defaultValue: defaultValue,
-      };
+        const originalDesc = desc.trim();
+        const required =
+          originalDesc.includes('{{<required>}}') ||
+          originalDesc.includes('required');
+        const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
 
-      rawParameters.push(rawParam);
+        // Extract enum values from description
+        const enumValues =
+          TypeInference.extractEnumValuesFromDescription(cleanDesc);
+
+        // Extract default value from description
+        const defaultValue =
+          TypeInference.extractDefaultValueFromDescription(cleanDesc);
+
+        // Infer type from original description before cleaning
+        const inferredType =
+          TypeInference.inferTypeFromDescription(originalDesc);
+
+        const rawParam = {
+          name: name.trim(),
+          description: cleanDesc.replace(/\{\{<required>\}\}\s*/g, ''),
+          originalDescription: originalDesc, // Store original for type inference
+          inferredType: inferredType, // Store pre-computed type
+          required: required ? true : undefined,
+          enumValues: enumValues.length > 0 ? enumValues : undefined,
+          defaultValue: defaultValue,
+        };
+
+        rawParameters.push(rawParam);
+      }
     }
 
     // Process raw parameters to handle complex types
