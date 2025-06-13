@@ -95,8 +95,7 @@ describe('Parameter and Type Inference Support', () => {
     });
 
     it('should extract enum values from "One of" pattern with different formats', () => {
-      const description =
-        'String. One of public, unlisted, private, direct.';
+      const description = 'String. One of public, unlisted, private, direct.';
 
       const enumValues =
         TypeInference.extractEnumValuesFromDescription(description);

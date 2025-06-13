@@ -68,7 +68,7 @@ export class TypeInference {
         const match = pattern.exec(description);
         if (match) {
           const valuesList = match[1];
-          
+
           // Handle "One of" pattern - both with and without backticks
           if (pattern.source.includes('one\\s+of')) {
             if (valuesList.includes('`')) {
@@ -86,9 +86,9 @@ export class TypeInference {
               // Pattern without backticks - split by comma and "or"
               const values = valuesList
                 .split(/,|\s+or\s+/)
-                .map(v => v.trim())
-                .filter(v => v && v.length > 0);
-              
+                .map((v) => v.trim())
+                .filter((v) => v && v.length > 0);
+
               if (values.length > 1) {
                 for (const value of values) {
                   const cleanValue = value.trim();

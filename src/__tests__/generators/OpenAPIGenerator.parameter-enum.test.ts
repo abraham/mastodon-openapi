@@ -197,7 +197,8 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
               parameters: [
                 {
                   name: 'replies_policy',
-                  description: 'String. One of followed, list, or none. Defaults to list.',
+                  description:
+                    'String. One of followed, list, or none. Defaults to list.',
                   in: 'formData',
                   enumValues: ['followed', 'list', 'none'], // Simulate what would be extracted during parsing
                 },
@@ -227,7 +228,8 @@ describe('OpenAPIGenerator Parameter Enum Support', () => {
       expect(requestBodySchema.properties).toBeDefined();
 
       // Check replies_policy parameter has enum values
-      const repliesPolicyProperty = requestBodySchema.properties!['replies_policy'];
+      const repliesPolicyProperty =
+        requestBodySchema.properties!['replies_policy'];
       expect(repliesPolicyProperty).toBeDefined();
       expect(repliesPolicyProperty.type).toBe('string');
       expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
@@ -267,11 +269,17 @@ title
       );
 
       // Verify that enum values were extracted correctly
-      const repliesPolicyParam = parameters.find(p => p.name === 'replies_policy');
+      const repliesPolicyParam = parameters.find(
+        (p) => p.name === 'replies_policy'
+      );
       expect(repliesPolicyParam).toBeDefined();
-      expect(repliesPolicyParam!.enumValues).toEqual(['followed', 'list', 'none']);
+      expect(repliesPolicyParam!.enumValues).toEqual([
+        'followed',
+        'list',
+        'none',
+      ]);
 
-      const titleParam = parameters.find(p => p.name === 'title');
+      const titleParam = parameters.find((p) => p.name === 'title');
       expect(titleParam).toBeDefined();
       expect(titleParam!.enumValues).toBeUndefined();
 
@@ -294,10 +302,13 @@ title
 
       const spec = generator.generateSchema([], methodFiles);
       const operation = spec.paths['/api/v1/lists/{id}'].put!;
-      const requestBodySchema = operation.requestBody!.content!['application/json'].schema as any;
+      const requestBodySchema = operation.requestBody!.content![
+        'application/json'
+      ].schema as any;
 
       // Verify enum values made it through to the final schema
-      const repliesPolicyProperty = requestBodySchema.properties!['replies_policy'];
+      const repliesPolicyProperty =
+        requestBodySchema.properties!['replies_policy'];
       expect(repliesPolicyProperty.enum).toEqual(['followed', 'list', 'none']);
     });
 
