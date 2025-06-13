@@ -15,14 +15,33 @@ export class EntityParsingUtils {
   }
 
   /**
-   * Cleans description strings by removing markdown formatting
+   * Cleans description strings by removing markdown formatting and redundant type prefixes
    */
   static cleanDescription(description: string): string {
     // Remove markdown formatting and trailing backslashes
-    return description
+    let cleaned = description
       .replace(/\*\*/g, '') // Remove bold markdown
       .replace(/\\\s*$/, '') // Remove trailing backslashes
       .trim();
+
+    // Remove redundant type prefixes like "String.", "Boolean.", etc.
+    // Match case-insensitive type prefix followed by period and space at start of string
+    const typePattern =
+      /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
+    cleaned = cleaned.replace(typePattern, '');
+
+    return cleaned.trim();
+  }
+
+  /**
+   * Strips redundant type prefixes from descriptions
+   */
+  static stripTypePrefix(description: string): string {
+    // Remove redundant type prefixes like "String.", "Boolean.", etc.
+    // Match case-insensitive type prefix followed by period and space at start of string
+    const typePattern =
+      /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
+    return description.replace(typePattern, '').trim();
   }
 
   /**

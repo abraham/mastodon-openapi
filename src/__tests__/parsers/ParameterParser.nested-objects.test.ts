@@ -55,7 +55,7 @@ data[policy]
     expect(subscriptionProperties.endpoint).toEqual({
       type: 'string',
       description:
-        'String. The endpoint URL that is called when a notification event occurs.',
+        'The endpoint URL that is called when a notification event occurs.',
     });
 
     // Should have nested keys object
@@ -67,12 +67,12 @@ data[policy]
     expect(keysProperties.p256dh).toEqual({
       type: 'string',
       description:
-        'String. User agent public key. Base64 encoded string of a public key from a ECDH keypair using the prime256v1 curve.',
+        'User agent public key. Base64 encoded string of a public key from a ECDH keypair using the prime256v1 curve.',
     });
     expect(keysProperties.auth).toEqual({
       type: 'string',
       description:
-        'String. Auth secret. Base64 encoded string of 16 bytes of random data.',
+        'Auth secret. Base64 encoded string of 16 bytes of random data.',
     });
 
     // Check data parameter (nested object)
@@ -88,7 +88,7 @@ data[policy]
     expect(dataProperties.policy).toEqual({
       type: 'string',
       description:
-        'String. Specify whether to receive push notifications from all, followed, follower, or none users.',
+        'Specify whether to receive push notifications from all, followed, follower, or none users.',
     });
 
     // Should have nested alerts object
@@ -99,12 +99,12 @@ data[policy]
     const alertsProperties = dataProperties.alerts.properties!;
     expect(alertsProperties.mention).toEqual({
       type: 'boolean',
-      description: 'Boolean. Receive mention notifications? Defaults to false.',
+      description: 'Receive mention notifications? Defaults to false.',
     });
     expect(alertsProperties.status).toEqual({
       type: 'boolean',
       description:
-        'Boolean. Receive new subscribed account notifications? Defaults to false.',
+        'Receive new subscribed account notifications? Defaults to false.',
     });
   });
 
@@ -153,7 +153,7 @@ object[nested][other]
     // Should have simple_prop property
     expect(objectProperties.simple_prop).toEqual({
       type: 'string',
-      description: 'String. A simple object property.',
+      description: 'A simple object property.',
     });
 
     // Should have nested object
@@ -164,11 +164,11 @@ object[nested][other]
     const nestedProperties = objectProperties.nested.properties!;
     expect(nestedProperties.deep).toEqual({
       type: 'boolean',
-      description: 'Boolean. A deeply nested property.',
+      description: 'A deeply nested property.',
     });
     expect(nestedProperties.other).toEqual({
       type: 'integer',
-      description: 'Integer. Another deeply nested property.',
+      description: 'Another deeply nested property.',
     });
   });
 });

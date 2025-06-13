@@ -58,23 +58,20 @@ keywords_attributes[][_destroy]
     const itemProperties = keywordsAttributesParam!.schema!.items!.properties!;
     expect(itemProperties.keyword).toEqual({
       type: 'string',
-      description:
-        'String. A keyword to be added to the newly-created filter group.',
+      description: 'A keyword to be added to the newly-created filter group.',
     });
     expect(itemProperties.whole_word).toEqual({
       type: 'boolean',
-      description:
-        'Boolean. Whether the keyword should consider word boundaries.',
+      description: 'Whether the keyword should consider word boundaries.',
     });
     expect(itemProperties.id).toEqual({
       type: 'string',
       description:
-        'String. Provide the ID of an existing keyword to modify it, instead of creating a new keyword.',
+        'Provide the ID of an existing keyword to modify it, instead of creating a new keyword.',
     });
     expect(itemProperties._destroy).toEqual({
       type: 'boolean',
-      description:
-        'Boolean. If true, will remove the keyword with the given ID.',
+      description: 'If true, will remove the keyword with the given ID.',
     });
 
     // Ensure flat properties with brackets don't exist
@@ -145,11 +142,11 @@ other_object[property]
     expect(nestedAttrsParam!.schema!.items!.type).toBe('object');
     expect(nestedAttrsParam!.schema!.items!.properties!.name).toEqual({
       type: 'string',
-      description: 'String. Name in nested object.',
+      description: 'Name in nested object.',
     });
     expect(nestedAttrsParam!.schema!.items!.properties!.value).toEqual({
       type: 'integer',
-      description: 'Integer. Value in nested object.',
+      description: 'Value in nested object.',
     });
 
     // Check regular object parameter
@@ -160,7 +157,7 @@ other_object[property]
     expect(otherObjectParam!.schema!.type).toBe('object');
     expect(otherObjectParam!.schema!.properties!.property).toEqual({
       type: 'string',
-      description: 'String. Regular object property.',
+      description: 'Regular object property.',
     });
   });
 });

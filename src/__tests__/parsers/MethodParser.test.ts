@@ -130,11 +130,11 @@ describe('MethodParser', () => {
         // Check for specific known query parameters
         const localParam = queryParams.find((p) => p.name === 'local');
         expect(localParam).toBeDefined();
-        expect(localParam?.description).toContain('Boolean');
+        expect(localParam?.description).toContain('Show only local statuses');
 
         const limitParam = queryParams.find((p) => p.name === 'limit');
         expect(limitParam).toBeDefined();
-        expect(limitParam?.description).toContain('Integer');
+        expect(limitParam?.description).toContain('Maximum number of results');
       }
     }
   });

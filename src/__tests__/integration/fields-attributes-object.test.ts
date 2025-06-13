@@ -35,6 +35,6 @@ describe('Integration: fields_attributes object type', () => {
       requestBodySchema.properties.fields_attributes;
     expect(fieldsAttributesProperty).toBeDefined();
     expect(fieldsAttributesProperty.type).toBe('object');
-    expect(fieldsAttributesProperty.description).toContain('Hash');
+    expect(fieldsAttributesProperty.description).toContain('profile fields');
   });
 });

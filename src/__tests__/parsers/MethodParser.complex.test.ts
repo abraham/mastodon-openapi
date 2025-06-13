@@ -114,17 +114,15 @@ poll[hide_totals]
       });
       expect(properties.expires_in).toEqual({
         type: 'integer',
-        description:
-          'Integer. Duration that the poll should be open, in seconds.',
+        description: 'Duration that the poll should be open, in seconds.',
       });
       expect(properties.multiple).toEqual({
         type: 'boolean',
-        description: 'Boolean. Allow multiple choices? Defaults to false.',
+        description: 'Allow multiple choices? Defaults to false.',
       });
       expect(properties.hide_totals).toEqual({
         type: 'boolean',
-        description:
-          'Boolean. Hide vote counts until the poll ends? Defaults to false.',
+        description: 'Hide vote counts until the poll ends? Defaults to false.',
       });
     });
 
