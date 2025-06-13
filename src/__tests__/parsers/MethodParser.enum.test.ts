@@ -112,6 +112,17 @@ describe('Parameter and Type Inference Support', () => {
 
       expect(enumValues).toEqual(['followed', 'list', 'none']);
     });
+
+    it('should extract enum values from complex "due to" pattern with mixed formatting', () => {
+      // Test the exact description from POST /api/v1/reports category parameter
+      const description =
+        'String. Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).';
+
+      const enumValues =
+        TypeInference.extractEnumValuesFromDescription(description);
+
+      expect(enumValues).toEqual(['spam', 'legal', 'violation', 'other']);
+    });
   });
 
   describe('Parameter parsing with enum values', () => {
