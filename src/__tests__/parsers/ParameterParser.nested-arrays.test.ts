@@ -58,13 +58,11 @@ keywords_attributes[][_destroy]
     const itemProperties = keywordsAttributesParam!.schema!.items!.properties!;
     expect(itemProperties.keyword).toEqual({
       type: 'string',
-      description:
-        'A keyword to be added to the newly-created filter group.',
+      description: 'A keyword to be added to the newly-created filter group.',
     });
     expect(itemProperties.whole_word).toEqual({
       type: 'boolean',
-      description:
-        'Whether the keyword should consider word boundaries.',
+      description: 'Whether the keyword should consider word boundaries.',
     });
     expect(itemProperties.id).toEqual({
       type: 'string',
@@ -73,8 +71,7 @@ keywords_attributes[][_destroy]
     });
     expect(itemProperties._destroy).toEqual({
       type: 'boolean',
-      description:
-        'If true, will remove the keyword with the given ID.',
+      description: 'If true, will remove the keyword with the given ID.',
     });
 
     // Ensure flat properties with brackets don't exist

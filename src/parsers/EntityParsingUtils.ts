@@ -26,7 +26,8 @@ export class EntityParsingUtils {
 
     // Remove redundant type prefixes like "String.", "Boolean.", etc.
     // Match case-insensitive type prefix followed by period and space at start of string
-    const typePattern = /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
+    const typePattern =
+      /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
     cleaned = cleaned.replace(typePattern, '');
 
     return cleaned.trim();
@@ -38,7 +39,8 @@ export class EntityParsingUtils {
   static stripTypePrefix(description: string): string {
     // Remove redundant type prefixes like "String.", "Boolean.", etc.
     // Match case-insensitive type prefix followed by period and space at start of string
-    const typePattern = /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
+    const typePattern =
+      /^(String|Boolean|Integer|Number|Array|Object|Hash)\.\s*/i;
     return description.replace(typePattern, '').trim();
   }
 

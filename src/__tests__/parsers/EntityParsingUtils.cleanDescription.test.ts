@@ -5,7 +5,8 @@ describe('EntityParsingUtils.cleanDescription - Type Stripping', () => {
     // Test various type prefixes that should be stripped
     const testCases = [
       {
-        input: 'String. A keyword to be added to the newly-created filter group.',
+        input:
+          'String. A keyword to be added to the newly-created filter group.',
         expected: 'A keyword to be added to the newly-created filter group.',
       },
       {

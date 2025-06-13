@@ -51,15 +51,15 @@ alerts[mention]
     const properties = alertsParam!.schema!.properties!;
     expect(properties['admin.sign_up']).toEqual({
       type: 'boolean',
-      description: 'Boolean. Receive new user registration alerts?',
+      description: 'Receive new user registration alerts?',
     });
     expect(properties['admin.report']).toEqual({
       type: 'boolean',
-      description: 'Boolean. Receive new report alerts?',
+      description: 'Receive new report alerts?',
     });
     expect(properties.mention).toEqual({
       type: 'boolean',
-      description: 'Boolean. Receive mention alerts?',
+      description: 'Receive mention alerts?',
     });
   });
 

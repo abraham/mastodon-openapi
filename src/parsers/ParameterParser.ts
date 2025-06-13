@@ -171,9 +171,9 @@ export class ParameterParser {
 
       // Set the final property
       const finalProperty = param.path[param.path.length - 1];
-      const propType = param.inferredType || TypeInference.inferTypeFromDescription(
-        param.description
-      );
+      const propType =
+        param.inferredType ||
+        TypeInference.inferTypeFromDescription(param.description);
       const enumValues = TypeInference.extractEnumValuesFromDescription(
         param.description
       );
@@ -361,7 +361,9 @@ export class ParameterParser {
             // Multi-level nesting like subscription[keys][auth]
             allObjectGroups[nestedParam.rootName].nested.push({
               ...nestedParam,
-              description: EntityParsingUtils.stripTypePrefix(rawParam.description),
+              description: EntityParsingUtils.stripTypePrefix(
+                rawParam.description
+              ),
               inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
@@ -372,7 +374,9 @@ export class ParameterParser {
               name: rawParam.name,
               property: nestedParam.path[0],
               isArray: nestedParam.isArray,
-              description: EntityParsingUtils.stripTypePrefix(rawParam.description),
+              description: EntityParsingUtils.stripTypePrefix(
+                rawParam.description
+              ),
               inferredType: rawParam.inferredType,
               required: rawParam.required,
               enumValues: rawParam.enumValues,
@@ -387,7 +391,11 @@ export class ParameterParser {
 
         // Create items schema with enum values if available
         const itemsSchema: any = {
-          type: rawParam.inferredType || TypeInference.inferTypeFromDescription(rawParam.originalDescription || rawParam.description),
+          type:
+            rawParam.inferredType ||
+            TypeInference.inferTypeFromDescription(
+              rawParam.originalDescription || rawParam.description
+            ),
         };
 
         if (rawParam.enumValues && rawParam.enumValues.length > 0) {
@@ -408,9 +416,11 @@ export class ParameterParser {
         });
       } else {
         // Simple parameter
-        const inferredType = rawParam.inferredType || TypeInference.inferTypeFromDescription(
-          rawParam.originalDescription || rawParam.description
-        );
+        const inferredType =
+          rawParam.inferredType ||
+          TypeInference.inferTypeFromDescription(
+            rawParam.originalDescription || rawParam.description
+          );
         const param: ApiParameter = {
           name: rawParam.name,
           description: EntityParsingUtils.stripTypePrefix(rawParam.description),
@@ -454,9 +464,9 @@ export class ParameterParser {
 
       // Process simple properties
       for (const prop of groups.simple) {
-        const propType = prop.inferredType || TypeInference.inferTypeFromDescription(
-          prop.description
-        );
+        const propType =
+          prop.inferredType ||
+          TypeInference.inferTypeFromDescription(prop.description);
         const enumValues = TypeInference.extractEnumValuesFromDescription(
           prop.description
         );
@@ -502,9 +512,9 @@ export class ParameterParser {
       const objectProperties: Record<string, ApiProperty> = {};
 
       for (const prop of properties) {
-        const propType = prop.inferredType || TypeInference.inferTypeFromDescription(
-          prop.description
-        );
+        const propType =
+          prop.inferredType ||
+          TypeInference.inferTypeFromDescription(prop.description);
         const enumValues = TypeInference.extractEnumValuesFromDescription(
           prop.description
         );
