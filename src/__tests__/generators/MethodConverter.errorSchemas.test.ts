@@ -29,18 +29,20 @@ describe('MethodConverter Error Schemas', () => {
           error: 'The access token is invalid',
         },
         '422': {
-          error: 'Validation failed: Password can\'t be blank, Username must contain only letters, numbers and underscores, Agreement must be accepted',
+          error:
+            "Validation failed: Password can't be blank, Username must contain only letters, numbers and underscores, Agreement must be accepted",
           details: {
             password: [
               {
                 error: 'ERR_BLANK',
-                description: 'can\'t be blank',
+                description: "can't be blank",
               },
             ],
             username: [
               {
                 error: 'ERR_INVALID',
-                description: 'must contain only letters, numbers and underscores',
+                description:
+                  'must contain only letters, numbers and underscores',
               },
             ],
             agreement: [
@@ -85,7 +87,9 @@ describe('MethodConverter Error Schemas', () => {
     expect(response401?.content?.['application/json']?.schema).toEqual({
       $ref: '#/components/schemas/Error',
     });
-    expect(response401?.content?.['application/json']).toHaveProperty('examples');
+    expect(response401?.content?.['application/json']).toHaveProperty(
+      'examples'
+    );
 
     // Check that 422 error has content with schema and examples
     const response422 = postOperation?.responses['422'];
@@ -105,15 +109,21 @@ describe('MethodConverter Error Schemas', () => {
 
     // Check that ValidationError schema was created
     expect(spec.components?.schemas?.ValidationError).toBeDefined();
-    expect(spec.components?.schemas?.ValidationError).toHaveProperty('properties');
-    expect(spec.components?.schemas?.ValidationError?.properties).toHaveProperty('error');
-    expect(spec.components?.schemas?.ValidationError?.properties).toHaveProperty('details');
+    expect(spec.components?.schemas?.ValidationError).toHaveProperty(
+      'properties'
+    );
+    expect(
+      spec.components?.schemas?.ValidationError?.properties
+    ).toHaveProperty('error');
+    expect(
+      spec.components?.schemas?.ValidationError?.properties
+    ).toHaveProperty('details');
   });
 
   it('should create reusable error schemas for common patterns', () => {
     const method: ApiMethod = {
       name: 'Test Method',
-      httpMethod: 'POST', 
+      httpMethod: 'POST',
       endpoint: '/api/v1/test',
       description: 'Test method',
       responseExamples: {
@@ -123,7 +133,7 @@ describe('MethodConverter Error Schemas', () => {
             field1: [
               {
                 error: 'ERR_BLANK',
-                description: 'can\'t be blank',
+                description: "can't be blank",
               },
             ],
           },

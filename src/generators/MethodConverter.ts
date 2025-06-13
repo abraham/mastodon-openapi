@@ -149,11 +149,15 @@ class MethodConverter {
 
         // Add example and potentially schema if available
         if (responseExample) {
-          const errorSchema = this.generateErrorSchema(responseExample, responseCode.code, spec);
+          const errorSchema = this.generateErrorSchema(
+            responseExample,
+            responseCode.code,
+            spec
+          );
           const content: any = {
             example: responseExample,
           };
-          
+
           if (errorSchema) {
             content.schema = errorSchema;
           }
@@ -783,11 +787,13 @@ class MethodConverter {
     }
 
     // Check if this is a simple error (basic Error schema pattern)
-    const isBasicError = typeof errorExample === 'object' && 
+    const isBasicError =
+      typeof errorExample === 'object' &&
       errorExample !== null &&
       typeof errorExample.error === 'string' &&
       (Object.keys(errorExample).length === 1 ||
-       (Object.keys(errorExample).length === 2 && typeof errorExample.error_description === 'string'));
+        (Object.keys(errorExample).length === 2 &&
+          typeof errorExample.error_description === 'string'));
 
     if (isBasicError) {
       // Use the existing Error schema for simple errors (with or without error_description)
@@ -795,7 +801,8 @@ class MethodConverter {
     }
 
     // Check if this is a validation error with details
-    const isValidationError = typeof errorExample === 'object' &&
+    const isValidationError =
+      typeof errorExample === 'object' &&
       errorExample !== null &&
       typeof errorExample.error === 'string' &&
       errorExample.details &&
@@ -804,11 +811,12 @@ class MethodConverter {
     if (isValidationError) {
       // Create or reference a ValidationError schema
       const schemaName = 'ValidationError';
-      
+
       if (!spec.components.schemas[schemaName]) {
         spec.components.schemas[schemaName] = {
           type: 'object',
-          description: 'Represents a validation error with field-specific details.',
+          description:
+            'Represents a validation error with field-specific details.',
           properties: {
             error: {
               type: 'string',
@@ -824,7 +832,8 @@ class MethodConverter {
                   properties: {
                     error: {
                       type: 'string',
-                      description: 'The error code (e.g., ERR_BLANK, ERR_INVALID).',
+                      description:
+                        'The error code (e.g., ERR_BLANK, ERR_INVALID).',
                     },
                     description: {
                       type: 'string',
@@ -846,9 +855,10 @@ class MethodConverter {
     // For other complex error formats, create a generic custom error schema
     if (typeof errorExample === 'object' && errorExample !== null) {
       const schemaName = `CustomError${statusCode}`;
-      
+
       if (!spec.components.schemas[schemaName]) {
-        spec.components.schemas[schemaName] = this.generateSchemaFromExample(errorExample);
+        spec.components.schemas[schemaName] =
+          this.generateSchemaFromExample(errorExample);
       }
 
       return { $ref: `#/components/schemas/${schemaName}` };
@@ -882,7 +892,8 @@ class MethodConverter {
       } else if (Array.isArray(value)) {
         properties[key] = {
           type: 'array',
-          items: value.length > 0 ? this.generateSchemaFromExample(value[0]) : {},
+          items:
+            value.length > 0 ? this.generateSchemaFromExample(value[0]) : {},
         };
       } else if (typeof value === 'object') {
         properties[key] = this.generateSchemaFromExample(value);

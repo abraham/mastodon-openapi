@@ -47,7 +47,7 @@ export class ExampleParser {
       }
 
       const statusCode = headerMatch[1];
-      
+
       // Look for JSON blocks within this response section
       const jsonMatch = section.match(/```json\s*\n([\s\S]*?)\n\s*```/);
       if (!jsonMatch) {
