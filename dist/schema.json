@@ -3426,14 +3426,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "type": "string",
-                      "enum": [
-                        "home",
-                        "notifications",
-                        "public",
-                        "thread",
-                        "account"
-                      ]
+                      "$ref": "#/components/schemas/FilterContext"
                     }
                   },
                   "filter_action": {
@@ -3598,14 +3591,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "type": "string",
-                      "enum": [
-                        "home",
-                        "notifications",
-                        "public",
-                        "thread",
-                        "account"
-                      ]
+                      "$ref": "#/components/schemas/FilterContext"
                     }
                   },
                   "filter_action": {
@@ -4340,14 +4326,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "type": "string",
-                      "enum": [
-                        "home",
-                        "notifications",
-                        "public",
-                        "thread",
-                        "account"
-                      ]
+                      "$ref": "#/components/schemas/FilterContext"
                     }
                   },
                   "irreversible": {
@@ -4495,14 +4474,7 @@
                     "type": "array",
                     "description": "Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "type": "string",
-                      "enum": [
-                        "home",
-                        "notifications",
-                        "public",
-                        "thread",
-                        "account"
-                      ]
+                      "$ref": "#/components/schemas/FilterContext"
                     }
                   },
                   "irreversible": {
@@ -4934,19 +4906,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -4958,19 +4918,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -5000,19 +4948,7 @@
               "type": "array",
               "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -5834,12 +5770,8 @@
                   "replies_policy": {
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
-                    "enum": [
-                      "followed",
-                      "list",
-                      "none"
-                    ],
-                    "default": "list"
+                    "default": "list",
+                    "$ref": "#/components/schemas/PolicyEnum"
                   },
                   "exclusive": {
                     "type": "boolean",
@@ -5973,12 +5905,8 @@
                   "replies_policy": {
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
-                    "enum": [
-                      "followed",
-                      "list",
-                      "none"
-                    ],
-                    "default": "list"
+                    "default": "list",
+                    "$ref": "#/components/schemas/PolicyEnum"
                   },
                   "exclusive": {
                     "type": "boolean",
@@ -6898,19 +6826,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -6922,19 +6838,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -7662,19 +7566,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -7686,19 +7578,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           },
@@ -7728,19 +7608,7 @@
               "type": "array",
               "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
               "items": {
-                "type": "string",
-                "enum": [
-                  "mention",
-                  "status",
-                  "reblog",
-                  "follow",
-                  "follow_request",
-                  "favourite",
-                  "poll",
-                  "update",
-                  "admin.sign_up",
-                  "admin.report"
-                ]
+                "$ref": "#/components/schemas/TypesEnum"
               }
             }
           }
@@ -9340,12 +9208,7 @@
                   "visibility": {
                     "type": "string",
                     "description": "Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
-                    "enum": [
-                      "public",
-                      "unlisted",
-                      "private",
-                      "direct"
-                    ]
+                    "$ref": "#/components/schemas/VisibilityEnum"
                   },
                   "language": {
                     "type": "string",
@@ -12448,16 +12311,6 @@
   },
   "components": {
     "schemas": {
-      "FilterContext": {
-        "type": "string",
-        "enum": [
-          "account",
-          "home",
-          "notifications",
-          "public",
-          "thread"
-        ]
-      },
       "Account": {
         "type": "object",
         "description": "Represents a user of Mastodon and their associated profile.",
@@ -13288,11 +13141,7 @@
           "category": {
             "description": "The category under which the report is classified.",
             "type": "string",
-            "enum": [
-              "spam",
-              "violation",
-              "other"
-            ]
+            "$ref": "#/components/schemas/CategoryEnum"
           },
           "comment": {
             "description": "An optional reason for reporting.",
@@ -14378,11 +14227,7 @@
           "replies_policy": {
             "description": "Which replies should be shown in the list.",
             "type": "string",
-            "enum": [
-              "followed",
-              "list",
-              "none"
-            ]
+            "$ref": "#/components/schemas/PolicyEnum"
           }
         },
         "required": [
@@ -14484,20 +14329,7 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "enum": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report",
-              "severed_relationships",
-              "moderation_warning"
-            ]
+            "$ref": "#/components/schemas/TypeEnum"
           },
           "group_key": {
             "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
@@ -14726,12 +14558,7 @@
           "posting:default:visibility": {
             "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source",
             "type": "string",
-            "enum": [
-              "public",
-              "unlisted",
-              "private",
-              "direct"
-            ]
+            "$ref": "#/components/schemas/VisibilityEnum"
           },
           "posting:default:sensitive": {
             "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source",
@@ -14945,14 +14772,7 @@
           "state": {
             "description": "The state of the quote.",
             "type": "string",
-            "enum": [
-              "pending",
-              "accepted",
-              "rejected",
-              "revoked",
-              "deleted",
-              "unauthorized"
-            ]
+            "$ref": "#/components/schemas/StateEnum"
           },
           "status": {
             "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
@@ -15155,11 +14975,7 @@
           "category": {
             "description": "The generic reason for the report.",
             "type": "string",
-            "enum": [
-              "spam",
-              "violation",
-              "other"
-            ]
+            "$ref": "#/components/schemas/CategoryEnum"
           },
           "comment": {
             "description": "The reason for the report.",
@@ -15439,14 +15255,7 @@
           "state": {
             "description": "The state of the quote.",
             "type": "string",
-            "enum": [
-              "pending",
-              "accepted",
-              "rejected",
-              "revoked",
-              "deleted",
-              "unauthorized"
-            ]
+            "$ref": "#/components/schemas/StateEnum"
           },
           "status_id": {
             "description": "The identifier of the status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
@@ -15486,12 +15295,7 @@
           "visibility": {
             "description": "Visibility of this status.",
             "type": "string",
-            "enum": [
-              "public",
-              "unlisted",
-              "private",
-              "direct"
-            ]
+            "$ref": "#/components/schemas/VisibilityEnum"
           },
           "sensitive": {
             "description": "Is this status marked as sensitive content?",
@@ -15815,15 +15619,15 @@
             "description": "A list of reasons this account is being suggested. This replaces `source`",
             "type": "array",
             "items": {
-              "type": "string"
-            },
-            "enum": [
-              "featured",
-              "friends_of_friends",
-              "most_followed",
-              "most_interactions",
-              "similar_to_recently_followed"
-            ]
+              "type": "string",
+              "enum": [
+                "featured",
+                "most_followed",
+                "most_interactions",
+                "similar_to_recently_followed",
+                "friends_of_friends"
+              ]
+            }
           },
           "account": {
             "description": "The account being recommended to follow.",
@@ -16586,20 +16390,7 @@
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
             "type": "string",
-            "enum": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report",
-              "severed_relationships",
-              "moderation_warning"
-            ]
+            "$ref": "#/components/schemas/TypeEnum"
           },
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
@@ -16668,6 +16459,84 @@
           }
         },
         "description": "Object containing one of: status, scheduled_status"
+      },
+      "CategoryEnum": {
+        "type": "string",
+        "enum": [
+          "other",
+          "spam",
+          "violation"
+        ]
+      },
+      "FilterContext": {
+        "type": "string",
+        "enum": [
+          "account",
+          "home",
+          "notifications",
+          "public",
+          "thread"
+        ]
+      },
+      "PolicyEnum": {
+        "type": "string",
+        "enum": [
+          "followed",
+          "list",
+          "none"
+        ]
+      },
+      "TypeEnum": {
+        "type": "string",
+        "enum": [
+          "admin.report",
+          "admin.sign_up",
+          "favourite",
+          "follow",
+          "follow_request",
+          "mention",
+          "moderation_warning",
+          "poll",
+          "reblog",
+          "severed_relationships",
+          "status",
+          "update"
+        ]
+      },
+      "VisibilityEnum": {
+        "type": "string",
+        "enum": [
+          "direct",
+          "private",
+          "public",
+          "unlisted"
+        ]
+      },
+      "StateEnum": {
+        "type": "string",
+        "enum": [
+          "accepted",
+          "deleted",
+          "pending",
+          "rejected",
+          "revoked",
+          "unauthorized"
+        ]
+      },
+      "TypesEnum": {
+        "type": "string",
+        "enum": [
+          "admin.report",
+          "admin.sign_up",
+          "favourite",
+          "follow",
+          "follow_request",
+          "mention",
+          "poll",
+          "reblog",
+          "status",
+          "update"
+        ]
       }
     },
     "securitySchemes": {

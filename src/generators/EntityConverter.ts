@@ -52,7 +52,8 @@ class EntityConverter {
     }
 
     // Second pass: detect and deduplicate identical enums
-    this.deduplicateEnums(entitySchemas, spec);
+    // NOTE: This is now handled globally in OpenAPIGenerator.deduplicateEnumsGlobally()
+    // this.deduplicateEnums(entitySchemas, spec);
 
     // Add all schemas to the spec
     for (const [name, schema] of entitySchemas) {
@@ -116,12 +117,31 @@ class EntityConverter {
     if (!schema.properties) return;
 
     for (const [propName, property] of Object.entries(schema.properties)) {
-      // Look for array properties with enum values
+      // Look for array properties with enum values on items
       if (
         property.type === 'array' &&
-        property.enum &&
-        Array.isArray(property.enum)
+        property.items &&
+        typeof property.items === 'object' &&
+        property.items.enum &&
+        Array.isArray(property.items.enum)
       ) {
+        const enumSignature = JSON.stringify(property.items.enum.sort());
+
+        if (!enumPatterns.has(enumSignature)) {
+          // First occurrence - save original values and mark it
+          enumPatterns.set(enumSignature, '');
+          enumSignatureToOriginalValues.set(enumSignature, property.items.enum);
+        } else if (enumPatterns.get(enumSignature) === '') {
+          // Second occurrence - create shared component
+          const componentName = this.generateSharedEnumComponentName(
+            propName,
+            property.items.enum
+          );
+          enumPatterns.set(enumSignature, componentName);
+        }
+      }
+      // Also look for direct enum properties (non-arrays)
+      else if (property.enum && Array.isArray(property.enum)) {
         const enumSignature = JSON.stringify(property.enum.sort());
 
         if (!enumPatterns.has(enumSignature)) {
@@ -150,20 +170,33 @@ class EntityConverter {
     if (!schema.properties) return;
 
     for (const [propName, property] of Object.entries(schema.properties)) {
+      // Handle array properties with enum items
       if (
         property.type === 'array' &&
-        property.enum &&
-        Array.isArray(property.enum)
+        property.items &&
+        typeof property.items === 'object' &&
+        property.items.enum &&
+        Array.isArray(property.items.enum)
       ) {
+        const enumSignature = JSON.stringify(property.items.enum.sort());
+        const componentName = enumPatterns.get(enumSignature);
+
+        if (componentName) {
+          // Replace with reference to shared component
+          property.items = {
+            $ref: `#/components/schemas/${componentName}`,
+          };
+        }
+      }
+      // Handle direct enum properties (non-arrays)
+      else if (property.enum && Array.isArray(property.enum)) {
         const enumSignature = JSON.stringify(property.enum.sort());
         const componentName = enumPatterns.get(enumSignature);
 
         if (componentName) {
           // Replace with reference to shared component
           delete property.enum;
-          property.items = {
-            $ref: `#/components/schemas/${componentName}`,
-          };
+          property.$ref = `#/components/schemas/${componentName}`;
         }
       }
     }
@@ -235,9 +268,23 @@ class EntityConverter {
 
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
-      property.enum = attribute.enumValues;
+      if (property.type === 'array') {
+        // For arrays, enum values should be on items, not on the array itself
+        if (property.items && typeof property.items === 'object') {
+          property.items.enum = attribute.enumValues;
+        }
+      } else {
+        property.enum = attribute.enumValues;
+      }
     } else if (type.enum) {
-      property.enum = type.enum;
+      if (property.type === 'array') {
+        // For arrays, enum values should be on items, not on the array itself
+        if (property.items && typeof property.items === 'object') {
+          property.items.enum = type.enum;
+        }
+      } else {
+        property.enum = type.enum;
+      }
     }
 
     return property;

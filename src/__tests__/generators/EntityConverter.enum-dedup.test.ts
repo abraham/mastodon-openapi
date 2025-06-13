@@ -1,23 +1,11 @@
-import { EntityConverter } from '../../generators/EntityConverter';
-import { TypeParser } from '../../generators/TypeParser';
-import { UtilityHelpers } from '../../generators/UtilityHelpers';
+import { OpenAPIGenerator } from '../../generators/OpenAPIGenerator';
 import { EntityClass } from '../../interfaces/EntityClass';
-import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
 
 describe('EntityConverter enum deduplication', () => {
-  let converter: EntityConverter;
-  let spec: OpenAPISpec;
+  let generator: OpenAPIGenerator;
 
   beforeEach(() => {
-    const utilityHelpers = new UtilityHelpers();
-    const typeParser = new TypeParser(utilityHelpers);
-    converter = new EntityConverter(typeParser, utilityHelpers);
-    spec = {
-      openapi: '3.0.3',
-      info: { title: 'Test', version: '1.0.0' },
-      paths: {},
-      components: { schemas: {} },
-    };
+    generator = new OpenAPIGenerator();
   });
 
   it('should create shared FilterContext component for identical context enums', () => {
@@ -60,7 +48,7 @@ describe('EntityConverter enum deduplication', () => {
       },
     ];
 
-    converter.convertEntities(entities, spec);
+    const spec = generator.generateSchema(entities, []);
 
     // Check that both entities exist
     expect(spec.components?.schemas?.Filter).toBeDefined();
@@ -72,7 +60,7 @@ describe('EntityConverter enum deduplication', () => {
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toEqual([
       'account',
-      'home',
+      'home', 
       'notifications',
       'public',
       'thread',
@@ -131,7 +119,7 @@ describe('EntityConverter enum deduplication', () => {
       },
     ];
 
-    converter.convertEntities(entities, spec);
+    const spec = generator.generateSchema(entities, []);
 
     // Check that both entities exist
     expect(spec.components?.schemas?.StatusOne).toBeDefined();
@@ -193,7 +181,7 @@ describe('EntityConverter enum deduplication', () => {
       },
     ];
 
-    converter.convertEntities(entities, spec);
+    const spec = generator.generateSchema(entities, []);
 
     // Should not create FilterContext component for different enums
     expect(spec.components?.schemas?.FilterContext).toBeUndefined();
@@ -205,9 +193,11 @@ describe('EntityConverter enum deduplication', () => {
     const filterContext1 = filterSchema.properties!.context;
     const filterContext2 = v1FilterSchema.properties!.context;
 
-    // Should still have inline enums since they're different
-    expect(filterContext1.enum).toEqual(['home', 'notifications', 'public']);
-    expect(filterContext2.enum).toEqual(['different', 'home', 'notifications']);
+    // Should still have inline enums since they're different, preserving original order
+    expect(filterContext1.type).toBe('array');
+    expect(filterContext2.type).toBe('array');
+    expect(filterContext1.items?.enum).toEqual(['home', 'notifications', 'public']);
+    expect(filterContext2.items?.enum).toEqual(['home', 'notifications', 'different']);
   });
 
   it('should handle single entity with context enum normally', () => {
@@ -232,20 +222,21 @@ describe('EntityConverter enum deduplication', () => {
       },
     ];
 
-    converter.convertEntities(entities, spec);
+    const spec = generator.generateSchema(entities, []);
 
     // Should not create shared component for single entity
     expect(spec.components?.schemas?.FilterContext).toBeUndefined();
 
-    // Should have inline enum
+    // Should have inline enum on items with original order
     const filterSchema = spec.components!.schemas!.Filter;
     const filterContext = filterSchema.properties!.context;
-    expect(filterContext.enum).toEqual([
-      'account',
+    expect(filterContext.type).toBe('array');
+    expect(filterContext.items?.enum).toEqual([
       'home',
       'notifications',
       'public',
       'thread',
+      'account',
     ]);
   });
 });
