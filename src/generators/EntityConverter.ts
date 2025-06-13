@@ -285,17 +285,25 @@ class EntityConverter {
 
     // Check for email format - only for actual email fields, not descriptions mentioning email
     const isEmailField =
-      attribute.name.toLowerCase().includes('email') ||
+      attribute.name.toLowerCase() === 'email' ||
+      (attribute.name.toLowerCase().endsWith('_email') &&
+        !attribute.name.toLowerCase().includes('hash')) ||
+      (attribute.name.toLowerCase().startsWith('email_') &&
+        !attribute.name.toLowerCase().includes('hash')) ||
       (attribute.description &&
+        !attribute.description.toLowerCase().includes('hash') &&
+        !attribute.description.toLowerCase().includes('sha') &&
+        !attribute.description.toLowerCase().includes(' id ') &&
+        !attribute.description.toLowerCase().includes('the id of') &&
+        !attribute.description.toLowerCase().includes('domain') &&
+        !attribute.description.toLowerCase().includes('count') &&
+        !attribute.description.toLowerCase().includes('confirmation email') &&
+        !attribute.description
+          .toLowerCase()
+          .includes('email that will be sent') &&
         (attribute.description.toLowerCase().includes('email address') ||
           attribute.description.toLowerCase().includes('e-mail address') ||
-          (attribute.description.toLowerCase().includes('email') &&
-            !attribute.description
-              .toLowerCase()
-              .includes('confirmation email') &&
-            !attribute.description
-              .toLowerCase()
-              .includes('email that will be sent'))));
+          attribute.description.toLowerCase().includes('email')));
 
     if (isEmailField && property.type === 'string' && !property.format) {
       property.format = 'email';

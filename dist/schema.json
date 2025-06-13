@@ -12912,13 +12912,11 @@
         "properties": {
           "id": {
             "description": "The ID of the email block in the database.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           },
           "canonical_email_hash": {
             "description": "The SHA256 hash of the canonical email address.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           }
         },
         "required": [
@@ -13125,13 +13123,11 @@
         "properties": {
           "id": {
             "description": "The ID of the EmailDomainBlock in the database.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           },
           "domain": {
             "description": "The email domain that is not allowed to be used for signups.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           },
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
@@ -13163,13 +13159,11 @@
           },
           "accounts": {
             "description": "The counted accounts signup attempts using that email domain within that day.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           },
           "uses": {
             "description": "The counted IP signup attempts of that email domain within that day.",
-            "type": "string",
-            "format": "email"
+            "type": "string"
           }
         },
         "required": [
