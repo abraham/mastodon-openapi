@@ -31,7 +31,9 @@ describe('TypeParser - URI format detection', () => {
   });
 
   test('should apply URI format to array items with complex URL description', () => {
-    const result = typeParser.parseType('Array of String (URLs or "urn:ietf:wg:oauth:2.0:oob" as values)');
+    const result = typeParser.parseType(
+      'Array of String (URLs or "urn:ietf:wg:oauth:2.0:oob" as values)'
+    );
 
     expect(result).toEqual({
       type: 'array',

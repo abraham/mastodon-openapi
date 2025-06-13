@@ -11,7 +11,9 @@ describe('Integration - Application redirect_uris URI format', () => {
     const entities = entityParser.parseAllEntities();
 
     // Find the Application entity
-    const applicationEntity = entities.find((entity) => entity.name === 'Application');
+    const applicationEntity = entities.find(
+      (entity) => entity.name === 'Application'
+    );
     expect(applicationEntity).toBeDefined();
 
     // Find the redirect_uris attribute
