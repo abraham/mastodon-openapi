@@ -30,12 +30,12 @@ describe('Error Response Examples End-to-End', () => {
 
     // Both should reference the same 429 error example
     expect(
-      accountsEndpoint?.responses['429']?.content?.['application/json']?.examples
-        ?.Error429Example
+      accountsEndpoint?.responses['429']?.content?.['application/json']
+        ?.examples?.Error429Example
     ).toBeDefined();
     expect(
-      statusesEndpoint?.responses['429']?.content?.['application/json']?.examples
-        ?.Error429Example
+      statusesEndpoint?.responses['429']?.content?.['application/json']
+        ?.examples?.Error429Example
     ).toBeDefined();
 
     // Both should reference the same shared component
@@ -78,12 +78,12 @@ describe('Error Response Examples End-to-End', () => {
 
     // Both should reference the same 401 error example
     expect(
-      accountsEndpoint?.responses['401']?.content?.['application/json']?.examples
-        ?.Error401Example
+      accountsEndpoint?.responses['401']?.content?.['application/json']
+        ?.examples?.Error401Example
     ).toBeDefined();
     expect(
-      statusesEndpoint?.responses['401']?.content?.['application/json']?.examples
-        ?.Error401Example
+      statusesEndpoint?.responses['401']?.content?.['application/json']
+        ?.examples?.Error401Example
     ).toBeDefined();
   });
 
