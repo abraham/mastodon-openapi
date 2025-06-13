@@ -230,19 +230,53 @@ class MethodConverter {
           }
         }
 
-        operation.requestBody = {
-          description: 'JSON request body parameters',
-          required: required.length > 0,
-          content: {
-            'application/json': {
-              schema: {
-                type: 'object',
-                properties,
-                required: required.length > 0 ? required : undefined,
-              } as OpenAPIProperty,
+        // Special handling for POST /api/v1/statuses endpoint
+        // The status, media_ids, and poll parameters have conditional requirements
+        // that cannot be properly expressed with simple required arrays
+        if (
+          method.httpMethod === 'POST' &&
+          path === '/api/v1/statuses' &&
+          required.includes('status') &&
+          required.includes('media_ids') &&
+          required.includes('poll')
+        ) {
+          // Remove these from required array since they are conditionally required
+          const conditionallyRequiredParams = ['status', 'media_ids', 'poll'];
+          const filteredRequired = required.filter(
+            (param) => !conditionallyRequiredParams.includes(param)
+          );
+
+          operation.requestBody = {
+            description:
+              'JSON request body parameters. Note: status, media_ids, and poll have conditional requirements - at least one of status or media_ids must be provided, but not both media_ids and poll simultaneously.',
+            required: filteredRequired.length > 0,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties,
+                  required:
+                    filteredRequired.length > 0 ? filteredRequired : undefined,
+                } as OpenAPIProperty,
+              },
             },
-          },
-        };
+          };
+        } else {
+          // Default behavior for all other endpoints
+          operation.requestBody = {
+            description: 'JSON request body parameters',
+            required: required.length > 0,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties,
+                  required: required.length > 0 ? required : undefined,
+                } as OpenAPIProperty,
+              },
+            },
+          };
+        }
       }
     }
 
