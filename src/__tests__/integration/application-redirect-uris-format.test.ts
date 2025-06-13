@@ -30,7 +30,7 @@ describe('Integration - Application redirect_uris URI format', () => {
 
     // Create minimal spec
     const spec: OpenAPISpec = {
-      openapi: '3.0.3',
+      openapi: '3.1.0',
       info: { title: 'Test', version: '1.0.0' },
       paths: {},
       components: { schemas: {} },

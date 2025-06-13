@@ -24,7 +24,7 @@ describe('main', () => {
     const schema = JSON.parse(content);
 
     // Verify basic structure
-    expect(schema.openapi).toBe('3.0.3');
+    expect(schema.openapi).toBe('3.1.0');
     expect(schema.info).toBeDefined();
     expect(schema.info.title).toBe('Mastodon API');
     expect(schema.paths).toBeDefined();

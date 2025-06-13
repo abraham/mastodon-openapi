@@ -35,7 +35,7 @@ class SpecBuilder {
     }
 
     return {
-      openapi: '3.0.3',
+      openapi: '3.1.0',
       info: {
         title: 'Mastodon API',
         version: '4.2.0',

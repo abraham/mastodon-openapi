@@ -21,7 +21,7 @@ describe('OpenAPI Schema Validation', () => {
     expect(() => JSON.parse(content)).not.toThrow();
 
     const schema = JSON.parse(content);
-    expect(schema.openapi).toBe('3.0.3');
+    expect(schema.openapi).toBe('3.1.0');
     expect(schema.info).toBeDefined();
     expect(schema.paths).toBeDefined();
     expect(schema.components).toBeDefined();

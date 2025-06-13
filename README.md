@@ -5,7 +5,7 @@ A tool for generating OpenAPI schemas from Mastodon API documentation.
 ## Features
 
 - Parses Mastodon entity files and API method documentation
-- Generates OpenAPI 3.0.3 compliant schemas
+- Generates OpenAPI 3.1.0 compliant schemas
 - Automatic weekly schema updates via GitHub Actions
 
 ## Usage
