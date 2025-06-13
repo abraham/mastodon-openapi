@@ -127,4 +127,81 @@ describe('EntityParsingUtils.cleanDescription - Type Stripping', () => {
       expect(result).toBe(expected);
     });
   });
+
+  test('should remove complex type prefixes from descriptions', () => {
+    // Test complex type prefixes like "Array of String." that should be stripped
+    const testCases = [
+      {
+        input:
+          'Array of String. Include Attachment IDs to be attached as media.',
+        expected: 'Include Attachment IDs to be attached as media.',
+      },
+      {
+        input: 'Array of Integer. List of numeric values.',
+        expected: 'List of numeric values.',
+      },
+      {
+        input: 'Array of Boolean. List of boolean flags.',
+        expected: 'List of boolean flags.',
+      },
+      {
+        input: 'Array of Number. Collection of numeric data.',
+        expected: 'Collection of numeric data.',
+      },
+      {
+        input: 'Array of Object. Collection of configuration objects.',
+        expected: 'Collection of configuration objects.',
+      },
+      {
+        input: 'Array of Hash. Collection of hash objects.',
+        expected: 'Collection of hash objects.',
+      },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const result = EntityParsingUtils.cleanDescription(input);
+      expect(result).toBe(expected);
+    });
+  });
+
+  test('should handle case insensitive complex type prefixes', () => {
+    const testCases = [
+      {
+        input: 'array of string. Include attachment IDs.',
+        expected: 'Include attachment IDs.',
+      },
+      {
+        input: 'ARRAY OF INTEGER. List of numbers.',
+        expected: 'List of numbers.',
+      },
+      {
+        input: 'Array Of Boolean. Collection of flags.',
+        expected: 'Collection of flags.',
+      },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const result = EntityParsingUtils.cleanDescription(input);
+      expect(result).toBe(expected);
+    });
+  });
+
+  test('should not strip complex type words that are not prefixes', () => {
+    const testCases = [
+      {
+        input: 'This description mentions Array of String but not as a prefix.',
+        expected:
+          'This description mentions Array of String but not as a prefix.',
+      },
+      {
+        input: 'The Array of Integer data structure is useful.',
+        expected: 'The Array of Integer data structure is useful.',
+      },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const result = EntityParsingUtils.cleanDescription(input);
+      expect(result).toBe(expected);
+    });
+  });
 });

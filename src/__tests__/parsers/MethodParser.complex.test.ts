@@ -109,7 +109,7 @@ poll[hide_totals]
       const properties = pollParam!.schema!.properties!;
       expect(properties.options).toEqual({
         type: 'array',
-        description: 'Array of String. Possible answers to the poll.',
+        description: 'Possible answers to the poll.',
         items: { type: 'string' },
       });
       expect(properties.expires_in).toEqual({
