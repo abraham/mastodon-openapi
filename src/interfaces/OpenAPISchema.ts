@@ -86,6 +86,7 @@ interface OpenAPIResponse {
     {
       schema: OpenAPIProperty | { $ref: string };
       example?: any;
+      examples?: Record<string, OpenAPIExample | { $ref: string }>;
     }
   >;
 }
@@ -118,6 +119,12 @@ interface OpenAPIPath {
   patch?: OpenAPIOperation;
 }
 
+interface OpenAPIExample {
+  summary?: string;
+  description?: string;
+  value: any;
+}
+
 interface OpenAPISpec {
   openapi: string;
   info: OpenAPIInfo;
@@ -126,6 +133,7 @@ interface OpenAPISpec {
   paths: Record<string, OpenAPIPath>;
   components?: {
     schemas?: Record<string, OpenAPISchema>;
+    examples?: Record<string, OpenAPIExample>;
     securitySchemes?: Record<string, OpenAPISecurityScheme>;
   };
 }
@@ -144,5 +152,6 @@ export {
   OpenAPIHeader,
   OpenAPIOperation,
   OpenAPIPath,
+  OpenAPIExample,
   OpenAPISpec,
 };

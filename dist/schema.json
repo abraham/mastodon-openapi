@@ -948,14 +948,11 @@
                     "$ref": "#/components/schemas/FeaturedTag"
                   }
                 },
-                "example": [
-                  {
-                    "id": "627",
-                    "name": "nowplaying",
-                    "statuses_count": 36,
-                    "last_status_at": "2019-11-15T07:14:43.524Z"
+                "examples": {
+                  "FeaturedTagExample": {
+                    "$ref": "#/components/examples/FeaturedTagExample"
                   }
-                ]
+                }
               }
             }
           },
@@ -2608,15 +2605,11 @@
                     "$ref": "#/components/schemas/IdentityProof"
                   }
                 },
-                "example": [
-                  {
-                    "provider": "Keybase",
-                    "provider_username": "gargron",
-                    "updated_at": "2019-07-21T20:14:39.596Z",
-                    "proof_url": "https://keybase.io/gargron/sigchain#5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f",
-                    "profile_url": "https://keybase.io/gargron"
+                "examples": {
+                  "IdentityProofExample": {
+                    "$ref": "#/components/examples/IdentityProofExample"
                   }
-                ]
+                }
               }
             }
           },
@@ -4428,15 +4421,11 @@
                     "$ref": "#/components/schemas/FeaturedTag"
                   }
                 },
-                "example": [
-                  {
-                    "id": "627",
-                    "name": "nowplaying",
-                    "url": "https://mastodon.social/@trwnh/tagged/nowplaying",
-                    "statuses_count": 70,
-                    "last_status_at": "2022-08-29T12:03:35.061Z"
+                "examples": {
+                  "FeaturedTagExample": {
+                    "$ref": "#/components/examples/FeaturedTagExample"
                   }
-                ]
+                }
               }
             }
           },
@@ -4941,32 +4930,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/Filter"
                 },
-                "example": {
-                  "id": "20060",
-                  "title": "Remove Twitter crossposts from public timeline",
-                  "context": [
-                    "public"
-                  ],
-                  "expires_at": null,
-                  "filter_action": "hide",
-                  "keywords": [
-                    {
-                      "id": "1311",
-                      "keyword": "from birdsite",
-                      "whole_word": true
-                    },
-                    {
-                      "id": "1324",
-                      "keyword": "@twitter.com",
-                      "whole_word": false
-                    },
-                    {
-                      "id": "1325",
-                      "keyword": "https://t.co/",
-                      "whole_word": false
-                    }
-                  ],
-                  "statuses": []
+                "examples": {
+                  "FilterExample": {
+                    "$ref": "#/components/examples/FilterExample"
+                  }
                 }
               }
             }
@@ -5331,10 +5298,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/FilterKeyword"
                 },
-                "example": {
-                  "id": "35583",
-                  "keyword": "some",
-                  "whole_word": false
+                "examples": {
+                  "FilterKeywordExample": {
+                    "$ref": "#/components/examples/FilterKeywordExample"
+                  }
                 }
               }
             }
@@ -5439,10 +5406,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/FilterKeyword"
                 },
-                "example": {
-                  "id": "34979",
-                  "keyword": "baz",
-                  "whole_word": true
+                "examples": {
+                  "FilterKeywordExample": {
+                    "$ref": "#/components/examples/FilterKeywordExample"
+                  }
                 }
               }
             }
@@ -5873,9 +5840,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/FilterStatus"
                 },
-                "example": {
-                  "id": "897",
-                  "status_id": "109416512469928632"
+                "examples": {
+                  "FilterStatusExample": {
+                    "$ref": "#/components/examples/FilterStatusExample"
+                  }
                 }
               }
             }
@@ -6212,18 +6180,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/V1_Filter"
                 },
-                "example": {
-                  "id": "8449",
-                  "phrase": "test",
-                  "context": [
-                    "home",
-                    "notifications",
-                    "public",
-                    "thread"
-                  ],
-                  "whole_word": false,
-                  "expires_at": "2019-11-26T09:08:06.254Z",
-                  "irreversible": true
+                "examples": {
+                  "V1_FilterExample": {
+                    "$ref": "#/components/examples/V1_FilterExample"
+                  }
                 }
               }
             }
@@ -7387,173 +7347,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/Instance"
                 },
-                "example": {
-                  "domain": "mastodon.social",
-                  "title": "Mastodon",
-                  "version": "4.0.0rc1",
-                  "source_url": "https://github.com/mastodon/mastodon",
-                  "description": "The original server operated by the Mastodon gGmbH non-profit",
-                  "usage": {
-                    "users": {
-                      "active_month": 123122
-                    }
-                  },
-                  "thumbnail": {
-                    "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
-                    "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
-                    "versions": {
-                      "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
-                      "@2x": "https://files.mastodon.social/site_uploads/files/000/000/001/@2x/57c12f441d083cde.png"
-                    }
-                  },
-                  "icon": [
-                    {
-                      "src": "https://files.mastodon.social/site_uploads/files/000/000/003/36/accf17b0104f18e5.png",
-                      "size": "36x36"
-                    },
-                    {
-                      "src": "https://files.mastodon.social/site_uploads/files/000/000/003/72/accf17b0104f18e5.png",
-                      "size": "72x72"
-                    },
-                    {
-                      "src": "https://files.mastodon.social/site_uploads/files/000/000/003/192/accf17b0104f18e5.png",
-                      "size": "192x192"
-                    },
-                    {
-                      "src": "https://files.mastodon.social/site_uploads/files/000/000/003/512/accf17b0104f18e5.png",
-                      "size": "512x512"
-                    }
-                  ],
-                  "languages": [
-                    "en"
-                  ],
-                  "configuration": {
-                    "urls": {
-                      "streaming": "wss://mastodon.social"
-                    },
-                    "vapid": {
-                      "public_key": "BCkMmVdKDnKYwzVCDC99Iuc9GvId-x7-kKtuHnLgfF98ENiZp_aj-UNthbCdI70DqN1zUVis-x0Wrot2sBagkMc="
-                    },
-                    "accounts": {
-                      "max_featured_tags": 10,
-                      "max_pinned_statuses": 4
-                    },
-                    "statuses": {
-                      "max_characters": 500,
-                      "max_media_attachments": 4,
-                      "characters_reserved_per_url": 23
-                    },
-                    "media_attachments": {
-                      "supported_mime_types": [
-                        "image/jpeg",
-                        "image/png",
-                        "image/gif",
-                        "image/heic",
-                        "image/heif",
-                        "image/webp",
-                        "video/webm",
-                        "video/mp4",
-                        "video/quicktime",
-                        "video/ogg",
-                        "audio/wave",
-                        "audio/wav",
-                        "audio/x-wav",
-                        "audio/x-pn-wave",
-                        "audio/vnd.wave",
-                        "audio/ogg",
-                        "audio/vorbis",
-                        "audio/mpeg",
-                        "audio/mp3",
-                        "audio/webm",
-                        "audio/flac",
-                        "audio/aac",
-                        "audio/m4a",
-                        "audio/x-m4a",
-                        "audio/mp4",
-                        "audio/3gpp",
-                        "video/x-ms-asf"
-                      ],
-                      "description_limit": 1500,
-                      "image_size_limit": 10485760,
-                      "image_matrix_limit": 16777216,
-                      "video_size_limit": 41943040,
-                      "video_frame_rate_limit": 60,
-                      "video_matrix_limit": 2304000
-                    },
-                    "polls": {
-                      "max_options": 4,
-                      "max_characters_per_option": 50,
-                      "min_expiration": 300,
-                      "max_expiration": 2629746
-                    },
-                    "translation": {
-                      "enabled": true
-                    }
-                  },
-                  "registrations": {
-                    "enabled": false,
-                    "approval_required": false,
-                    "message": null
-                  },
-                  "contact": {
-                    "email": "staff@mastodon.social",
-                    "account": {
-                      "id": "1",
-                      "username": "Gargron",
-                      "acct": "Gargron",
-                      "display_name": "Eugen 💀",
-                      "locked": false,
-                      "bot": false,
-                      "discoverable": true,
-                      "group": false,
-                      "created_at": "2016-03-16T00:00:00.000Z",
-                      "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
-                      "url": "https://mastodon.social/@Gargron",
-                      "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
-                      "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
-                      "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
-                      "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
-                      "followers_count": 133026,
-                      "following_count": 311,
-                      "statuses_count": 72605,
-                      "last_status_at": "2022-10-31",
-                      "noindex": false,
-                      "emojis": [],
-                      "fields": [
-                        {
-                          "name": "Patreon",
-                          "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
-                          "verified_at": null
-                        }
-                      ]
-                    }
-                  },
-                  "rules": [
-                    {
-                      "id": "1",
-                      "text": "Sexually explicit or violent media must be marked as sensitive when posting"
-                    },
-                    {
-                      "id": "2",
-                      "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
-                    },
-                    {
-                      "id": "3",
-                      "text": "No incitement of violence or promotion of violent ideologies"
-                    },
-                    {
-                      "id": "4",
-                      "text": "No harassment, dogpiling or doxxing of other users"
-                    },
-                    {
-                      "id": "5",
-                      "text": "No content illegal in Germany"
-                    },
-                    {
-                      "id": "7",
-                      "text": "Do not share intentionally false or misleading information"
-                    }
-                  ]
+                "examples": {
+                  "InstanceExample": {
+                    "$ref": "#/components/examples/InstanceExample"
+                  }
                 }
               }
             }
@@ -7765,32 +7562,11 @@
                     "$ref": "#/components/schemas/Rule"
                   }
                 },
-                "example": [
-                  {
-                    "id": "1",
-                    "text": "Sexually explicit or violent media must be marked as sensitive when posting"
-                  },
-                  {
-                    "id": "2",
-                    "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
-                  },
-                  {
-                    "id": "3",
-                    "text": "No incitement of violence or promotion of violent ideologies"
-                  },
-                  {
-                    "id": "4",
-                    "text": "No harassment, dogpiling or doxxing of other users"
-                  },
-                  {
-                    "id": "5",
-                    "text": "No content illegal in Germany"
-                  },
-                  {
-                    "id": "7",
-                    "text": "Do not share intentionally false or misleading information"
+                "examples": {
+                  "RuleExample": {
+                    "$ref": "#/components/examples/RuleExample"
                   }
-                ]
+                }
               }
             }
           },
@@ -7921,9 +7697,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/ExtendedDescription"
                 },
-                "example": {
-                  "updated_at": "2022-11-03T04:09:07Z",
-                  "content": "<p>For inquiries not related specifically to the operation of this server, such as press inquiries, please contact <a href=\"mailto:press@joinmastodon.org\">press@joinmastodon.org</a>.</p>\n\n<h2>Funding</h2>\n\n<p>This server is crowdfunded by <a href=\"https://patreon.com/mastodon\">Patreon donations</a>. For a list of sponsors, see <a href=\"https://joinmastodon.org/sponsors\">joinmastodon.org</a>.</p>\n\n<h2>Reporting and moderation</h2>\n\n<p>When reporting accounts, please make sure to include at least a few posts that show rule-breaking behaviour, when applicable. If there is any additional context that might help make a decision, please also include it in the comment. This is especially important when the content is in a language nobody on the moderation team speaks.</p>\n\n<p>We usually handle reports within 24 hours. Please mind that you are not notified when a report you have made has led to a punitive action, and that not all punitive actions are externally visible. For first time offenses, we may opt to delete offending content, escalating to harsher measures on repeat offenses.</p>\n\n<h2>Impressum</h2>\n\n<p>Mastodon gGmbH<br>\nMühlenstraße 8a<br>\n14167 Berlin<br>\nGermany</p>\n\n<p>E-Mail-Adresse: hello@joinmastodon.org</p>\n\n<p>Vertretungsberechtigt: Eugen Rochko (Geschäftsführer)</p>\n\n<p>Umsatzsteuer Identifikationsnummer (USt-ID): DE344258260</p>\n\n<p>Handelsregister<br>\nGeführt bei: Amtsgericht Charlottenburg<br>\nNummer: HRB 230086 B</p>\n"
+                "examples": {
+                  "ExtendedDescriptionExample": {
+                    "$ref": "#/components/examples/ExtendedDescriptionExample"
+                  }
                 }
               }
             }
@@ -7986,9 +7763,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/PrivacyPolicy"
                 },
-                "example": {
-                  "updated_at": "2022-10-07T00:00:00+00:00",
-                  "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
+                "examples": {
+                  "PrivacyPolicyExample": {
+                    "$ref": "#/components/examples/PrivacyPolicyExample"
+                  }
                 }
               }
             }
@@ -8051,11 +7829,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/TermsOfService"
                 },
-                "example": {
-                  "effective_date": "2025-04-15",
-                  "effective": true,
-                  "content": "<p>Foo bar newer</p>\n",
-                  "succeeded_by": null
+                "examples": {
+                  "TermsOfServiceExample": {
+                    "$ref": "#/components/examples/TermsOfServiceExample"
+                  }
                 }
               }
             }
@@ -8118,11 +7895,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/TermsOfService"
                 },
-                "example": {
-                  "effective_date": "2025-04-15",
-                  "effective": true,
-                  "content": "<p>Foo bar newer</p>\n",
-                  "succeeded_by": null
+                "examples": {
+                  "TermsOfServiceExample": {
+                    "$ref": "#/components/examples/TermsOfServiceExample"
+                  }
                 }
               }
             }
@@ -8250,130 +8026,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/V1_Instance"
                 },
-                "example": {
-                  "uri": "mastodon.social",
-                  "title": "Mastodon",
-                  "short_description": "The original server operated by the Mastodon gGmbH non-profit",
-                  "description": "",
-                  "email": "staff@mastodon.social",
-                  "version": "3.5.3",
-                  "urls": {
-                    "streaming_api": "wss://mastodon.social"
-                  },
-                  "stats": {
-                    "user_count": 812303,
-                    "status_count": 38151616,
-                    "domain_count": 25255
-                  },
-                  "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/original/vlcsnap-2018-08-27-16h43m11s127.png",
-                  "languages": [
-                    "en"
-                  ],
-                  "registrations": false,
-                  "approval_required": false,
-                  "invites_enabled": true,
-                  "configuration": {
-                    "statuses": {
-                      "max_characters": 500,
-                      "max_media_attachments": 4,
-                      "characters_reserved_per_url": 23
-                    },
-                    "media_attachments": {
-                      "supported_mime_types": [
-                        "image/jpeg",
-                        "image/png",
-                        "image/gif",
-                        "image/webp",
-                        "video/webm",
-                        "video/mp4",
-                        "video/quicktime",
-                        "video/ogg",
-                        "audio/wave",
-                        "audio/wav",
-                        "audio/x-wav",
-                        "audio/x-pn-wave",
-                        "audio/vnd.wave",
-                        "audio/ogg",
-                        "audio/vorbis",
-                        "audio/mpeg",
-                        "audio/mp3",
-                        "audio/webm",
-                        "audio/flac",
-                        "audio/aac",
-                        "audio/m4a",
-                        "audio/x-m4a",
-                        "audio/mp4",
-                        "audio/3gpp",
-                        "video/x-ms-asf"
-                      ],
-                      "image_size_limit": 10485760,
-                      "image_matrix_limit": 16777216,
-                      "video_size_limit": 41943040,
-                      "video_frame_rate_limit": 60,
-                      "video_matrix_limit": 2304000
-                    },
-                    "polls": {
-                      "max_options": 4,
-                      "max_characters_per_option": 50,
-                      "min_expiration": 300,
-                      "max_expiration": 2629746
-                    }
-                  },
-                  "contact_account": {
-                    "id": "1",
-                    "username": "Gargron",
-                    "acct": "Gargron",
-                    "display_name": "Eugen",
-                    "locked": false,
-                    "bot": false,
-                    "discoverable": true,
-                    "group": false,
-                    "created_at": "2016-03-16T00:00:00.000Z",
-                    "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
-                    "url": "https://mastodon.social/@Gargron",
-                    "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
-                    "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
-                    "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
-                    "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
-                    "followers_count": 118944,
-                    "following_count": 305,
-                    "statuses_count": 72309,
-                    "last_status_at": "2022-08-24",
-                    "emojis": [],
-                    "fields": [
-                      {
-                        "name": "Patreon",
-                        "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
-                        "verified_at": null
-                      }
-                    ]
-                  },
-                  "rules": [
-                    {
-                      "id": "1",
-                      "text": "Sexually explicit or violent media must be marked as sensitive when posting"
-                    },
-                    {
-                      "id": "2",
-                      "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
-                    },
-                    {
-                      "id": "3",
-                      "text": "No incitement of violence or promotion of violent ideologies"
-                    },
-                    {
-                      "id": "4",
-                      "text": "No harassment, dogpiling or doxxing of other users"
-                    },
-                    {
-                      "id": "5",
-                      "text": "No content illegal in Germany"
-                    },
-                    {
-                      "id": "7",
-                      "text": "Do not share intentionally false or misleading information"
-                    }
-                  ]
+                "examples": {
+                  "V1_InstanceExample": {
+                    "$ref": "#/components/examples/V1_InstanceExample"
+                  }
                 }
               }
             }
@@ -11876,28 +11532,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/Poll"
                 },
-                "example": {
-                  "id": "34830",
-                  "expires_at": "2019-12-05T04:05:08.302Z",
-                  "expired": true,
-                  "multiple": false,
-                  "votes_count": 10,
-                  "voters_count": null,
-                  "voted": true,
-                  "own_votes": [
-                    1
-                  ],
-                  "options": [
-                    {
-                      "title": "accept",
-                      "votes_count": 6
-                    },
-                    {
-                      "title": "deny",
-                      "votes_count": 4
-                    }
-                  ],
-                  "emojis": []
+                "examples": {
+                  "PollExample": {
+                    "$ref": "#/components/examples/PollExample"
+                  }
                 }
               }
             }
@@ -12304,18 +11942,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/WebPushSubscription"
                 },
-                "example": {
-                  "id": 328183,
-                  "endpoint": "https://yourdomain.example/listener",
-                  "standard": true,
-                  "alerts": {
-                    "follow": true,
-                    "favourite": true,
-                    "reblog": true,
-                    "mention": true,
-                    "poll": true
-                  },
-                  "server_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+                "examples": {
+                  "WebPushSubscriptionExample": {
+                    "$ref": "#/components/examples/WebPushSubscriptionExample"
+                  }
                 }
               }
             }
@@ -12699,25 +12329,11 @@
                     "$ref": "#/components/schemas/ScheduledStatus"
                   }
                 },
-                "example": [
-                  {
-                    "id": "3221",
-                    "scheduled_at": "2019-12-05T12:33:01.000Z",
-                    "params": {
-                      "poll": null,
-                      "text": "test content",
-                      "media_ids": null,
-                      "sensitive": null,
-                      "visibility": null,
-                      "idempotency": null,
-                      "scheduled_at": null,
-                      "spoiler_text": null,
-                      "application_id": 596551,
-                      "in_reply_to_id": null
-                    },
-                    "media_attachments": []
+                "examples": {
+                  "ScheduledStatusExample": {
+                    "$ref": "#/components/examples/ScheduledStatusExample"
                   }
-                ]
+                }
               }
             }
           },
@@ -12825,22 +12441,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/ScheduledStatus"
                 },
-                "example": {
-                  "id": "3221",
-                  "scheduled_at": "2019-12-05T12:33:01.000Z",
-                  "params": {
-                    "poll": null,
-                    "text": "test content",
-                    "media_ids": null,
-                    "sensitive": null,
-                    "visibility": null,
-                    "idempotency": null,
-                    "scheduled_at": null,
-                    "spoiler_text": null,
-                    "application_id": 596551,
-                    "in_reply_to_id": null
-                  },
-                  "media_attachments": []
+                "examples": {
+                  "ScheduledStatusExample": {
+                    "$ref": "#/components/examples/ScheduledStatusExample"
+                  }
                 }
               }
             }
@@ -12919,22 +12523,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/ScheduledStatus"
                 },
-                "example": {
-                  "id": "3221",
-                  "scheduled_at": "2019-12-05T13:33:01.000Z",
-                  "params": {
-                    "poll": null,
-                    "text": "test content",
-                    "media_ids": null,
-                    "sensitive": null,
-                    "visibility": null,
-                    "idempotency": null,
-                    "scheduled_at": null,
-                    "spoiler_text": null,
-                    "application_id": 596551,
-                    "in_reply_to_id": null
-                  },
-                  "media_attachments": []
+                "examples": {
+                  "ScheduledStatusExample": {
+                    "$ref": "#/components/examples/ScheduledStatusExample"
+                  }
                 }
               }
             }
@@ -13522,65 +13114,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/Status"
                 },
-                "example": {
-                  "id": "1",
-                  "created_at": "2016-03-16T14:44:31.580Z",
-                  "in_reply_to_id": null,
-                  "in_reply_to_account_id": null,
-                  "sensitive": false,
-                  "spoiler_text": "",
-                  "visibility": "public",
-                  "language": "en",
-                  "uri": "https://mastodon.social/users/Gargron/statuses/1",
-                  "url": "https://mastodon.social/@Gargron/1",
-                  "replies_count": 7,
-                  "reblogs_count": 98,
-                  "favourites_count": 112,
-                  "favourited": false,
-                  "reblogged": false,
-                  "muted": false,
-                  "bookmarked": false,
-                  "content": "<p>Hello world</p>",
-                  "reblog": null,
-                  "application": null,
-                  "account": {
-                    "id": "1",
-                    "username": "Gargron",
-                    "acct": "Gargron",
-                    "display_name": "Eugen",
-                    "locked": false,
-                    "bot": false,
-                    "created_at": "2016-03-16T14:34:26.392Z",
-                    "note": "<p>Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.</p>",
-                    "url": "https://mastodon.social/@Gargron",
-                    "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
-                    "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
-                    "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
-                    "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
-                    "followers_count": 320472,
-                    "following_count": 453,
-                    "statuses_count": 61163,
-                    "last_status_at": "2019-12-05T03:03:02.595Z",
-                    "emojis": [],
-                    "fields": [
-                      {
-                        "name": "Patreon",
-                        "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
-                        "verified_at": null
-                      },
-                      {
-                        "name": "Homepage",
-                        "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span></a>",
-                        "verified_at": "2019-07-15T18:29:57.191+00:00"
-                      }
-                    ]
-                  },
-                  "media_attachments": [],
-                  "mentions": [],
-                  "tags": [],
-                  "emojis": [],
-                  "card": null,
-                  "poll": null
+                "examples": {
+                  "StatusExample": {
+                    "$ref": "#/components/examples/StatusExample"
+                  }
                 }
               }
             }
@@ -15185,10 +14722,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/StatusSource"
                 },
-                "example": {
-                  "id": "108942703571991143",
-                  "text": "this is a status that will be edited",
-                  "spoiler_text": ""
+                "examples": {
+                  "StatusSourceExample": {
+                    "$ref": "#/components/examples/StatusSourceExample"
+                  }
                 }
               }
             }
@@ -15269,20 +14806,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/PreviewCard"
                 },
-                "example": {
-                  "url": "https://www.youtube.com/watch?v=OMv_EPMED8Y",
-                  "title": "♪ Brand New Friend (Christmas Song!)",
-                  "description": "",
-                  "type": "video",
-                  "author_name": "YOGSCAST Lewis & Simon",
-                  "author_url": "https://www.youtube.com/user/BlueXephos",
-                  "provider_name": "YouTube",
-                  "provider_url": "https://www.youtube.com/",
-                  "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>",
-                  "width": 480,
-                  "height": 270,
-                  "image": "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg",
-                  "embed_url": ""
+                "examples": {
+                  "PreviewCardExample": {
+                    "$ref": "#/components/examples/PreviewCardExample"
+                  }
                 }
               }
             }
@@ -16298,48 +15825,10 @@
                 "schema": {
                   "$ref": "#/components/schemas/Tag"
                 },
-                "example": {
-                  "name": "Test",
-                  "url": "http://mastodon.example/tags/test",
-                  "history": [
-                    {
-                      "day": "1668556800",
-                      "accounts": "0",
-                      "uses": "0"
-                    },
-                    {
-                      "day": "1668470400",
-                      "accounts": "0",
-                      "uses": "0"
-                    },
-                    {
-                      "day": "1668384000",
-                      "accounts": "0",
-                      "uses": "0"
-                    },
-                    {
-                      "day": "1668297600",
-                      "accounts": "1",
-                      "uses": "1"
-                    },
-                    {
-                      "day": "1668211200",
-                      "accounts": "0",
-                      "uses": "0"
-                    },
-                    {
-                      "day": "1668124800",
-                      "accounts": "0",
-                      "uses": "0"
-                    },
-                    {
-                      "day": "1668038400",
-                      "accounts": "0",
-                      "uses": "0"
-                    }
-                  ],
-                  "following": false,
-                  "featured": false
+                "examples": {
+                  "TagExample": {
+                    "$ref": "#/components/examples/TagExample"
+                  }
                 }
               }
             }
@@ -22936,6 +22425,642 @@
         "scheme": "bearer",
         "bearerFormat": "JWT",
         "description": "Bearer token authentication"
+      }
+    },
+    "examples": {
+      "FeaturedTagExample": {
+        "summary": "Example for FeaturedTag",
+        "value": [
+          {
+            "id": "627",
+            "name": "nowplaying",
+            "statuses_count": 36,
+            "last_status_at": "2019-11-15T07:14:43.524Z"
+          }
+        ]
+      },
+      "IdentityProofExample": {
+        "summary": "Example for IdentityProof",
+        "value": [
+          {
+            "provider": "Keybase",
+            "provider_username": "gargron",
+            "updated_at": "2019-07-21T20:14:39.596Z",
+            "proof_url": "https://keybase.io/gargron/sigchain#5cfc20c7018f2beefb42a68836da59a792e55daa4d118498c9b1898de7e845690f",
+            "profile_url": "https://keybase.io/gargron"
+          }
+        ]
+      },
+      "FilterExample": {
+        "summary": "Example for Filter",
+        "value": {
+          "id": "20060",
+          "title": "Remove Twitter crossposts from public timeline",
+          "context": [
+            "public"
+          ],
+          "expires_at": null,
+          "filter_action": "hide",
+          "keywords": [
+            {
+              "id": "1311",
+              "keyword": "from birdsite",
+              "whole_word": true
+            },
+            {
+              "id": "1324",
+              "keyword": "@twitter.com",
+              "whole_word": false
+            },
+            {
+              "id": "1325",
+              "keyword": "https://t.co/",
+              "whole_word": false
+            }
+          ],
+          "statuses": []
+        }
+      },
+      "FilterKeywordExample": {
+        "summary": "Example for FilterKeyword",
+        "value": {
+          "id": "35583",
+          "keyword": "some",
+          "whole_word": false
+        }
+      },
+      "FilterStatusExample": {
+        "summary": "Example for FilterStatus",
+        "value": {
+          "id": "897",
+          "status_id": "109416512469928632"
+        }
+      },
+      "V1_FilterExample": {
+        "summary": "Example for V1_Filter",
+        "value": {
+          "id": "8449",
+          "phrase": "test",
+          "context": [
+            "home",
+            "notifications",
+            "public",
+            "thread"
+          ],
+          "whole_word": false,
+          "expires_at": "2019-11-26T09:08:06.254Z",
+          "irreversible": true
+        }
+      },
+      "InstanceExample": {
+        "summary": "Example for Instance",
+        "value": {
+          "domain": "mastodon.social",
+          "title": "Mastodon",
+          "version": "4.0.0rc1",
+          "source_url": "https://github.com/mastodon/mastodon",
+          "description": "The original server operated by the Mastodon gGmbH non-profit",
+          "usage": {
+            "users": {
+              "active_month": 123122
+            }
+          },
+          "thumbnail": {
+            "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+            "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
+            "versions": {
+              "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+              "@2x": "https://files.mastodon.social/site_uploads/files/000/000/001/@2x/57c12f441d083cde.png"
+            }
+          },
+          "icon": [
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/36/accf17b0104f18e5.png",
+              "size": "36x36"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/72/accf17b0104f18e5.png",
+              "size": "72x72"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/192/accf17b0104f18e5.png",
+              "size": "192x192"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/512/accf17b0104f18e5.png",
+              "size": "512x512"
+            }
+          ],
+          "languages": [
+            "en"
+          ],
+          "configuration": {
+            "urls": {
+              "streaming": "wss://mastodon.social"
+            },
+            "vapid": {
+              "public_key": "BCkMmVdKDnKYwzVCDC99Iuc9GvId-x7-kKtuHnLgfF98ENiZp_aj-UNthbCdI70DqN1zUVis-x0Wrot2sBagkMc="
+            },
+            "accounts": {
+              "max_featured_tags": 10,
+              "max_pinned_statuses": 4
+            },
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/heic",
+                "image/heif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "description_limit": 1500,
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            },
+            "translation": {
+              "enabled": true
+            }
+          },
+          "registrations": {
+            "enabled": false,
+            "approval_required": false,
+            "message": null
+          },
+          "contact": {
+            "email": "staff@mastodon.social",
+            "account": {
+              "id": "1",
+              "username": "Gargron",
+              "acct": "Gargron",
+              "display_name": "Eugen 💀",
+              "locked": false,
+              "bot": false,
+              "discoverable": true,
+              "group": false,
+              "created_at": "2016-03-16T00:00:00.000Z",
+              "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+              "url": "https://mastodon.social/@Gargron",
+              "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "followers_count": 133026,
+              "following_count": 311,
+              "statuses_count": 72605,
+              "last_status_at": "2022-10-31",
+              "noindex": false,
+              "emojis": [],
+              "fields": [
+                {
+                  "name": "Patreon",
+                  "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                  "verified_at": null
+                }
+              ]
+            }
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
+        }
+      },
+      "RuleExample": {
+        "summary": "Example for Rule",
+        "value": [
+          {
+            "id": "1",
+            "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+          },
+          {
+            "id": "2",
+            "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+          },
+          {
+            "id": "3",
+            "text": "No incitement of violence or promotion of violent ideologies"
+          },
+          {
+            "id": "4",
+            "text": "No harassment, dogpiling or doxxing of other users"
+          },
+          {
+            "id": "5",
+            "text": "No content illegal in Germany"
+          },
+          {
+            "id": "7",
+            "text": "Do not share intentionally false or misleading information"
+          }
+        ]
+      },
+      "ExtendedDescriptionExample": {
+        "summary": "Example for ExtendedDescription",
+        "value": {
+          "updated_at": "2022-11-03T04:09:07Z",
+          "content": "<p>For inquiries not related specifically to the operation of this server, such as press inquiries, please contact <a href=\"mailto:press@joinmastodon.org\">press@joinmastodon.org</a>.</p>\n\n<h2>Funding</h2>\n\n<p>This server is crowdfunded by <a href=\"https://patreon.com/mastodon\">Patreon donations</a>. For a list of sponsors, see <a href=\"https://joinmastodon.org/sponsors\">joinmastodon.org</a>.</p>\n\n<h2>Reporting and moderation</h2>\n\n<p>When reporting accounts, please make sure to include at least a few posts that show rule-breaking behaviour, when applicable. If there is any additional context that might help make a decision, please also include it in the comment. This is especially important when the content is in a language nobody on the moderation team speaks.</p>\n\n<p>We usually handle reports within 24 hours. Please mind that you are not notified when a report you have made has led to a punitive action, and that not all punitive actions are externally visible. For first time offenses, we may opt to delete offending content, escalating to harsher measures on repeat offenses.</p>\n\n<h2>Impressum</h2>\n\n<p>Mastodon gGmbH<br>\nMühlenstraße 8a<br>\n14167 Berlin<br>\nGermany</p>\n\n<p>E-Mail-Adresse: hello@joinmastodon.org</p>\n\n<p>Vertretungsberechtigt: Eugen Rochko (Geschäftsführer)</p>\n\n<p>Umsatzsteuer Identifikationsnummer (USt-ID): DE344258260</p>\n\n<p>Handelsregister<br>\nGeführt bei: Amtsgericht Charlottenburg<br>\nNummer: HRB 230086 B</p>\n"
+        }
+      },
+      "PrivacyPolicyExample": {
+        "summary": "Example for PrivacyPolicy",
+        "value": {
+          "updated_at": "2022-10-07T00:00:00+00:00",
+          "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
+        }
+      },
+      "TermsOfServiceExample": {
+        "summary": "Example for TermsOfService",
+        "value": {
+          "effective_date": "2025-04-15",
+          "effective": true,
+          "content": "<p>Foo bar newer</p>\n",
+          "succeeded_by": null
+        }
+      },
+      "V1_InstanceExample": {
+        "summary": "Example for V1_Instance",
+        "value": {
+          "uri": "mastodon.social",
+          "title": "Mastodon",
+          "short_description": "The original server operated by the Mastodon gGmbH non-profit",
+          "description": "",
+          "email": "staff@mastodon.social",
+          "version": "3.5.3",
+          "urls": {
+            "streaming_api": "wss://mastodon.social"
+          },
+          "stats": {
+            "user_count": 812303,
+            "status_count": 38151616,
+            "domain_count": 25255
+          },
+          "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/original/vlcsnap-2018-08-27-16h43m11s127.png",
+          "languages": [
+            "en"
+          ],
+          "registrations": false,
+          "approval_required": false,
+          "invites_enabled": true,
+          "configuration": {
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            }
+          },
+          "contact_account": {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "discoverable": true,
+            "group": false,
+            "created_at": "2016-03-16T00:00:00.000Z",
+            "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "followers_count": 118944,
+            "following_count": 305,
+            "statuses_count": 72309,
+            "last_status_at": "2022-08-24",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              }
+            ]
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
+        }
+      },
+      "PollExample": {
+        "summary": "Example for Poll",
+        "value": {
+          "id": "34830",
+          "expires_at": "2019-12-05T04:05:08.302Z",
+          "expired": true,
+          "multiple": false,
+          "votes_count": 10,
+          "voters_count": null,
+          "voted": true,
+          "own_votes": [
+            1
+          ],
+          "options": [
+            {
+              "title": "accept",
+              "votes_count": 6
+            },
+            {
+              "title": "deny",
+              "votes_count": 4
+            }
+          ],
+          "emojis": []
+        }
+      },
+      "WebPushSubscriptionExample": {
+        "summary": "Example for WebPushSubscription",
+        "value": {
+          "id": 328183,
+          "endpoint": "https://yourdomain.example/listener",
+          "standard": true,
+          "alerts": {
+            "follow": true,
+            "favourite": true,
+            "reblog": true,
+            "mention": true,
+            "poll": true
+          },
+          "server_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
+        }
+      },
+      "ScheduledStatusExample": {
+        "summary": "Example for ScheduledStatus",
+        "value": [
+          {
+            "id": "3221",
+            "scheduled_at": "2019-12-05T12:33:01.000Z",
+            "params": {
+              "poll": null,
+              "text": "test content",
+              "media_ids": null,
+              "sensitive": null,
+              "visibility": null,
+              "idempotency": null,
+              "scheduled_at": null,
+              "spoiler_text": null,
+              "application_id": 596551,
+              "in_reply_to_id": null
+            },
+            "media_attachments": []
+          }
+        ]
+      },
+      "StatusExample": {
+        "summary": "Example for Status",
+        "value": {
+          "id": "1",
+          "created_at": "2016-03-16T14:44:31.580Z",
+          "in_reply_to_id": null,
+          "in_reply_to_account_id": null,
+          "sensitive": false,
+          "spoiler_text": "",
+          "visibility": "public",
+          "language": "en",
+          "uri": "https://mastodon.social/users/Gargron/statuses/1",
+          "url": "https://mastodon.social/@Gargron/1",
+          "replies_count": 7,
+          "reblogs_count": 98,
+          "favourites_count": 112,
+          "favourited": false,
+          "reblogged": false,
+          "muted": false,
+          "bookmarked": false,
+          "content": "<p>Hello world</p>",
+          "reblog": null,
+          "application": null,
+          "account": {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "created_at": "2016-03-16T14:34:26.392Z",
+            "note": "<p>Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "followers_count": 320472,
+            "following_count": 453,
+            "statuses_count": 61163,
+            "last_status_at": "2019-12-05T03:03:02.595Z",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              },
+              {
+                "name": "Homepage",
+                "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span></a>",
+                "verified_at": "2019-07-15T18:29:57.191+00:00"
+              }
+            ]
+          },
+          "media_attachments": [],
+          "mentions": [],
+          "tags": [],
+          "emojis": [],
+          "card": null,
+          "poll": null
+        }
+      },
+      "StatusSourceExample": {
+        "summary": "Example for StatusSource",
+        "value": {
+          "id": "108942703571991143",
+          "text": "this is a status that will be edited",
+          "spoiler_text": ""
+        }
+      },
+      "PreviewCardExample": {
+        "summary": "Example for PreviewCard",
+        "value": {
+          "url": "https://www.youtube.com/watch?v=OMv_EPMED8Y",
+          "title": "♪ Brand New Friend (Christmas Song!)",
+          "description": "",
+          "type": "video",
+          "author_name": "YOGSCAST Lewis & Simon",
+          "author_url": "https://www.youtube.com/user/BlueXephos",
+          "provider_name": "YouTube",
+          "provider_url": "https://www.youtube.com/",
+          "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>",
+          "width": 480,
+          "height": 270,
+          "image": "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg",
+          "embed_url": ""
+        }
+      },
+      "TagExample": {
+        "summary": "Example for Tag",
+        "value": {
+          "name": "Test",
+          "url": "http://mastodon.example/tags/test",
+          "history": [
+            {
+              "day": "1668556800",
+              "accounts": "0",
+              "uses": "0"
+            },
+            {
+              "day": "1668470400",
+              "accounts": "0",
+              "uses": "0"
+            },
+            {
+              "day": "1668384000",
+              "accounts": "0",
+              "uses": "0"
+            },
+            {
+              "day": "1668297600",
+              "accounts": "1",
+              "uses": "1"
+            },
+            {
+              "day": "1668211200",
+              "accounts": "0",
+              "uses": "0"
+            },
+            {
+              "day": "1668124800",
+              "accounts": "0",
+              "uses": "0"
+            },
+            {
+              "day": "1668038400",
+              "accounts": "0",
+              "uses": "0"
+            }
+          ],
+          "following": false,
+          "featured": false
+        }
       }
     }
   }

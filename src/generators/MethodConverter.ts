@@ -7,6 +7,7 @@ import {
   OpenAPIProperty,
   OpenAPISpec,
   OpenAPIHeader,
+  OpenAPIExample,
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
@@ -46,6 +47,9 @@ class MethodConverter {
         this.convertMethod(method, methodFile.name, spec);
       }
     }
+
+    // After all methods are converted, organize component examples
+    this.organizeComponentExamples(spec);
   }
 
   /**
@@ -561,6 +565,118 @@ class MethodConverter {
     }
 
     return scopes;
+  }
+
+  /**
+   * Organize component examples by moving examples for component references
+   * to the components/examples section and replacing inline examples with $refs
+   */
+  private organizeComponentExamples(spec: OpenAPISpec): void {
+    if (!spec.components) {
+      spec.components = {};
+    }
+    if (!spec.components.examples) {
+      spec.components.examples = {};
+    }
+
+    // Track component examples to avoid duplicates
+    const componentExamples = new Map<string, any>();
+
+    // Process all paths and operations
+    for (const [pathKey, pathItem] of Object.entries(spec.paths)) {
+      for (const [methodKey, operation] of Object.entries(pathItem)) {
+        if (
+          typeof operation === 'object' &&
+          operation !== null &&
+          'responses' in operation
+        ) {
+          const typedOperation = operation as OpenAPIOperation;
+          if (typedOperation.responses) {
+            for (const [statusCode, response] of Object.entries(
+              typedOperation.responses
+            )) {
+              if (
+                response &&
+                typeof response === 'object' &&
+                'content' in response &&
+                response.content
+              ) {
+                for (const [contentType, mediaType] of Object.entries(
+                  response.content
+                )) {
+                  if (
+                    mediaType &&
+                    typeof mediaType === 'object' &&
+                    'example' in mediaType &&
+                    'schema' in mediaType
+                  ) {
+                    if (mediaType.example && mediaType.schema) {
+                      const componentName = this.extractComponentName(
+                        mediaType.schema
+                      );
+                      if (componentName) {
+                        // This schema references a component, move example to components section
+                        const exampleName = this.generateExampleComponentName(
+                          componentName,
+                          statusCode
+                        );
+
+                        // Store the example in components if not already present
+                        if (!componentExamples.has(exampleName)) {
+                          componentExamples.set(exampleName, mediaType.example);
+                          spec.components!.examples![exampleName] = {
+                            summary: `Example for ${componentName}`,
+                            value: mediaType.example,
+                          };
+                        }
+
+                        // Replace inline example with reference
+                        delete mediaType.example;
+                        if (!mediaType.examples) {
+                          mediaType.examples = {};
+                        }
+                        mediaType.examples[exampleName] = {
+                          $ref: `#/components/examples/${exampleName}`,
+                        };
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Extract component name from a schema that might reference a component
+   */
+  private extractComponentName(schema: any): string | null {
+    // Handle direct component reference
+    if (schema.$ref && typeof schema.$ref === 'string') {
+      const match = schema.$ref.match(/^#\/components\/schemas\/(.+)$/);
+      return match ? match[1] : null;
+    }
+
+    // Handle array of components
+    if (schema.type === 'array' && schema.items && schema.items.$ref) {
+      const match = schema.items.$ref.match(/^#\/components\/schemas\/(.+)$/);
+      return match ? match[1] : null;
+    }
+
+    return null;
+  }
+
+  /**
+   * Generate a name for a component example
+   */
+  private generateExampleComponentName(
+    componentName: string,
+    statusCode: string
+  ): string {
+    return `${componentName}Example`;
   }
 }
 
