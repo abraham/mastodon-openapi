@@ -13,7 +13,8 @@ describe('TypeParser - redirect_uris oneOf pattern', () => {
   test('should generate oneOf schema for redirect_uris parameter with String or Array of Strings', () => {
     const parameter: ApiParameter = {
       name: 'redirect_uris',
-      description: 'String or Array of Strings. Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter.',
+      description:
+        'String or Array of Strings. Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter.',
       in: 'formData',
       required: true,
     };
@@ -21,7 +22,8 @@ describe('TypeParser - redirect_uris oneOf pattern', () => {
     const schema = typeParser.convertParameterToSchema(parameter);
 
     expect(schema).toEqual({
-      description: 'String or Array of Strings. Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter.',
+      description:
+        'String or Array of Strings. Where the user should be redirected after authorization. To display the authorization code to the user instead of redirecting to a web page, use `urn:ietf:wg:oauth:2.0:oob` in this parameter.',
       oneOf: [
         {
           type: 'string',
@@ -66,7 +68,8 @@ describe('TypeParser - redirect_uris oneOf pattern', () => {
   test('should detect URI format in redirect_uris case-insensitive', () => {
     const parameter: ApiParameter = {
       name: 'redirect_uris',
-      description: 'String or Array of String (URLs). Where the user should be redirected.',
+      description:
+        'String or Array of String (URLs). Where the user should be redirected.',
       in: 'formData',
     };
 

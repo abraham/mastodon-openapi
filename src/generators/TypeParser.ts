@@ -277,8 +277,9 @@ class TypeParser {
   public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
     // Check for "String or Array of Strings" pattern to generate oneOf schema
     if (param.description) {
-      const stringOrArrayPattern =
-        /string\s+or\s+array\s+of\s+strings?/i.test(param.description);
+      const stringOrArrayPattern = /string\s+or\s+array\s+of\s+strings?/i.test(
+        param.description
+      );
 
       if (stringOrArrayPattern) {
         // Detect if URIs are involved for format specification

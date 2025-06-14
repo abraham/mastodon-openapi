@@ -76,9 +76,10 @@ describe('Create App Method Parameters', () => {
     expect(appsMethodFile).toBeDefined();
 
     // Find the create method
-    const createMethod = appsMethodFile!.methods.find((method: any) =>
-      method.name.toLowerCase().includes('create') &&
-      method.endpoint.includes('/api/v1/apps')
+    const createMethod = appsMethodFile!.methods.find(
+      (method: any) =>
+        method.name.toLowerCase().includes('create') &&
+        method.endpoint.includes('/api/v1/apps')
     );
 
     expect(createMethod).toBeDefined();
@@ -89,7 +90,9 @@ describe('Create App Method Parameters', () => {
     );
 
     expect(redirectUrisParam).toBeDefined();
-    expect(redirectUrisParam!.description).toContain('String or Array of Strings');
+    expect(redirectUrisParam!.description).toContain(
+      'String or Array of Strings'
+    );
 
     // Convert parameter to schema using TypeParser
     const utilityHelpers = new UtilityHelpers();
