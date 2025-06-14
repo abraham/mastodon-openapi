@@ -58,4 +58,67 @@ describe('Create App Method Parameters', () => {
     expect(scopes!.schema!.enum).toContain('profile');
     expect(scopes!.schema!.enum).toContain('admin:read');
   });
+
+  test('should generate oneOf schema for redirect_uris parameter', () => {
+    // Import required types and utilities
+    const { TypeParser } = require('../../generators/TypeParser');
+    const { UtilityHelpers } = require('../../generators/UtilityHelpers');
+    const { MethodParser } = require('../../parsers/MethodParser');
+
+    const methodParser = new MethodParser();
+    const methodFiles = methodParser.parseAllMethods();
+
+    // Find the apps method file
+    const appsMethodFile = methodFiles.find((file: any) =>
+      file.name.toLowerCase().includes('apps')
+    );
+
+    expect(appsMethodFile).toBeDefined();
+
+    // Find the create method
+    const createMethod = appsMethodFile!.methods.find(
+      (method: any) =>
+        method.name.toLowerCase().includes('create') &&
+        method.endpoint.includes('/api/v1/apps')
+    );
+
+    expect(createMethod).toBeDefined();
+
+    // Find the redirect_uris parameter
+    const redirectUrisParam = createMethod!.parameters.find(
+      (p: any) => p.name === 'redirect_uris'
+    );
+
+    expect(redirectUrisParam).toBeDefined();
+    expect(redirectUrisParam!.description).toContain(
+      'String or Array of Strings'
+    );
+
+    // Convert parameter to schema using TypeParser
+    const utilityHelpers = new UtilityHelpers();
+    const typeParser = new TypeParser(utilityHelpers);
+    const schema = typeParser.convertParameterToSchema(redirectUrisParam);
+
+    // Verify oneOf schema is generated
+    expect(schema.oneOf).toBeDefined();
+    expect(schema.oneOf).toHaveLength(2);
+
+    // Verify first option: string with uri format
+    expect(schema.oneOf[0]).toEqual({
+      type: 'string',
+      format: 'uri',
+    });
+
+    // Verify second option: array of strings with uri format
+    expect(schema.oneOf[1]).toEqual({
+      type: 'array',
+      items: {
+        type: 'string',
+        format: 'uri',
+      },
+    });
+
+    // Verify description is preserved
+    expect(schema.description).toBe(redirectUrisParam.description);
+  });
 });
