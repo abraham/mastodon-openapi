@@ -314,6 +314,17 @@ class EntityConverter {
       property.format = 'email';
     }
 
+    // Special handling for OAuth scopes property
+    if (attribute.name === 'scopes' && property.type === 'array') {
+      // Use the common OAuthScopes schema component for OAuth scopes
+      return {
+        description: attribute.description,
+        $ref: '#/components/schemas/OAuthScopes',
+        ...(attribute.deprecated && { deprecated: true }),
+        ...(attribute.nullable && { nullable: true }),
+      };
+    }
+
     // Use enum values from attribute if available, otherwise from type parsing
     if (attribute.enumValues && attribute.enumValues.length > 0) {
       if (property.type === 'array') {
