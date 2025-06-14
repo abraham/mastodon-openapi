@@ -54,7 +54,20 @@ class SpecBuilder {
       ],
       paths: {},
       components: {
-        schemas: {},
+        schemas: {
+          OAuthScope: {
+            type: 'string',
+            description: 'OAuth scope for API access',
+            enum: oauthScopes.scopes.map((scope) => scope.name),
+          } as any,
+          OAuthScopes: {
+            type: 'array',
+            description: 'Array of OAuth scopes',
+            items: {
+              $ref: '#/components/schemas/OAuthScope',
+            },
+          } as any,
+        },
         securitySchemes: {
           OAuth2: {
             type: 'oauth2',

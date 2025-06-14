@@ -29044,6 +29044,64 @@
   },
   "components": {
     "schemas": {
+      "OAuthScope": {
+        "type": "string",
+        "description": "OAuth scope for API access",
+        "enum": [
+          "profile",
+          "read",
+          "write",
+          "push",
+          "follow",
+          "admin:read",
+          "admin:write",
+          "read:accounts",
+          "read:blocks",
+          "read:bookmarks",
+          "read:favourites",
+          "read:filters",
+          "read:follows",
+          "read:lists",
+          "read:mutes",
+          "read:notifications",
+          "read:search",
+          "read:statuses",
+          "write:accounts",
+          "write:blocks",
+          "write:bookmarks",
+          "write:conversations",
+          "write:favourites",
+          "write:filters",
+          "write:follows",
+          "write:lists",
+          "write:media",
+          "write:mutes",
+          "write:notifications",
+          "write:reports",
+          "write:statuses",
+          "admin:read:accounts",
+          "admin:read:reports",
+          "admin:read:domain_allows",
+          "admin:read:domain_blocks",
+          "admin:read:ip_blocks",
+          "admin:read:email_domain_blocks",
+          "admin:read:canonical_email_blocks",
+          "admin:write:accounts",
+          "admin:write:reports",
+          "admin:write:domain_allows",
+          "admin:write:domain_blocks",
+          "admin:write:ip_blocks",
+          "admin:write:email_domain_blocks",
+          "admin:write:canonical_email_blocks"
+        ]
+      },
+      "OAuthScopes": {
+        "type": "array",
+        "description": "Array of OAuth scopes",
+        "items": {
+          "$ref": "#/components/schemas/OAuthScope"
+        }
+      },
       "Account": {
         "type": "object",
         "description": "Represents a user of Mastodon and their associated profile.",
@@ -30361,10 +30419,7 @@
           },
           "scopes": {
             "description": "The scopes for your application. This is the registered `scopes` string split on whitespace.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "$ref": "#/components/schemas/OAuthScopes"
           },
           "redirect_uris": {
             "description": "The registered redirection URI(s) for your application.",
@@ -30423,10 +30478,7 @@
           },
           "scopes": {
             "description": "The scopes for your application. This is the registered `scopes` string split on whitespace.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "$ref": "#/components/schemas/OAuthScopes"
           },
           "redirect_uris": {
             "description": "The registered redirection URI(s) for your application.",

@@ -126,7 +126,10 @@ describe('OpenAPIGenerator', () => {
 
       expect(spec.openapi).toBe('3.1.0');
       expect(spec.paths).toEqual({});
-      expect(spec.components?.schemas).toEqual({});
+      // With empty inputs, the schema should only contain the OAuth scope schemas
+      expect(spec.components?.schemas).toHaveProperty('OAuthScope');
+      expect(spec.components?.schemas).toHaveProperty('OAuthScopes');
+      expect(Object.keys(spec.components?.schemas || {}).length).toBe(2);
     });
 
     it('should sanitize schema names with :: characters', () => {
