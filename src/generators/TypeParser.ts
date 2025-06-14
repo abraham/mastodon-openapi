@@ -275,6 +275,38 @@ class TypeParser {
    * Convert API parameter to OpenAPI schema
    */
   public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
+    // Check for "String or Array of Strings" pattern to generate oneOf schema
+    if (param.description) {
+      const stringOrArrayPattern =
+        /string\s+or\s+array\s+of\s+strings?/i.test(param.description);
+
+      if (stringOrArrayPattern) {
+        // Detect if URIs are involved for format specification
+        const hasUriIndicator =
+          param.name.toLowerCase().includes('uri') ||
+          param.name.toLowerCase().includes('url') ||
+          param.description.toLowerCase().includes('url') ||
+          param.description.toLowerCase().includes('uri') ||
+          param.description.toLowerCase().includes('redirect');
+
+        const baseStringSchema: OpenAPIProperty = { type: 'string' };
+        const baseArraySchema: OpenAPIProperty = {
+          type: 'array',
+          items: { type: 'string' },
+        };
+
+        if (hasUriIndicator) {
+          baseStringSchema.format = 'uri';
+          baseArraySchema.items!.format = 'uri';
+        }
+
+        return {
+          description: param.description,
+          oneOf: [baseStringSchema, baseArraySchema],
+        };
+      }
+    }
+
     // If parameter has a complex schema, use it
     if (param.schema) {
       const schema: OpenAPIProperty = {
