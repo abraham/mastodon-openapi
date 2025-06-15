@@ -29560,6 +29560,135 @@
         "type": "object",
         "description": "Additional entity definition for CredentialAccount",
         "properties": {
+          "id": {
+            "description": "The account id.",
+            "type": "string"
+          },
+          "username": {
+            "description": "The username of the account, not including domain.",
+            "type": "string"
+          },
+          "acct": {
+            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": "string",
+            "format": "uri"
+          },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier.",
+            "type": "string",
+            "format": "uri"
+          },
+          "display_name": {
+            "description": "The profile's display name.",
+            "type": "string"
+          },
+          "note": {
+            "description": "The profile's bio or description.",
+            "type": "string"
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile.",
+            "type": "string",
+            "format": "uri"
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "header": {
+            "description": "An image banner that is shown above the profile and in profile cards.",
+            "type": "string",
+            "format": "uri"
+          },
+          "header_static": {
+            "description": "A static version of the header. Equal to `header` if its value is a static image; different if `header` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": "boolean"
+          },
+          "fields": {
+            "description": "Additional metadata attached to a profile as name-value pairs.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "emojis": {
+            "description": "Custom emoji entities to be used when rendering the profile.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomEmoji"
+            }
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": "boolean"
+          },
+          "group": {
+            "description": "Indicates that the account represents a Group actor.",
+            "type": "boolean"
+          },
+          "discoverable": {
+            "description": "Whether the account has opted into discovery features such as the profile directory.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "noindex": {
+            "description": "Whether the local user has opted out of being indexed by search engines.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "moved": {
+            "description": "Indicates that the profile is currently inactive and that its user has moved to a new account.",
+            "nullable": true,
+            "$ref": "#/components/schemas/Account"
+          },
+          "suspended": {
+            "description": "An extra attribute returned only when an account is suspended.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "limited": {
+            "description": "An extra attribute returned only when an account is silenced. If true, indicates that the account should be hidden behind a warning screen.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "When the account was created.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_status_at": {
+            "description": "When the most recent status was posted.",
+            "nullable": true,
+            "type": "string",
+            "format": "date"
+          },
+          "statuses_count": {
+            "description": "How many statuses are attached to this account.",
+            "type": "integer"
+          },
+          "followers_count": {
+            "description": "The reported followers of this profile.",
+            "type": "integer"
+          },
+          "following_count": {
+            "description": "The reported follows of this profile.",
+            "type": "integer"
+          },
+          "hide_collections": {
+            "description": "Whether the user hides the contents of their follows and followers collections.",
+            "nullable": true,
+            "type": "boolean"
+          },
           "source": {
             "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
             "type": "object",
@@ -29621,6 +29750,26 @@
           }
         },
         "required": [
+          "id",
+          "username",
+          "acct",
+          "url",
+          "uri",
+          "display_name",
+          "note",
+          "avatar",
+          "avatar_static",
+          "header",
+          "header_static",
+          "locked",
+          "fields",
+          "emojis",
+          "bot",
+          "group",
+          "created_at",
+          "statuses_count",
+          "followers_count",
+          "following_count",
           "source",
           "role"
         ]
@@ -29629,13 +29778,164 @@
         "type": "object",
         "description": "Additional entity definition for MutedAccount",
         "properties": {
+          "id": {
+            "description": "The account id.",
+            "type": "string"
+          },
+          "username": {
+            "description": "The username of the account, not including domain.",
+            "type": "string"
+          },
+          "acct": {
+            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "type": "string"
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": "string",
+            "format": "uri"
+          },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier.",
+            "type": "string",
+            "format": "uri"
+          },
+          "display_name": {
+            "description": "The profile's display name.",
+            "type": "string"
+          },
+          "note": {
+            "description": "The profile's bio or description.",
+            "type": "string"
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile.",
+            "type": "string",
+            "format": "uri"
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "header": {
+            "description": "An image banner that is shown above the profile and in profile cards.",
+            "type": "string",
+            "format": "uri"
+          },
+          "header_static": {
+            "description": "A static version of the header. Equal to `header` if its value is a static image; different if `header` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": "boolean"
+          },
+          "fields": {
+            "description": "Additional metadata attached to a profile as name-value pairs.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "emojis": {
+            "description": "Custom emoji entities to be used when rendering the profile.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CustomEmoji"
+            }
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": "boolean"
+          },
+          "group": {
+            "description": "Indicates that the account represents a Group actor.",
+            "type": "boolean"
+          },
+          "discoverable": {
+            "description": "Whether the account has opted into discovery features such as the profile directory.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "noindex": {
+            "description": "Whether the local user has opted out of being indexed by search engines.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "moved": {
+            "description": "Indicates that the profile is currently inactive and that its user has moved to a new account.",
+            "nullable": true,
+            "$ref": "#/components/schemas/Account"
+          },
+          "suspended": {
+            "description": "An extra attribute returned only when an account is suspended.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "limited": {
+            "description": "An extra attribute returned only when an account is silenced. If true, indicates that the account should be hidden behind a warning screen.",
+            "nullable": true,
+            "type": "boolean"
+          },
+          "created_at": {
+            "description": "When the account was created.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "last_status_at": {
+            "description": "When the most recent status was posted.",
+            "nullable": true,
+            "type": "string",
+            "format": "date"
+          },
+          "statuses_count": {
+            "description": "How many statuses are attached to this account.",
+            "type": "integer"
+          },
+          "followers_count": {
+            "description": "The reported followers of this profile.",
+            "type": "integer"
+          },
+          "following_count": {
+            "description": "The reported follows of this profile.",
+            "type": "integer"
+          },
+          "hide_collections": {
+            "description": "Whether the user hides the contents of their follows and followers collections.",
+            "nullable": true,
+            "type": "boolean"
+          },
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
             "nullable": true,
             "type": "string",
             "format": "date-time"
           }
-        }
+        },
+        "required": [
+          "id",
+          "username",
+          "acct",
+          "url",
+          "uri",
+          "display_name",
+          "note",
+          "avatar",
+          "avatar_static",
+          "header",
+          "header_static",
+          "locked",
+          "fields",
+          "emojis",
+          "bot",
+          "group",
+          "created_at",
+          "statuses_count",
+          "followers_count",
+          "following_count"
+        ]
       },
       "Field": {
         "type": "object",

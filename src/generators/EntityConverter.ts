@@ -34,7 +34,7 @@ class EntityConverter {
     for (const entity of entities) {
       let allAttributes = entity.attributes;
 
-      // Special handling for CredentialApplication inheritance
+      // Special handling for entity inheritance
       if (entity.name === 'CredentialApplication') {
         // Find the Application entity to inherit from
         const applicationEntity = entities.find(
@@ -46,6 +46,20 @@ class EntityConverter {
             ...applicationEntity.attributes,
             ...entity.attributes,
           ];
+        }
+      } else if (entity.name === 'CredentialAccount') {
+        // Find the Account entity to inherit from
+        const accountEntity = entities.find((e) => e.name === 'Account');
+        if (accountEntity) {
+          // Combine Account attributes with CredentialAccount attributes
+          allAttributes = [...accountEntity.attributes, ...entity.attributes];
+        }
+      } else if (entity.name === 'MutedAccount') {
+        // Find the Account entity to inherit from
+        const accountEntity = entities.find((e) => e.name === 'Account');
+        if (accountEntity) {
+          // Combine Account attributes with MutedAccount attributes
+          allAttributes = [...accountEntity.attributes, ...entity.attributes];
         }
       }
 
