@@ -1,6 +1,7 @@
 import { ApiParameter } from '../interfaces/ApiParameter';
 import { HashAttribute } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
+import { EntityParsingUtils } from '../parsers/EntityParsingUtils';
 import { UtilityHelpers } from './UtilityHelpers';
 
 /**
@@ -276,12 +277,18 @@ class TypeParser {
    */
   public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
     // Check for "String or Array of Strings" pattern to generate oneOf schema
+    // Also check for redirect_uris parameter specifically, which often has this pattern
     if (param.description) {
       const stringOrArrayPattern = /string\s+or\s+array\s+of\s+strings?/i.test(
         param.description
       );
+      
+      // Special case for redirect_uris parameter - it's commonly "String or Array of Strings"
+      // even if the type prefix has been stripped
+      const isRedirectUrisParameter = param.name.toLowerCase() === 'redirect_uris' &&
+        param.description.toLowerCase().includes('redirect');
 
-      if (stringOrArrayPattern) {
+      if (stringOrArrayPattern || isRedirectUrisParameter) {
         // Detect if URIs are involved for format specification
         const hasUriIndicator =
           param.name.toLowerCase().includes('uri') ||
@@ -302,7 +309,7 @@ class TypeParser {
         }
 
         return {
-          description: param.description,
+          description: EntityParsingUtils.cleanDescription(param.description),
           oneOf: [baseStringSchema, baseArraySchema],
         };
       }
@@ -312,7 +319,7 @@ class TypeParser {
     if (param.schema) {
       const schema: OpenAPIProperty = {
         type: param.schema.type,
-        description: param.description,
+        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
       };
 
       // Add enum values if available - for arrays, put enum on items instead of array
@@ -445,7 +452,7 @@ class TypeParser {
     if (hasDateTimePattern) {
       const parsedType = this.parseType(param.description || '');
       const schema: OpenAPIProperty = {
-        description: param.description,
+        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
         ...parsedType,
       };
 
@@ -478,7 +485,7 @@ class TypeParser {
       const schema: OpenAPIProperty = {
         type: 'string',
         format: 'email',
-        description: param.description,
+        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
       };
 
       // Add enum values if available
@@ -497,7 +504,7 @@ class TypeParser {
     // Default fallback for other parameters
     const schema: OpenAPIProperty = {
       type: 'string',
-      description: param.description,
+      description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
     };
 
     // Add enum values if available

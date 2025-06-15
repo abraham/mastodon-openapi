@@ -91,7 +91,7 @@ describe('Create App Method Parameters', () => {
 
     expect(redirectUrisParam).toBeDefined();
     expect(redirectUrisParam!.description).toContain(
-      'String or Array of Strings'
+      'Where the user should be redirected after authorization'
     );
 
     // Convert parameter to schema using TypeParser
