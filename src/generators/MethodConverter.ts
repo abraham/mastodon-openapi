@@ -298,6 +298,15 @@ class MethodConverter {
             description: properties.redirect_uris.description,
           };
 
+          // Override scopes to use format scopes without enum values
+          if (properties.scopes) {
+            properties.scopes = {
+              type: 'string',
+              format: 'scopes',
+              description: properties.scopes.description,
+            };
+          }
+
           // Default behavior for createApp endpoint
           operation.requestBody = {
             description: 'JSON request body parameters',
