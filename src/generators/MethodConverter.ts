@@ -282,6 +282,36 @@ class MethodConverter {
               },
             },
           };
+        } else if (
+          method.httpMethod === 'POST' &&
+          path === '/api/v1/apps' &&
+          properties.redirect_uris
+        ) {
+          // Special handling for POST /api/v1/apps endpoint
+          // Override redirect_uris to always be array of URIs instead of oneOf
+          properties.redirect_uris = {
+            type: 'array',
+            items: {
+              type: 'string',
+              format: 'uri',
+            },
+            description: properties.redirect_uris.description,
+          };
+
+          // Default behavior for createApp endpoint
+          operation.requestBody = {
+            description: 'JSON request body parameters',
+            required: required.length > 0,
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'object',
+                  properties,
+                  required: required.length > 0 ? required : undefined,
+                } as OpenAPIProperty,
+              },
+            },
+          };
         } else {
           // Default behavior for all other endpoints
           operation.requestBody = {
