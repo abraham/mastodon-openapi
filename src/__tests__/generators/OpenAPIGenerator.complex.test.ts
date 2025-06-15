@@ -28,8 +28,7 @@ describe('OpenAPIGenerator Complex Parameters', () => {
 
       expect(schema).toEqual({
         type: 'array',
-        description:
-          'Include Attachment IDs to be attached as media.',
+        description: 'Include Attachment IDs to be attached as media.',
         items: {
           type: 'string',
         },

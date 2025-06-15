@@ -282,10 +282,11 @@ class TypeParser {
       const stringOrArrayPattern = /string\s+or\s+array\s+of\s+strings?/i.test(
         param.description
       );
-      
+
       // Special case for redirect_uris parameter - it's commonly "String or Array of Strings"
       // even if the type prefix has been stripped
-      const isRedirectUrisParameter = param.name.toLowerCase() === 'redirect_uris' &&
+      const isRedirectUrisParameter =
+        param.name.toLowerCase() === 'redirect_uris' &&
         param.description.toLowerCase().includes('redirect');
 
       if (stringOrArrayPattern || isRedirectUrisParameter) {
@@ -319,7 +320,9 @@ class TypeParser {
     if (param.schema) {
       const schema: OpenAPIProperty = {
         type: param.schema.type,
-        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
+        description: param.description
+          ? EntityParsingUtils.cleanDescription(param.description)
+          : undefined,
       };
 
       // Add enum values if available - for arrays, put enum on items instead of array
@@ -452,7 +455,9 @@ class TypeParser {
     if (hasDateTimePattern) {
       const parsedType = this.parseType(param.description || '');
       const schema: OpenAPIProperty = {
-        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
+        description: param.description
+          ? EntityParsingUtils.cleanDescription(param.description)
+          : undefined,
         ...parsedType,
       };
 
@@ -485,7 +490,9 @@ class TypeParser {
       const schema: OpenAPIProperty = {
         type: 'string',
         format: 'email',
-        description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
+        description: param.description
+          ? EntityParsingUtils.cleanDescription(param.description)
+          : undefined,
       };
 
       // Add enum values if available
@@ -504,7 +511,9 @@ class TypeParser {
     // Default fallback for other parameters
     const schema: OpenAPIProperty = {
       type: 'string',
-      description: param.description ? EntityParsingUtils.cleanDescription(param.description) : undefined,
+      description: param.description
+        ? EntityParsingUtils.cleanDescription(param.description)
+        : undefined,
     };
 
     // Add enum values if available
