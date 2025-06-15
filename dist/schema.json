@@ -5155,7 +5155,8 @@
                   "scopes": {
                     "type": "string",
                     "format": "scopes",
-                    "description": "Space separated list of scopes. If none is provided, defaults to `read`. See [OAuth Scopes] for a list of possible scopes."
+                    "description": "Space separated list of scopes. If none is provided, defaults to `read`. See [OAuth Scopes] for a list of possible scopes.",
+                    "default": "read"
                   },
                   "website": {
                     "type": "string",

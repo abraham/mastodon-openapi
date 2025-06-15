@@ -304,6 +304,7 @@ class MethodConverter {
               type: 'string',
               format: 'scopes',
               description: properties.scopes.description,
+              default: 'read',
             };
           }
 

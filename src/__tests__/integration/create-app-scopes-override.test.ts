@@ -39,5 +39,8 @@ describe('CreateApp scopes override', () => {
 
     // Verify the description is preserved
     expect(scopesProperty.description).toContain('scopes');
+
+    // Verify the default value is set to 'read'
+    expect(scopesProperty.default).toBe('read');
   });
 });
