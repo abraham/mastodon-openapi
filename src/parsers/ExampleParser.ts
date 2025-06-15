@@ -22,37 +22,37 @@ export class ExampleParser {
         let inString = false;
         let escaped = false;
         let commentIndex = -1;
-        
+
         for (let i = 0; i < line.length - 1; i++) {
           const char = line[i];
           const nextChar = line[i + 1];
-          
+
           if (escaped) {
             escaped = false;
             continue;
           }
-          
+
           if (char === '\\') {
             escaped = true;
             continue;
           }
-          
+
           if (char === '"') {
             inString = !inString;
             continue;
           }
-          
+
           // If we're not in a string and we find //, mark it
           if (!inString && char === '/' && nextChar === '/') {
             commentIndex = i;
             break;
           }
         }
-        
+
         if (commentIndex !== -1) {
           return line.substring(0, commentIndex).trimEnd();
         }
-        
+
         return line;
       })
       .join('\n')
@@ -60,8 +60,7 @@ export class ExampleParser {
 
     // Remove trailing commas before closing braces/brackets
     // This handles cases where comments were removed leaving trailing commas
-    cleanedContent = cleanedContent
-      .replace(/,(\s*[}\]])/g, '$1');
+    cleanedContent = cleanedContent.replace(/,(\s*[}\]])/g, '$1');
 
     // Try parsing the cleaned content directly
     try {
