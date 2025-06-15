@@ -14,26 +14,54 @@ export class ExampleParser {
 
     // First, strip out line comments (// ...)
     // This handles comments at the end of lines
-    const cleanedContent = jsonContent
+    let cleanedContent = jsonContent
       .split('\n')
       .map((line) => {
         // Find // that's not inside a string
-        // Simple approach: remove // and everything after it
-        // This might be overly aggressive but handles common cases
-        const commentIndex = line.indexOf('//');
-        if (commentIndex !== -1) {
-          // Check if // is inside quotes by counting quotes before it
-          const beforeComment = line.substring(0, commentIndex);
-          const quoteCount = (beforeComment.match(/"/g) || []).length;
-          // If odd number of quotes, we're inside a string, don't remove
-          if (quoteCount % 2 === 0) {
-            return line.substring(0, commentIndex).trimEnd();
+        // More robust approach: track if we're inside a string
+        let inString = false;
+        let escaped = false;
+        let commentIndex = -1;
+        
+        for (let i = 0; i < line.length - 1; i++) {
+          const char = line[i];
+          const nextChar = line[i + 1];
+          
+          if (escaped) {
+            escaped = false;
+            continue;
+          }
+          
+          if (char === '\\') {
+            escaped = true;
+            continue;
+          }
+          
+          if (char === '"') {
+            inString = !inString;
+            continue;
+          }
+          
+          // If we're not in a string and we find //, mark it
+          if (!inString && char === '/' && nextChar === '/') {
+            commentIndex = i;
+            break;
           }
         }
+        
+        if (commentIndex !== -1) {
+          return line.substring(0, commentIndex).trimEnd();
+        }
+        
         return line;
       })
       .join('\n')
       .trim();
+
+    // Remove trailing commas before closing braces/brackets
+    // This handles cases where comments were removed leaving trailing commas
+    cleanedContent = cleanedContent
+      .replace(/,(\s*[}\]])/g, '$1');
 
     // Try parsing the cleaned content directly
     try {

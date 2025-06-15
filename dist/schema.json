@@ -231,6 +231,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -366,6 +371,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CredentialAccount"
+                },
+                "examples": {
+                  "CredentialAccount200Example": {
+                    "$ref": "#/components/examples/CredentialAccount200Example"
+                  }
                 }
               }
             }
@@ -494,6 +504,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CredentialAccount"
+                },
+                "examples": {
+                  "CredentialAccount200Example": {
+                    "$ref": "#/components/examples/CredentialAccount200Example"
+                  }
                 }
               }
             }
@@ -709,6 +724,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Account"
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -849,6 +869,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Status"
+                  }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
                   }
                 }
               }
@@ -1080,6 +1105,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Account"
+                  }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
                   }
                 }
               }
@@ -3849,6 +3879,11 @@
                   "items": {
                     "$ref": "#/components/schemas/FamiliarFollowers"
                   }
+                },
+                "examples": {
+                  "FamiliarFollowers200Example": {
+                    "$ref": "#/components/examples/FamiliarFollowers200Example"
+                  }
                 }
               }
             }
@@ -3993,6 +4028,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Account"
+                  }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
                   }
                 }
               }
@@ -4173,6 +4213,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Account"
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -5303,6 +5348,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -5479,6 +5529,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -5654,6 +5709,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Conversation"
+                  }
+                },
+                "examples": {
+                  "Conversation200Example": {
+                    "$ref": "#/components/examples/Conversation200Example"
                   }
                 }
               }
@@ -5954,6 +6014,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Conversation"
+                },
+                "examples": {
+                  "Conversation200Example": {
+                    "$ref": "#/components/examples/Conversation200Example"
+                  }
                 }
               }
             }
@@ -6224,6 +6289,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Account"
+                  }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
                   }
                 }
               }
@@ -7163,6 +7233,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -7888,6 +7963,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Filter"
+                  }
+                },
+                "examples": {
+                  "Filter200Example": {
+                    "$ref": "#/components/examples/Filter200Example"
                   }
                 }
               }
@@ -8686,6 +8766,11 @@
                   "items": {
                     "$ref": "#/components/schemas/FilterKeyword"
                   }
+                },
+                "examples": {
+                  "FilterKeyword200Example": {
+                    "$ref": "#/components/examples/FilterKeyword200Example"
+                  }
                 }
               }
             }
@@ -9434,6 +9519,11 @@
                   "items": {
                     "$ref": "#/components/schemas/FilterStatus"
                   }
+                },
+                "examples": {
+                  "FilterStatus200Example": {
+                    "$ref": "#/components/examples/FilterStatus200Example"
+                  }
                 }
               }
             }
@@ -10021,6 +10111,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/V1_Filter"
+                },
+                "examples": {
+                  "V1_Filter200Example": {
+                    "$ref": "#/components/examples/V1_Filter200Example"
+                  }
                 }
               }
             }
@@ -10795,6 +10890,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -11250,6 +11350,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Tag"
                   }
+                },
+                "examples": {
+                  "Tag200Example": {
+                    "$ref": "#/components/examples/Tag200Example"
+                  }
                 }
               }
             }
@@ -11423,6 +11528,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GroupedNotificationsResults"
+                },
+                "examples": {
+                  "GroupedNotificationsResults200Example": {
+                    "$ref": "#/components/examples/GroupedNotificationsResults200Example"
+                  }
                 }
               }
             }
@@ -11654,6 +11764,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GroupedNotificationsResults"
+                },
+                "examples": {
+                  "GroupedNotificationsResults200Example": {
+                    "$ref": "#/components/examples/GroupedNotificationsResults200Example"
+                  }
                 }
               }
             }
@@ -12250,6 +12365,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Instance"
+                },
+                "examples": {
+                  "Instance200Example": {
+                    "$ref": "#/components/examples/Instance200Example"
+                  }
                 }
               }
             }
@@ -12974,6 +13094,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ExtendedDescription"
+                },
+                "examples": {
+                  "ExtendedDescription200Example": {
+                    "$ref": "#/components/examples/ExtendedDescription200Example"
+                  }
                 }
               }
             }
@@ -13095,6 +13220,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PrivacyPolicy"
+                },
+                "examples": {
+                  "PrivacyPolicy200Example": {
+                    "$ref": "#/components/examples/PrivacyPolicy200Example"
+                  }
                 }
               }
             }
@@ -13593,6 +13723,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/V1_Instance"
+                },
+                "examples": {
+                  "V1_Instance200Example": {
+                    "$ref": "#/components/examples/V1_Instance200Example"
+                  }
                 }
               }
             }
@@ -14467,6 +14602,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Account"
+                  }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
                   }
                 }
               }
@@ -16049,6 +16189,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -16215,6 +16360,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Notification"
+                  }
+                },
+                "examples": {
+                  "Notification200Example": {
+                    "$ref": "#/components/examples/Notification200Example"
                   }
                 }
               }
@@ -16426,6 +16576,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
+                },
+                "examples": {
+                  "Notification200Example": {
+                    "$ref": "#/components/examples/Notification200Example"
+                  }
                 }
               }
             }
@@ -17126,6 +17281,11 @@
                   "items": {
                     "$ref": "#/components/schemas/NotificationRequest"
                   }
+                },
+                "examples": {
+                  "NotificationRequest200Example": {
+                    "$ref": "#/components/examples/NotificationRequest200Example"
+                  }
                 }
               }
             }
@@ -17293,6 +17453,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/NotificationRequest"
+                },
+                "examples": {
+                  "NotificationRequest200Example": {
+                    "$ref": "#/components/examples/NotificationRequest200Example"
+                  }
                 }
               }
             }
@@ -18065,6 +18230,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GroupedNotificationsResults"
+                },
+                "examples": {
+                  "GroupedNotificationsResults200Example": {
+                    "$ref": "#/components/examples/GroupedNotificationsResults200Example"
+                  }
                 }
               }
             }
@@ -18286,6 +18456,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/GroupedNotificationsResults"
+                },
+                "examples": {
+                  "GroupedNotificationsResults200Example": {
+                    "$ref": "#/components/examples/GroupedNotificationsResults200Example"
+                  }
                 }
               }
             }
@@ -20623,6 +20798,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Report"
+                },
+                "examples": {
+                  "Report200Example": {
+                    "$ref": "#/components/examples/Report200Example"
+                  }
                 }
               }
             }
@@ -21650,6 +21830,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/StatusOrScheduledStatus"
+                },
+                "examples": {
+                  "StatusOrScheduledStatus200Example": {
+                    "$ref": "#/components/examples/StatusOrScheduledStatus200Example"
+                  }
                 }
               }
             }
@@ -21811,6 +21996,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -21953,6 +22143,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -22090,6 +22285,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -22236,6 +22436,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -22443,6 +22648,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Context"
+                },
+                "examples": {
+                  "Context200Example": {
+                    "$ref": "#/components/examples/Context200Example"
+                  }
                 }
               }
             }
@@ -22753,6 +22963,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -22929,6 +23144,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -23096,6 +23316,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23235,6 +23460,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23374,6 +23604,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23531,6 +23766,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23670,6 +23910,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23809,6 +24054,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -23948,6 +24198,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -24087,6 +24342,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -24226,6 +24486,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -24365,6 +24630,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -24506,6 +24776,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/StatusEdit"
+                  }
+                },
+                "examples": {
+                  "StatusEdit200Example": {
+                    "$ref": "#/components/examples/StatusEdit200Example"
                   }
                 }
               }
@@ -24790,6 +25065,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/PreviewCard"
+                },
+                "examples": {
+                  "PreviewCard200Example": {
+                    "$ref": "#/components/examples/PreviewCard200Example"
+                  }
                 }
               }
             }
@@ -26505,6 +26785,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Account"
                   }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
+                  }
                 }
               }
             }
@@ -27371,6 +27656,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -27576,6 +27866,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Status"
+                  }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
                   }
                 }
               }
@@ -27827,6 +28122,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Status"
+                  }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
                   }
                 }
               }
@@ -28199,6 +28499,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -28384,6 +28689,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -28555,6 +28865,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Tag"
                   }
+                },
+                "examples": {
+                  "Tag200Example": {
+                    "$ref": "#/components/examples/Tag200Example"
+                  }
                 }
               }
             }
@@ -28700,6 +29015,11 @@
                   "items": {
                     "$ref": "#/components/schemas/Status"
                   }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
                 }
               }
             }
@@ -28844,6 +29164,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Trends_Link"
+                  }
+                },
+                "examples": {
+                  "Trends_Link200Example": {
+                    "$ref": "#/components/examples/Trends_Link200Example"
                   }
                 }
               }
@@ -29167,7 +29492,68 @@
           "statuses_count",
           "followers_count",
           "following_count"
-        ]
+        ],
+        "example": {
+          "id": "23634",
+          "username": "noiob",
+          "acct": "noiob@awoo.space",
+          "display_name": "ikea shark fan account",
+          "locked": false,
+          "bot": false,
+          "created_at": "2017-02-08T02:00:53.274Z",
+          "note": "<p>:ms_rainbow_flag:​ :ms_bisexual_flagweb:​ :ms_nonbinary_flag:​ <a href=\"https://awoo.space/tags/awoo\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>awoo</span}.space <a href=\"https://awoo.space/tags/admin\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>admin</span} ~ <a href=\"https://awoo.space/tags/bi\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>bi</span} ~ <a href=\"https://awoo.space/tags/nonbinary\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>nonbinary</span} ~ compsci student ~ likes video <a href=\"https://awoo.space/tags/games\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>games</span} and weird/ old electronics and will post obsessively about both ~ avatar by <span class=\"h-card\"><a href=\"https://weirder.earth/@dzuk\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>dzuk</span}</span></p>",
+          "url": "https://awoo.space/@noiob",
+          "avatar": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
+          "avatar_static": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
+          "header": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
+          "header_static": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
+          "followers_count": 547,
+          "following_count": 404,
+          "statuses_count": 28468,
+          "last_status_at": "2019-11-17",
+          "emojis": [
+            {
+              "shortcode": "ms_rainbow_flag",
+              "url": "https://files.mastodon.social/custom_emojis/images/000/028/691/original/6de008d6281f4f59.png",
+              "static_url": "https://files.mastodon.social/custom_emojis/images/000/028/691/static/6de008d6281f4f59.png",
+              "visible_in_picker": true
+            },
+            {
+              "shortcode": "ms_bisexual_flag",
+              "url": "https://files.mastodon.social/custom_emojis/images/000/050/744/original/02f94a5fca7eaf78.png",
+              "static_url": "https://files.mastodon.social/custom_emojis/images/000/050/744/static/02f94a5fca7eaf78.png",
+              "visible_in_picker": true
+            },
+            {
+              "shortcode": "ms_nonbinary_flag",
+              "url": "https://files.mastodon.social/custom_emojis/images/000/105/099/original/8106088bd4782072.png",
+              "static_url": "https://files.mastodon.social/custom_emojis/images/000/105/099/static/8106088bd4782072.png",
+              "visible_in_picker": true
+            }
+          ],
+          "fields": [
+            {
+              "name": "Pronouns",
+              "value": "they/them",
+              "verified_at": null
+            },
+            {
+              "name": "Alt",
+              "value": "<span class=\"h-card\"><a href=\"https://cybre.space/@noiob\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>noiob</span}</span>",
+              "verified_at": null
+            },
+            {
+              "name": "Bots",
+              "value": "<span class=\"h-card\"><a href=\"https://botsin.space/@darksouls\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>darksouls</span}</span>, <span class=\"h-card\"><a href=\"https://botsin.space/@nierautomata\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>nierautomata</span}</span>, <span class=\"h-card\"><a href=\"https://mastodon.social/@fedi\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>fedi</span}</span>, code for <span class=\"h-card\"><a href=\"https://botsin.space/@awoobot\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>awoobot</span}</span>",
+              "verified_at": null
+            },
+            {
+              "name": "Website",
+              "value": "<a href=\"http://shork.xyz\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">http://</span><span class=\"\">shork.xyz</span><span class=\"invisible\"></span}",
+              "verified_at": "2019-11-10T10:31:10.744+00:00"
+            }
+          ]
+        }
       },
       "CredentialAccount": {
         "type": "object",
@@ -30040,7 +30426,45 @@
           "target_account",
           "statuses",
           "rules"
-        ]
+        ],
+        "example": {
+          "id": "1",
+          "action_taken": false,
+          "action_taken_at": null,
+          "category": "spam",
+          "comment": "",
+          "forwarded": false,
+          "created_at": "2022-09-09T21:19:23.085Z",
+          "updated_at": "2022-09-09T21:19:23.085Z",
+          "account": {
+            "id": "108965218747268792",
+            "username": "admin",
+            "domain": null,
+            "created_at": "2022-09-08T22:48:07.985Z",
+            "email": "admin@mastodon.local",
+            "account": {
+              "id": "108965218747268792",
+              "username": "admin",
+              "acct": "admin"
+            }
+          },
+          "target_account": {
+            "id": "108965430868193066",
+            "username": "goody",
+            "domain": null,
+            "created_at": "2022-09-08T23:42:04.731Z",
+            "email": "goody@mastodon.local",
+            "account": {
+              "id": "108965430868193066",
+              "username": "goody",
+              "acct": "goody"
+            }
+          },
+          "assigned_account": null,
+          "action_taken_by_account": null,
+          "statuses": [],
+          "rules": []
+        }
       },
       "Announcement": {
         "type": "object",
@@ -30394,7 +30818,33 @@
         "required": [
           "ancestors",
           "descendants"
-        ]
+        ],
+        "example": {
+          "ancestors": [
+            {
+              "id": "103188938570975982",
+              "created_at": "2019-11-23T19:44:00.124Z",
+              "in_reply_to_id": null
+            },
+            {
+              "id": "103188971072973252",
+              "created_at": "2019-11-23T19:52:23.398Z",
+              "in_reply_to_id": "103188938570975982"
+            },
+            {
+              "id": "103188982235527758",
+              "created_at": "2019-11-23T19:55:08.208Z",
+              "in_reply_to_id": "103188971072973252"
+            }
+          ],
+          "descendants": [
+            {
+              "id": "103189026958574542",
+              "created_at": "2019-11-23T20:06:36.011Z",
+              "in_reply_to_id": "103189005915505698"
+            }
+          ]
+        }
       },
       "Conversation": {
         "type": "object",
@@ -30425,7 +30875,24 @@
           "id",
           "unread",
           "accounts"
-        ]
+        ],
+        "example": {
+          "id": "418450",
+          "unread": true,
+          "accounts": [
+            {
+              "id": "482403",
+              "username": "amic",
+              "acct": "amic@nulled.red"
+            }
+          ],
+          "last_status": {
+            "id": "103196583826321184",
+            "created_at": "2019-11-25T04:08:24.000Z",
+            "in_reply_to_id": "103196540587943467",
+            "in_reply_to_account_id": "14715"
+          }
+        }
       },
       "CustomEmoji": {
         "type": "object",
@@ -30546,7 +31013,11 @@
         "required": [
           "updated_at",
           "content"
-        ]
+        ],
+        "example": {
+          "updated_at": "2022-11-03T04:09:07Z",
+          "content": "<p>For inquiries not related specifically to the operation of this server, such as press inquiries, please contact <a href=\"mailto:press@joinmastodon.org\">press@joinmastodon.org</a>.</p>\n\n<h2>Funding</h2>\n\n<p>This server is crowdfunded by <a href=\"https://patreon.com/mastodon\">Patreon donations</a>. For a list of sponsors, see <a href=\"https://joinmastodon.org/sponsors\">joinmastodon.org</a>.</p>\n\n<h2>Reporting and moderation</h2>\n\n<p>When reporting accounts, please make sure to include at least a few posts that show rule-breaking behaviour, when applicable. If there is any additional context that might help make a decision, please also include it in the comment. This is especially important when the content is in a language nobody on the moderation team speaks.</p>\n\n<p>We usually handle reports within 24 hours. Please mind that you are not notified when a report you have made has led to a punitive action, and that not all punitive actions are externally visible. For first time offenses, we may opt to delete offending content, escalating to harsher measures on repeat offenses.</p>\n\n<h2>Impressum</h2>\n\n<p>Mastodon gGmbH<br>\nMühlenstraße 8a<br>\n14167 Berlin<br>\nGermany</p>\n\n<p>E-Mail-Adresse: hello@joinmastodon.org</p>\n\n<p>Vertretungsberechtigt: Eugen Rochko (Geschäftsführer)</p>\n\n<p>Umsatzsteuer Identifikationsnummer (USt-ID): DE344258260</p>\n\n<p>Handelsregister<br>\nGeführt bei: Amtsgericht Charlottenburg<br>\nNummer: HRB 230086 B</p>\n"
+        }
       },
       "FamiliarFollowers": {
         "type": "object",
@@ -30567,6 +31038,27 @@
         "required": [
           "id",
           "accounts"
+        ],
+        "example": [
+          {
+            "id": "1",
+            "accounts": [
+              {
+                "id": "1087990",
+                "username": "moss",
+                "acct": "moss@goblin.camp"
+              },
+              {
+                "id": "1092723",
+                "username": "vivianrose",
+                "acct": "vivianrose"
+              }
+            ]
+          },
+          {
+            "id": "2",
+            "accounts": []
+          }
         ]
       },
       "FeaturedTag": {
@@ -31189,7 +31681,183 @@
           "api_versions",
           "contact",
           "rules"
-        ]
+        ],
+        "example": {
+          "domain": "mastodon.social",
+          "title": "Mastodon",
+          "version": "4.4.0-alpha.3",
+          "source_url": "https://github.com/mastodon/mastodon",
+          "description": "The original server operated by the Mastodon gGmbH non-profit",
+          "usage": {
+            "users": {
+              "active_month": 123122
+            }
+          },
+          "thumbnail": {
+            "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+            "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
+            "versions": {
+              "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+              "@2x": "https://files.mastodon.social/site_uploads/files/000/000/001/@2x/57c12f441d083cde.png"
+            }
+          },
+          "icon": [
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/36/accf17b0104f18e5.png",
+              "size": "36x36"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/72/accf17b0104f18e5.png",
+              "size": "72x72"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/192/accf17b0104f18e5.png",
+              "size": "192x192"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/512/accf17b0104f18e5.png",
+              "size": "512x512"
+            }
+          ],
+          "languages": [
+            "en"
+          ],
+          "configuration": {
+            "urls": {
+              "streaming": "wss://mastodon.social",
+              "about": "https://mastodon.social/about",
+              "privacy_policy": "https://mastodon.social/privacy-policy",
+              "terms_of_service": "https://mastodon.social/terms-of-service"
+            },
+            "vapid": {
+              "public_key": "BCkMmVdKDnKYwzVCDC99Iuc9GvId-x7-kKtuHnLgfF98ENiZp_aj-UNthbCdI70DqN1zUVis-x0Wrot2sBagkMc="
+            },
+            "accounts": {
+              "max_featured_tags": 10,
+              "max_pinned_statuses": 4
+            },
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/heic",
+                "image/heif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "description_limit": 1500,
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            },
+            "translation": {
+              "enabled": true
+            }
+          },
+          "registrations": {
+            "enabled": false,
+            "approval_required": false,
+            "reason_required": false,
+            "message": null,
+            "min_age": 16
+          },
+          "api_versions": {
+            "mastodon": 1
+          },
+          "contact": {
+            "email": "staff@mastodon.social",
+            "account": {
+              "id": "1",
+              "username": "Gargron",
+              "acct": "Gargron",
+              "display_name": "Eugen 💀",
+              "locked": false,
+              "bot": false,
+              "discoverable": true,
+              "group": false,
+              "created_at": "2016-03-16T00:00:00.000Z",
+              "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+              "url": "https://mastodon.social/@Gargron",
+              "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "followers_count": 133026,
+              "following_count": 311,
+              "statuses_count": 72605,
+              "last_status_at": "2022-10-31",
+              "noindex": false,
+              "emojis": [],
+              "fields": [
+                {
+                  "name": "Patreon",
+                  "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                  "verified_at": null
+                }
+              ]
+            }
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
+        }
       },
       "InstanceIcon": {
         "type": "object",
@@ -31480,7 +32148,38 @@
           "updated_at",
           "account",
           "notifications_count"
-        ]
+        ],
+        "example": {
+          "id": "112456967201894256",
+          "created_at": "2024-05-17T14:45:41.171Z",
+          "updated_at": "2024-05-17T14:45:41.171Z",
+          "notifications_count": "1",
+          "account": {
+            "id": "971724",
+            "username": "zsc",
+            "acct": "zsc"
+          },
+          "last_status": {
+            "id": "103186126728896492",
+            "created_at": "2019-11-23T07:49:01.940Z",
+            "in_reply_to_id": "103186038209478945",
+            "in_reply_to_account_id": "14715",
+            "content": "<p><span class=\"h-card\"><a href=\"https://mastodon.social/@trwnh\" class=\"u-url mention\">@<span>trwnh</span></a></span> sup!</p>",
+            "account": {
+              "id": "971724",
+              "username": "zsc",
+              "acct": "zsc"
+            },
+            "mentions": [
+              {
+                "id": "14715",
+                "username": "trwnh",
+                "url": "https://mastodon.social/@trwnh",
+                "acct": "trwnh"
+              }
+            ]
+          }
+        }
       },
       "Poll": {
         "type": "object",
@@ -31810,7 +32509,11 @@
         "required": [
           "updated_at",
           "content"
-        ]
+        ],
+        "example": {
+          "updated_at": "2022-10-07T00:00:00+00:00",
+          "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
+        }
       },
       "Quote": {
         "type": "object",
@@ -31829,7 +32532,64 @@
         },
         "required": [
           "state"
-        ]
+        ],
+        "example": {
+          "state": "accepted",
+          "status": {
+            "id": "103270115826048975",
+            "created_at": "2019-12-08T03:48:33.901Z",
+            "in_reply_to_id": null,
+            "in_reply_to_account_id": null,
+            "sensitive": false,
+            "spoiler_text": "",
+            "visibility": "public",
+            "language": "en",
+            "uri": "https://mastodon.social/users/Gargron/statuses/103270115826048975",
+            "url": "https://mastodon.social/@Gargron/103270115826048975",
+            "replies_count": 5,
+            "reblogs_count": 6,
+            "favourites_count": 11,
+            "favourited": false,
+            "reblogged": false,
+            "muted": false,
+            "bookmarked": false,
+            "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span}</p>",
+            "reblog": null,
+            "application": {
+              "name": "Web",
+              "website": null
+            },
+            "account": {
+              "id": "1",
+              "username": "Gargron",
+              "acct": "Gargron",
+              "display_name": "Eugen",
+              "locked": false,
+              "bot": false,
+              "discoverable": true,
+              "group": false,
+              "created_at": "2016-03-16T14:34:26.392Z",
+              "note": "<p>Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.</p>",
+              "url": "https://mastodon.social/@Gargron",
+              "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+              "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+              "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+              "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+              "followers_count": 322930,
+              "following_count": 459,
+              "statuses_count": 61323,
+              "last_status_at": "2019-12-10T08:14:44.811Z",
+              "emojis": [],
+              "fields": []
+            },
+            "media_attachments": [],
+            "mentions": [],
+            "tags": [],
+            "emojis": [],
+            "card": null,
+            "poll": null
+          }
+        }
       },
       "Reaction": {
         "type": "object",
@@ -32096,7 +32856,43 @@
           "forwarded",
           "created_at",
           "target_account"
-        ]
+        ],
+        "example": {
+          "id": "48914",
+          "action_taken": false,
+          "action_taken_at": null,
+          "category": "spam",
+          "comment": "Spam account",
+          "forwarded": false,
+          "created_at": "2022-08-25T09:56:16.763Z",
+          "status_ids": [
+            "108882889550545820"
+          ],
+          "rule_ids": null,
+          "target_account": {
+            "id": "108366849347798387",
+            "username": "Baluke",
+            "acct": "Baluke",
+            "display_name": "Baluke Dental Studios",
+            "locked": false,
+            "bot": false,
+            "discoverable": false,
+            "group": false,
+            "created_at": "2022-05-26T00:00:00.000Z",
+            "note": "<p>Baluke Dental Studios is a full service dental lab offering fabrication, staining, and digital services. Advanced technologies and a meticulous process ensure reduced chair time, lower costs, and better patient outcomes with beautiful smiles. Talk to a representative today.</p><p><a href=\"https://baluke.com/\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><span class=\"invisible\">https://</span><span class=\"\">baluke.com/</span><span class=\"invisible\"></span></a></p>",
+            "url": "https://mastodon.social/@Baluke",
+            "avatar": "https://files.mastodon.social/accounts/avatars/108/366/849/347/798/387/original/dbcfe99ed5def0f4.png",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/108/366/849/347/798/387/original/dbcfe99ed5def0f4.png",
+            "header": "https://static-cdn.mastodon.social/headers/original/missing.png",
+            "header_static": "https://static-cdn.mastodon.social/headers/original/missing.png",
+            "followers_count": 0,
+            "following_count": 0,
+            "statuses_count": 38,
+            "last_status_at": "2022-08-25",
+            "emojis": [],
+            "fields": []
+          }
+        }
       },
       "Role": {
         "type": "object",
@@ -32561,7 +33357,86 @@
           "reblogs_count",
           "favourites_count",
           "replies_count"
-        ]
+        ],
+        "example": {
+          "id": "103270115826048975",
+          "created_at": "2019-12-08T03:48:33.901Z",
+          "in_reply_to_id": null,
+          "in_reply_to_account_id": null,
+          "sensitive": false,
+          "spoiler_text": "",
+          "visibility": "public",
+          "language": "en",
+          "uri": "https://mastodon.social/users/Gargron/statuses/103270115826048975",
+          "url": "https://mastodon.social/@Gargron/103270115826048975",
+          "replies_count": 5,
+          "reblogs_count": 6,
+          "favourites_count": 11,
+          "favourited": false,
+          "reblogged": false,
+          "muted": false,
+          "bookmarked": false,
+          "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span}</p>",
+          "reblog": null,
+          "application": {
+            "name": "Web",
+            "website": null
+          },
+          "account": {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "discoverable": true,
+            "group": false,
+            "created_at": "2016-03-16T14:34:26.392Z",
+            "note": "<p>Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "followers_count": 322930,
+            "following_count": 459,
+            "statuses_count": 61323,
+            "last_status_at": "2019-12-10T08:14:44.811Z",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span}",
+                "verified_at": null
+              },
+              {
+                "name": "Homepage",
+                "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span}",
+                "verified_at": "2019-07-15T18:29:57.191+00:00"
+              }
+            ]
+          },
+          "media_attachments": [],
+          "mentions": [],
+          "tags": [],
+          "emojis": [],
+          "card": {
+            "url": "https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code",
+            "title": "‘I lost my £193,000 inheritance – with one wrong digit on my sort code’",
+            "description": "When Peter Teich’s money went to another Barclays customer, the bank offered £25 as a token gesture",
+            "type": "link",
+            "author_name": "",
+            "author_url": "",
+            "provider_name": "",
+            "provider_url": "",
+            "html": "",
+            "width": 0,
+            "height": 0,
+            "image": null,
+            "embed_url": ""
+          },
+          "poll": null
+        }
       },
       "Status_Mention": {
         "type": "object",
@@ -32685,7 +33560,34 @@
           "account",
           "media_attachments",
           "emojis"
-        ]
+        ],
+        "example": {
+          "content": "<p>this is a status that has been edited three times. this time a poll has been added.</p>",
+          "spoiler_text": "",
+          "sensitive": false,
+          "created_at": "2022-09-05T00:03:32.480Z",
+          "poll": {
+            "options": [
+              {
+                "title": "cool"
+              },
+              {
+                "title": "uncool"
+              },
+              {
+                "title": "spiderman (this option has been changed)"
+              }
+            ]
+          },
+          "account": {
+            "id": "14715",
+            "username": "trwnh",
+            "acct": "trwnh",
+            "display_name": "infinite love ⴳ"
+          },
+          "media_attachments": [],
+          "emojis": []
+        }
       },
       "StatusSource": {
         "type": "object",
@@ -32741,7 +33643,15 @@
         "required": [
           "sources",
           "account"
-        ]
+        ],
+        "example": {
+          "source": "staff",
+          "account": {
+            "id": "109031732217496096",
+            "username": "alice",
+            "acct": "alice"
+          }
+        }
       },
       "Tag": {
         "type": "object",
@@ -33328,7 +34238,132 @@
           "invites_enabled",
           "configuration",
           "rules"
-        ]
+        ],
+        "example": {
+          "uri": "mastodon.social",
+          "title": "Mastodon",
+          "short_description": "The original server operated by the Mastodon gGmbH non-profit",
+          "description": "",
+          "email": "staff@mastodon.social",
+          "version": "3.5.3",
+          "urls": {
+            "streaming_api": "wss://mastodon.social"
+          },
+          "stats": {
+            "user_count": 812303,
+            "status_count": 38151616,
+            "domain_count": 25255
+          },
+          "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/original/vlcsnap-2018-08-27-16h43m11s127.png",
+          "languages": [
+            "en"
+          ],
+          "registrations": false,
+          "approval_required": false,
+          "invites_enabled": true,
+          "configuration": {
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            }
+          },
+          "contact_account": {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "discoverable": true,
+            "group": false,
+            "created_at": "2016-03-16T00:00:00.000Z",
+            "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "followers_count": 118944,
+            "following_count": 305,
+            "statuses_count": 72309,
+            "last_status_at": "2022-08-24",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              }
+            ]
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
+        }
       },
       "V1_NotificationPolicy": {
         "type": "object",
@@ -34041,11 +35076,141 @@
           "error": "Remote data could not be fetched"
         }
       },
+      "Account200Example": {
+        "summary": "Example for Account",
+        "value": [
+          {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "created_at": "2016-03-16T14:34:26.392Z",
+            "note": "<p>Developer of Mastodon and administrator of mastodon.social. I post service announcements, development updates, and personal stuff.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/d96d39a0abb45b92.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/c91b871f294ea63e.png",
+            "followers_count": 318699,
+            "following_count": 453,
+            "statuses_count": 61013,
+            "last_status_at": "2019-11-30T20:02:08.277Z",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              },
+              {
+                "name": "Homepage",
+                "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span></a>",
+                "verified_at": "2019-07-15T18:29:57.191+00:00"
+              }
+            ]
+          }
+        ]
+      },
+      "CredentialAccount200Example": {
+        "summary": "Example for CredentialAccount",
+        "value": {
+          "id": "14715",
+          "username": "trwnh",
+          "acct": "trwnh",
+          "display_name": "infinite love ⴳ",
+          "locked": false,
+          "bot": false,
+          "created_at": "2016-11-24T10:02:12.085Z",
+          "note": "<p>i have approximate knowledge of many things. perpetual student. (nb/ace/they)</p><p>xmpp/email: a@trwnh.com<br /><a href=\"https://trwnh.com\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">trwnh.com</span><span class=\"invisible\"></span></a><br />help me live: <a href=\"https://liberapay.com/at\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">liberapay.com/at</span><span class=\"invisible\"></span></a> or <a href=\"https://paypal.me/trwnh\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">paypal.me/trwnh</span><span class=\"invisible\"></span></a></p><p>- my triggers are moths and glitter<br />- i have all notifs except mentions turned off, so please interact if you wanna be friends! i literally will not notice otherwise<br />- dm me if i did something wrong, so i can improve<br />- purest person on fedi, do not lewd in my presence<br />- #1 ami cole fan account</p><p>:fatyoshi:</p>",
+          "url": "https://mastodon.social/@trwnh",
+          "avatar": "https://files.mastodon.social/accounts/avatars/000/014/715/original/34aa222f4ae2e0a9.png",
+          "avatar_static": "https://files.mastodon.social/accounts/avatars/000/014/715/original/34aa222f4ae2e0a9.png",
+          "header": "https://files.mastodon.social/accounts/headers/000/014/715/original/5c6fc24edb3bb873.jpg",
+          "header_static": "https://files.mastodon.social/accounts/headers/000/014/715/original/5c6fc24edb3bb873.jpg",
+          "followers_count": 821,
+          "following_count": 178,
+          "statuses_count": 33120,
+          "last_status_at": "2019-11-24T15:49:42.251Z",
+          "source": {
+            "privacy": "public",
+            "sensitive": false,
+            "language": "",
+            "note": "i have approximate knowledge of many things. perpetual student. (nb/ace/they)\r\n\r\nxmpp/email: a@trwnh.com\r\nhttps://trwnh.com\r\nhelp me live: https://liberapay.com/at or https://paypal.me/trwnh\r\n\r\n- my triggers are moths and glitter\r\n- i have all notifs except mentions turned off, so please interact if you wanna be friends! i literally will not notice otherwise\r\n- dm me if i did something wrong, so i can improve\r\n- purest person on fedi, do not lewd in my presence\r\n- #1 ami cole fan account\r\n\r\n:fatyoshi:",
+            "fields": [
+              {
+                "name": "Website",
+                "value": "https://trwnh.com",
+                "verified_at": "2019-08-29T04:14:55.571+00:00"
+              },
+              {
+                "name": "Sponsor",
+                "value": "https://liberapay.com/at",
+                "verified_at": "2019-11-15T10:06:15.557+00:00"
+              },
+              {
+                "name": "Fan of:",
+                "value": "Punk-rock and post-hardcore (Circa Survive, letlive., La Dispute, THE FEVER 333)Manga (Yu-Gi-Oh!, One Piece, JoJo's Bizarre Adventure, Death Note, Shaman King)Platformers and RPGs (Banjo-Kazooie, Boktai, Final Fantasy Crystal Chronicles)",
+                "verified_at": null
+              },
+              {
+                "name": "Main topics:",
+                "value": "systemic analysis, design patterns, anticapitalism, info/tech freedom, theory and philosophy, and otherwise being a genuine and decent wholesome poster. i'm just here to hang out and talk to cool people!",
+                "verified_at": null
+              }
+            ],
+            "follow_requests_count": 0
+          },
+          "emojis": [
+            {
+              "shortcode": "fatyoshi",
+              "url": "https://files.mastodon.social/custom_emojis/images/000/023/920/original/e57ecb623faa0dc9.png",
+              "static_url": "https://files.mastodon.social/custom_emojis/images/000/023/920/static/e57ecb623faa0dc9.png",
+              "visible_in_picker": true
+            }
+          ],
+          "fields": [
+            {
+              "name": "Website",
+              "value": "<a href=\"https://trwnh.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">trwnh.com</span><span class=\"invisible\"></span></a>",
+              "verified_at": "2019-08-29T04:14:55.571+00:00"
+            },
+            {
+              "name": "Sponsor",
+              "value": "<a href=\"https://liberapay.com/at\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">liberapay.com/at</span><span class=\"invisible\"></span></a>",
+              "verified_at": "2019-11-15T10:06:15.557+00:00"
+            },
+            {
+              "name": "Fan of:",
+              "value": "Punk-rock and post-hardcore (Circa Survive, letlive., La Dispute, THE FEVER 333)Manga (Yu-Gi-Oh!, One Piece, JoJo&apos;s Bizarre Adventure, Death Note, Shaman King)Platformers and RPGs (Banjo-Kazooie, Boktai, Final Fantasy Crystal Chronicles)",
+              "verified_at": null
+            },
+            {
+              "name": "Main topics:",
+              "value": "systemic analysis, design patterns, anticapitalism, info/tech freedom, theory and philosophy, and otherwise being a genuine and decent wholesome poster. i&apos;m just here to hang out and talk to cool people!",
+              "verified_at": null
+            }
+          ]
+        }
+      },
       "Error422Example": {
         "summary": "Example for Error",
         "value": {
           "error": "This method requires an authenticated user"
         }
+      },
+      "Status200Example": {
+        "summary": "Example for Status",
+        "value": [
+          {
+            "id": "108880211901672326",
+            "created_at": "2022-08-24T22:29:46.493Z",
+            "in_reply_to_id": "108880209317577809",
+            "in_reply_to_account_id": "103641",
+            "sensitive": false
+          }
+        ]
       },
       "FeaturedTag200Example": {
         "summary": "Example for FeaturedTag",
@@ -34084,57 +35249,27 @@
           "endorsed": false
         }
       },
-      "Account200Example": {
-        "summary": "Example for Account",
+      "FamiliarFollowers200Example": {
+        "summary": "Example for FamiliarFollowers",
         "value": [
           {
-            "id": "952529",
-            "username": "alayna",
-            "acct": "alayna@desvox.es",
-            "display_name": "Alayna Desirae",
-            "locked": true,
-            "bot": false,
-            "created_at": "2019-10-26T23:12:06.570Z",
-            "note": "experiencing ________ difficulties<br>22y/o INFP in Oklahoma",
-            "url": "https://desvox.es/users/alayna",
-            "avatar": "https://files.mastodon.social/accounts/avatars/000/952/529/original/6534122046d050d5.png",
-            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/952/529/original/6534122046d050d5.png",
-            "header": "https://files.mastodon.social/accounts/headers/000/952/529/original/496f1f817e042ade.png",
-            "header_static": "https://files.mastodon.social/accounts/headers/000/952/529/original/496f1f817e042ade.png",
-            "followers_count": 0,
-            "following_count": 0,
-            "statuses_count": 955,
-            "last_status_at": "2019-11-23T07:05:50.682Z",
-            "emojis": [],
-            "fields": []
+            "id": "1",
+            "accounts": [
+              {
+                "id": "1087990",
+                "username": "moss",
+                "acct": "moss@goblin.camp"
+              },
+              {
+                "id": "1092723",
+                "username": "vivianrose",
+                "acct": "vivianrose"
+              }
+            ]
           },
           {
-            "id": "832844",
-            "username": "a9",
-            "acct": "a9@broadcast.wolfgirl.engineering",
-            "display_name": "vivienne :collar: ",
-            "locked": true,
-            "bot": false,
-            "created_at": "2019-06-12T18:55:12.053Z",
-            "note": "borderline nsfw, considered a schedule I drug by nixon<br>waiting for the year of the illumos desktop",
-            "url": "https://broadcast.wolfgirl.engineering/users/a9",
-            "avatar": "https://files.mastodon.social/accounts/avatars/000/832/844/original/ae1de0b8fb63d1c6.png",
-            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/832/844/original/ae1de0b8fb63d1c6.png",
-            "header": "https://files.mastodon.social/accounts/headers/000/832/844/original/5088e4a16e6d8736.png",
-            "header_static": "https://files.mastodon.social/accounts/headers/000/832/844/original/5088e4a16e6d8736.png",
-            "followers_count": 43,
-            "following_count": 67,
-            "statuses_count": 5906,
-            "last_status_at": "2019-11-23T05:23:47.911Z",
-            "emojis": [
-              {
-                "shortcode": "collar",
-                "url": "https://files.mastodon.social/custom_emojis/images/000/106/920/original/80953b9cd96ec4dc.png",
-                "static_url": "https://files.mastodon.social/custom_emojis/images/000/106/920/static/80953b9cd96ec4dc.png",
-                "visible_in_picker": true
-              }
-            ],
-            "fields": []
+            "id": "2",
+            "accounts": []
           }
         ]
       },
@@ -34231,6 +35366,45 @@
             "https://app.example/register"
           ]
         }
+      },
+      "Conversation200Example": {
+        "summary": "Example for Conversation",
+        "value": [
+          {
+            "id": "418450",
+            "unread": true,
+            "accounts": [
+              {
+                "id": "482403",
+                "username": "amic",
+                "acct": "amic@nulled.red"
+              }
+            ],
+            "last_status": {
+              "id": "103196583826321184",
+              "created_at": "2019-11-25T04:08:24.000Z",
+              "in_reply_to_id": "103196540587943467",
+              "in_reply_to_account_id": "14715"
+            }
+          },
+          {
+            "id": "418374",
+            "unread": false,
+            "accounts": [
+              {
+                "id": "464472",
+                "username": "freon",
+                "acct": "freon@letsalllovela.in"
+              }
+            ],
+            "last_status": {
+              "id": "103195253010396431",
+              "created_at": "2019-11-24T22:29:56.331Z",
+              "in_reply_to_id": "103195239650546339",
+              "in_reply_to_account_id": "14715"
+            }
+          }
+        ]
       },
       "CustomEmoji200Example": {
         "summary": "Example for CustomEmoji",
@@ -34357,58 +35531,329 @@
       },
       "Filter200Example": {
         "summary": "Example for Filter",
-        "value": {
-          "id": "25933",
-          "title": "test",
-          "context": [
-            "public"
-          ],
-          "expires_at": null,
-          "filter_action": "warn",
-          "keywords": [
-            {
-              "id": "34978",
-              "keyword": "foo",
-              "whole_word": false
-            },
-            {
-              "id": "34979",
-              "keyword": "bar",
-              "whole_word": true
-            }
-          ],
-          "statuses": []
-        }
+        "value": [
+          {
+            "id": "20060",
+            "title": "Remove Twitter crossposts from public timeline",
+            "context": [
+              "public"
+            ],
+            "expires_at": null,
+            "filter_action": "hide",
+            "keywords": [
+              {
+                "id": "1311",
+                "keyword": "from birdsite",
+                "whole_word": true
+              },
+              {
+                "id": "1324",
+                "keyword": "@twitter.com",
+                "whole_word": false
+              },
+              {
+                "id": "1325",
+                "keyword": "https://t.co/",
+                "whole_word": false
+              }
+            ],
+            "statuses": []
+          }
+        ]
       },
       "FilterKeyword200Example": {
         "summary": "Example for FilterKeyword",
-        "value": {
-          "id": "35583",
-          "keyword": "some",
-          "whole_word": false
-        }
+        "value": [
+          {
+            "id": "34979",
+            "keyword": "baz",
+            "whole_word": true
+          }
+        ]
       },
       "FilterStatus200Example": {
         "summary": "Example for FilterStatus",
-        "value": {
-          "id": "897",
-          "status_id": "109416512469928632"
-        }
+        "value": [
+          {
+            "id": "897",
+            "status_id": "109416512469928632"
+          }
+        ]
       },
       "V1_Filter200Example": {
         "summary": "Example for V1_Filter",
+        "value": [
+          {
+            "id": "6191",
+            "phrase": ":eurovision2019:",
+            "context": [
+              "home"
+            ],
+            "whole_word": true,
+            "expires_at": "2019-05-21T13:47:31.333Z",
+            "irreversible": false
+          },
+          {
+            "id": "5580",
+            "phrase": "@twitter.com",
+            "context": [
+              "home",
+              "notifications",
+              "public",
+              "thread"
+            ],
+            "whole_word": false,
+            "expires_at": null,
+            "irreversible": true
+          }
+        ]
+      },
+      "GroupedNotificationsResults200Example": {
+        "summary": "Example for GroupedNotificationsResults",
         "value": {
-          "id": "8449",
-          "phrase": "test",
-          "context": [
-            "home",
-            "notifications",
-            "public",
-            "thread"
+          "accounts": [
+            {
+              "id": "16",
+              "username": "eve",
+              "acct": "eve"
+            },
+            {
+              "id": "3547",
+              "username": "alice",
+              "acct": "alice"
+            },
+            {
+              "id": "31460",
+              "username": "bob",
+              "acct": "bob"
+            },
+            {
+              "id": "36509",
+              "username": "mallory",
+              "acct": "mallory"
+            }
           ],
-          "whole_word": false,
-          "expires_at": "2019-11-26T09:08:06.254Z",
-          "irreversible": true
+          "statuses": [
+            {
+              "id": "113010503322889311",
+              "created_at": "2024-08-23T08:57:12.057Z",
+              "account": {
+                "id": "55911",
+                "username": "user",
+                "acct": "user"
+              }
+            },
+            {
+              "id": "113006771938929950",
+              "created_at": "2024-08-22T17:08:15.654Z",
+              "account": {
+                "id": "55911",
+                "username": "user",
+                "acct": "user"
+              }
+            }
+          ],
+          "notification_groups": [
+            {
+              "group_key": "favourite-113010503322889311-479000",
+              "notifications_count": 2,
+              "type": "favourite",
+              "most_recent_notification_id": 196014,
+              "page_min_id": "196013",
+              "page_max_id": "196014",
+              "latest_page_notification_at": "2024-08-23T08:59:56.743Z",
+              "sample_account_ids": [
+                "16",
+                "3547"
+              ],
+              "status_id": "113010503322889311"
+            },
+            {
+              "group_key": "favourite-113006771938929950-478999",
+              "notifications_count": 2,
+              "type": "favourite",
+              "most_recent_notification_id": 196012,
+              "page_min_id": "196012",
+              "page_max_id": "196012",
+              "latest_page_notification_at": "2024-08-23T08:16:32.112Z",
+              "sample_account_ids": [
+                "31460",
+                "36509"
+              ],
+              "status_id": "113006771938929950"
+            }
+          ]
+        }
+      },
+      "Instance200Example": {
+        "summary": "Example for Instance",
+        "value": {
+          "domain": "mastodon.social",
+          "title": "Mastodon",
+          "version": "4.0.0rc1",
+          "source_url": "https://github.com/mastodon/mastodon",
+          "description": "The original server operated by the Mastodon gGmbH non-profit",
+          "usage": {
+            "users": {
+              "active_month": 123122
+            }
+          },
+          "thumbnail": {
+            "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+            "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
+            "versions": {
+              "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+              "@2x": "https://files.mastodon.social/site_uploads/files/000/000/001/@2x/57c12f441d083cde.png"
+            }
+          },
+          "icon": [
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/36/accf17b0104f18e5.png",
+              "size": "36x36"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/72/accf17b0104f18e5.png",
+              "size": "72x72"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/192/accf17b0104f18e5.png",
+              "size": "192x192"
+            },
+            {
+              "src": "https://files.mastodon.social/site_uploads/files/000/000/003/512/accf17b0104f18e5.png",
+              "size": "512x512"
+            }
+          ],
+          "languages": [
+            "en"
+          ],
+          "configuration": {
+            "urls": {
+              "streaming": "wss://mastodon.social"
+            },
+            "vapid": {
+              "public_key": "BCkMmVdKDnKYwzVCDC99Iuc9GvId-x7-kKtuHnLgfF98ENiZp_aj-UNthbCdI70DqN1zUVis-x0Wrot2sBagkMc="
+            },
+            "accounts": {
+              "max_featured_tags": 10,
+              "max_pinned_statuses": 4
+            },
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/heic",
+                "image/heif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "description_limit": 1500,
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            },
+            "translation": {
+              "enabled": true
+            }
+          },
+          "registrations": {
+            "enabled": false,
+            "approval_required": false,
+            "message": null
+          },
+          "contact": {
+            "email": "staff@mastodon.social",
+            "account": {
+              "id": "1",
+              "username": "Gargron",
+              "acct": "Gargron",
+              "display_name": "Eugen 💀",
+              "locked": false,
+              "bot": false,
+              "discoverable": true,
+              "group": false,
+              "created_at": "2016-03-16T00:00:00.000Z",
+              "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+              "url": "https://mastodon.social/@Gargron",
+              "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+              "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+              "followers_count": 133026,
+              "following_count": 311,
+              "statuses_count": 72605,
+              "last_status_at": "2022-10-31",
+              "noindex": false,
+              "emojis": [],
+              "fields": [
+                {
+                  "name": "Patreon",
+                  "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                  "verified_at": null
+                }
+              ]
+            }
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
         }
       },
       "Rule200Example": {
@@ -34457,6 +35902,20 @@
           }
         ]
       },
+      "ExtendedDescription200Example": {
+        "summary": "Example for ExtendedDescription",
+        "value": {
+          "updated_at": "2022-11-03T04:09:07Z",
+          "content": "<p>For inquiries not related specifically to the operation of this server, such as press inquiries, please contact <a href=\"mailto:press@joinmastodon.org\">press@joinmastodon.org</a>.</p>\n\n<h2>Funding</h2>\n\n<p>This server is crowdfunded by <a href=\"https://patreon.com/mastodon\">Patreon donations</a>. For a list of sponsors, see <a href=\"https://joinmastodon.org/sponsors\">joinmastodon.org</a>.</p>\n\n<h2>Reporting and moderation</h2>\n\n<p>When reporting accounts, please make sure to include at least a few posts that show rule-breaking behaviour, when applicable. If there is any additional context that might help make a decision, please also include it in the comment. This is especially important when the content is in a language nobody on the moderation team speaks.</p>\n\n<p>We usually handle reports within 24 hours. Please mind that you are not notified when a report you have made has led to a punitive action, and that not all punitive actions are externally visible. For first time offenses, we may opt to delete offending content, escalating to harsher measures on repeat offenses.</p>\n\n<h2>Impressum</h2>\n\n<p>Mastodon gGmbH<br>\nMühlenstraße 8a<br>\n14167 Berlin<br>\nGermany</p>\n\n<p>E-Mail-Adresse: hello@joinmastodon.org</p>\n\n<p>Vertretungsberechtigt: Eugen Rochko (Geschäftsführer)</p>\n\n<p>Umsatzsteuer Identifikationsnummer (USt-ID): DE344258260</p>\n\n<p>Handelsregister<br>\nGeführt bei: Amtsgericht Charlottenburg<br>\nNummer: HRB 230086 B</p>\n"
+        }
+      },
+      "PrivacyPolicy200Example": {
+        "summary": "Example for PrivacyPolicy",
+        "value": {
+          "updated_at": "2022-10-07T00:00:00+00:00",
+          "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
+        }
+      },
       "TermsOfService200Example": {
         "summary": "Example for TermsOfService",
         "value": {
@@ -34464,6 +35923,134 @@
           "effective": true,
           "content": "<p>Foo bar newer</p>\n",
           "succeeded_by": null
+        }
+      },
+      "V1_Instance200Example": {
+        "summary": "Example for V1_Instance",
+        "value": {
+          "uri": "mastodon.social",
+          "title": "Mastodon",
+          "short_description": "The original server operated by the Mastodon gGmbH non-profit",
+          "description": "",
+          "email": "staff@mastodon.social",
+          "version": "3.5.3",
+          "urls": {
+            "streaming_api": "wss://mastodon.social"
+          },
+          "stats": {
+            "user_count": 812303,
+            "status_count": 38151616,
+            "domain_count": 25255
+          },
+          "thumbnail": "https://files.mastodon.social/site_uploads/files/000/000/001/original/vlcsnap-2018-08-27-16h43m11s127.png",
+          "languages": [
+            "en"
+          ],
+          "registrations": false,
+          "approval_required": false,
+          "invites_enabled": true,
+          "configuration": {
+            "statuses": {
+              "max_characters": 500,
+              "max_media_attachments": 4,
+              "characters_reserved_per_url": 23
+            },
+            "media_attachments": {
+              "supported_mime_types": [
+                "image/jpeg",
+                "image/png",
+                "image/gif",
+                "image/webp",
+                "video/webm",
+                "video/mp4",
+                "video/quicktime",
+                "video/ogg",
+                "audio/wave",
+                "audio/wav",
+                "audio/x-wav",
+                "audio/x-pn-wave",
+                "audio/vnd.wave",
+                "audio/ogg",
+                "audio/vorbis",
+                "audio/mpeg",
+                "audio/mp3",
+                "audio/webm",
+                "audio/flac",
+                "audio/aac",
+                "audio/m4a",
+                "audio/x-m4a",
+                "audio/mp4",
+                "audio/3gpp",
+                "video/x-ms-asf"
+              ],
+              "image_size_limit": 10485760,
+              "image_matrix_limit": 16777216,
+              "video_size_limit": 41943040,
+              "video_frame_rate_limit": 60,
+              "video_matrix_limit": 2304000
+            },
+            "polls": {
+              "max_options": 4,
+              "max_characters_per_option": 50,
+              "min_expiration": 300,
+              "max_expiration": 2629746
+            }
+          },
+          "contact_account": {
+            "id": "1",
+            "username": "Gargron",
+            "acct": "Gargron",
+            "display_name": "Eugen",
+            "locked": false,
+            "bot": false,
+            "discoverable": true,
+            "group": false,
+            "created_at": "2016-03-16T00:00:00.000Z",
+            "note": "<p>Founder, CEO and lead developer <span class=\"h-card\"><a href=\"https://mastodon.social/@Mastodon\" class=\"u-url mention\">@<span>Mastodon</span></a></span>, Germany.</p>",
+            "url": "https://mastodon.social/@Gargron",
+            "avatar": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/000/000/001/original/dc4286ceb8fab734.jpg",
+            "header": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "header_static": "https://files.mastodon.social/accounts/headers/000/000/001/original/3b91c9965d00888b.jpeg",
+            "followers_count": 118944,
+            "following_count": 305,
+            "statuses_count": 72309,
+            "last_status_at": "2022-08-24",
+            "emojis": [],
+            "fields": [
+              {
+                "name": "Patreon",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" target=\"_blank\" rel=\"nofollow noopener noreferrer me\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
+                "verified_at": null
+              }
+            ]
+          },
+          "rules": [
+            {
+              "id": "1",
+              "text": "Sexually explicit or violent media must be marked as sensitive when posting"
+            },
+            {
+              "id": "2",
+              "text": "No racism, sexism, homophobia, transphobia, xenophobia, or casteism"
+            },
+            {
+              "id": "3",
+              "text": "No incitement of violence or promotion of violent ideologies"
+            },
+            {
+              "id": "4",
+              "text": "No harassment, dogpiling or doxxing of other users"
+            },
+            {
+              "id": "5",
+              "text": "No content illegal in Germany"
+            },
+            {
+              "id": "7",
+              "text": "Do not share intentionally false or misleading information"
+            }
+          ]
         }
       },
       "Marker200Example": {
@@ -34512,6 +36099,62 @@
           "blurhash": "UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}"
         }
       },
+      "Notification200Example": {
+        "summary": "Example for Notification",
+        "value": [
+          {
+            "id": "34975861",
+            "type": "mention",
+            "created_at": "2019-11-23T07:49:02.064Z",
+            "account": {
+              "id": "971724",
+              "username": "zsc",
+              "acct": "zsc"
+            },
+            "status": {
+              "id": "103186126728896492",
+              "created_at": "2019-11-23T07:49:01.940Z",
+              "in_reply_to_id": "103186038209478945",
+              "in_reply_to_account_id": "14715",
+              "content": "<p><span class=\"h-card\"><a href=\"https://mastodon.social/@trwnh\" class=\"u-url mention\">@<span>trwnh</span></a></span> sup!</p>",
+              "account": {
+                "id": "971724",
+                "username": "zsc",
+                "acct": "zsc"
+              },
+              "mentions": [
+                {
+                  "id": "14715",
+                  "username": "trwnh",
+                  "url": "https://mastodon.social/@trwnh",
+                  "acct": "trwnh"
+                }
+              ]
+            }
+          },
+          {
+            "id": "34975535",
+            "type": "favourite",
+            "created_at": "2019-11-23T07:29:18.903Z",
+            "account": {
+              "id": "297420",
+              "username": "haskal",
+              "acct": "haskal@cybre.space"
+            },
+            "status": {
+              "id": "103186046267791694",
+              "created_at": "2019-11-23T07:28:34.210Z",
+              "in_reply_to_id": "103186044372624124",
+              "in_reply_to_account_id": "297420",
+              "account": {
+                "id": "14715",
+                "username": "trwnh",
+                "acct": "trwnh"
+              }
+            }
+          }
+        ]
+      },
       "NotificationPolicy200Example": {
         "summary": "Example for NotificationPolicy",
         "value": {
@@ -34524,6 +36167,42 @@
             "pending_notifications_count": 0
           }
         }
+      },
+      "NotificationRequest200Example": {
+        "summary": "Example for NotificationRequest",
+        "value": [
+          {
+            "id": "112456967201894256",
+            "created_at": "2024-05-17T14:45:41.171Z",
+            "updated_at": "2024-05-17T14:45:41.171Z",
+            "notifications_count": "1",
+            "account": {
+              "id": "971724",
+              "username": "zsc",
+              "acct": "zsc"
+            },
+            "last_status": {
+              "id": "103186126728896492",
+              "created_at": "2019-11-23T07:49:01.940Z",
+              "in_reply_to_id": "103186038209478945",
+              "in_reply_to_account_id": "14715",
+              "content": "<p><span class=\"h-card\"><a href=\"https://mastodon.social/@trwnh\" class=\"u-url mention\">@<span>trwnh</span></a></span> sup!</p>",
+              "account": {
+                "id": "971724",
+                "username": "zsc",
+                "acct": "zsc"
+              },
+              "mentions": [
+                {
+                  "id": "14715",
+                  "username": "trwnh",
+                  "url": "https://mastodon.social/@trwnh",
+                  "acct": "trwnh"
+                }
+              ]
+            }
+          }
+        ]
       },
       "Token200Example": {
         "summary": "Example for Token",
@@ -34576,6 +36255,45 @@
           "server_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
         }
       },
+      "Report200Example": {
+        "summary": "Example for Report",
+        "value": {
+          "id": "48914",
+          "action_taken": false,
+          "action_taken_at": null,
+          "category": "spam",
+          "comment": "Spam account",
+          "forwarded": false,
+          "created_at": "2022-08-25T09:56:16.763Z",
+          "status_ids": [
+            "108882889550545820"
+          ],
+          "rule_ids": null,
+          "target_account": {
+            "id": "108366849347798387",
+            "username": "Baluke",
+            "acct": "Baluke",
+            "display_name": "Baluke Dental Studios",
+            "locked": false,
+            "bot": false,
+            "discoverable": false,
+            "group": false,
+            "created_at": "2022-05-26T00:00:00.000Z",
+            "note": "<p>Baluke Dental Studios is a full service dental lab offering fabrication, staining, and digital services. Advanced technologies and a meticulous process ensure reduced chair time, lower costs, and better patient outcomes with beautiful smiles. Talk to a representative today.</p><p><a href=\"https://baluke.com/\" target=\"_blank\" rel=\"nofollow noopener noreferrer\"><span class=\"invisible\">https://</span><span class=\"\">baluke.com/</span><span class=\"invisible\"></span></a></p>",
+            "url": "https://mastodon.social/@Baluke",
+            "avatar": "https://files.mastodon.social/accounts/avatars/108/366/849/347/798/387/original/dbcfe99ed5def0f4.png",
+            "avatar_static": "https://files.mastodon.social/accounts/avatars/108/366/849/347/798/387/original/dbcfe99ed5def0f4.png",
+            "header": "https://static-cdn.mastodon.social/headers/original/missing.png",
+            "header_static": "https://static-cdn.mastodon.social/headers/original/missing.png",
+            "followers_count": 0,
+            "following_count": 0,
+            "statuses_count": 38,
+            "last_status_at": "2022-08-25",
+            "emojis": [],
+            "fields": []
+          }
+        }
+      },
       "ScheduledStatus200Example": {
         "summary": "Example for ScheduledStatus",
         "value": [
@@ -34598,6 +36316,51 @@
           }
         ]
       },
+      "StatusOrScheduledStatus200Example": {
+        "summary": "Example for StatusOrScheduledStatus",
+        "value": {
+          "id": "103254962155278888",
+          "created_at": "2019-12-05T11:34:47.196Z",
+          "content": "<p>test content</p>",
+          "application": {
+            "name": "test app",
+            "website": null
+          }
+        }
+      },
+      "Context200Example": {
+        "summary": "Example for Context",
+        "value": {
+          "ancestors": [
+            {
+              "id": "103188938570975982",
+              "created_at": "2019-11-23T19:44:00.124Z",
+              "in_reply_to_id": null,
+              "in_reply_to_account_id": null
+            },
+            {
+              "id": "103188971072973252",
+              "created_at": "2019-11-23T19:52:23.398Z",
+              "in_reply_to_id": "103188938570975982",
+              "in_reply_to_account_id": "634458"
+            },
+            {
+              "id": "103188982235527758",
+              "created_at": "2019-11-23T19:55:08.208Z",
+              "in_reply_to_id": "103188971072973252",
+              "in_reply_to_account_id": "14715"
+            }
+          ],
+          "descendants": [
+            {
+              "id": "103189026958574542",
+              "created_at": "2019-11-23T20:06:36.011Z",
+              "in_reply_to_id": "103189005915505698",
+              "in_reply_to_account_id": "634458"
+            }
+          ]
+        }
+      },
       "Translation200Example": {
         "summary": "Example for Translation",
         "value": {
@@ -34614,6 +36377,107 @@
           "provider": "DeepL.com"
         }
       },
+      "StatusEdit200Example": {
+        "summary": "Example for StatusEdit",
+        "value": [
+          {
+            "content": "<p>this is a status that will be edited</p>",
+            "spoiler_text": "",
+            "sensitive": false,
+            "created_at": "2022-09-04T23:22:13.704Z",
+            "account": {
+              "id": "14715",
+              "username": "trwnh",
+              "acct": "trwnh",
+              "display_name": "infinite love ⴳ"
+            },
+            "media_attachments": [],
+            "emojis": []
+          },
+          {
+            "content": "<p>this is a status that has been edited</p>",
+            "spoiler_text": "",
+            "sensitive": false,
+            "created_at": "2022-09-04T23:22:42.555Z",
+            "account": {
+              "id": "14715",
+              "username": "trwnh",
+              "acct": "trwnh",
+              "display_name": "infinite love ⴳ"
+            },
+            "media_attachments": [],
+            "emojis": []
+          },
+          {
+            "content": "<p>this is a status that has been edited twice</p>",
+            "spoiler_text": "",
+            "sensitive": false,
+            "created_at": "2022-09-04T23:22:55.956Z",
+            "account": {
+              "id": "14715",
+              "username": "trwnh",
+              "acct": "trwnh",
+              "display_name": "infinite love ⴳ"
+            },
+            "media_attachments": [],
+            "emojis": []
+          },
+          {
+            "content": "<p>this is a status that has been edited three times. this time a poll has been added.</p>",
+            "spoiler_text": "",
+            "sensitive": false,
+            "created_at": "2022-09-05T00:01:48.160Z",
+            "poll": {
+              "options": [
+                {
+                  "title": "cool"
+                },
+                {
+                  "title": "uncool"
+                },
+                {
+                  "title": "spiderman"
+                }
+              ]
+            },
+            "account": {
+              "id": "14715",
+              "username": "trwnh",
+              "acct": "trwnh",
+              "display_name": "infinite love ⴳ"
+            },
+            "media_attachments": [],
+            "emojis": []
+          },
+          {
+            "content": "<p>this is a status that has been edited three times. this time a poll has been added.</p>",
+            "spoiler_text": "",
+            "sensitive": false,
+            "created_at": "2022-09-05T00:03:32.480Z",
+            "poll": {
+              "options": [
+                {
+                  "title": "cool"
+                },
+                {
+                  "title": "uncool"
+                },
+                {
+                  "title": "spiderman (this option has been changed)"
+                }
+              ]
+            },
+            "account": {
+              "id": "14715",
+              "username": "trwnh",
+              "acct": "trwnh",
+              "display_name": "infinite love ⴳ"
+            },
+            "media_attachments": [],
+            "emojis": []
+          }
+        ]
+      },
       "StatusSource200Example": {
         "summary": "Example for StatusSource",
         "value": {
@@ -34621,6 +36485,82 @@
           "text": "this is a status that will be edited",
           "spoiler_text": ""
         }
+      },
+      "PreviewCard200Example": {
+        "summary": "Example for PreviewCard",
+        "value": {
+          "url": "https://www.youtube.com/watch?v=OMv_EPMED8Y",
+          "title": "♪ Brand New Friend (Christmas Song!)",
+          "description": "",
+          "type": "video",
+          "author_name": "YOGSCAST Lewis & Simon",
+          "author_url": "https://www.youtube.com/user/BlueXephos",
+          "provider_name": "YouTube",
+          "provider_url": "https://www.youtube.com/",
+          "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>",
+          "width": 480,
+          "height": 270,
+          "image": "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg",
+          "embed_url": ""
+        }
+      },
+      "Trends_Link200Example": {
+        "summary": "Example for Trends_Link",
+        "value": [
+          {
+            "url": "https://www.nbcnews.com/specials/plan-your-vote-2022-elections/index.html",
+            "title": "Plan Your Vote: 2022 Elections",
+            "description": "Everything you need to know about the voting rules where you live, including registration, mail-in voting, changes since 2020, and more.",
+            "type": "link",
+            "author_name": "NBC News",
+            "author_url": "",
+            "provider_name": "NBC News",
+            "provider_url": "",
+            "html": "",
+            "width": 400,
+            "height": 225,
+            "image": "https://files.mastodon.social/cache/preview_cards/images/045/027/478/original/0783d5e91a14fd49.jpeg",
+            "embed_url": "",
+            "blurhash": "UcQmF#ay~qofj[WBj[j[~qof9Fayofofayay",
+            "history": [
+              {
+                "day": "1661817600",
+                "accounts": "7",
+                "uses": "7"
+              },
+              {
+                "day": "1661731200",
+                "accounts": "23",
+                "uses": "23"
+              },
+              {
+                "day": "1661644800",
+                "accounts": "0",
+                "uses": "0"
+              },
+              {
+                "day": "1661558400",
+                "accounts": "0",
+                "uses": "0"
+              },
+              {
+                "day": "1661472000",
+                "accounts": "0",
+                "uses": "0"
+              },
+              {
+                "day": "1661385600",
+                "accounts": "0",
+                "uses": "0"
+              },
+              {
+                "day": "1661299200",
+                "accounts": "0",
+                "uses": "0"
+              }
+            ]
+          }
+        ]
       }
     }
   }
