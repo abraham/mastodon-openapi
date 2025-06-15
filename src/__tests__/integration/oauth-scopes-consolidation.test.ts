@@ -3,7 +3,7 @@ import { EntityParser } from '../../parsers/EntityParser';
 import { MethodParser } from '../../parsers/MethodParser';
 
 describe('OAuth Scopes Consolidation', () => {
-  test('should consolidate OAuth scopes across Application, CredentialApplication, and createApp', () => {
+  test('should consolidate OAuth scopes for Application and CredentialApplication, and override createApp scopes', () => {
     // Parse entities and methods
     const entityParser = new EntityParser();
     const entities = entityParser.parseAllEntities();
@@ -47,23 +47,16 @@ describe('OAuth Scopes Consolidation', () => {
       '#/components/schemas/OAuthScopes'
     );
 
-    // Check that createApp requestBody has OAuth scope enum (should be unchanged)
+    // Check that createApp requestBody uses format scopes (changed behavior)
     const createAppOperation = spec.paths['/api/v1/apps']?.post;
     expect(createAppOperation).toBeDefined();
 
     const requestBodySchema = createAppOperation!.requestBody?.content?.[
       'application/json'
     ]?.schema as any;
-    expect(requestBodySchema?.properties?.scopes?.enum).toBeDefined();
-    expect(requestBodySchema.properties.scopes.enum).toContain('read');
-    expect(requestBodySchema.properties.scopes.enum).toContain('write');
-    expect(requestBodySchema.properties.scopes.enum).toContain('profile');
-    expect(requestBodySchema.properties.scopes.enum.length).toBeGreaterThan(40);
-
-    // Verify that all three places have the same number of scopes
-    const oauthScopeCount = oauthScope.enum.length;
-    const createAppScopeCount = requestBodySchema.properties.scopes.enum.length;
-    expect(oauthScopeCount).toBe(createAppScopeCount);
+    expect(requestBodySchema?.properties?.scopes?.type).toBe('string');
+    expect(requestBodySchema?.properties?.scopes?.format).toBe('scopes');
+    expect(requestBodySchema?.properties?.scopes?.enum).toBeUndefined();
   });
 
   test('should maintain backwards compatibility for scope descriptions', () => {
