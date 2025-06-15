@@ -28,8 +28,7 @@ describe('OpenAPIGenerator Complex Parameters', () => {
 
       expect(schema).toEqual({
         type: 'array',
-        description:
-          'Array of String. Include Attachment IDs to be attached as media.',
+        description: 'Include Attachment IDs to be attached as media.',
         items: {
           type: 'string',
         },
@@ -103,7 +102,7 @@ describe('OpenAPIGenerator Complex Parameters', () => {
 
       expect(schema).toEqual({
         type: 'string',
-        description: 'String. The text content of the status.',
+        description: 'The text content of the status.',
         enum: ['public', 'unlisted', 'private'],
       });
     });
@@ -119,7 +118,7 @@ describe('OpenAPIGenerator Complex Parameters', () => {
 
       expect(schema).toEqual({
         type: 'string',
-        description: 'String. ID of the status being replied to.',
+        description: 'ID of the status being replied to.',
       });
     });
   });

@@ -25,7 +25,9 @@ describe('TypeParser Enum Values Fix', () => {
     const schema = typeParser.convertParameterToSchema(parameter);
 
     expect(schema.type).toBe('string');
-    expect(schema.description).toBe(parameter.description);
+    expect(schema.description).toBe(
+      'Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.'
+    );
     expect(schema.enum).toEqual(['public', 'unlisted', 'private', 'direct']);
   });
 
@@ -47,7 +49,7 @@ describe('TypeParser Enum Values Fix', () => {
     const schema = typeParser.convertParameterToSchema(parameter);
 
     expect(schema.type).toBe('array');
-    expect(schema.description).toBe(parameter.description);
+    expect(schema.description).toBe('Array of notification types');
     // Array properties should NOT have enum on the array itself, only on items
     expect(schema.enum).toBeUndefined();
     expect(schema.items).toBeDefined();
@@ -68,7 +70,9 @@ describe('TypeParser Enum Values Fix', () => {
     const schema = typeParser.convertParameterToSchema(parameter);
 
     expect(schema.type).toBe('string');
-    expect(schema.description).toBe(parameter.description);
+    expect(schema.description).toBe(
+      'Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.'
+    );
     expect(schema.enum).toEqual(['public', 'unlisted', 'private', 'direct']);
   });
 
@@ -86,7 +90,7 @@ describe('TypeParser Enum Values Fix', () => {
     const schema = typeParser.convertParameterToSchema(parameter);
 
     expect(schema.type).toBe('string');
-    expect(schema.description).toBe(parameter.description);
+    expect(schema.description).toBe('The text content of the status.');
     expect(schema.enum).toBeUndefined();
   });
 });

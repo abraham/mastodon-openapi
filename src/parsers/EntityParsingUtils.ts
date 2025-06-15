@@ -26,9 +26,10 @@ export class EntityParsingUtils {
 
     // Remove redundant type prefixes like "String.", "Boolean.", etc.
     // Also remove complex type prefixes like "Array of String.", "Array of Integer.", etc.
+    // Also remove "String or Array of..." patterns
     // Match case-insensitive type prefix followed by period and space at start of string
     const typePattern =
-      /^(String|Boolean|Integer|Number|Array(\s+of\s+(String|Boolean|Integer|Number|Object|Hash))?|Object|Hash)\.\s*/i;
+      /^(String(\s+or\s+Array\s+of\s+(String|Strings?)(\s+\([^)]+\))?)?|Boolean|Integer|Number|Array(\s+of\s+(String|Boolean|Integer|Number|Object|Hash))?|Object|Hash)\.\s*/i;
     cleaned = cleaned.replace(typePattern, '');
 
     return cleaned.trim();
@@ -40,9 +41,10 @@ export class EntityParsingUtils {
   static stripTypePrefix(description: string): string {
     // Remove redundant type prefixes like "String.", "Boolean.", etc.
     // Also remove complex type prefixes like "Array of String.", "Array of Integer.", etc.
+    // Also remove "String or Array of..." patterns
     // Match case-insensitive type prefix followed by period and space at start of string
     const typePattern =
-      /^(String|Boolean|Integer|Number|Array(\s+of\s+(String|Boolean|Integer|Number|Object|Hash))?|Object|Hash)\.\s*/i;
+      /^(String(\s+or\s+Array\s+of\s+(String|Strings?)(\s+\([^)]+\))?)?|Boolean|Integer|Number|Array(\s+of\s+(String|Boolean|Integer|Number|Object|Hash))?|Object|Hash)\.\s*/i;
     return description.replace(typePattern, '').trim();
   }
 

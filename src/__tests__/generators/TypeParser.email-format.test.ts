@@ -91,7 +91,7 @@ describe('TypeParser - Email format detection', () => {
       expect(result).toEqual({
         type: 'string',
         format: 'email',
-        description: 'String. The user email address',
+        description: 'The user email address',
       });
     });
 
@@ -107,7 +107,7 @@ describe('TypeParser - Email format detection', () => {
       expect(result).toEqual({
         type: 'string',
         format: 'email',
-        description: 'String. The user e-mail address',
+        description: 'The user e-mail address',
       });
     });
 
@@ -122,7 +122,7 @@ describe('TypeParser - Email format detection', () => {
       const result = typeParser.convertParameterToSchema(param);
       expect(result).toEqual({
         type: 'string',
-        description: 'Boolean. Whether to send a confirmation email',
+        description: 'Whether to send a confirmation email',
       });
       expect(result.format).toBeUndefined();
     });
@@ -138,7 +138,7 @@ describe('TypeParser - Email format detection', () => {
       const result = typeParser.convertParameterToSchema(param);
       expect(result).toEqual({
         type: 'string',
-        description: 'String. The email that will be sent for notifications',
+        description: 'The email that will be sent for notifications',
       });
       expect(result.format).toBeUndefined();
     });
@@ -155,7 +155,7 @@ describe('TypeParser - Email format detection', () => {
       expect(result).toEqual({
         type: 'string',
         format: 'email',
-        description: 'String. The user email for contact',
+        description: 'The user email for contact',
       });
     });
 

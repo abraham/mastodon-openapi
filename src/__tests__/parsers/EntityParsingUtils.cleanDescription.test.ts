@@ -186,6 +186,39 @@ describe('EntityParsingUtils.cleanDescription - Type Stripping', () => {
     });
   });
 
+  test('should remove "String or Array of..." type prefixes from descriptions', () => {
+    // Test the specific patterns mentioned in the issue
+    const testCases = [
+      {
+        input:
+          'String or Array of Strings. Where the user should be redirected after authorization.',
+        expected: 'Where the user should be redirected after authorization.',
+      },
+      {
+        input: 'String or Array of String. Test parameter description.',
+        expected: 'Test parameter description.',
+      },
+      {
+        input:
+          'String or Array of String (URLs). Where the user should be redirected.',
+        expected: 'Where the user should be redirected.',
+      },
+      {
+        input: 'string or array of strings. Include attachment IDs.',
+        expected: 'Include attachment IDs.',
+      },
+      {
+        input: 'STRING OR ARRAY OF STRING. List of values.',
+        expected: 'List of values.',
+      },
+    ];
+
+    testCases.forEach(({ input, expected }) => {
+      const result = EntityParsingUtils.cleanDescription(input);
+      expect(result).toBe(expected);
+    });
+  });
+
   test('should not strip complex type words that are not prefixes', () => {
     const testCases = [
       {

@@ -42,7 +42,7 @@ describe('CreateApp redirect_uris override', () => {
 
     // Verify the description is preserved
     expect(redirectUrisProperty.description).toContain(
-      'String or Array of Strings'
+      'Where the user should be redirected after authorization'
     );
   });
 });
