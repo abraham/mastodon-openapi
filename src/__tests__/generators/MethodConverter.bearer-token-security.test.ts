@@ -84,9 +84,8 @@ describe('MethodConverter Bearer Token Security', () => {
 
       const operation = spec.paths['/api/v1/accounts/{id}/statuses']?.get;
       expect(operation).toBeDefined();
-      // Should support both no auth and optional user token with scopes
+      // Should support optional user token with scopes (empty objects removed)
       expect(operation?.security).toEqual([
-        {}, // No authentication required
         { OAuth2: ['read:statuses'] }, // Optional user token with scope
       ]);
     });

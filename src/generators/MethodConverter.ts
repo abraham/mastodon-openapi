@@ -799,8 +799,8 @@ class MethodConverter {
 
       case 'user':
         if (config.supportsPublicAccess) {
-          // Optional authentication: public access + optional user token
-          securityRequirements.push({}); // No authentication
+          // Optional authentication: only show the optional user token
+          // Remove empty object {} to clean up security requirements
           securityRequirements.push({ OAuth2: config.scopes }); // Optional user token
         } else {
           // Required user token

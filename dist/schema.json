@@ -960,7 +960,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -13061,7 +13060,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": []
           }
@@ -19792,7 +19790,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -21710,7 +21707,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "resolve",
@@ -22108,7 +22104,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -22256,7 +22251,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -22762,7 +22756,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -23078,7 +23071,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -23260,7 +23252,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -24894,7 +24885,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -25184,7 +25174,6 @@
         },
         "deprecated": true,
         "security": [
-          {},
           {
             "OAuth2": [
               "read:statuses"
@@ -27054,7 +27043,6 @@
           }
         },
         "security": [
-          {},
           {
             "OAuth2": []
           }
