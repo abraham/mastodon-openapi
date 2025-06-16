@@ -834,6 +834,7 @@ class MethodConverter {
   /**
    * Extract OAuth scopes from OAuth text
    * Parses strings like "User token + `write:blocks`" to extract ["write:blocks"]
+   * Only returns valid OAuth scopes, filters out query parameters mentioned in backticks
    */
   private extractOAuthScopes(oauthText: string): string[] {
     const scopeSet = new Set<string>();
@@ -844,13 +845,49 @@ class MethodConverter {
     if (scopeMatches) {
       for (const match of scopeMatches) {
         const scope = match.slice(1, -1); // Remove backticks
-        if (scope) {
+        if (scope && this.isValidOAuthScope(scope)) {
           scopeSet.add(scope);
         }
       }
     }
 
     return Array.from(scopeSet);
+  }
+
+  /**
+   * Check if a string is a valid OAuth scope
+   * Valid scopes are either high-level scopes or granular scopes with colons
+   */
+  private isValidOAuthScope(scope: string): boolean {
+    // High-level scopes
+    const highLevelScopes = [
+      'profile',
+      'read',
+      'write',
+      'push',
+      'follow', // deprecated but still valid
+      'admin:read',
+      'admin:write',
+    ];
+
+    if (highLevelScopes.includes(scope)) {
+      return true;
+    }
+
+    // Granular scopes must contain colons and follow known patterns
+    if (scope.includes(':')) {
+      // Valid granular scope prefixes
+      const validPrefixes = [
+        'read:',
+        'write:',
+        'admin:read:',
+        'admin:write:',
+      ];
+
+      return validPrefixes.some((prefix) => scope.startsWith(prefix));
+    }
+
+    return false;
   }
 
   /**

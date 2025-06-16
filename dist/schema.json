@@ -21709,8 +21709,6 @@
         "security": [
           {
             "OAuth2": [
-              "resolve",
-              "offset",
               "read:search"
             ]
           }
