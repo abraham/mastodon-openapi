@@ -137,7 +137,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "write:accounts"
             ]
           }
@@ -462,6 +462,7 @@
         "security": [
           {
             "OAuth2": [
+              "profile",
               "read:accounts"
             ]
           }
@@ -5299,7 +5300,7 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2ClientCredentials": []
           }
         ]
       }
@@ -6555,7 +6556,8 @@
         "security": [
           {
             "OAuth2": [
-              "read:blocks"
+              "read:blocks",
+              "follow"
             ]
           }
         ],
@@ -6713,7 +6715,8 @@
         "security": [
           {
             "OAuth2": [
-              "write:blocks"
+              "write:blocks",
+              "follow"
             ]
           }
         ],
@@ -6853,7 +6856,8 @@
         "security": [
           {
             "OAuth2": [
-              "write:blocks"
+              "write:blocks",
+              "follow"
             ]
           }
         ],
@@ -10982,7 +10986,8 @@
         "security": [
           {
             "OAuth2": [
-              "read:follows"
+              "read:follows",
+              "follow"
             ]
           }
         ],
@@ -11145,7 +11150,8 @@
         "security": [
           {
             "OAuth2": [
-              "write:follows"
+              "write:follows",
+              "follow"
             ]
           }
         ],
@@ -11289,7 +11295,8 @@
         "security": [
           {
             "OAuth2": [
-              "write:follows"
+              "write:follows",
+              "follow"
             ]
           }
         ],
@@ -16281,7 +16288,8 @@
         "security": [
           {
             "OAuth2": [
-              "read:mutes"
+              "read:mutes",
+              "follow"
             ]
           }
         ],
@@ -20215,7 +20223,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "push"
+            ]
           }
         ],
         "parameters": [],
@@ -20443,7 +20453,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "push"
+            ]
           }
         ]
       },
@@ -20572,7 +20584,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "push"
+            ]
           }
         ],
         "parameters": [],
@@ -20758,7 +20772,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "push"
+            ]
           }
         ]
       }
@@ -22883,7 +22899,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -25012,7 +25028,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -26600,7 +26616,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "read"
+            ]
           }
         ],
         "parameters": [
@@ -26731,7 +26749,9 @@
         },
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "read"
+            ]
           }
         ],
         "parameters": [
@@ -26877,7 +26897,9 @@
         "deprecated": true,
         "security": [
           {
-            "OAuth2": []
+            "OAuth2": [
+              "read"
+            ]
           }
         ],
         "parameters": [
@@ -27747,7 +27769,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -27958,7 +27980,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -28390,7 +28412,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -35234,7 +35256,7 @@
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",
-        "description": "OAuth 2.0 authentication",
+        "description": "OAuth 2.0 authentication for user tokens (authorization code flow)",
         "flows": {
           "authorizationCode": {
             "authorizationUrl": "https://mastodon.example/oauth/authorize",
@@ -35286,7 +35308,13 @@
               "admin:write:email_domain_blocks": "Administrative write access to email_domain_blocks",
               "admin:write:canonical_email_blocks": "Administrative write access to canonical_email_blocks"
             }
-          },
+          }
+        }
+      },
+      "OAuth2ClientCredentials": {
+        "type": "oauth2",
+        "description": "OAuth 2.0 authentication for app tokens (client credentials flow)",
+        "flows": {
           "clientCredentials": {
             "tokenUrl": "https://mastodon.example/oauth/token",
             "scopes": {

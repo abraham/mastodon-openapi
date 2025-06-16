@@ -140,13 +140,13 @@ describe('MethodConverter OAuth Scopes', () => {
     expect(operation?.security).toEqual([{ OAuth2: [] }]);
   });
 
-  test('should only extract valid scope formats with colons', () => {
+  test('should extract all scope formats including those without colons', () => {
     const method: ApiMethod = {
       name: 'Mixed scope method',
       httpMethod: 'POST',
       endpoint: '/api/v1/mixed',
       description: 'Method with mixed scope formats',
-      oauth: 'User token + `write:accounts` + `invalidscope` + `read:statuses`',
+      oauth: 'User token + `write:accounts` + `read` + `read:statuses`',
     };
 
     methodConverter.convertMethod(method, 'test', spec);
@@ -154,7 +154,7 @@ describe('MethodConverter OAuth Scopes', () => {
     const operation = spec.paths['/api/v1/mixed']?.post;
     expect(operation).toBeDefined();
     expect(operation?.security).toEqual([
-      { OAuth2: ['write:accounts', 'read:statuses'] },
+      { OAuth2: ['write:accounts', 'read', 'read:statuses'] },
     ]);
   });
 });

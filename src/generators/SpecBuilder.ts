@@ -71,13 +71,21 @@ class SpecBuilder {
         securitySchemes: {
           OAuth2: {
             type: 'oauth2',
-            description: 'OAuth 2.0 authentication',
+            description:
+              'OAuth 2.0 authentication for user tokens (authorization code flow)',
             flows: {
               authorizationCode: {
                 authorizationUrl: 'https://mastodon.example/oauth/authorize',
                 tokenUrl: 'https://mastodon.example/oauth/token',
                 scopes: scopesObject,
               },
+            },
+          },
+          OAuth2ClientCredentials: {
+            type: 'oauth2',
+            description:
+              'OAuth 2.0 authentication for app tokens (client credentials flow)',
+            flows: {
               clientCredentials: {
                 tokenUrl: 'https://mastodon.example/oauth/token',
                 scopes: clientCredentialsScopes,
