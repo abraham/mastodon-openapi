@@ -31082,8 +31082,7 @@
           },
           "client_secret_expires_at": {
             "description": "When the client secret key will expire at, presently this always returns `0` indicating that OAuth Clients do not expire",
-            "type": "string",
-            "format": "date-time"
+            "type": "string"
           }
         },
         "required": [

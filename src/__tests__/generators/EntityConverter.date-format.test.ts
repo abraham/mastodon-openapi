@@ -150,4 +150,88 @@ describe('EntityConverter - Date Format Handling', () => {
     expect(updatedProperty?.type).toBe('string');
     expect(updatedProperty?.format).toBeUndefined();
   });
+
+  it('should not apply date-time format to client_secret_expires_at field', () => {
+    const entities: EntityClass[] = [
+      {
+        name: 'CredentialApplication',
+        description: 'CredentialApplication entity',
+        attributes: [
+          {
+            name: 'client_id',
+            type: 'String',
+            description: 'Client ID key, to be used for obtaining OAuth tokens',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['1.0.0'],
+          },
+          {
+            name: 'client_secret',
+            type: 'String',
+            description:
+              'Client secret key, to be used for obtaining OAuth tokens',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['1.0.0'],
+          },
+          {
+            name: 'client_secret_expires_at',
+            type: 'String',
+            description:
+              'When the client secret key will expire at, presently this always returns 0 indicating that OAuth Clients do not expire',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['1.0.0'],
+          },
+          {
+            name: 'created_at',
+            type: 'String',
+            description: 'When the application was created',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['1.0.0'],
+          },
+        ],
+      },
+    ];
+
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test', version: '1.0.0' },
+      paths: {},
+    };
+
+    entityConverter.convertEntities(entities, spec);
+
+    const schema = spec.components?.schemas?.['CredentialApplication'];
+    expect(schema).toBeDefined();
+
+    // client_secret_expires_at should NOT have date-time format (always returns 0)
+    const clientSecretExpiresAtProperty =
+      schema?.properties?.['client_secret_expires_at'];
+    expect(clientSecretExpiresAtProperty?.type).toBe('string');
+    expect(clientSecretExpiresAtProperty?.format).toBeUndefined();
+
+    // created_at should still have date-time format (normal _at field)
+    const createdAtProperty = schema?.properties?.['created_at'];
+    expect(createdAtProperty?.type).toBe('string');
+    expect(createdAtProperty?.format).toBe('date-time');
+
+    // Other fields should not have date-time format
+    const clientIdProperty = schema?.properties?.['client_id'];
+    expect(clientIdProperty?.type).toBe('string');
+    expect(clientIdProperty?.format).toBeUndefined();
+
+    const clientSecretProperty = schema?.properties?.['client_secret'];
+    expect(clientSecretProperty?.type).toBe('string');
+    expect(clientSecretProperty?.format).toBeUndefined();
+  });
 });
