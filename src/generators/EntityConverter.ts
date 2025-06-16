@@ -294,8 +294,10 @@ class EntityConverter {
     }
 
     // Special handling for _at properties that should be date-time format
+    // Exception: client_secret_expires_at always returns 0 (not a real date)
     if (
       attribute.name.endsWith('_at') &&
+      attribute.name !== 'client_secret_expires_at' &&
       property.type === 'string' &&
       !property.format
     ) {
