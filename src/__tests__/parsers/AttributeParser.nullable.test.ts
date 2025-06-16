@@ -256,4 +256,67 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Boolean');
     });
   });
+
+  describe('Empty string patterns', () => {
+    it('should mark fields ending with "or empty string" as optional and nullable', () => {
+      const content = `
+### \`language\` {#language}
+
+**Description:** The default posting language for new statuses.\\
+**Type:** String (ISO 639-1 language two-letter code) or empty string\\
+**Version history:**\\
+2.4.2 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('language');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe(
+        'String (ISO 639-1 language two-letter code) or empty string'
+      );
+    });
+
+    it('should mark method entity fields ending with "or empty string" as optional and nullable', () => {
+      const content = `
+#### \`language\` {#language}
+
+**Description:** The default posting language for new statuses.\\
+**Type:** String (ISO 639-1 language two-letter code) or empty string\\
+**Version history:**\\
+2.4.2 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('language');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe(
+        'String (ISO 639-1 language two-letter code) or empty string'
+      );
+    });
+
+    it('should handle mixed patterns with both "or null" and "or empty string"', () => {
+      const content = `
+### \`mixed_field\` {#mixed_field}
+
+**Description:** A test field with mixed pattern.\\
+**Type:** String or null or empty string\\
+**Version history:**\\
+1.0.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('mixed_field');
+      expect(attributes[0].optional).toBe(true);
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('String or null or empty string');
+    });
+  });
 });

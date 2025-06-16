@@ -29727,6 +29727,7 @@
               },
               "language": {
                 "description": "The default posting language for new statuses.",
+                "nullable": true,
                 "type": "string"
               },
               "follow_requests_count": {
@@ -29740,7 +29741,6 @@
               "fields",
               "privacy",
               "sensitive",
-              "language",
               "follow_requests_count"
             ]
           },

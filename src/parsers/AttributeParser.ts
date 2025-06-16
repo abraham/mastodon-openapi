@@ -77,7 +77,8 @@ export class AttributeParser {
         const isNullable =
           typeStr.includes('{{<nullable>}}') ||
           typeStr.includes('{{%nullable%}}') ||
-          typeStr.includes(' or null');
+          typeStr.includes(' or null') ||
+          typeStr.includes(' or empty string');
 
         const attribute: EntityAttribute = {
           name: heading.name.trim(),
@@ -177,7 +178,8 @@ export class AttributeParser {
       const isNullable =
         typeStr.includes('{{<nullable>}}') ||
         typeStr.includes('{{%nullable%}}') ||
-        typeStr.includes(' or null');
+        typeStr.includes(' or null') ||
+        typeStr.includes(' or empty string');
 
       const attribute: EntityAttribute = {
         name: name.trim(),
