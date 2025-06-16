@@ -84,12 +84,6 @@ class SpecBuilder {
               },
             },
           },
-          BearerAuth: {
-            type: 'http',
-            scheme: 'bearer',
-            bearerFormat: 'JWT',
-            description: 'Bearer token authentication',
-          },
         },
       },
     };
