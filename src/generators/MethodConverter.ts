@@ -877,12 +877,7 @@ class MethodConverter {
     // Granular scopes must contain colons and follow known patterns
     if (scope.includes(':')) {
       // Valid granular scope prefixes
-      const validPrefixes = [
-        'read:',
-        'write:',
-        'admin:read:',
-        'admin:write:',
-      ];
+      const validPrefixes = ['read:', 'write:', 'admin:read:', 'admin:write:'];
 
       return validPrefixes.some((prefix) => scope.startsWith(prefix));
     }
