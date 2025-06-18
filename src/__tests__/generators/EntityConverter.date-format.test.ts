@@ -151,7 +151,7 @@ describe('EntityConverter - Date Format Handling', () => {
     expect(updatedProperty?.format).toBeUndefined();
   });
 
-  it('should not apply date-time format to client_secret_expires_at field', () => {
+  it('should convert client_secret_expires_at to integer type', () => {
     const entities: EntityClass[] = [
       {
         name: 'CredentialApplication',
@@ -214,10 +214,10 @@ describe('EntityConverter - Date Format Handling', () => {
     const schema = spec.components?.schemas?.['CredentialApplication'];
     expect(schema).toBeDefined();
 
-    // client_secret_expires_at should NOT have date-time format (always returns 0)
+    // client_secret_expires_at should be integer (always returns 0)
     const clientSecretExpiresAtProperty =
       schema?.properties?.['client_secret_expires_at'];
-    expect(clientSecretExpiresAtProperty?.type).toBe('string');
+    expect(clientSecretExpiresAtProperty?.type).toBe('integer');
     expect(clientSecretExpiresAtProperty?.format).toBeUndefined();
 
     // created_at should still have date-time format (normal _at field)

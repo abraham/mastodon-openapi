@@ -293,6 +293,13 @@ class EntityConverter {
       property.oneOf = type.oneOf;
     }
 
+    // Special handling for client_secret_expires_at: should be integer (always returns 0)
+    if (attribute.name === 'client_secret_expires_at') {
+      property.type = 'integer';
+      // Remove any format that might have been set
+      delete property.format;
+    }
+
     // Special handling for _at properties that should be date-time format
     // Exception: client_secret_expires_at always returns 0 (not a real date)
     if (
