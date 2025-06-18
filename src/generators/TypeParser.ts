@@ -63,9 +63,8 @@ class TypeParser {
     if (cleanType.includes('string')) {
       const property: OpenAPIProperty = { type: 'string' };
 
-      if (cleanType.includes('url')) {
-        property.format = 'uri';
-      } else if (
+      // Check for datetime/date formats first (they take precedence over URL mentions)
+      if (
         cleanType.includes('iso8601') ||
         typeString.includes('[Datetime]') ||
         typeString.includes('[ISO8601') ||
@@ -83,6 +82,9 @@ class TypeParser {
         property.format = 'date';
       } else if (cleanType.includes('email')) {
         property.format = 'email';
+      } else if (cleanType.includes('url')) {
+        // Only apply URI format if no datetime/date format was specified
+        property.format = 'uri';
       } else if (cleanType.includes('html')) {
         property.description = (property.description || '') + ' (HTML content)';
       }

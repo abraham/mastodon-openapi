@@ -29980,7 +29980,7 @@
             "description": "Timestamp of when the server verified a URL value for a rel=\"me\" link.",
             "nullable": true,
             "type": "string",
-            "format": "uri"
+            "format": "date-time"
           }
         },
         "required": [
