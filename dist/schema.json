@@ -15511,20 +15511,22 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "JSON request body parameters",
+          "description": "Multipart form data parameters",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "file": {
                     "type": "string",
-                    "description": "The file to be attached, encoded using multipart form data. The file must have a MIME type."
+                    "description": "The file to be attached, encoded using multipart form data. The file must have a MIME type.",
+                    "format": "binary"
                   },
                   "thumbnail": {
                     "type": "string",
-                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data."
+                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data.",
+                    "format": "binary"
                   },
                   "description": {
                     "type": "string",
@@ -15959,16 +15961,17 @@
           }
         ],
         "requestBody": {
-          "description": "JSON request body parameters",
+          "description": "Multipart form data parameters",
           "required": false,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "thumbnail": {
                     "type": "string",
-                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data."
+                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data.",
+                    "format": "binary"
                   },
                   "description": {
                     "type": "string",
@@ -16119,20 +16122,22 @@
         ],
         "parameters": [],
         "requestBody": {
-          "description": "JSON request body parameters",
+          "description": "Multipart form data parameters",
           "required": true,
           "content": {
-            "application/json": {
+            "multipart/form-data": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "file": {
                     "type": "string",
-                    "description": "The file to be attached, encoded using multipart form data. The file must have a MIME type."
+                    "description": "The file to be attached, encoded using multipart form data. The file must have a MIME type.",
+                    "format": "binary"
                   },
                   "thumbnail": {
                     "type": "string",
-                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data."
+                    "description": "The custom thumbnail of the media to be attached, encoded using multipart form data.",
+                    "format": "binary"
                   },
                   "description": {
                     "type": "string",

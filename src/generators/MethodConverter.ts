@@ -53,6 +53,37 @@ class MethodConverter {
   }
 
   /**
+   * Check if a parameter is a file parameter based on its description
+   */
+  private isFileParameter(param: ApiParameter): boolean {
+    return !!(
+      param.description &&
+      param.description.toLowerCase().includes('multipart form data')
+    );
+  }
+
+  /**
+   * Check if an endpoint is a media upload endpoint that should use multipart/form-data
+   */
+  private isMediaUploadEndpoint(method: ApiMethod, path: string): boolean {
+    // Media upload endpoints
+    return (
+      (method.httpMethod === 'POST' &&
+        (path === '/api/v1/media' || path === '/api/v2/media')) ||
+      (method.httpMethod === 'PUT' && path === '/api/v1/media/{id}')
+    );
+  }
+
+  /**
+   * Check if method has any file parameters
+   */
+  private hasFileParameters(method: ApiMethod): boolean {
+    return (
+      method.parameters?.some((param) => this.isFileParameter(param)) || false
+    );
+  }
+
+  /**
    * Convert methods to OpenAPI paths and add them to the spec
    */
   public convertMethods(
@@ -327,6 +358,42 @@ class MethodConverter {
                 schema: {
                   type: 'object',
                   properties,
+                  required: required.length > 0 ? required : undefined,
+                } as OpenAPIProperty,
+              },
+            },
+          };
+        } else if (
+          this.isMediaUploadEndpoint(method, path) ||
+          this.hasFileParameters(method)
+        ) {
+          // Special handling for media upload endpoints with file parameters
+          // Use multipart/form-data instead of application/json
+          // Set file parameters to have format: binary
+          const multipartProperties: Record<string, OpenAPIProperty> = {};
+
+          for (const [name, property] of Object.entries(properties)) {
+            const param = method.parameters?.find((p) => p.name === name);
+            if (param && this.isFileParameter(param)) {
+              // File parameters should have format: binary
+              multipartProperties[name] = {
+                ...property,
+                type: 'string',
+                format: 'binary',
+              };
+            } else {
+              multipartProperties[name] = property;
+            }
+          }
+
+          operation.requestBody = {
+            description: 'Multipart form data parameters',
+            required: required.length > 0,
+            content: {
+              'multipart/form-data': {
+                schema: {
+                  type: 'object',
+                  properties: multipartProperties,
                   required: required.length > 0 ? required : undefined,
                 } as OpenAPIProperty,
               },
