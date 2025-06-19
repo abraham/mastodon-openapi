@@ -61,6 +61,18 @@ class EntityConverter {
           // Combine Account attributes with MutedAccount attributes
           allAttributes = [...accountEntity.attributes, ...entity.attributes];
         }
+      } else if (entity.name === 'Trends::Link') {
+        // Find the PreviewCard entity to inherit from
+        const previewCardEntity = entities.find(
+          (e) => e.name === 'PreviewCard'
+        );
+        if (previewCardEntity) {
+          // Combine PreviewCard attributes with Trends::Link attributes
+          allAttributes = [
+            ...previewCardEntity.attributes,
+            ...entity.attributes,
+          ];
+        }
       }
 
       const schema: OpenAPISchema = {
