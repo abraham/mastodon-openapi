@@ -53,8 +53,8 @@ describe('OpenAPIGenerator version parsing', () => {
 
     const schema = generator.generateSchema(testEntities, testMethods);
 
-    // Should use the hardcoded default from SpecBuilder
-    expect(schema.info.version).toBe('4.2.0');
+    // Should use the SUPPORTED_VERSION from VersionParser
+    expect(schema.info.version).toBe('4.3.0');
   });
 
   test('should preserve version arrays in parsed data', () => {
