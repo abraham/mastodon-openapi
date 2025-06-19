@@ -255,6 +255,42 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('Boolean');
     });
+
+    it('should mark source[attribution_domains] as nullable due to it not being released yet', () => {
+      const content = `
+### \`source[attribution_domains]\` {#source-attribution_domains}
+
+**Description:** Domains of websites allowed to credit the account.\\
+**Type:** Array of String\\
+**Version history:**\\
+4.4.0 (\`mastodon\` API version 3) - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('source[attribution_domains]');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Array of String');
+    });
+
+    it('should mark source[attribution_domains] as nullable in method entities as well', () => {
+      const content = `
+#### \`source[attribution_domains]\` {#source-attribution_domains}
+
+**Description:** Domains of websites allowed to credit the account.\\
+**Type:** Array of String\\
+**Version history:**\\
+4.4.0 (\`mastodon\` API version 3) - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('source[attribution_domains]');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Array of String');
+    });
   });
 
   describe('Empty string patterns', () => {

@@ -29722,6 +29722,7 @@
             "properties": {
               "attribution_domains": {
                 "description": "Domains of websites allowed to credit the account.",
+                "nullable": true,
                 "type": "array",
                 "items": {
                   "type": "string"
@@ -29763,7 +29764,6 @@
               }
             },
             "required": [
-              "attribution_domains",
               "note",
               "fields",
               "privacy",

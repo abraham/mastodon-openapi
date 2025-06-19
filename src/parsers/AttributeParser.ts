@@ -112,6 +112,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: source[attribution_domains] should be nullable as it's not released yet
+        if (heading.name === 'source[attribution_domains]') {
+          attribute.nullable = true;
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -211,6 +216,11 @@ export class AttributeParser {
       // Special case: Account#hide_collections should be nullable due to servers returning null values
       // Note: this covers method entities that might reference Account fields
       if (name === 'hide_collections') {
+        attribute.nullable = true;
+      }
+
+      // Special case: source[attribution_domains] should be nullable as it's not released yet
+      if (name === 'source[attribution_domains]') {
         attribute.nullable = true;
       }
 
