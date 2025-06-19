@@ -32330,7 +32330,7 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "group_key": {
             "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
@@ -32683,7 +32683,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/PreviewTypeEnum"
           },
           "authors": {
             "description": "Fediverse account of the authors of the original resource.",
@@ -32775,7 +32775,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/PreviewTypeEnum"
           },
           "authors": {
             "description": "Fediverse account of the authors of the original resource.",
@@ -35021,7 +35021,7 @@
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
@@ -35278,13 +35278,21 @@
           "none"
         ]
       },
-      "TypeEnum": {
+      "NotificationTypeEnum": {
         "type": "string",
         "enum": [
-          "link",
-          "photo",
-          "rich",
-          "video"
+          "admin.report",
+          "admin.sign_up",
+          "favourite",
+          "follow",
+          "follow_request",
+          "mention",
+          "moderation_warning",
+          "poll",
+          "reblog",
+          "severed_relationships",
+          "status",
+          "update"
         ]
       },
       "VisibilityEnum": {
@@ -35294,6 +35302,15 @@
           "private",
           "public",
           "unlisted"
+        ]
+      },
+      "PreviewTypeEnum": {
+        "type": "string",
+        "enum": [
+          "link",
+          "photo",
+          "rich",
+          "video"
         ]
       },
       "StateEnum": {
