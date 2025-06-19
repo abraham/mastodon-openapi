@@ -31457,6 +31457,7 @@
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
+            "nullable": true,
             "type": "string",
             "enum": [
               "warn",
@@ -31484,8 +31485,7 @@
         "required": [
           "id",
           "title",
-          "context",
-          "filter_action"
+          "context"
         ],
         "example": {
           "id": "19972",
@@ -31756,6 +31756,7 @@
                   },
                   "about": {
                     "description": "The URL of the server's about page.",
+                    "nullable": true,
                     "type": "string",
                     "format": "uri"
                   },
@@ -31773,8 +31774,7 @@
                   }
                 },
                 "required": [
-                  "streaming",
-                  "about"
+                  "streaming"
                 ]
               },
               "accounts": {
@@ -31831,6 +31831,7 @@
                   },
                   "description_limit": {
                     "description": "The maximum size of a description, in characters.",
+                    "nullable": true,
                     "type": "integer"
                   },
                   "image_size_limit": {
@@ -31856,7 +31857,6 @@
                 },
                 "required": [
                   "supported_mime_types",
-                  "description_limit",
                   "image_size_limit",
                   "image_matrix_limit",
                   "video_size_limit",
@@ -31907,6 +31907,7 @@
               },
               "limited_federation": {
                 "description": "Whether federation is limited to explicitly allowed domains.",
+                "nullable": true,
                 "type": "boolean"
               }
             },
@@ -31916,8 +31917,7 @@
               "statuses",
               "media_attachments",
               "polls",
-              "translation",
-              "limited_federation"
+              "translation"
             ]
           },
           "registrations": {
@@ -32848,6 +32848,7 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
+            "nullable": true,
             "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
@@ -32857,9 +32858,6 @@
             "$ref": "#/components/schemas/Status"
           }
         },
-        "required": [
-          "state"
-        ],
         "example": {
           "state": "accepted",
           "status": {
@@ -33279,14 +33277,14 @@
           },
           "translations": {
             "description": "Available translations for this rule's `text` and `hint`, as a Hash where keys are locale codes and values are hashes with `text` and `hint` keys.",
+            "nullable": true,
             "type": "object"
           }
         },
         "required": [
           "id",
           "text",
-          "hint",
-          "translations"
+          "hint"
         ],
         "example": {
           "id": "2",
@@ -33472,6 +33470,7 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
+            "nullable": true,
             "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
@@ -33481,9 +33480,6 @@
             "type": "string"
           }
         },
-        "required": [
-          "state"
-        ],
         "example": {
           "state": "accepted",
           "status_id": "103270115826048975"
@@ -34117,15 +34113,18 @@
         "properties": {
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
+            "nullable": true,
             "type": "string",
             "format": "date"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
+            "nullable": true,
             "type": "boolean"
           },
           "content": {
             "description": "The rendered HTML content of the terms of service.",
+            "nullable": true,
             "type": "string"
           },
           "succeeded_by": {
@@ -34135,11 +34134,6 @@
             "format": "date"
           }
         },
-        "required": [
-          "effective_date",
-          "effective",
-          "content"
-        ],
         "example": {
           "effective_date": "2025-04-15",
           "effective": true,
@@ -34764,6 +34758,7 @@
           },
           "standard": {
             "description": "If the push messages follow the standardized specifications (RFC8030+RFC8291+RFC8292). Else they follow a legacy version of the specifications (4th draft of RFC8291 and 1st draft of RFC8292).",
+            "nullable": true,
             "type": "boolean"
           },
           "server_key": {
@@ -34832,7 +34827,6 @@
         "required": [
           "id",
           "endpoint",
-          "standard",
           "server_key",
           "alerts"
         ],

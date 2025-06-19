@@ -112,11 +112,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: source[attribution_domains] should be nullable as it's not released yet
-        if (heading.name === 'source[attribution_domains]') {
-          attribute.nullable = true;
-        }
-
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -134,6 +129,14 @@ export class AttributeParser {
           if (versions.length > 0) {
             attribute.versions = versions;
           }
+        }
+
+        // Mark attributes as nullable if they were added in a version newer than supported
+        if (
+          attribute.versions &&
+          VersionParser.hasNewerVersion(attribute.versions)
+        ) {
+          attribute.nullable = true;
         }
 
         attributes.push(attribute);
@@ -219,11 +222,6 @@ export class AttributeParser {
         attribute.nullable = true;
       }
 
-      // Special case: source[attribution_domains] should be nullable as it's not released yet
-      if (name === 'source[attribution_domains]') {
-        attribute.nullable = true;
-      }
-
       // Check for enum values in the content between Type and Version history
       if (enumContent && enumContent.trim()) {
         const enumValues = EntityParsingUtils.extractEnumValues(enumContent);
@@ -240,6 +238,14 @@ export class AttributeParser {
         if (versions.length > 0) {
           attribute.versions = versions;
         }
+      }
+
+      // Mark attributes as nullable if they were added in a version newer than supported
+      if (
+        attribute.versions &&
+        VersionParser.hasNewerVersion(attribute.versions)
+      ) {
+        attribute.nullable = true;
       }
 
       attributes.push(attribute);
