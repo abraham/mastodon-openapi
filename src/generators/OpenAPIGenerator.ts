@@ -43,14 +43,8 @@ class OpenAPIGenerator {
 
   public generateSchema(
     entities: EntityClass[],
-    methodFiles: ApiMethodsFile[],
-    maxVersion?: string
+    methodFiles: ApiMethodsFile[]
   ): OpenAPISpec {
-    // Update the version in the spec if provided
-    if (maxVersion) {
-      this.spec.info.version = maxVersion;
-    }
-
     // First, collect error examples from all method files
     this.errorExampleRegistry.collectErrorExamples(methodFiles);
 

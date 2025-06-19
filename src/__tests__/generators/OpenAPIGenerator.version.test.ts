@@ -9,7 +9,7 @@ describe('OpenAPIGenerator version parsing', () => {
     generator = new OpenAPIGenerator();
   });
 
-  test('should use provided maxVersion in the generated schema', () => {
+  test('should always use supported version regardless of data', () => {
     const testEntities: EntityClass[] = [
       {
         name: 'TestEntity',
@@ -42,12 +42,13 @@ describe('OpenAPIGenerator version parsing', () => {
       },
     ];
 
-    const schema = generator.generateSchema(testEntities, testMethods, '5.1.0');
+    const schema = generator.generateSchema(testEntities, testMethods);
 
-    expect(schema.info.version).toBe('5.1.0');
+    // Should always use the SUPPORTED_VERSION, not the maximum version found in data
+    expect(schema.info.version).toBe('4.3.0');
   });
 
-  test('should use default version when no maxVersion provided', () => {
+  test('should use default version when no data provided', () => {
     const testEntities: EntityClass[] = [];
     const testMethods: ApiMethodsFile[] = [];
 
