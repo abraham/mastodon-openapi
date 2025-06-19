@@ -93,4 +93,42 @@ describe('VersionParser', () => {
       expect(VersionParser.findMaxVersion(versions)).toBe('10.0.0');
     });
   });
+
+  describe('hasNewerVersion', () => {
+    it('should return true when array contains version newer than supported', () => {
+      const versions = ['4.0.0', '4.4.0', '3.5.0'];
+      expect(VersionParser.hasNewerVersion(versions, '4.3.0')).toBe(true);
+    });
+
+    it('should return false when all versions are older than or equal to supported', () => {
+      const versions = ['4.0.0', '4.3.0', '3.5.0'];
+      expect(VersionParser.hasNewerVersion(versions, '4.3.0')).toBe(false);
+    });
+
+    it('should return false when array contains only older versions', () => {
+      const versions = ['4.0.0', '4.2.0', '3.5.0'];
+      expect(VersionParser.hasNewerVersion(versions, '4.3.0')).toBe(false);
+    });
+
+    it('should use default supported version 4.3.0 when not specified', () => {
+      const versions = ['4.4.0'];
+      expect(VersionParser.hasNewerVersion(versions)).toBe(true);
+    });
+
+    it('should return false for empty or null arrays', () => {
+      expect(VersionParser.hasNewerVersion([])).toBe(false);
+      expect(VersionParser.hasNewerVersion(null as any)).toBe(false);
+      expect(VersionParser.hasNewerVersion(undefined as any)).toBe(false);
+    });
+
+    it('should handle multiple newer versions', () => {
+      const versions = ['4.4.0', '4.5.0', '5.0.0'];
+      expect(VersionParser.hasNewerVersion(versions, '4.3.0')).toBe(true);
+    });
+
+    it('should handle exact version match correctly', () => {
+      const versions = ['4.3.0'];
+      expect(VersionParser.hasNewerVersion(versions, '4.3.0')).toBe(false);
+    });
+  });
 });

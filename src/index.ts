@@ -61,7 +61,7 @@ function main() {
   console.log('Generating OpenAPI schema...');
 
   const generator = new OpenAPIGenerator();
-  const schema = generator.generateSchema(entities, methodFiles, maxVersion);
+  const schema = generator.generateSchema(entities, methodFiles);
 
   console.log('OpenAPI schema generated successfully');
 

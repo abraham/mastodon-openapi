@@ -355,4 +355,121 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('String or null or empty string');
     });
   });
+
+  describe('Version-based nullable attributes', () => {
+    it('should mark attributes added in newer versions as nullable (entity format)', () => {
+      const content = `
+### \`new_feature\` {#new_feature}
+
+**Description:** A feature added in a newer version.\\
+**Type:** String\\
+**Version history:**\\
+4.4.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('new_feature');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('String');
+      expect(attributes[0].versions).toEqual(['4.4.0']);
+    });
+
+    it('should mark attributes added in newer versions as nullable (method entity format)', () => {
+      const content = `
+#### \`future_field\` {#future_field}
+
+**Description:** A field that will be added in the future.\\
+**Type:** Boolean\\
+**Version history:**\\
+4.5.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('future_field');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Boolean');
+      expect(attributes[0].versions).toEqual(['4.5.0']);
+    });
+
+    it('should NOT mark attributes added in older or current versions as nullable', () => {
+      const content = `
+### \`old_feature\` {#old_feature}
+
+**Description:** A feature added in an older version.\\
+**Type:** String\\
+**Version history:**\\
+4.2.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('old_feature');
+      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].type).toBe('String');
+      expect(attributes[0].versions).toEqual(['4.2.0']);
+    });
+
+    it('should NOT mark attributes added in current supported version as nullable', () => {
+      const content = `
+### \`current_feature\` {#current_feature}
+
+**Description:** A feature added in the current supported version.\\
+**Type:** String\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('current_feature');
+      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].type).toBe('String');
+      expect(attributes[0].versions).toEqual(['4.3.0']);
+    });
+
+    it('should mark attributes as nullable if ANY version is newer than supported', () => {
+      const content = `
+### \`evolved_feature\` {#evolved_feature}
+
+**Description:** A feature that was updated in a newer version.\\
+**Type:** String\\
+**Version history:**\\
+4.0.0 - added\\
+4.4.0 - enhanced with new functionality
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('evolved_feature');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('String');
+      expect(attributes[0].versions).toEqual(['4.0.0', '4.4.0']);
+    });
+
+    it('should mark Instance registrations[min_age] as nullable due to version 4.4.0', () => {
+      const content = `
+#### \`registrations[min_age]\` {#registrations-min_age}
+
+**Description:** A minimum age required to register, if configured.\\
+**Type:** {{<nullable>}} Integer or null\\
+**Version history:**\\
+4.4.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('registrations[min_age]');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Integer or null');
+      expect(attributes[0].versions).toEqual(['4.4.0']);
+    });
+  });
 });

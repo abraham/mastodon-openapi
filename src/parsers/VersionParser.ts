@@ -1,6 +1,11 @@
 import { UtilityHelpers } from '../generators/UtilityHelpers';
 
 /**
+ * The currently supported Mastodon API version
+ */
+export const SUPPORTED_VERSION = '4.3.0';
+
+/**
  * Utility class for parsing version numbers from version history strings
  */
 export class VersionParser {
@@ -70,6 +75,27 @@ export class VersionParser {
 
     return versions.reduce((max, current) =>
       this.compareVersions(max, current) === max ? max : current
+    );
+  }
+
+  /**
+   * Checks if any version in the array is newer than the supported version
+   * @param versions Array of version strings to check
+   * @param supportedVersion The current supported version (default: SUPPORTED_VERSION)
+   * @returns True if any version is newer than the supported version
+   */
+  static hasNewerVersion(
+    versions: string[],
+    supportedVersion: string = SUPPORTED_VERSION
+  ): boolean {
+    if (!versions || versions.length === 0) {
+      return false;
+    }
+
+    return versions.some(
+      (version) =>
+        this.compareVersions(version, supportedVersion) === version &&
+        version !== supportedVersion
     );
   }
 }

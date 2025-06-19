@@ -1,5 +1,6 @@
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
+import { SUPPORTED_VERSION } from '../parsers/VersionParser';
 
 /**
  * Builder for OpenAPI specification with authentication setup
@@ -38,7 +39,7 @@ class SpecBuilder {
       openapi: '3.1.0',
       info: {
         title: 'Mastodon API',
-        version: '4.2.0',
+        version: SUPPORTED_VERSION,
         description:
           'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
       },
