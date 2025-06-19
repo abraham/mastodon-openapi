@@ -283,6 +283,31 @@ class OpenAPIGenerator {
       return 'FilterContext';
     }
 
+    // Special cases for 'type' property based on entity context
+    if (propertyName === 'type') {
+      // Check the entity context to determine the appropriate enum name
+      const entityContext = parts.slice(0, -1).join('_');
+
+      // Notification type enum
+      if (
+        entityContext.includes('Notification') ||
+        entityContext.includes('NotificationGroup')
+      ) {
+        return 'NotificationTypeEnum';
+      }
+
+      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
+      if (
+        entityContext.includes('PreviewCard') ||
+        entityContext.includes('Trends_Link')
+      ) {
+        return 'PreviewTypeEnum';
+      }
+
+      // Fallback to generic type enum for other contexts
+      return 'TypeEnum';
+    }
+
     // For other enum types, create a generic name
     return `${capitalizedName}Enum`;
   }

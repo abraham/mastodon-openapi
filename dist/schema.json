@@ -32330,7 +32330,7 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "group_key": {
             "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
@@ -32683,12 +32683,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "enum": [
-              "link",
-              "photo",
-              "video",
-              "rich"
-            ]
+            "$ref": "#/components/schemas/PreviewTypeEnum"
           },
           "authors": {
             "description": "Fediverse account of the authors of the original resource.",
@@ -32764,6 +32759,77 @@
         "type": "object",
         "description": "Additional entity definition for Trends::Link",
         "properties": {
+          "url": {
+            "description": "Location of linked resource.",
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "description": "Title of linked resource.",
+            "type": "string"
+          },
+          "description": {
+            "description": "Description of preview.",
+            "type": "string"
+          },
+          "type": {
+            "description": "The type of the preview card.",
+            "type": "string",
+            "$ref": "#/components/schemas/PreviewTypeEnum"
+          },
+          "authors": {
+            "description": "Fediverse account of the authors of the original resource.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PreviewCardAuthor"
+            }
+          },
+          "author_name": {
+            "description": "The author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string"
+          },
+          "author_url": {
+            "description": "A link to the author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string",
+            "format": "uri"
+          },
+          "provider_name": {
+            "description": "The provider of the original resource.",
+            "type": "string"
+          },
+          "provider_url": {
+            "description": "A link to the provider of the original resource.",
+            "type": "string",
+            "format": "uri"
+          },
+          "html": {
+            "description": "HTML to be used for generating the preview card.",
+            "type": "string"
+          },
+          "width": {
+            "description": "Width of preview, in pixels.",
+            "type": "integer"
+          },
+          "height": {
+            "description": "Height of preview, in pixels.",
+            "type": "integer"
+          },
+          "image": {
+            "description": "Preview thumbnail.",
+            "nullable": true,
+            "type": "string",
+            "format": "uri"
+          },
+          "embed_url": {
+            "description": "Used for photo embeds, instead of custom `html`.",
+            "type": "string",
+            "format": "uri"
+          },
+          "blurhash": {
+            "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
+            "nullable": true,
+            "type": "string"
+          },
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
@@ -32792,6 +32858,19 @@
           }
         },
         "required": [
+          "url",
+          "title",
+          "description",
+          "type",
+          "authors",
+          "author_name",
+          "author_url",
+          "provider_name",
+          "provider_url",
+          "html",
+          "width",
+          "height",
+          "embed_url",
           "history"
         ]
       },
@@ -34942,7 +35021,7 @@
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
@@ -35199,7 +35278,7 @@
           "none"
         ]
       },
-      "TypeEnum": {
+      "NotificationTypeEnum": {
         "type": "string",
         "enum": [
           "admin.report",
@@ -35223,6 +35302,15 @@
           "private",
           "public",
           "unlisted"
+        ]
+      },
+      "PreviewTypeEnum": {
+        "type": "string",
+        "enum": [
+          "link",
+          "photo",
+          "rich",
+          "video"
         ]
       },
       "StateEnum": {
