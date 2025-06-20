@@ -19420,7 +19420,7 @@
         ],
         "responses": {
           "200": {
-            "description": "JSON as per the above description",
+            "description": "[OAuthServerConfiguration]",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -19439,6 +19439,18 @@
                 "schema": {
                   "type": "string",
                   "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OAuthServerConfiguration"
+                },
+                "examples": {
+                  "OAuthServerConfiguration200Example": {
+                    "$ref": "#/components/examples/OAuthServerConfiguration200Example"
+                  }
                 }
               }
             }
@@ -32508,6 +32520,172 @@
           }
         }
       },
+      "OAuthServerConfiguration": {
+        "type": "object",
+        "description": "Represents OAuth 2 Authorization Server Metadata for the Mastodon server.",
+        "properties": {
+          "issuer": {
+            "description": "The authorization server's issuer identifier, which is typically a HTTPS URL.",
+            "type": "string",
+            "format": "uri"
+          },
+          "service_documentation": {
+            "description": "URL of the authorization server's human-readable documentation.",
+            "type": "string",
+            "format": "uri"
+          },
+          "authorization_endpoint": {
+            "description": "URL of the authorization server's authorization endpoint.",
+            "type": "string",
+            "format": "uri"
+          },
+          "token_endpoint": {
+            "description": "URL of the authorization server's token endpoint.",
+            "type": "string",
+            "format": "uri"
+          },
+          "app_registration_endpoint": {
+            "description": "URL of the authorization server's application registration endpoint (non-standard extension).",
+            "type": "string",
+            "format": "uri"
+          },
+          "revocation_endpoint": {
+            "description": "URL of the authorization server's token revocation endpoint.",
+            "type": "string",
+            "format": "uri"
+          },
+          "scopes_supported": {
+            "description": "Array of OAuth 2.0 scope values that this authorization server supports.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "response_types_supported": {
+            "description": "Array of OAuth 2.0 response_type values that this authorization server supports.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "response_modes_supported": {
+            "description": "Array of OAuth 2.0 response_mode values that this authorization server supports.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "code_challenge_methods_supported": {
+            "description": "Array of PKCE code challenge methods supported by this authorization server.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "grant_types_supported": {
+            "description": "Array of OAuth 2.0 grant type values that this authorization server supports.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "token_endpoint_auth_methods_supported": {
+            "description": "Array of client authentication methods supported by this token endpoint.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "issuer",
+          "service_documentation",
+          "authorization_endpoint",
+          "token_endpoint",
+          "app_registration_endpoint",
+          "revocation_endpoint",
+          "scopes_supported",
+          "response_types_supported",
+          "response_modes_supported",
+          "code_challenge_methods_supported",
+          "grant_types_supported",
+          "token_endpoint_auth_methods_supported"
+        ],
+        "example": {
+          "issuer": "https://social.example/",
+          "service_documentation": "https://docs.joinmastodon.org/",
+          "authorization_endpoint": "https://social.example/oauth/authorize",
+          "token_endpoint": "https://social.example/oauth/token",
+          "app_registration_endpoint": "https://social.example/api/v1/apps",
+          "revocation_endpoint": "https://social.example/oauth/revoke",
+          "scopes_supported": [
+            "read",
+            "write",
+            "write:accounts",
+            "write:blocks",
+            "write:bookmarks",
+            "write:conversations",
+            "write:favourites",
+            "write:filters",
+            "write:follows",
+            "write:lists",
+            "write:media",
+            "write:mutes",
+            "write:notifications",
+            "write:reports",
+            "write:statuses",
+            "read:accounts",
+            "read:blocks",
+            "read:bookmarks",
+            "read:favourites",
+            "read:filters",
+            "read:follows",
+            "read:lists",
+            "read:mutes",
+            "read:notifications",
+            "read:search",
+            "read:statuses",
+            "follow",
+            "push",
+            "profile",
+            "admin:read",
+            "admin:read:accounts",
+            "admin:read:reports",
+            "admin:read:domain_allows",
+            "admin:read:domain_blocks",
+            "admin:read:ip_blocks",
+            "admin:read:email_domain_blocks",
+            "admin:read:canonical_email_blocks",
+            "admin:write",
+            "admin:write:accounts",
+            "admin:write:reports",
+            "admin:write:domain_allows",
+            "admin:write:domain_blocks",
+            "admin:write:ip_blocks",
+            "admin:write:email_domain_blocks",
+            "admin:write:canonical_email_blocks"
+          ],
+          "response_types_supported": [
+            "code"
+          ],
+          "response_modes_supported": [
+            "query",
+            "fragment",
+            "form_post"
+          ],
+          "code_challenge_methods_supported": [
+            "S256"
+          ],
+          "grant_types_supported": [
+            "authorization_code",
+            "client_credentials"
+          ],
+          "token_endpoint_auth_methods_supported": [
+            "client_secret_basic",
+            "client_secret_post"
+          ]
+        }
+      },
       "Poll": {
         "type": "object",
         "description": "Represents a poll attached to a status.",
@@ -36620,6 +36798,83 @@
           "token_type": "Bearer",
           "scope": "read write follow push",
           "created_at": 1573979017
+        }
+      },
+      "OAuthServerConfiguration200Example": {
+        "summary": "Example for OAuthServerConfiguration",
+        "value": {
+          "issuer": "https://social.example/",
+          "service_documentation": "https://docs.joinmastodon.org/",
+          "authorization_endpoint": "https://social.example/oauth/authorize",
+          "token_endpoint": "https://social.example/oauth/token",
+          "app_registration_endpoint": "https://social.example/api/v1/apps",
+          "revocation_endpoint": "https://social.example/oauth/revoke",
+          "scopes_supported": [
+            "read",
+            "write",
+            "write:accounts",
+            "write:blocks",
+            "write:bookmarks",
+            "write:conversations",
+            "write:favourites",
+            "write:filters",
+            "write:follows",
+            "write:lists",
+            "write:media",
+            "write:mutes",
+            "write:notifications",
+            "write:reports",
+            "write:statuses",
+            "read:accounts",
+            "read:blocks",
+            "read:bookmarks",
+            "read:favourites",
+            "read:filters",
+            "read:follows",
+            "read:lists",
+            "read:mutes",
+            "read:notifications",
+            "read:search",
+            "read:statuses",
+            "follow",
+            "push",
+            "profile",
+            "admin:read",
+            "admin:read:accounts",
+            "admin:read:reports",
+            "admin:read:domain_allows",
+            "admin:read:domain_blocks",
+            "admin:read:ip_blocks",
+            "admin:read:email_domain_blocks",
+            "admin:read:canonical_email_blocks",
+            "admin:write",
+            "admin:write:accounts",
+            "admin:write:reports",
+            "admin:write:domain_allows",
+            "admin:write:domain_blocks",
+            "admin:write:ip_blocks",
+            "admin:write:email_domain_blocks",
+            "admin:write:canonical_email_blocks"
+          ],
+          "response_types_supported": [
+            "code"
+          ],
+          "response_modes_supported": [
+            "query",
+            "fragment",
+            "form_post"
+          ],
+          "code_challenge_methods_supported": [
+            "S256"
+          ],
+          "grant_types_supported": [
+            "authorization_code",
+            "client_credentials"
+          ],
+          "token_endpoint_auth_methods_supported": [
+            "client_secret_basic",
+            "client_secret_post"
+          ]
         }
       },
       "Poll200Example": {
