@@ -107,7 +107,7 @@ describe('OpenAPIGenerator', () => {
       const getOp = spec.paths['/api/v1/test/{id}'].get!;
       expect(getOp.summary).toBe('Get test entity');
       expect(getOp.description).toBe('Retrieve a test entity');
-      expect(getOp.tags).toEqual(['test API methods']);
+      expect(getOp.tags).toEqual(['test']);
       expect(getOp.security).toEqual([{ OAuth2: [] }]);
       expect(getOp.parameters).toBeDefined();
       expect(getOp.parameters![0].name).toBe('id');
