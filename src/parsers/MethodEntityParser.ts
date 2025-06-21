@@ -85,7 +85,7 @@ export class MethodEntityParser {
       }
 
       const returnsText = returnsMatch[1].trim();
-      
+
       // Check if this indicates an inline JSON response (not an explicit entity reference)
       if (!this.isInlineJsonResponse(returnsText)) {
         continue;
@@ -98,20 +98,24 @@ export class MethodEntityParser {
       }
 
       const methodName = methodNameMatch[1].trim();
-      
+
       // Parse the response examples
-      const responseExamples = ExampleParser.parseMethodResponseExamples(section);
-      
+      const responseExamples =
+        ExampleParser.parseMethodResponseExamples(section);
+
       // Look for a 200 response with a complex JSON structure
-      if (responseExamples['200'] && typeof responseExamples['200'] === 'object') {
+      if (
+        responseExamples['200'] &&
+        typeof responseExamples['200'] === 'object'
+      ) {
         const jsonExample = responseExamples['200'];
-        
+
         // Generate entity name from method name
         const entityName = this.generateEntityName(methodName);
-        
+
         // Convert JSON example to entity attributes
         const attributes = this.jsonToAttributes(jsonExample);
-        
+
         if (attributes.length > 0) {
           entities.push({
             name: entityName,
@@ -138,8 +142,11 @@ export class MethodEntityParser {
       /JSON\s+containing/i,
     ];
 
-    return inlinePatterns.some(pattern => pattern.test(returnsText)) && 
-           !returnsText.includes('[') && !returnsText.includes(']'); // Exclude entity references like [Token]
+    return (
+      inlinePatterns.some((pattern) => pattern.test(returnsText)) &&
+      !returnsText.includes('[') &&
+      !returnsText.includes(']')
+    ); // Exclude entity references like [Token]
   }
 
   /**
@@ -151,13 +158,13 @@ export class MethodEntityParser {
       .replace(/[{}#]/g, '') // Remove Hugo shortcodes and anchors
       .replace(/\s+/g, ' ')
       .trim();
-    
+
     // Convert to PascalCase
     const words = cleaned.split(/\s+/);
     const pascalCase = words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join('');
-    
+
     // Add Response suffix to avoid naming conflicts
     return `${pascalCase}Response`;
   }
@@ -165,7 +172,10 @@ export class MethodEntityParser {
   /**
    * Converts a JSON object to entity attributes
    */
-  private static jsonToAttributes(jsonObj: any, prefix = ''): EntityAttribute[] {
+  private static jsonToAttributes(
+    jsonObj: any,
+    prefix = ''
+  ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
     if (!jsonObj || typeof jsonObj !== 'object') {
@@ -174,7 +184,7 @@ export class MethodEntityParser {
 
     for (const [key, value] of Object.entries(jsonObj)) {
       const attributeName = prefix ? `${prefix}.${key}` : key;
-      
+
       if (value === null) {
         attributes.push({
           name: attributeName,
@@ -186,7 +196,10 @@ export class MethodEntityParser {
       } else if (Array.isArray(value)) {
         if (value.length > 0 && typeof value[0] === 'object') {
           // Array of objects - create nested attributes
-          const nestedAttributes = this.jsonToAttributes(value[0], `${attributeName}[]`);
+          const nestedAttributes = this.jsonToAttributes(
+            value[0],
+            `${attributeName}[]`
+          );
           attributes.push(...nestedAttributes);
         }
         attributes.push({
@@ -200,7 +213,7 @@ export class MethodEntityParser {
         // Nested object - create nested attributes
         const nestedAttributes = this.jsonToAttributes(value, attributeName);
         attributes.push(...nestedAttributes);
-        
+
         attributes.push({
           name: attributeName,
           type: 'Hash',

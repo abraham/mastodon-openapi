@@ -144,8 +144,9 @@ class TypeParser {
     // Check for inline JSON responses (like "JSON as per the above description")
     if (this.isInlineJsonResponse(returns) && methodName) {
       const entityName = this.generateEntityNameFromMethod(methodName);
-      const sanitizedEntityName = this.utilityHelpers.sanitizeSchemaName(entityName);
-      
+      const sanitizedEntityName =
+        this.utilityHelpers.sanitizeSchemaName(entityName);
+
       // Check if we generated an entity for this method
       if (spec.components?.schemas?.[sanitizedEntityName]) {
         return {
@@ -557,8 +558,11 @@ class TypeParser {
       /JSON\s+containing/i,
     ];
 
-    return inlinePatterns.some(pattern => pattern.test(returnsText)) && 
-           !returnsText.includes('[') && !returnsText.includes(']'); // Exclude entity references like [Token]
+    return (
+      inlinePatterns.some((pattern) => pattern.test(returnsText)) &&
+      !returnsText.includes('[') &&
+      !returnsText.includes(']')
+    ); // Exclude entity references like [Token]
   }
 
   /**
@@ -570,13 +574,13 @@ class TypeParser {
       .replace(/[{}#]/g, '') // Remove Hugo shortcodes and anchors
       .replace(/\s+/g, ' ')
       .trim();
-    
+
     // Convert to PascalCase
     const words = cleaned.split(/\s+/);
     const pascalCase = words
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
       .join('');
-    
+
     // Add Response suffix to avoid naming conflicts
     return `${pascalCase}Response`;
   }
