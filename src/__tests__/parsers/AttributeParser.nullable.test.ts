@@ -256,6 +256,27 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Boolean');
     });
 
+    it('should mark Rule#translations as nullable due to special exception', () => {
+      const content = `
+### \`translations\` {#translations}
+
+**Description:** Available translations for this rule's \`text\` and \`hint\`, as a Hash where keys are locale codes and values are hashes with \`text\` and \`hint\` keys.\\
+**Type:** Hash\\
+**Version history:**\\
+4.4.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'Rule'
+      );
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('translations');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Hash');
+    });
+
     it('should mark source[attribution_domains] as nullable due to it not being released yet', () => {
       const content = `
 ### \`source[attribution_domains]\` {#source-attribution_domains}
