@@ -112,6 +112,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: Relationship#languages should be nullable
+        if (entityName === 'Relationship' && heading.name === 'languages') {
+          attribute.nullable = true;
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -219,6 +224,12 @@ export class AttributeParser {
       // Special case: Account#hide_collections should be nullable due to servers returning null values
       // Note: this covers method entities that might reference Account fields
       if (name === 'hide_collections') {
+        attribute.nullable = true;
+      }
+
+      // Special case: Relationship#languages should be nullable
+      // Note: this covers method entities that might reference Relationship fields
+      if (name === 'languages') {
         attribute.nullable = true;
       }
 
