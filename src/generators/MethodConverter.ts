@@ -96,6 +96,9 @@ class MethodConverter {
       }
     }
 
+    // Sort paths by their tags alphabetically
+    this.sortPathsByTags(spec);
+
     // After all methods are converted, organize component examples
     this.organizeComponentExamples(spec);
   }
@@ -1288,6 +1291,46 @@ class MethodConverter {
         },
       ],
     };
+  }
+
+  /**
+   * Sort paths in the OpenAPI spec by their tags alphabetically
+   */
+  private sortPathsByTags(spec: OpenAPISpec): void {
+    // Get all paths with their primary tags for sorting
+    const pathEntries = Object.entries(spec.paths).map(([path, pathItem]) => {
+      // Get the first operation's first tag as the primary tag for sorting
+      let primaryTag = 'unknown';
+      for (const [httpMethod, operation] of Object.entries(pathItem)) {
+        if (
+          typeof operation === 'object' &&
+          operation !== null &&
+          operation.tags
+        ) {
+          primaryTag = operation.tags[0] || 'unknown';
+          break;
+        }
+      }
+      return { path, pathItem, primaryTag };
+    });
+
+    // Sort by primary tag alphabetically, then by path
+    pathEntries.sort((a, b) => {
+      const tagComparison = a.primaryTag.localeCompare(b.primaryTag);
+      if (tagComparison !== 0) {
+        return tagComparison;
+      }
+      return a.path.localeCompare(b.path);
+    });
+
+    // Create new sorted paths object
+    const sortedPaths: typeof spec.paths = {};
+    for (const { path, pathItem } of pathEntries) {
+      sortedPaths[path] = pathItem;
+    }
+
+    // Replace the original paths with sorted ones
+    spec.paths = sortedPaths;
   }
 
   /**
