@@ -349,8 +349,11 @@ class EntityConverter {
       property.format = 'email';
     }
 
-    // Special handling for OAuth scopes property
-    if (attribute.name === 'scopes' && property.type === 'array') {
+    // Special handling for OAuth scopes properties
+    if (
+      this.isOAuthScopeProperty(attribute.name) &&
+      property.type === 'array'
+    ) {
       // Use the common OAuthScopes schema component for OAuth scopes
       return {
         description: attribute.description,
@@ -776,6 +779,16 @@ class EntityConverter {
         }
       }
     }
+  }
+
+  /**
+   * Checks if a property name indicates it contains OAuth scopes
+   */
+  private isOAuthScopeProperty(propertyName: string): boolean {
+    // Property names that should reference OAuth scopes
+    const oauthScopeProperties = ['scopes', 'scopes_supported'];
+
+    return oauthScopeProperties.includes(propertyName);
   }
 }
 
