@@ -35127,10 +35127,7 @@
           },
           "scopes_supported": {
             "description": "Array of scopes_supported",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "$ref": "#/components/schemas/OAuthScopes"
           },
           "response_types_supported": {
             "description": "Array of response_types_supported",
