@@ -134,10 +134,25 @@ class TypeParser {
   public parseResponseSchema(
     returns: string | undefined,
     spec: OpenAPISpec,
-    hashAttributes?: HashAttribute[]
+    hashAttributes?: HashAttribute[],
+    methodName?: string
   ): OpenAPIProperty | null {
     if (!returns) {
       return null;
+    }
+
+    // Check for inline JSON responses (like "JSON as per the above description")
+    if (this.isInlineJsonResponse(returns) && methodName) {
+      const entityName = this.generateEntityNameFromMethod(methodName);
+      const sanitizedEntityName =
+        this.utilityHelpers.sanitizeSchemaName(entityName);
+
+      // Check if we generated an entity for this method
+      if (spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          $ref: `#/components/schemas/${sanitizedEntityName}`,
+        };
+      }
     }
 
     // Handle array responses: "Array of [EntityName]"
@@ -529,6 +544,45 @@ class TypeParser {
     }
 
     return schema;
+  }
+
+  /**
+   * Checks if the returns text indicates an inline JSON response
+   */
+  private isInlineJsonResponse(returnsText: string): boolean {
+    // Look for patterns indicating inline JSON rather than entity references
+    const inlinePatterns = [
+      /JSON\s+as\s+per/i,
+      /JSON\s+response/i,
+      /JSON\s+object/i,
+      /JSON\s+containing/i,
+    ];
+
+    return (
+      inlinePatterns.some((pattern) => pattern.test(returnsText)) &&
+      !returnsText.includes('[') &&
+      !returnsText.includes(']')
+    ); // Exclude entity references like [Token]
+  }
+
+  /**
+   * Generates an entity name from a method name for response entities
+   */
+  private generateEntityNameFromMethod(methodName: string): string {
+    // Clean the method name and convert to PascalCase
+    const cleaned = methodName
+      .replace(/[{}#]/g, '') // Remove Hugo shortcodes and anchors
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    // Convert to PascalCase
+    const words = cleaned.split(/\s+/);
+    const pascalCase = words
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+
+    // Add Response suffix to avoid naming conflicts
+    return `${pascalCase}Response`;
   }
 }
 
