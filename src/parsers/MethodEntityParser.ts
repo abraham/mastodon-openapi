@@ -134,18 +134,22 @@ export class MethodEntityParser {
    * Checks if the returns text indicates an inline JSON response
    */
   private static isInlineJsonResponse(returnsText: string): boolean {
+    // Clean the returns text of backslashes and trim
+    const cleanedReturnsText = returnsText.replace(/\\+$/, '').trim();
+
     // Look for patterns indicating inline JSON rather than entity references
     const inlinePatterns = [
       /JSON\s+as\s+per/i,
       /JSON\s+response/i,
       /JSON\s+object/i,
       /JSON\s+containing/i,
+      /metadata$/i, // For cases like "OEmbed metadata", "Server metadata"
     ];
 
     return (
-      inlinePatterns.some((pattern) => pattern.test(returnsText)) &&
-      !returnsText.includes('[') &&
-      !returnsText.includes(']')
+      inlinePatterns.some((pattern) => pattern.test(cleanedReturnsText)) &&
+      !cleanedReturnsText.includes('[') &&
+      !cleanedReturnsText.includes(']')
     ); // Exclude entity references like [Token]
   }
 
@@ -158,6 +162,11 @@ export class MethodEntityParser {
       .replace(/[{}#]/g, '') // Remove Hugo shortcodes and anchors
       .replace(/\s+/g, ' ')
       .trim();
+
+    // Special case for OEmbed - use simplified name
+    if (cleaned.toLowerCase().includes('oembed')) {
+      return 'OEmbedResponse';
+    }
 
     // Convert to PascalCase
     const words = cleaned.split(/\s+/);
