@@ -229,7 +229,7 @@ class MethodConverter {
       operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
       description: method.description,
-      tags: [category],
+      tags: [this.extractTagFromEndpoint(method.endpoint)],
       responses,
     };
 
@@ -1287,6 +1287,44 @@ class MethodConverter {
         },
       ],
     };
+  }
+
+  /**
+   * Extract tag from endpoint path based on first important segment
+   * Examples:
+   * - /api/v1/accounts -> "accounts"
+   * - /api/v1/accounts/:id/statuses -> "accounts"
+   * - /api/v2/search -> "search"
+   */
+  private extractTagFromEndpoint(endpoint: string): string {
+    // Normalize path by removing parameter notations
+    const normalizedPath = endpoint.replace(/:([^/]+)/g, '{$1}');
+
+    // Split path into segments
+    const segments = normalizedPath
+      .split('/')
+      .filter((segment) => segment.length > 0);
+
+    // For Mastodon API, the pattern is typically /api/vX/SEGMENT/...
+    // Find the first segment after the version
+    let tagSegment = '';
+    for (let i = 0; i < segments.length; i++) {
+      const segment = segments[i];
+
+      // Skip 'api' and version segments (v1, v2, etc.)
+      if (segment === 'api' || /^v\d+(_\w+)?$/.test(segment)) {
+        continue;
+      }
+
+      // This is the first important segment
+      tagSegment = segment;
+      break;
+    }
+
+    // Strip periods from the tag to make it cleaner
+    const cleanTag = tagSegment.replace(/\./g, '');
+
+    return cleanTag || 'unknown';
   }
 }
 

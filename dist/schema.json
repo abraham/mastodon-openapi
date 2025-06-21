@@ -11500,7 +11500,7 @@
         "summary": "Get all grouped notifications",
         "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
         "tags": [
-          "grouped_notifications"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -11742,7 +11742,7 @@
         "summary": "Get a single notification group",
         "description": "View information about a specific notification group with a given group key.",
         "tags": [
-          "grouped_notifications"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -11886,7 +11886,7 @@
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
-          "grouped_notifications"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -12018,7 +12018,7 @@
         "summary": "Get accounts of all notifications in a notification group",
         "description": "",
         "tags": [
-          "grouped_notifications"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -12165,7 +12165,7 @@
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notification groups for the current user.",
         "tags": [
-          "grouped_notifications"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -18208,7 +18208,7 @@
         "summary": "Get all grouped notifications",
         "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
         "tags": [
-          "notifications_alpha"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -18440,7 +18440,7 @@
         "summary": "Get a single notification group",
         "description": "View information about a specific notification group with a given group key.",
         "tags": [
-          "notifications_alpha"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -18584,7 +18584,7 @@
         "summary": "Dismiss a single notification group",
         "description": "Dismiss a single notification group from the server.",
         "tags": [
-          "notifications_alpha"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -18716,7 +18716,7 @@
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notification groups for the current user.",
         "tags": [
-          "notifications_alpha"
+          "notifications"
         ],
         "responses": {
           "200": {
@@ -19416,7 +19416,7 @@
         "summary": "Discover OAuth Server Configuration",
         "description": "Returns the OAuth 2 Authorization Server Metadata for the Mastodon server, as defined by [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414#section-3.2).",
         "tags": [
-          "oauth"
+          "well-known"
         ],
         "responses": {
           "200": {
