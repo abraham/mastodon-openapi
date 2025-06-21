@@ -1323,7 +1323,7 @@ class MethodConverter {
 
     // Strip periods from the tag to make it cleaner
     const cleanTag = tagSegment.replace(/\./g, '');
-    
+
     return cleanTag || 'unknown';
   }
 }
