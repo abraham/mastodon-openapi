@@ -1,6 +1,10 @@
 # mastodon-openapi
 
-A tool for generating OpenAPI schemas from Mastodon API documentation.
+A tool for generating OpenAPI schemas from the [Mastodon](https://joinmastodon.org/) [API documentation](https://github.com/mastodon/documentation).
+
+## Goal
+
+Generate the most accurate OpenAPI spec for the current stable release of Mastodon.
 
 ## Features
 
