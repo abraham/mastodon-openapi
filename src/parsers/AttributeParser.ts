@@ -112,6 +112,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: Rule#translations should be nullable
+        if (entityName === 'Rule' && heading.name === 'translations') {
+          attribute.nullable = true;
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
