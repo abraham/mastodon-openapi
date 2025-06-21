@@ -21875,11 +21875,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/StatusOrScheduledStatus"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/Status"
+                    },
+                    {
+                      "$ref": "#/components/schemas/ScheduledStatus"
+                    }
+                  ]
                 },
-                "examples": {
-                  "StatusOrScheduledStatus200Example": {
-                    "$ref": "#/components/examples/StatusOrScheduledStatus200Example"
+                "example": {
+                  "id": "103254962155278888",
+                  "created_at": "2019-12-05T11:34:47.196Z",
+                  "content": "<p>test content</p>",
+                  "application": {
+                    "name": "test app",
+                    "website": null
                   }
                 }
               }
@@ -35382,17 +35393,6 @@
           "details"
         ]
       },
-      "StatusOrScheduledStatus": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/Status"
-          },
-          {
-            "$ref": "#/components/schemas/ScheduledStatus"
-          }
-        ],
-        "description": "Either Status or ScheduledStatus"
-      },
       "BaseStatus": {
         "type": "object",
         "description": "Common fields for all status creation requests",
@@ -37082,18 +37082,6 @@
             "media_attachments": []
           }
         ]
-      },
-      "StatusOrScheduledStatus200Example": {
-        "summary": "Example for StatusOrScheduledStatus",
-        "value": {
-          "id": "103254962155278888",
-          "created_at": "2019-12-05T11:34:47.196Z",
-          "content": "<p>test content</p>",
-          "application": {
-            "name": "test app",
-            "website": null
-          }
-        }
       },
       "Context200Example": {
         "summary": "Example for Context",
