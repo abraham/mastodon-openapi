@@ -552,7 +552,7 @@ class TypeParser {
   private isInlineJsonResponse(returnsText: string): boolean {
     // Clean the returns text of backslashes and trim
     const cleanedReturnsText = returnsText.replace(/\\+$/, '').trim();
-    
+
     // Look for patterns indicating inline JSON rather than entity references
     const inlinePatterns = [
       /JSON\s+as\s+per/i,

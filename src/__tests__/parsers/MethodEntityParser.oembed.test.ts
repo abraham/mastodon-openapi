@@ -57,14 +57,17 @@ Represents OEmbed "rich" preview, with associated iframe and metadata.
 
     fs.writeFileSync(tempFilePath, oembedMarkdown);
 
-    const entities = MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+    const entities =
+      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
 
     // Should find one entity from the inline JSON response
     expect(entities).toHaveLength(1);
 
     const entity = entities[0];
     expect(entity.name).toBe('GetOembedInfoAsJsonResponse');
-    expect(entity.description).toBe('Response schema for Get OEmbed info as JSON');
+    expect(entity.description).toBe(
+      'Response schema for Get OEmbed info as JSON'
+    );
     expect(entity.example).toBeDefined();
 
     // Check that the entity has the expected attributes from the JSON example
@@ -72,7 +75,9 @@ Represents OEmbed "rich" preview, with associated iframe and metadata.
     expect(typeAttr).toBeDefined();
     expect(typeAttr?.type).toBe('String');
 
-    const versionAttr = entity.attributes.find((attr) => attr.name === 'version');
+    const versionAttr = entity.attributes.find(
+      (attr) => attr.name === 'version'
+    );
     expect(versionAttr).toBeDefined();
     expect(versionAttr?.type).toBe('String');
 
@@ -113,7 +118,8 @@ title: oembed API methods
 
     fs.writeFileSync(tempFilePath, oembedMarkdown);
 
-    const entities = MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+    const entities =
+      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
     const entity = entities[0];
 
     expect(entity.example).toEqual({
@@ -161,14 +167,19 @@ title: test methods
 
     fs.writeFileSync(tempFilePath, metadataMarkdown);
 
-    const entities = MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+    const entities =
+      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
 
     expect(entities).toHaveLength(2);
-    
-    const serverEntity = entities.find(e => e.name === 'GetServerMetadataResponse');
+
+    const serverEntity = entities.find(
+      (e) => e.name === 'GetServerMetadataResponse'
+    );
     expect(serverEntity).toBeDefined();
-    
-    const configEntity = entities.find(e => e.name === 'GetConfigurationDataResponse');
+
+    const configEntity = entities.find(
+      (e) => e.name === 'GetConfigurationDataResponse'
+    );
     expect(configEntity).toBeDefined();
   });
 });
