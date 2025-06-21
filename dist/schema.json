@@ -33090,6 +33090,7 @@
           },
           "languages": {
             "description": "Which languages are you following from this user?",
+            "nullable": true,
             "type": "array",
             "items": {
               "type": "string"
@@ -33141,7 +33142,6 @@
           "following",
           "showing_reblogs",
           "notifying",
-          "languages",
           "followed_by",
           "blocking",
           "blocked_by",
