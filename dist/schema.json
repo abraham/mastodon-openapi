@@ -19567,6 +19567,18 @@
                   "format": "date-time"
                 }
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetOembedInfoAsJsonResponse"
+                },
+                "examples": {
+                  "GetOembedInfoAsJsonResponse200Example": {
+                    "$ref": "#/components/examples/GetOembedInfoAsJsonResponse200Example"
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -35257,6 +35269,84 @@
           ]
         }
       },
+      "GetOembedInfoAsJsonResponse": {
+        "type": "object",
+        "description": "Response schema for Get OEmbed info as JSON",
+        "properties": {
+          "type": {
+            "description": "type field",
+            "type": "string"
+          },
+          "version": {
+            "description": "version field",
+            "type": "string"
+          },
+          "title": {
+            "description": "title field",
+            "type": "string"
+          },
+          "author_name": {
+            "description": "author_name field",
+            "type": "string"
+          },
+          "author_url": {
+            "description": "author_url field",
+            "type": "string",
+            "format": "uri"
+          },
+          "provider_name": {
+            "description": "provider_name field",
+            "type": "string"
+          },
+          "provider_url": {
+            "description": "provider_url field",
+            "type": "string",
+            "format": "uri"
+          },
+          "cache_age": {
+            "description": "cache_age field",
+            "type": "integer"
+          },
+          "html": {
+            "description": "html field",
+            "type": "string"
+          },
+          "width": {
+            "description": "width field",
+            "type": "integer"
+          },
+          "height": {
+            "description": "height field",
+            "nullable": true,
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "version",
+          "title",
+          "author_name",
+          "author_url",
+          "provider_name",
+          "provider_url",
+          "cache_age",
+          "html",
+          "width"
+        ],
+        "example": {
+          "type": "rich",
+          "version": "1.0",
+          "title": "New status by trwnh",
+          "author_name": "infinite love ⴳ",
+          "author_url": "https://mastodon.social/@trwnh",
+          "provider_name": "mastodon.social",
+          "provider_url": "https://mastodon.social/",
+          "cache_age": 86400,
+          "html": "<iframe src=\"https://mastodon.social/@trwnh/99664077509711321/embed\" class=\"mastodon-embed\" style=\"max-width: 100%; border: 0\" width=\"400\" allowfullscreen=\"allowfullscreen\"></iframe><script src=\"https://mastodon.social/embed.js\" async=\"async\"></script>",
+          "width": 400,
+          "height": null
+        }
+      },
       "ValidationError": {
         "type": "object",
         "description": "Represents a validation error with field-specific details.",
@@ -36875,6 +36965,22 @@
             "client_secret_basic",
             "client_secret_post"
           ]
+        }
+      },
+      "GetOembedInfoAsJsonResponse200Example": {
+        "summary": "Example for GetOembedInfoAsJsonResponse",
+        "value": {
+          "type": "rich",
+          "version": "1.0",
+          "title": "New status by trwnh",
+          "author_name": "infinite love ⴳ",
+          "author_url": "https://mastodon.social/@trwnh",
+          "provider_name": "mastodon.social",
+          "provider_url": "https://mastodon.social/",
+          "cache_age": 86400,
+          "html": "<iframe src=\"https://mastodon.social/@trwnh/99664077509711321/embed\" class=\"mastodon-embed\" style=\"max-width: 100%; border: 0\" width=\"400\" allowfullscreen=\"allowfullscreen\"></iframe><script src=\"https://mastodon.social/embed.js\" async=\"async\"></script>",
+          "width": 400,
+          "height": null
         }
       },
       "Poll200Example": {

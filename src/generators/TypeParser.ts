@@ -550,18 +550,22 @@ class TypeParser {
    * Checks if the returns text indicates an inline JSON response
    */
   private isInlineJsonResponse(returnsText: string): boolean {
+    // Clean the returns text of backslashes and trim
+    const cleanedReturnsText = returnsText.replace(/\\+$/, '').trim();
+    
     // Look for patterns indicating inline JSON rather than entity references
     const inlinePatterns = [
       /JSON\s+as\s+per/i,
       /JSON\s+response/i,
       /JSON\s+object/i,
       /JSON\s+containing/i,
+      /metadata$/i, // For cases like "OEmbed metadata", "Server metadata"
     ];
 
     return (
-      inlinePatterns.some((pattern) => pattern.test(returnsText)) &&
-      !returnsText.includes('[') &&
-      !returnsText.includes(']')
+      inlinePatterns.some((pattern) => pattern.test(cleanedReturnsText)) &&
+      !cleanedReturnsText.includes('[') &&
+      !cleanedReturnsText.includes(']')
     ); // Exclude entity references like [Token]
   }
 

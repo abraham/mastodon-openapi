@@ -36,6 +36,21 @@ describe('TypeParser - Inline JSON Response Schema Integration', () => {
             },
             required: ['issuer', 'scopes_supported'],
           },
+          GetOembedInfoAsJsonResponse: {
+            type: 'object',
+            description: 'Response schema for Get OEmbed info as JSON',
+            properties: {
+              type: {
+                type: 'string',
+                description: 'type field',
+              },
+              version: {
+                type: 'string',
+                description: 'version field',
+              },
+            },
+            required: ['type', 'version'],
+          },
         },
       },
     };
@@ -128,6 +143,27 @@ describe('TypeParser - Inline JSON Response Schema Integration', () => {
 
       expect(result).toEqual({
         $ref: '#/components/schemas/DiscoverOauthServerConfigurationResponse',
+      });
+    }
+  });
+
+  test('should detect metadata patterns as inline JSON', () => {
+    const testCases = [
+      'OEmbed metadata',
+      'Server metadata',
+      'Configuration metadata\\', // With trailing backslash like in actual docs
+    ];
+
+    for (const returns of testCases) {
+      const result = typeParser.parseResponseSchema(
+        returns,
+        spec,
+        undefined,
+        'Get OEmbed info as JSON'
+      );
+
+      expect(result).toEqual({
+        $ref: '#/components/schemas/GetOembedInfoAsJsonResponse',
       });
     }
   });
