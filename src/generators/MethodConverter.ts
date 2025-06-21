@@ -119,7 +119,8 @@ class MethodConverter {
     const responseSchema = this.typeParser.parseResponseSchema(
       method.returns,
       spec,
-      method.hashAttributes
+      method.hashAttributes,
+      method.endpoint
     );
 
     // Build responses object with all available response codes

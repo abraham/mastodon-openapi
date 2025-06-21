@@ -134,10 +134,23 @@ class TypeParser {
   public parseResponseSchema(
     returns: string | undefined,
     spec: OpenAPISpec,
-    hashAttributes?: HashAttribute[]
+    hashAttributes?: HashAttribute[],
+    endpoint?: string
   ): OpenAPIProperty | null {
     if (!returns) {
       return null;
+    }
+
+    // Special case for OAuth Server Configuration endpoint
+    if (endpoint === '/.well-known/oauth-authorization-server' && 
+        returns.includes('JSON as per the above description')) {
+      const sanitizedEntityName = 'OAuthServerConfiguration';
+      // Check if the entity exists in the components.schemas
+      if (spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          $ref: `#/components/schemas/${sanitizedEntityName}`,
+        };
+      }
     }
 
     // Handle array responses: "Array of [EntityName]"
