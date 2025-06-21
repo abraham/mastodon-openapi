@@ -286,7 +286,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation?.responses['200'].description).toBe('OK.');
     });
 
-    it('should generate synthetic schema for multiple return types', () => {
+    it('should generate oneOf response schema for multiple return types', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -335,7 +335,7 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(operation).toBeDefined();
       expect(operation?.responses['200']).toBeDefined();
 
-      // Should have content with application/json schema referencing synthetic type
+      // Should have content with application/json schema using oneOf directly
       expect(operation?.responses['200'].content).toBeDefined();
       expect(
         operation?.responses['200'].content?.['application/json']
@@ -343,20 +343,16 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(
         operation?.responses['200'].content?.['application/json'].schema
       ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
-      });
-
-      // Check that the synthetic schema was created in components
-      expect(
-        spec.components?.schemas?.['StatusOrScheduledStatus']
-      ).toBeDefined();
-      expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
         oneOf: [
           { $ref: '#/components/schemas/Status' },
           { $ref: '#/components/schemas/ScheduledStatus' },
         ],
-        description: 'Either Status or ScheduledStatus',
       });
+
+      // Should not create synthetic schemas in components
+      expect(
+        spec.components?.schemas?.['StatusOrScheduledStatus']
+      ).toBeUndefined();
     });
 
     it('should handle multiple return types with non-existent entities', () => {
@@ -440,7 +436,7 @@ describe('OpenAPIGenerator Response Types', () => {
       );
     });
 
-    it('should reuse synthetic schemas for identical entity combinations', () => {
+    it('should use oneOf for identical entity combinations in different endpoints', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -492,30 +488,33 @@ describe('OpenAPIGenerator Response Types', () => {
 
       const spec = generator.generateSchema(entities, methodFiles);
 
-      // Both operations should reference the same synthetic schema
+      // Both operations should use oneOf directly
       const postOperation = spec.paths['/api/v1/statuses']?.post;
       const putOperation = spec.paths['/api/v1/statuses/{id}']?.put;
 
+      const expectedOneOf = {
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/ScheduledStatus' },
+        ],
+      };
+
       expect(
         postOperation?.responses['200'].content?.['application/json'].schema
-      ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
-      });
+      ).toEqual(expectedOneOf);
 
       expect(
         putOperation?.responses['200'].content?.['application/json'].schema
-      ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
-      });
+      ).toEqual(expectedOneOf);
 
-      // Should have created exactly one synthetic schema
+      // Should not create synthetic schemas
       const synthetics = Object.keys(spec.components?.schemas || {}).filter(
         (name) => name.includes('Or')
       );
-      expect(synthetics).toEqual(['StatusOrScheduledStatus']);
+      expect(synthetics).toEqual([]);
     });
 
-    it('should generate different synthetic schemas for different entity combinations', () => {
+    it('should use oneOf for different entity combinations', () => {
       const entities: EntityClass[] = [
         {
           name: 'Status',
@@ -565,29 +564,11 @@ describe('OpenAPIGenerator Response Types', () => {
 
       const spec = generator.generateSchema(entities, methodFiles);
 
-      // Should create two different synthetic schemas
+      // Should not create synthetic schemas
       expect(
         spec.components?.schemas?.['StatusOrScheduledStatus']
-      ).toBeDefined();
-      expect(spec.components?.schemas?.['StatusOrAccount']).toBeDefined();
-
-      // Check the structure of StatusOrScheduledStatus
-      expect(spec.components?.schemas?.['StatusOrScheduledStatus']).toEqual({
-        oneOf: [
-          { $ref: '#/components/schemas/Status' },
-          { $ref: '#/components/schemas/ScheduledStatus' },
-        ],
-        description: 'Either Status or ScheduledStatus',
-      });
-
-      // Check the structure of StatusOrAccount
-      expect(spec.components?.schemas?.['StatusOrAccount']).toEqual({
-        oneOf: [
-          { $ref: '#/components/schemas/Status' },
-          { $ref: '#/components/schemas/Account' },
-        ],
-        description: 'Either Status or Account',
-      });
+      ).toBeUndefined();
+      expect(spec.components?.schemas?.['StatusOrAccount']).toBeUndefined();
 
       const operation1 = spec.paths['/api/v1/test1']?.post;
       const operation2 = spec.paths['/api/v1/test2']?.post;
@@ -595,17 +576,23 @@ describe('OpenAPIGenerator Response Types', () => {
       expect(
         operation1?.responses['200'].content?.['application/json'].schema
       ).toEqual({
-        $ref: '#/components/schemas/StatusOrScheduledStatus',
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/ScheduledStatus' },
+        ],
       });
 
       expect(
         operation2?.responses['200'].content?.['application/json'].schema
       ).toEqual({
-        $ref: '#/components/schemas/StatusOrAccount',
+        oneOf: [
+          { $ref: '#/components/schemas/Status' },
+          { $ref: '#/components/schemas/Account' },
+        ],
       });
     });
 
-    it('should correctly convert entity names to property names', () => {
+    it('should use oneOf for entity names with mixed casing', () => {
       const entities: EntityClass[] = [
         {
           name: 'FamiliarFollowers',
@@ -639,13 +626,19 @@ describe('OpenAPIGenerator Response Types', () => {
 
       const spec = generator.generateSchema(entities, methodFiles);
 
-      // Check that PascalCase entity names are converted to snake_case property names
-      expect(spec.components?.schemas?.['FamiliarFollowersOrAccount']).toEqual({
+      // Should not create synthetic schemas, even for PascalCase entity names
+      expect(
+        spec.components?.schemas?.['FamiliarFollowersOrAccount']
+      ).toBeUndefined();
+
+      const operation = spec.paths['/api/v1/test']?.post;
+      expect(
+        operation?.responses['200'].content?.['application/json'].schema
+      ).toEqual({
         oneOf: [
           { $ref: '#/components/schemas/FamiliarFollowers' },
           { $ref: '#/components/schemas/Account' },
         ],
-        description: 'Either FamiliarFollowers or Account',
       });
     });
 

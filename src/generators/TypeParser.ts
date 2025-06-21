@@ -237,13 +237,11 @@ class TypeParser {
         }
       }
 
-      // If we found multiple valid entities, create a synthetic schema
+      // If we found multiple valid entities, return oneOf directly
       if (validEntityRefs.length > 1) {
-        return this.createSyntheticOneOfSchema(
-          validEntityRefs,
-          entityNames,
-          spec
-        );
+        return {
+          oneOf: validEntityRefs,
+        };
       }
       // If we found exactly one valid entity, return it directly
       else if (validEntityRefs.length === 1) {
@@ -253,40 +251,6 @@ class TypeParser {
 
     // If no entity reference found or entity doesn't exist, return null to fallback to description-only
     return null;
-  }
-
-  /**
-   * Create synthetic oneOf schema for multiple entity references
-   */
-  public createSyntheticOneOfSchema(
-    validEntityRefs: OpenAPIProperty[],
-    entityNames: string[],
-    spec: OpenAPISpec
-  ): OpenAPIProperty {
-    // Generate synthetic schema name by joining entity names with "Or"
-    const syntheticSchemaName = entityNames.join('Or');
-
-    // Initialize components if not present
-    if (!spec.components) {
-      spec.components = { schemas: {} };
-    }
-    if (!spec.components.schemas) {
-      spec.components.schemas = {};
-    }
-
-    // Check if synthetic schema already exists
-    if (!spec.components.schemas[syntheticSchemaName]) {
-      // Create the synthetic schema using oneOf with direct entity references
-      spec.components.schemas[syntheticSchemaName] = {
-        oneOf: validEntityRefs,
-        description: `Either ${entityNames.join(' or ')}`,
-      };
-    }
-
-    // Return reference to the synthetic schema
-    return {
-      $ref: `#/components/schemas/${syntheticSchemaName}`,
-    };
   }
 
   /**
