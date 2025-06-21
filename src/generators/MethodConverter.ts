@@ -1321,7 +1321,10 @@ class MethodConverter {
       break;
     }
 
-    return tagSegment || 'unknown';
+    // Strip periods from the tag to make it cleaner
+    const cleanTag = tagSegment.replace(/\./g, '');
+    
+    return cleanTag || 'unknown';
   }
 }
 

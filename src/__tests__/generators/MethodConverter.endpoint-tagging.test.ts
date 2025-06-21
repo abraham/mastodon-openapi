@@ -67,6 +67,11 @@ describe('MethodConverter - Endpoint-based Tagging', () => {
           expected: 'timelines',
           description: 'timelines endpoint',
         },
+        {
+          endpoint: '/.well-known/oauth-authorization-server',
+          expected: 'well-known',
+          description: 'well-known endpoint without period',
+        },
       ];
 
       testCases.forEach(({ endpoint, expected, description }) => {
