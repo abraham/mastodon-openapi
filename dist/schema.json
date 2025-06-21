@@ -19420,7 +19420,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[OAuthServerConfiguration]",
+            "description": "[OAuthServerConfiguration][]",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -32545,7 +32545,7 @@
             "format": "uri"
           },
           "app_registration_endpoint": {
-            "description": "URL of the authorization server's application registration endpoint (non-standard extension).",
+            "description": "URL of the authorization server's application registration endpoint (non-standard extension ).",
             "type": "string",
             "format": "uri"
           },
