@@ -92,7 +92,157 @@ class EntityParser {
    * Create the OAuthServerConfiguration entity based on the OAuth server metadata specification
    */
   private createOAuthServerConfigurationEntity(): EntityClass {
-    const attributes: EntityAttribute[] = [
+    const attributes = this.parseOAuthServerConfigurationFromDoc();
+
+    const example = this.parseOAuthServerConfigurationExample();
+
+    return {
+      name: 'OAuthServerConfiguration',
+      description: 'Represents OAuth 2 Authorization Server Metadata for the Mastodon server.',
+      attributes,
+      example,
+    };
+  }
+
+  /**
+   * Parse OAuth Server Configuration attributes from the oauth.md file
+   */
+  private parseOAuthServerConfigurationFromDoc(): EntityAttribute[] {
+    const oauthFilePath = path.join(this.methodsPath, 'oauth.md');
+    
+    if (!fs.existsSync(oauthFilePath)) {
+      console.warn('oauth.md file not found, falling back to default attributes');
+      return this.getDefaultOAuthServerConfigurationAttributes();
+    }
+
+    try {
+      const content = fs.readFileSync(oauthFilePath, 'utf-8');
+      
+      // Find the JSON response example in the oauth.md file
+      // Look for the JSON block after "##### 200: OK" in the OAuth authorization server metadata section
+      const jsonMatch = content.match(/## Discover OAuth Server Configuration[\s\S]*?##### 200: OK[\s\S]*?```json\s*([\s\S]*?)\s*```/);
+      
+      if (!jsonMatch) {
+        console.warn('Could not find OAuth Server Configuration JSON example, falling back to default attributes');
+        return this.getDefaultOAuthServerConfigurationAttributes();
+      }
+
+      const jsonString = jsonMatch[1].trim();
+      const jsonData = JSON.parse(jsonString);
+      
+      return this.generateAttributesFromJson(jsonData);
+      
+    } catch (error) {
+      console.error('Error parsing OAuth Server Configuration from oauth.md:', error);
+      return this.getDefaultOAuthServerConfigurationAttributes();
+    }
+  }
+
+  /**
+   * Parse OAuth Server Configuration example from the oauth.md file
+   */
+  private parseOAuthServerConfigurationExample(): any | undefined {
+    const oauthFilePath = path.join(this.methodsPath, 'oauth.md');
+    
+    if (!fs.existsSync(oauthFilePath)) {
+      return undefined;
+    }
+
+    try {
+      const content = fs.readFileSync(oauthFilePath, 'utf-8');
+      
+      // Find the JSON response example
+      const jsonMatch = content.match(/## Discover OAuth Server Configuration[\s\S]*?##### 200: OK[\s\S]*?```json\s*([\s\S]*?)\s*```/);
+      
+      if (!jsonMatch) {
+        return undefined;
+      }
+
+      const jsonString = jsonMatch[1].trim();
+      return JSON.parse(jsonString);
+      
+    } catch (error) {
+      console.error('Error parsing OAuth Server Configuration example from oauth.md:', error);
+      return undefined;
+    }
+  }
+
+  /**
+   * Generate EntityAttribute array from parsed JSON data
+   */
+  private generateAttributesFromJson(jsonData: any): EntityAttribute[] {
+    const attributes: EntityAttribute[] = [];
+    
+    for (const [key, value] of Object.entries(jsonData)) {
+      let type: string;
+      let description: string;
+      
+      if (Array.isArray(value)) {
+        type = 'Array of String';
+        description = this.generateDescriptionForProperty(key, 'array');
+      } else if (typeof value === 'string') {
+        // Check if the value looks like a URL
+        if (key.includes('endpoint') || key.includes('uri') || key === 'issuer' || key.includes('documentation')) {
+          type = 'String (URL)';
+          description = this.generateDescriptionForProperty(key, 'url');
+        } else {
+          type = 'String';
+          description = this.generateDescriptionForProperty(key, 'string');
+        }
+      } else {
+        type = 'String';
+        description = this.generateDescriptionForProperty(key, 'string');
+      }
+      
+      attributes.push({
+        name: key,
+        type,
+        optional: false,
+        description,
+      });
+    }
+    
+    return attributes;
+  }
+
+  /**
+   * Generate appropriate description for OAuth server configuration properties
+   */
+  private generateDescriptionForProperty(propertyName: string, type: 'array' | 'url' | 'string'): string {
+    const descriptions: Record<string, string> = {
+      'issuer': "The authorization server's issuer identifier, which is typically a HTTPS URL.",
+      'service_documentation': "URL of the authorization server's human-readable documentation.",
+      'authorization_endpoint': "URL of the authorization server's authorization endpoint.",
+      'token_endpoint': "URL of the authorization server's token endpoint.",
+      'app_registration_endpoint': "URL of the authorization server's application registration endpoint (non-standard extension).",
+      'revocation_endpoint': "URL of the authorization server's token revocation endpoint.",
+      'scopes_supported': 'Array of OAuth 2.0 scope values that this authorization server supports.',
+      'response_types_supported': 'Array of OAuth 2.0 response_type values that this authorization server supports.',
+      'response_modes_supported': 'Array of OAuth 2.0 response_mode values that this authorization server supports.',
+      'code_challenge_methods_supported': 'Array of PKCE code challenge methods supported by this authorization server.',
+      'grant_types_supported': 'Array of OAuth 2.0 grant type values that this authorization server supports.',
+      'token_endpoint_auth_methods_supported': 'Array of client authentication methods supported by this token endpoint.',
+    };
+
+    if (descriptions[propertyName]) {
+      return descriptions[propertyName];
+    }
+
+    // Generate a generic description based on the property name and type
+    if (type === 'array') {
+      return `Array of values for ${propertyName.replace(/_/g, ' ')}.`;
+    } else if (type === 'url') {
+      return `URL for ${propertyName.replace(/_/g, ' ')}.`;
+    } else {
+      return `Value for ${propertyName.replace(/_/g, ' ')}.`;
+    }
+  }
+
+  /**
+   * Fallback attributes in case parsing from documentation fails
+   */
+  private getDefaultOAuthServerConfigurationAttributes(): EntityAttribute[] {
+    return [
       {
         name: 'issuer',
         type: 'String (URL)',
@@ -166,40 +316,6 @@ class EntityParser {
         description: 'Array of client authentication methods supported by this token endpoint.'
       }
     ];
-
-    return {
-      name: 'OAuthServerConfiguration',
-      description: 'Represents OAuth 2 Authorization Server Metadata for the Mastodon server.',
-      attributes,
-      example: {
-        "issuer": "https://social.example/",
-        "service_documentation": "https://docs.joinmastodon.org/",
-        "authorization_endpoint": "https://social.example/oauth/authorize",
-        "token_endpoint": "https://social.example/oauth/token",
-        "app_registration_endpoint": "https://social.example/api/v1/apps",
-        "revocation_endpoint": "https://social.example/oauth/revoke",
-        "scopes_supported": [
-          "read", "write", "write:accounts", "write:blocks", "write:bookmarks",
-          "write:conversations", "write:favourites", "write:filters", "write:follows",
-          "write:lists", "write:media", "write:mutes", "write:notifications",
-          "write:reports", "write:statuses", "read:accounts", "read:blocks",
-          "read:bookmarks", "read:favourites", "read:filters", "read:follows",
-          "read:lists", "read:mutes", "read:notifications", "read:search",
-          "read:statuses", "follow", "push", "profile", "admin:read",
-          "admin:read:accounts", "admin:read:reports", "admin:read:domain_allows",
-          "admin:read:domain_blocks", "admin:read:ip_blocks", "admin:read:email_domain_blocks",
-          "admin:read:canonical_email_blocks", "admin:write", "admin:write:accounts",
-          "admin:write:reports", "admin:write:domain_allows", "admin:write:domain_blocks",
-          "admin:write:ip_blocks", "admin:write:email_domain_blocks",
-          "admin:write:canonical_email_blocks"
-        ],
-        "response_types_supported": ["code"],
-        "response_modes_supported": ["query", "fragment", "form_post"],
-        "code_challenge_methods_supported": ["S256"],
-        "grant_types_supported": ["authorization_code", "client_credentials"],
-        "token_endpoint_auth_methods_supported": ["client_secret_basic", "client_secret_post"]
-      }
-    };
   }
 }
 
