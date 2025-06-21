@@ -19571,11 +19571,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/GetOembedInfoAsJsonResponse"
+                  "$ref": "#/components/schemas/OEmbedResponse"
                 },
                 "examples": {
-                  "GetOembedInfoAsJsonResponse200Example": {
-                    "$ref": "#/components/examples/GetOembedInfoAsJsonResponse200Example"
+                  "OEmbedResponse200Example": {
+                    "$ref": "#/components/examples/OEmbedResponse200Example"
                   }
                 }
               }
@@ -35269,7 +35269,7 @@
           ]
         }
       },
-      "GetOembedInfoAsJsonResponse": {
+      "OEmbedResponse": {
         "type": "object",
         "description": "Response schema for Get OEmbed info as JSON",
         "properties": {
@@ -36967,8 +36967,8 @@
           ]
         }
       },
-      "GetOembedInfoAsJsonResponse200Example": {
-        "summary": "Example for GetOembedInfoAsJsonResponse",
+      "OEmbedResponse200Example": {
+        "summary": "Example for OEmbedResponse",
         "value": {
           "type": "rich",
           "version": "1.0",

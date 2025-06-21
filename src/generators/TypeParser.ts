@@ -579,6 +579,11 @@ class TypeParser {
       .replace(/\s+/g, ' ')
       .trim();
 
+    // Special case for OEmbed - use simplified name
+    if (cleaned.toLowerCase().includes('oembed')) {
+      return 'OEmbedResponse';
+    }
+
     // Convert to PascalCase
     const words = cleaned.split(/\s+/);
     const pascalCase = words

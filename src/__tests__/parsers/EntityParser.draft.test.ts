@@ -40,6 +40,6 @@ describe('EntityParser - Draft File Handling', () => {
     // This test validates that only explicit draft: true is filtered
     // This is implicitly tested by checking that we still get a reasonable number of entities
     const entities = parser.parseAllEntities();
-    expect(entities.length).toBe(91); // Exact count after removing EncryptedMessage (increased due to extracted nested entities + Admin::DimensionData + DiscoverOauthServerConfigurationResponse + GetOembedInfoAsJsonResponse)
+    expect(entities.length).toBe(91); // Exact count after removing EncryptedMessage (increased due to extracted nested entities + Admin::DimensionData + DiscoverOauthServerConfigurationResponse + OEmbedResponse)
   });
 });

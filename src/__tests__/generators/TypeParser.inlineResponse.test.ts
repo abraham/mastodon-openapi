@@ -36,7 +36,7 @@ describe('TypeParser - Inline JSON Response Schema Integration', () => {
             },
             required: ['issuer', 'scopes_supported'],
           },
-          GetOembedInfoAsJsonResponse: {
+          OEmbedResponse: {
             type: 'object',
             description: 'Response schema for Get OEmbed info as JSON',
             properties: {
@@ -163,7 +163,7 @@ describe('TypeParser - Inline JSON Response Schema Integration', () => {
       );
 
       expect(result).toEqual({
-        $ref: '#/components/schemas/GetOembedInfoAsJsonResponse',
+        $ref: '#/components/schemas/OEmbedResponse',
       });
     }
   });

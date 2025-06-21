@@ -64,7 +64,7 @@ Represents OEmbed "rich" preview, with associated iframe and metadata.
     expect(entities).toHaveLength(1);
 
     const entity = entities[0];
-    expect(entity.name).toBe('GetOembedInfoAsJsonResponse');
+    expect(entity.name).toBe('OEmbedResponse');
     expect(entity.description).toBe(
       'Response schema for Get OEmbed info as JSON'
     );
