@@ -87,7 +87,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
       expect(accountSchema).toBeDefined();
       expect(accountSchema?.externalDocs).toBeDefined();
       expect(accountSchema?.externalDocs?.url).toBe(
-        'https://docs.joinmastodon.org/entities/Account/'
+        'https://docs.joinmastodon.org/entities/Account/#attributes'
       );
       expect(accountSchema?.externalDocs?.description).toBe(
         'Official Mastodon API documentation'
@@ -207,6 +207,64 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
       );
     });
 
+    it('should generate externalDocs for Admin::Dimension main entity', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Admin::Dimension',
+          description: 'Represents qualitative data about the server',
+          attributes: [
+            {
+              name: 'key',
+              type: 'String',
+              description: 'Dimension key',
+            },
+          ],
+          sourceFile: 'Admin_Dimension',
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      const dimensionSchema = spec.components?.schemas?.Admin_Dimension;
+      expect(dimensionSchema).toBeDefined();
+      expect(dimensionSchema?.externalDocs).toBeDefined();
+      expect(dimensionSchema?.externalDocs?.url).toBe(
+        'https://docs.joinmastodon.org/entities/Admin_Dimension/#attributes'
+      );
+      expect(dimensionSchema?.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
+
+    it('should generate externalDocs for Admin::DimensionData sub-entity', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Admin::DimensionData',
+          description: 'Dimension data entity',
+          attributes: [
+            {
+              name: 'key',
+              type: 'String',
+              description: 'Data key',
+            },
+          ],
+          sourceFile: 'Admin_Dimension',
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      const dimensionDataSchema = spec.components?.schemas?.Admin_DimensionData;
+      expect(dimensionDataSchema).toBeDefined();
+      expect(dimensionDataSchema?.externalDocs).toBeDefined();
+      expect(dimensionDataSchema?.externalDocs?.url).toBe(
+        'https://docs.joinmastodon.org/entities/Admin_Dimension/#data-attributes'
+      );
+      expect(dimensionDataSchema?.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
+
     it('should replace :: with _ in entity URLs', () => {
       const entities: EntityClass[] = [
         {
@@ -228,7 +286,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
       expect(adminSchema).toBeDefined();
       expect(adminSchema?.externalDocs).toBeDefined();
       expect(adminSchema?.externalDocs?.url).toBe(
-        'https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/'
+        'https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/#attributes'
       );
       expect(adminSchema?.externalDocs?.description).toBe(
         'Official Mastodon API documentation'

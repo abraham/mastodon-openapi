@@ -815,15 +815,37 @@ class EntityConverter {
       'Trends::Link': { parent: 'PreviewCard', anchor: 'trends-link' },
     };
 
-    // Check if this is a namespaced entity (contains ::) and has source file information
-    if (entityName.includes('::') && sourceFile) {
-      const [namespace, baseName] = entityName.split('::');
-      const anchor = namespace.toLowerCase();
-
+    // Special handling for known data sub-entities
+    if (
+      entityName === 'Admin::DimensionData' ||
+      entityName === 'Admin_DimensionData'
+    ) {
       return {
-        url: `https://docs.joinmastodon.org/entities/${sourceFile}/#${anchor}`,
+        url: `https://docs.joinmastodon.org/entities/Admin_Dimension/#data-attributes`,
         description: 'Official Mastodon API documentation',
       };
+    }
+
+    // Check if this is a main entity that corresponds to a source file
+    // For entities like "Admin::Dimension" with sourceFile "Admin_Dimension", they should use #attributes
+    if (sourceFile && entityName.includes('::')) {
+      const [namespace, baseName] = entityName.split('::');
+      const expectedSourceFile = `${namespace}_${baseName}`;
+
+      // If this is the main entity for the source file (name matches the file), use #attributes
+      if (sourceFile === expectedSourceFile) {
+        return {
+          url: `https://docs.joinmastodon.org/entities/${sourceFile}/#attributes`,
+          description: 'Official Mastodon API documentation',
+        };
+      } else {
+        // Otherwise, this is a sub-entity, use the namespace as anchor
+        const anchor = namespace.toLowerCase();
+        return {
+          url: `https://docs.joinmastodon.org/entities/${sourceFile}/#${anchor}`,
+          description: 'Official Mastodon API documentation',
+        };
+      }
     }
 
     // Check if this is a known sub-entity (for backward compatibility)
@@ -835,18 +857,18 @@ class EntityConverter {
       };
     }
 
-    // For main entities with source file information, use the source file name
+    // For main entities with source file information, use the source file name with #attributes
     if (sourceFile) {
       return {
-        url: `https://docs.joinmastodon.org/entities/${sourceFile}/`,
+        url: `https://docs.joinmastodon.org/entities/${sourceFile}/#attributes`,
         description: 'Official Mastodon API documentation',
       };
     }
 
-    // Fallback: use entity name with :: replaced by _
+    // Fallback: use entity name with :: replaced by _ and #attributes for primary entities
     const urlEntityName = entityName.replace(/::/g, '_');
     return {
-      url: `https://docs.joinmastodon.org/entities/${urlEntityName}/`,
+      url: `https://docs.joinmastodon.org/entities/${urlEntityName}/#attributes`,
       description: 'Official Mastodon API documentation',
     };
   }

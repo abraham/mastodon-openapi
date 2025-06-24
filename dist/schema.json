@@ -30317,7 +30317,7 @@
           "following_count"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Account/",
+          "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -30855,7 +30855,7 @@
           "created_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/AccountWarning/",
+          "url": "https://docs.joinmastodon.org/entities/AccountWarning/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -30962,7 +30962,7 @@
           "account"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Account/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Account/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31038,7 +31038,7 @@
           "canonical_email_hash"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31077,7 +31077,7 @@
           "data"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -31130,7 +31130,7 @@
           "data"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -31165,7 +31165,7 @@
           "value"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#data-attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -31193,7 +31193,7 @@
           "created_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_DomainAllow/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_DomainAllow/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31266,7 +31266,7 @@
           "obfuscate"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_DomainBlock/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_DomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31314,7 +31314,7 @@
           "history"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_EmailDomainBlock/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_EmailDomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31406,7 +31406,7 @@
           "used_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Ip/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Ip/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31459,7 +31459,7 @@
           "created_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_IpBlock/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_IpBlock/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31512,7 +31512,7 @@
           "data"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Measure/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Measure/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -31627,7 +31627,7 @@
           "rules"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Admin_Report/#admin",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Report/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31766,7 +31766,7 @@
           "reactions"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Announcement/",
+          "url": "https://docs.joinmastodon.org/entities/Announcement/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -31891,7 +31891,7 @@
           "state"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Appeal/",
+          "url": "https://docs.joinmastodon.org/entities/Appeal/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -31940,7 +31940,7 @@
           "vapid_key"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Application/",
+          "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32018,7 +32018,7 @@
           "client_secret_expires_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Application/",
+          "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -32046,7 +32046,7 @@
           "descendants"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Context/",
+          "url": "https://docs.joinmastodon.org/entities/Context/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32107,7 +32107,7 @@
           "accounts"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Conversation/",
+          "url": "https://docs.joinmastodon.org/entities/Conversation/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32163,7 +32163,7 @@
           "visible_in_picker"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/CustomEmoji/",
+          "url": "https://docs.joinmastodon.org/entities/CustomEmoji/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32206,7 +32206,7 @@
           "severity"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/DomainBlock/",
+          "url": "https://docs.joinmastodon.org/entities/DomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32234,7 +32234,7 @@
           "error"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Error/",
+          "url": "https://docs.joinmastodon.org/entities/Error/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32261,7 +32261,7 @@
           "content"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/ExtendedDescription/",
+          "url": "https://docs.joinmastodon.org/entities/ExtendedDescription/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32290,7 +32290,7 @@
           "accounts"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/FamiliarFollowers/",
+          "url": "https://docs.joinmastodon.org/entities/FamiliarFollowers/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": [
@@ -32350,7 +32350,7 @@
           "last_status_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/FeaturedTag/",
+          "url": "https://docs.joinmastodon.org/entities/FeaturedTag/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32419,7 +32419,7 @@
           "context"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Filter/",
+          "url": "https://docs.joinmastodon.org/entities/Filter/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32468,7 +32468,7 @@
           "whole_word"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/FilterKeyword/",
+          "url": "https://docs.joinmastodon.org/entities/FilterKeyword/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32506,7 +32506,7 @@
           "filter"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/FilterResult/",
+          "url": "https://docs.joinmastodon.org/entities/FilterResult/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32545,7 +32545,7 @@
           "status_id"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/FilterStatus/",
+          "url": "https://docs.joinmastodon.org/entities/FilterStatus/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -32589,7 +32589,7 @@
           "profile_url"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/IdentityProof/",
+          "url": "https://docs.joinmastodon.org/entities/IdentityProof/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -32961,7 +32961,7 @@
           "rules"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Instance/",
+          "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33159,7 +33159,7 @@
           "size"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Instance/",
+          "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33187,7 +33187,7 @@
           "replies_policy"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/List/",
+          "url": "https://docs.joinmastodon.org/entities/List/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33219,7 +33219,7 @@
           "updated_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Marker/",
+          "url": "https://docs.joinmastodon.org/entities/Marker/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33286,7 +33286,7 @@
           "meta"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/MediaAttachment/",
+          "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33345,7 +33345,7 @@
           "account"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Notification/",
+          "url": "https://docs.joinmastodon.org/entities/Notification/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33401,7 +33401,7 @@
           "summary"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/NotificationPolicy/",
+          "url": "https://docs.joinmastodon.org/entities/NotificationPolicy/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33456,7 +33456,7 @@
           "notifications_count"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/NotificationRequest/",
+          "url": "https://docs.joinmastodon.org/entities/NotificationRequest/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33559,7 +33559,7 @@
           "emojis"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Poll/",
+          "url": "https://docs.joinmastodon.org/entities/Poll/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33647,7 +33647,7 @@
           "reading:expand:spoilers"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Preferences/",
+          "url": "https://docs.joinmastodon.org/entities/Preferences/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33750,7 +33750,7 @@
           "embed_url"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PreviewCard/",
+          "url": "https://docs.joinmastodon.org/entities/PreviewCard/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33901,7 +33901,7 @@
           "url"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PreviewCardAuthor/",
+          "url": "https://docs.joinmastodon.org/entities/PreviewCardAuthor/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33924,7 +33924,7 @@
           "content"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PrivacyPolicy/",
+          "url": "https://docs.joinmastodon.org/entities/PrivacyPolicy/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -33949,7 +33949,7 @@
           }
         },
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Quote/",
+          "url": "https://docs.joinmastodon.org/entities/Quote/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34045,7 +34045,7 @@
           "count"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Reaction/",
+          "url": "https://docs.joinmastodon.org/entities/Reaction/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": [
@@ -34149,7 +34149,7 @@
           "note"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Relationship/",
+          "url": "https://docs.joinmastodon.org/entities/Relationship/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34218,7 +34218,7 @@
           "created_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/RelationshipSeveranceEvent/",
+          "url": "https://docs.joinmastodon.org/entities/RelationshipSeveranceEvent/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -34289,7 +34289,7 @@
           "target_account"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Report/",
+          "url": "https://docs.joinmastodon.org/entities/Report/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34362,7 +34362,7 @@
           "highlighted"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Role/",
+          "url": "https://docs.joinmastodon.org/entities/Role/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34401,7 +34401,7 @@
           "hint"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Rule/",
+          "url": "https://docs.joinmastodon.org/entities/Rule/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34550,7 +34550,7 @@
           "media_attachments"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/ScheduledStatus/",
+          "url": "https://docs.joinmastodon.org/entities/ScheduledStatus/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -34586,7 +34586,7 @@
           "hashtags"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Search/",
+          "url": "https://docs.joinmastodon.org/entities/Search/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -34607,7 +34607,7 @@
           }
         },
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/ShallowQuote/",
+          "url": "https://docs.joinmastodon.org/entities/ShallowQuote/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -34812,7 +34812,7 @@
           "replies_count"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Status/",
+          "url": "https://docs.joinmastodon.org/entities/Status/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35027,7 +35027,7 @@
           "emojis"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/StatusEdit/",
+          "url": "https://docs.joinmastodon.org/entities/StatusEdit/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35081,7 +35081,7 @@
           "spoiler_text"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/StatusSource/",
+          "url": "https://docs.joinmastodon.org/entities/StatusSource/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35118,7 +35118,7 @@
           "account"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Suggestion/",
+          "url": "https://docs.joinmastodon.org/entities/Suggestion/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35167,7 +35167,7 @@
           "history"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Tag/",
+          "url": "https://docs.joinmastodon.org/entities/Tag/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35237,7 +35237,7 @@
           "accounts"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Tag/",
+          "url": "https://docs.joinmastodon.org/entities/Tag/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -35301,7 +35301,7 @@
           }
         },
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/TermsOfService/",
+          "url": "https://docs.joinmastodon.org/entities/TermsOfService/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35339,7 +35339,7 @@
           "created_at"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Token/",
+          "url": "https://docs.joinmastodon.org/entities/Token/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35390,7 +35390,7 @@
           "provider"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Translation/",
+          "url": "https://docs.joinmastodon.org/entities/Translation/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -35500,7 +35500,7 @@
           "whole_word"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/V1_Filter/#v1",
+          "url": "https://docs.joinmastodon.org/entities/V1_Filter/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35755,7 +35755,7 @@
           "rules"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/V1_Instance/#v1",
+          "url": "https://docs.joinmastodon.org/entities/V1_Instance/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -35931,7 +35931,7 @@
           "summary"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/V1_NotificationPolicy/#v1",
+          "url": "https://docs.joinmastodon.org/entities/V1_NotificationPolicy/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -36033,7 +36033,7 @@
           "alerts"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/WebPushSubscription/",
+          "url": "https://docs.joinmastodon.org/entities/WebPushSubscription/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -36087,7 +36087,7 @@
           "notification_groups"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/GroupedNotificationsResults/",
+          "url": "https://docs.joinmastodon.org/entities/GroupedNotificationsResults/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -36137,7 +36137,7 @@
           "bot"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/",
+          "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -36214,7 +36214,7 @@
           "sample_account_ids"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/NotificationGroup/",
+          "url": "https://docs.joinmastodon.org/entities/NotificationGroup/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -36307,7 +36307,7 @@
           "token_endpoint_auth_methods_supported"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/DiscoverOauthServerConfigurationResponse/",
+          "url": "https://docs.joinmastodon.org/entities/DiscoverOauthServerConfigurationResponse/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
@@ -36450,7 +36450,7 @@
           "width"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/OEmbedResponse/",
+          "url": "https://docs.joinmastodon.org/entities/OEmbedResponse/#attributes",
           "description": "Official Mastodon API documentation"
         },
         "example": {
