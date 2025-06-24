@@ -150,5 +150,61 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
         'Official Mastodon API documentation'
       );
     });
+
+    it('should generate externalDocs for CohortData sub-entity', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'CohortData',
+          description: 'Cohort data entity',
+          attributes: [
+            {
+              name: 'data',
+              type: 'Object',
+              description: 'Cohort data',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      const cohortDataSchema = spec.components?.schemas?.CohortData;
+      expect(cohortDataSchema).toBeDefined();
+      expect(cohortDataSchema?.externalDocs).toBeDefined();
+      expect(cohortDataSchema?.externalDocs?.url).toBe(
+        'https://docs.joinmastodon.org/entities/Admin_Cohort/#CohortData'
+      );
+      expect(cohortDataSchema?.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
+
+    it('should generate externalDocs for Trends_Link sub-entity', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Trends_Link',
+          description: 'Trends link entity',
+          attributes: [
+            {
+              name: 'url',
+              type: 'String',
+              description: 'Link URL',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      const trendsLinkSchema = spec.components?.schemas?.Trends_Link;
+      expect(trendsLinkSchema).toBeDefined();
+      expect(trendsLinkSchema?.externalDocs).toBeDefined();
+      expect(trendsLinkSchema?.externalDocs?.url).toBe(
+        'https://docs.joinmastodon.org/entities/PreviewCard/#trends-link'
+      );
+      expect(trendsLinkSchema?.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
   });
 });

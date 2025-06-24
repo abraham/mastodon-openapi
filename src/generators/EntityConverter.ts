@@ -798,10 +798,18 @@ class EntityConverter {
   private generateEntityExternalDocs(entityName: string): any {
     // Define known sub-entities and their parent entities
     const subEntityMap: Record<string, { parent: string; anchor: string }> = {
+      // Account sub-entities
       CredentialAccount: { parent: 'Account', anchor: 'CredentialAccount' },
       MutedAccount: { parent: 'Account', anchor: 'MutedAccount' },
       Field: { parent: 'Account', anchor: 'Field' },
       Source: { parent: 'Account', anchor: 'source' },
+
+      // Admin_Cohort sub-entities
+      CohortData: { parent: 'Admin_Cohort', anchor: 'CohortData' },
+
+      // PreviewCard sub-entities
+      Trends_Link: { parent: 'PreviewCard', anchor: 'trends-link' },
+      'Trends::Link': { parent: 'PreviewCard', anchor: 'trends-link' },
     };
 
     // Check if this is a sub-entity

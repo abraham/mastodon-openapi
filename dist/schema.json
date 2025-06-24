@@ -31105,7 +31105,7 @@
           "value"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/CohortData/",
+          "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#CohortData",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -33873,7 +33873,7 @@
           "history"
         ],
         "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/Trends::Link/",
+          "url": "https://docs.joinmastodon.org/entities/PreviewCard/#trends-link",
           "description": "Official Mastodon API documentation"
         }
       },
