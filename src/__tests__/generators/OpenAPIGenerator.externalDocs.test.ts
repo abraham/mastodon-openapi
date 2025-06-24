@@ -206,5 +206,33 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
         'Official Mastodon API documentation'
       );
     });
+
+    it('should replace :: with _ in entity URLs', () => {
+      const entities: EntityClass[] = [
+        {
+          name: 'Admin::CanonicalEmailBlock',
+          description: 'Admin canonical email block entity',
+          attributes: [
+            {
+              name: 'id',
+              type: 'String',
+              description: 'Block ID',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema(entities, []);
+
+      const adminSchema = spec.components?.schemas?.Admin_CanonicalEmailBlock;
+      expect(adminSchema).toBeDefined();
+      expect(adminSchema?.externalDocs).toBeDefined();
+      expect(adminSchema?.externalDocs?.url).toBe(
+        'https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/'
+      );
+      expect(adminSchema?.externalDocs?.description).toBe(
+        'Official Mastodon API documentation'
+      );
+    });
   });
 });

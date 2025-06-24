@@ -815,15 +815,18 @@ class EntityConverter {
     // Check if this is a sub-entity
     const subEntity = subEntityMap[entityName];
     if (subEntity) {
+      // Replace :: with _ in parent entity name for URL
+      const parentUrlName = subEntity.parent.replace(/::/g, '_');
       return {
-        url: `https://docs.joinmastodon.org/entities/${subEntity.parent}/#${subEntity.anchor}`,
+        url: `https://docs.joinmastodon.org/entities/${parentUrlName}/#${subEntity.anchor}`,
         description: 'Official Mastodon API documentation',
       };
     }
 
-    // For main entities, use the entity name directly
+    // For main entities, replace :: with _ in entity name for URL
+    const urlEntityName = entityName.replace(/::/g, '_');
     return {
-      url: `https://docs.joinmastodon.org/entities/${entityName}/`,
+      url: `https://docs.joinmastodon.org/entities/${urlEntityName}/`,
       description: 'Official Mastodon API documentation',
     };
   }
