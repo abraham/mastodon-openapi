@@ -80,7 +80,7 @@ class EntityConverter {
         description: entity.description,
         properties: {},
         required: [],
-        externalDocs: this.generateEntityExternalDocs(entity.name),
+        externalDocs: this.generateEntityExternalDocs(entity),
       };
 
       // Add example if available
@@ -795,8 +795,11 @@ class EntityConverter {
   /**
    * Generate external documentation for an entity
    */
-  private generateEntityExternalDocs(entityName: string): any {
-    // Define known sub-entities and their parent entities
+  private generateEntityExternalDocs(entity: EntityClass): any {
+    const entityName = entity.name;
+    const sourceFile = entity.sourceFile;
+
+    // Define known sub-entities and their parent entities (for entities without source file info)
     const subEntityMap: Record<string, { parent: string; anchor: string }> = {
       // Account sub-entities
       CredentialAccount: { parent: 'Account', anchor: 'CredentialAccount' },
@@ -812,18 +815,35 @@ class EntityConverter {
       'Trends::Link': { parent: 'PreviewCard', anchor: 'trends-link' },
     };
 
-    // Check if this is a sub-entity
-    const subEntity = subEntityMap[entityName];
-    if (subEntity) {
-      // Replace :: with _ in parent entity name for URL
-      const parentUrlName = subEntity.parent.replace(/::/g, '_');
+    // Check if this is a namespaced entity (contains ::) and has source file information
+    if (entityName.includes('::') && sourceFile) {
+      const [namespace, baseName] = entityName.split('::');
+      const anchor = namespace.toLowerCase();
+
       return {
-        url: `https://docs.joinmastodon.org/entities/${parentUrlName}/#${subEntity.anchor}`,
+        url: `https://docs.joinmastodon.org/entities/${sourceFile}/#${anchor}`,
         description: 'Official Mastodon API documentation',
       };
     }
 
-    // For main entities, replace :: with _ in entity name for URL
+    // Check if this is a known sub-entity (for backward compatibility)
+    const subEntity = subEntityMap[entityName];
+    if (subEntity) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/${subEntity.parent}/#${subEntity.anchor}`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // For main entities with source file information, use the source file name
+    if (sourceFile) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/${sourceFile}/`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // Fallback: use entity name with :: replaced by _
     const urlEntityName = entityName.replace(/::/g, '_');
     return {
       url: `https://docs.joinmastodon.org/entities/${urlEntityName}/`,
