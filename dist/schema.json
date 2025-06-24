@@ -1778,6 +1778,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": []
@@ -2412,6 +2418,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -3541,6 +3553,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8263,6 +8281,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8399,6 +8423,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8580,6 +8610,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8727,6 +8763,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8904,6 +8946,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -11918,7 +11966,13 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#v1",
           "description": "Official Mastodon API documentation"
         },
-        "deprecated": true
+        "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ]
       }
     },
     "/api/v1/instance/activity": {
@@ -15044,6 +15098,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -23400,6 +23460,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -27226,6 +27292,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -28406,6 +28478,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [

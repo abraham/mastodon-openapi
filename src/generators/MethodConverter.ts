@@ -8,6 +8,7 @@ import {
   OpenAPISpec,
   OpenAPIHeader,
   OpenAPIExample,
+  OpenAPIBadge,
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
@@ -241,6 +242,18 @@ class MethodConverter {
     // Add deprecated flag if method is deprecated
     if (method.deprecated) {
       operation.deprecated = true;
+    }
+
+    // Add x-badges for deprecated endpoints
+    const badges: OpenAPIBadge[] = [];
+    if (method.deprecated) {
+      badges.push({
+        name: 'Deprecated',
+        color: 'yellow',
+      });
+    }
+    if (badges.length > 0) {
+      operation['x-badges'] = badges;
     }
 
     // Add security configuration based on OAuth requirements
