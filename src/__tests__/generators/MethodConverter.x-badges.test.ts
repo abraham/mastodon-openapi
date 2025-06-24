@@ -65,76 +65,6 @@ describe('MethodConverter - x-badges extension', () => {
     });
   });
 
-  describe('unreleased methods', () => {
-    it('should add unreleased x-badge for unreleased methods', () => {
-      const unreleasedMethod: ApiMethod = {
-        name: 'Unreleased method',
-        httpMethod: 'GET',
-        endpoint: '/api/v1/test/unreleased',
-        description: 'An unreleased method',
-        unreleased: true,
-      };
-
-      methodConverter.convertMethod(unreleasedMethod, 'test', spec);
-
-      const operation = spec.paths['/api/v1/test/unreleased']?.get;
-      expect(operation).toBeDefined();
-      expect(operation?.['x-badges']).toBeDefined();
-      expect(operation?.['x-badges']).toHaveLength(1);
-      expect(operation?.['x-badges']?.[0]).toEqual({
-        name: 'Unreleased',
-        color: 'gray',
-      });
-    });
-
-    it('should not add x-badges for normal methods without unreleased flag', () => {
-      const normalMethod: ApiMethod = {
-        name: 'Normal method',
-        httpMethod: 'GET',
-        endpoint: '/api/v1/test/normal',
-        description: 'A normal method',
-      };
-
-      methodConverter.convertMethod(normalMethod, 'test', spec);
-
-      const operation = spec.paths['/api/v1/test/normal']?.get;
-      expect(operation).toBeDefined();
-      expect(operation?.['x-badges']).toBeUndefined();
-    });
-  });
-
-  describe('methods with both deprecated and unreleased flags', () => {
-    it('should add both badges when method is both deprecated and unreleased', () => {
-      const method: ApiMethod = {
-        name: 'Deprecated and unreleased method',
-        httpMethod: 'GET',
-        endpoint: '/api/v1/test/both',
-        description: 'A method that is both deprecated and unreleased',
-        deprecated: true,
-        unreleased: true,
-      };
-
-      methodConverter.convertMethod(method, 'test', spec);
-
-      const operation = spec.paths['/api/v1/test/both']?.get;
-      expect(operation).toBeDefined();
-      expect(operation?.deprecated).toBe(true);
-      expect(operation?.['x-badges']).toBeDefined();
-      expect(operation?.['x-badges']).toHaveLength(2);
-
-      // Check that both badges are present
-      const badges = operation?.['x-badges'];
-      expect(badges).toContainEqual({
-        name: 'Deprecated',
-        color: 'yellow',
-      });
-      expect(badges).toContainEqual({
-        name: 'Unreleased',
-        color: 'gray',
-      });
-    });
-  });
-
   describe('integration with different HTTP methods', () => {
     it('should add x-badges for POST methods', () => {
       const method: ApiMethod = {
@@ -158,21 +88,21 @@ describe('MethodConverter - x-badges extension', () => {
 
     it('should add x-badges for DELETE methods', () => {
       const method: ApiMethod = {
-        name: 'Unreleased DELETE method',
+        name: 'Deprecated DELETE method',
         httpMethod: 'DELETE',
-        endpoint: '/api/v1/test/unreleased-delete',
-        description: 'An unreleased DELETE method',
-        unreleased: true,
+        endpoint: '/api/v1/test/deprecated-delete',
+        description: 'A deprecated DELETE method',
+        deprecated: true,
       };
 
       methodConverter.convertMethod(method, 'test', spec);
 
-      const operation = spec.paths['/api/v1/test/unreleased-delete']?.delete;
+      const operation = spec.paths['/api/v1/test/deprecated-delete']?.delete;
       expect(operation).toBeDefined();
       expect(operation?.['x-badges']).toBeDefined();
       expect(operation?.['x-badges']?.[0]).toEqual({
-        name: 'Unreleased',
-        color: 'gray',
+        name: 'Deprecated',
+        color: 'yellow',
       });
     });
   });

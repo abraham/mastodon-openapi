@@ -18,7 +18,6 @@ interface ApiMethod {
   version?: string;
   versions?: string[]; // New field for parsed version numbers
   deprecated?: boolean;
-  unreleased?: boolean; // New field for unreleased endpoints
   isStreaming?: boolean;
   responseExamples?: Record<string, any>; // Response examples by status code
   anchor?: string; // Anchor extracted from documentation header

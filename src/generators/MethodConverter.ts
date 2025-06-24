@@ -244,18 +244,12 @@ class MethodConverter {
       operation.deprecated = true;
     }
 
-    // Add x-badges for deprecated and unreleased endpoints
+    // Add x-badges for deprecated endpoints
     const badges: OpenAPIBadge[] = [];
     if (method.deprecated) {
       badges.push({
         name: 'Deprecated',
         color: 'yellow',
-      });
-    }
-    if (method.unreleased) {
-      badges.push({
-        name: 'Unreleased',
-        color: 'gray',
       });
     }
     if (badges.length > 0) {
