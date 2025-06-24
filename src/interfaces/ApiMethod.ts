@@ -20,6 +20,7 @@ interface ApiMethod {
   deprecated?: boolean;
   isStreaming?: boolean;
   responseExamples?: Record<string, any>; // Response examples by status code
+  anchor?: string; // Anchor extracted from documentation header
 }
 
 export { ApiMethod, HashAttribute };

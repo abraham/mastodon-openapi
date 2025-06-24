@@ -80,6 +80,7 @@ class EntityConverter {
         description: entity.description,
         properties: {},
         required: [],
+        externalDocs: this.generateEntityExternalDocs(entity.name),
       };
 
       // Add example if available
@@ -789,6 +790,34 @@ class EntityConverter {
     const oauthScopeProperties = ['scopes', 'scopes_supported'];
 
     return oauthScopeProperties.includes(propertyName);
+  }
+
+  /**
+   * Generate external documentation for an entity
+   */
+  private generateEntityExternalDocs(entityName: string): any {
+    // Define known sub-entities and their parent entities
+    const subEntityMap: Record<string, { parent: string; anchor: string }> = {
+      CredentialAccount: { parent: 'Account', anchor: 'CredentialAccount' },
+      MutedAccount: { parent: 'Account', anchor: 'MutedAccount' },
+      Field: { parent: 'Account', anchor: 'Field' },
+      Source: { parent: 'Account', anchor: 'source' },
+    };
+
+    // Check if this is a sub-entity
+    const subEntity = subEntityMap[entityName];
+    if (subEntity) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/${subEntity.parent}/#${subEntity.anchor}`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // For main entities, use the entity name directly
+    return {
+      url: `https://docs.joinmastodon.org/entities/${entityName}/`,
+      description: 'Official Mastodon API documentation',
+    };
   }
 }
 

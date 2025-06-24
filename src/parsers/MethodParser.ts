@@ -107,12 +107,13 @@ class MethodParser {
   }
 
   private parseMethodSection(section: string): ApiMethod | null {
-    // Extract method name from header: ## Method Name {#anchor} or ### Method Name {#anchor}
+    // Extract method name and anchor from header: ## Method Name {#anchor} or ### Method Name {#anchor}
     // Handle headers that may contain {{%removed%}} or other Hugo shortcodes
-    const nameMatch = section.match(/^##+ (.+?)\s*\{#[^}]+\}/m);
+    const nameMatch = section.match(/^##+ (.+?)\s*\{#([^}]+)\}/m);
     if (!nameMatch) return null;
 
     const name = nameMatch[1].trim();
+    const anchor = nameMatch[2].trim();
 
     // Skip methods marked as removed
     if (name.includes('{{%removed%}}')) {
@@ -200,6 +201,7 @@ class MethodParser {
       isStreaming: isStreaming || undefined,
       responseExamples:
         Object.keys(responseExamples).length > 0 ? responseExamples : undefined,
+      anchor,
     };
   }
 

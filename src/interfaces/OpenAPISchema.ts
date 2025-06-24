@@ -61,6 +61,7 @@ interface OpenAPISchema {
   allOf?: (OpenAPIProperty | { $ref: string })[];
   example?: any;
   additionalProperties?: OpenAPIProperty | boolean;
+  externalDocs?: OpenAPIExternalDocs;
 }
 
 interface OpenAPIParameter {
@@ -113,6 +114,7 @@ interface OpenAPIOperation {
   requestBody?: OpenAPIRequestBody;
   responses: Record<string, OpenAPIResponse>;
   deprecated?: boolean;
+  externalDocs?: OpenAPIExternalDocs;
 }
 
 interface OpenAPIPath {
