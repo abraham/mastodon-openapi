@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import * as path from 'path';
 import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
@@ -24,6 +25,9 @@ export class EntityFileParser {
 
     const entities: EntityClass[] = [];
 
+    // Extract source file name (without path and extension)
+    const sourceFile = require('path').basename(filePath, '.md');
+
     // Extract main class name from frontmatter title
     const className = parsed.data.title;
     if (!className) {
@@ -39,7 +43,7 @@ export class EntityFileParser {
 
     // Extract nested hash entities and update parent attributes
     const { processedAttributes, nestedEntities } =
-      this.extractNestedHashEntities(className, attributes);
+      this.extractNestedHashEntities(className, attributes, sourceFile);
 
     // Parse example from the content
     const example = ExampleParser.parseEntityExample(parsed.content);
@@ -58,13 +62,17 @@ export class EntityFileParser {
       attributes: processedAttributes,
       versions: allVersions.length > 0 ? allVersions : undefined,
       example: example || undefined,
+      sourceFile,
     });
 
     // Add extracted nested entities
     entities.push(...nestedEntities);
 
     // Parse additional entity definitions in the same file
-    const additionalEntities = this.parseAdditionalEntities(parsed.content);
+    const additionalEntities = this.parseAdditionalEntities(
+      parsed.content,
+      sourceFile
+    );
     entities.push(...additionalEntities);
 
     return entities;
@@ -120,7 +128,10 @@ export class EntityFileParser {
   /**
    * Parses additional entity definitions from the same file
    */
-  private static parseAdditionalEntities(content: string): EntityClass[] {
+  private static parseAdditionalEntities(
+    content: string,
+    sourceFile: string
+  ): EntityClass[] {
     const entities: EntityClass[] = [];
 
     // Find all sections that define additional entities
@@ -172,6 +183,7 @@ export class EntityFileParser {
           description: `Additional entity definition for ${entityName}`,
           attributes,
           versions: entityVersions.length > 0 ? entityVersions : undefined,
+          sourceFile,
         });
       }
     });
@@ -184,7 +196,8 @@ export class EntityFileParser {
    */
   private static extractNestedHashEntities(
     parentEntityName: string,
-    attributes: EntityAttribute[]
+    attributes: EntityAttribute[],
+    sourceFile: string
   ): { processedAttributes: EntityAttribute[]; nestedEntities: EntityClass[] } {
     const nestedEntities: EntityClass[] = [];
     const processedAttributes: EntityAttribute[] = [];
@@ -242,6 +255,7 @@ export class EntityFileParser {
         description: `Nested entity extracted from ${parentEntityName}.${parentFieldName}`,
         attributes: childAttributes,
         versions: childVersions.length > 0 ? childVersions : undefined,
+        sourceFile,
       });
 
       // Update the parent attribute type from "Array of Hash" to "Array of [EntityName]"

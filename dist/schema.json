@@ -135,6 +135,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#create",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2ClientCredentials": [
@@ -319,6 +323,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#index",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "id",
@@ -459,6 +467,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "id",
@@ -595,6 +607,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#block",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -739,6 +755,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#endorse",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -889,6 +909,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#endorsements",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [
           {
@@ -1058,6 +1082,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#featured_tags",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "id",
@@ -1194,6 +1222,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#follow",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -1378,6 +1410,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#followers",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "max_id",
@@ -1556,6 +1592,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#following",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "max_id",
@@ -1733,6 +1773,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#identity_proofs",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -1879,6 +1923,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#lists",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -2022,6 +2070,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#mute",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -2190,6 +2242,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#note",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -2351,6 +2407,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#pin",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -2495,6 +2555,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#remove_from_followers",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -2648,6 +2712,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#statuses",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -2876,6 +2944,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#unblock",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -3019,6 +3091,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#unendorse",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -3164,6 +3240,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#unfollow",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -3308,6 +3388,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#unmute",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -3451,6 +3535,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#unpin",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -3600,6 +3688,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#familiar_followers",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -3747,6 +3839,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#lookup",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "acct",
@@ -3887,6 +3983,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#relationships",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -4047,6 +4147,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#search",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -4231,6 +4335,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#update_credentials",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -4452,6 +4560,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/accounts/#verify_credentials",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -4589,6 +4701,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/announcements/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": []
@@ -4707,6 +4823,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/announcements/#dismiss",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -4839,6 +4959,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/announcements/#put-reactions",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -4978,6 +5102,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/announcements/#delete-reactions",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -5131,6 +5259,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/apps/#create",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [],
         "requestBody": {
@@ -5298,6 +5430,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/apps/#verify_credentials",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2ClientCredentials": []
@@ -5437,6 +5573,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/blocks/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -5619,6 +5759,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/bookmarks/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -5800,6 +5944,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/conversations/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -5960,6 +6108,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/conversations/#delete",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -6103,6 +6255,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/conversations/#read",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -6250,6 +6406,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/custom_emojis/#get",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -6379,6 +6539,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/directory/#get",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [
           {
@@ -6553,6 +6717,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/domain_blocks/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -6712,6 +6880,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/domain_blocks/#block",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -6852,6 +7024,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/domain_blocks/#unblock",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -6995,6 +7171,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/emails/#confirmation",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -7153,6 +7333,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/endorsements/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -7325,6 +7509,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/favourites/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -7501,6 +7689,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/featured_tags/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -7631,6 +7823,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/featured_tags/#feature",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -7773,6 +7969,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/featured_tags/#unfeature",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -7921,6 +8121,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/featured_tags/#suggestions",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -8054,6 +8258,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#get-v1",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -8185,6 +8393,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#create-v1",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -8363,6 +8575,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#get-one-v1",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -8505,6 +8721,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#update-v1",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -8679,6 +8899,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#delete-v1",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -8827,6 +9051,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -8957,6 +9185,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#create",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -9156,6 +9388,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#keywords-get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -9297,6 +9533,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#keywords-create",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -9469,6 +9709,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#statuses-get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -9610,6 +9854,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#statuses-add",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -9775,6 +10023,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -9916,6 +10168,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -10104,6 +10360,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#delete",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -10248,6 +10508,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#keywords-get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -10389,6 +10653,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#keywords-update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -10544,6 +10812,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#keywords-delete",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -10688,6 +10960,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#statuses-get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -10829,6 +11105,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/filters/#statuses-remove",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -10982,6 +11262,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/follow_requests/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -11147,6 +11431,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/follow_requests/#accept",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -11291,6 +11579,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/follow_requests/#reject",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -11445,6 +11737,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/followed_tags/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -11617,6 +11913,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#v1",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true
       }
@@ -11834,6 +12134,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#activity",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -11963,6 +12267,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#domain_blocks",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -12094,6 +12402,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#extended_description",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12218,6 +12530,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#peers",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12344,6 +12660,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#privacy_policy",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12473,6 +12793,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#rules",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12599,6 +12923,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12726,6 +13054,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service_date",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "date",
@@ -12850,6 +13182,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#translation_languages",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -12976,6 +13312,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/instance/#v2",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -13105,6 +13445,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -13236,6 +13580,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#create",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -13401,6 +13749,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -13542,6 +13894,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -13703,6 +14059,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#delete",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -13855,6 +14215,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#accounts",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -14023,6 +14387,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#accounts-add",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -14175,6 +14543,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/lists/#accounts-remove",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -14343,6 +14715,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/markers/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -14491,6 +14867,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/markers/#create",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -14658,6 +15038,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/media/#v1",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -14828,6 +15212,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/media/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -14957,6 +15345,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/media/#delete",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -15099,6 +15491,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/media/#update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -15269,6 +15665,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/media/#v2",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -15447,6 +15847,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/mutes/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -15619,6 +16023,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#get",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -15835,6 +16243,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -15967,6 +16379,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#dismiss",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -16098,6 +16514,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#clear",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -16240,6 +16660,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#get-requests",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -16413,6 +16837,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#get-one-request",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -16544,6 +16972,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#accept-request",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -16677,6 +17109,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#dismiss-request",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -16809,6 +17245,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#accept-multiple-requests",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -16929,6 +17369,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#dismiss-multiple-requests",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -17051,6 +17495,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#requests-merged",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -17171,6 +17619,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#unread-count",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -17355,6 +17807,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications_alpha/#get-grouped",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -17582,6 +18038,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications_alpha/#get-notification-group",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -17714,6 +18174,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications_alpha/#dismiss-group",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -17845,6 +18309,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications_alpha/#unread-group-count",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -18041,6 +18509,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#get-grouped",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -18278,6 +18750,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#get-notification-group",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -18425,6 +18901,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#get-group-accounts",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -18556,6 +19036,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#dismiss-group",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -18701,6 +19185,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#get-policy",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -18821,6 +19309,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#unread-group-count",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -18999,6 +19491,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/oauth/#authorize",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [
           {
@@ -19201,6 +19697,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/oauth/#revoke",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [],
         "requestBody": {
           "description": "JSON request body parameters",
@@ -19357,6 +19857,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/oauth/#token",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [],
         "requestBody": {
@@ -19534,6 +20038,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/oembed/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "url",
@@ -19692,6 +20200,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/polls/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -19835,6 +20347,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/polls/#vote",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -19991,6 +20507,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/preferences/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -20123,6 +20643,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/push/#create",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -20354,6 +20878,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/push/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -20484,6 +21012,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/push/#update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -20673,6 +21205,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/push/#delete",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -20805,6 +21341,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/reports/#post",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -21003,6 +21543,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/scheduled_statuses/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -21175,6 +21719,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/scheduled_statuses/#get-one",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -21316,6 +21864,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/scheduled_statuses/#update",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -21464,6 +22016,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/scheduled_statuses/#cancel",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -21608,6 +22164,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/search/#v2",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -21849,6 +22409,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#create",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -22015,6 +22579,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#index",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -22162,6 +22730,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -22303,6 +22875,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#delete",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -22454,6 +23030,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#edit",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -22667,6 +23247,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#bookmark",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -22810,6 +23394,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#card",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -22956,6 +23544,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#context",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -23099,6 +23691,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#favourite",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -23252,6 +23848,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#favourited_by",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -23428,6 +24028,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#history",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -23571,6 +24175,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#mute",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -23716,6 +24324,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#pin",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -23859,6 +24471,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#boost",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -24030,6 +24646,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#reblogged_by",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -24203,6 +24823,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#source",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2ClientCredentials": [
@@ -24346,6 +24970,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#translate",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -24509,6 +25137,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#unbookmark",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -24652,6 +25284,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#unfavourite",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -24797,6 +25433,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#unmute",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -24940,6 +25580,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#unpin",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -25085,6 +25729,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#unreblog",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -25220,6 +25868,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#direct",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -25343,6 +25995,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#hashtag",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -25480,6 +26136,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#hashtag-local",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -25612,6 +26272,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#health",
+          "description": "Official Mastodon API documentation"
         }
       }
     },
@@ -25729,6 +26393,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#list",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -25866,6 +26534,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#public",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -26000,6 +26672,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#public-local",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -26136,6 +26812,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#public-remote",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -26271,6 +26951,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#user",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -26395,6 +27079,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/streaming/#notification",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -26533,6 +27221,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/suggestions/#v1",
+          "description": "Official Mastodon API documentation"
+        },
         "deprecated": true,
         "security": [
           {
@@ -26666,6 +27358,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/suggestions/#remove",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -26808,6 +27504,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/suggestions/#v2",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -26954,6 +27654,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#get",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": []
@@ -27095,6 +27799,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#feature",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -27240,6 +27948,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#follow",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -27384,6 +28096,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#unfeature",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -27527,6 +28243,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#unfollow",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -27680,6 +28400,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#direct",
+          "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
         "security": [
@@ -27863,6 +28587,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#home",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -28038,6 +28766,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#link",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -28239,6 +28971,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#list",
+          "description": "Official Mastodon API documentation"
+        },
         "security": [
           {
             "OAuth2": [
@@ -28428,6 +29164,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#public",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -28639,6 +29379,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/timelines/#tag",
+          "description": "Official Mastodon API documentation"
         },
         "security": [
           {
@@ -28890,6 +29634,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/trends/#links",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "limit",
@@ -29039,6 +29787,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/trends/#statuses",
+          "description": "Official Mastodon API documentation"
         },
         "parameters": [
           {
@@ -29190,6 +29942,10 @@
             }
           }
         },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/trends/#tags",
+          "description": "Official Mastodon API documentation"
+        },
         "parameters": [
           {
             "name": "limit",
@@ -29336,6 +30092,10 @@
               }
             }
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/oauth/#authorization-server-metadata",
+          "description": "Official Mastodon API documentation"
         }
       }
     }
@@ -29556,6 +30316,10 @@
           "followers_count",
           "following_count"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "23634",
           "username": "noiob",
@@ -29834,7 +30598,11 @@
           "following_count",
           "source",
           "role"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#CredentialAccount",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "MutedAccount": {
         "type": "object",
@@ -29997,7 +30765,11 @@
           "statuses_count",
           "followers_count",
           "following_count"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#MutedAccount",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Field": {
         "type": "object",
@@ -30021,7 +30793,11 @@
         "required": [
           "name",
           "value"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#Field",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "AccountWarning": {
         "type": "object",
@@ -30077,7 +30853,11 @@
           "text",
           "target_account",
           "created_at"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/AccountWarning/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_Account": {
         "type": "object",
@@ -30181,6 +30961,10 @@
           "suspended",
           "account"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Account/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "108965278956942133",
           "username": "admin",
@@ -30253,6 +31037,10 @@
           "id",
           "canonical_email_hash"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "2",
           "canonical_email_hash": "b344e55d11b3fc25d0d53194e0475838bf17e9be67ce3e6469956222d9a34f9c"
@@ -30287,7 +31075,11 @@
           "period",
           "frequency",
           "data"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "CohortData": {
         "type": "object",
@@ -30311,7 +31103,11 @@
           "date",
           "rate",
           "value"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#CohortData",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_Dimension": {
         "type": "object",
@@ -30332,7 +31128,11 @@
         "required": [
           "key",
           "data"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_DimensionData": {
         "type": "object",
@@ -30363,7 +31163,11 @@
           "key",
           "human_key",
           "value"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Dimension/#data-attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_DomainAllow": {
         "type": "object",
@@ -30388,6 +31192,10 @@
           "domain",
           "created_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_DomainAllow/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "domain": "mastodon.social",
@@ -30457,6 +31265,10 @@
           "reject_reports",
           "obfuscate"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_DomainBlock/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "domain": "example.com",
@@ -30501,6 +31313,10 @@
           "created_at",
           "history"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_EmailDomainBlock/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "domain": "foo",
@@ -30565,7 +31381,11 @@
           "day",
           "accounts",
           "uses"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_EmailDomainBlock/#admin",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_Ip": {
         "type": "object",
@@ -30585,6 +31405,10 @@
           "ip",
           "used_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Ip/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "ip": "192.168.42.1",
           "used_at": "2022-09-15T01:38:58.851Z"
@@ -30634,6 +31458,10 @@
           "comment",
           "created_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_IpBlock/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "ip": "8.8.8.8/32",
@@ -30682,7 +31510,11 @@
           "key",
           "total",
           "data"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Measure/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_MeasureData": {
         "type": "object",
@@ -30701,7 +31533,11 @@
         "required": [
           "date",
           "value"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Measure/#admin",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_Report": {
         "type": "object",
@@ -30790,6 +31626,10 @@
           "statuses",
           "rules"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Admin_Report/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "action_taken": false,
@@ -30925,6 +31765,10 @@
           "emojis",
           "reactions"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Announcement/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "8",
           "content": "<p>Looks like there was an issue processing audio attachments without embedded art since yesterday due to an experimental new feature. That issue has now been fixed, so you may see older posts with audio from other servers pop up in your feeds now as they are being finally properly processed. Sorry!</p>",
@@ -30995,7 +31839,11 @@
           "username",
           "url",
           "acct"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Announcement/#announcement",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Announcement_Status": {
         "type": "object",
@@ -31014,7 +31862,11 @@
         "required": [
           "id",
           "url"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Announcement/#announcement",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Appeal": {
         "type": "object",
@@ -31037,7 +31889,11 @@
         "required": [
           "text",
           "state"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Appeal/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Application": {
         "type": "object",
@@ -31083,6 +31939,10 @@
           "redirect_uri",
           "vapid_key"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "name": "Test Application",
           "website": "https://app.example",
@@ -31156,7 +32016,11 @@
           "client_id",
           "client_secret",
           "client_secret_expires_at"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Context": {
         "type": "object",
@@ -31181,6 +32045,10 @@
           "ancestors",
           "descendants"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Context/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "ancestors": [
             {
@@ -31238,6 +32106,10 @@
           "unread",
           "accounts"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Conversation/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "418450",
           "unread": true,
@@ -31290,6 +32162,10 @@
           "static_url",
           "visible_in_picker"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/CustomEmoji/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "shortcode": "blobaww",
           "url": "https://files.mastodon.social/custom_emojis/images/000/011/739/original/blobaww.png",
@@ -31329,6 +32205,10 @@
           "digest",
           "severity"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/DomainBlock/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "domain": "daji******.com",
           "digest": "3752f63a7079d60c2de5dceb8bd7608e86a15544eb78a494a482041c3684b37f",
@@ -31353,6 +32233,10 @@
         "required": [
           "error"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Error/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "error": "invalid_grant",
           "error_description": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
@@ -31376,6 +32260,10 @@
           "updated_at",
           "content"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/ExtendedDescription/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "updated_at": "2022-11-03T04:09:07Z",
           "content": "<p>For inquiries not related specifically to the operation of this server, such as press inquiries, please contact <a href=\"mailto:press@joinmastodon.org\">press@joinmastodon.org</a>.</p>\n\n<h2>Funding</h2>\n\n<p>This server is crowdfunded by <a href=\"https://patreon.com/mastodon\">Patreon donations</a>. For a list of sponsors, see <a href=\"https://joinmastodon.org/sponsors\">joinmastodon.org</a>.</p>\n\n<h2>Reporting and moderation</h2>\n\n<p>When reporting accounts, please make sure to include at least a few posts that show rule-breaking behaviour, when applicable. If there is any additional context that might help make a decision, please also include it in the comment. This is especially important when the content is in a language nobody on the moderation team speaks.</p>\n\n<p>We usually handle reports within 24 hours. Please mind that you are not notified when a report you have made has led to a punitive action, and that not all punitive actions are externally visible. For first time offenses, we may opt to delete offending content, escalating to harsher measures on repeat offenses.</p>\n\n<h2>Impressum</h2>\n\n<p>Mastodon gGmbH<br>\nMühlenstraße 8a<br>\n14167 Berlin<br>\nGermany</p>\n\n<p>E-Mail-Adresse: hello@joinmastodon.org</p>\n\n<p>Vertretungsberechtigt: Eugen Rochko (Geschäftsführer)</p>\n\n<p>Umsatzsteuer Identifikationsnummer (USt-ID): DE344258260</p>\n\n<p>Handelsregister<br>\nGeführt bei: Amtsgericht Charlottenburg<br>\nNummer: HRB 230086 B</p>\n"
@@ -31401,6 +32289,10 @@
           "id",
           "accounts"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FamiliarFollowers/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": [
           {
             "id": "1",
@@ -31457,6 +32349,10 @@
           "statuses_count",
           "last_status_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FeaturedTag/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "627",
           "name": "nowplaying",
@@ -31522,6 +32418,10 @@
           "title",
           "context"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Filter/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "19972",
           "title": "Test filter",
@@ -31567,6 +32467,10 @@
           "keyword",
           "whole_word"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FilterKeyword/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1197",
           "keyword": "bad word",
@@ -31601,6 +32505,10 @@
         "required": [
           "filter"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FilterResult/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "filter": {
             "id": "3",
@@ -31636,6 +32544,10 @@
           "id",
           "status_id"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FilterStatus/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "status_id": "109031743575371913"
@@ -31675,7 +32587,11 @@
           "updated_at",
           "proof_url",
           "profile_url"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/IdentityProof/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Instance": {
         "type": "object",
@@ -32044,6 +32960,10 @@
           "contact",
           "rules"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "domain": "mastodon.social",
           "title": "Mastodon",
@@ -32237,7 +33157,11 @@
         "required": [
           "src",
           "size"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "List": {
         "type": "object",
@@ -32262,6 +33186,10 @@
           "title",
           "replies_policy"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/List/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "12249",
           "title": "Friends"
@@ -32290,6 +33218,10 @@
           "version",
           "updated_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Marker/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "last_read_id": "103194548672408537",
           "version": 462,
@@ -32352,7 +33284,11 @@
           "type",
           "url",
           "meta"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Notification": {
         "type": "object",
@@ -32407,7 +33343,11 @@
           "group_key",
           "created_at",
           "account"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Notification/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "NotificationPolicy": {
         "type": "object",
@@ -32460,6 +33400,10 @@
           "for_limited_accounts",
           "summary"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/NotificationPolicy/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "for_not_following": "accept",
           "for_not_followers": "accept",
@@ -32511,6 +33455,10 @@
           "account",
           "notifications_count"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/NotificationRequest/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "112456967201894256",
           "created_at": "2024-05-17T14:45:41.171Z",
@@ -32610,6 +33558,10 @@
           "options",
           "emojis"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Poll/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "34830",
           "expires_at": "2019-12-05T04:05:08.302Z",
@@ -32650,7 +33602,11 @@
         },
         "required": [
           "title"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Poll/#poll",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Preferences": {
         "type": "object",
@@ -32690,6 +33646,10 @@
           "reading:expand:media",
           "reading:expand:spoilers"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Preferences/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "posting:default:visibility": "public",
           "posting:default:sensitive": false,
@@ -32788,7 +33748,11 @@
           "width",
           "height",
           "embed_url"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/PreviewCard/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Trends_Link": {
         "type": "object",
@@ -32907,7 +33871,11 @@
           "height",
           "embed_url",
           "history"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/PreviewCard/#trends",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "PreviewCardAuthor": {
         "type": "object",
@@ -32931,7 +33899,11 @@
         "required": [
           "name",
           "url"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/PreviewCardAuthor/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "PrivacyPolicy": {
         "type": "object",
@@ -32951,6 +33923,10 @@
           "updated_at",
           "content"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/PrivacyPolicy/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "updated_at": "2022-10-07T00:00:00+00:00",
           "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
@@ -32971,6 +33947,10 @@
             "nullable": true,
             "$ref": "#/components/schemas/Status"
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Quote/#attributes",
+          "description": "Official Mastodon API documentation"
         },
         "example": {
           "state": "accepted",
@@ -33064,6 +34044,10 @@
           "name",
           "count"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Reaction/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": [
           {
             "name": "bongoCat",
@@ -33164,6 +34148,10 @@
           "endorsed",
           "note"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Relationship/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "1",
           "following": true,
@@ -33228,7 +34216,11 @@
           "followers_count",
           "following_count",
           "created_at"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/RelationshipSeveranceEvent/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Report": {
         "type": "object",
@@ -33296,6 +34288,10 @@
           "created_at",
           "target_account"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Report/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "48914",
           "action_taken": false,
@@ -33365,6 +34361,10 @@
           "permissions",
           "highlighted"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Role/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "3",
           "name": "Owner",
@@ -33400,6 +34400,10 @@
           "text",
           "hint"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Rule/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "2",
           "text": "No racism, sexism, homophobia, transphobia, ableism, xenophobia, or casteism.",
@@ -33544,7 +34548,11 @@
           "scheduled_at",
           "params",
           "media_attachments"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/ScheduledStatus/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Search": {
         "type": "object",
@@ -33576,7 +34584,11 @@
           "accounts",
           "statuses",
           "hashtags"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Search/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "ShallowQuote": {
         "type": "object",
@@ -33593,6 +34605,10 @@
             "nullable": true,
             "type": "string"
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/ShallowQuote/#attributes",
+          "description": "Official Mastodon API documentation"
         },
         "example": {
           "state": "accepted",
@@ -33795,6 +34811,10 @@
           "favourites_count",
           "replies_count"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Status/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "103270115826048975",
           "created_at": "2019-12-08T03:48:33.901Z",
@@ -33902,7 +34922,11 @@
           "username",
           "url",
           "acct"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Status/#status",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Status_Tag": {
         "type": "object",
@@ -33921,7 +34945,11 @@
         "required": [
           "name",
           "url"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Status/#status",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "StatusEdit": {
         "type": "object",
@@ -33998,6 +35026,10 @@
           "media_attachments",
           "emojis"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/StatusEdit/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "content": "<p>this is a status that has been edited three times. this time a poll has been added.</p>",
           "spoiler_text": "",
@@ -34048,6 +35080,10 @@
           "text",
           "spoiler_text"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/StatusSource/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "108942703571991143",
           "text": "this is a status that will be edited",
@@ -34081,6 +35117,10 @@
           "sources",
           "account"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Suggestion/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "source": "staff",
           "account": {
@@ -34126,6 +35166,10 @@
           "url",
           "history"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Tag/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "name": "nowplaying",
           "url": "https://mastodon.social/tags/nowplaying",
@@ -34191,7 +35235,11 @@
           "day",
           "uses",
           "accounts"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Tag/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Admin_Tag": {
         "type": "object",
@@ -34219,7 +35267,11 @@
           "trendable",
           "usable",
           "requires_review"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Tag/#admin",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "TermsOfService": {
         "type": "object",
@@ -34247,6 +35299,10 @@
             "type": "string",
             "format": "date"
           }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/TermsOfService/#attributes",
+          "description": "Official Mastodon API documentation"
         },
         "example": {
           "effective_date": "2025-04-15",
@@ -34282,6 +35338,10 @@
           "scope",
           "created_at"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Token/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "access_token": "ZA-Yj3aBD8U8Cm7lKUp-lm9O9BmDgdhHzDeqsY8tlL0",
           "token_type": "Bearer",
@@ -34328,7 +35388,11 @@
           "media_attachments",
           "detected_source_language",
           "provider"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Translation/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Translation_Poll": {
         "type": "object",
@@ -34349,7 +35413,11 @@
         "required": [
           "id",
           "options"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Translation_Poll_Option": {
         "type": "object",
@@ -34362,7 +35430,11 @@
         },
         "required": [
           "title"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "Translation_Attachment": {
         "type": "object",
@@ -34380,7 +35452,11 @@
         "required": [
           "id",
           "description"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "V1_Filter": {
         "type": "object",
@@ -34423,6 +35499,10 @@
           "irreversible",
           "whole_word"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/V1_Filter/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": "8449",
           "phrase": "test",
@@ -34674,6 +35754,10 @@
           "configuration",
           "rules"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/V1_Instance/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "uri": "mastodon.social",
           "title": "Mastodon",
@@ -34846,6 +35930,10 @@
           "filter_private_mentions",
           "summary"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/V1_NotificationPolicy/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "filter_not_following": false,
           "filter_not_followers": false,
@@ -34944,6 +36032,10 @@
           "server_key",
           "alerts"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/WebPushSubscription/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "id": 328183,
           "endpoint": "https://yourdomain.example/listener",
@@ -34993,7 +36085,11 @@
           "accounts",
           "statuses",
           "notification_groups"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/GroupedNotificationsResults/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "PartialAccountWithAvatar": {
         "type": "object",
@@ -35039,7 +36135,11 @@
           "avatar_static",
           "locked",
           "bot"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "NotificationGroup": {
         "type": "object",
@@ -35112,7 +36212,11 @@
           "type",
           "most_recent_notification_id",
           "sample_account_ids"
-        ]
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/NotificationGroup/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
       },
       "DiscoverOauthServerConfigurationResponse": {
         "type": "object",
@@ -35202,6 +36306,10 @@
           "grant_types_supported",
           "token_endpoint_auth_methods_supported"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/DiscoverOauthServerConfigurationResponse/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "issuer": "https://social.example/",
           "service_documentation": "https://docs.joinmastodon.org/",
@@ -35341,6 +36449,10 @@
           "html",
           "width"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/OEmbedResponse/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
         "example": {
           "type": "rich",
           "version": "1.0",

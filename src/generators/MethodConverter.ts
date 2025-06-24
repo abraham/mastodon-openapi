@@ -235,6 +235,7 @@ class MethodConverter {
       description: method.description,
       tags: [this.extractTagFromEndpoint(method.endpoint)],
       responses,
+      externalDocs: this.generateMethodExternalDocs(method, category),
     };
 
     // Add deprecated flag if method is deprecated
@@ -1369,6 +1370,20 @@ class MethodConverter {
     const cleanTag = tagSegment.replace(/\./g, '');
 
     return cleanTag || 'unknown';
+  }
+
+  /**
+   * Generate external documentation for a method
+   */
+  private generateMethodExternalDocs(method: ApiMethod, category: string): any {
+    if (!method.anchor) {
+      return undefined;
+    }
+
+    return {
+      url: `https://docs.joinmastodon.org/methods/${category}/#${method.anchor}`,
+      description: 'Official Mastodon API documentation',
+    };
   }
 }
 

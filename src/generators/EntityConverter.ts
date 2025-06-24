@@ -80,6 +80,7 @@ class EntityConverter {
         description: entity.description,
         properties: {},
         required: [],
+        externalDocs: this.generateEntityExternalDocs(entity),
       };
 
       // Add example if available
@@ -789,6 +790,87 @@ class EntityConverter {
     const oauthScopeProperties = ['scopes', 'scopes_supported'];
 
     return oauthScopeProperties.includes(propertyName);
+  }
+
+  /**
+   * Generate external documentation for an entity
+   */
+  private generateEntityExternalDocs(entity: EntityClass): any {
+    const entityName = entity.name;
+    const sourceFile = entity.sourceFile;
+
+    // Define known sub-entities and their parent entities (for entities without source file info)
+    const subEntityMap: Record<string, { parent: string; anchor: string }> = {
+      // Account sub-entities
+      CredentialAccount: { parent: 'Account', anchor: 'CredentialAccount' },
+      MutedAccount: { parent: 'Account', anchor: 'MutedAccount' },
+      Field: { parent: 'Account', anchor: 'Field' },
+      Source: { parent: 'Account', anchor: 'source' },
+
+      // Admin_Cohort sub-entities
+      CohortData: { parent: 'Admin_Cohort', anchor: 'CohortData' },
+
+      // PreviewCard sub-entities
+      Trends_Link: { parent: 'PreviewCard', anchor: 'trends-link' },
+      'Trends::Link': { parent: 'PreviewCard', anchor: 'trends-link' },
+    };
+
+    // Special handling for known data sub-entities
+    if (
+      entityName === 'Admin::DimensionData' ||
+      entityName === 'Admin_DimensionData'
+    ) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/Admin_Dimension/#data-attributes`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // Check if this is a main entity that corresponds to a source file
+    // For entities like "Admin::Dimension" with sourceFile "Admin_Dimension", they should use #attributes
+    if (sourceFile && entityName.includes('::')) {
+      const [namespace, baseName] = entityName.split('::');
+      const expectedSourceFile = `${namespace}_${baseName}`;
+
+      // If this is the main entity for the source file (name matches the file), use #attributes
+      if (sourceFile === expectedSourceFile) {
+        return {
+          url: `https://docs.joinmastodon.org/entities/${sourceFile}/#attributes`,
+          description: 'Official Mastodon API documentation',
+        };
+      } else {
+        // Otherwise, this is a sub-entity, use the namespace as anchor
+        const anchor = namespace.toLowerCase();
+        return {
+          url: `https://docs.joinmastodon.org/entities/${sourceFile}/#${anchor}`,
+          description: 'Official Mastodon API documentation',
+        };
+      }
+    }
+
+    // Check if this is a known sub-entity (for backward compatibility)
+    const subEntity = subEntityMap[entityName];
+    if (subEntity) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/${subEntity.parent}/#${subEntity.anchor}`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // For main entities with source file information, use the source file name with #attributes
+    if (sourceFile) {
+      return {
+        url: `https://docs.joinmastodon.org/entities/${sourceFile}/#attributes`,
+        description: 'Official Mastodon API documentation',
+      };
+    }
+
+    // Fallback: use entity name with :: replaced by _ and #attributes for primary entities
+    const urlEntityName = entityName.replace(/::/g, '_');
+    return {
+      url: `https://docs.joinmastodon.org/entities/${urlEntityName}/#attributes`,
+      description: 'Official Mastodon API documentation',
+    };
   }
 }
 
