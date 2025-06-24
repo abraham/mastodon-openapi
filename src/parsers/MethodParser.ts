@@ -162,6 +162,9 @@ class MethodParser {
       ? VersionParser.extractVersionNumbers(version)
       : [];
 
+    // Check if this method has unreleased features (versions newer than supported)
+    const isUnreleased = VersionParser.hasNewerVersion(versions);
+
     // Parse parameters from both Query parameters and Form data parameters sections
     const parameters = ParameterParser.parseAllParameters(section);
 
@@ -198,6 +201,7 @@ class MethodParser {
       version,
       versions: versions.length > 0 ? versions : undefined,
       deprecated: isDeprecated || undefined,
+      unreleased: isUnreleased || undefined,
       isStreaming: isStreaming || undefined,
       responseExamples:
         Object.keys(responseExamples).length > 0 ? responseExamples : undefined,

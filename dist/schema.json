@@ -139,6 +139,12 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#create",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2ClientCredentials": [
@@ -760,6 +766,12 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorse",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -914,6 +926,12 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorsements",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "parameters": [
           {
             "name": "max_id",
@@ -1778,6 +1796,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": []
@@ -2412,6 +2436,16 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          },
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -3096,6 +3130,12 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#unendorse",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -3541,6 +3581,16 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          },
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -4340,6 +4390,12 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#update_credentials",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8263,6 +8319,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8399,6 +8461,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8580,6 +8648,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8727,6 +8801,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -8904,6 +8984,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -9190,6 +9276,12 @@
           "url": "https://docs.joinmastodon.org/methods/filters/#create",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -10173,6 +10265,12 @@
           "url": "https://docs.joinmastodon.org/methods/filters/#update",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -11918,7 +12016,13 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#v1",
           "description": "Official Mastodon API documentation"
         },
-        "deprecated": true
+        "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ]
       }
     },
     "/api/v1/instance/activity": {
@@ -12927,7 +13031,13 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service",
           "description": "Official Mastodon API documentation"
-        }
+        },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ]
       }
     },
     "/api/v1/instance/terms_of_service/{date}": {
@@ -13058,6 +13168,12 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service_date",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "parameters": [
           {
             "name": "date",
@@ -15044,6 +15160,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -15350,6 +15472,12 @@
           "url": "https://docs.joinmastodon.org/methods/media/#delete",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -18514,6 +18642,12 @@
           "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#get-grouped",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -20648,6 +20782,12 @@
           "url": "https://docs.joinmastodon.org/methods/push/#create",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -22880,6 +23020,12 @@
           "url": "https://docs.joinmastodon.org/methods/statuses/#delete",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -23400,6 +23546,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -27226,6 +27378,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -27804,6 +27962,12 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#feature",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -28100,6 +28264,12 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#unfeature",
           "description": "Official Mastodon API documentation"
         },
+        "x-badges": [
+          {
+            "name": "Unreleased",
+            "color": "gray"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -28406,6 +28576,12 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
+        "x-badges": [
+          {
+            "name": "Deprecated",
+            "color": "yellow"
+          }
+        ],
         "security": [
           {
             "OAuth2": [

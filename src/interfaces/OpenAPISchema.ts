@@ -104,6 +104,11 @@ interface OpenAPIHeader {
   };
 }
 
+interface OpenAPIBadge {
+  name: string;
+  color: string;
+}
+
 interface OpenAPIOperation {
   operationId?: string;
   summary?: string;
@@ -115,6 +120,7 @@ interface OpenAPIOperation {
   responses: Record<string, OpenAPIResponse>;
   deprecated?: boolean;
   externalDocs?: OpenAPIExternalDocs;
+  'x-badges'?: OpenAPIBadge[];
 }
 
 interface OpenAPIPath {
@@ -156,6 +162,7 @@ export {
   OpenAPIRequestBody,
   OpenAPIResponse,
   OpenAPIHeader,
+  OpenAPIBadge,
   OpenAPIOperation,
   OpenAPIPath,
   OpenAPIExample,
