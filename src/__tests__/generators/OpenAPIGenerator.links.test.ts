@@ -87,6 +87,104 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       }
     });
 
+    it('should generate links for expanded Status operation patterns (any /statuses/{id}/* endpoint)', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Post a new status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Publish a status with the given parameters.',
+              returns: 'Status',
+            },
+            {
+              name: 'View a single status',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/statuses/:id',
+              description: 'Obtain information about a status.',
+              returns: 'Status',
+            },
+            {
+              name: 'Favourite a status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/favourite',
+              description: 'Add a status to your favourites list.',
+              returns: 'Status',
+            },
+            {
+              name: 'Unfavourite a status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/unfavourite',
+              description: 'Remove a status from your favourites list.',
+              returns: 'Status',
+            },
+            {
+              name: 'Mute a status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/mute',
+              description: 'Mute notifications for a status.',
+              returns: 'Status',
+            },
+            {
+              name: 'Reblog a status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/reblog',
+              description: 'Boost a status.',
+              returns: 'Status',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      // Check that the createStatus operation exists
+      const createStatusOp = spec.paths['/api/v1/statuses']?.post;
+      expect(createStatusOp).toBeDefined();
+
+      // Check that the 200 response has links
+      const response200 = createStatusOp?.responses['200'];
+      expect(response200).toBeDefined();
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
+        const responseLinks = response200.links as Record<string, any>;
+        expect(responseLinks).toBeDefined();
+
+        // Should have links to all the status operations
+        expect(responseLinks.getStatus).toBeDefined();
+        expect(responseLinks.favouriteStatus).toBeDefined();
+        expect(responseLinks.unfavouriteStatus).toBeDefined();
+        expect(responseLinks.muteStatus).toBeDefined();
+        expect(responseLinks.reblogStatus).toBeDefined();
+
+        // Verify that these links point to the correct component references
+        expect(responseLinks.getStatus.$ref).toContain('#/components/links/');
+        expect(responseLinks.favouriteStatus.$ref).toContain(
+          '#/components/links/'
+        );
+        expect(responseLinks.muteStatus.$ref).toContain('#/components/links/');
+        expect(responseLinks.reblogStatus.$ref).toContain(
+          '#/components/links/'
+        );
+      }
+
+      // Verify the component links have correct structure
+      const links = spec.components?.links || {};
+      expect(Object.keys(links).length).toBeGreaterThan(0);
+
+      // All links should use $response.body#/id as the parameter
+      Object.values(links).forEach((link: any) => {
+        expect(link.parameters?.id).toBe('$response.body#/id');
+      });
+    });
+
     it('should generate correct link parameters using runtime expressions', () => {
       const methodFiles: ApiMethodsFile[] = [
         {
@@ -288,6 +386,103 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
         true
       );
     });
+
+    it('should generate links for expanded Account operation patterns (any /accounts/{id}/* endpoint)', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'accounts',
+          description: 'Account methods',
+          methods: [
+            {
+              name: 'Register an account',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/accounts',
+              description: 'Creates a user and account records.',
+              returns: 'Account',
+            },
+            {
+              name: 'Get account',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/:id',
+              description: 'Get account information.',
+              returns: 'Account',
+            },
+            {
+              name: 'Follow account',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/accounts/:id/follow',
+              description: 'Follow an account.',
+              returns: 'Relationship',
+            },
+            {
+              name: 'Unfollow account',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/accounts/:id/unfollow',
+              description: 'Unfollow an account.',
+              returns: 'Relationship',
+            },
+            {
+              name: 'Get account statuses',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/:id/statuses',
+              description: 'Get statuses posted by an account.',
+              returns: 'Array of Status',
+            },
+            {
+              name: 'Get account followers',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/accounts/:id/followers',
+              description: 'Get followers of an account.',
+              returns: 'Array of Account',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      // Check that the createAccount operation exists
+      const createAccountOp = spec.paths['/api/v1/accounts']?.post;
+      expect(createAccountOp).toBeDefined();
+
+      // Check that the 200 response has links
+      const response200 = createAccountOp?.responses['200'];
+      expect(response200).toBeDefined();
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
+        const responseLinks = response200.links as Record<string, any>;
+        expect(responseLinks).toBeDefined();
+
+        // Should have links to all the account operations
+        expect(responseLinks.getAccount).toBeDefined();
+        expect(responseLinks.followAccount).toBeDefined();
+        expect(responseLinks.unfollowAccount).toBeDefined();
+        expect(responseLinks.getAccountStatuses).toBeDefined();
+        expect(responseLinks.getAccountFollowers).toBeDefined();
+
+        // Verify that these links point to the correct component references
+        expect(responseLinks.getAccount.$ref).toContain('#/components/links/');
+        expect(responseLinks.followAccount.$ref).toContain(
+          '#/components/links/'
+        );
+        expect(responseLinks.getAccountStatuses.$ref).toContain(
+          '#/components/links/'
+        );
+      }
+
+      // Verify the component links have correct structure
+      const links = spec.components?.links || {};
+      expect(Object.keys(links).length).toBeGreaterThan(0);
+
+      // All links should use $response.body#/id as the parameter
+      Object.values(links).forEach((link: any) => {
+        expect(link.parameters?.id).toBe('$response.body#/id');
+      });
+    });
   });
 
   describe('FilterStatus operations', () => {
@@ -324,7 +519,8 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       const spec = generator.generateSchema([], methodFiles);
 
       // Check that the postFilterStatusesV2 operation exists
-      const postFilterStatusOp = spec.paths['/api/v2/filters/{filter_id}/statuses']?.post;
+      const postFilterStatusOp =
+        spec.paths['/api/v2/filters/{filter_id}/statuses']?.post;
       expect(postFilterStatusOp).toBeDefined();
       expect(postFilterStatusOp?.operationId).toBe('postFilterStatusesV2');
 
@@ -343,7 +539,7 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
 
       // Verify that Status operations still get links, but not FilterStatus operations
       const links = spec.components?.links || {};
-      
+
       // Should not have any links generated since the only POST operation returns FilterStatus
       expect(Object.keys(links).length).toBe(0);
     });

@@ -138,72 +138,32 @@ export class LinkGenerator {
    * Add links for Status entity operations
    */
   private addStatusLinks(sourceOp: any, operations: any[]): void {
-    const statusIdPattern = /^\/api\/v1\/statuses\/\{id\}$/; // Exact match for /api/v1/statuses/{id}
-    const statusRelatedPattern = /\/api\/v1\/statuses\/\{id\}\//;
+    // Match /api/v1/statuses/{id} optionally followed by any path segment
+    const statusPattern = /^\/api\/v1\/statuses\/\{id\}(?:\/.*)?$/;
 
     for (const targetOp of operations) {
-      // Link to individual status operations - exact match
-      if (statusIdPattern.test(targetOp.endpoint)) {
-        if (targetOp.httpMethod === 'GET') {
-          this.linkMappings.push({
-            sourceOperationId: sourceOp.operationId,
-            sourceEndpoint: sourceOp.endpoint,
-            sourceMethod: sourceOp.httpMethod,
-            targetOperationId: targetOp.operationId,
-            targetEndpoint: targetOp.endpoint,
-            targetMethod: targetOp.httpMethod,
-            linkName: 'getStatus',
-            linkDescription: 'Get the created status',
-            parameters: { id: '$response.body#/id' },
-          });
-        } else if (targetOp.httpMethod === 'DELETE') {
-          this.linkMappings.push({
-            sourceOperationId: sourceOp.operationId,
-            sourceEndpoint: sourceOp.endpoint,
-            sourceMethod: sourceOp.httpMethod,
-            targetOperationId: targetOp.operationId,
-            targetEndpoint: targetOp.endpoint,
-            targetMethod: targetOp.httpMethod,
-            linkName: 'deleteStatus',
-            linkDescription: 'Delete the created status',
-            parameters: { id: '$response.body#/id' },
-          });
-        }
-      }
+      // Link to any status operations that follow the pattern /api/v1/statuses/{id}[/anything]
+      if (statusPattern.test(targetOp.endpoint)) {
+        const linkName = this.generateStatusLinkName(
+          targetOp.endpoint,
+          targetOp.httpMethod
+        );
+        const linkDescription = this.generateStatusLinkDescription(
+          targetOp.endpoint,
+          targetOp.httpMethod
+        );
 
-      // Link to status-related operations (reblogged_by, favourited_by, etc.)
-      if (
-        statusRelatedPattern.test(targetOp.endpoint) &&
-        targetOp.httpMethod === 'GET'
-      ) {
-        const endpointParts = targetOp.endpoint.split('/');
-        const lastPart = endpointParts[endpointParts.length - 1];
-
-        if (lastPart === 'reblogged_by') {
-          this.linkMappings.push({
-            sourceOperationId: sourceOp.operationId,
-            sourceEndpoint: sourceOp.endpoint,
-            sourceMethod: sourceOp.httpMethod,
-            targetOperationId: targetOp.operationId,
-            targetEndpoint: targetOp.endpoint,
-            targetMethod: targetOp.httpMethod,
-            linkName: 'getRebloggedBy',
-            linkDescription: 'Get users who reblogged the created status',
-            parameters: { id: '$response.body#/id' },
-          });
-        } else if (lastPart === 'favourited_by') {
-          this.linkMappings.push({
-            sourceOperationId: sourceOp.operationId,
-            sourceEndpoint: sourceOp.endpoint,
-            sourceMethod: sourceOp.httpMethod,
-            targetOperationId: targetOp.operationId,
-            targetEndpoint: targetOp.endpoint,
-            targetMethod: targetOp.httpMethod,
-            linkName: 'getFavouritedBy',
-            linkDescription: 'Get users who favourited the created status',
-            parameters: { id: '$response.body#/id' },
-          });
-        }
+        this.linkMappings.push({
+          sourceOperationId: sourceOp.operationId,
+          sourceEndpoint: sourceOp.endpoint,
+          sourceMethod: sourceOp.httpMethod,
+          targetOperationId: targetOp.operationId,
+          targetEndpoint: targetOp.endpoint,
+          targetMethod: targetOp.httpMethod,
+          linkName: linkName,
+          linkDescription: linkDescription,
+          parameters: { id: '$response.body#/id' },
+        });
       }
     }
   }
@@ -212,13 +172,21 @@ export class LinkGenerator {
    * Add links for Account entity operations
    */
   private addAccountLinks(sourceOp: any, operations: any[]): void {
-    const accountIdPattern = /^\/api\/v1\/accounts\/\{id\}$/; // Exact match for /api/v1/accounts/{id}
+    // Match /api/v1/accounts/{id} optionally followed by any path segment
+    const accountPattern = /^\/api\/v1\/accounts\/\{id\}(?:\/.*)?$/;
 
     for (const targetOp of operations) {
-      if (
-        accountIdPattern.test(targetOp.endpoint) &&
-        targetOp.httpMethod === 'GET'
-      ) {
+      // Link to any account operations that follow the pattern /api/v1/accounts/{id}[/anything]
+      if (accountPattern.test(targetOp.endpoint)) {
+        const linkName = this.generateAccountLinkName(
+          targetOp.endpoint,
+          targetOp.httpMethod
+        );
+        const linkDescription = this.generateAccountLinkDescription(
+          targetOp.endpoint,
+          targetOp.httpMethod
+        );
+
         this.linkMappings.push({
           sourceOperationId: sourceOp.operationId,
           sourceEndpoint: sourceOp.endpoint,
@@ -226,8 +194,8 @@ export class LinkGenerator {
           targetOperationId: targetOp.operationId,
           targetEndpoint: targetOp.endpoint,
           targetMethod: targetOp.httpMethod,
-          linkName: 'getAccount',
-          linkDescription: 'Get the created account',
+          linkName: linkName,
+          linkDescription: linkDescription,
           parameters: { id: '$response.body#/id' },
         });
       }
@@ -382,6 +350,167 @@ export class LinkGenerator {
     }
 
     return 'Access the related resource using the response ID';
+  }
+
+  /**
+   * Generate link name for Status operations
+   */
+  private generateStatusLinkName(endpoint: string, httpMethod: string): string {
+    // For exact /api/v1/statuses/{id} match
+    if (endpoint === '/api/v1/statuses/{id}') {
+      if (httpMethod === 'GET') return 'getStatus';
+      if (httpMethod === 'DELETE') return 'deleteStatus';
+      if (httpMethod === 'PUT' || httpMethod === 'PATCH') return 'updateStatus';
+    }
+
+    // For endpoints with additional path segments like /api/v1/statuses/{id}/reblogged_by
+    const endpointParts = endpoint.split('/');
+    const lastPart = endpointParts[endpointParts.length - 1];
+
+    // Generate names based on the last path segment
+    if (lastPart === 'reblogged_by') return 'getRebloggedBy';
+    if (lastPart === 'favourited_by') return 'getFavouritedBy';
+    if (lastPart === 'context') return 'getContext';
+    if (lastPart === 'card') return 'getCard';
+    if (lastPart === 'history') return 'getHistory';
+    if (lastPart === 'source') return 'getSource';
+    if (lastPart === 'favourite') return 'favouriteStatus';
+    if (lastPart === 'unfavourite') return 'unfavouriteStatus';
+    if (lastPart === 'reblog') return 'reblogStatus';
+    if (lastPart === 'unreblog') return 'unreblogStatus';
+    if (lastPart === 'bookmark') return 'bookmarkStatus';
+    if (lastPart === 'unbookmark') return 'unbookmarkStatus';
+    if (lastPart === 'mute') return 'muteStatus';
+    if (lastPart === 'unmute') return 'unmuteStatus';
+    if (lastPart === 'pin') return 'pinStatus';
+    if (lastPart === 'unpin') return 'unpinStatus';
+
+    // Default fallback
+    return `${httpMethod.toLowerCase()}StatusAction`;
+  }
+
+  /**
+   * Generate link description for Status operations
+   */
+  private generateStatusLinkDescription(
+    endpoint: string,
+    httpMethod: string
+  ): string {
+    // For exact /api/v1/statuses/{id} match
+    if (endpoint === '/api/v1/statuses/{id}') {
+      if (httpMethod === 'GET') return 'Get the created status';
+      if (httpMethod === 'DELETE') return 'Delete the created status';
+      if (httpMethod === 'PUT' || httpMethod === 'PATCH')
+        return 'Update the created status';
+    }
+
+    // For endpoints with additional path segments
+    const endpointParts = endpoint.split('/');
+    const lastPart = endpointParts[endpointParts.length - 1];
+
+    if (lastPart === 'reblogged_by')
+      return 'Get users who reblogged the created status';
+    if (lastPart === 'favourited_by')
+      return 'Get users who favourited the created status';
+    if (lastPart === 'context') return 'Get the context of the created status';
+    if (lastPart === 'card')
+      return 'Get the preview card of the created status';
+    if (lastPart === 'history')
+      return 'Get the edit history of the created status';
+    if (lastPart === 'source') return 'Get the source of the created status';
+    if (lastPart === 'favourite') return 'Favourite the created status';
+    if (lastPart === 'unfavourite') return 'Unfavourite the created status';
+    if (lastPart === 'reblog') return 'Reblog the created status';
+    if (lastPart === 'unreblog') return 'Unreblog the created status';
+    if (lastPart === 'bookmark') return 'Bookmark the created status';
+    if (lastPart === 'unbookmark') return 'Unbookmark the created status';
+    if (lastPart === 'mute') return 'Mute the created status';
+    if (lastPart === 'unmute') return 'Unmute the created status';
+    if (lastPart === 'pin') return 'Pin the created status';
+    if (lastPart === 'unpin') return 'Unpin the created status';
+
+    return `Perform ${httpMethod.toLowerCase()} action on the created status`;
+  }
+
+  /**
+   * Generate link name for Account operations
+   */
+  private generateAccountLinkName(
+    endpoint: string,
+    httpMethod: string
+  ): string {
+    // For exact /api/v1/accounts/{id} match
+    if (endpoint === '/api/v1/accounts/{id}') {
+      if (httpMethod === 'GET') return 'getAccount';
+      if (httpMethod === 'DELETE') return 'deleteAccount';
+      if (httpMethod === 'PUT' || httpMethod === 'PATCH')
+        return 'updateAccount';
+    }
+
+    // For endpoints with additional path segments like /api/v1/accounts/{id}/follow
+    const endpointParts = endpoint.split('/');
+    const lastPart = endpointParts[endpointParts.length - 1];
+
+    // Generate names based on the last path segment
+    if (lastPart === 'follow') return 'followAccount';
+    if (lastPart === 'unfollow') return 'unfollowAccount';
+    if (lastPart === 'block') return 'blockAccount';
+    if (lastPart === 'unblock') return 'unblockAccount';
+    if (lastPart === 'mute') return 'muteAccount';
+    if (lastPart === 'unmute') return 'unmuteAccount';
+    if (lastPart === 'statuses') return 'getAccountStatuses';
+    if (lastPart === 'followers') return 'getAccountFollowers';
+    if (lastPart === 'following') return 'getAccountFollowing';
+    if (lastPart === 'lists') return 'getAccountLists';
+    if (lastPart === 'identity_proofs') return 'getAccountIdentityProofs';
+    if (lastPart === 'featured_tags') return 'getAccountFeaturedTags';
+    if (lastPart === 'relationships') return 'getAccountRelationships';
+    if (lastPart === 'familiar_followers') return 'getAccountFamiliarFollowers';
+
+    // Default fallback
+    return `${httpMethod.toLowerCase()}AccountAction`;
+  }
+
+  /**
+   * Generate link description for Account operations
+   */
+  private generateAccountLinkDescription(
+    endpoint: string,
+    httpMethod: string
+  ): string {
+    // For exact /api/v1/accounts/{id} match
+    if (endpoint === '/api/v1/accounts/{id}') {
+      if (httpMethod === 'GET') return 'Get the created account';
+      if (httpMethod === 'DELETE') return 'Delete the created account';
+      if (httpMethod === 'PUT' || httpMethod === 'PATCH')
+        return 'Update the created account';
+    }
+
+    // For endpoints with additional path segments
+    const endpointParts = endpoint.split('/');
+    const lastPart = endpointParts[endpointParts.length - 1];
+
+    if (lastPart === 'follow') return 'Follow the created account';
+    if (lastPart === 'unfollow') return 'Unfollow the created account';
+    if (lastPart === 'block') return 'Block the created account';
+    if (lastPart === 'unblock') return 'Unblock the created account';
+    if (lastPart === 'mute') return 'Mute the created account';
+    if (lastPart === 'unmute') return 'Unmute the created account';
+    if (lastPart === 'statuses') return 'Get statuses of the created account';
+    if (lastPart === 'followers') return 'Get followers of the created account';
+    if (lastPart === 'following')
+      return 'Get accounts followed by the created account';
+    if (lastPart === 'lists') return 'Get lists of the created account';
+    if (lastPart === 'identity_proofs')
+      return 'Get identity proofs of the created account';
+    if (lastPart === 'featured_tags')
+      return 'Get featured tags of the created account';
+    if (lastPart === 'relationships')
+      return 'Get relationships with the created account';
+    if (lastPart === 'familiar_followers')
+      return 'Get familiar followers of the created account';
+
+    return `Perform ${httpMethod.toLowerCase()} action on the created account`;
   }
 
   /**
