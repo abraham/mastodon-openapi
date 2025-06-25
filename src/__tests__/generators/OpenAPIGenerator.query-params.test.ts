@@ -42,20 +42,16 @@ describe('OpenAPIGenerator Query Parameter Handling', () => {
       const spec = generator.generateSchema([], testMethods);
 
       // Test the specific case mentioned in the comment
-      expect(
-        spec.paths['/api/v1/timelines/link?url={url}']?.get?.operationId
-      ).toBe('getTimelineLink');
+      expect(spec.paths['/api/v1/timelines/link']?.get?.operationId).toBe(
+        'getTimelineLink'
+      );
 
       // Test other query parameter cases
-      expect(
-        spec.paths['/api/v1/search?q={query}&type={type}']?.get?.operationId
-      ).toBe('getSearch');
+      expect(spec.paths['/api/v1/search']?.get?.operationId).toBe('getSearch');
 
-      expect(
-        spec.paths[
-          '/api/v1/filters?context={context}&limit={limit}&min_id={min_id}'
-        ]?.get?.operationId
-      ).toBe('getFilters');
+      expect(spec.paths['/api/v1/filters']?.get?.operationId).toBe(
+        'getFilters'
+      );
     });
 
     it('should handle query parameters with mixed separators', () => {
@@ -79,8 +75,7 @@ describe('OpenAPIGenerator Query Parameter Handling', () => {
 
       // Should strip query params and handle non-alphanumeric characters
       expect(
-        spec.paths['/.well-known/oauth-authorization-server?format={format}']
-          ?.get?.operationId
+        spec.paths['/.well-known/oauth-authorization-server']?.get?.operationId
       ).toBe('getWellKnownOauthAuthorizationServer');
     });
   });

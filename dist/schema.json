@@ -28639,7 +28639,7 @@
         ]
       }
     },
-    "/api/v1/timelines/link?url={url}": {
+    "/api/v1/timelines/link": {
       "get": {
         "operationId": "getTimelineLink",
         "summary": "View link timeline",
@@ -28824,15 +28824,6 @@
               "type": "integer",
               "description": "Maximum number of results to return. Defaults to 20 statuses. Max 40 statuses.",
               "default": "20"
-            }
-          },
-          {
-            "name": "url",
-            "in": "path",
-            "required": true,
-            "description": "url parameter",
-            "schema": {
-              "type": "string"
             }
           }
         ]

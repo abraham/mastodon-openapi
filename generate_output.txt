@@ -1,0 +1,18 @@
+
+> mastodon-openapi@1.0.0 generate
+> ts-node src/generate.ts
+
+Parsing Mastodon entity files...
+Found 91 entities
+Parsing Mastodon API method files...
+Failed to parse response example for 200: unable to parse content
+Failed to parse response example for 200: unable to parse content
+Failed to parse response example for 200: unable to parse content
+Failed to parse response example for 200: unable to parse content
+Found 40 method files
+Total API methods parsed: 190
+Collecting version numbers...
+Found 1578 version numbers, maximum version: 4.4.0
+Generating OpenAPI schema...
+OpenAPI schema generated successfully
+Schema written to /home/runner/work/mastodon-openapi/mastodon-openapi/dist/schema.json
