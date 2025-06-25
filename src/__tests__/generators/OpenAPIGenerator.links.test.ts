@@ -128,6 +128,97 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       expect(createToGetLink?.parameters?.id).toBe('$response.body#/id');
     });
 
+    it('should implement the exact examples from issue #309', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Post a new status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Publish a status with the given parameters.',
+              returns: 'Status',
+            },
+            {
+              name: 'Delete a status',
+              httpMethod: 'DELETE',
+              endpoint: '/api/v1/statuses/:id',
+              description: 'Delete one of your own statuses.',
+            },
+            {
+              name: 'See who boosted a status',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/statuses/:id/reblogged_by',
+              description: 'See who boosted a given status.',
+              returns: 'Array of Account',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      // Verify the createStatus operation exists
+      const createStatusOp = spec.paths['/api/v1/statuses']?.post;
+      expect(createStatusOp).toBeDefined();
+      expect(createStatusOp?.operationId).toBe('createStatus');
+
+      // Verify the deleteStatus operation exists
+      const deleteStatusOp = spec.paths['/api/v1/statuses/{id}']?.delete;
+      expect(deleteStatusOp).toBeDefined();
+      expect(deleteStatusOp?.operationId).toBe('deleteStatus');
+
+      // Verify the getRebloggedBy operation exists
+      const getRebloggedByOp =
+        spec.paths['/api/v1/statuses/{id}/reblogged_by']?.get;
+      expect(getRebloggedByOp).toBeDefined();
+      expect(getRebloggedByOp?.operationId).toBe('getStatusRebloggedBy');
+
+      // Check that the response has links
+      const response200 = createStatusOp?.responses['200'];
+      expect(response200).toBeDefined();
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
+        const responseLinks = response200.links as Record<string, any>;
+        expect(responseLinks).toBeDefined();
+
+        // Should have specific links mentioned in the issue
+        expect(responseLinks.deleteStatus).toBeDefined();
+        expect(responseLinks.getRebloggedBy).toBeDefined();
+
+        // Verify the links reference the correct components
+        expect(responseLinks.deleteStatus.$ref).toContain(
+          'createStatusTodeleteStatus'
+        );
+        expect(responseLinks.getRebloggedBy.$ref).toContain(
+          'createStatusTogetStatusRebloggedBy'
+        );
+      }
+
+      // Verify the component links exist and have correct structure
+      const links = spec.components?.links || {};
+
+      const deleteLink = Object.entries(links).find(([name]) =>
+        name.includes('createStatusTodeleteStatus')
+      );
+      expect(deleteLink).toBeDefined();
+      expect(deleteLink?.[1].operationId).toBe('deleteStatus');
+      expect(deleteLink?.[1].parameters?.id).toBe('$response.body#/id');
+
+      const rebloggedByLink = Object.entries(links).find(([name]) =>
+        name.includes('createStatusTogetStatusRebloggedBy')
+      );
+      expect(rebloggedByLink).toBeDefined();
+      expect(rebloggedByLink?.[1].operationId).toBe('getStatusRebloggedBy');
+      expect(rebloggedByLink?.[1].parameters?.id).toBe('$response.body#/id');
+    });
+
     it('should not generate links for operations that do not return entities with IDs', () => {
       const methodFiles: ApiMethodsFile[] = [
         {
