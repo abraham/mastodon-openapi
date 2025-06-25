@@ -144,9 +144,6 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#create",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2ClientCredentials": [
@@ -2426,9 +2423,6 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -3561,9 +3555,6 @@
           "description": "Official Mastodon API documentation"
         },
         "deprecated": true,
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -4362,9 +4353,6 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/accounts/#update_credentials",
           "description": "Official Mastodon API documentation"
-        },
-        "x-badge": {
-          "name": "Unreleased"
         },
         "security": [
           {
@@ -9216,9 +9204,6 @@
           "url": "https://docs.joinmastodon.org/methods/filters/#create",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -10201,9 +10186,6 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/filters/#update",
           "description": "Official Mastodon API documentation"
-        },
-        "x-badge": {
-          "name": "Unreleased"
         },
         "security": [
           {
@@ -15388,9 +15370,6 @@
           "url": "https://docs.joinmastodon.org/methods/media/#delete",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -18555,9 +18534,6 @@
           "url": "https://docs.joinmastodon.org/methods/grouped_notifications/#get-grouped",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -20820,9 +20796,6 @@
           "url": "https://docs.joinmastodon.org/methods/push/#create",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
         "security": [
           {
             "OAuth2": [
@@ -23054,9 +23027,6 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/statuses/#delete",
           "description": "Official Mastodon API documentation"
-        },
-        "x-badge": {
-          "name": "Unreleased"
         },
         "security": [
           {
@@ -30271,9 +30241,6 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/oauth/#authorization-server-metadata",
           "description": "Official Mastodon API documentation"
-        },
-        "x-badge": {
-          "name": "Unreleased"
         }
       }
     }

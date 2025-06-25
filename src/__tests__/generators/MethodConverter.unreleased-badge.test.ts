@@ -30,14 +30,14 @@ describe('MethodConverter Unreleased Badge', () => {
     };
   });
 
-  describe('Methods with unreleased versions', () => {
-    test('should add x-badge for method with version newer than supported (4.4.0)', () => {
+  describe('Methods with unreleased operations', () => {
+    test('should add x-badge for method added in version newer than supported (4.4.0)', () => {
       const method: ApiMethod = {
         name: 'Get userinfo',
         httpMethod: 'GET',
         endpoint: '/oauth/userinfo',
         description: 'Get userinfo',
-        versions: ['4.4.0'], // 4.4.0 is newer than supported 4.3.0
+        version: '4.4.0 - added', // Operation added in 4.4.0
       };
 
       methodConverter.convertMethod(method, 'oauth', spec);
@@ -47,29 +47,13 @@ describe('MethodConverter Unreleased Badge', () => {
       expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
     });
 
-    test('should add x-badge for method with multiple versions including newer ones', () => {
-      const method: ApiMethod = {
-        name: 'Test method',
-        httpMethod: 'POST',
-        endpoint: '/api/v1/test',
-        description: 'Test endpoint',
-        versions: ['3.0.0', '4.3.0', '4.5.0'], // 4.5.0 is newer than supported 4.3.0
-      };
-
-      methodConverter.convertMethod(method, 'test', spec);
-
-      const operation = spec.paths['/api/v1/test']?.post;
-      expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
-    });
-
-    test('should add x-badge for method with only newer versions', () => {
+    test('should add x-badge for method added in version newer than supported (4.5.0)', () => {
       const method: ApiMethod = {
         name: 'Future method',
         httpMethod: 'PUT',
         endpoint: '/api/v1/future',
         description: 'Future endpoint',
-        versions: ['4.4.0', '4.5.0'], // All newer than supported 4.3.0
+        version: '4.5.0 - added', // Operation added in 4.5.0
       };
 
       methodConverter.convertMethod(method, 'test', spec);
@@ -78,16 +62,32 @@ describe('MethodConverter Unreleased Badge', () => {
       expect(operation).toBeDefined();
       expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
     });
+
+    test('should add x-badge for method with complex version history but added in newer version', () => {
+      const method: ApiMethod = {
+        name: 'Complex method',
+        httpMethod: 'POST',
+        endpoint: '/api/v1/complex',
+        description: 'Complex endpoint',
+        version: '4.4.0 - added\\n4.5.0 - some parameter updated', // Operation added in 4.4.0
+      };
+
+      methodConverter.convertMethod(method, 'test', spec);
+
+      const operation = spec.paths['/api/v1/complex']?.post;
+      expect(operation).toBeDefined();
+      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+    });
   });
 
-  describe('Methods without unreleased versions', () => {
-    test('should not add x-badge for method with current supported version (4.3.0)', () => {
+  describe('Methods without unreleased operations', () => {
+    test('should not add x-badge for method added in current supported version (4.3.0)', () => {
       const method: ApiMethod = {
         name: 'Current method',
         httpMethod: 'GET',
         endpoint: '/api/v1/current',
         description: 'Current endpoint',
-        versions: ['4.3.0'], // Same as supported version
+        version: '4.3.0 - added', // Operation added in current supported version
       };
 
       methodConverter.convertMethod(method, 'test', spec);
@@ -97,18 +97,34 @@ describe('MethodConverter Unreleased Badge', () => {
       expect((operation as any)['x-badge']).toBeUndefined();
     });
 
-    test('should not add x-badge for method with older versions', () => {
+    test('should not add x-badge for method added in older version', () => {
       const method: ApiMethod = {
         name: 'Old method',
         httpMethod: 'GET',
         endpoint: '/api/v1/old',
         description: 'Old endpoint',
-        versions: ['2.0.0', '3.0.0', '4.2.0'], // All older than or equal to supported 4.3.0
+        version: '2.7.0 - added', // Operation added in older version
       };
 
       methodConverter.convertMethod(method, 'test', spec);
 
       const operation = spec.paths['/api/v1/old']?.get;
+      expect(operation).toBeDefined();
+      expect((operation as any)['x-badge']).toBeUndefined();
+    });
+
+    test('should not add x-badge for method added in older version but with newer parameter additions', () => {
+      const method: ApiMethod = {
+        name: 'Accounts',
+        httpMethod: 'POST',
+        endpoint: '/api/v1/accounts',
+        description: 'Register an account',
+        version: '2.7.0 - added\\n3.0.0 - added reason parameter\\n3.4.0 - added details to failure response\\n4.4.0 - added date_of_birth parameter',
+      };
+
+      methodConverter.convertMethod(method, 'accounts', spec);
+
+      const operation = spec.paths['/api/v1/accounts']?.post;
       expect(operation).toBeDefined();
       expect((operation as any)['x-badge']).toBeUndefined();
     });
@@ -119,7 +135,7 @@ describe('MethodConverter Unreleased Badge', () => {
         httpMethod: 'GET',
         endpoint: '/api/v1/mixed',
         description: 'Mixed endpoint',
-        versions: ['1.0.0', '4.3.0'], // 4.3.0 is the current supported version
+        version: '1.0.0 - added\\n4.3.0 - some update', // Operation added in 1.0.0
       };
 
       methodConverter.convertMethod(method, 'test', spec);
@@ -129,13 +145,13 @@ describe('MethodConverter Unreleased Badge', () => {
       expect((operation as any)['x-badge']).toBeUndefined();
     });
 
-    test('should not add x-badge for method without versions', () => {
+    test('should not add x-badge for method without version history', () => {
       const method: ApiMethod = {
         name: 'No versions method',
         httpMethod: 'GET',
         endpoint: '/api/v1/no-versions',
         description: 'Endpoint without versions',
-        // No versions property
+        // No version property
       };
 
       methodConverter.convertMethod(method, 'test', spec);
@@ -145,13 +161,13 @@ describe('MethodConverter Unreleased Badge', () => {
       expect((operation as any)['x-badge']).toBeUndefined();
     });
 
-    test('should not add x-badge for method with empty versions array', () => {
+    test('should not add x-badge for method with empty version history', () => {
       const method: ApiMethod = {
         name: 'Empty versions method',
         httpMethod: 'GET',
         endpoint: '/api/v1/empty-versions',
         description: 'Endpoint with empty versions',
-        versions: [], // Empty array
+        version: '', // Empty string
       };
 
       methodConverter.convertMethod(method, 'test', spec);
@@ -169,7 +185,7 @@ describe('MethodConverter Unreleased Badge', () => {
         httpMethod: 'GET',
         endpoint: '/api/v1/deprecated-unreleased',
         description: 'Deprecated endpoint that was unreleased',
-        versions: ['4.4.0'],
+        version: '4.4.0 - added',
         deprecated: true,
       };
 
@@ -187,7 +203,7 @@ describe('MethodConverter Unreleased Badge', () => {
         httpMethod: 'POST',
         endpoint: '/api/v1/unreleased-oauth',
         description: 'Unreleased endpoint with OAuth',
-        versions: ['4.4.0'],
+        version: '4.4.0 - added',
         oauth: 'User token + `write:statuses`',
       };
 

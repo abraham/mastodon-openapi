@@ -244,8 +244,8 @@ class MethodConverter {
       operation.deprecated = true;
     }
 
-    // Add unreleased badge if method has versions newer than supported
-    if (method.versions && VersionParser.hasNewerVersion(method.versions)) {
+    // Add unreleased badge if method was added in a version newer than supported
+    if (method.version && VersionParser.isOperationUnreleased(method.version)) {
       (operation as any)['x-badge'] = { name: 'Unreleased' };
     }
 
