@@ -98,4 +98,41 @@ export class VersionParser {
         version !== supportedVersion
     );
   }
+
+  /**
+   * Checks if an operation was added in a version newer than the supported version
+   * by examining the raw version history text for " - added" entries
+   * @param versionHistory The raw version history text
+   * @param supportedVersion The current supported version (default: SUPPORTED_VERSION)
+   * @returns True if the operation was added in a version newer than the supported version
+   */
+  static isOperationUnreleased(
+    versionHistory: string,
+    supportedVersion: string = SUPPORTED_VERSION
+  ): boolean {
+    if (!versionHistory) {
+      return false;
+    }
+
+    // Replace literal \n with actual newlines to handle backslash-escaped newlines
+    const normalizedHistory = versionHistory.replace(/\\n/g, '\n');
+
+    // Look for lines that indicate the operation itself was added
+    // Pattern: "version - added" (not "version - added parameter_name" or other modifications)
+    const addedPattern = /(?:^|\s)(\d+\.\d+\.\d+)\s*-\s*added\s*$/gm;
+
+    let match;
+    while ((match = addedPattern.exec(normalizedHistory)) !== null) {
+      const version = match[1];
+      // Check if this "added" version is newer than supported version
+      if (
+        this.compareVersions(version, supportedVersion) === version &&
+        version !== supportedVersion
+      ) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 }

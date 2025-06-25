@@ -765,6 +765,9 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorse",
           "description": "Official Mastodon API documentation"
         },
+        "x-badge": {
+          "name": "Unreleased"
+        },
         "security": [
           {
             "OAuth2": [
@@ -918,6 +921,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorsements",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         },
         "parameters": [
           {
@@ -3100,6 +3106,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/accounts/#unendorse",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         },
         "security": [
           {
@@ -12932,6 +12941,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         }
       }
     },
@@ -13062,6 +13074,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service_date",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         },
         "parameters": [
           {
@@ -20034,6 +20049,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/oauth/#userinfo",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         },
         "security": [
           {
@@ -27788,6 +27806,9 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#feature",
           "description": "Official Mastodon API documentation"
         },
+        "x-badge": {
+          "name": "Unreleased"
+        },
         "security": [
           {
             "OAuth2": [
@@ -27935,6 +27956,9 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/tags/#unfeature",
           "description": "Official Mastodon API documentation"
+        },
+        "x-badge": {
+          "name": "Unreleased"
         },
         "security": [
           {

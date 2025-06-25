@@ -17,6 +17,7 @@ import {
   RateLimitHeaderParser,
   RateLimitHeader,
 } from '../parsers/RateLimitHeaderParser';
+import { VersionParser } from '../parsers/VersionParser';
 
 /**
  * Interface for OAuth security configuration
@@ -241,6 +242,11 @@ class MethodConverter {
     // Add deprecated flag if method is deprecated
     if (method.deprecated) {
       operation.deprecated = true;
+    }
+
+    // Add unreleased badge if method was added in a version newer than supported
+    if (method.version && VersionParser.isOperationUnreleased(method.version)) {
+      (operation as any)['x-badge'] = { name: 'Unreleased' };
     }
 
     // Add security configuration based on OAuth requirements
