@@ -13,7 +13,7 @@ describe('EntityConverter - Nullable Properties', () => {
     entityConverter = new EntityConverter(typeParser, utilityHelpers);
   });
 
-  test('should mark nullable fields with nullable: true in OpenAPI schema', () => {
+  test('should mark nullable fields with type arrays instead of nullable: true in OpenAPI schema', () => {
     const mockEntity: EntityClass = {
       name: 'TestEntity',
       description: 'Test entity with nullable properties',
@@ -61,18 +61,26 @@ describe('EntityConverter - Nullable Properties', () => {
     // Check required field - should not be nullable
     expect(schema?.properties?.required_field).toBeDefined();
     expect(schema?.properties?.required_field?.nullable).toBeUndefined();
+    expect(schema?.properties?.required_field?.type).toBe('string');
 
     // Check optional field - should not be nullable
     expect(schema?.properties?.optional_field).toBeDefined();
     expect(schema?.properties?.optional_field?.nullable).toBeUndefined();
+    expect(schema?.properties?.optional_field?.type).toBe('string');
 
-    // Check nullable field - should be nullable
+    // Check nullable field - should use type array with null
     expect(schema?.properties?.nullable_field).toBeDefined();
-    expect(schema?.properties?.nullable_field?.nullable).toBe(true);
+    expect(schema?.properties?.nullable_field?.nullable).toBeUndefined();
+    expect(schema?.properties?.nullable_field?.type).toEqual(['string', 'null']);
 
-    // Check nullable entity - should be nullable
+    // Check nullable entity - should use anyOf with null
     expect(schema?.properties?.nullable_entity).toBeDefined();
-    expect(schema?.properties?.nullable_entity?.nullable).toBe(true);
+    expect(schema?.properties?.nullable_entity?.nullable).toBeUndefined();
+    expect(schema?.properties?.nullable_entity?.anyOf).toBeDefined();
+    expect(schema?.properties?.nullable_entity?.anyOf).toEqual([
+      { $ref: '#/components/schemas/Poll' },
+      { type: 'null' }
+    ]);
 
     // Check required array - should contain only required_field
     expect(schema?.required).toContain('required_field');
@@ -105,11 +113,11 @@ describe('EntityConverter - Nullable Properties', () => {
     const nullableProperty = entityConverter.convertAttribute(
       mockAttributes[1]
     );
-    expect(nullableProperty.nullable).toBe(true);
-    expect(nullableProperty.type).toBe('string');
+    expect(nullableProperty.nullable).toBeUndefined();
+    expect(nullableProperty.type).toEqual(['string', 'null']);
   });
 
-  test('should mark optional fields as nullable in the schema and exclude from required', () => {
+  test('should mark optional fields with type arrays and exclude from required', () => {
     const mockEntity: EntityClass = {
       name: 'TestOptionalNullable',
       description: 'Test entity with optional field',
@@ -141,9 +149,14 @@ describe('EntityConverter - Nullable Properties', () => {
     const schema = spec.components?.schemas?.TestOptionalNullable;
     expect(schema).toBeDefined();
 
-    // Check optional field is nullable and not in required array
+    // Check optional field is using anyOf and not in required array
     expect(schema?.properties?.optional_field).toBeDefined();
-    expect(schema?.properties?.optional_field?.nullable).toBe(true);
+    expect(schema?.properties?.optional_field?.nullable).toBeUndefined();
+    expect(schema?.properties?.optional_field?.anyOf).toBeDefined();
+    expect(schema?.properties?.optional_field?.anyOf).toEqual([
+      { type: 'object' },
+      { type: 'null' }
+    ]);
     expect(schema?.required).toContain('required_field');
     expect(schema?.required).not.toContain('optional_field');
   });
@@ -187,19 +200,24 @@ describe('EntityConverter - Nullable Properties', () => {
     const schema = spec.components?.schemas?.TestOptionalParent;
     expect(schema).toBeDefined();
 
-    // The application object should be nullable due to being optional
+    // The application object should use anyOf with null due to being optional
     expect(schema?.properties?.application).toBeDefined();
-    expect(schema?.properties?.application?.nullable).toBe(true);
+    expect(schema?.properties?.application?.nullable).toBeUndefined();
+    expect(schema?.properties?.application?.anyOf).toBeDefined();
+    expect(schema?.properties?.application?.anyOf).toEqual([
+      { 
+        type: 'object',
+        properties: {
+          name: { type: 'string', description: 'Required name within application' },
+          website: { type: ['string', 'null'], description: 'Optional website within application' }
+        },
+        required: ['name']
+      },
+      { type: 'null' }
+    ]);
 
-    // The application object should have proper nested structure
-    expect(schema?.properties?.application?.properties?.name).toBeDefined();
-    expect(schema?.properties?.application?.properties?.website).toBeDefined();
-    expect(schema?.properties?.application?.properties?.website?.nullable).toBe(
-      true
-    );
-
-    // The application's required array should only contain 'name'
-    expect(schema?.properties?.application?.required).toEqual(['name']);
+    // The application's required array should only contain 'name' within the anyOf object
+    expect(schema?.properties?.application?.anyOf?.[0]?.required).toEqual(['name']);
 
     // This is the key question: should 'application' be in the parent's required array?
     // Based on the issue description, optional should mean not required

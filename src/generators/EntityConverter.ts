@@ -91,6 +91,9 @@ class EntityConverter {
       // Process attributes to build nested structure
       this.processAttributesRecursively(allAttributes, schema);
 
+      // Post-process nullable object properties to use anyOf format
+      this.convertNullableObjectsToAnyOf(schema);
+
       // Remove empty required array
       if (schema.required && schema.required.length === 0) {
         delete schema.required;
@@ -283,10 +286,6 @@ class EntityConverter {
       property.deprecated = true;
     }
 
-    if (attribute.nullable) {
-      property.nullable = true;
-    }
-
     // Parse type information to determine OpenAPI type
     const type = this.typeParser.parseType(attribute.type);
 
@@ -304,6 +303,31 @@ class EntityConverter {
     }
     if (type.oneOf) {
       property.oneOf = type.oneOf;
+    }
+
+    // Handle nullable properties by using type arrays instead of nullable: true
+    if (attribute.nullable) {
+      if (property.type && typeof property.type === 'string') {
+        if (property.type === 'object') {
+          // For object types, we need to keep them as objects so nested processing works
+          // We'll apply the nullable conversion later after nested processing
+          property.nullable = true;
+        } else {
+          // For simple types, convert to array with null
+          property.type = [property.type, 'null'];
+        }
+      } else if (property.$ref) {
+        // For $ref properties, we need to use anyOf with null
+        const refProperty = { $ref: property.$ref };
+        delete property.$ref;
+        property.anyOf = [refProperty, { type: 'null' }];
+      } else if (property.oneOf) {
+        // Add null to existing oneOf
+        property.oneOf.push({ type: 'null' });
+      } else {
+        // Fallback for complex cases
+        property.type = ['string', 'null'];
+      }
     }
 
     // Special handling for client_secret_expires_at: should be integer (always returns 0)
@@ -353,15 +377,29 @@ class EntityConverter {
     // Special handling for OAuth scopes properties
     if (
       this.isOAuthScopeProperty(attribute.name) &&
-      property.type === 'array'
+      (property.type === 'array' || 
+       (Array.isArray(property.type) && property.type.includes('array')))
     ) {
       // Use the common OAuthScopes schema component for OAuth scopes
-      return {
+      const oauthProperty: OpenAPIProperty = {
         description: attribute.description,
         $ref: '#/components/schemas/OAuthScopes',
         ...(attribute.deprecated && { deprecated: true }),
-        ...(attribute.nullable && { nullable: true }),
       };
+
+      // Handle nullable for OAuth scopes using anyOf with null
+      if (attribute.nullable) {
+        return {
+          description: attribute.description,
+          anyOf: [
+            { $ref: '#/components/schemas/OAuthScopes' },
+            { type: 'null' }
+          ],
+          ...(attribute.deprecated && { deprecated: true }),
+        };
+      }
+
+      return oauthProperty;
     }
 
     // Use enum values from attribute if available, otherwise from type parsing
@@ -871,6 +909,41 @@ class EntityConverter {
       url: `https://docs.joinmastodon.org/entities/${urlEntityName}/#attributes`,
       description: 'Official Mastodon API documentation',
     };
+  }
+
+  /**
+   * Convert nullable object properties to use anyOf format instead of nullable: true
+   */
+  private convertNullableObjectsToAnyOf(schema: OpenAPISchema): void {
+    if (!schema.properties) {
+      return;
+    }
+
+    for (const [key, property] of Object.entries(schema.properties)) {
+      if (property.nullable && property.type === 'object') {
+        // Convert object with nullable: true to anyOf format
+        const objectProperty: OpenAPIProperty = {
+          type: 'object',
+          ...(property.properties && { properties: property.properties }),
+          ...(property.required && { required: property.required }),
+          ...(property.additionalProperties && { additionalProperties: property.additionalProperties }),
+        };
+        
+        // Create new property with anyOf
+        const newProperty: OpenAPIProperty = {
+          description: property.description,
+          anyOf: [objectProperty, { type: 'null' }],
+          ...(property.deprecated && { deprecated: property.deprecated }),
+        };
+        
+        schema.properties[key] = newProperty;
+      }
+      
+      // Recursively process nested objects
+      if (property.properties) {
+        this.convertNullableObjectsToAnyOf(property as OpenAPISchema);
+      }
+    }
   }
 }
 

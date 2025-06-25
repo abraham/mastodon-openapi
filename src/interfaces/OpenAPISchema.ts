@@ -35,13 +35,14 @@ interface OpenAPISecurityScheme {
 }
 
 interface OpenAPIProperty {
-  type?: string;
+  type?: string | string[];
   format?: string;
   description?: string;
   items?: OpenAPIProperty;
   $ref?: string;
   oneOf?: OpenAPIProperty[];
   allOf?: (OpenAPIProperty | { $ref: string })[];
+  anyOf?: OpenAPIProperty[];
   enum?: string[];
   default?: string;
   deprecated?: boolean;
