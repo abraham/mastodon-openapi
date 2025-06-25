@@ -53,7 +53,10 @@ describe('EntityConverter - hide_collections nullable issue', () => {
 
     // hide_collections should be present and nullable
     expect(schema?.properties?.hide_collections).toBeDefined();
-    expect(schema?.properties?.hide_collections?.nullable).toBe(true);
+    expect(schema?.properties?.hide_collections?.type).toEqual([
+      'boolean',
+      'null',
+    ]);
 
     // CRITICAL: hide_collections should NOT be in the required array
     expect(schema?.required).not.toContain('hide_collections');

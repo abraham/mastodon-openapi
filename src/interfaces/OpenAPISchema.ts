@@ -35,7 +35,7 @@ interface OpenAPISecurityScheme {
 }
 
 interface OpenAPIProperty {
-  type?: string;
+  type?: string | string[];
   format?: string;
   description?: string;
   items?: OpenAPIProperty;

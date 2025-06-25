@@ -89,10 +89,9 @@ describe('EntityConverter - Email format detection', () => {
 
       const result = entityConverter.convertAttribute(attribute);
       expect(result).toEqual({
-        type: 'string',
+        type: ['string', 'null'],
         format: 'email',
         description: 'Contact email address',
-        nullable: true,
       });
     });
 
@@ -308,10 +307,9 @@ describe('EntityConverter - Email format detection', () => {
 
       // Check nullable email field
       expect(schema?.properties?.contact_email).toEqual({
-        type: 'string',
+        type: ['string', 'null'],
         format: 'email',
         description: 'Contact email address',
-        nullable: true,
       });
     });
   });

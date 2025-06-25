@@ -69,8 +69,8 @@ describe('EntityConverter - attribution_domains nullable fix', () => {
       schema?.properties?.source?.properties?.['attribution_domains']
     ).toBeDefined();
     expect(
-      schema?.properties?.source?.properties?.['attribution_domains']?.nullable
-    ).toBe(true);
+      schema?.properties?.source?.properties?.['attribution_domains']?.type
+    ).toEqual(['array', 'null']);
 
     // CRITICAL: attribution_domains should NOT be in the required array of source
     if (schema?.properties?.source?.required) {

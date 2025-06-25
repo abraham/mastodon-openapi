@@ -283,10 +283,6 @@ class EntityConverter {
       property.deprecated = true;
     }
 
-    if (attribute.nullable) {
-      property.nullable = true;
-    }
-
     // Parse type information to determine OpenAPI type
     const type = this.typeParser.parseType(attribute.type);
 
@@ -356,11 +352,21 @@ class EntityConverter {
       property.type === 'array'
     ) {
       // Use the common OAuthScopes schema component for OAuth scopes
+      if (attribute.nullable) {
+        return {
+          description: attribute.description,
+          oneOf: [
+            { $ref: '#/components/schemas/OAuthScopes' },
+            { type: 'null' },
+          ],
+          ...(attribute.deprecated && { deprecated: true }),
+        };
+      }
+
       return {
         description: attribute.description,
         $ref: '#/components/schemas/OAuthScopes',
         ...(attribute.deprecated && { deprecated: true }),
-        ...(attribute.nullable && { nullable: true }),
       };
     }
 
@@ -382,6 +388,21 @@ class EntityConverter {
         }
       } else {
         property.enum = type.enum;
+      }
+    }
+
+    // Handle nullable fields
+    if (attribute.nullable) {
+      if (property.$ref) {
+        // For $ref properties, use oneOf to include null
+        return {
+          description: property.description,
+          oneOf: [{ $ref: property.$ref }, { type: 'null' }],
+          ...(property.deprecated && { deprecated: true }),
+        };
+      } else if (property.type && typeof property.type === 'string') {
+        // For regular type properties, convert type to an array that includes null
+        property.type = [property.type, 'null'];
       }
     }
 
@@ -610,7 +631,12 @@ class EntityConverter {
     }
 
     // Ensure parent is an object with properties
-    if (parentProperty.type === 'object') {
+    const isObjectType =
+      parentProperty.type === 'object' ||
+      (Array.isArray(parentProperty.type) &&
+        parentProperty.type.includes('object'));
+
+    if (isObjectType) {
       if (!parentProperty.properties) {
         parentProperty.properties = {};
       }
