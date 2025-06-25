@@ -17,7 +17,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "git clone https://github.com/mastodon/documentation mastodon-documentation || true"
+    "postinstall": "ts-node scripts/setup-docs.ts",
+    "update-docs-sha": "ts-node scripts/update-docs-sha.ts"
   },
   "keywords": [
     "mastodon",
