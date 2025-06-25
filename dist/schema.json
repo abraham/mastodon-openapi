@@ -9794,6 +9794,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postFilterStatusesV2TogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postFilterStatusesV2TodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postFilterStatusesV2TogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postFilterStatusesV2TogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -22488,6 +22502,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/createStatusTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/createStatusTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/createStatusTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/createStatusTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -23326,6 +23354,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusBookmarkTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusBookmarkTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusBookmarkTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusBookmarkTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -23770,6 +23812,20 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusFavouriteTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusFavouriteTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusFavouriteTogetStatusFavouritedBy"
               }
             }
           },
@@ -24255,6 +24311,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusMuteTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusMuteTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusMuteTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusMuteTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -24403,6 +24473,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusPinTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusPinTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusPinTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusPinTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -24550,6 +24634,20 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusReblogTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusReblogTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusReblogTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusReblogTogetStatusFavouritedBy"
               }
             }
           },
@@ -25216,6 +25314,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusUnbookmarkTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusUnbookmarkTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -25363,6 +25475,20 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusUnfavouriteTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusUnfavouriteTogetStatusFavouritedBy"
               }
             }
           },
@@ -25512,6 +25638,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusUnmuteTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusUnmuteTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusUnmuteTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -25660,6 +25800,20 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusUnpinTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusUnpinTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusUnpinTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusUnpinTogetStatusFavouritedBy"
+              }
             }
           },
           "401": {
@@ -25807,6 +25961,20 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/postStatusUnreblogTogetStatusCard"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/postStatusUnreblogTodeleteStatus"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/postStatusUnreblogTogetStatusRebloggedBy"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/postStatusUnreblogTogetStatusFavouritedBy"
               }
             }
           },
@@ -38944,6 +39112,680 @@
             "client_secret_basic",
             "client_secret_post"
           ]
+        }
+      }
+    },
+    "links": {
+      "postFilterStatusesV2TogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postFilterStatusesV2TogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "createStatusTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatus": {
+        "operationId": "getStatus",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTodeleteStatus": {
+        "operationId": "deleteStatus",
+        "description": "Delete the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusContext": {
+        "operationId": "getStatusContext",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusRebloggedBy": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusFavouritedBy": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusHistory": {
+        "operationId": "getStatusHistory",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusSource": {
+        "operationId": "getStatusSource",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinTogetStatusCard": {
+        "operationId": "getStatusCard",
+        "description": "Get the created status",
+        "parameters": {
+          "id": "$response.body#/id"
         }
       }
     }

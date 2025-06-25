@@ -100,6 +100,7 @@ interface OpenAPIResponse {
       examples?: Record<string, OpenAPIExample | { $ref: string }>;
     }
   >;
+  links?: Record<string, OpenAPILink | { $ref: string }>;
 }
 
 interface OpenAPIHeader {
@@ -137,6 +138,15 @@ interface OpenAPIExample {
   value: any;
 }
 
+interface OpenAPILink {
+  operationRef?: string;
+  operationId?: string;
+  parameters?: Record<string, any>;
+  requestBody?: any;
+  description?: string;
+  server?: OpenAPIServer;
+}
+
 interface OpenAPISpec {
   openapi: string;
   info: OpenAPIInfo;
@@ -148,6 +158,7 @@ interface OpenAPISpec {
     schemas?: Record<string, OpenAPISchema>;
     examples?: Record<string, OpenAPIExample>;
     securitySchemes?: Record<string, OpenAPISecurityScheme>;
+    links?: Record<string, OpenAPILink>;
   };
 }
 
@@ -167,5 +178,6 @@ export {
   OpenAPIOperation,
   OpenAPIPath,
   OpenAPIExample,
+  OpenAPILink,
   OpenAPISpec,
 };
