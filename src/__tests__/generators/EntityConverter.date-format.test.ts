@@ -234,4 +234,82 @@ describe('EntityConverter - Date Format Handling', () => {
     expect(clientSecretProperty?.type).toBe('string');
     expect(clientSecretProperty?.format).toBeUndefined();
   });
+
+  it('should convert expires_in to integer type in ScheduledStatus poll context', () => {
+    const entities: EntityClass[] = [
+      {
+        name: 'ScheduledStatus',
+        description: 'ScheduledStatus entity',
+        attributes: [
+          {
+            name: 'id',
+            type: 'String',
+            description: 'ID of the scheduled status in the database.',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['2.7.0'],
+          },
+          {
+            name: 'params[poll][expires_in]',
+            type: 'Integer',
+            description:
+              'How many seconds the poll should last before closing.',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['2.8.0'],
+          },
+          {
+            name: 'params[poll][options]',
+            type: 'Array of String',
+            description: 'The poll options to be used.',
+            optional: false,
+            nullable: false,
+            deprecated: false,
+            enumValues: [],
+            versions: ['2.8.0'],
+          },
+        ],
+      },
+    ];
+
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test', version: '1.0.0' },
+      paths: {},
+    };
+
+    entityConverter.convertEntities(entities, spec);
+
+    const schema = spec.components?.schemas?.['ScheduledStatus'];
+    expect(schema).toBeDefined();
+
+    // Verify nested structure params.poll.expires_in
+    const paramsProperty = schema?.properties?.['params'];
+    expect(paramsProperty).toBeDefined();
+    expect(paramsProperty?.type).toBe('object');
+    expect(paramsProperty?.properties).toBeDefined();
+
+    const pollProperty = paramsProperty?.properties?.['poll'];
+    expect(pollProperty).toBeDefined();
+    expect(pollProperty?.type).toBe('object');
+    expect(pollProperty?.properties).toBeDefined();
+
+    // expires_in should be integer type in poll context
+    const expiresInProperty = pollProperty?.properties?.['expires_in'];
+    expect(expiresInProperty).toBeDefined();
+    expect(expiresInProperty?.type).toBe('integer');
+    expect(expiresInProperty?.description).toBe(
+      'How many seconds the poll should last before closing.'
+    );
+
+    // options should be array of strings
+    const optionsProperty = pollProperty?.properties?.['options'];
+    expect(optionsProperty).toBeDefined();
+    expect(optionsProperty?.type).toBe('array');
+    expect(optionsProperty?.items?.type).toBe('string');
+  });
 });
