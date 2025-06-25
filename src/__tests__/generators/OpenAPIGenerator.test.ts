@@ -235,4 +235,19 @@ describe('OpenAPIGenerator', () => {
       );
     });
   });
+
+  describe('license', () => {
+    it('should include license information in the generated schema', () => {
+      const entities: EntityClass[] = [];
+      const methodFiles: ApiMethodsFile[] = [];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      expect(spec.info.license).toBeDefined();
+      expect(spec.info.license?.name).toBe('GFDL-1.3');
+      expect(spec.info.license?.url).toBe(
+        'https://www.gnu.org/licenses/fdl-1.3.en.html'
+      );
+    });
+  });
 });
