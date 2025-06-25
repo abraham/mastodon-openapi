@@ -22488,6 +22488,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -23326,6 +23388,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -23770,6 +23894,68 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -24255,6 +24441,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -24403,6 +24651,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -24550,6 +24860,68 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -25216,6 +25588,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -25363,6 +25797,68 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -25512,6 +26008,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -25660,6 +26218,68 @@
                   }
                 }
               }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
             }
           },
           "401": {
@@ -25807,6 +26427,68 @@
                     "$ref": "#/components/examples/Status200Example"
                   }
                 }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusTranslateById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -38944,6 +39626,148 @@
             "client_secret_basic",
             "client_secret_post"
           ]
+        }
+      }
+    },
+    "links": {
+      "getStatusById": {
+        "operationId": "getStatus",
+        "description": "Get the resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "deleteStatusById": {
+        "operationId": "deleteStatus",
+        "description": "Delete the status using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusContextById": {
+        "operationId": "getStatusContext",
+        "description": "Get the status context using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusTranslateById": {
+        "operationId": "postStatusTranslate",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusRebloggedByById": {
+        "operationId": "getStatusRebloggedBy",
+        "description": "Get users who reblogged the status using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusFavouritedByById": {
+        "operationId": "getStatusFavouritedBy",
+        "description": "Get users who favourited the status using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusFavouriteById": {
+        "operationId": "postStatusFavourite",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnfavouriteById": {
+        "operationId": "postStatusUnfavourite",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusReblogById": {
+        "operationId": "postStatusReblog",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnreblogById": {
+        "operationId": "postStatusUnreblog",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusBookmarkById": {
+        "operationId": "postStatusBookmark",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnbookmarkById": {
+        "operationId": "postStatusUnbookmark",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusMuteById": {
+        "operationId": "postStatusMute",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnmuteById": {
+        "operationId": "postStatusUnmute",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusPinById": {
+        "operationId": "postStatusPin",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "postStatusUnpinById": {
+        "operationId": "postStatusUnpin",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "updateStatusById": {
+        "operationId": "updateStatus",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusHistoryById": {
+        "operationId": "getStatusHistory",
+        "description": "Get the status edit history using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusSourceById": {
+        "operationId": "getStatusSource",
+        "description": "Get the status source using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "getStatusCardById": {
+        "operationId": "getStatusCard",
+        "description": "Get the status preview card using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
         }
       }
     }

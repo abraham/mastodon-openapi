@@ -11,6 +11,7 @@ import { MethodConverter } from './MethodConverter';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
+import { LinkGenerator } from './LinkGenerator';
 
 class OpenAPIGenerator {
   private spec: OpenAPISpec;
@@ -20,6 +21,7 @@ class OpenAPIGenerator {
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
   private errorExampleRegistry: ErrorExampleRegistry;
+  private linkGenerator: LinkGenerator;
 
   constructor() {
     // Initialize helper modules
@@ -36,6 +38,7 @@ class OpenAPIGenerator {
       this.errorExampleRegistry
     );
     this.specBuilder = new SpecBuilder();
+    this.linkGenerator = new LinkGenerator();
 
     // Build initial OpenAPI spec
     this.spec = this.specBuilder.buildInitialSpec();
@@ -53,6 +56,9 @@ class OpenAPIGenerator {
 
     // Convert methods to OpenAPI paths
     this.methodConverter.convertMethods(methodFiles, this.spec);
+
+    // Generate operation links after all operations are created
+    this.linkGenerator.generateLinks(methodFiles, this.spec);
 
     // Perform global enum deduplication across both entities and methods
     this.deduplicateEnumsGlobally(this.spec);
