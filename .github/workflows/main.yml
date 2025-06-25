@@ -47,7 +47,7 @@ jobs:
 
       - name: Validate OpenAPI schema
         run: npm run validate
-        env: 
+        env:
           REDOCLY_TELEMETRY: 'off'
 
       - name: Run tests
