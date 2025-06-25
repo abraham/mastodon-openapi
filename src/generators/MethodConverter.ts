@@ -246,7 +246,7 @@ class MethodConverter {
 
     // Add unreleased badge if method was added in a version newer than supported
     if (method.version && VersionParser.isOperationUnreleased(method.version)) {
-      (operation as any)['x-badge'] = { name: 'Unreleased' };
+      (operation as any)['x-badges'] = [{ name: 'Unreleased' }];
     }
 
     // Add security configuration based on OAuth requirements
