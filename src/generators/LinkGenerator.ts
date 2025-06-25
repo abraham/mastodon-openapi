@@ -103,8 +103,8 @@ export class LinkGenerator {
       if (sourceOp.httpMethod === 'POST' && sourceOp.method.returns) {
         const returnType = sourceOp.method.returns;
 
-        // Handle Status entity creation - check if return type mentions Status
-        if (returnType.includes('Status')) {
+        // Handle Status entity creation - check if return type is exactly Status (not FilterStatus, etc.)
+        if (this.isStatusEntity(returnType)) {
           this.addStatusLinks(sourceOp, operations);
         }
 
@@ -116,6 +116,22 @@ export class LinkGenerator {
         // Handle other entity types as needed
       }
     }
+  }
+
+  /**
+   * Check if the return type represents a Status entity (not other entities like FilterStatus)
+   */
+  private isStatusEntity(returnType: string): boolean {
+    // Match exactly "[Status]" or text ending with " Status" or starting with "Status "
+    // but exclude entities that contain "Status" but are not the Status entity itself
+    return (
+      returnType === '[Status]' ||
+      returnType === 'Status' ||
+      returnType.includes('[Status].') || // handles cases like "[Status]. When scheduled_at is present, [ScheduledStatus] is returned instead."
+      (returnType.includes('Status]') &&
+        !returnType.includes('FilterStatus') &&
+        !returnType.includes('ScheduledStatus'))
+    );
   }
 
   /**

@@ -289,4 +289,63 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       );
     });
   });
+
+  describe('FilterStatus operations', () => {
+    it('should not generate Status links for operations that return FilterStatus', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'filters',
+          description: 'Filter methods',
+          methods: [
+            {
+              name: 'Add a status to a filter group',
+              httpMethod: 'POST',
+              endpoint: '/api/v2/filters/:filter_id/statuses',
+              description: 'Add a status filter to the current filter group.',
+              returns: 'FilterStatus',
+            },
+            {
+              name: 'View a single status',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/statuses/:id',
+              description: 'Obtain information about a status.',
+              returns: 'Status',
+            },
+            {
+              name: 'Delete a status',
+              httpMethod: 'DELETE',
+              endpoint: '/api/v1/statuses/:id',
+              description: 'Delete one of your own statuses.',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      // Check that the postFilterStatusesV2 operation exists
+      const postFilterStatusOp = spec.paths['/api/v2/filters/{filter_id}/statuses']?.post;
+      expect(postFilterStatusOp).toBeDefined();
+      expect(postFilterStatusOp?.operationId).toBe('postFilterStatusesV2');
+
+      // Check that no links are generated for FilterStatus operations
+      const response200 = postFilterStatusOp?.responses['200'];
+      expect(response200).toBeDefined();
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
+        // FilterStatus operations should NOT have links to Status operations
+        expect(response200.links).toBeUndefined();
+      }
+
+      // Verify that Status operations still get links, but not FilterStatus operations
+      const links = spec.components?.links || {};
+      
+      // Should not have any links generated since the only POST operation returns FilterStatus
+      expect(Object.keys(links).length).toBe(0);
+    });
+  });
 });

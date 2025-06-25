@@ -9794,20 +9794,6 @@
                   }
                 }
               }
-            },
-            "links": {
-              "getStatus": {
-                "$ref": "#/components/links/getStatusById"
-              },
-              "deleteStatus": {
-                "$ref": "#/components/links/deleteStatusById"
-              },
-              "getRebloggedBy": {
-                "$ref": "#/components/links/getStatusRebloggedByById"
-              },
-              "getFavouritedBy": {
-                "$ref": "#/components/links/getStatusFavouritedByById"
-              }
             }
           },
           "401": {
