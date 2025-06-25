@@ -29,10 +29,10 @@ export class LinkGenerator {
   public generateLinks(methodFiles: ApiMethodsFile[], spec: OpenAPISpec): void {
     // First pass: identify all operations and their IDs
     const operations = this.extractOperations(methodFiles, spec);
-    
+
     // Second pass: identify link relationships
     this.identifyLinkRelationships(operations);
-    
+
     // Third pass: generate links in the spec
     this.addLinksToSpec(spec);
   }
@@ -40,7 +40,10 @@ export class LinkGenerator {
   /**
    * Extract all operations from method files with their generated operation IDs
    */
-  private extractOperations(methodFiles: ApiMethodsFile[], spec: OpenAPISpec): Array<{
+  private extractOperations(
+    methodFiles: ApiMethodsFile[],
+    spec: OpenAPISpec
+  ): Array<{
     method: ApiMethod;
     operationId: string;
     endpoint: string;
@@ -57,11 +60,16 @@ export class LinkGenerator {
       for (const method of methodFile.methods) {
         const normalizedEndpoint = this.normalizeEndpoint(method.endpoint);
         const pathInSpec = spec.paths[normalizedEndpoint];
-        
+
         if (pathInSpec) {
-          const httpMethod = method.httpMethod.toLowerCase() as 'get' | 'post' | 'put' | 'delete' | 'patch';
+          const httpMethod = method.httpMethod.toLowerCase() as
+            | 'get'
+            | 'post'
+            | 'put'
+            | 'delete'
+            | 'patch';
           const operation = pathInSpec[httpMethod];
-          
+
           if (operation?.operationId) {
             operations.push({
               method,
@@ -80,29 +88,31 @@ export class LinkGenerator {
   /**
    * Identify link relationships between operations
    */
-  private identifyLinkRelationships(operations: Array<{
-    method: ApiMethod;
-    operationId: string;
-    endpoint: string;
-    httpMethod: string;
-  }>): void {
+  private identifyLinkRelationships(
+    operations: Array<{
+      method: ApiMethod;
+      operationId: string;
+      endpoint: string;
+      httpMethod: string;
+    }>
+  ): void {
     this.linkMappings = [];
 
     for (const sourceOp of operations) {
       // Look for operations that create resources (POST) that return entities with IDs
       if (sourceOp.httpMethod === 'POST' && sourceOp.method.returns) {
         const returnType = sourceOp.method.returns;
-        
+
         // Handle Status entity creation - check if return type mentions Status
         if (returnType.includes('Status')) {
           this.addStatusLinks(sourceOp, operations);
         }
-        
+
         // Handle Account entity creation - check if return type mentions Account
         if (returnType.includes('Account')) {
           this.addAccountLinks(sourceOp, operations);
         }
-        
+
         // Handle other entity types as needed
       }
     }
@@ -144,12 +154,15 @@ export class LinkGenerator {
           });
         }
       }
-      
+
       // Link to status-related operations (reblogged_by, favourited_by, etc.)
-      if (statusRelatedPattern.test(targetOp.endpoint) && targetOp.httpMethod === 'GET') {
+      if (
+        statusRelatedPattern.test(targetOp.endpoint) &&
+        targetOp.httpMethod === 'GET'
+      ) {
         const endpointParts = targetOp.endpoint.split('/');
         const lastPart = endpointParts[endpointParts.length - 1];
-        
+
         if (lastPart === 'reblogged_by') {
           this.linkMappings.push({
             sourceOperationId: sourceOp.operationId,
@@ -186,7 +199,10 @@ export class LinkGenerator {
     const accountIdPattern = /\/api\/v1\/accounts\/\{id\}/;
 
     for (const targetOp of operations) {
-      if (accountIdPattern.test(targetOp.endpoint) && targetOp.httpMethod === 'GET') {
+      if (
+        accountIdPattern.test(targetOp.endpoint) &&
+        targetOp.httpMethod === 'GET'
+      ) {
         this.linkMappings.push({
           sourceOperationId: sourceOp.operationId,
           sourceEndpoint: sourceOp.endpoint,
@@ -216,7 +232,7 @@ export class LinkGenerator {
 
     // Group links by source operation and add them to responses
     const linksBySource = new Map<string, OperationLinkMapping[]>();
-    
+
     for (const mapping of this.linkMappings) {
       const key = `${mapping.sourceOperationId}`;
       if (!linksBySource.has(key)) {
@@ -230,19 +246,30 @@ export class LinkGenerator {
       // Find the source operation in the spec
       for (const [path, pathItem] of Object.entries(spec.paths)) {
         for (const [method, operation] of Object.entries(pathItem)) {
-          if (operation && typeof operation === 'object' && 'operationId' in operation && 
-              operation.operationId === sourceOpId && 'responses' in operation) {
-            
+          if (
+            operation &&
+            typeof operation === 'object' &&
+            'operationId' in operation &&
+            operation.operationId === sourceOpId &&
+            'responses' in operation
+          ) {
             // Add links to successful responses
-            for (const [statusCode, response] of Object.entries(operation.responses)) {
-              if (statusCode.startsWith('2') && response && typeof response === 'object' && 'description' in response) {
+            for (const [statusCode, response] of Object.entries(
+              operation.responses
+            )) {
+              if (
+                statusCode.startsWith('2') &&
+                response &&
+                typeof response === 'object' &&
+                'description' in response
+              ) {
                 // Type assertion to properly handle the response object
                 const typedResponse = response as any;
-                
+
                 if (!typedResponse.links) {
                   typedResponse.links = {};
                 }
-                
+
                 for (const link of links) {
                   // Create the link component
                   const linkComponentName = `${sourceOpId}To${link.targetOperationId}`;
@@ -251,7 +278,7 @@ export class LinkGenerator {
                     description: link.linkDescription,
                     parameters: link.parameters,
                   };
-                  
+
                   // Reference the link component in the response
                   typedResponse.links[link.linkName] = {
                     $ref: `#/components/links/${linkComponentName}`,

@@ -66,18 +66,24 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       // Check specific links exist
       const links = spec.components?.links || {};
       const linkNames = Object.keys(links);
-      
+
       // Should have links from createStatus to other operations
-      expect(linkNames.some(name => name.includes('createStatusTo'))).toBe(true);
+      expect(linkNames.some((name) => name.includes('createStatusTo'))).toBe(
+        true
+      );
 
       // Check that the 200 response has links
       const response200 = createStatusOp?.responses['200'];
       expect(response200).toBeDefined();
-      
-      if (response200 && typeof response200 === 'object' && 'links' in response200) {
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
         const responseLinks = response200.links as Record<string, any>;
         expect(responseLinks).toBeDefined();
-        
+
         // Should have links to get, delete, and related operations
         expect(Object.keys(responseLinks).length).toBeGreaterThan(0);
       }
@@ -110,13 +116,14 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       const spec = generator.generateSchema([], methodFiles);
 
       const links = spec.components?.links || {};
-      
+
       // Find a link from createStatus to getStatus
-      const createToGetLink = Object.values(links).find((link: any) => 
-        link.operationId === 'getStatus' && 
-        link.parameters?.id === '$response.body#/id'
+      const createToGetLink = Object.values(links).find(
+        (link: any) =>
+          link.operationId === 'getStatus' &&
+          link.parameters?.id === '$response.body#/id'
       );
-      
+
       expect(createToGetLink).toBeDefined();
       expect(createToGetLink?.parameters?.id).toBe('$response.body#/id');
     });
@@ -146,8 +153,12 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
 
       const timelineOp = spec.paths['/api/v1/timelines/public']?.get;
       const response200 = timelineOp?.responses['200'];
-      
-      if (response200 && typeof response200 === 'object' && 'links' in response200) {
+
+      if (
+        response200 &&
+        typeof response200 === 'object' &&
+        'links' in response200
+      ) {
         expect(response200.links).toBeUndefined();
       }
     });
@@ -186,7 +197,9 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
 
       // Should have a link from createAccount to getAccount
       const linkNames = Object.keys(links);
-      expect(linkNames.some(name => name.includes('createAccountTo'))).toBe(true);
+      expect(linkNames.some((name) => name.includes('createAccountTo'))).toBe(
+        true
+      );
     });
   });
 });
