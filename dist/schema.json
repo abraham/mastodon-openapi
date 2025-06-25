@@ -5445,7 +5445,7 @@
       "get": {
         "operationId": "getBlocks",
         "summary": "View blocked users",
-        "description": "Returns your blocked accounts.",
+        "description": "",
         "tags": [
           "blocks"
         ],
@@ -19914,131 +19914,6 @@
         }
       }
     },
-    "/oauth/userinfo": {
-      "get": {
-        "operationId": "getOauthUserinfo",
-        "summary": "Retrieve user information",
-        "description": "Retrieves standardised OIDC [claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) about the currently authenticated user.\\",
-        "tags": [
-          "oauth"
-        ],
-        "responses": {
-          "200": {
-            "description": "OK.",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Number of requests permitted per time period",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests you can still make",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Timestamp when your rate limit will reset",
-                "schema": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationError"
-                },
-                "examples": {
-                  "ValidationError422Example": {
-                    "$ref": "#/components/examples/ValidationError422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/oauth/#userinfo",
-          "description": "Official Mastodon API documentation"
-        },
-        "security": [
-          {
-            "OAuth2": [
-              "profile"
-            ]
-          }
-        ]
-      }
-    },
     "/api/oembed": {
       "get": {
         "operationId": "getOembed",
@@ -24954,7 +24829,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read:statuses"
             ]
           }
@@ -27655,6 +27530,152 @@
         ]
       }
     },
+    "/api/v1/tags/{id}": {
+      "get": {
+        "operationId": "getTag",
+        "summary": "View information about a single tag",
+        "description": "Show a hashtag and its associated information",
+        "tags": [
+          "tags"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                },
+                "examples": {
+                  "Tag200Example": {
+                    "$ref": "#/components/examples/Tag200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#get",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/tags/{id}/feature": {
       "post": {
         "operationId": "postTagFeature",
@@ -27787,6 +27808,154 @@
           {
             "OAuth2": [
               "write:accounts"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/tags/{id}/follow": {
+      "post": {
+        "operationId": "postTagFollow",
+        "summary": "Follow a hashtag",
+        "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.",
+        "tags": [
+          "tags"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Tag]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Tag"
+                },
+                "examples": {
+                  "Tag200Example": {
+                    "$ref": "#/components/examples/Tag200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error422Example": {
+                    "$ref": "#/components/examples/Error422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/tags/#follow",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:follows"
             ]
           }
         ],
@@ -27951,301 +28120,7 @@
         ]
       }
     },
-    "/api/v1/tags/{name}": {
-      "get": {
-        "operationId": "getTagsByName",
-        "summary": "View information about a single tag",
-        "description": "Show a hashtag and its associated information",
-        "tags": [
-          "tags"
-        ],
-        "responses": {
-          "200": {
-            "description": "[Tag]",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Number of requests permitted per time period",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests you can still make",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Timestamp when your rate limit will reset",
-                "schema": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                },
-                "examples": {
-                  "Tag200Example": {
-                    "$ref": "#/components/examples/Tag200Example"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationError"
-                },
-                "examples": {
-                  "ValidationError422Example": {
-                    "$ref": "#/components/examples/ValidationError422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/tags/#get",
-          "description": "Official Mastodon API documentation"
-        },
-        "security": [
-          {
-            "OAuth2": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "description": "name parameter",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/tags/{name}/follow": {
-      "post": {
-        "operationId": "postTagFollow",
-        "summary": "Follow a hashtag",
-        "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.",
-        "tags": [
-          "tags"
-        ],
-        "responses": {
-          "200": {
-            "description": "[Tag]",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Number of requests permitted per time period",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests you can still make",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Timestamp when your rate limit will reset",
-                "schema": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Tag"
-                },
-                "examples": {
-                  "Tag200Example": {
-                    "$ref": "#/components/examples/Tag200Example"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error422Example": {
-                    "$ref": "#/components/examples/Error422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/tags/#follow",
-          "description": "Official Mastodon API documentation"
-        },
-        "security": [
-          {
-            "OAuth2": [
-              "write:follows"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "name",
-            "in": "path",
-            "required": true,
-            "description": "name parameter",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/tags/{name}/unfollow": {
+    "/api/v1/tags/{id}/unfollow": {
       "post": {
         "operationId": "postTagUnfollow",
         "summary": "Unfollow a hashtag",
@@ -28382,10 +28257,10 @@
         ],
         "parameters": [
           {
-            "name": "name",
+            "name": "id",
             "in": "path",
             "required": true,
-            "description": "name parameter",
+            "description": "id parameter",
             "schema": {
               "type": "string"
             }
@@ -31646,7 +31521,7 @@
         "description": "Nested entity extracted from Admin::Measure.data",
         "properties": {
           "date": {
-            "description": "The requested day or midnight on the requested day in the time period.",
+            "description": "Midnight on the requested day in the time period.",
             "type": "string",
             "format": "date-time"
           },
@@ -34576,7 +34451,7 @@
                   },
                   "expires_in": {
                     "description": "How many seconds the poll should last before closing.",
-                    "type": "integer"
+                    "type": "string"
                   },
                   "multiple": {
                     "description": "Whether the poll allows multiple choices.",
@@ -34850,7 +34725,7 @@
             "type": "string"
           },
           "in_reply_to_account_id": {
-            "description": "Might be the ID of the account that authored the status being replied to. This sometimes skips over self-replies. If status A was posted by account 1, and account 2 posts statuses B, C, and D as a chain of replies to status A, statuses B, C, and D will all have `in_reply_to_account_id` = 1 (instead of C and D having `in_reply_to_account_id` = 2). However, if status A was posted by account 1, and account 1 posts status B as a direct reply to A, B will have an `in_reply_to_account_id` = 1 (instead of null).",
+            "description": "ID of the account that authored the status being replied to.",
             "nullable": true,
             "type": "string"
           },
@@ -35259,11 +35134,6 @@
         "type": "object",
         "description": "Represents a hashtag used within the content of a status.",
         "properties": {
-          "id": {
-            "description": "ID of the hashtag in the database. Useful for constructing URLs for the moderation tools & Admin API.",
-            "nullable": true,
-            "type": "string"
-          },
           "name": {
             "description": "The value of the hashtag after the # sign.",
             "type": "string"
@@ -35301,7 +35171,6 @@
           "description": "Official Mastodon API documentation"
         },
         "example": {
-          "id": "802",
           "name": "nowplaying",
           "url": "https://mastodon.social/tags/nowplaying",
           "history": [
@@ -35376,6 +35245,10 @@
         "type": "object",
         "description": "Additional entity definition for Admin::Tag",
         "properties": {
+          "id": {
+            "description": "The ID of the Tag in the database.",
+            "type": "string"
+          },
           "trendable": {
             "description": "Whether the hashtag has been approved to trend.",
             "type": "boolean"
@@ -35390,6 +35263,7 @@
           }
         },
         "required": [
+          "id",
           "trendable",
           "usable",
           "requires_review"
@@ -36378,11 +36252,6 @@
             "type": "string",
             "format": "uri"
           },
-          "userinfo_endpoint": {
-            "description": "userinfo_endpoint field",
-            "type": "string",
-            "format": "uri"
-          },
           "scopes_supported": {
             "description": "Array of scopes_supported",
             "$ref": "#/components/schemas/OAuthScopes"
@@ -36430,7 +36299,6 @@
           "token_endpoint",
           "app_registration_endpoint",
           "revocation_endpoint",
-          "userinfo_endpoint",
           "scopes_supported",
           "response_types_supported",
           "response_modes_supported",
@@ -36449,7 +36317,6 @@
           "token_endpoint": "https://social.example/oauth/token",
           "app_registration_endpoint": "https://social.example/api/v1/apps",
           "revocation_endpoint": "https://social.example/oauth/revoke",
-          "userinfo_endpoint": "https://social.example/oauth/userinfo",
           "scopes_supported": [
             "read",
             "write",
@@ -37299,7 +37166,6 @@
         "summary": "Example for Tag",
         "value": [
           {
-            "id": "4325",
             "name": "nowplaying",
             "url": "https://mastodon.social/tags/nowplaying",
             "history": [
@@ -37341,7 +37207,6 @@
             ]
           },
           {
-            "id": "1684",
             "name": "mastothemes",
             "url": "https://mastodon.social/tags/mastothemes",
             "history": [
@@ -38430,7 +38295,6 @@
           "token_endpoint": "https://social.example/oauth/token",
           "app_registration_endpoint": "https://social.example/api/v1/apps",
           "revocation_endpoint": "https://social.example/oauth/revoke",
-          "userinfo_endpoint": "https://social.example/oauth/userinfo",
           "scopes_supported": [
             "read",
             "write",
