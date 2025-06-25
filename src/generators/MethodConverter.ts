@@ -293,6 +293,11 @@ class MethodConverter {
         }
       }
 
+      // Sort parameters by required first, then alphabetically
+      if (operation.parameters.length > 0) {
+        operation.parameters = this.sortParameters(operation.parameters);
+      }
+
       // Add request body for form data parameters
       if (bodyParams.length > 0) {
         const properties: Record<string, OpenAPIProperty> = {};
@@ -306,17 +311,21 @@ class MethodConverter {
           }
         }
 
+        // Sort properties by required first, then alphabetically
+        const { sortedProperties, sortedRequired } =
+          this.sortPropertiesAndRequired(properties, required);
+
         // Special handling for POST /api/v1/statuses endpoint
         // Split into different status types using oneOf with component references
         if (
           method.httpMethod === 'POST' &&
           path === '/api/v1/statuses' &&
-          required.includes('status') &&
-          required.includes('media_ids') &&
-          required.includes('poll')
+          sortedRequired.includes('status') &&
+          sortedRequired.includes('media_ids') &&
+          sortedRequired.includes('poll')
         ) {
           // Create status components for reusability
-          this.createStatusComponents(properties, required, spec);
+          this.createStatusComponents(sortedProperties, sortedRequired, spec);
 
           operation.requestBody = {
             description:
@@ -337,25 +346,25 @@ class MethodConverter {
         } else if (
           method.httpMethod === 'POST' &&
           path === '/api/v1/apps' &&
-          properties.redirect_uris
+          sortedProperties.redirect_uris
         ) {
           // Special handling for POST /api/v1/apps endpoint
           // Override redirect_uris to always be array of URIs instead of oneOf
-          properties.redirect_uris = {
+          sortedProperties.redirect_uris = {
             type: 'array',
             items: {
               type: 'string',
               format: 'uri',
             },
-            description: properties.redirect_uris.description,
+            description: sortedProperties.redirect_uris.description,
           };
 
           // Override scopes to use format scopes without enum values
-          if (properties.scopes) {
-            properties.scopes = {
+          if (sortedProperties.scopes) {
+            sortedProperties.scopes = {
               type: 'string',
               format: 'scopes',
-              description: properties.scopes.description,
+              description: sortedProperties.scopes.description,
               default: 'read',
             };
           }
@@ -363,13 +372,14 @@ class MethodConverter {
           // Default behavior for createApp endpoint
           operation.requestBody = {
             description: 'JSON request body parameters',
-            required: required.length > 0,
+            required: sortedRequired.length > 0,
             content: {
               'application/json': {
                 schema: {
                   type: 'object',
-                  properties,
-                  required: required.length > 0 ? required : undefined,
+                  properties: sortedProperties,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -383,7 +393,7 @@ class MethodConverter {
           // Set file parameters to have format: binary
           const multipartProperties: Record<string, OpenAPIProperty> = {};
 
-          for (const [name, property] of Object.entries(properties)) {
+          for (const [name, property] of Object.entries(sortedProperties)) {
             const param = method.parameters?.find((p) => p.name === name);
             if (param && this.isFileParameter(param)) {
               // File parameters should have format: binary
@@ -399,13 +409,14 @@ class MethodConverter {
 
           operation.requestBody = {
             description: 'Multipart form data parameters',
-            required: required.length > 0,
+            required: sortedRequired.length > 0,
             content: {
               'multipart/form-data': {
                 schema: {
                   type: 'object',
                   properties: multipartProperties,
-                  required: required.length > 0 ? required : undefined,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -414,13 +425,14 @@ class MethodConverter {
           // Default behavior for all other endpoints
           operation.requestBody = {
             description: 'JSON request body parameters',
-            required: required.length > 0,
+            required: sortedRequired.length > 0,
             content: {
               'application/json': {
                 schema: {
                   type: 'object',
-                  properties,
-                  required: required.length > 0 ? required : undefined,
+                  properties: sortedProperties,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -444,6 +456,9 @@ class MethodConverter {
           schema: { type: 'string' },
         });
       }
+
+      // Re-sort parameters after adding path parameters
+      operation.parameters = this.sortParameters(operation.parameters);
     }
 
     spec.paths[path][httpMethod] = operation;
@@ -1208,10 +1223,16 @@ class MethodConverter {
       }
     }
 
+    // Sort properties by required first, then alphabetically
+    const { sortedProperties, sortedRequired } = this.sortPropertiesAndRequired(
+      properties,
+      required
+    );
+
     return {
       type: 'object',
-      properties,
-      required: required.length > 0 ? required : undefined,
+      properties: sortedProperties,
+      required: sortedRequired.length > 0 ? sortedRequired : undefined,
     };
   }
 
@@ -1300,6 +1321,60 @@ class MethodConverter {
         },
       ],
     };
+  }
+
+  /**
+   * Sort parameters by required status first, then alphabetically
+   */
+  private sortParameters(parameters: any[]): any[] {
+    return [...parameters].sort((a, b) => {
+      // Required parameters first
+      if (a.required && !b.required) return -1;
+      if (!a.required && b.required) return 1;
+      // Then alphabetically by name
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  /**
+   * Sort properties object keys by required status first, then alphabetically
+   * Returns sorted property names and required array
+   */
+  private sortPropertiesAndRequired(
+    properties: Record<string, OpenAPIProperty>,
+    requiredFields: string[]
+  ): {
+    sortedProperties: Record<string, OpenAPIProperty>;
+    sortedRequired: string[];
+  } {
+    // Create array of property entries with required status
+    const propertyEntries = Object.entries(properties).map(
+      ([name, property]) => ({
+        name,
+        property,
+        required: requiredFields.includes(name),
+      })
+    );
+
+    // Sort: required first, then alphabetically
+    propertyEntries.sort((a, b) => {
+      if (a.required && !b.required) return -1;
+      if (!a.required && b.required) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    // Rebuild sorted objects
+    const sortedProperties: Record<string, OpenAPIProperty> = {};
+    const sortedRequired: string[] = [];
+
+    for (const entry of propertyEntries) {
+      sortedProperties[entry.name] = entry.property;
+      if (entry.required) {
+        sortedRequired.push(entry.name);
+      }
+    }
+
+    return { sortedProperties, sortedRequired };
   }
 
   /**
