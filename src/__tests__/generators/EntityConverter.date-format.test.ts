@@ -236,6 +236,14 @@ describe('EntityConverter - Date Format Handling', () => {
   });
 
   it('should convert expires_in to integer type in ScheduledStatus poll context', () => {
+    // Test TypeParser directly first to ensure it handles "Integer" type correctly
+    const utilityHelpers = new UtilityHelpers();
+    const typeParser = new TypeParser(utilityHelpers);
+    
+    const integerTypeResult = typeParser.parseType('Integer');
+    expect(integerTypeResult.type).toBe('integer');
+
+    // Test the full EntityConverter with nested polling attributes
     const entities: EntityClass[] = [
       {
         name: 'ScheduledStatus',
