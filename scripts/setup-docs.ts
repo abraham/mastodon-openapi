@@ -1,13 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 /**
  * Setup Mastodon documentation repository at the configured commit SHA
  */
-function setupMastodonDocs() {
+function setupMastodonDocs(): void {
   const configPath = path.join(__dirname, '..', 'config.json');
   const docsDir = path.join(__dirname, '..', 'mastodon-documentation');
 
@@ -54,7 +54,10 @@ function setupMastodonDocs() {
 
     console.log('Mastodon documentation setup complete.');
   } catch (error) {
-    console.error('Error setting up mastodon documentation:', error.message);
+    console.error(
+      'Error setting up mastodon documentation:',
+      (error as Error).message
+    );
     process.exit(1);
   }
 }
@@ -63,4 +66,4 @@ if (require.main === module) {
   setupMastodonDocs();
 }
 
-module.exports = { setupMastodonDocs };
+export { setupMastodonDocs };

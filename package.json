@@ -17,8 +17,8 @@
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "postinstall": "node scripts/setup-docs.js",
-    "update-docs-sha": "node scripts/update-docs-sha.js"
+    "postinstall": "ts-node scripts/setup-docs.ts",
+    "update-docs-sha": "ts-node scripts/update-docs-sha.ts"
   },
   "keywords": [
     "mastodon",

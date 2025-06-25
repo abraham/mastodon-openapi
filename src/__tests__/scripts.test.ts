@@ -4,25 +4,23 @@ import * as path from 'path';
 describe('Scripts', () => {
   const scriptsDir = path.join(__dirname, '..', '..', 'scripts');
 
-  it('should have setup-docs.js script', () => {
-    const setupDocsPath = path.join(scriptsDir, 'setup-docs.js');
+  it('should have setup-docs.ts script', () => {
+    const setupDocsPath = path.join(scriptsDir, 'setup-docs.ts');
     expect(fs.existsSync(setupDocsPath)).toBe(true);
   });
 
-  it('should have update-docs-sha.js script', () => {
-    const updateShaPath = path.join(scriptsDir, 'update-docs-sha.js');
+  it('should have update-docs-sha.ts script', () => {
+    const updateShaPath = path.join(scriptsDir, 'update-docs-sha.ts');
     expect(fs.existsSync(updateShaPath)).toBe(true);
   });
 
-  it('should export setupMastodonDocs function', () => {
-    const setupDocsPath = path.join(scriptsDir, 'setup-docs.js');
-    const { setupMastodonDocs } = require(setupDocsPath);
+  it('should export setupMastodonDocs function', async () => {
+    const { setupMastodonDocs } = await import('../../scripts/setup-docs');
     expect(typeof setupMastodonDocs).toBe('function');
   });
 
-  it('should export updateDocsCommit function', () => {
-    const updateShaPath = path.join(scriptsDir, 'update-docs-sha.js');
-    const { updateDocsCommit } = require(updateShaPath);
+  it('should export updateDocsCommit function', async () => {
+    const { updateDocsCommit } = await import('../../scripts/update-docs-sha');
     expect(typeof updateDocsCommit).toBe('function');
   });
 });

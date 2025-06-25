@@ -1,13 +1,13 @@
-#!/usr/bin/env node
+#!/usr/bin/env ts-node
 
-const fs = require('fs');
-const path = require('path');
-const { execSync } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync } from 'child_process';
 
 /**
  * Update the mastodonDocsCommit in config.json to the latest commit from main branch
  */
-function updateDocsCommit() {
+function updateDocsCommit(): boolean {
   const configPath = path.join(__dirname, '..', 'config.json');
 
   if (!fs.existsSync(configPath)) {
@@ -48,7 +48,7 @@ function updateDocsCommit() {
     );
     return true;
   } catch (error) {
-    console.error('Error updating docs commit:', error.message);
+    console.error('Error updating docs commit:', (error as Error).message);
     process.exit(1);
   }
 }
@@ -58,4 +58,4 @@ if (require.main === module) {
   process.exit(hasChanges ? 0 : 1); // Exit with 1 if no changes (for CI workflow)
 }
 
-module.exports = { updateDocsCommit };
+export { updateDocsCommit };
