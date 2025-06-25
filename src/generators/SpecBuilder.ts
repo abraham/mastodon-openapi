@@ -42,6 +42,10 @@ class SpecBuilder {
         version: SUPPORTED_VERSION,
         description:
           'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
+        license: {
+          name: 'GFDL-1.3',
+          url: 'https://www.gnu.org/licenses/fdl-1.3.en.html',
+        },
       },
       externalDocs: {
         url: 'https://docs.joinmastodon.org/api/',
