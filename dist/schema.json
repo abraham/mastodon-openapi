@@ -31521,7 +31521,7 @@
         "description": "Nested entity extracted from Admin::Measure.data",
         "properties": {
           "date": {
-            "description": "Midnight on the requested day in the time period.",
+            "description": "The requested day or midnight on the requested day in the time period.",
             "type": "string",
             "format": "date-time"
           },
@@ -34451,7 +34451,7 @@
                   },
                   "expires_in": {
                     "description": "How many seconds the poll should last before closing.",
-                    "type": "string"
+                    "type": "integer"
                   },
                   "multiple": {
                     "description": "Whether the poll allows multiple choices.",
@@ -34725,7 +34725,7 @@
             "type": "string"
           },
           "in_reply_to_account_id": {
-            "description": "ID of the account that authored the status being replied to.",
+            "description": "Might be the ID of the account that authored the status being replied to. This sometimes skips over self-replies. If status A was posted by account 1, and account 2 posts statuses B, C, and D as a chain of replies to status A, statuses B, C, and D will all have `in_reply_to_account_id` = 1 (instead of C and D having `in_reply_to_account_id` = 2). However, if status A was posted by account 1, and account 1 posts status B as a direct reply to A, B will have an `in_reply_to_account_id` = 1 (instead of null).",
             "nullable": true,
             "type": "string"
           },
