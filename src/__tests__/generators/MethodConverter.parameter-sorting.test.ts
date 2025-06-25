@@ -138,7 +138,9 @@ describe('MethodConverter - Parameter Sorting', () => {
     expect(operation).toBeDefined();
     expect(operation!.requestBody).toBeDefined();
 
-    const requestBodySchema = operation!.requestBody!.content!['application/json']!.schema as any;
+    const requestBodySchema = operation!.requestBody!.content![
+      'application/json'
+    ]!.schema as any;
     expect(requestBodySchema.properties).toBeDefined();
 
     // Extract property names in order
@@ -211,7 +213,13 @@ describe('MethodConverter - Parameter Sorting', () => {
     // Should be: required parameters first (alphabetically), then optional (alphabetically)
     // Required: apple_query, banana_header, id (auto-generated)
     // Optional: dog_query, zebra_header
-    const expectedOrder = ['apple_query', 'banana_header', 'id', 'dog_query', 'zebra_header'];
+    const expectedOrder = [
+      'apple_query',
+      'banana_header',
+      'id',
+      'dog_query',
+      'zebra_header',
+    ];
     expect(parameterNames).toEqual(expectedOrder);
   });
 });

@@ -312,7 +312,8 @@ class MethodConverter {
         }
 
         // Sort properties by required first, then alphabetically
-        const { sortedProperties, sortedRequired } = this.sortPropertiesAndRequired(properties, required);
+        const { sortedProperties, sortedRequired } =
+          this.sortPropertiesAndRequired(properties, required);
 
         // Special handling for POST /api/v1/statuses endpoint
         // Split into different status types using oneOf with component references
@@ -377,7 +378,8 @@ class MethodConverter {
                 schema: {
                   type: 'object',
                   properties: sortedProperties,
-                  required: sortedRequired.length > 0 ? sortedRequired : undefined,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -413,7 +415,8 @@ class MethodConverter {
                 schema: {
                   type: 'object',
                   properties: multipartProperties,
-                  required: sortedRequired.length > 0 ? sortedRequired : undefined,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -428,7 +431,8 @@ class MethodConverter {
                 schema: {
                   type: 'object',
                   properties: sortedProperties,
-                  required: sortedRequired.length > 0 ? sortedRequired : undefined,
+                  required:
+                    sortedRequired.length > 0 ? sortedRequired : undefined,
                 } as OpenAPIProperty,
               },
             },
@@ -452,7 +456,7 @@ class MethodConverter {
           schema: { type: 'string' },
         });
       }
-      
+
       // Re-sort parameters after adding path parameters
       operation.parameters = this.sortParameters(operation.parameters);
     }
@@ -1220,7 +1224,10 @@ class MethodConverter {
     }
 
     // Sort properties by required first, then alphabetically
-    const { sortedProperties, sortedRequired } = this.sortPropertiesAndRequired(properties, required);
+    const { sortedProperties, sortedRequired } = this.sortPropertiesAndRequired(
+      properties,
+      required
+    );
 
     return {
       type: 'object',
@@ -1336,13 +1343,18 @@ class MethodConverter {
   private sortPropertiesAndRequired(
     properties: Record<string, OpenAPIProperty>,
     requiredFields: string[]
-  ): { sortedProperties: Record<string, OpenAPIProperty>; sortedRequired: string[] } {
+  ): {
+    sortedProperties: Record<string, OpenAPIProperty>;
+    sortedRequired: string[];
+  } {
     // Create array of property entries with required status
-    const propertyEntries = Object.entries(properties).map(([name, property]) => ({
-      name,
-      property,
-      required: requiredFields.includes(name),
-    }));
+    const propertyEntries = Object.entries(properties).map(
+      ([name, property]) => ({
+        name,
+        property,
+        required: requiredFields.includes(name),
+      })
+    );
 
     // Sort: required first, then alphabetically
     propertyEntries.sort((a, b) => {

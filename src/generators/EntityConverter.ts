@@ -124,13 +124,15 @@ class EntityConverter {
     }
 
     const requiredFields = schema.required || [];
-    
+
     // Create array of property entries with required status
-    const propertyEntries = Object.entries(schema.properties).map(([name, property]) => ({
-      name,
-      property,
-      required: requiredFields.includes(name),
-    }));
+    const propertyEntries = Object.entries(schema.properties).map(
+      ([name, property]) => ({
+        name,
+        property,
+        required: requiredFields.includes(name),
+      })
+    );
 
     // Sort: required first, then alphabetically
     propertyEntries.sort((a, b) => {
@@ -160,10 +162,13 @@ class EntityConverter {
         if (property.type === 'object' && property.properties) {
           // Direct nested object
           this.sortSchemaProperties(property as OpenAPISchema);
-        } else if (property.type === 'array' && property.items && 
-                   typeof property.items === 'object' && 
-                   property.items.type === 'object' && 
-                   property.items.properties) {
+        } else if (
+          property.type === 'array' &&
+          property.items &&
+          typeof property.items === 'object' &&
+          property.items.type === 'object' &&
+          property.items.properties
+        ) {
           // Array of objects
           this.sortSchemaProperties(property.items as OpenAPISchema);
         }

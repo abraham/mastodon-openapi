@@ -168,7 +168,7 @@ describe('EntityConverter - Property Sorting', () => {
     const schema = spec.components?.schemas?.TestEntityWithArrayItems;
     expect(schema).toBeDefined();
     expect(schema!.properties).toBeDefined();
-    
+
     // The EntityConverter creates a property named "items[]" for items[].property patterns
     expect(schema!.properties!['items[]']).toBeDefined();
 
