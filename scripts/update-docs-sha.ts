@@ -9,22 +9,37 @@ import { execSync } from 'child_process';
  */
 function updateDocsCommit(): boolean {
   const configPath = path.join(__dirname, '..', 'config.json');
+  const docsDir = path.join(__dirname, '..', 'mastodon-documentation');
 
   if (!fs.existsSync(configPath)) {
     console.error('config.json not found');
     process.exit(1);
   }
 
-  console.log('Fetching latest commit SHA from mastodon/documentation...');
+  if (!fs.existsSync(docsDir)) {
+    console.error(
+      'mastodon-documentation directory not found. Run setup-docs first.'
+    );
+    process.exit(1);
+  }
+
+  console.log(
+    'Updating mastodon/documentation and fetching latest commit SHA...'
+  );
 
   try {
-    // Get the latest commit SHA from the remote repository
-    const latestCommit = execSync(
-      'git ls-remote https://github.com/mastodon/documentation refs/heads/main',
-      { encoding: 'utf8' }
-    )
-      .trim()
-      .split('\t')[0];
+    // Pull the latest changes from the remote repository
+    console.log('Pulling latest changes...');
+    execSync('git pull origin main', {
+      cwd: docsDir,
+      stdio: 'inherit',
+    });
+
+    // Get the latest commit SHA from the local repository
+    const latestCommit = execSync('git rev-parse HEAD', {
+      cwd: docsDir,
+      encoding: 'utf8',
+    }).trim();
 
     console.log(`Latest commit SHA: ${latestCommit}`);
 
