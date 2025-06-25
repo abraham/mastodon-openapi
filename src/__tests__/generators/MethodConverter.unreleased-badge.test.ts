@@ -119,7 +119,8 @@ describe('MethodConverter Unreleased Badge', () => {
         httpMethod: 'POST',
         endpoint: '/api/v1/accounts',
         description: 'Register an account',
-        version: '2.7.0 - added\\n3.0.0 - added reason parameter\\n3.4.0 - added details to failure response\\n4.4.0 - added date_of_birth parameter',
+        version:
+          '2.7.0 - added\\n3.0.0 - added reason parameter\\n3.4.0 - added details to failure response\\n4.4.0 - added date_of_birth parameter',
       };
 
       methodConverter.convertMethod(method, 'accounts', spec);

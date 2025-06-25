@@ -35,17 +35,20 @@ describe('VersionParser.isOperationUnreleased', () => {
     });
 
     test('should return false for operation added in older version with newer parameter additions', () => {
-      const versionHistory = '2.7.0 - added\\n3.0.0 - added reason parameter\\n3.4.0 - added details to failure response\\n4.4.0 - added date_of_birth parameter';
+      const versionHistory =
+        '2.7.0 - added\\n3.0.0 - added reason parameter\\n3.4.0 - added details to failure response\\n4.4.0 - added date_of_birth parameter';
       expect(VersionParser.isOperationUnreleased(versionHistory)).toBe(false);
     });
 
     test('should return false for operation with only parameter additions in newer versions', () => {
-      const versionHistory = '1.0.0 - added\\n4.4.0 - added some_parameter parameter\\n4.5.0 - updated another_field';
+      const versionHistory =
+        '1.0.0 - added\\n4.4.0 - added some_parameter parameter\\n4.5.0 - updated another_field';
       expect(VersionParser.isOperationUnreleased(versionHistory)).toBe(false);
     });
 
     test('should return false for operation with complex version history but added in older version', () => {
-      const versionHistory = '0.0.0 - added\\n2.7.0 - scheduled_at added\\n2.8.0 - poll added\\n4.4.0 - some update';
+      const versionHistory =
+        '0.0.0 - added\\n2.7.0 - scheduled_at added\\n2.8.0 - poll added\\n4.4.0 - some update';
       expect(VersionParser.isOperationUnreleased(versionHistory)).toBe(false);
     });
   });
@@ -69,7 +72,8 @@ describe('VersionParser.isOperationUnreleased', () => {
     });
 
     test('should not match parameter additions that contain "added"', () => {
-      const versionHistory = '2.0.0 - added\\n4.4.0 - added some_parameter parameter';
+      const versionHistory =
+        '2.0.0 - added\\n4.4.0 - added some_parameter parameter';
       expect(VersionParser.isOperationUnreleased(versionHistory)).toBe(false);
     });
 
@@ -79,7 +83,8 @@ describe('VersionParser.isOperationUnreleased', () => {
     });
 
     test('should handle complex API version notes', () => {
-      const versionHistory = '4.4.0 (mastodon API version 4) - added delete_media optional parameter';
+      const versionHistory =
+        '4.4.0 (mastodon API version 4) - added delete_media optional parameter';
       expect(VersionParser.isOperationUnreleased(versionHistory)).toBe(false);
     });
   });
@@ -87,9 +92,15 @@ describe('VersionParser.isOperationUnreleased', () => {
   describe('Custom supported version', () => {
     test('should use custom supported version when provided', () => {
       const versionHistory = '4.2.0 - added';
-      expect(VersionParser.isOperationUnreleased(versionHistory, '4.1.0')).toBe(true);
-      expect(VersionParser.isOperationUnreleased(versionHistory, '4.2.0')).toBe(false);
-      expect(VersionParser.isOperationUnreleased(versionHistory, '4.3.0')).toBe(false);
+      expect(VersionParser.isOperationUnreleased(versionHistory, '4.1.0')).toBe(
+        true
+      );
+      expect(VersionParser.isOperationUnreleased(versionHistory, '4.2.0')).toBe(
+        false
+      );
+      expect(VersionParser.isOperationUnreleased(versionHistory, '4.3.0')).toBe(
+        false
+      );
     });
   });
 });
