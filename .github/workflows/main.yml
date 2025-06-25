@@ -33,6 +33,18 @@ jobs:
       - name: Generate OpenAPI schema
         run: npm run generate
 
+      - name: Check for uncommitted changes
+        run: |
+          if ! git diff --quiet; then
+            echo "Error: There are uncommitted changes after running 'npm run generate'."
+            echo "This indicates that the generated schema is not in sync with the source code."
+            echo "Please run 'npm run generate' locally and commit the updated files."
+            echo ""
+            echo "Changed files:"
+            git diff --name-only
+            exit 1
+          fi
+
       - name: Validate OpenAPI schema
         run: npm run validate
 
