@@ -377,8 +377,8 @@ class EntityConverter {
     // Special handling for OAuth scopes properties
     if (
       this.isOAuthScopeProperty(attribute.name) &&
-      (property.type === 'array' || 
-       (Array.isArray(property.type) && property.type.includes('array')))
+      (property.type === 'array' ||
+        (Array.isArray(property.type) && property.type.includes('array')))
     ) {
       // Use the common OAuthScopes schema component for OAuth scopes
       const oauthProperty: OpenAPIProperty = {
@@ -393,7 +393,7 @@ class EntityConverter {
           description: attribute.description,
           anyOf: [
             { $ref: '#/components/schemas/OAuthScopes' },
-            { type: 'null' }
+            { type: 'null' },
           ],
           ...(attribute.deprecated && { deprecated: true }),
         };
@@ -926,19 +926,21 @@ class EntityConverter {
           type: 'object',
           ...(property.properties && { properties: property.properties }),
           ...(property.required && { required: property.required }),
-          ...(property.additionalProperties && { additionalProperties: property.additionalProperties }),
+          ...(property.additionalProperties && {
+            additionalProperties: property.additionalProperties,
+          }),
         };
-        
+
         // Create new property with anyOf
         const newProperty: OpenAPIProperty = {
           description: property.description,
           anyOf: [objectProperty, { type: 'null' }],
           ...(property.deprecated && { deprecated: property.deprecated }),
         };
-        
+
         schema.properties[key] = newProperty;
       }
-      
+
       // Recursively process nested objects
       if (property.properties) {
         this.convertNullableObjectsToAnyOf(property as OpenAPISchema);

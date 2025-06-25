@@ -145,10 +145,7 @@ describe('EntityConverter - OAuth Scopes Integration', () => {
 
     expect(schema.properties.scopes_supported).toEqual({
       description: 'Array of scopes_supported',
-      anyOf: [
-        { $ref: '#/components/schemas/OAuthScopes' },
-        { type: 'null' }
-      ],
+      anyOf: [{ $ref: '#/components/schemas/OAuthScopes' }, { type: 'null' }],
       deprecated: true,
     });
   });
