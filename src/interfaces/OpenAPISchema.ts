@@ -142,6 +142,7 @@ interface OpenAPISpec {
   info: OpenAPIInfo;
   externalDocs?: OpenAPIExternalDocs;
   servers?: OpenAPIServer[];
+  security?: Array<Record<string, string[]>>;
   paths: Record<string, OpenAPIPath>;
   components?: {
     schemas?: Record<string, OpenAPISchema>;
