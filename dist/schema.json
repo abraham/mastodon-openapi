@@ -765,9 +765,11 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorse",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -922,9 +924,11 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorsements",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "parameters": [
           {
             "name": "max_id",
@@ -3107,9 +3111,11 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#unendorse",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -12942,9 +12948,11 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        }
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ]
       }
     },
     "/api/v1/instance/terms_of_service/{date}": {
@@ -13075,9 +13083,11 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service_date",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "parameters": [
           {
             "name": "date",
@@ -20050,9 +20060,11 @@
           "url": "https://docs.joinmastodon.org/methods/oauth/#userinfo",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -27806,9 +27818,11 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#feature",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "security": [
           {
             "OAuth2": [
@@ -27957,9 +27971,11 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#unfeature",
           "description": "Official Mastodon API documentation"
         },
-        "x-badge": {
-          "name": "Unreleased"
-        },
+        "x-badges": [
+          {
+            "name": "Unreleased"
+          }
+        ],
         "security": [
           {
             "OAuth2": [

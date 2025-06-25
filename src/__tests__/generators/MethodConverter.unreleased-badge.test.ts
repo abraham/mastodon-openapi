@@ -44,7 +44,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/oauth/userinfo']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+      expect((operation as any)['x-badges']).toEqual([{ name: 'Unreleased' }]);
     });
 
     test('should add x-badge for method added in version newer than supported (4.5.0)', () => {
@@ -60,7 +60,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/future']?.put;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+      expect((operation as any)['x-badges']).toEqual([{ name: 'Unreleased' }]);
     });
 
     test('should add x-badge for method with complex version history but added in newer version', () => {
@@ -76,7 +76,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/complex']?.post;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+      expect((operation as any)['x-badges']).toEqual([{ name: 'Unreleased' }]);
     });
   });
 
@@ -94,7 +94,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/current']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
 
     test('should not add x-badge for method added in older version', () => {
@@ -110,7 +110,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/old']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
 
     test('should not add x-badge for method added in older version but with newer parameter additions', () => {
@@ -127,7 +127,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/accounts']?.post;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
 
     test('should not add x-badge for method with mixed older and current versions', () => {
@@ -143,7 +143,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/mixed']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
 
     test('should not add x-badge for method without version history', () => {
@@ -159,7 +159,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/no-versions']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
 
     test('should not add x-badge for method with empty version history', () => {
@@ -175,7 +175,7 @@ describe('MethodConverter Unreleased Badge', () => {
 
       const operation = spec.paths['/api/v1/empty-versions']?.get;
       expect(operation).toBeDefined();
-      expect((operation as any)['x-badge']).toBeUndefined();
+      expect((operation as any)['x-badges']).toBeUndefined();
     });
   });
 
@@ -195,7 +195,7 @@ describe('MethodConverter Unreleased Badge', () => {
       const operation = spec.paths['/api/v1/deprecated-unreleased']?.get;
       expect(operation).toBeDefined();
       expect(operation?.deprecated).toBe(true);
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+      expect((operation as any)['x-badges']).toEqual([{ name: 'Unreleased' }]);
     });
 
     test('should add x-badge alongside OAuth configuration', () => {
@@ -213,7 +213,7 @@ describe('MethodConverter Unreleased Badge', () => {
       const operation = spec.paths['/api/v1/unreleased-oauth']?.post;
       expect(operation).toBeDefined();
       expect(operation?.security).toBeDefined();
-      expect((operation as any)['x-badge']).toEqual({ name: 'Unreleased' });
+      expect((operation as any)['x-badges']).toEqual([{ name: 'Unreleased' }]);
     });
   });
 });
