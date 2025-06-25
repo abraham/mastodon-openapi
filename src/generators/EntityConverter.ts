@@ -355,11 +355,14 @@ class EntityConverter {
       if (attribute.nullable) {
         return {
           description: attribute.description,
-          oneOf: [{ $ref: '#/components/schemas/OAuthScopes' }, { type: 'null' }],
+          oneOf: [
+            { $ref: '#/components/schemas/OAuthScopes' },
+            { type: 'null' },
+          ],
           ...(attribute.deprecated && { deprecated: true }),
         };
       }
-      
+
       return {
         description: attribute.description,
         $ref: '#/components/schemas/OAuthScopes',
@@ -628,10 +631,11 @@ class EntityConverter {
     }
 
     // Ensure parent is an object with properties
-    const isObjectType = 
-      parentProperty.type === 'object' || 
-      (Array.isArray(parentProperty.type) && parentProperty.type.includes('object'));
-      
+    const isObjectType =
+      parentProperty.type === 'object' ||
+      (Array.isArray(parentProperty.type) &&
+        parentProperty.type.includes('object'));
+
     if (isObjectType) {
       if (!parentProperty.properties) {
         parentProperty.properties = {};

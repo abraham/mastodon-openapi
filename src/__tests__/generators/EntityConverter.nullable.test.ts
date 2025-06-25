@@ -68,7 +68,10 @@ describe('EntityConverter - Nullable Properties', () => {
 
     // Check nullable field - should be nullable
     expect(schema?.properties?.nullable_field).toBeDefined();
-    expect(schema?.properties?.nullable_field?.type).toEqual(['string', 'null']);
+    expect(schema?.properties?.nullable_field?.type).toEqual([
+      'string',
+      'null',
+    ]);
 
     // Check nullable entity - should be nullable
     expect(schema?.properties?.nullable_entity).toBeDefined();
@@ -145,7 +148,10 @@ describe('EntityConverter - Nullable Properties', () => {
 
     // Check optional field is nullable and not in required array
     expect(schema?.properties?.optional_field).toBeDefined();
-    expect(schema?.properties?.optional_field?.type).toEqual(['object', 'null']);
+    expect(schema?.properties?.optional_field?.type).toEqual([
+      'object',
+      'null',
+    ]);
     expect(schema?.required).toContain('required_field');
     expect(schema?.required).not.toContain('optional_field');
   });
@@ -196,7 +202,10 @@ describe('EntityConverter - Nullable Properties', () => {
     // The application object should have proper nested structure
     expect(schema?.properties?.application?.properties?.name).toBeDefined();
     expect(schema?.properties?.application?.properties?.website).toBeDefined();
-    expect(schema?.properties?.application?.properties?.website?.type).toEqual(['string', 'null']);
+    expect(schema?.properties?.application?.properties?.website?.type).toEqual([
+      'string',
+      'null',
+    ]);
 
     // The application's required array should only contain 'name'
     expect(schema?.properties?.application?.required).toEqual(['name']);
