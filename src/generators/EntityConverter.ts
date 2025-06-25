@@ -91,6 +91,9 @@ class EntityConverter {
       // Process attributes to build nested structure
       this.processAttributesRecursively(allAttributes, schema);
 
+      // Sort properties by required first, then alphabetically
+      this.sortSchemaProperties(schema);
+
       // Remove empty required array
       if (schema.required && schema.required.length === 0) {
         delete schema.required;
@@ -108,6 +111,62 @@ class EntityConverter {
     for (const [name, schema] of entitySchemas) {
       if (spec.components?.schemas) {
         spec.components.schemas[name] = schema;
+      }
+    }
+  }
+
+  /**
+   * Sort properties in a schema by required status first, then alphabetically
+   */
+  private sortSchemaProperties(schema: OpenAPISchema): void {
+    if (!schema.properties || Object.keys(schema.properties).length === 0) {
+      return;
+    }
+
+    const requiredFields = schema.required || [];
+    
+    // Create array of property entries with required status
+    const propertyEntries = Object.entries(schema.properties).map(([name, property]) => ({
+      name,
+      property,
+      required: requiredFields.includes(name),
+    }));
+
+    // Sort: required first, then alphabetically
+    propertyEntries.sort((a, b) => {
+      if (a.required && !b.required) return -1;
+      if (!a.required && b.required) return 1;
+      return a.name.localeCompare(b.name);
+    });
+
+    // Rebuild sorted objects
+    const sortedProperties: Record<string, any> = {};
+    const sortedRequired: string[] = [];
+
+    for (const entry of propertyEntries) {
+      sortedProperties[entry.name] = entry.property;
+      if (entry.required) {
+        sortedRequired.push(entry.name);
+      }
+    }
+
+    // Update schema with sorted properties
+    schema.properties = sortedProperties;
+    schema.required = sortedRequired.length > 0 ? sortedRequired : undefined;
+
+    // Recursively sort nested object properties
+    for (const property of Object.values(schema.properties)) {
+      if (property && typeof property === 'object') {
+        if (property.type === 'object' && property.properties) {
+          // Direct nested object
+          this.sortSchemaProperties(property as OpenAPISchema);
+        } else if (property.type === 'array' && property.items && 
+                   typeof property.items === 'object' && 
+                   property.items.type === 'object' && 
+                   property.items.properties) {
+          // Array of objects
+          this.sortSchemaProperties(property.items as OpenAPISchema);
+        }
       }
     }
   }
