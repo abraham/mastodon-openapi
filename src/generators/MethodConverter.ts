@@ -755,8 +755,10 @@ class MethodConverter {
    * Normalize endpoint path to OpenAPI format
    */
   public normalizePath(endpoint: string): string {
+    // Strip query parameters from path
+    const pathWithoutQuery = endpoint.split('?')[0];
     // Convert :param to {param} format for OpenAPI
-    return endpoint.replace(/:([^/]+)/g, '{$1}');
+    return pathWithoutQuery.replace(/:([^/]+)/g, '{$1}');
   }
 
   /**
