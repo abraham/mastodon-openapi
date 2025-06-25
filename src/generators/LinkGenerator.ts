@@ -122,11 +122,11 @@ export class LinkGenerator {
    * Add links for Status entity operations
    */
   private addStatusLinks(sourceOp: any, operations: any[]): void {
-    const statusIdPattern = /\/api\/v1\/statuses\/\{id\}/;
+    const statusIdPattern = /^\/api\/v1\/statuses\/\{id\}$/; // Exact match for /api/v1/statuses/{id}
     const statusRelatedPattern = /\/api\/v1\/statuses\/\{id\}\//;
 
     for (const targetOp of operations) {
-      // Link to individual status operations
+      // Link to individual status operations - exact match
       if (statusIdPattern.test(targetOp.endpoint)) {
         if (targetOp.httpMethod === 'GET') {
           this.linkMappings.push({
@@ -196,7 +196,7 @@ export class LinkGenerator {
    * Add links for Account entity operations
    */
   private addAccountLinks(sourceOp: any, operations: any[]): void {
-    const accountIdPattern = /\/api\/v1\/accounts\/\{id\}/;
+    const accountIdPattern = /^\/api\/v1\/accounts\/\{id\}$/; // Exact match for /api/v1/accounts/{id}
 
     for (const targetOp of operations) {
       if (
@@ -230,7 +230,40 @@ export class LinkGenerator {
       spec.components.links = {};
     }
 
-    // Group links by source operation and add them to responses
+    // First pass: Create consolidated link components for unique operation+parameters combinations
+    const uniqueLinks = new Map<string, OpenAPILink>();
+    const uniqueLinkNames = new Map<string, string>();
+
+    for (const mapping of this.linkMappings) {
+      const linkKey = `${mapping.targetOperationId}_${JSON.stringify(mapping.parameters)}`;
+
+      if (!uniqueLinks.has(linkKey)) {
+        // Create a generic name for this link based on the target operation
+        const linkComponentName = this.generateConsolidatedLinkName(
+          mapping.targetOperationId,
+          mapping.parameters
+        );
+
+        // Generate a generic description based on the target operation
+        const genericDescription = this.generateGenericDescription(
+          mapping.targetOperationId,
+          mapping.parameters
+        );
+
+        uniqueLinks.set(linkKey, {
+          operationId: mapping.targetOperationId,
+          description: genericDescription,
+          parameters: mapping.parameters,
+        });
+
+        uniqueLinkNames.set(linkKey, linkComponentName);
+
+        // Add to components
+        spec.components.links[linkComponentName] = uniqueLinks.get(linkKey)!;
+      }
+    }
+
+    // Second pass: Group links by source operation and add them to responses
     const linksBySource = new Map<string, OperationLinkMapping[]>();
 
     for (const mapping of this.linkMappings) {
@@ -271,15 +304,10 @@ export class LinkGenerator {
                 }
 
                 for (const link of links) {
-                  // Create the link component
-                  const linkComponentName = `${sourceOpId}To${link.targetOperationId}`;
-                  spec.components.links[linkComponentName] = {
-                    operationId: link.targetOperationId,
-                    description: link.linkDescription,
-                    parameters: link.parameters,
-                  };
+                  const linkKey = `${link.targetOperationId}_${JSON.stringify(link.parameters)}`;
+                  const linkComponentName = uniqueLinkNames.get(linkKey)!;
 
-                  // Reference the link component in the response
+                  // Reference the consolidated link component in the response
                   typedResponse.links[link.linkName] = {
                     $ref: `#/components/links/${linkComponentName}`,
                   };
@@ -290,6 +318,54 @@ export class LinkGenerator {
         }
       }
     }
+  }
+
+  /**
+   * Generate a consolidated name for a link based on the target operation and parameters
+   */
+  private generateConsolidatedLinkName(
+    targetOperationId: string,
+    parameters: Record<string, string>
+  ): string {
+    // For operations that use an ID parameter, append "ById"
+    if (parameters.id === '$response.body#/id') {
+      return `${targetOperationId}ById`;
+    }
+
+    // For other parameter patterns, we could add more logic here
+    // For now, just use the operation ID with a generic suffix
+    return `${targetOperationId}FromResponse`;
+  }
+
+  /**
+   * Generate a generic description for a consolidated link
+   */
+  private generateGenericDescription(
+    targetOperationId: string,
+    parameters: Record<string, string>
+  ): string {
+    // Create descriptions based on the operation ID patterns
+    if (targetOperationId.includes('delete')) {
+      return 'Delete the status using the response ID';
+    } else if (targetOperationId.includes('RebloggedBy')) {
+      return 'Get users who reblogged the status using the response ID';
+    } else if (targetOperationId.includes('FavouritedBy')) {
+      return 'Get users who favourited the status using the response ID';
+    } else if (targetOperationId.includes('Context')) {
+      return 'Get the status context using the response ID';
+    } else if (targetOperationId.includes('History')) {
+      return 'Get the status edit history using the response ID';
+    } else if (targetOperationId.includes('Source')) {
+      return 'Get the status source using the response ID';
+    } else if (targetOperationId.includes('Card')) {
+      return 'Get the status preview card using the response ID';
+    } else if (targetOperationId.includes('Account')) {
+      return 'Get the account using the response ID';
+    } else if (targetOperationId.startsWith('get')) {
+      return 'Get the resource using the response ID';
+    }
+
+    return 'Access the related resource using the response ID';
   }
 
   /**

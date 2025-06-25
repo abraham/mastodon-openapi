@@ -67,10 +67,8 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       const links = spec.components?.links || {};
       const linkNames = Object.keys(links);
 
-      // Should have links from createStatus to other operations
-      expect(linkNames.some((name) => name.includes('createStatusTo'))).toBe(
-        true
-      );
+      // Should have consolidated links by operation ID
+      expect(linkNames.some((name) => name.includes('ById'))).toBe(true);
 
       // Check that the 200 response has links
       const response200 = createStatusOp?.responses['200'];
@@ -192,12 +190,10 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
         expect(responseLinks.deleteStatus).toBeDefined();
         expect(responseLinks.getRebloggedBy).toBeDefined();
 
-        // Verify the links reference the correct components
-        expect(responseLinks.deleteStatus.$ref).toContain(
-          'createStatusTodeleteStatus'
-        );
+        // Verify the links reference the correct consolidated components
+        expect(responseLinks.deleteStatus.$ref).toContain('deleteStatusById');
         expect(responseLinks.getRebloggedBy.$ref).toContain(
-          'createStatusTogetStatusRebloggedBy'
+          'getStatusRebloggedByById'
         );
       }
 
@@ -205,14 +201,14 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       const links = spec.components?.links || {};
 
       const deleteLink = Object.entries(links).find(([name]) =>
-        name.includes('createStatusTodeleteStatus')
+        name.includes('deleteStatusById')
       );
       expect(deleteLink).toBeDefined();
       expect(deleteLink?.[1].operationId).toBe('deleteStatus');
       expect(deleteLink?.[1].parameters?.id).toBe('$response.body#/id');
 
       const rebloggedByLink = Object.entries(links).find(([name]) =>
-        name.includes('createStatusTogetStatusRebloggedBy')
+        name.includes('getStatusRebloggedByById')
       );
       expect(rebloggedByLink).toBeDefined();
       expect(rebloggedByLink?.[1].operationId).toBe('getStatusRebloggedBy');
@@ -286,9 +282,9 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
       const links = spec.components?.links || {};
       expect(Object.keys(links).length).toBeGreaterThan(0);
 
-      // Should have a link from createAccount to getAccount
+      // Should have a consolidated link from createAccount to getAccount
       const linkNames = Object.keys(links);
-      expect(linkNames.some((name) => name.includes('createAccountTo'))).toBe(
+      expect(linkNames.some((name) => name.includes('getAccountById'))).toBe(
         true
       );
     });
