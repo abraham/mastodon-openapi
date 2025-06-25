@@ -57,6 +57,7 @@ class SpecBuilder {
           description: 'Production server',
         },
       ],
+      security: [],
       paths: {},
       components: {
         schemas: {

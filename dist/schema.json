@@ -19,6 +19,7 @@
       "description": "Production server"
     }
   ],
+  "security": [],
   "paths": {
     "/api/v1/accounts": {
       "post": {

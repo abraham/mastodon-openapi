@@ -132,6 +132,13 @@ describe('OpenAPIGenerator', () => {
       expect(Object.keys(spec.components?.schemas || {}).length).toBe(2);
     });
 
+    it('should include default public security at root level', () => {
+      const spec = generator.generateSchema([], []);
+
+      expect(spec.security).toBeDefined();
+      expect(spec.security).toEqual([]);
+    });
+
     it('should sanitize schema names with :: characters', () => {
       const entities: EntityClass[] = [
         {
