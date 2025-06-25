@@ -235,4 +235,17 @@ describe('OpenAPIGenerator', () => {
       );
     });
   });
+
+  describe('license', () => {
+    it('should include license information in the info section', () => {
+      const entities: EntityClass[] = [];
+      const methodFiles: ApiMethodsFile[] = [];
+
+      const spec = generator.generateSchema(entities, methodFiles);
+
+      expect(spec.info.license).toBeDefined();
+      expect(spec.info.license?.name).toBe('MIT');
+      expect(spec.info.license?.identifier).toBe('MIT');
+    });
+  });
 });

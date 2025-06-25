@@ -1,7 +1,14 @@
+interface OpenAPILicense {
+  name: string;
+  identifier?: string;
+  url?: string;
+}
+
 interface OpenAPIInfo {
   title: string;
   version: string;
   description?: string;
+  license?: OpenAPILicense;
 }
 
 interface OpenAPIServer {
@@ -145,6 +152,7 @@ interface OpenAPISpec {
 }
 
 export {
+  OpenAPILicense,
   OpenAPIInfo,
   OpenAPIServer,
   OpenAPIExternalDocs,

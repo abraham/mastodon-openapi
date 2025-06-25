@@ -1,5 +1,6 @@
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
+import { LicenseParser } from '../parsers/LicenseParser';
 import { SUPPORTED_VERSION } from '../parsers/VersionParser';
 
 /**
@@ -13,6 +14,10 @@ class SpecBuilder {
     // Parse OAuth scopes from documentation
     const oauthParser = new OAuthScopeParser();
     const oauthScopes = oauthParser.parseOAuthScopes();
+
+    // Parse license information
+    const licenseParser = new LicenseParser();
+    const license = licenseParser.parseLicense();
 
     // Convert scopes to the format needed for OpenAPI
     const scopesObject: Record<string, string> = {};
@@ -35,14 +40,21 @@ class SpecBuilder {
       }
     }
 
+    const info: any = {
+      title: 'Mastodon API',
+      version: SUPPORTED_VERSION,
+      description:
+        'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
+    };
+
+    // Add license information if available
+    if (license) {
+      info.license = license;
+    }
+
     return {
       openapi: '3.1.0',
-      info: {
-        title: 'Mastodon API',
-        version: SUPPORTED_VERSION,
-        description:
-          'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
-      },
+      info,
       externalDocs: {
         url: 'https://docs.joinmastodon.org/api/',
         description: 'Official Mastodon API documentation',
