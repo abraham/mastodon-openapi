@@ -2,7 +2,13 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 describe('Dependabot Configuration', () => {
-  const dependabotPath = path.join(__dirname, '..', '..', '.github', 'dependabot.yml');
+  const dependabotPath = path.join(
+    __dirname,
+    '..',
+    '..',
+    '.github',
+    'dependabot.yml'
+  );
 
   it('should have a valid dependabot.yml file', () => {
     expect(fs.existsSync(dependabotPath)).toBe(true);
