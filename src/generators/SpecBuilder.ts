@@ -46,6 +46,10 @@ class SpecBuilder {
           name: 'GFDL-1.3',
           url: 'https://www.gnu.org/licenses/fdl-1.3.en.html',
         },
+        'x-logo': {
+          url: 'https://github.com/abraham/mastodon-openapi/blob/main/mastodon-logo.webp?raw=true',
+          altText: 'Mastodon logo',
+        },
       },
       externalDocs: {
         url: 'https://docs.joinmastodon.org/api/',
