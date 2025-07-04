@@ -34,6 +34,12 @@ npm run validate
 npm test
 ```
 
+### Start Development Server
+
+```bash
+npm start
+```
+
 ## Automatic Updates
 
 The repository includes a weekly GitHub Actions workflow that:

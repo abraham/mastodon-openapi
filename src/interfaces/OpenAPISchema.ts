@@ -13,6 +13,14 @@ interface OpenAPIInfo {
 interface OpenAPIServer {
   url: string;
   description?: string;
+  variables?: Record<
+    string,
+    {
+      default: string;
+      description?: string;
+      enum?: string[];
+    }
+  >;
 }
 
 interface OpenAPIExternalDocs {

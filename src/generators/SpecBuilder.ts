@@ -53,8 +53,14 @@ class SpecBuilder {
       },
       servers: [
         {
-          url: 'https://mastodon.example',
-          description: 'Production server',
+          url: 'https://{hostname}',
+          description: 'Mastodon instance',
+          variables: {
+            hostname: {
+              default: 'mastodon.example',
+              description: 'Hostname of the Mastodon instance',
+            },
+          },
         },
       ],
       security: [],
