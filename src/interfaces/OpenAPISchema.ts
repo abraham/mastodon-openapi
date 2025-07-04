@@ -8,6 +8,10 @@ interface OpenAPIInfo {
   version: string;
   description?: string;
   license?: OpenAPILicense;
+  'x-logo'?: {
+    url: string;
+    altText?: string;
+  };
 }
 
 interface OpenAPIServer {
