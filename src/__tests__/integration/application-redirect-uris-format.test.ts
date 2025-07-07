@@ -43,7 +43,7 @@ describe('Integration - Application redirect_uris URI format', () => {
     const applicationSchema = spec.components!.schemas!['Application'];
     expect(applicationSchema).toBeDefined();
     expect(applicationSchema.properties?.redirect_uris).toEqual({
-      description: 'The registered redirection URI(s) for your application.',
+      description: 'The registered redirection URI(s) for the application.',
       type: 'array',
       items: {
         type: 'string',
