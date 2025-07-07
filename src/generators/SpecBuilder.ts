@@ -1,3 +1,4 @@
+import { readFileSync } from 'fs';
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
 import { SUPPORTED_VERSION } from '../parsers/VersionParser';
@@ -10,6 +11,9 @@ class SpecBuilder {
    * Build initial OpenAPI specification with OAuth configuration
    */
   public buildInitialSpec(): OpenAPISpec {
+    // load config.json
+    const config = JSON.parse(readFileSync('config.json', 'utf8'));
+
     // Parse OAuth scopes from documentation
     const oauthParser = new OAuthScopeParser();
     const oauthScopes = oauthParser.parseOAuthScopes();
@@ -35,13 +39,14 @@ class SpecBuilder {
       }
     }
 
+    const description = `Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [${config.mastodonDocsCommit.substring(0, 7)}](https://github.com/mastodon/documentation/commit/${config.mastodonDocsCommit}).`;
+
     return {
       openapi: '3.1.0',
       info: {
         title: 'Mastodon API',
         version: SUPPORTED_VERSION,
-        description:
-          'Unofficial documentation for the Mastodon API. [Parsed](https://github.com/abraham/mastodon-openapi) from the documentation.',
+        description,
         license: {
           name: 'GFDL-1.3',
           url: 'https://www.gnu.org/licenses/fdl-1.3.en.html',
