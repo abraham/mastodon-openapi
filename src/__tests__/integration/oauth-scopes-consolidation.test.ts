@@ -74,13 +74,13 @@ describe('OAuth Scopes Consolidation', () => {
     // Check that Application and CredentialApplication retain their original descriptions
     const applicationSchema = spec.components!.schemas!.Application as any;
     expect(applicationSchema.properties?.scopes?.description).toContain(
-      'scopes for your application'
+      'scopes for the application'
     );
 
     const credentialApplicationSchema = spec.components!.schemas!
       .CredentialApplication as any;
     expect(
       credentialApplicationSchema.properties?.scopes?.description
-    ).toContain('scopes for your application');
+    ).toContain('scopes for the application');
   });
 });

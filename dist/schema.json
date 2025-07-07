@@ -346,10 +346,10 @@
           {
             "name": "id",
             "in": "query",
-            "description": "The IDs of the Accounts in the database.",
+            "description": "The IDs of the accounts.",
             "schema": {
               "type": "array",
-              "description": "The IDs of the Accounts in the database.",
+              "description": "The IDs of the accounts.",
               "items": {
                 "type": "string"
               }
@@ -11820,6 +11820,124 @@
         ]
       }
     },
+    "/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Get basic health status as JSON",
+        "description": "",
+        "tags": [
+          "health"
+        ],
+        "responses": {
+          "200": {
+            "description": "Health status",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/health/#get",
+          "description": "Official Mastodon API documentation"
+        }
+      }
+    },
     "/api/v1/instance": {
       "get": {
         "operationId": "getInstance",
@@ -13647,7 +13765,7 @@
                   },
                   "exclusive": {
                     "type": "boolean",
-                    "description": "Whether members of this list need to get removed from the “Home” feed"
+                    "description": "Whether members of this list need to get removed from the “Home” feed."
                   },
                   "replies_policy": {
                     "type": "string",
@@ -13669,7 +13787,7 @@
       "get": {
         "operationId": "getList",
         "summary": "Show a single list",
-        "description": "Fetch the list with the given ID. Used for verifying the title of a list, and which replies to show within that list.",
+        "description": "Fetch the list with the given ID.",
         "tags": [
           "lists"
         ],
@@ -13815,7 +13933,7 @@
       "put": {
         "operationId": "updateList",
         "summary": "Update a list",
-        "description": "Change the title of a list, or which replies to show.",
+        "description": "Change the properties of a list.",
         "tags": [
           "lists"
         ],
@@ -13971,7 +14089,7 @@
                   },
                   "exclusive": {
                     "type": "boolean",
-                    "description": "Whether members of this list need to get removed from the “Home” feed"
+                    "description": "Whether members of this list need to get removed from the “Home” feed."
                   },
                   "replies_policy": {
                     "type": "string",
@@ -31737,11 +31855,11 @@
             "format": "date-time"
           },
           "id": {
-            "description": "The ID of the account warning in the database.",
+            "description": "The ID of the account warning.",
             "type": "string"
           },
           "target_account": {
-            "description": "Account against which a moderation decision has been taken.",
+            "description": "Account against which a moderation decision has been taken. If this `AccountWarning` is present in a [Notification](/entities/Notification/) then this is always the same as the authenticated account that requested the notification.",
             "$ref": "#/components/schemas/Account"
           },
           "text": {
@@ -31760,7 +31878,7 @@
             ]
           },
           "status_ids": {
-            "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses.",
+            "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses. If the action is `delete_statuses` then they have been irrevocably deleted (irrespective of the appeal state), and will be inaccessible to the client.",
             "type": [
               "array",
               "null"
@@ -32862,19 +32980,23 @@
       },
       "Application": {
         "type": "object",
-        "description": "Represents an application that interfaces with the REST API to access accounts or post statuses.",
+        "description": "Represents an application that interfaces with the REST API, for example to access account information or post statuses.",
         "properties": {
+          "id": {
+            "description": "The numeric ID of the application.",
+            "type": "string"
+          },
           "name": {
-            "description": "The name of your application.",
+            "description": "The name of the application.",
             "type": "string"
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for your application.",
+            "description": "The registered redirection URI(s) for the application.",
             "deprecated": true,
             "type": "string"
           },
           "redirect_uris": {
-            "description": "The registered redirection URI(s) for your application.",
+            "description": "The registered redirection URI(s) for the application.",
             "type": "array",
             "items": {
               "type": "string",
@@ -32882,7 +33004,7 @@
             }
           },
           "scopes": {
-            "description": "The scopes for your application. This is the registered `scopes` string split on whitespace.",
+            "description": "The scopes for the application. This is the registered `scopes` string split on whitespace.",
             "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
@@ -32891,7 +33013,7 @@
             "type": "string"
           },
           "website": {
-            "description": "The website associated with your application.",
+            "description": "The website associated with the application.",
             "type": [
               "string",
               "null"
@@ -32900,6 +33022,7 @@
           }
         },
         "required": [
+          "id",
           "name",
           "redirect_uri",
           "redirect_uris",
@@ -32911,6 +33034,7 @@
           "description": "Official Mastodon API documentation"
         },
         "example": {
+          "id": "12348",
           "name": "Test Application",
           "website": "https://app.example",
           "scopes": [
@@ -32930,28 +33054,32 @@
         "description": "Additional entity definition for CredentialApplication",
         "properties": {
           "client_id": {
-            "description": "Client ID key, to be used for obtaining OAuth tokens",
+            "description": "Client ID key, to be used for obtaining OAuth tokens.",
             "type": "string"
           },
           "client_secret": {
-            "description": "Client secret key, to be used for obtaining OAuth tokens",
+            "description": "Client secret key, to be used for obtaining OAuth tokens.",
             "type": "string"
           },
           "client_secret_expires_at": {
-            "description": "When the client secret key will expire at, presently this always returns `0` indicating that OAuth Clients do not expire",
+            "description": "When the client secret key will expire. Presently this always returns `0` indicating that OAuth Clients do not expire.",
             "type": "integer"
           },
+          "id": {
+            "description": "The numeric ID of the application.",
+            "type": "string"
+          },
           "name": {
-            "description": "The name of your application.",
+            "description": "The name of the application.",
             "type": "string"
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for your application.",
+            "description": "The registered redirection URI(s) for the application.",
             "deprecated": true,
             "type": "string"
           },
           "redirect_uris": {
-            "description": "The registered redirection URI(s) for your application.",
+            "description": "The registered redirection URI(s) for the application.",
             "type": "array",
             "items": {
               "type": "string",
@@ -32959,7 +33087,7 @@
             }
           },
           "scopes": {
-            "description": "The scopes for your application. This is the registered `scopes` string split on whitespace.",
+            "description": "The scopes for the application. This is the registered `scopes` string split on whitespace.",
             "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
@@ -32968,7 +33096,7 @@
             "type": "string"
           },
           "website": {
-            "description": "The website associated with your application.",
+            "description": "The website associated with the application.",
             "type": [
               "string",
               "null"
@@ -32980,6 +33108,7 @@
           "client_id",
           "client_secret",
           "client_secret_expires_at",
+          "id",
           "name",
           "redirect_uri",
           "redirect_uris",
@@ -33298,10 +33427,10 @@
       },
       "FeaturedTag": {
         "type": "object",
-        "description": "Represents a hashtag that is featured on a profile.",
+        "description": "Represents a hashtag that is featured on an account profile.",
         "properties": {
           "id": {
-            "description": "The internal ID of the featured tag in the database.",
+            "description": "The ID of the featured tag.",
             "type": "string"
           },
           "last_status_at": {
@@ -34190,8 +34319,12 @@
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
         "properties": {
+          "exclusive": {
+            "description": "Whether members of the list should be removed from the “Home” feed.",
+            "type": "boolean"
+          },
           "id": {
-            "description": "The internal database ID of the list.",
+            "description": "The ID of the list.",
             "type": "string"
           },
           "replies_policy": {
@@ -34205,6 +34338,7 @@
           }
         },
         "required": [
+          "exclusive",
           "id",
           "replies_policy",
           "title"
@@ -34215,7 +34349,9 @@
         },
         "example": {
           "id": "12249",
-          "title": "Friends"
+          "title": "Friends",
+          "replies_policy": "list",
+          "exclusive": false
         }
       },
       "Marker": {
