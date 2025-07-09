@@ -66,5 +66,19 @@ describe('TypeInference Default Value Extraction', () => {
         TypeInference.extractDefaultValueFromDescription(description);
       expect(defaultValue).toBeUndefined();
     });
+
+    it('should handle numbers in middle of descriptive phrases', () => {
+      const description = 'Some parameter. Defaults to 20 statuses or 40 accounts.';
+      const defaultValue =
+        TypeInference.extractDefaultValueFromDescription(description);
+      expect(defaultValue).toBe('20');
+    });
+
+    it('should handle words that are followed by periods', () => {
+      const description = 'Some parameter. Defaults to value.';
+      const defaultValue =
+        TypeInference.extractDefaultValueFromDescription(description);
+      expect(defaultValue).toBe('value');
+    });
   });
 });
