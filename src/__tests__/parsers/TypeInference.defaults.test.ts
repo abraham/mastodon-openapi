@@ -59,5 +59,12 @@ describe('TypeInference Default Value Extraction', () => {
         TypeInference.extractDefaultValueFromDescription(description);
       expect(defaultValue).toBeUndefined();
     });
+
+    it('should not match descriptive phrases as default values', () => {
+      const description = 'The status content will be translated into this language. Defaults to the user\'s current locale.';
+      const defaultValue =
+        TypeInference.extractDefaultValueFromDescription(description);
+      expect(defaultValue).toBeUndefined();
+    });
   });
 });
