@@ -254,6 +254,32 @@ class TypeParser {
   }
 
   /**
+   * Convert default value string to appropriate type based on parameter type
+   */
+  private convertDefaultValue(
+    defaultValue: string,
+    paramType: string | string[] | undefined
+  ): any {
+    if (!defaultValue || !paramType || Array.isArray(paramType))
+      return defaultValue;
+
+    switch (paramType) {
+      case 'integer':
+        const intValue = parseInt(defaultValue, 10);
+        return isNaN(intValue) ? defaultValue : intValue;
+      case 'number':
+        const numValue = parseFloat(defaultValue);
+        return isNaN(numValue) ? defaultValue : numValue;
+      case 'boolean':
+        if (defaultValue.toLowerCase() === 'true') return true;
+        if (defaultValue.toLowerCase() === 'false') return false;
+        return defaultValue;
+      default:
+        return defaultValue;
+    }
+  }
+
+  /**
    * Convert API parameter to OpenAPI schema
    */
   public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
@@ -318,7 +344,10 @@ class TypeParser {
 
       // Add default value if available
       if (param.defaultValue) {
-        schema.default = param.defaultValue;
+        schema.default = this.convertDefaultValue(
+          param.defaultValue,
+          param.schema.type
+        );
       }
 
       if (param.schema.type === 'array' && param.schema.items) {
@@ -449,7 +478,10 @@ class TypeParser {
 
       // Add default value if available
       if (param.defaultValue) {
-        schema.default = param.defaultValue;
+        schema.default = this.convertDefaultValue(
+          param.defaultValue,
+          schema.type
+        );
       }
 
       return schema;
@@ -483,7 +515,10 @@ class TypeParser {
 
       // Add default value if available
       if (param.defaultValue) {
-        schema.default = param.defaultValue;
+        schema.default = this.convertDefaultValue(
+          param.defaultValue,
+          schema.type
+        );
       }
 
       return schema;
@@ -504,7 +539,10 @@ class TypeParser {
 
     // Add default value if available
     if (param.defaultValue) {
-      schema.default = param.defaultValue;
+      schema.default = this.convertDefaultValue(
+        param.defaultValue,
+        schema.type
+      );
     }
 
     return schema;
