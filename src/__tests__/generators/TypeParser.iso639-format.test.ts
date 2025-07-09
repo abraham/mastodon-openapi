@@ -10,7 +10,9 @@ describe('TypeParser - ISO 639 format detection', () => {
   });
 
   test('should apply iso-639-1 format to single string with ISO 639-1 indicator', () => {
-    const result = typeParser.parseType('String (ISO 639-1 language two-letter code)');
+    const result = typeParser.parseType(
+      'String (ISO 639-1 language two-letter code)'
+    );
 
     expect(result).toEqual({
       type: 'string',
@@ -19,7 +21,9 @@ describe('TypeParser - ISO 639 format detection', () => {
   });
 
   test('should apply iso-639-1 format to single string with ISO 639 Part 1 indicator', () => {
-    const result = typeParser.parseType('String (ISO 639 Part 1 two-letter language code)');
+    const result = typeParser.parseType(
+      'String (ISO 639 Part 1 two-letter language code)'
+    );
 
     expect(result).toEqual({
       type: 'string',
@@ -28,7 +32,9 @@ describe('TypeParser - ISO 639 format detection', () => {
   });
 
   test('should apply iso-639-1 format to array items when type indicates ISO 639-1', () => {
-    const result = typeParser.parseType('Array of String (ISO 639-1 language two-letter code)');
+    const result = typeParser.parseType(
+      'Array of String (ISO 639-1 language two-letter code)'
+    );
 
     expect(result).toEqual({
       type: 'array',
@@ -40,7 +46,9 @@ describe('TypeParser - ISO 639 format detection', () => {
   });
 
   test('should apply iso-639-1 format to array items with ISO 639 Part 1 indicator', () => {
-    const result = typeParser.parseType('Array of String (ISO 639 Part 1 two-letter language code)');
+    const result = typeParser.parseType(
+      'Array of String (ISO 639 Part 1 two-letter language code)'
+    );
 
     expect(result).toEqual({
       type: 'array',
@@ -95,7 +103,9 @@ describe('TypeParser - ISO 639 format detection', () => {
   });
 
   test('should apply iso-639-1 format with "or empty string" variation', () => {
-    const result = typeParser.parseType('String (ISO 639-1 language two-letter code) or empty string');
+    const result = typeParser.parseType(
+      'String (ISO 639-1 language two-letter code) or empty string'
+    );
 
     expect(result).toEqual({
       type: 'string',
@@ -106,7 +116,8 @@ describe('TypeParser - ISO 639 format detection', () => {
   test('should apply iso-639-1 format to parameters with ISO 639 in description', () => {
     const parameter = {
       name: 'lang',
-      description: 'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
+      description:
+        'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
       enumValues: [],
     };
 
@@ -115,7 +126,8 @@ describe('TypeParser - ISO 639 format detection', () => {
     expect(result).toEqual({
       type: 'string',
       format: 'iso-639-1',
-      description: 'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
+      description:
+        'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
     });
   });
 

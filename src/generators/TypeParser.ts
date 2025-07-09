@@ -550,9 +550,11 @@ class TypeParser {
     };
 
     // Check for ISO 639 format in parameter description
-    if (param.description && 
-        (param.description.toLowerCase().includes('iso 639') ||
-         param.description.toLowerCase().includes('iso639'))) {
+    if (
+      param.description &&
+      (param.description.toLowerCase().includes('iso 639') ||
+        param.description.toLowerCase().includes('iso639'))
+    ) {
       schema.format = 'iso-639-1';
     }
 
