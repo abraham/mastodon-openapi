@@ -85,6 +85,28 @@ class MethodConverter {
   }
 
   /**
+   * Build operation description with version history appended
+   */
+  private buildDescriptionWithVersionHistory(method: ApiMethod): string {
+    let description = method.description || '';
+
+    // Add version history if it exists
+    if (method.version && method.version.trim()) {
+      // Convert escaped newlines to actual newlines and clean up
+      const versionHistory = method.version.replace(/\\n/g, '\n').trim();
+
+      if (versionHistory) {
+        if (description) {
+          description += '\n\n';
+        }
+        description += `**Version history:**\n${versionHistory}`;
+      }
+    }
+
+    return description;
+  }
+
+  /**
    * Convert methods to OpenAPI paths and add them to the spec
    */
   public convertMethods(
@@ -233,7 +255,7 @@ class MethodConverter {
     const operation: OpenAPIOperation = {
       operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
-      description: method.description,
+      description: this.buildDescriptionWithVersionHistory(method),
       tags: [this.extractTagFromEndpoint(method.endpoint)],
       responses,
       externalDocs: this.generateMethodExternalDocs(method, category),
