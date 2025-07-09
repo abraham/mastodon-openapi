@@ -467,6 +467,8 @@ class EntityConverter {
       } else if (property.type && typeof property.type === 'string') {
         // For regular type properties, convert type to an array that includes null
         property.type = [property.type, 'null'];
+        // Preserve format property for nullable fields
+        // Note: format should still apply to the non-null value
       }
     }
 

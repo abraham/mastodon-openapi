@@ -19,6 +19,7 @@ interface ApiParameter {
     items?: ApiProperty;
     properties?: Record<string, ApiProperty>;
     enum?: string[];
+    format?: string;
   };
 }
 

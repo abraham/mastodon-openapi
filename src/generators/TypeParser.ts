@@ -347,6 +347,11 @@ class TypeParser {
           : undefined,
       };
 
+      // Add format if available
+      if (param.schema.format) {
+        schema.format = param.schema.format;
+      }
+
       // Add enum values if available - for arrays, put enum on items instead of array
       if (param.enumValues && param.enumValues.length > 0) {
         if (param.schema.type === 'array') {
