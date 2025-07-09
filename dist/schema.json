@@ -174,10 +174,6 @@
                     "type": "boolean",
                     "description": "Whether the user agrees to the local rules, terms, and policies. These should be presented to the user in order to allow them to consent before setting this parameter to TRUE."
                   },
-                  "date_of_birth": {
-                    "type": "string",
-                    "description": "String ([Date]), required if the server has a minimum age requirement."
-                  },
                   "email": {
                     "type": "string",
                     "description": "The email address to be used for login"
@@ -194,6 +190,10 @@
                     "type": "string",
                     "description": "The desired username for the account"
                   },
+                  "date_of_birth": {
+                    "type": "string",
+                    "description": "String ([Date]), required if the server has a minimum age requirement."
+                  },
                   "reason": {
                     "type": "string",
                     "description": "If registrations require manual approval, this text will be reviewed by moderators."
@@ -201,7 +201,6 @@
                 },
                 "required": [
                   "agreement",
-                  "date_of_birth",
                   "email",
                   "locale",
                   "password",
@@ -4365,16 +4364,12 @@
         "parameters": [],
         "requestBody": {
           "description": "JSON request body parameters",
-          "required": true,
+          "required": false,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
-                  "locked": {
-                    "type": "boolean",
-                    "description": "Whether manual approval of follow requests is required."
-                  },
                   "attribution_domains": {
                     "type": "array",
                     "description": "Domains of websites allowed to credit the account.",
@@ -4414,6 +4409,10 @@
                     "type": "boolean",
                     "description": "Whether public posts should be searchable to anyone."
                   },
+                  "locked": {
+                    "type": "boolean",
+                    "description": "Whether manual approval of follow requests is required."
+                  },
                   "note": {
                     "type": "string",
                     "description": "The account bio."
@@ -4441,10 +4440,7 @@
                       }
                     }
                   }
-                },
-                "required": [
-                  "locked"
-                ]
+                }
               }
             }
           }
