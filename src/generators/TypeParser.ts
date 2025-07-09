@@ -87,6 +87,12 @@ class TypeParser {
         property.format = 'uri';
       } else if (cleanType.includes('html')) {
         property.description = (property.description || '') + ' (HTML content)';
+      } else if (
+        cleanType.includes('iso 639') ||
+        cleanType.includes('iso639')
+      ) {
+        // Check for ISO 639 language code format
+        property.format = 'iso-639-1';
       }
 
       return property;
