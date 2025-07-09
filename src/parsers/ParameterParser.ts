@@ -283,9 +283,7 @@ export class ParameterParser {
         const [, name, desc] = paramMatch;
 
         const originalDesc = desc.trim();
-        const required =
-          originalDesc.includes('{{<required>}}') ||
-          originalDesc.includes('required');
+        const required = originalDesc.includes('{{<required>}}');
         const cleanDesc = TextUtils.cleanMarkdown(originalDesc);
 
         // Extract enum values from description
