@@ -31453,7 +31453,8 @@
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "format": "iso-639-1"
               }
             },
             "required": [
@@ -31895,7 +31896,8 @@
           },
           "locale": {
             "description": "The locale of the account.",
-            "type": "string"
+            "type": "string",
+            "format": "iso-639-1"
           },
           "role": {
             "description": "The current role of the account.",
@@ -33909,7 +33911,8 @@
             "description": "Primary languages of the website and its staff.",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "iso-639-1"
             }
           },
           "registrations": {
@@ -34813,7 +34816,8 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "format": "iso-639-1"
           }
         },
         "required": [
@@ -35334,7 +35338,8 @@
               "null"
             ],
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "iso-639-1"
             }
           }
         },
@@ -35692,7 +35697,8 @@
                 "type": [
                   "string",
                   "null"
-                ]
+                ],
+                "format": "iso-639-1"
               },
               "media_ids": {
                 "description": "IDs of the MediaAttachments that will be attached to the status.",
@@ -36013,7 +36019,8 @@
             "type": [
               "string",
               "null"
-            ]
+            ],
+            "format": "iso-639-1"
           },
           "muted": {
             "description": "If the current token has an authorized user: Have you muted notifications for this status's conversation?",
@@ -36650,7 +36657,8 @@
           },
           "detected_source_language": {
             "description": "The language of the source text, as auto-detected by the machine translation provider.",
-            "type": "string"
+            "type": "string",
+            "format": "iso-639-1"
           },
           "media_attachments": {
             "description": "The translated media descriptions of the status.",
@@ -36958,7 +36966,8 @@
             "description": "Primary languages of the website and its staff.",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "format": "iso-639-1"
             }
           },
           "registrations": {

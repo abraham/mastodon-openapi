@@ -87,9 +87,24 @@ class TypeParser {
         property.format = 'uri';
       } else if (cleanType.includes('html')) {
         property.description = (property.description || '') + ' (HTML content)';
+      } else if (
+        cleanType.includes('iso 639') ||
+        cleanType.includes('iso639')
+      ) {
+        // Check for ISO 639 language code format
+        property.format = 'iso-639-1';
       }
 
       return property;
+    }
+
+    // Check for ISO 639 format even if type doesn't contain "string"
+    // This handles parameter descriptions that mention ISO 639 without "String" prefix
+    if (cleanType.includes('iso 639') || cleanType.includes('iso639')) {
+      return {
+        type: 'string',
+        format: 'iso-639-1',
+      };
     }
 
     if (
@@ -454,15 +469,17 @@ class TypeParser {
     }
 
     // Fallback to parsing type from description for basic string parameters
-    // Check if this is a parameter that might have date/datetime format
-    const hasDateTimePattern =
+    // Check if this is a parameter that might have date/datetime format or ISO 639 format
+    const hasSpecialFormat =
       param.description &&
       (param.description.includes('[Date]') ||
         param.description.includes('[Datetime]') ||
         param.description.toLowerCase().includes('datetime') ||
-        param.description.toLowerCase().includes('iso8601'));
+        param.description.toLowerCase().includes('iso8601') ||
+        param.description.toLowerCase().includes('iso 639') ||
+        param.description.toLowerCase().includes('iso639'));
 
-    if (hasDateTimePattern) {
+    if (hasSpecialFormat) {
       const parsedType = this.parseType(param.description || '');
       const schema: OpenAPIProperty = {
         description: param.description
@@ -531,6 +548,15 @@ class TypeParser {
         ? EntityParsingUtils.cleanDescription(param.description)
         : undefined,
     };
+
+    // Check for ISO 639 format in parameter description
+    if (
+      param.description &&
+      (param.description.toLowerCase().includes('iso 639') ||
+        param.description.toLowerCase().includes('iso639'))
+    ) {
+      schema.format = 'iso-639-1';
+    }
 
     // Add enum values if available
     if (param.enumValues && param.enumValues.length > 0) {
