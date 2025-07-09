@@ -499,6 +499,25 @@ export class ParameterParser {
             | 'integer',
         };
 
+        // For string parameters, check for date/datetime formats
+        if (param.schema.type === 'string' && rawParam.description) {
+          const description = rawParam.description;
+          
+          // Check for date/datetime formats
+          if (description.includes('[Date]') && 
+              !description.toLowerCase().includes('[datetime]') && 
+              !description.toLowerCase().includes('[iso8601') && 
+              !description.toLowerCase().includes('iso8601')) {
+            param.schema.format = 'date';
+          } else if (description.includes('[Datetime]') || 
+                     description.includes('[ISO8601') || 
+                     description.toLowerCase().includes('iso8601') ||
+                     (description.toLowerCase().includes('datetime') && 
+                      !description.toLowerCase().includes('datetime-format'))) {
+            param.schema.format = 'date-time';
+          }
+        }
+
         parameters.push(param);
       }
     }

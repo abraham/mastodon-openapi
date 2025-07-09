@@ -192,7 +192,8 @@
                   },
                   "date_of_birth": {
                     "type": "string",
-                    "description": "String ([Date]), required if the server has a minimum age requirement."
+                    "description": "String ([Date]), required if the server has a minimum age requirement.",
+                    "format": "date"
                   },
                   "reason": {
                     "type": "string",
@@ -22150,7 +22151,8 @@
                 "properties": {
                   "scheduled_at": {
                     "type": "string",
-                    "description": "[Datetime] at which the status will be published. Must be at least 5 minutes into the future."
+                    "description": "[Datetime] at which the status will be published. Must be at least 5 minutes into the future.",
+                    "format": "date-time"
                   }
                 }
               }
@@ -37872,7 +37874,8 @@
           },
           "scheduled_at": {
             "type": "string",
-            "description": "[Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future."
+            "description": "[Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
+            "format": "date-time"
           },
           "sensitive": {
             "type": "boolean",
