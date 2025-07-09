@@ -35,7 +35,7 @@
       "post": {
         "operationId": "createAccount",
         "summary": "Register an account",
-        "description": "Creates a user and account records. Returns an account access token for the app that initiated the request. The app should save this token for later, and should wait for the user to confirm their account by clicking a link in their email inbox.",
+        "description": "Creates a user and account records. Returns an account access token for the app that initiated the request. The app should save this token for later, and should wait for the user to confirm their account by clicking a link in their email inbox.\n\nVersion history:\n\n2.7.0 - added\\\n3.0.0 - added `reason` parameter\\\n3.4.0 - added `details` to failure response\\\n4.4.0 - added `date_of_birth` parameter",
         "tags": [
           "accounts"
         ],
@@ -214,7 +214,7 @@
       "get": {
         "operationId": "getAccounts",
         "summary": "Get multiple accounts",
-        "description": "View information about multiple profiles.",
+        "description": "View information about multiple profiles.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "accounts"
         ],
@@ -361,7 +361,7 @@
       "get": {
         "operationId": "getAccount",
         "summary": "Get account",
-        "description": "View information about a profile.",
+        "description": "View information about a profile.\n\nVersion history:\n\n0.0.0 - added\\\n2.4.0 - returns 410 if account is suspended\\\n3.3.0 - returns an Account with `suspended: true` instead of 410",
         "tags": [
           "accounts"
         ],
@@ -502,7 +502,7 @@
       "post": {
         "operationId": "postAccountBlock",
         "summary": "Block account",
-        "description": "Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline)",
+        "description": "Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline)\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -650,7 +650,7 @@
       "post": {
         "operationId": "postAccountEndorse",
         "summary": "Feature account on your profile",
-        "description": "Add the given account to the user's featured profiles.",
+        "description": "Add the given account to the user's featured profiles.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "accounts"
         ],
@@ -798,7 +798,7 @@
       "get": {
         "operationId": "getAccountEndorsements",
         "summary": "Get featured accounts",
-        "description": "Accounts that the user is currently featuring on their profile.",
+        "description": "Accounts that the user is currently featuring on their profile.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "accounts"
         ],
@@ -973,7 +973,7 @@
       "get": {
         "operationId": "getAccountFeaturedTags",
         "summary": "Get account's featured tags",
-        "description": "Tags featured by this account.",
+        "description": "Tags featured by this account.\n\nVersion history:\n\n3.3.0 - added",
         "tags": [
           "accounts"
         ],
@@ -1117,7 +1117,7 @@
       "post": {
         "operationId": "postAccountFollow",
         "summary": "Follow account",
-        "description": "Follow the given account. Can also be used to update whether to show reblogs or enable notifications.",
+        "description": "Follow the given account. Can also be used to update whether to show reblogs or enable notifications.\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - added `notify`\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`\\\n4.0.0 - added `languages`",
         "tags": [
           "accounts"
         ],
@@ -1295,7 +1295,7 @@
       "get": {
         "operationId": "getAccountFollowers",
         "summary": "Get account's followers",
-        "description": "Accounts which follow the given account, if network is not hidden by the account owner.",
+        "description": "Accounts which follow the given account, if network is not hidden by the account owner.\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now\\\n4.0.0 - no longer requires an app token + `read:accounts`",
         "tags": [
           "accounts"
         ],
@@ -1482,7 +1482,7 @@
       "get": {
         "operationId": "getAccountFollowing",
         "summary": "Get account's following",
-        "description": "Accounts which the given account is following, if network is not hidden by the account owner.",
+        "description": "Accounts which the given account is following, if network is not hidden by the account owner.\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now\\\n4.0.0 - no longer requires an app token + `read:accounts`",
         "tags": [
           "accounts"
         ],
@@ -1664,7 +1664,7 @@
       "get": {
         "operationId": "getAccountIdentityProofs",
         "summary": "Identity proofs",
-        "description": "",
+        "description": "Version history:\n\n2.8.0 - added\\\n3.5.0 - deprecated. now returns an empty array.",
         "tags": [
           "accounts"
         ],
@@ -1814,7 +1814,7 @@
       "get": {
         "operationId": "getAccountLists",
         "summary": "Get lists containing this account",
-        "description": "User lists that you have added this account to.",
+        "description": "User lists that you have added this account to.\n\nVersion history:\n\n2.1.0 - added",
         "tags": [
           "accounts"
         ],
@@ -1965,7 +1965,7 @@
       "post": {
         "operationId": "postAccountMute",
         "summary": "Mute account",
-        "description": "Mute the given account. Clients should filter statuses and notifications from this account, if received (e.g. due to a boost in the Home timeline).",
+        "description": "Mute the given account. Clients should filter statuses and notifications from this account, if received (e.g. due to a boost in the Home timeline).\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - added `duration`\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -2136,7 +2136,7 @@
       "post": {
         "operationId": "postAccountNote",
         "summary": "Set private note on profile",
-        "description": "Sets a private note on a user.",
+        "description": "Sets a private note on a user.\n\nVersion history:\n\n3.2.0 - added",
         "tags": [
           "accounts"
         ],
@@ -2301,7 +2301,7 @@
       "post": {
         "operationId": "postAccountPin",
         "summary": "Feature account on your profile",
-        "description": "Add the given account to the user's featured profiles. (Featured profiles are currently shown on the user's own public profile.)",
+        "description": "Add the given account to the user's featured profiles. (Featured profiles are currently shown on the user's own public profile.)\n\nVersion history:\n\n2.5.0 - added\\\n4.0.0 - calling this method is now idempotent\\\n4.4.0 - deprecated in favor of `/api/v1/accounts/:id/endorse`",
         "tags": [
           "accounts"
         ],
@@ -2450,7 +2450,7 @@
       "post": {
         "operationId": "postAccountRemoveFromFollowers",
         "summary": "Remove account from followers",
-        "description": "Remove the given account from your followers.",
+        "description": "Remove the given account from your followers.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "accounts"
         ],
@@ -2598,7 +2598,7 @@
       "get": {
         "operationId": "getAccountStatuses",
         "summary": "Get account's statuses",
-        "description": "Statuses posted to the given account.",
+        "description": "Statuses posted to the given account.\n\nVersion history:\n\n0.0.0 - added\\\n1.4.2 - add `only_media` and `exclude_replies`\\\n1.6.0 - add `pinned`\\\n2.6.0 - add `min_id`\\\n2.7.0 - add `exclude_reblogs` and allow unauthed use\\\n2.8.0 - add `tagged` parameter\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "accounts"
         ],
@@ -2838,7 +2838,7 @@
       "post": {
         "operationId": "postAccountUnblock",
         "summary": "Unblock account",
-        "description": "Unblock the given account.",
+        "description": "Unblock the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -2986,7 +2986,7 @@
       "post": {
         "operationId": "postAccountUnendorse",
         "summary": "Unfeature account from profile",
-        "description": "Remove the given account from the user's featured profiles.",
+        "description": "Remove the given account from the user's featured profiles.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "accounts"
         ],
@@ -3134,7 +3134,7 @@
       "post": {
         "operationId": "postAccountUnfollow",
         "summary": "Unfollow account",
-        "description": "Unfollow the given account.",
+        "description": "Unfollow the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -3282,7 +3282,7 @@
       "post": {
         "operationId": "postAccountUnmute",
         "summary": "Unmute account",
-        "description": "Unmute the given account.",
+        "description": "Unmute the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -3430,7 +3430,7 @@
       "post": {
         "operationId": "postAccountUnpin",
         "summary": "Unfeature account from profile",
-        "description": "Remove the given account from the user's featured profiles.",
+        "description": "Remove the given account from the user's featured profiles.\n\nVersion history:\n\n2.5.0 - added\\\n4.4.0 - deprecated in favor of `/api/v1/accounts/:id/unendorse`",
         "tags": [
           "accounts"
         ],
@@ -3579,7 +3579,7 @@
       "get": {
         "operationId": "getFamiliarFollowers",
         "summary": "Find familiar followers",
-        "description": "Obtain a list of all accounts that follow a given account, filtered for accounts you follow.",
+        "description": "Obtain a list of all accounts that follow a given account, filtered for accounts you follow.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "accounts"
         ],
@@ -3733,7 +3733,7 @@
       "get": {
         "operationId": "getAccountLookup",
         "summary": "Lookup account ID from Webfinger address",
-        "description": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.",
+        "description": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.\n\nVersion history:\n\n3.4.0 - added",
         "tags": [
           "accounts"
         ],
@@ -3875,7 +3875,7 @@
       "get": {
         "operationId": "getAccountRelationships",
         "summary": "Check relationships to other accounts",
-        "description": "Find out whether a given account is followed, blocked, muted, etc.",
+        "description": "Find out whether a given account is followed, blocked, muted, etc.\n\nVersion history:\n\n0.0.0 - added\\\n4.3.0 - added `with_suspended` parameter",
         "tags": [
           "accounts"
         ],
@@ -4039,7 +4039,7 @@
       "get": {
         "operationId": "getAccountSearch",
         "summary": "Search for matching accounts",
-        "description": "Search for matching accounts by username or display name.",
+        "description": "Search for matching accounts by username or display name.\n\nVersion history:\n\n0.0.0 - added\\\n2.8.0 - add `limit`, `offset` and `following`",
         "tags": [
           "accounts"
         ],
@@ -4230,7 +4230,7 @@
       "patch": {
         "operationId": "patchAccountsUpdateCredentials",
         "summary": "Update account credentials",
-        "description": "Update the user's display and preferences.",
+        "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter",
         "tags": [
           "accounts"
         ],
@@ -4451,7 +4451,7 @@
       "get": {
         "operationId": "getAccountsVerifyCredentials",
         "summary": "Verify account credentials",
-        "description": "Test to make sure that the user token works.",
+        "description": "Test to make sure that the user token works.\n\nVersion history:\n\n0.0.0 - added\\\n4.3.0 - added `profile` scope",
         "tags": [
           "accounts"
         ],
@@ -4589,7 +4589,7 @@
       "get": {
         "operationId": "getAnnouncements",
         "summary": "View all announcements",
-        "description": "See all currently active announcements set by admins.",
+        "description": "See all currently active announcements set by admins.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "announcements"
         ],
@@ -4727,7 +4727,7 @@
       "post": {
         "operationId": "postAnnouncementDismiss",
         "summary": "Dismiss an announcement",
-        "description": "Allows a user to mark the announcement as read.",
+        "description": "Allows a user to mark the announcement as read.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "announcements"
         ],
@@ -4863,7 +4863,7 @@
       "put": {
         "operationId": "updateAnnouncementReaction",
         "summary": "Add a reaction to an announcement",
-        "description": "React to an announcement with an emoji.",
+        "description": "React to an announcement with an emoji.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "announcements"
         ],
@@ -5006,7 +5006,7 @@
       "delete": {
         "operationId": "deleteAnnouncementReaction",
         "summary": "Remove a reaction from an announcement",
-        "description": "Undo a react emoji to an announcement.",
+        "description": "Undo a react emoji to an announcement.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "announcements"
         ],
@@ -5151,7 +5151,7 @@
       "post": {
         "operationId": "createApp",
         "summary": "Create an application",
-        "description": "Create a new application to obtain OAuth2 credentials.",
+        "description": "Create a new application to obtain OAuth2 credentials.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.2 - now returns `vapid_key`\\\n4.3.0 - deprecated `vapid_key`, please see [api/v2/instance]\\\n4.3.0 - added support for multiple `redirect_uris` in Form data parameters\\\n4.3.0 - added `redirect_uris` response property\\\n4.3.0 - deprecated `redirect_uri` response property, since this can be a non-URI if multiple `redirect_uris` are registered, use `redirect_uris` instead\\\n4.3.0 - changed entity type from [Application] to [CredentialApplication]",
         "tags": [
           "apps"
         ],
@@ -5321,7 +5321,7 @@
       "get": {
         "operationId": "getAppsVerifyCredentials",
         "summary": "Verify your app works",
-        "description": "Confirm that the app's OAuth2 credentials work.",
+        "description": "Confirm that the app's OAuth2 credentials work.\n\nVersion history:\n\n2.0.0 - added\\\n2.7.2 - now returns `vapid_key`\\\n4.3.0 - deprecated `vapid_key`, please see [api/v2/instance]\\\n4.3.0 - removed needing `read` scope to access this API, now any valid App token can be used\\\n4.3.0 - added `scopes` and `redirect_uris` properties",
         "tags": [
           "apps"
         ],
@@ -5456,7 +5456,7 @@
       "get": {
         "operationId": "getBlocks",
         "summary": "View blocked users",
-        "description": "Returns your blocked accounts.",
+        "description": "Returns your blocked accounts.\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "blocks"
         ],
@@ -5641,7 +5641,7 @@
       "get": {
         "operationId": "getBookmarks",
         "summary": "View bookmarked statuses",
-        "description": "Statuses the user has bookmarked.",
+        "description": "Statuses the user has bookmarked.\n\nVersion history:\n\n3.1.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "bookmarks"
         ],
@@ -5826,7 +5826,7 @@
       "get": {
         "operationId": "getConversations",
         "summary": "View all conversations",
-        "description": "",
+        "description": "Version history:\n\n2.6.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "conversations"
         ],
@@ -6011,7 +6011,7 @@
       "delete": {
         "operationId": "deleteConversation",
         "summary": "Remove a conversation",
-        "description": "Removes a conversation from your list of conversations.",
+        "description": "Removes a conversation from your list of conversations.\n\nVersion history:\n\n2.6.0 - added",
         "tags": [
           "conversations"
         ],
@@ -6147,7 +6147,7 @@
       "post": {
         "operationId": "postConversationRead",
         "summary": "Mark a conversation as read",
-        "description": "",
+        "description": "Version history:\n\n2.6.0 - added",
         "tags": [
           "conversations"
         ],
@@ -6295,7 +6295,7 @@
       "get": {
         "operationId": "getCustomEmojis",
         "summary": "View all custom emoji",
-        "description": "Returns custom emojis that are available on the server.",
+        "description": "Returns custom emojis that are available on the server.\n\nVersion history:\n\n2.0.0 - added\\\n3.0.0 - optional `category` added to response",
         "tags": [
           "custom_emojis"
         ],
@@ -6428,7 +6428,7 @@
       "get": {
         "operationId": "getDirectory",
         "summary": "View profile directory",
-        "description": "List accounts visible in the directory.",
+        "description": "List accounts visible in the directory.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "directory"
         ],
@@ -6928,7 +6928,7 @@
       "delete": {
         "operationId": "deleteDomainBlocks",
         "summary": "Unblock a domain",
-        "description": "Remove a domain block, if it exists in the user's array of blocked domains.",
+        "description": "Remove a domain block, if it exists in the user's array of blocked domains.\n\nVersion history:\n\n1.4.0 - added",
         "tags": [
           "domain_blocks"
         ],
@@ -7075,7 +7075,7 @@
       "post": {
         "operationId": "createEmailConfirmations",
         "summary": "Resend confirmation email",
-        "description": "Resend a new confirmation email. If an email is provided, updates the unconfirmed user's email before resending the confirmation email.",
+        "description": "Resend a new confirmation email. If an email is provided, updates the unconfirmed user's email before resending the confirmation email.\n\nVersion history:\n\n3.4.0 - added",
         "tags": [
           "emails"
         ],
@@ -7216,7 +7216,7 @@
       "get": {
         "operationId": "getEndorsements",
         "summary": "View currently featured profiles",
-        "description": "Accounts that the user is currently featuring on their profile.",
+        "description": "Accounts that the user is currently featuring on their profile.\n\nVersion history:\n\n2.5.0 - added",
         "tags": [
           "endorsements"
         ],
@@ -7577,7 +7577,7 @@
       "get": {
         "operationId": "getFeaturedTags",
         "summary": "View your featured tags",
-        "description": "List all hashtags featured on your profile.",
+        "description": "List all hashtags featured on your profile.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "featured_tags"
         ],
@@ -7715,7 +7715,7 @@
       "post": {
         "operationId": "createFeaturedTag",
         "summary": "Feature a tag",
-        "description": "Promote a hashtag on your profile.",
+        "description": "Promote a hashtag on your profile.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "featured_tags"
         ],
@@ -7873,7 +7873,7 @@
       "delete": {
         "operationId": "deleteFeaturedTag",
         "summary": "Unfeature a tag",
-        "description": "Stop promoting a hashtag on your profile.",
+        "description": "Stop promoting a hashtag on your profile.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "featured_tags"
         ],
@@ -8009,7 +8009,7 @@
       "get": {
         "operationId": "getFeaturedTagSuggestions",
         "summary": "View suggested tags to feature",
-        "description": "Shows up to 10 recently-used tags.",
+        "description": "Shows up to 10 recently-used tags.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "featured_tags"
         ],
@@ -8149,7 +8149,7 @@
       "get": {
         "operationId": "getFilters",
         "summary": "View your filters",
-        "description": "",
+        "description": "Version history:\n\n2.4.3 - added\\\n4.0.0 - deprecated. For compatibility purposes, now returns a List of V1::Filter, with each V1::Filter representing one FilterKeyword (with the `keyword` being presented in the `phrase` attribute)",
         "tags": [
           "filters"
         ],
@@ -8285,7 +8285,7 @@
       "post": {
         "operationId": "createFilter",
         "summary": "Create a filter",
-        "description": "",
+        "description": "Version history:\n\n2.4.3 - added\\\n3.1.0 - added `account` context to filter in profile views\\\n4.0.0 - deprecated. For compatibility purposes, now returns a V1::Filter representing one FilterKeyword (with the `keyword` being presented in the `phrase` attribute). This method will create a Filter that contains only one FilterKeyword. The `title` of the Filter and the `keyword` of the FilterKeyword will be set equal to the `phrase` provided.",
         "tags": [
           "filters"
         ],
@@ -8466,7 +8466,7 @@
       "get": {
         "operationId": "getFilter",
         "summary": "View a single filter",
-        "description": "",
+        "description": "Version history:\n\n2.4.3 - added\\\n4.0.0 - deprecated. For compatibility purposes, now returns a V1::Filter representing one FilterKeyword (with the `keyword` being presented in the `phrase` attribute)",
         "tags": [
           "filters"
         ],
@@ -8613,7 +8613,7 @@
       "put": {
         "operationId": "updateFilter",
         "summary": "Update a filter",
-        "description": "Replaces a filter's parameters in-place.",
+        "description": "Replaces a filter's parameters in-place.\n\nVersion history:\n\n2.4.3 - added\\\n3.1.0 - added `account` context to filter in profile views\\\n4.0.0 - deprecated. For compatibility purposes, now returns a V1::Filter representing one FilterKeyword (with the `keyword` being presented in the `phrase` attribute). This method will return an error if you attempt to change `expires_in`, `irreversible`, or `context` for a filter with multiple keywords. Changing `phrase` and `whole_word` is always safe.",
         "tags": [
           "filters"
         ],
@@ -8802,7 +8802,7 @@
       "delete": {
         "operationId": "deleteFilter",
         "summary": "Remove a filter",
-        "description": "",
+        "description": "Version history:\n\n2.4.3 - added\\\n4.0.0 - deprecated. This method will delete only the FilterKeyword from its parent Filter. To delete the parent Filter, you must use the v2 filters API.",
         "tags": [
           "filters"
         ],
@@ -8939,7 +8939,7 @@
       "get": {
         "operationId": "getFiltersV2",
         "summary": "View all filters",
-        "description": "Obtain a list of all filter groups for the current user.",
+        "description": "Obtain a list of all filter groups for the current user.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -9077,7 +9077,7 @@
       "post": {
         "operationId": "createFilterV2",
         "summary": "Create a filter",
-        "description": "Create a filter group with the given parameters.",
+        "description": "Create a filter group with the given parameters.\n\nVersion history:\n\n4.0.0 - added\\\n4.4.0 (`mastodon` [API version] 5) - added `blur` value to `filter_action` attribute",
         "tags": [
           "filters"
         ],
@@ -9276,7 +9276,7 @@
       "get": {
         "operationId": "getFilterKeywordsV2",
         "summary": "View keywords added to a filter",
-        "description": "List all keywords attached to the current filter group.",
+        "description": "List all keywords attached to the current filter group.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -9425,7 +9425,7 @@
       "post": {
         "operationId": "postFilterKeywordsV2",
         "summary": "Add a keyword to a filter",
-        "description": "Add the given keyword to the specified filter group",
+        "description": "Add the given keyword to the specified filter group\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -9597,7 +9597,7 @@
       "get": {
         "operationId": "getFilterStatusesV2",
         "summary": "View all status filters",
-        "description": "Obtain a list of all status filters within this filter group.",
+        "description": "Obtain a list of all status filters within this filter group.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -9746,7 +9746,7 @@
       "post": {
         "operationId": "postFilterStatusesV2",
         "summary": "Add a status to a filter group",
-        "description": "Add a status filter to the current filter group.",
+        "description": "Add a status filter to the current filter group.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -9914,7 +9914,7 @@
       "get": {
         "operationId": "getFilterV2",
         "summary": "View a specific filter",
-        "description": "Obtain a single filter group owned by the current user.",
+        "description": "Obtain a single filter group owned by the current user.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10060,7 +10060,7 @@
       "put": {
         "operationId": "updateFilterV2",
         "summary": "Update a filter",
-        "description": "Update a filter group with the given parameters.",
+        "description": "Update a filter group with the given parameters.\n\nVersion history:\n\n4.0.0 - added\\\n4.4.0 (`mastodon` [API version] 5) - added `blur` value to `filter_action` attribute",
         "tags": [
           "filters"
         ],
@@ -10263,7 +10263,7 @@
       "delete": {
         "operationId": "deleteFilterV2",
         "summary": "Delete a filter",
-        "description": "Delete a filter group with the given id.",
+        "description": "Delete a filter group with the given id.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10399,7 +10399,7 @@
       "get": {
         "operationId": "getFiltersKeywordsByIdV2",
         "summary": "View a single keyword",
-        "description": "Get one filter keyword by the given id.",
+        "description": "Get one filter keyword by the given id.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10545,7 +10545,7 @@
       "put": {
         "operationId": "updateFiltersKeywordsByIdV2",
         "summary": "Edit a keyword within a filter",
-        "description": "Update the given filter keyword.",
+        "description": "Update the given filter keyword.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10715,7 +10715,7 @@
       "delete": {
         "operationId": "deleteFiltersKeywordsByIdV2",
         "summary": "Remove keywords from a filter",
-        "description": "Deletes the given filter keyword.",
+        "description": "Deletes the given filter keyword.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10851,7 +10851,7 @@
       "get": {
         "operationId": "getFiltersStatusesByIdV2",
         "summary": "View a single status filter",
-        "description": "Obtain a single status filter.",
+        "description": "Obtain a single status filter.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -10997,7 +10997,7 @@
       "delete": {
         "operationId": "deleteFiltersStatusesByIdV2",
         "summary": "Remove a status from a filter group",
-        "description": "Remove a status filter from the current filter group.",
+        "description": "Remove a status filter from the current filter group.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "filters"
         ],
@@ -11145,7 +11145,7 @@
       "get": {
         "operationId": "getFollowRequests",
         "summary": "View pending follow requests",
-        "description": "",
+        "description": "Version history:\n\n0.0.0 - added",
         "tags": [
           "follow_requests"
         ],
@@ -11322,7 +11322,7 @@
       "post": {
         "operationId": "postFollowRequestAuthorize",
         "summary": "Accept follow request",
-        "description": "",
+        "description": "Version history:\n\n0.0.0 - added\\\n3.0.0 - now returns Relationship instead of nothing",
         "tags": [
           "follow_requests"
         ],
@@ -11471,7 +11471,7 @@
       "post": {
         "operationId": "postFollowRequestReject",
         "summary": "Reject follow request",
-        "description": "",
+        "description": "Version history:\n\n0.0.0 - added\\\n3.0.0 - now returns Relationship instead of nothing",
         "tags": [
           "follow_requests"
         ],
@@ -11620,7 +11620,7 @@
       "get": {
         "operationId": "getFollowedTags",
         "summary": "View all followed tags",
-        "description": "List your followed hashtags.",
+        "description": "List your followed hashtags.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - add pagination headers",
         "tags": [
           "followed_tags"
         ],
@@ -11805,7 +11805,7 @@
       "get": {
         "operationId": "getHealth",
         "summary": "Get basic health status as JSON",
-        "description": "",
+        "description": "Version history:\n\n3.0.0 - added",
         "tags": [
           "health"
         ],
@@ -11923,7 +11923,7 @@
       "get": {
         "operationId": "getInstance",
         "summary": "View server information (v1)",
-        "description": "Obtain general information about the server. See [api/v2/instance]({{< relref \"methods/Instance#v2\">}}) instead.",
+        "description": "Obtain general information about the server. See [api/v2/instance]({{< relref \"methods/Instance#v2\">}}) instead.\n\nVersion history:\n\n1.1.0 - added\\\n3.0.0 - requires user token if instance is in whitelist mode\\\n3.1.4 - added `invites_enabled` to response\\\n3.4.0 - added `rules`\\\n3.4.2 - added `configuration`\\\n4.0.0 - deprecated. added `configuration[accounts]`.",
         "tags": [
           "instance"
         ],
@@ -12054,7 +12054,7 @@
       "get": {
         "operationId": "getInstanceActivity",
         "summary": "Weekly activity",
-        "description": "Instance activity over the last 3 months, binned weekly.",
+        "description": "Instance activity over the last 3 months, binned weekly.\n\nVersion history:\n\n2.1.2 - added\\\n3.0.0 - requires user token if instance is in whitelist mode",
         "tags": [
           "instance"
         ],
@@ -12274,7 +12274,7 @@
       "get": {
         "operationId": "getInstanceDomainBlocks",
         "summary": "View moderated servers",
-        "description": "Obtain a list of domains that have been blocked.",
+        "description": "Obtain a list of domains that have been blocked.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "instance"
         ],
@@ -12412,7 +12412,7 @@
       "get": {
         "operationId": "getInstanceExtendedDescription",
         "summary": "View extended description",
-        "description": "Obtain an extended description of this server",
+        "description": "Obtain an extended description of this server\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "instance"
         ],
@@ -12542,7 +12542,7 @@
       "get": {
         "operationId": "getInstancePeers",
         "summary": "List of connected domains",
-        "description": "Domains that this instance is aware of.",
+        "description": "Domains that this instance is aware of.\n\nVersion history:\n\n2.1.2 - added\\\n3.0.0 - requires user token if instance is in whitelist mode",
         "tags": [
           "instance"
         ],
@@ -12670,7 +12670,7 @@
       "get": {
         "operationId": "getInstancePrivacyPolicy",
         "summary": "View privacy policy",
-        "description": "Obtain the contents of this server's privacy policy.",
+        "description": "Obtain the contents of this server's privacy policy.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "instance"
         ],
@@ -12800,7 +12800,7 @@
       "get": {
         "operationId": "getInstanceRules",
         "summary": "List of rules",
-        "description": "Rules that the users of this service should follow.",
+        "description": "Rules that the users of this service should follow.\n\nVersion history:\n\n3.4.0 - added",
         "tags": [
           "instance"
         ],
@@ -12933,7 +12933,7 @@
       "get": {
         "operationId": "getInstanceTermsOfService",
         "summary": "View terms of service",
-        "description": "Obtain the contents of this server's terms of service, if configured.",
+        "description": "Obtain the contents of this server's terms of service, if configured.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "instance"
         ],
@@ -13063,7 +13063,7 @@
       "get": {
         "operationId": "getInstanceTermsOfServiceByDate",
         "summary": "View a specific version of the terms of service",
-        "description": "Obtain the contents of this server's terms of service, for a specified date, if configured.",
+        "description": "Obtain the contents of this server's terms of service, for a specified date, if configured.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "instance"
         ],
@@ -13204,7 +13204,7 @@
       "get": {
         "operationId": "getInstanceTranslationLanguages",
         "summary": "View translation languages",
-        "description": "Translation language pairs supported by the translation engine used by the server.",
+        "description": "Translation language pairs supported by the translation engine used by the server.\n\nVersion history:\n\n4.2.0 - added",
         "tags": [
           "instance"
         ],
@@ -13322,7 +13322,7 @@
       "get": {
         "operationId": "getInstanceV2",
         "summary": "View server information",
-        "description": "Obtain general information about the server.",
+        "description": "Obtain general information about the server.\n\nVersion history:\n\n4.0.0 - added\\\n4.3.0 - added `configuration.vapid.public_key`",
         "tags": [
           "instance"
         ],
@@ -13452,7 +13452,7 @@
       "get": {
         "operationId": "getLists",
         "summary": "View your lists",
-        "description": "Fetch all lists that the user owns.",
+        "description": "Fetch all lists that the user owns.\n\nVersion history:\n\n2.1.0 - added",
         "tags": [
           "lists"
         ],
@@ -13590,7 +13590,7 @@
       "post": {
         "operationId": "createList",
         "summary": "Create a list",
-        "description": "Create a new list.",
+        "description": "Create a new list.\n\nVersion history:\n\n2.1.0 - added\\\n3.3.0 - added `replies_policy`\\\n4.2.0 - added `exclusive`",
         "tags": [
           "lists"
         ],
@@ -13758,7 +13758,7 @@
       "get": {
         "operationId": "getList",
         "summary": "Show a single list",
-        "description": "Fetch the list with the given ID.",
+        "description": "Fetch the list with the given ID.\n\nVersion history:\n\n2.1.0 - added",
         "tags": [
           "lists"
         ],
@@ -13904,7 +13904,7 @@
       "put": {
         "operationId": "updateList",
         "summary": "Update a list",
-        "description": "Change the properties of a list.",
+        "description": "Change the properties of a list.\n\nVersion history:\n\n2.1.0 - added\\\n3.3.0 - added `replies_policy`\n4.2.0 - added `exclusive`",
         "tags": [
           "lists"
         ],
@@ -14080,7 +14080,7 @@
       "delete": {
         "operationId": "deleteList",
         "summary": "Delete a list",
-        "description": "",
+        "description": "Version history:\n\n2.1.0 - added",
         "tags": [
           "lists"
         ],
@@ -14216,7 +14216,7 @@
       "get": {
         "operationId": "getListAccounts",
         "summary": "View accounts in a list",
-        "description": "",
+        "description": "Version history:\n\n2.1.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "lists"
         ],
@@ -14408,7 +14408,7 @@
       "post": {
         "operationId": "postListAccounts",
         "summary": "Add accounts to a list",
-        "description": "Add accounts to the given list. Note that the user must be following these accounts.",
+        "description": "Add accounts to the given list. Note that the user must be following these accounts.\n\nVersion history:\n\n2.1.0 - added",
         "tags": [
           "lists"
         ],
@@ -14565,7 +14565,7 @@
       "delete": {
         "operationId": "deleteListAccounts",
         "summary": "Remove accounts from list",
-        "description": "Remove accounts from the given list.",
+        "description": "Remove accounts from the given list.\n\nVersion history:\n\n2.1.0 - added",
         "tags": [
           "lists"
         ],
@@ -14724,7 +14724,7 @@
       "get": {
         "operationId": "getMarkers",
         "summary": "Get saved timeline positions",
-        "description": "Get current positions in timelines.",
+        "description": "Get current positions in timelines.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "markers"
         ],
@@ -14877,7 +14877,7 @@
       "post": {
         "operationId": "createMarker",
         "summary": "Save your position in a timeline",
-        "description": "Save current position in timeline.",
+        "description": "Save current position in timeline.\n\nVersion history:\n\n3.0.0 - added",
         "tags": [
           "markers"
         ],
@@ -15048,7 +15048,7 @@
       "post": {
         "operationId": "createMedia",
         "summary": "Upload media as an attachment (v1)",
-        "description": "Creates an attachment to be used with a new status. This method will return after the full sized media is done processing.",
+        "description": "Creates an attachment to be used with a new status. This method will return after the full sized media is done processing.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - add `focus` parameter\\\n3.1.3 - deprecated in favor of [POST /api/v2/media], which is equal to v1 in all aspects, except it returns HTTP 202, and the returned JSON object has a url of null. This is because while the thumbnail is prepared synchronously, the full version of the media attachment will be processed in the background.\\\n3.2.0 - add `thumbnail` parameter",
         "tags": [
           "media"
         ],
@@ -15221,7 +15221,7 @@
       "get": {
         "operationId": "getMedia",
         "summary": "Get media attachment",
-        "description": "Get a media attachment, before it is attached to a status and posted, but after it is accepted for processing. Use this method to check that the full-sized media has finished processing.",
+        "description": "Get a media attachment, before it is attached to a status and posted, but after it is accepted for processing. Use this method to check that the full-sized media has finished processing.\n\nVersion history:\n\n3.1.3 - added",
         "tags": [
           "media"
         ],
@@ -15367,7 +15367,7 @@
       "delete": {
         "operationId": "deleteMedia",
         "summary": "Delete media attachment",
-        "description": "Delete a media attachment that is not currently attached to a status.",
+        "description": "Delete a media attachment that is not currently attached to a status.\n\nVersion history:\n\n- 4.4.0 (`mastodon` [API version] 4) - added",
         "tags": [
           "media"
         ],
@@ -15501,7 +15501,7 @@
       "put": {
         "operationId": "updateMedia",
         "summary": "Update media attachment",
-        "description": "Update a MediaAttachment's parameters, before it is attached to a status and posted.",
+        "description": "Update a MediaAttachment's parameters, before it is attached to a status and posted.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - add `focus` parameter\\\n3.2.0 - added `thumbnail`",
         "tags": [
           "media"
         ],
@@ -15675,7 +15675,7 @@
       "post": {
         "operationId": "createMediaV2",
         "summary": "Upload media as an attachment (async)",
-        "description": "Creates a media attachment to be used with a new status. The full sized media will be processed asynchronously in the background for large uploads.",
+        "description": "Creates a media attachment to be used with a new status. The full sized media will be processed asynchronously in the background for large uploads.\n\nVersion history:\n\n3.1.3 - added\\\n3.2.0 - add `thumbnail` parameter\\\n4.0.0 - Smaller media formats (image) will be processed synchronously and return 200 instead of 202. Larger media formats (video, gifv, audio) will continue to be processed asynchronously and return 202.",
         "tags": [
           "media"
         ],
@@ -15847,7 +15847,7 @@
       "get": {
         "operationId": "getMutes",
         "summary": "View muted accounts",
-        "description": "Accounts the user has muted.",
+        "description": "Accounts the user has muted.\n\nVersion history:\n\n0.0.0 - added\\\n3.3.0 - added `mute_expires_at`",
         "tags": [
           "mutes"
         ],
@@ -16024,7 +16024,7 @@
       "get": {
         "operationId": "getNotifications",
         "summary": "Get all notifications",
-        "description": "Notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
+        "description": "Notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n0.0.0 - added\\\n2.6.0 - added `min_id`\\\n2.9.0 - added `account_id`\\\n3.1.0 - added `follow_request` type\\\n3.3.0 - added `status` type; both `min_id` and `max_id` can be used at the same time now\\\n3.5.0 - added `types`; add `update` and `admin.sign_up` types\\\n4.0.0 - added `admin.report` type\\\n4.1.0 - notification limit changed from 15 (max 30) to 40 (max 80)\\\n4.3.0 - added `include_filtered` parameter",
         "tags": [
           "notifications"
         ],
@@ -16252,7 +16252,7 @@
       "get": {
         "operationId": "getNotification",
         "summary": "Get a single notification",
-        "description": "View information about a notification with a given ID.",
+        "description": "View information about a notification with a given ID.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "notifications"
         ],
@@ -16400,7 +16400,7 @@
       "post": {
         "operationId": "postNotificationDismiss",
         "summary": "Dismiss a single notification",
-        "description": "Dismiss a single notification from the server.",
+        "description": "Dismiss a single notification from the server.\n\nVersion history:\n\n1.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -16536,7 +16536,7 @@
       "post": {
         "operationId": "createNotificationClear",
         "summary": "Dismiss all notifications",
-        "description": "Clear all notifications from the server.",
+        "description": "Clear all notifications from the server.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "notifications"
         ],
@@ -16661,7 +16661,7 @@
       "get": {
         "operationId": "getNotificationRequests",
         "summary": "Get all notification requests",
-        "description": "Notification requests for notifications filtered by the user's policy. This API returns Link headers containing links to the next/previous page.",
+        "description": "Notification requests for notifications filtered by the user's policy. This API returns Link headers containing links to the next/previous page.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -16846,7 +16846,7 @@
       "get": {
         "operationId": "getNotificationsRequestsById",
         "summary": "Get a single notification request",
-        "description": "View information about a notification request with a given ID.",
+        "description": "View information about a notification request with a given ID.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -16994,7 +16994,7 @@
       "post": {
         "operationId": "postNotificationsRequestsByIdAccept",
         "summary": "Accept a single notification request",
-        "description": "Accept a notification request, which merges the filtered notifications from that user back into the main notification and accepts any future notification from them.",
+        "description": "Accept a notification request, which merges the filtered notifications from that user back into the main notification and accepts any future notification from them.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -17130,7 +17130,7 @@
       "post": {
         "operationId": "postNotificationsRequestsByIdDismiss",
         "summary": "Dismiss a single notification request",
-        "description": "Dismiss a notification request, which hides it and prevent it from contributing to the pending notification requests count.",
+        "description": "Dismiss a notification request, which hides it and prevent it from contributing to the pending notification requests count.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -17266,7 +17266,7 @@
       "post": {
         "operationId": "createNotificationsRequestsAccept",
         "summary": "Accept multiple notification requests",
-        "description": "Accepts multiple notification requests, which merges the filtered notifications from those users back into the main notifications and accepts any future notification from them.",
+        "description": "Accepts multiple notification requests, which merges the filtered notifications from those users back into the main notifications and accepts any future notification from them.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -17391,7 +17391,7 @@
       "post": {
         "operationId": "createNotificationsRequestsDismiss",
         "summary": "Dismiss multiple notification requests",
-        "description": "Dismiss multiple notification requests, which hides them and prevent them from contributing to the pending notification requests count.",
+        "description": "Dismiss multiple notification requests, which hides them and prevent them from contributing to the pending notification requests count.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -17516,7 +17516,7 @@
       "get": {
         "operationId": "getNotificationsRequestsMerged",
         "summary": "Check if accepted notification requests have been merged",
-        "description": "Check whether accepted notification requests have been merged.",
+        "description": "Check whether accepted notification requests have been merged.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -17811,7 +17811,7 @@
       "get": {
         "operationId": "getNotificationsV2Alpha",
         "summary": "Get all grouped notifications",
-        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
+        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n4.3.0-beta.1 - added\\\n4.3.0-beta.2 - deprecated",
         "tags": [
           "notifications"
         ],
@@ -18047,7 +18047,7 @@
       "get": {
         "operationId": "getNotificationsByGroupKeyV2Alpha",
         "summary": "Get a single notification group",
-        "description": "View information about a specific notification group with a given group key.",
+        "description": "View information about a specific notification group with a given group key.\n\nVersion history:\n\n4.3.0-beta.1 - added\\\n4.3.0-beta.2 - deprecated",
         "tags": [
           "notifications"
         ],
@@ -18195,7 +18195,7 @@
       "post": {
         "operationId": "postNotificationDismissV2Alpha",
         "summary": "Dismiss a single notification group",
-        "description": "Dismiss a single notification group from the server.",
+        "description": "Dismiss a single notification group from the server.\n\nVersion history:\n\n4.3.0-beta.1 - added\\\n4.3.0-beta.2 - deprecated",
         "tags": [
           "notifications"
         ],
@@ -18513,7 +18513,7 @@
       "get": {
         "operationId": "getNotificationsV2",
         "summary": "Get all grouped notifications",
-        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.",
+        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added\\\n4.4.0 - added `admin.sign_up` to grouped notification types",
         "tags": [
           "notifications"
         ],
@@ -18759,7 +18759,7 @@
       "get": {
         "operationId": "getNotificationsByGroupKeyV2",
         "summary": "Get a single notification group",
-        "description": "View information about a specific notification group with a given group key.",
+        "description": "View information about a specific notification group with a given group key.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added",
         "tags": [
           "notifications"
         ],
@@ -18907,7 +18907,7 @@
       "get": {
         "operationId": "getNotificationAccountsV2",
         "summary": "Get accounts of all notifications in a notification group",
-        "description": "",
+        "description": "Version history:\n\n4.3.0 (`mastodon` [API version] 2) - added",
         "tags": [
           "notifications"
         ],
@@ -19058,7 +19058,7 @@
       "post": {
         "operationId": "postNotificationDismissV2",
         "summary": "Dismiss a single notification group",
-        "description": "Dismiss a single notification group from the server.",
+        "description": "Dismiss a single notification group from the server.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added",
         "tags": [
           "notifications"
         ],
@@ -19194,7 +19194,7 @@
       "get": {
         "operationId": "getNotificationPolicyV2",
         "summary": "Get the filtering policy for notifications",
-        "description": "Notifications filtering policy for the user.",
+        "description": "Notifications filtering policy for the user.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "notifications"
         ],
@@ -19513,7 +19513,7 @@
       "get": {
         "operationId": "getOauthAuthorize",
         "summary": "Authorize a user",
-        "description": "Displays an authorization form to the user. If approved, it will create and return an authorization code, then redirect to the desired `redirect_uri`, or show the authorization code if `urn:ietf:wg:oauth:2.0:oob` was requested. The authorization code can be used while requesting a token to obtain access to user-level methods.",
+        "description": "Displays an authorization form to the user. If approved, it will create and return an authorization code, then redirect to the desired `redirect_uri`, or show the authorization code if `urn:ietf:wg:oauth:2.0:oob` was requested. The authorization code can be used while requesting a token to obtain access to user-level methods.\n\nVersion history:\n\n0.1.0 - added\\\n2.6.0 - added `force_login`\\\n3.5.0 - added `lang`\\\n4.3.0 - added support for PKCE parameters",
         "tags": [
           "oauth"
         ],
@@ -19718,7 +19718,7 @@
       "post": {
         "operationId": "postOauthRevoke",
         "summary": "Revoke a token",
-        "description": "Revoke an access token to make it no longer valid for use.",
+        "description": "Revoke an access token to make it no longer valid for use.\n\nVersion history:\n\n0.1.0 - added",
         "tags": [
           "oauth"
         ],
@@ -19867,7 +19867,7 @@
       "post": {
         "operationId": "postOauthToken",
         "summary": "Obtain a token",
-        "description": "Obtain an access token, to be used during API calls that are not public.",
+        "description": "Obtain an access token, to be used during API calls that are not public.\n\nVersion history:\n\n0.1.0 - added\\\n4.3.0 - added support for PKCE parameter",
         "tags": [
           "oauth"
         ],
@@ -20047,7 +20047,7 @@
       "get": {
         "operationId": "getOauthUserinfo",
         "summary": "Retrieve user information",
-        "description": "Retrieves standardised OIDC [claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) about the currently authenticated user.\\",
+        "description": "Retrieves standardised OIDC [claims](https://www.iana.org/assignments/jwt/jwt.xhtml#claims) about the currently authenticated user.\\\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "oauth"
         ],
@@ -20172,7 +20172,7 @@
       "get": {
         "operationId": "getOembed",
         "summary": "Get OEmbed info as JSON",
-        "description": "",
+        "description": "Version history:\n\n1.0.0 - added",
         "tags": [
           "oembed"
         ],
@@ -20334,7 +20334,7 @@
       "get": {
         "operationId": "getPoll",
         "summary": "View a poll",
-        "description": "View a poll attached to a status.",
+        "description": "View a poll attached to a status.\n\nVersion history:\n\n2.8.0 - added",
         "tags": [
           "polls"
         ],
@@ -20482,7 +20482,7 @@
       "post": {
         "operationId": "postPollVotes",
         "summary": "Vote on a poll",
-        "description": "Vote on a poll attached to a status.",
+        "description": "Vote on a poll attached to a status.\n\nVersion history:\n\n2.8.0 - added",
         "tags": [
           "polls"
         ],
@@ -20653,7 +20653,7 @@
       "get": {
         "operationId": "getPreferences",
         "summary": "View user preferences",
-        "description": "Preferences defined by the user in their account settings.",
+        "description": "Preferences defined by the user in their account settings.\n\nVersion history:\n\n2.8.0 - added",
         "tags": [
           "preferences"
         ],
@@ -20778,7 +20778,7 @@
       "post": {
         "operationId": "createPushSubscription",
         "summary": "Subscribe to push notifications",
-        "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.",
+        "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.\n\nVersion history:\n\n2.4.0 - added\\\n3.3.0 - added `data[alerts][status]`\\\n3.4.0 - added `data[policy]`\\\n3.5.0 - added `data[alerts][update]` and `data[alerts][admin.sign_up]`\\\n4.0.0 - added `data[alerts][admin.report]`\\\n4.3.0 - added stricter request parameter validation, invalid endpoint URLs and subscription keys will now result in an error, previously these would be accepted, but silently fail.\\\n4.4.0 - added `subscription[standard]`",
         "tags": [
           "push"
         ],
@@ -21012,7 +21012,7 @@
       "get": {
         "operationId": "getPushSubscription",
         "summary": "Get current subscription",
-        "description": "View the PushSubscription currently associated with this access token.",
+        "description": "View the PushSubscription currently associated with this access token.\n\nVersion history:\n\n2.4.0 - added",
         "tags": [
           "push"
         ],
@@ -21147,7 +21147,7 @@
       "put": {
         "operationId": "putPushSubscription",
         "summary": "Change types of notifications",
-        "description": "Updates the current push subscription. Only the data part can be updated. To change fundamentals, a new subscription must be created instead.",
+        "description": "Updates the current push subscription. Only the data part can be updated. To change fundamentals, a new subscription must be created instead.\n\nVersion history:\n\n2.4.0 - added\\\n3.3.0 - added `data[alerts][status]`\\\n3.4.0 - added `policy`\\\n3.5.0 - added `data[alerts][update]` and `data[alerts][admin.sign_up]`\\\n4.0.0 - added `data[alerts][admin.report]`",
         "tags": [
           "push"
         ],
@@ -21351,7 +21351,7 @@
       "delete": {
         "operationId": "deletePushSubscription",
         "summary": "Remove current subscription",
-        "description": "Removes the current Web Push API subscription.",
+        "description": "Removes the current Web Push API subscription.\n\nVersion history:\n\n2.4.0 - added",
         "tags": [
           "push"
         ],
@@ -21476,7 +21476,7 @@
       "post": {
         "operationId": "createReport",
         "summary": "File a report",
-        "description": "Report problematic accounts and contents to your moderators.",
+        "description": "Report problematic accounts and contents to your moderators.\n\nVersion history:\n\n1.1 - added\\\n2.3.0 - add `forward` parameter\\\n3.5.0 - add `category` and `rule_ids` parameters\\\n4.0.0 - `category` is now optional if `rule_ids` is provided\\\n4.2.0 - add `legal` category",
         "tags": [
           "reports"
         ],
@@ -21668,7 +21668,7 @@
       "get": {
         "operationId": "getScheduledStatuses",
         "summary": "View scheduled statuses",
-        "description": "",
+        "description": "Version history:\n\n2.7.0 - added\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "scheduled_statuses"
         ],
@@ -21853,7 +21853,7 @@
       "get": {
         "operationId": "getScheduledStatus",
         "summary": "View a single scheduled status",
-        "description": "",
+        "description": "Version history:\n\n2.7.0 - added",
         "tags": [
           "scheduled_statuses"
         ],
@@ -21999,7 +21999,7 @@
       "put": {
         "operationId": "updateScheduledStatus",
         "summary": "Update a scheduled status's publishing date",
-        "description": "",
+        "description": "Version history:\n\n2.7.0 - added",
         "tags": [
           "scheduled_statuses"
         ],
@@ -22162,7 +22162,7 @@
       "delete": {
         "operationId": "deleteScheduledStatus",
         "summary": "Cancel a scheduled status",
-        "description": "",
+        "description": "Version history:\n\n2.7.0 - added",
         "tags": [
           "scheduled_statuses"
         ],
@@ -22298,7 +22298,7 @@
       "get": {
         "operationId": "getSearchV2",
         "summary": "Perform a search",
-        "description": "Perform a search for content in accounts, statuses and hashtags with the given parameters.",
+        "description": "Perform a search for content in accounts, statuses and hashtags with the given parameters.\n\nVersion history:\n\n2.4.1 - added, limit hardcoded to 5\\\n2.8.0 - add `type`, `limit`, `offset`, `min_id`, `max_id`, `account_id`\\\n3.0.0 - add `exclude_unreviewed` param\\\n3.3.0 - `min_id` and `max_id` can be used together\\\n4.0.0 - no longer requires a user token. Without a valid user token, you cannot use the `resolve` or `offset` parameters.",
         "tags": [
           "search"
         ],
@@ -22532,7 +22532,7 @@
       "post": {
         "operationId": "createStatus",
         "summary": "Post a new status",
-        "description": "Publish a status with the given parameters.",
+        "description": "Publish a status with the given parameters.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.0 - `scheduled_at` added\\\n2.8.0 - `poll` added",
         "tags": [
           "statuses"
         ],
@@ -22772,7 +22772,7 @@
       "get": {
         "operationId": "getStatuses",
         "summary": "View multiple statuses",
-        "description": "Obtain information about multiple statuses.",
+        "description": "Obtain information about multiple statuses.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "statuses"
         ],
@@ -22926,7 +22926,7 @@
       "get": {
         "operationId": "getStatus",
         "summary": "View a single status",
-        "description": "Obtain information about a status.",
+        "description": "Obtain information about a status.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.0 - public statuses no longer require token",
         "tags": [
           "statuses"
         ],
@@ -23072,7 +23072,7 @@
       "delete": {
         "operationId": "deleteStatus",
         "summary": "Delete a status",
-        "description": "Delete one of your own statuses.",
+        "description": "Delete one of your own statuses.\n\nVersion history:\n\n0.0.0 - added\\\n2.9.0 - return source properties, for use with delete and redraft\\\n4.4.0 (`mastodon` [API version] 4) - added `delete_media` optional parameter",
         "tags": [
           "statuses"
         ],
@@ -23227,7 +23227,7 @@
       "put": {
         "operationId": "updateStatus",
         "summary": "Edit a status",
-        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll's options will reset the votes.",
+        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll's options will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`",
         "tags": [
           "statuses"
         ],
@@ -23443,7 +23443,7 @@
       "post": {
         "operationId": "postStatusBookmark",
         "summary": "Bookmark a status",
-        "description": "Privately bookmark a status.",
+        "description": "Privately bookmark a status.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "statuses"
         ],
@@ -23653,7 +23653,7 @@
       "get": {
         "operationId": "getStatusCard",
         "summary": "Fetch preview card",
-        "description": "",
+        "description": "Version history:\n\n0.0.0 - added\\\n2.6.0 - deprecated in favor of card property inlined on Status entity\\\n3.0.0 - removed",
         "tags": [
           "statuses"
         ],
@@ -23802,7 +23802,7 @@
       "get": {
         "operationId": "getStatusContext",
         "summary": "Get parent and child statuses in context",
-        "description": "View statuses above and below this status in the thread.",
+        "description": "View statuses above and below this status in the thread.\n\nVersion history:\n\n0.0.0 - added\\\n4.0.0 - limit unauthenticated requests",
         "tags": [
           "statuses"
         ],
@@ -23950,7 +23950,7 @@
       "post": {
         "operationId": "postStatusFavourite",
         "summary": "Favourite a status",
-        "description": "Add a status to your favourites list.",
+        "description": "Add a status to your favourites list.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -24160,7 +24160,7 @@
       "get": {
         "operationId": "getStatusFavouritedBy",
         "summary": "See who favourited a status",
-        "description": "View who favourited a given status.",
+        "description": "View who favourited a given status.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -24345,7 +24345,7 @@
       "get": {
         "operationId": "getStatusHistory",
         "summary": "View edit history of a status",
-        "description": "Get all known versions of a status, including the initial and current states.",
+        "description": "Get all known versions of a status, including the initial and current states.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "statuses"
         ],
@@ -24496,7 +24496,7 @@
       "post": {
         "operationId": "postStatusMute",
         "summary": "Mute a conversation",
-        "description": "Do not receive notifications for the thread that this status is part of. Must be a thread in which you are a participant.",
+        "description": "Do not receive notifications for the thread that this status is part of. Must be a thread in which you are a participant.\n\nVersion history:\n\n1.4.2 - added",
         "tags": [
           "statuses"
         ],
@@ -24706,7 +24706,7 @@
       "post": {
         "operationId": "postStatusPin",
         "summary": "Pin status to profile",
-        "description": "Feature one of your own public statuses at the top of your profile.",
+        "description": "Feature one of your own public statuses at the top of your profile.\n\nVersion history:\n\n1.6.0 - added\\\n3.5.0 - you can now pin private posts",
         "tags": [
           "statuses"
         ],
@@ -24916,7 +24916,7 @@
       "post": {
         "operationId": "postStatusReblog",
         "summary": "Boost a status",
-        "description": "Reshare a status on your own profile.",
+        "description": "Reshare a status on your own profile.\n\nVersion history:\n\n0.0.0 - added\\\n2.8.0 - add `visibility` parameter",
         "tags": [
           "statuses"
         ],
@@ -25144,7 +25144,7 @@
       "get": {
         "operationId": "getStatusRebloggedBy",
         "summary": "See who boosted a status",
-        "description": "View who boosted a given status.",
+        "description": "View who boosted a given status.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -25329,7 +25329,7 @@
       "get": {
         "operationId": "getStatusSource",
         "summary": "View status source",
-        "description": "Obtain the source properties for a status so that it can be edited.",
+        "description": "Obtain the source properties for a status so that it can be edited.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "statuses"
         ],
@@ -25477,7 +25477,7 @@
       "post": {
         "operationId": "postStatusTranslate",
         "summary": "Translate a status",
-        "description": "Translate the status content into some language.",
+        "description": "Translate the status content into some language.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -25643,7 +25643,7 @@
       "post": {
         "operationId": "postStatusUnbookmark",
         "summary": "Undo bookmark of a status",
-        "description": "Remove a status from your private bookmarks.",
+        "description": "Remove a status from your private bookmarks.\n\nVersion history:\n\n3.1.0 - added",
         "tags": [
           "statuses"
         ],
@@ -25853,7 +25853,7 @@
       "post": {
         "operationId": "postStatusUnfavourite",
         "summary": "Undo favourite of a status",
-        "description": "Remove a status from your favourites list.",
+        "description": "Remove a status from your favourites list.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -26063,7 +26063,7 @@
       "post": {
         "operationId": "postStatusUnmute",
         "summary": "Unmute a conversation",
-        "description": "Start receiving notifications again for the thread that this status is part of.",
+        "description": "Start receiving notifications again for the thread that this status is part of.\n\nVersion history:\n\n1.4.2 - added",
         "tags": [
           "statuses"
         ],
@@ -26273,7 +26273,7 @@
       "post": {
         "operationId": "postStatusUnpin",
         "summary": "Unpin status from profile",
-        "description": "Unfeature a status from the top of your profile.",
+        "description": "Unfeature a status from the top of your profile.\n\nVersion history:\n\n1.6.0 - added",
         "tags": [
           "statuses"
         ],
@@ -26483,7 +26483,7 @@
       "post": {
         "operationId": "postStatusUnreblog",
         "summary": "Undo boost of a status",
-        "description": "Undo a reshare of a status.",
+        "description": "Undo a reshare of a status.\n\nVersion history:\n\n0.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -26693,7 +26693,7 @@
       "get": {
         "operationId": "getStreamingDirect",
         "summary": "Watch for direct messages",
-        "description": "Returns events for received direct messages.",
+        "description": "Returns events for received direct messages.\n\nVersion history:\n\n2.4.0 - added\\\n2.6.0 - now returns `conversation` instead of `update`",
         "tags": [
           "streaming"
         ],
@@ -26821,7 +26821,7 @@
       "get": {
         "operationId": "getStreamingHashtag",
         "summary": "Watch the public timeline for a hashtag",
-        "description": "Returns all public statuses for a particular hashtag",
+        "description": "Returns all public statuses for a particular hashtag\n\nVersion history:\n\n1.0.0 - added\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -26961,7 +26961,7 @@
       "get": {
         "operationId": "getStreamingHashtagLocal",
         "summary": "Watch the local timeline for a hashtag",
-        "description": "Returns all local public statuses for a particular hashtag",
+        "description": "Returns all local public statuses for a particular hashtag\n\nVersion history:\n\n1.1.0 - added\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -27101,7 +27101,7 @@
       "get": {
         "operationId": "getStreamingHealth",
         "summary": "Check if the server is alive",
-        "description": "Verify that the streaming service is alive before connecting to it",
+        "description": "Verify that the streaming service is alive before connecting to it\n\nVersion history:\n\n2.5.0 - added",
         "tags": [
           "streaming"
         ],
@@ -27219,7 +27219,7 @@
       "get": {
         "operationId": "getStreamingList",
         "summary": "Watch for list updates",
-        "description": "Returns statuses for a list",
+        "description": "Returns statuses for a list\n\nVersion history:\n\n2.1.0 - added\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -27359,7 +27359,7 @@
       "get": {
         "operationId": "getStreamingPublic",
         "summary": "Watch the federated timeline",
-        "description": "Returns all public statuses",
+        "description": "Returns all public statuses\n\nVersion history:\n\n1.0.0 - added\\\n2.4.0 - add `only_media` parameter\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -27498,7 +27498,7 @@
       "get": {
         "operationId": "getStreamingPublicLocal",
         "summary": "Watch the local timeline",
-        "description": "Returns all local public statuses",
+        "description": "Returns all local public statuses\n\nVersion history:\n\n1.1.0 - added\\\n2.4.0 - add `only_media` parameter\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -27637,7 +27637,7 @@
       "get": {
         "operationId": "getStreamingPublicRemote",
         "summary": "Watch for remote statuses",
-        "description": "Returns all public statuses from remote servers.",
+        "description": "Returns all public statuses from remote servers.\n\nVersion history:\n\n3.1.4 - added\\\n3.5.0 - now returns `status.update`\\\n4.2.0 - changed to require a User token, removing Public and App token access [#23989]",
         "tags": [
           "streaming"
         ],
@@ -27776,7 +27776,7 @@
       "get": {
         "operationId": "getStreamingUser",
         "summary": "Watch your home timeline and notifications",
-        "description": "Returns events that are relevant to the authorized user, i.e. home timeline and notifications",
+        "description": "Returns events that are relevant to the authorized user, i.e. home timeline and notifications\n\nVersion history:\n\n1.0.0 - added\\\n1.4.2 - now returns `notification`\\\n2.4.3 - now returns `filters_changed`\\\n3.1.0 - now returns `announcement`, `announcement.reaction`, `announcement.delete`\\\n3.5.0 - now returns `status.update`",
         "tags": [
           "streaming"
         ],
@@ -27905,7 +27905,7 @@
       "get": {
         "operationId": "getStreamingUserNotification",
         "summary": "Watch your notifications",
-        "description": "Returns events for received notifications",
+        "description": "Returns events for received notifications\n\nVersion history:\n\n1.4.2 - added",
         "tags": [
           "streaming"
         ],
@@ -28034,7 +28034,7 @@
       "get": {
         "operationId": "getSuggestions",
         "summary": "View follow suggestions (v1)",
-        "description": "Accounts the user has had past positive interactions with, but is not yet following.",
+        "description": "Accounts the user has had past positive interactions with, but is not yet following.\n\nVersion history:\n\n2.4.3 - added\\\n3.4.0 - deprecated",
         "tags": [
           "suggestions"
         ],
@@ -28187,7 +28187,7 @@
       "delete": {
         "operationId": "deleteSuggestionsByAccountId",
         "summary": "Remove a suggestion",
-        "description": "Remove an account from follow suggestions.",
+        "description": "Remove an account from follow suggestions.\n\nVersion history:\n\n2.4.3 - added",
         "tags": [
           "suggestions"
         ],
@@ -28323,7 +28323,7 @@
       "get": {
         "operationId": "getSuggestionsV2",
         "summary": "View follow suggestions (v2)",
-        "description": "Accounts that are promoted by staff, or that the user has had past positive interactions with, but is not yet following.",
+        "description": "Accounts that are promoted by staff, or that the user has had past positive interactions with, but is not yet following.\n\nVersion history:\n\n3.4.0 - added",
         "tags": [
           "suggestions"
         ],
@@ -28470,7 +28470,7 @@
       "post": {
         "operationId": "postTagFeature",
         "summary": "Feature a hashtag",
-        "description": "Feature the hashtag on your profile.",
+        "description": "Feature the hashtag on your profile.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "tags"
         ],
@@ -28618,7 +28618,7 @@
       "post": {
         "operationId": "postTagUnfeature",
         "summary": "Unfeature a hashtag",
-        "description": "Stop featuring the hashtag on your profile.",
+        "description": "Stop featuring the hashtag on your profile.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
           "tags"
         ],
@@ -28766,7 +28766,7 @@
       "get": {
         "operationId": "getTagsByName",
         "summary": "View information about a single tag",
-        "description": "Show a hashtag and its associated information",
+        "description": "Show a hashtag and its associated information\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "tags"
         ],
@@ -28912,7 +28912,7 @@
       "post": {
         "operationId": "postTagFollow",
         "summary": "Follow a hashtag",
-        "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.",
+        "description": "Follow a hashtag. Posts containing a followed hashtag will be inserted into your home timeline.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - this action is now idempotent",
         "tags": [
           "tags"
         ],
@@ -29060,7 +29060,7 @@
       "post": {
         "operationId": "postTagUnfollow",
         "summary": "Unfollow a hashtag",
-        "description": "Unfollow a hashtag. Posts containing this hashtag will no longer be inserted into your home timeline.",
+        "description": "Unfollow a hashtag. Posts containing this hashtag will no longer be inserted into your home timeline.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "tags"
         ],
@@ -29208,7 +29208,7 @@
       "get": {
         "operationId": "getTimelineDirect",
         "summary": "View direct timeline",
-        "description": "View statuses with a \"direct\" privacy, from your account or in your notifications.",
+        "description": "View statuses with a \"direct\" privacy, from your account or in your notifications.\n\nVersion history:\n\nx.x.x - added\\\n2.6.0 - add `min_id`. deprecated in favor of [Conversations API]\\\n3.0.0 - removed",
         "tags": [
           "timelines"
         ],
@@ -29394,7 +29394,7 @@
       "get": {
         "operationId": "getTimelineHome",
         "summary": "View home timeline",
-        "description": "View statuses from followed users and hashtags.",
+        "description": "View statuses from followed users and hashtags.\n\nVersion history:\n\n0.0.0 - added\\\n2.6.0 - add `min_id`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now\\\n4.0.0 - as users can now follow hashtags, statuses from non-followed users may appear in the timeline",
         "tags": [
           "timelines"
         ],
@@ -29579,7 +29579,7 @@
       "get": {
         "operationId": "getTimelineLink",
         "summary": "View link timeline",
-        "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.",
+        "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
           "timelines"
         ],
@@ -29769,7 +29769,7 @@
       "get": {
         "operationId": "getTimelinesListByListId",
         "summary": "View list timeline",
-        "description": "View statuses in the given list timeline.",
+        "description": "View statuses in the given list timeline.\n\nVersion history:\n\n2.1.0 - added\\\n2.6.0 - add `min_id`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "timelines"
         ],
@@ -29963,7 +29963,7 @@
       "get": {
         "operationId": "getTimelinePublic",
         "summary": "View public timeline",
-        "description": "View public statuses.",
+        "description": "View public statuses.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n3.0.0 - auth is required if public preview is disabled\\\n3.1.4 - added `remote`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
           "timelines"
         ],
@@ -30178,7 +30178,7 @@
       "get": {
         "operationId": "getTimelinesTagByHashtag",
         "summary": "View hashtag timeline",
-        "description": "View public statuses containing the given hashtag.",
+        "description": "View public statuses containing the given hashtag.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n2.7.0 - add `any[]`, `all[]`, `none[]` for additional tags\\\n3.0.0 - auth is required if public preview is disabled\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now. add `remote`",
         "tags": [
           "timelines"
         ],
@@ -30438,7 +30438,7 @@
       "get": {
         "operationId": "getTrendLinks",
         "summary": "View trending links",
-        "description": "Links that have been shared more than others.",
+        "description": "Links that have been shared more than others.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "trends"
         ],
@@ -30592,7 +30592,7 @@
       "get": {
         "operationId": "getTrendStatuses",
         "summary": "View trending statuses",
-        "description": "Statuses that have been interacted with more than others.",
+        "description": "Statuses that have been interacted with more than others.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
           "trends"
         ],
@@ -30746,7 +30746,7 @@
       "get": {
         "operationId": "getTrendTags",
         "summary": "View trending tags",
-        "description": "Tags that are being used more frequently within the past week.",
+        "description": "Tags that are being used more frequently within the past week.\n\nVersion history:\n\n3.0.0 - added\\\n3.5.0 - method signature changed from `GET /api/v1/trends` to `GET /api/v1/trends/tags`. The former is a deprecated alias that may be removed in the future.",
         "tags": [
           "trends"
         ],
@@ -30900,7 +30900,7 @@
       "get": {
         "operationId": "getWellKnownOauthAuthorizationServer",
         "summary": "Discover OAuth Server Configuration",
-        "description": "Returns the OAuth 2 Authorization Server Metadata for the Mastodon server, as defined by [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414#section-3.2).",
+        "description": "Returns the OAuth 2 Authorization Server Metadata for the Mastodon server, as defined by [RFC 8414](https://datatracker.ietf.org/doc/html/rfc8414#section-3.2).\n\nVersion history:\n\n4.3.0 - added\\\n4.4.0 - added `userinfo_endpoint`",
         "tags": [
           "well-known"
         ],
