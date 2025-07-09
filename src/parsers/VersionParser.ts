@@ -1,9 +1,18 @@
 import { UtilityHelpers } from '../generators/UtilityHelpers';
+import { readFileSync } from 'fs';
+
+/**
+ * Get the currently supported Mastodon API version from config.json
+ */
+function getSupportedVersion(): string {
+  const config = JSON.parse(readFileSync('config.json', 'utf8'));
+  return config.mastodonVersion;
+}
 
 /**
  * The currently supported Mastodon API version
  */
-export const SUPPORTED_VERSION = '4.3.0';
+export const SUPPORTED_VERSION = getSupportedVersion();
 
 /**
  * Utility class for parsing version numbers from version history strings

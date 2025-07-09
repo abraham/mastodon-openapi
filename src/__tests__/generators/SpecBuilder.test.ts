@@ -7,6 +7,18 @@ const mockReadFileSync = readFileSync as jest.MockedFunction<
   typeof readFileSync
 >;
 
+// Mock VersionParser to control SUPPORTED_VERSION
+jest.mock('../../parsers/VersionParser', () => ({
+  SUPPORTED_VERSION: '4.3.0',
+  VersionParser: class {
+    static extractVersionNumbers = jest.fn();
+    static compareVersions = jest.fn();
+    static findMaxVersion = jest.fn();
+    static hasNewerVersion = jest.fn();
+    static isOperationUnreleased = jest.fn();
+  },
+}));
+
 // Mock OAuthScopeParser to avoid file system dependencies
 jest.mock('../../parsers/OAuthScopeParser', () => {
   return {
@@ -72,6 +84,7 @@ describe('SpecBuilder', () => {
       const testCommitSha = 'abcdef1234567890abcdef1234567890abcdef12';
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
+        mastodonVersion: '4.3.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
@@ -89,6 +102,7 @@ describe('SpecBuilder', () => {
       const testCommitSha = 'test123commit456';
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
+        mastodonVersion: '4.3.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
