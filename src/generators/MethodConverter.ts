@@ -99,7 +99,7 @@ class MethodConverter {
         if (description) {
           description += '\n\n';
         }
-        description += `**Version history:**\n${versionHistory}`;
+        description += `Version history:\n\n${versionHistory}`;
       }
     }
 
