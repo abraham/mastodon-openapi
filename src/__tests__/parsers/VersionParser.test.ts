@@ -1,5 +1,18 @@
 import { VersionParser } from '../../parsers/VersionParser';
 
+// Mock the config.json to return mastodon version 4.3.0
+jest.mock('fs', () => ({
+  readFileSync: jest.fn((filePath: string) => {
+    if (filePath === 'config.json') {
+      return JSON.stringify({
+        mastodonDocsCommit: 'mock-commit',
+        mastodonVersion: '4.3.0',
+      });
+    }
+    return '';
+  }),
+}));
+
 describe('VersionParser', () => {
   describe('extractVersionNumbers', () => {
     it('should extract single version number', () => {

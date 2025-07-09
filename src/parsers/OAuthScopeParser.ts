@@ -16,23 +16,12 @@ class OAuthScopeParser {
   public parseOAuthScopes(): OAuthScopeCollection {
     const scopes: OAuthScope[] = [];
 
-    if (!fs.existsSync(this.oauthScopesPath)) {
-      console.error(
-        `OAuth scopes file does not exist: ${this.oauthScopesPath}`
-      );
-      return { scopes };
-    }
+    const content = fs.readFileSync(this.oauthScopesPath, 'utf-8');
+    const parsed = matter(content);
 
-    try {
-      const content = fs.readFileSync(this.oauthScopesPath, 'utf-8');
-      const parsed = matter(content);
-
-      // Extract scopes from the markdown content
-      const extractedScopes = this.extractScopesFromMarkdown(parsed.content);
-      scopes.push(...extractedScopes);
-    } catch (error) {
-      console.error(`Error parsing OAuth scopes file:`, error);
-    }
+    // Extract scopes from the markdown content
+    const extractedScopes = this.extractScopesFromMarkdown(parsed.content);
+    scopes.push(...extractedScopes);
 
     return { scopes };
   }

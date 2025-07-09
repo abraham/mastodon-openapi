@@ -2,7 +2,7 @@
   "openapi": "3.1.0",
   "info": {
     "title": "Mastodon API",
-    "version": "4.3.0",
+    "version": "4.4.0",
     "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [cae24a6](https://github.com/mastodon/documentation/commit/cae24a64155b75631b5ad37029c2d9747ffc1c43).",
     "license": {
       "name": "GFDL-1.3",
@@ -775,11 +775,6 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorse",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "security": [
           {
             "OAuth2": [
@@ -934,11 +929,6 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#endorsements",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "parameters": [
           {
             "name": "id",
@@ -3121,11 +3111,6 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#unendorse",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "security": [
           {
             "OAuth2": [
@@ -13075,12 +13060,7 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service",
           "description": "Official Mastodon API documentation"
-        },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ]
+        }
       }
     },
     "/api/v1/instance/terms_of_service/{date}": {
@@ -13211,11 +13191,6 @@
           "url": "https://docs.joinmastodon.org/methods/instance/#terms_of_service_date",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "parameters": [
           {
             "name": "date",
@@ -20188,11 +20163,6 @@
           "url": "https://docs.joinmastodon.org/methods/oauth/#userinfo",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "security": [
           {
             "OAuth2": [
@@ -28628,11 +28598,6 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#feature",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "security": [
           {
             "OAuth2": [
@@ -28781,11 +28746,6 @@
           "url": "https://docs.joinmastodon.org/methods/tags/#unfeature",
           "description": "Official Mastodon API documentation"
         },
-        "x-badges": [
-          {
-            "name": "Unreleased"
-          }
-        ],
         "security": [
           {
             "OAuth2": [
@@ -31458,6 +31418,13 @@
             "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
             "type": "object",
             "properties": {
+              "attribution_domains": {
+                "description": "Domains of websites allowed to credit the account.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
               "fields": {
                 "description": "Metadata about the account.",
                 "type": "array",
@@ -31487,16 +31454,6 @@
                 "description": "Whether new statuses should be marked sensitive by default.",
                 "type": "boolean"
               },
-              "attribution_domains": {
-                "description": "Domains of websites allowed to credit the account.",
-                "type": [
-                  "array",
-                  "null"
-                ],
-                "items": {
-                  "type": "string"
-                }
-              },
               "language": {
                 "description": "The default posting language for new statuses.",
                 "type": [
@@ -31506,6 +31463,7 @@
               }
             },
             "required": [
+              "attribution_domains",
               "fields",
               "follow_requests_count",
               "note",
@@ -33482,6 +33440,15 @@
               "$ref": "#/components/schemas/FilterContext"
             }
           },
+          "filter_action": {
+            "description": "The action to be taken when a status matches this filter.",
+            "type": "string",
+            "enum": [
+              "warn",
+              "hide",
+              "blur"
+            ]
+          },
           "id": {
             "description": "The ID of the Filter in the database.",
             "type": "string"
@@ -33497,18 +33464,6 @@
               "null"
             ],
             "format": "date-time"
-          },
-          "filter_action": {
-            "description": "The action to be taken when a status matches this filter.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "warn",
-              "hide",
-              "blur"
-            ]
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
@@ -33533,6 +33488,7 @@
         },
         "required": [
           "context",
+          "filter_action",
           "id",
           "title"
         ],
@@ -33754,10 +33710,18 @@
                   "max_pinned_statuses"
                 ]
               },
+              "limited_federation": {
+                "description": "Whether federation is limited to explicitly allowed domains.",
+                "type": "boolean"
+              },
               "media_attachments": {
                 "description": "Hints for which attachments will be accepted.",
                 "type": "object",
                 "properties": {
+                  "description_limit": {
+                    "description": "The maximum size of a description, in characters.",
+                    "type": "integer"
+                  },
                   "image_matrix_limit": {
                     "description": "The maximum number of pixels (width times height) for image uploads.",
                     "type": "integer"
@@ -33784,16 +33748,10 @@
                   "video_size_limit": {
                     "description": "The maximum size of any uploaded video, in bytes.",
                     "type": "integer"
-                  },
-                  "description_limit": {
-                    "description": "The maximum size of a description, in characters.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
                   }
                 },
                 "required": [
+                  "description_limit",
                   "image_matrix_limit",
                   "image_size_limit",
                   "supported_mime_types",
@@ -33870,17 +33828,14 @@
                 "description": "URLs of interest for clients apps.",
                 "type": "object",
                 "properties": {
-                  "streaming": {
-                    "description": "The Websockets URL for connecting to the streaming API.",
+                  "about": {
+                    "description": "The URL of the server's about page.",
                     "type": "string",
                     "format": "uri"
                   },
-                  "about": {
-                    "description": "The URL of the server's about page.",
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                  "streaming": {
+                    "description": "The Websockets URL for connecting to the streaming API.",
+                    "type": "string",
                     "format": "uri"
                   },
                   "privacy_policy": {
@@ -33901,19 +33856,14 @@
                   }
                 },
                 "required": [
+                  "about",
                   "streaming"
-                ]
-              },
-              "limited_federation": {
-                "description": "Whether federation is limited to explicitly allowed domains.",
-                "type": [
-                  "boolean",
-                  "null"
                 ]
               }
             },
             "required": [
               "accounts",
+              "limited_federation",
               "media_attachments",
               "polls",
               "statuses",
@@ -35184,10 +35134,7 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
           "status": {
@@ -35202,6 +35149,9 @@
             ]
           }
         },
+        "required": [
+          "state"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Quote/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35882,10 +35832,7 @@
         "properties": {
           "state": {
             "description": "The state of the quote.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
           "status_id": {
@@ -35896,6 +35843,9 @@
             ]
           }
         },
+        "required": [
+          "state"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/ShallowQuote/#attributes",
           "description": "Official Mastodon API documentation"
@@ -36479,6 +36429,10 @@
               "$ref": "#/components/schemas/TagHistory"
             }
           },
+          "id": {
+            "description": "ID of the hashtag in the database. Useful for constructing URLs for the moderation tools & Admin API.",
+            "type": "string"
+          },
           "name": {
             "description": "The value of the hashtag after the # sign.",
             "type": "string"
@@ -36501,17 +36455,11 @@
               "boolean",
               "null"
             ]
-          },
-          "id": {
-            "description": "ID of the hashtag in the database. Useful for constructing URLs for the moderation tools & Admin API.",
-            "type": [
-              "string",
-              "null"
-            ]
           }
         },
         "required": [
           "history",
+          "id",
           "name",
           "url"
         ],
@@ -36624,24 +36572,15 @@
         "properties": {
           "content": {
             "description": "The rendered HTML content of the terms of service.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date"
           },
           "succeeded_by": {
@@ -36653,6 +36592,11 @@
             "format": "date"
           }
         },
+        "required": [
+          "content",
+          "effective",
+          "effective_date"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/TermsOfService/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37391,17 +37335,15 @@
           },
           "standard": {
             "description": "If the push messages follow the standardized specifications (RFC8030+RFC8291+RFC8292). Else they follow a legacy version of the specifications (4th draft of RFC8291 and 1st draft of RFC8292).",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           }
         },
         "required": [
           "alerts",
           "endpoint",
           "id",
-          "server_key"
+          "server_key",
+          "standard"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/WebPushSubscription/#attributes",

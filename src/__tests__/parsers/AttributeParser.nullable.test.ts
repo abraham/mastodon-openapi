@@ -1,5 +1,18 @@
 import { AttributeParser } from '../../parsers/AttributeParser';
 
+// Mock the config.json to return mastodon version 4.3.0
+jest.mock('fs', () => ({
+  readFileSync: jest.fn((filePath: string) => {
+    if (filePath === 'config.json') {
+      return JSON.stringify({
+        mastodonDocsCommit: 'mock-commit',
+        mastodonVersion: '4.3.0',
+      });
+    }
+    return '';
+  }),
+}));
+
 describe('AttributeParser - Nullable Patterns', () => {
   describe('parseAttributesFromSection', () => {
     it('should mark fields with {{<nullable>}} shortcode as optional', () => {
