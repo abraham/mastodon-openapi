@@ -289,26 +289,40 @@ class MethodConverter {
           param.in === 'path' ||
           param.in === 'header'
         ) {
-          operation.parameters.push({
+          const openApiParam: any = {
             name: param.name,
             in: param.in,
             required: param.required,
             description: param.description,
             schema: this.typeParser.convertParameterToSchema(param),
-          });
+          };
+
+          // Add style property for space-delimited parameters
+          if (this.isSpaceDelimitedParameter(param)) {
+            openApiParam.style = 'spaceDelimited';
+          }
+
+          operation.parameters.push(openApiParam);
         } else if (param.in === 'formData') {
           // Form data parameters go in request body
           bodyParams.push(param);
         } else {
           // Fallback to old behavior for backwards compatibility
           if (httpMethod === 'get') {
-            operation.parameters.push({
+            const openApiParam: any = {
               name: param.name,
               in: 'query',
               required: param.required,
               description: param.description,
               schema: this.typeParser.convertParameterToSchema(param),
-            });
+            };
+
+            // Add style property for space-delimited parameters
+            if (this.isSpaceDelimitedParameter(param)) {
+              openApiParam.style = 'spaceDelimited';
+            }
+
+            operation.parameters.push(openApiParam);
           } else {
             bodyParams.push(param);
           }
@@ -999,6 +1013,23 @@ class MethodConverter {
       return validPrefixes.some((prefix) => scope.startsWith(prefix));
     }
 
+    return false;
+  }
+
+  /**
+   * Check if a parameter should use spaceDelimited style
+   * This applies to parameters that represent space-separated lists
+   */
+  private isSpaceDelimitedParameter(param: ApiParameter): boolean {
+    // Check if this is a scope parameter that represents space-separated OAuth scopes
+    if (param.name === 'scope' && param.description) {
+      const description = param.description.toLowerCase();
+      return (
+        description.includes('separated by spaces') ||
+        description.includes('space-separated') ||
+        description.includes('oauth scopes')
+      );
+    }
     return false;
   }
 

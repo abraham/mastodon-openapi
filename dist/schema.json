@@ -19700,7 +19700,8 @@
               "type": "string",
               "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
               "default": "read"
-            }
+            },
+            "style": "spaceDelimited"
           },
           {
             "name": "state",

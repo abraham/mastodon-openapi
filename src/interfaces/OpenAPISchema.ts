@@ -88,6 +88,7 @@ interface OpenAPIParameter {
   required?: boolean;
   description?: string;
   schema?: OpenAPIProperty;
+  style?: string;
 }
 
 interface OpenAPIRequestBody {
