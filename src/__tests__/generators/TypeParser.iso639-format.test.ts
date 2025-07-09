@@ -102,4 +102,36 @@ describe('TypeParser - ISO 639 format detection', () => {
       format: 'iso-639-1',
     });
   });
+
+  test('should apply iso-639-1 format to parameters with ISO 639 in description', () => {
+    const parameter = {
+      name: 'lang',
+      description: 'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
+      enumValues: [],
+    };
+
+    const result = typeParser.convertParameterToSchema(parameter);
+
+    expect(result).toEqual({
+      type: 'string',
+      format: 'iso-639-1',
+      description: 'The ISO 639-1 two-letter language code to use while rendering the authorization form.',
+    });
+  });
+
+  test('should apply iso-639-1 format to parameters with ISO 639 language code description', () => {
+    const parameter = {
+      name: 'language',
+      description: 'ISO 639 language code for this status.',
+      enumValues: [],
+    };
+
+    const result = typeParser.convertParameterToSchema(parameter);
+
+    expect(result).toEqual({
+      type: 'string',
+      format: 'iso-639-1',
+      description: 'ISO 639 language code for this status.',
+    });
+  });
 });
