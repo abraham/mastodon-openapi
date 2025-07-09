@@ -2809,8 +2809,7 @@
             "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
             "schema": {
               "type": "boolean",
-              "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results.",
-              "default": "false"
+              "description": "Filter for pinned statuses only. Defaults to false, which includes all statuses. Pinned statuses do not receive special priority in the order of the returned results."
             }
           },
           {
@@ -25629,8 +25628,7 @@
                 "properties": {
                   "lang": {
                     "type": "string",
-                    "description": "String (ISO 639 language code). The status content will be translated into this language. Defaults to the user's current locale.",
-                    "default": "the"
+                    "description": "String (ISO 639 language code). The status content will be translated into this language. Defaults to the user's current locale."
                   }
                 }
               }

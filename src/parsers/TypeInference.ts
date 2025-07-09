@@ -145,13 +145,14 @@ export class TypeInference {
     description: string
   ): string | undefined {
     // Look for patterns like "Defaults to value" where value can be alphanumeric, underscore, numbers, or surrounded by backticks
+    // For non-backtick values, ensure they're followed by period/end or are numbers to avoid matching descriptive phrases
     const defaultsToPattern =
-      /defaults?\s+to\s+(?:`([^`]+)`|([a-zA-Z_][a-zA-Z0-9_]*|\d+))/gi;
+      /defaults?\s+to\s+(?:`([^`]+)`|(\d+)|([a-zA-Z_][a-zA-Z0-9_]*)(?=\.|$))/gi;
     const match = defaultsToPattern.exec(description);
 
     if (match) {
-      // Return the first captured group (backtick content) or second (non-backtick content)
-      return (match[1] || match[2]).trim();
+      // Return the first captured group (backtick content), second (numbers), or third (words at end)
+      return (match[1] || match[2] || match[3]).trim();
     }
 
     return undefined;
