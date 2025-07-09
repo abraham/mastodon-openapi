@@ -5,6 +5,19 @@ import { ErrorExampleRegistry } from '../../generators/ErrorExampleRegistry';
 import { ApiMethod } from '../../interfaces/ApiMethod';
 import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
 
+// Mock the config.json to return mastodon version 4.3.0
+jest.mock('fs', () => ({
+  readFileSync: jest.fn((filePath: string) => {
+    if (filePath === 'config.json') {
+      return JSON.stringify({
+        mastodonDocsCommit: 'mock-commit',
+        mastodonVersion: '4.3.0',
+      });
+    }
+    return '';
+  }),
+}));
+
 describe('MethodConverter Unreleased Badge', () => {
   let methodConverter: MethodConverter;
   let spec: OpenAPISpec;

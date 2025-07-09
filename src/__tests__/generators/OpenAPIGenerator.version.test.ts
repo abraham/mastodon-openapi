@@ -2,6 +2,19 @@ import { OpenAPIGenerator } from '../../generators/OpenAPIGenerator';
 import { EntityClass } from '../../interfaces/EntityClass';
 import { ApiMethodsFile } from '../../interfaces/ApiMethodsFile';
 
+// Mock the config.json to return mastodon version 4.3.0
+jest.mock('fs', () => ({
+  readFileSync: jest.fn((filePath: string) => {
+    if (filePath === 'config.json') {
+      return JSON.stringify({
+        mastodonDocsCommit: 'mock-commit',
+        mastodonVersion: '4.3.0',
+      });
+    }
+    return '';
+  }),
+}));
+
 describe('OpenAPIGenerator version parsing', () => {
   let generator: OpenAPIGenerator;
 
