@@ -63,7 +63,8 @@ describe('EntityConverter - Nullable Date Format Handling', () => {
     expect(lastStatusAtProperty?.format).toBe('date');
 
     // Regular nullable string should NOT have format
-    const regularNullableProperty = schema?.properties?.['regular_nullable_string'];
+    const regularNullableProperty =
+      schema?.properties?.['regular_nullable_string'];
     expect(regularNullableProperty?.type).toEqual(['string', 'null']);
     expect(regularNullableProperty?.format).toBeUndefined();
   });
