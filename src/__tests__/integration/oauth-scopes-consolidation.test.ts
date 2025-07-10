@@ -47,16 +47,18 @@ describe('OAuth Scopes Consolidation', () => {
       '#/components/schemas/OAuthScopes'
     );
 
-    // Check that createApp requestBody uses format scopes (changed behavior)
+    // Check that createApp requestBody uses array of OAuth scope enums (updated behavior)
     const createAppOperation = spec.paths['/api/v1/apps']?.post;
     expect(createAppOperation).toBeDefined();
 
     const requestBodySchema = createAppOperation!.requestBody?.content?.[
       'application/json'
     ]?.schema as any;
-    expect(requestBodySchema?.properties?.scopes?.type).toBe('string');
-    expect(requestBodySchema?.properties?.scopes?.format).toBe('scopes');
-    expect(requestBodySchema?.properties?.scopes?.enum).toBeUndefined();
+    expect(requestBodySchema?.properties?.scopes?.type).toBe('array');
+    expect(requestBodySchema?.properties?.scopes?.items?.$ref).toBe(
+      '#/components/schemas/OAuthScope'
+    );
+    expect(requestBodySchema?.properties?.scopes?.default).toEqual(['read']);
   });
 
   test('should maintain backwards compatibility for scope descriptions', () => {

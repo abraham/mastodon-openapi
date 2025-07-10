@@ -3,7 +3,7 @@ import { EntityParser } from '../../parsers/EntityParser';
 import { OpenAPIGenerator } from '../../generators/OpenAPIGenerator';
 
 describe('CreateApp scopes override', () => {
-  test('should override scopes property to use format scopes without enum for createApp operation', () => {
+  test('should override scopes property to use array of OAuth scope enums for createApp operation', () => {
     const methodParser = new MethodParser();
     const entityParser = new EntityParser();
 
@@ -31,16 +31,13 @@ describe('CreateApp scopes override', () => {
     // Verify scopes property has the correct format
     const scopesProperty = schema.properties.scopes;
     expect(scopesProperty).toBeDefined();
-    expect(scopesProperty.type).toBe('string');
-    expect(scopesProperty.format).toBe('scopes');
-
-    // Ensure it does NOT have enum values
-    expect(scopesProperty.enum).toBeUndefined();
+    expect(scopesProperty.type).toBe('array');
+    expect(scopesProperty.items.$ref).toBe('#/components/schemas/OAuthScope');
 
     // Verify the description is preserved
     expect(scopesProperty.description).toContain('scopes');
 
-    // Verify the default value is set to 'read'
-    expect(scopesProperty.default).toBe('read');
+    // Verify the default value is set to ['read']
+    expect(scopesProperty.default).toEqual(['read']);
   });
 });

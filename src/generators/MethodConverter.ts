@@ -308,6 +308,11 @@ class MethodConverter {
             };
           }
 
+          // Add spaceDelimited style for space-delimited parameters
+          if (this.isSpaceDelimitedParameter(param)) {
+            openApiParam.style = 'spaceDelimited';
+          }
+
           operation.parameters.push(openApiParam);
         } else if (param.in === 'formData') {
           // Form data parameters go in request body
@@ -332,6 +337,11 @@ class MethodConverter {
                 },
                 default: ['read'],
               };
+            }
+
+            // Add spaceDelimited style for space-delimited parameters
+            if (this.isSpaceDelimitedParameter(param)) {
+              openApiParam.style = 'spaceDelimited';
             }
 
             operation.parameters.push(openApiParam);
@@ -419,13 +429,15 @@ class MethodConverter {
             description: sortedProperties.redirect_uris.description,
           };
 
-          // Override scopes to use format scopes without enum values
+          // Override scopes to use array of OAuth scope enums
           if (sortedProperties.scopes) {
             sortedProperties.scopes = {
-              type: 'string',
-              format: 'scopes',
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/OAuthScope',
+              },
               description: sortedProperties.scopes.description,
-              default: 'read',
+              default: ['read'],
             };
           }
 
@@ -1045,12 +1057,16 @@ class MethodConverter {
    * This applies to parameters that represent space-separated lists
    */
   private isSpaceDelimitedParameter(param: ApiParameter): boolean {
-    // Check if this is a scope parameter that represents space-separated OAuth scopes
-    if (param.name === 'scope' && param.description) {
+    // Check if this is a scope/scopes parameter that represents space-separated OAuth scopes
+    if (
+      (param.name === 'scope' || param.name === 'scopes') &&
+      param.description
+    ) {
       const description = param.description.toLowerCase();
       return (
         description.includes('separated by spaces') ||
         description.includes('space-separated') ||
+        description.includes('space separated') ||
         description.includes('oauth scopes')
       );
     }
@@ -1061,13 +1077,20 @@ class MethodConverter {
    * Check if a parameter is an OAuth scope parameter that should be an array of enums
    */
   private isOAuthScopeParameter(param: ApiParameter): boolean {
-    // Check if this is a scope parameter that represents OAuth scopes
-    if (param.name === 'scope' && param.description) {
+    // Check if this is a scope/scopes parameter that represents OAuth scopes
+    if (
+      (param.name === 'scope' || param.name === 'scopes') &&
+      param.description
+    ) {
       const description = param.description.toLowerCase();
       return (
         description.includes('oauth scopes') ||
         description.includes('requested oauth scopes') ||
         description.includes('list of requested') ||
+        description.includes('space separated list of scopes') ||
+        description.includes('list of scopes') ||
+        (description.includes('scopes') &&
+          description.includes('space separated')) ||
         (description.includes('scopes') &&
           description.includes('separated by spaces'))
       );
