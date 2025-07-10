@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [cae24a6](https://github.com/mastodon/documentation/commit/cae24a64155b75631b5ad37029c2d9747ffc1c43).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [c00b651](https://github.com/mastodon/documentation/commit/c00b651ce42fb4ed3cb098099c89dfb7d1f157bd).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -4436,7 +4436,7 @@
                       },
                       "language": {
                         "type": "string",
-                        "description": "Default language to use for authored statuses (ISO 6391)"
+                        "description": "Default language to use for authored statuses (ISO 639-1)"
                       }
                     }
                   }
@@ -23228,7 +23228,7 @@
       "put": {
         "operationId": "updateStatus",
         "summary": "Edit a status",
-        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll's options will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`",
+        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll’s options or changing whether it is multiple choice will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`",
         "tags": [
           "statuses"
         ],
@@ -23380,7 +23380,7 @@
                 "properties": {
                   "language": {
                     "type": "string",
-                    "description": "ISO 639 language code for the status."
+                    "description": "ISO 639-1 language code for the status."
                   },
                   "media_attributes[]": {
                     "type": "array",
@@ -25630,7 +25630,7 @@
                 "properties": {
                   "lang": {
                     "type": "string",
-                    "description": "String (ISO 639 language code). The status content will be translated into this language. Defaults to the user's current locale."
+                    "description": "String (ISO 639-1 language code). The status content will be translated into this language. Defaults to the user's current locale."
                   }
                 }
               }
@@ -37870,7 +37870,7 @@
           },
           "language": {
             "type": "string",
-            "description": "ISO 639 language code for this status."
+            "description": "ISO 639-1 language code for this status."
           },
           "scheduled_at": {
             "type": "string",
