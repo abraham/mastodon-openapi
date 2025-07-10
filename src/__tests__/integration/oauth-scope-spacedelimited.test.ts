@@ -4,7 +4,7 @@ import * as fs from 'fs';
 import * as path from 'path';
 
 describe('OAuth Token scope parameter integration test', () => {
-  test('postOauthToken operation has spaceDelimited style for scope parameter', async () => {
+  test('postOauthToken operation has array of OAuth scope enums for scope parameter', async () => {
     // Run the main function to generate the full schema
     await main();
 
@@ -22,7 +22,11 @@ describe('OAuth Token scope parameter integration test', () => {
       (param) => param.name === 'scope'
     );
     expect(authorizeScopeParam).toBeDefined();
-    expect(authorizeScopeParam?.style).toBe('spaceDelimited');
+    expect(authorizeScopeParam?.schema?.type).toBe('array');
+    expect(authorizeScopeParam?.schema?.items?.$ref).toBe(
+      '#/components/schemas/OAuthScope'
+    );
+    expect(authorizeScopeParam?.schema?.default).toEqual(['read']);
 
     // Test the OAuth token endpoint (POST /oauth/token)
     const tokenOperation = schema.paths['/oauth/token']?.post;
@@ -52,9 +56,11 @@ describe('OAuth Token scope parameter integration test', () => {
 
       // Verify the scope parameter has the correct type and description
       const scopeProperty = tokenSchema.properties?.scope;
-      expect(scopeProperty?.type).toBe('string');
-      expect(scopeProperty?.description).toContain('separated by spaces');
-      expect(scopeProperty?.default).toBe('read');
+      expect(scopeProperty?.type).toBe('array');
+      expect(scopeProperty?.items?.$ref).toBe(
+        '#/components/schemas/OAuthScope'
+      );
+      expect(scopeProperty?.default).toEqual(['read']);
     } else {
       fail(
         'Expected token schema to be an OpenAPIProperty with type and properties'
@@ -73,7 +79,7 @@ describe('OAuth Token scope parameter integration test', () => {
       path: string;
       method: string;
       paramLocation: 'query' | 'formData';
-      hasSpaceDelimited: boolean;
+      isArrayOfEnums: boolean;
     }> = [];
 
     for (const [pathName, pathObject] of Object.entries(schema.paths)) {
@@ -91,7 +97,10 @@ describe('OAuth Token scope parameter integration test', () => {
                 path: pathName,
                 method: methodName,
                 paramLocation: 'query',
-                hasSpaceDelimited: param.style === 'spaceDelimited',
+                isArrayOfEnums:
+                  param.schema?.type === 'array' &&
+                  param.schema?.items?.$ref ===
+                    '#/components/schemas/OAuthScope',
               });
             }
           }
@@ -121,7 +130,7 @@ describe('OAuth Token scope parameter integration test', () => {
                       path: pathName,
                       method: methodName,
                       paramLocation: 'formData',
-                      hasSpaceDelimited: false, // Form data doesn't use style property
+                      isArrayOfEnums: false, // Form data doesn't use array type but we'll check the property type
                     });
                   }
                 }
@@ -140,7 +149,7 @@ describe('OAuth Token scope parameter integration test', () => {
       (ep) => ep.path === '/oauth/authorize' && ep.method === 'get'
     );
     expect(authorizeEndpoint).toBeDefined();
-    expect(authorizeEndpoint?.hasSpaceDelimited).toBe(true);
+    expect(authorizeEndpoint?.isArrayOfEnums).toBe(true);
 
     // Check OAuth token endpoint specifically
     const tokenEndpoint = endpointsWithScopeParam.find(

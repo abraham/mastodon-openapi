@@ -297,9 +297,15 @@ class MethodConverter {
             schema: this.typeParser.convertParameterToSchema(param),
           };
 
-          // Add style property for space-delimited parameters
-          if (this.isSpaceDelimitedParameter(param)) {
-            openApiParam.style = 'spaceDelimited';
+          // Convert scope parameters to array of OAuth scope enums
+          if (this.isOAuthScopeParameter(param)) {
+            openApiParam.schema = {
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/OAuthScope',
+              },
+              default: ['read'],
+            };
           }
 
           operation.parameters.push(openApiParam);
@@ -317,9 +323,15 @@ class MethodConverter {
               schema: this.typeParser.convertParameterToSchema(param),
             };
 
-            // Add style property for space-delimited parameters
-            if (this.isSpaceDelimitedParameter(param)) {
-              openApiParam.style = 'spaceDelimited';
+            // Convert scope parameters to array of OAuth scope enums
+            if (this.isOAuthScopeParameter(param)) {
+              openApiParam.schema = {
+                type: 'array',
+                items: {
+                  $ref: '#/components/schemas/OAuthScope',
+                },
+                default: ['read'],
+              };
             }
 
             operation.parameters.push(openApiParam);
@@ -340,8 +352,20 @@ class MethodConverter {
         const required: string[] = [];
 
         for (const param of bodyParams) {
-          properties[param.name] =
-            this.typeParser.convertParameterToSchema(param);
+          // Special handling for OAuth scope parameters in form data
+          if (this.isOAuthScopeParameter(param)) {
+            properties[param.name] = {
+              type: 'array',
+              items: {
+                $ref: '#/components/schemas/OAuthScope',
+              },
+              default: ['read'],
+              description: param.description,
+            };
+          } else {
+            properties[param.name] =
+              this.typeParser.convertParameterToSchema(param);
+          }
           if (param.required) {
             required.push(param.name);
           }
@@ -1028,6 +1052,24 @@ class MethodConverter {
         description.includes('separated by spaces') ||
         description.includes('space-separated') ||
         description.includes('oauth scopes')
+      );
+    }
+    return false;
+  }
+
+  /**
+   * Check if a parameter is an OAuth scope parameter that should be an array of enums
+   */
+  private isOAuthScopeParameter(param: ApiParameter): boolean {
+    // Check if this is a scope parameter that represents OAuth scopes
+    if (param.name === 'scope' && param.description) {
+      const description = param.description.toLowerCase();
+      return (
+        description.includes('oauth scopes') ||
+        description.includes('requested oauth scopes') ||
+        description.includes('list of requested') ||
+        (description.includes('scopes') &&
+          description.includes('separated by spaces'))
       );
     }
     return false;

@@ -61,7 +61,7 @@ interface OpenAPIProperty {
   oneOf?: OpenAPIProperty[];
   allOf?: (OpenAPIProperty | { $ref: string })[];
   enum?: string[];
-  default?: string;
+  default?: any;
   deprecated?: boolean;
   nullable?: boolean;
   properties?: Record<string, OpenAPIProperty>;

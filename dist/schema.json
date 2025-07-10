@@ -19697,11 +19697,14 @@
             "in": "query",
             "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
             "schema": {
-              "type": "string",
-              "description": "List of requested [OAuth scopes], separated by spaces (or by pluses, if using query parameters). Must be a subset of `scopes` declared during app registration. If not provided, defaults to `read`.",
-              "default": "read"
-            },
-            "style": "spaceDelimited"
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/OAuthScope"
+              },
+              "default": [
+                "read"
+              ]
+            }
           },
           {
             "name": "state",
@@ -20026,9 +20029,14 @@
                     "description": "Required if [PKCE] is used during the authorization request. This is the code verifier which was used to create the `code_challenge` using the `code_challenge_method` for the authorization request."
                   },
                   "scope": {
-                    "type": "string",
-                    "description": "When `grant_type` is set to `client_credentials`, the list of requested OAuth scopes, separated by spaces (or pluses, if using query parameters). Must be a subset of the scopes requested at the time the application was created. If omitted, it defaults to `read`. Has no effect when `grant_type` is `authorization_code`.",
-                    "default": "read"
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/OAuthScope"
+                    },
+                    "default": [
+                      "read"
+                    ],
+                    "description": "When `grant_type` is set to `client_credentials`, the list of requested OAuth scopes, separated by spaces (or pluses, if using query parameters). Must be a subset of the scopes requested at the time the application was created. If omitted, it defaults to `read`. Has no effect when `grant_type` is `authorization_code`."
                   }
                 },
                 "required": [
