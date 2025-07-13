@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [c00b651](https://github.com/mastodon/documentation/commit/c00b651ce42fb4ed3cb098099c89dfb7d1f157bd).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [1c81b18](https://github.com/mastodon/documentation/commit/1c81b189f462d2dc45ca8e2ee727c4557bd730be).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -35137,7 +35137,7 @@
             "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
-          "status": {
+          "quoted_status": {
             "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
             "oneOf": [
               {
@@ -35158,7 +35158,7 @@
         },
         "example": {
           "state": "accepted",
-          "status": {
+          "quoted_status": {
             "id": "103270115826048975",
             "created_at": "2019-12-08T03:48:33.901Z",
             "in_reply_to_id": null,
@@ -35837,7 +35837,7 @@
             "type": "string",
             "$ref": "#/components/schemas/StateEnum"
           },
-          "status_id": {
+          "quoted_status_id": {
             "description": "The identifier of the status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
             "type": [
               "string",
@@ -35854,7 +35854,7 @@
         },
         "example": {
           "state": "accepted",
-          "status_id": "103270115826048975"
+          "quoted_status_id": "103270115826048975"
         }
       },
       "Status": {
