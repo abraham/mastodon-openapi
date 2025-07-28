@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [8c8bd21](https://github.com/mastodon/documentation/commit/8c8bd2157e15abb06b0c785c5dae25b072bc0bfe).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [0e8dbc3](https://github.com/mastodon/documentation/commit/0e8dbc332eaaef370a8548c023c952af09dffe1d).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -503,7 +503,7 @@
       "post": {
         "operationId": "postAccountBlock",
         "summary": "Block account",
-        "description": "Block the given account. Clients should filter statuses from this account if received (e.g. due to a boost in the Home timeline)\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
+        "description": "[Blocks]({{< relref \"user/moderating#block\">}}) the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -32732,10 +32732,6 @@
               "$ref": "#/components/schemas/Announcement_Account"
             }
           },
-          "published": {
-            "description": "Whether the announcement is currently active.",
-            "type": "boolean"
-          },
           "published_at": {
             "description": "When the announcement was published.",
             "type": "string",
@@ -32797,7 +32793,6 @@
           "emojis",
           "id",
           "mentions",
-          "published",
           "published_at",
           "reactions",
           "statuses",
