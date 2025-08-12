@@ -34688,33 +34688,6 @@
             "description": "The ID of the attachment in the database.",
             "type": "string"
           },
-          "meta": {
-            "description": "Metadata returned by Paperclip.",
-            "type": "object",
-            "properties": {
-              "focus": {
-                "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails]({{< relref \"api/guidelines#focal-points\" >}}) for more.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "x": {
-                    "description": "Horizontal focal point",
-                    "type": "number"
-                  },
-                  "y": {
-                    "description": "Vertical focal point",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y"
-                ]
-              }
-            }
-          },
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
@@ -34745,6 +34718,36 @@
               "null"
             ]
           },
+          "meta": {
+            "description": "Metadata returned by Paperclip.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "focus": {
+                "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails]({{< relref \"api/guidelines#focal-points\" >}}) for more.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "x": {
+                    "description": "Horizontal focal point",
+                    "type": "number"
+                  },
+                  "y": {
+                    "description": "Vertical focal point",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
+                ]
+              }
+            }
+          },
           "preview_url": {
             "description": "The location of a scaled-down preview of the attachment.",
             "type": [
@@ -34764,7 +34767,6 @@
         },
         "required": [
           "id",
-          "meta",
           "type",
           "url"
         ],

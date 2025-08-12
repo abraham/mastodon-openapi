@@ -571,5 +571,65 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].nullable).toBeUndefined();
       expect(attributes[0].type).toBe('Array of String');
     });
+
+    it('should mark MediaAttachment#meta as nullable (entity format)', () => {
+      const content = `
+### \`meta\` {#meta}
+
+**Description:** Metadata returned by Paperclip.\\
+**Type:** Hash\\
+**Version history:**\\
+1.5.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'MediaAttachment'
+      );
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('meta');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Hash');
+    });
+
+    it('should mark meta field as nullable in method entities', () => {
+      const content = `
+#### \`meta\` {#meta}
+
+**Description:** Metadata returned by Paperclip.\\
+**Type:** Hash\\
+**Version history:**\\
+1.5.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('meta');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Hash');
+    });
+
+    it('should NOT mark meta as nullable when not in MediaAttachment entity', () => {
+      const content = `
+### \`meta\` {#meta}
+
+**Description:** Some other meta field.\\
+**Type:** Hash\\
+**Version history:**\\
+1.5.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'SomeOtherEntity'
+      );
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('meta');
+      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].type).toBe('Hash');
+    });
   });
 });
