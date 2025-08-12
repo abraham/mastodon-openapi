@@ -122,6 +122,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: MediaAttachment#meta should be nullable
+        if (entityName === 'MediaAttachment' && heading.name === 'meta') {
+          attribute.nullable = true;
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -235,6 +240,12 @@ export class AttributeParser {
       // Special case: Relationship#languages should be nullable
       // Note: this covers method entities that might reference Relationship fields
       if (name === 'languages') {
+        attribute.nullable = true;
+      }
+
+      // Special case: MediaAttachment#meta should be nullable
+      // Note: this covers method entities that might reference MediaAttachment fields
+      if (name === 'meta') {
         attribute.nullable = true;
       }
 
