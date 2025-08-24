@@ -33151,6 +33151,14 @@
         "type": "object",
         "description": "Additional entity definition for CredentialApplication",
         "properties": {
+          "client_id": {
+            "description": "Client ID key, to be used for obtaining OAuth tokens.",
+            "type": "string"
+          },
+          "client_secret": {
+            "description": "Client secret key, to be used for obtaining OAuth tokens.",
+            "type": "string"
+          },
           "id": {
             "description": "The numeric ID of the application.",
             "type": "string"
@@ -33158,20 +33166,6 @@
           "name": {
             "description": "The name of the application.",
             "type": "string"
-          },
-          "client_id": {
-            "description": "Client ID key, to be used for obtaining OAuth tokens.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "client_secret": {
-            "description": "Client secret key, to be used for obtaining OAuth tokens.",
-            "type": [
-              "string",
-              "null"
-            ]
           },
           "client_secret_expires_at": {
             "description": "When the client secret key will expire. Presently this always returns `0` indicating that OAuth Clients do not expire.",
@@ -33228,6 +33222,8 @@
           }
         },
         "required": [
+          "client_id",
+          "client_secret",
           "id",
           "name"
         ],
