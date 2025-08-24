@@ -429,7 +429,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].versions).toEqual(['4.5.0']);
     });
 
-    it('should NOT mark attributes added in older or current versions as nullable', () => {
+    it('should mark attributes added in same major version as nullable for backwards compatibility', () => {
       const content = `
 ### \`old_feature\` {#old_feature}
 
@@ -443,12 +443,31 @@ describe('AttributeParser - Nullable Patterns', () => {
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('old_feature');
-      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].nullable).toBe(true); // Now nullable for backwards compatibility within major version
       expect(attributes[0].type).toBe('String');
       expect(attributes[0].versions).toEqual(['4.2.0']);
     });
 
-    it('should NOT mark attributes added in current supported version as nullable', () => {
+    it('should NOT mark attributes from different major version as nullable', () => {
+      const content = `
+### \`legacy_feature\` {#legacy_feature}
+
+**Description:** A feature from a different major version.\\
+**Type:** String\\
+**Version history:**\\
+3.5.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('legacy_feature');
+      expect(attributes[0].nullable).toBeUndefined(); // Not nullable because it's from a different major version
+      expect(attributes[0].type).toBe('String');
+      expect(attributes[0].versions).toEqual(['3.5.0']);
+    });
+
+    it('should mark attributes added in current supported version as nullable for backwards compatibility', () => {
       const content = `
 ### \`current_feature\` {#current_feature}
 
@@ -462,7 +481,7 @@ describe('AttributeParser - Nullable Patterns', () => {
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('current_feature');
-      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].nullable).toBe(true); // Now nullable for backwards compatibility
       expect(attributes[0].type).toBe('String');
       expect(attributes[0].versions).toEqual(['4.3.0']);
     });
@@ -551,7 +570,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       );
     });
 
-    it('should NOT mark languages as nullable when not in Relationship entity', () => {
+    it('should mark languages as nullable when added in same major version (general backwards compatibility)', () => {
       const content = `
 ### \`languages\` {#languages}
 
@@ -568,7 +587,7 @@ describe('AttributeParser - Nullable Patterns', () => {
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('languages');
-      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].nullable).toBe(true); // Now nullable due to same major version backwards compatibility
       expect(attributes[0].type).toBe('Array of String');
     });
 

@@ -39,12 +39,12 @@ describe('Integration - Application redirect_uris URI format', () => {
     // Convert all entities to populate the spec
     entityConverter.convertEntities(entities, spec);
 
-    // Verify the redirect_uris attribute has URI format on items
+    // Verify the redirect_uris attribute has URI format on items (now nullable due to version compatibility)
     const applicationSchema = spec.components!.schemas!['Application'];
     expect(applicationSchema).toBeDefined();
     expect(applicationSchema.properties?.redirect_uris).toEqual({
       description: 'The registered redirection URI(s) for the application.',
-      type: 'array',
+      type: ['array', 'null'], // Now nullable due to same major version backwards compatibility
       items: {
         type: 'string',
         format: 'uri',
