@@ -109,6 +109,28 @@ export class VersionParser {
   }
 
   /**
+   * Checks if any version in the array is in the same major version as the supported version
+   * @param versions Array of version strings to check
+   * @param supportedVersion The current supported version (default: SUPPORTED_VERSION)
+   * @returns True if any version is in the same major version as the supported version
+   */
+  static hasSameMajorVersion(
+    versions: string[],
+    supportedVersion: string = SUPPORTED_VERSION
+  ): boolean {
+    if (!versions || versions.length === 0) {
+      return false;
+    }
+
+    const supportedMajor = parseInt(supportedVersion.split('.')[0], 10);
+
+    return versions.some((version) => {
+      const versionMajor = parseInt(version.split('.')[0], 10);
+      return versionMajor === supportedMajor;
+    });
+  }
+
+  /**
    * Checks if an operation was added in a version newer than the supported version
    * by examining the raw version history text for " - added" entries
    * @param versionHistory The raw version history text

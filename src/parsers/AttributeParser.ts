@@ -147,9 +147,11 @@ export class AttributeParser {
         }
 
         // Mark attributes as nullable if they were added in a version newer than supported
+        // OR if they were added in the same major version (for backwards compatibility)
         if (
           attribute.versions &&
-          VersionParser.hasNewerVersion(attribute.versions)
+          (VersionParser.hasNewerVersion(attribute.versions) ||
+            VersionParser.hasSameMajorVersion(attribute.versions))
         ) {
           attribute.nullable = true;
         }
@@ -268,9 +270,11 @@ export class AttributeParser {
       }
 
       // Mark attributes as nullable if they were added in a version newer than supported
+      // OR if they were added in the same major version (for backwards compatibility)
       if (
         attribute.versions &&
-        VersionParser.hasNewerVersion(attribute.versions)
+        (VersionParser.hasNewerVersion(attribute.versions) ||
+          VersionParser.hasSameMajorVersion(attribute.versions))
       ) {
         attribute.nullable = true;
       }
