@@ -47,9 +47,9 @@ describe('Integration: Filter context deduplication', () => {
     const filterContextProp = filterSchema.properties!.context;
     const v1FilterContextProp = v1FilterSchema.properties!.context;
 
-    // Filter should be nullable (added in v4.0.0, same major as supported v4.3.0),
+    // Filter should not be nullable (added in v4.0.0, before supported v4.3.0),
     // but V1_Filter should not be nullable (added in v2.4.3, different major)
-    expect(filterContextProp.type).toEqual(['array', 'null']);
+    expect(filterContextProp.type).toEqual('array');
     expect(v1FilterContextProp.type).toBe('array');
 
     // Check that both use the FilterContext schema or have the expected enum values

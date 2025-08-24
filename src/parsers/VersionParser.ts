@@ -109,12 +109,12 @@ export class VersionParser {
   }
 
   /**
-   * Checks if any version in the array is in the same major version as the supported version
+   * Checks if any version in the array is within one minor version of the supported version
    * @param versions Array of version strings to check
    * @param supportedVersion The current supported version (default: SUPPORTED_VERSION)
-   * @returns True if any version is in the same major version as the supported version
+   * @returns True if any version is within one minor version of the supported version
    */
-  static hasSameMajorVersion(
+  static withinOneMinorVersion(
     versions: string[],
     supportedVersion: string = SUPPORTED_VERSION
   ): boolean {
@@ -122,11 +122,20 @@ export class VersionParser {
       return false;
     }
 
-    const supportedMajor = parseInt(supportedVersion.split('.')[0], 10);
+    const supportedParts = supportedVersion.split('.').map(Number);
+    const supportedMajor = supportedParts[0];
+    const supportedMinor = supportedParts[1];
 
     return versions.some((version) => {
-      const versionMajor = parseInt(version.split('.')[0], 10);
-      return versionMajor === supportedMajor;
+      const versionParts = version.split('.').map(Number);
+      const versionMajor = versionParts[0];
+      const versionMinor = versionParts[1];
+
+      // Same major version and within one minor version
+      return (
+        versionMajor === supportedMajor &&
+        Math.abs(versionMinor - supportedMinor) <= 1
+      );
     });
   }
 
