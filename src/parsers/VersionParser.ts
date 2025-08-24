@@ -200,4 +200,42 @@ export class VersionParser {
     const match = addedPattern.exec(normalizedHistory);
     return match ? match[1] : null;
   }
+
+  /**
+   * Extracts version numbers from version history, excluding "moved" operations
+   * Only includes versions where the property was actually added, not moved
+   * @param versionHistory The raw version history text
+   * @returns Array of version numbers where the property was added (excluding moved operations)
+   */
+  static extractAddedVersionsOnly(versionHistory: string): string[] {
+    if (!versionHistory) {
+      return [];
+    }
+
+    const versions: string[] = [];
+
+    // Replace literal \n with actual newlines to handle backslash-escaped newlines
+    const normalizedHistory = versionHistory.replace(/\\n/g, '\n');
+
+    // Split into lines and process each line
+    const lines = normalizedHistory.split('\n');
+
+    for (const line of lines) {
+      // Match version numbers at the start of lines or after whitespace
+      const versionMatch = line.match(/(?:^|\s)(\d+\.\d+\.\d+)/);
+      if (versionMatch) {
+        const version = versionMatch[1];
+
+        // Only include this version if the line doesn't contain "moved"
+        // This excludes lines like "4.3.0 - moved to CredentialApplication from Application"
+        if (!line.toLowerCase().includes('moved')) {
+          if (!versions.includes(version)) {
+            versions.push(version);
+          }
+        }
+      }
+    }
+
+    return versions;
+  }
 }

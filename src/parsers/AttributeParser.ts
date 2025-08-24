@@ -177,11 +177,13 @@ export class AttributeParser {
               }
             }
           } else {
-            // For non-enum attributes, use the original logic
+            // For non-enum attributes, use versions that exclude "moved" operations
+            const addedVersionsOnly =
+              VersionParser.extractAddedVersionsOnly(versionHistory);
             if (
-              attribute.versions &&
-              (VersionParser.hasNewerVersion(attribute.versions) ||
-                VersionParser.withinOneMinorVersion(attribute.versions))
+              addedVersionsOnly.length > 0 &&
+              (VersionParser.hasNewerVersion(addedVersionsOnly) ||
+                VersionParser.withinOneMinorVersion(addedVersionsOnly))
             ) {
               attribute.nullable = true;
             }
@@ -332,11 +334,13 @@ export class AttributeParser {
             }
           }
         } else {
-          // For non-enum attributes, use the original logic
+          // For non-enum attributes, use versions that exclude "moved" operations
+          const addedVersionsOnly =
+            VersionParser.extractAddedVersionsOnly(versionHistoryText);
           if (
-            attribute.versions &&
-            (VersionParser.hasNewerVersion(attribute.versions) ||
-              VersionParser.withinOneMinorVersion(attribute.versions))
+            addedVersionsOnly.length > 0 &&
+            (VersionParser.hasNewerVersion(addedVersionsOnly) ||
+              VersionParser.withinOneMinorVersion(addedVersionsOnly))
           ) {
             attribute.nullable = true;
           }
