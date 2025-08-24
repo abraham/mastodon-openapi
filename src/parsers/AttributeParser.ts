@@ -146,36 +146,43 @@ export class AttributeParser {
           }
         }
 
-        // Mark attributes as nullable if the property itself (not just enum values) 
+        // Mark attributes as nullable if the property itself (not just enum values)
         // was added in a version newer than supported OR within one minor version
         if (versionMatch && versionMatch[1]) {
           const versionHistory = versionMatch[1].trim();
-          
+
           // For enum attributes, try to distinguish between property addition and enum value addition
           if (attribute.enumValues && attribute.enumValues.length > 0) {
             // Try to extract when the property itself was added (not enum values)
-            const propertyAddedVersion = VersionParser.extractPropertyAddedVersion(versionHistory);
-            
+            const propertyAddedVersion =
+              VersionParser.extractPropertyAddedVersion(versionHistory);
+
             if (propertyAddedVersion) {
               // If we found when the property was added, use that version for nullability check
-              if (VersionParser.hasNewerVersion([propertyAddedVersion]) ||
-                  VersionParser.withinOneMinorVersion([propertyAddedVersion])) {
+              if (
+                VersionParser.hasNewerVersion([propertyAddedVersion]) ||
+                VersionParser.withinOneMinorVersion([propertyAddedVersion])
+              ) {
                 attribute.nullable = true;
               }
             } else {
               // Fallback: if we can't determine when the property was added,
               // use the original logic for backward compatibility
-              if (attribute.versions &&
-                  (VersionParser.hasNewerVersion(attribute.versions) ||
-                   VersionParser.withinOneMinorVersion(attribute.versions))) {
+              if (
+                attribute.versions &&
+                (VersionParser.hasNewerVersion(attribute.versions) ||
+                  VersionParser.withinOneMinorVersion(attribute.versions))
+              ) {
                 attribute.nullable = true;
               }
             }
           } else {
             // For non-enum attributes, use the original logic
-            if (attribute.versions &&
-                (VersionParser.hasNewerVersion(attribute.versions) ||
-                 VersionParser.withinOneMinorVersion(attribute.versions))) {
+            if (
+              attribute.versions &&
+              (VersionParser.hasNewerVersion(attribute.versions) ||
+                VersionParser.withinOneMinorVersion(attribute.versions))
+            ) {
               attribute.nullable = true;
             }
           }
@@ -294,36 +301,43 @@ export class AttributeParser {
         }
       }
 
-      // Mark attributes as nullable if the property itself (not just enum values) 
+      // Mark attributes as nullable if the property itself (not just enum values)
       // was added in a version newer than supported OR within one minor version
       if (versionHistory && versionHistory.trim()) {
         const versionHistoryText = versionHistory.trim();
-        
+
         // For enum attributes, try to distinguish between property addition and enum value addition
         if (attribute.enumValues && attribute.enumValues.length > 0) {
           // Try to extract when the property itself was added (not enum values)
-          const propertyAddedVersion = VersionParser.extractPropertyAddedVersion(versionHistoryText);
-          
+          const propertyAddedVersion =
+            VersionParser.extractPropertyAddedVersion(versionHistoryText);
+
           if (propertyAddedVersion) {
             // If we found when the property was added, use that version for nullability check
-            if (VersionParser.hasNewerVersion([propertyAddedVersion]) ||
-                VersionParser.withinOneMinorVersion([propertyAddedVersion])) {
+            if (
+              VersionParser.hasNewerVersion([propertyAddedVersion]) ||
+              VersionParser.withinOneMinorVersion([propertyAddedVersion])
+            ) {
               attribute.nullable = true;
             }
           } else {
             // Fallback: if we can't determine when the property was added,
             // use the original logic for backward compatibility
-            if (attribute.versions &&
-                (VersionParser.hasNewerVersion(attribute.versions) ||
-                 VersionParser.withinOneMinorVersion(attribute.versions))) {
+            if (
+              attribute.versions &&
+              (VersionParser.hasNewerVersion(attribute.versions) ||
+                VersionParser.withinOneMinorVersion(attribute.versions))
+            ) {
               attribute.nullable = true;
             }
           }
         } else {
           // For non-enum attributes, use the original logic
-          if (attribute.versions &&
-              (VersionParser.hasNewerVersion(attribute.versions) ||
-               VersionParser.withinOneMinorVersion(attribute.versions))) {
+          if (
+            attribute.versions &&
+            (VersionParser.hasNewerVersion(attribute.versions) ||
+              VersionParser.withinOneMinorVersion(attribute.versions))
+          ) {
             attribute.nullable = true;
           }
         }

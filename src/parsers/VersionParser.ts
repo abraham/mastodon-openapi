@@ -194,7 +194,8 @@ export class VersionParser {
     // Pattern: "version - added" or "version (additional info) - added" (not "version - added `enum_value`" or other modifications)
     // This regex allows for optional text in parentheses between version and " - added"
     // Also handle trailing backslashes which are common in markdown
-    const addedPattern = /(?:^|\s)(\d+\.\d+\.\d+)(?:\s*\([^)]*\))?\s*-\s*added\s*\\?\s*$/gm;
+    const addedPattern =
+      /(?:^|\s)(\d+\.\d+\.\d+)(?:\s*\([^)]*\))?\s*-\s*added\s*\\?\s*$/gm;
 
     const match = addedPattern.exec(normalizedHistory);
     return match ? match[1] : null;

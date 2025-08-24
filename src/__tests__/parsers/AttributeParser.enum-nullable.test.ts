@@ -30,16 +30,19 @@ describe('AttributeParser - Enum Nullable Issue', () => {
 4.0.0 - added \`admin.report\`
 `;
 
-    const attributes = AttributeParser.parseAttributesFromSection(content, 'Notification');
-    
+    const attributes = AttributeParser.parseAttributesFromSection(
+      content,
+      'Notification'
+    );
+
     expect(attributes).toHaveLength(1);
     const typeAttribute = attributes[0];
-    
+
     expect(typeAttribute.name).toBe('type');
     expect(typeAttribute.enumValues).toContain('mention');
     expect(typeAttribute.enumValues).toContain('admin.report');
     expect(typeAttribute.enumValues).toContain('admin.sign_up');
-    
+
     // The key assertion: the type property should NOT be nullable
     // even though enum values were added in newer versions (4.0.0)
     // because the property itself existed from 0.0.0
@@ -62,15 +65,18 @@ describe('AttributeParser - Enum Nullable Issue', () => {
 4.5.0 - added
 `;
 
-    const attributes = AttributeParser.parseAttributesFromSection(content, 'TestEntity');
-    
+    const attributes = AttributeParser.parseAttributesFromSection(
+      content,
+      'TestEntity'
+    );
+
     expect(attributes).toHaveLength(1);
     const newProperty = attributes[0];
-    
+
     expect(newProperty.name).toBe('new_enum_property');
     expect(newProperty.enumValues).toContain('value1');
     expect(newProperty.enumValues).toContain('value2');
-    
+
     // This should be nullable because the entire property was added in 4.5.0
     // which is newer than the supported version (4.4.0)
     expect(newProperty.nullable).toBeTruthy();
@@ -97,15 +103,18 @@ describe('AttributeParser - Enum Nullable Issue', () => {
 4.5.0 - added \`expired\`
 `;
 
-    const attributes = AttributeParser.parseAttributesFromSection(content, 'TestEntity');
-    
+    const attributes = AttributeParser.parseAttributesFromSection(
+      content,
+      'TestEntity'
+    );
+
     expect(attributes).toHaveLength(1);
     const statusAttribute = attributes[0];
-    
+
     expect(statusAttribute.name).toBe('status');
     expect(statusAttribute.enumValues).toContain('pending');
     expect(statusAttribute.enumValues).toContain('expired');
-    
+
     // Should NOT be nullable because the property itself was added in 1.0.0
     // Even though 'expired' was added in 4.5.0 (newer than supported 4.4.0)
     expect(statusAttribute.nullable).toBeFalsy();
