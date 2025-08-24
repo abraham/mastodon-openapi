@@ -145,41 +145,43 @@ describe('VersionParser', () => {
     });
   });
 
-  describe('hasSameMajorVersion', () => {
-    it('should return true when array contains version in same major version', () => {
-      const versions = ['4.0.0', '4.2.0', '3.5.0'];
-      expect(VersionParser.hasSameMajorVersion(versions, '4.3.0')).toBe(true);
+  describe('withinOneMinorVersion', () => {
+    it('should return true when array contains version within one minor version', () => {
+      const versions = ['4.2.0', '4.4.0', '3.5.0'];
+      expect(VersionParser.withinOneMinorVersion(versions, '4.3.0')).toBe(true);
     });
 
-    it('should return false when no versions are in same major version', () => {
-      const versions = ['3.0.0', '3.2.0', '5.0.0'];
-      expect(VersionParser.hasSameMajorVersion(versions, '4.3.0')).toBe(false);
+    it('should return false when no versions are within one minor version', () => {
+      const versions = ['4.0.0', '4.5.0', '5.0.0'];
+      expect(VersionParser.withinOneMinorVersion(versions, '4.3.0')).toBe(
+        false
+      );
     });
 
-    it('should return true for exact version match in same major', () => {
+    it('should return true for exact version match', () => {
       const versions = ['4.3.0'];
-      expect(VersionParser.hasSameMajorVersion(versions, '4.3.0')).toBe(true);
+      expect(VersionParser.withinOneMinorVersion(versions, '4.3.0')).toBe(true);
     });
 
-    it('should handle multiple versions with mixed major versions', () => {
-      const versions = ['2.0.0', '4.1.0', '5.0.0'];
-      expect(VersionParser.hasSameMajorVersion(versions, '4.3.0')).toBe(true);
+    it('should handle multiple versions with mixed minor versions', () => {
+      const versions = ['4.1.0', '4.4.0', '5.0.0'];
+      expect(VersionParser.withinOneMinorVersion(versions, '4.3.0')).toBe(true);
     });
 
     it('should use default supported version 4.3.0 when not specified', () => {
-      const versions = ['4.1.0'];
-      expect(VersionParser.hasSameMajorVersion(versions)).toBe(true);
+      const versions = ['4.2.0'];
+      expect(VersionParser.withinOneMinorVersion(versions)).toBe(true);
     });
 
     it('should return false for empty or null arrays', () => {
-      expect(VersionParser.hasSameMajorVersion([])).toBe(false);
-      expect(VersionParser.hasSameMajorVersion(null as any)).toBe(false);
-      expect(VersionParser.hasSameMajorVersion(undefined as any)).toBe(false);
+      expect(VersionParser.withinOneMinorVersion([])).toBe(false);
+      expect(VersionParser.withinOneMinorVersion(null as any)).toBe(false);
+      expect(VersionParser.withinOneMinorVersion(undefined as any)).toBe(false);
     });
 
-    it('should handle single digit major versions', () => {
-      const versions = ['1.5.0', '2.0.0'];
-      expect(VersionParser.hasSameMajorVersion(versions, '1.0.0')).toBe(true);
+    it('should handle single digit minor versions', () => {
+      const versions = ['1.1.0', '2.0.0'];
+      expect(VersionParser.withinOneMinorVersion(versions, '1.0.0')).toBe(true);
     });
   });
 });

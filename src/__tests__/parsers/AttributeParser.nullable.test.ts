@@ -587,7 +587,6 @@ describe('AttributeParser - Nullable Patterns', () => {
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('languages');
-      expect(attributes[0].nullable).toBe(true); // Now nullable due to same major version backwards compatibility
       expect(attributes[0].type).toBe('Array of String');
     });
 

@@ -31161,9 +31161,21 @@
             "description": "The profile's bio or description.",
             "type": "string"
           },
+          "roles": {
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRole"
+            }
+          },
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
             "type": "integer"
+          },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
           },
           "username": {
             "description": "The username of the account, not including domain.",
@@ -31230,30 +31242,12 @@
               "null"
             ]
           },
-          "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/AccountRole"
-            }
-          },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
             "type": [
               "boolean",
               "null"
             ]
-          },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
           },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
@@ -31281,7 +31275,9 @@
           "id",
           "locked",
           "note",
+          "roles",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -31431,6 +31427,17 @@
             "description": "The profile's bio or description.",
             "type": "string"
           },
+          "role": {
+            "description": "The complete role assigned to the currently authorized user, including permissions and highlighted status.",
+            "$ref": "#/components/schemas/Role"
+          },
+          "roles": {
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRole"
+            }
+          },
           "source": {
             "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
             "type": "object",
@@ -31516,6 +31523,11 @@
             "description": "How many statuses are attached to this account.",
             "type": "integer"
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
+          },
           "username": {
             "description": "The username of the account, not including domain.",
             "type": "string"
@@ -31581,41 +31593,12 @@
               "null"
             ]
           },
-          "role": {
-            "description": "The complete role assigned to the currently authorized user, including permissions and highlighted status.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Role"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
-          "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/AccountRole"
-            }
-          },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
             "type": [
               "boolean",
               "null"
             ]
-          },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
           },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
@@ -31643,8 +31626,11 @@
           "id",
           "locked",
           "note",
+          "role",
+          "roles",
           "source",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -31731,9 +31717,21 @@
             "description": "The profile's bio or description.",
             "type": "string"
           },
+          "roles": {
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccountRole"
+            }
+          },
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
             "type": "integer"
+          },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
           },
           "username": {
             "description": "The username of the account, not including domain.",
@@ -31808,30 +31806,12 @@
               "null"
             ]
           },
-          "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/AccountRole"
-            }
-          },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
             "type": [
               "boolean",
               "null"
             ]
-          },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
           },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
@@ -31859,7 +31839,9 @@
           "id",
           "locked",
           "note",
+          "roles",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -31873,26 +31855,22 @@
         "properties": {
           "color": {
             "description": "The hex code assigned to this role. If no hex code is assigned, the string will be empty.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "id": {
             "description": "The ID of the Role in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "name": {
             "description": "The name of the role.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "color",
+          "id",
+          "name"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32054,6 +32032,10 @@
             "type": "string",
             "format": "iso-639-1"
           },
+          "role": {
+            "description": "The current role of the account.",
+            "$ref": "#/components/schemas/Role"
+          },
           "silenced": {
             "description": "Whether the account is currently silenced.",
             "type": "boolean"
@@ -32100,17 +32082,6 @@
               "string",
               "null"
             ]
-          },
-          "role": {
-            "description": "The current role of the account.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Role"
-              },
-              {
-                "type": "null"
-              }
-            ]
           }
         },
         "required": [
@@ -32123,6 +32094,7 @@
           "id",
           "ips",
           "locale",
+          "role",
           "silenced",
           "suspended",
           "username"
@@ -32192,19 +32164,17 @@
         "properties": {
           "canonical_email_hash": {
             "description": "The SHA256 hash of the canonical email address.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "id": {
             "description": "The ID of the email block in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "canonical_email_hash",
+          "id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_CanonicalEmailBlock/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32343,27 +32313,23 @@
         "properties": {
           "created_at": {
             "description": "When the domain was allowed to federate.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "domain": {
             "description": "The domain that is allowed to federate.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "id": {
             "description": "The ID of the DomainAllow in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "created_at",
+          "domain",
+          "id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_DomainAllow/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32380,37 +32346,42 @@
         "properties": {
           "created_at": {
             "description": "When the domain was blocked from federating.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
+          },
+          "domain": {
+            "description": "The domain that is not allowed to federate.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The ID of the DomainBlock in the database.",
+            "type": "string"
+          },
+          "obfuscate": {
+            "description": "Whether to obfuscate public displays of this domain block",
+            "type": "boolean"
+          },
+          "reject_media": {
+            "description": "Whether to reject media attachments from this domain",
+            "type": "boolean"
+          },
+          "reject_reports": {
+            "description": "Whether to reject reports from this domain",
+            "type": "boolean"
+          },
+          "severity": {
+            "description": "The policy to be applied by this domain block.",
+            "type": "string",
+            "enum": [
+              "silence",
+              "suspend",
+              "noop"
+            ]
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
             "type": [
               "string",
-              "null"
-            ]
-          },
-          "domain": {
-            "description": "The domain that is not allowed to federate.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "id": {
-            "description": "The ID of the DomainBlock in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "obfuscate": {
-            "description": "Whether to obfuscate public displays of this domain block",
-            "type": [
-              "boolean",
               "null"
             ]
           },
@@ -32427,34 +32398,17 @@
               "string",
               "null"
             ]
-          },
-          "reject_media": {
-            "description": "Whether to reject media attachments from this domain",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "reject_reports": {
-            "description": "Whether to reject reports from this domain",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "severity": {
-            "description": "The policy to be applied by this domain block.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "silence",
-              "suspend",
-              "noop"
-            ]
           }
         },
+        "required": [
+          "created_at",
+          "domain",
+          "id",
+          "obfuscate",
+          "reject_media",
+          "reject_reports",
+          "severity"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_DomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32478,37 +32432,31 @@
         "properties": {
           "created_at": {
             "description": "When the email domain was disallowed from signups.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "domain": {
             "description": "The email domain that is not allowed to be used for signups.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "history": {
             "description": "Usage statistics for given days (typically the past week).",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Admin_EmailDomainBlockHistory"
             }
           },
           "id": {
             "description": "The ID of the EmailDomainBlock in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "created_at",
+          "domain",
+          "history",
+          "id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_EmailDomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32616,18 +32564,29 @@
         "properties": {
           "comment": {
             "description": "The recorded reason for this IP block.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "created_at": {
             "description": "When the IP block was created.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
+          },
+          "id": {
+            "description": "The ID of the DomainBlock in the database.",
+            "type": "string"
+          },
+          "ip": {
+            "description": "The IP address range that is not allowed to federate.",
+            "type": "string"
+          },
+          "severity": {
+            "description": "The associated policy with this IP block.",
+            "type": "string",
+            "enum": [
+              "sign_up_requires_approval",
+              "sign_up_block",
+              "no_access"
+            ]
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -32636,34 +32595,15 @@
               "null"
             ],
             "format": "date-time"
-          },
-          "id": {
-            "description": "The ID of the DomainBlock in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "ip": {
-            "description": "The IP address range that is not allowed to federate.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "severity": {
-            "description": "The associated policy with this IP block.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "sign_up_requires_approval",
-              "sign_up_block",
-              "no_access"
-            ]
           }
         },
+        "required": [
+          "comment",
+          "created_at",
+          "id",
+          "ip",
+          "severity"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_IpBlock/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32763,6 +32703,11 @@
             "description": "Whether an action was taken to resolve this report.",
             "type": "boolean"
           },
+          "category": {
+            "description": "The category under which the report is classified.",
+            "type": "string",
+            "$ref": "#/components/schemas/CategoryEnum"
+          },
           "comment": {
             "description": "An optional reason for reporting.",
             "type": "string"
@@ -32771,6 +32716,10 @@
             "description": "The time the report was filed.",
             "type": "string",
             "format": "date-time"
+          },
+          "forwarded": {
+            "description": "Whether a report was forwarded to a remote instance.",
+            "type": "boolean"
           },
           "id": {
             "description": "The ID of the report in the database.",
@@ -32828,28 +32777,15 @@
                 "type": "null"
               }
             ]
-          },
-          "category": {
-            "description": "The category under which the report is classified.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "$ref": "#/components/schemas/CategoryEnum"
-          },
-          "forwarded": {
-            "description": "Whether a report was forwarded to a remote instance.",
-            "type": [
-              "boolean",
-              "null"
-            ]
           }
         },
         "required": [
           "account",
           "action_taken",
+          "category",
           "comment",
           "created_at",
+          "forwarded",
           "id",
           "rules",
           "statuses",
@@ -33464,39 +33400,35 @@
         "type": "object",
         "description": "Represents a domain that is blocked by the instance.",
         "properties": {
+          "digest": {
+            "description": "The SHA256 hash digest of the domain string.",
+            "type": "string"
+          },
+          "domain": {
+            "description": "The domain which is blocked. This may be obfuscated or partially censored.",
+            "type": "string"
+          },
+          "severity": {
+            "description": "The level to which the domain is blocked.",
+            "type": "string",
+            "enum": [
+              "silence",
+              "suspend"
+            ]
+          },
           "comment": {
             "description": "An optional reason for the domain block.",
             "type": [
               "string",
               "null"
             ]
-          },
-          "digest": {
-            "description": "The SHA256 hash digest of the domain string.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "domain": {
-            "description": "The domain which is blocked. This may be obfuscated or partially censored.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "severity": {
-            "description": "The level to which the domain is blocked.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "silence",
-              "suspend"
-            ]
           }
         },
+        "required": [
+          "digest",
+          "domain",
+          "severity"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/DomainBlock/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33542,20 +33474,18 @@
         "properties": {
           "content": {
             "description": "The rendered HTML content of the extended description.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "updated_at": {
             "description": "A timestamp of when the extended description was last updated.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           }
         },
+        "required": [
+          "content",
+          "updated_at"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/ExtendedDescription/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33663,20 +33593,18 @@
         "properties": {
           "context": {
             "description": "The contexts in which the filter should be applied.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string",
-              "enum": [
-                "home",
-                "notifications",
-                "public",
-                "thread",
-                "account"
-              ]
+              "$ref": "#/components/schemas/FilterContext"
             }
+          },
+          "id": {
+            "description": "The ID of the Filter in the database.",
+            "type": "string"
+          },
+          "title": {
+            "description": "A title given by the user to name the filter.",
+            "type": "string"
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
@@ -33698,13 +33626,6 @@
               "blur"
             ]
           },
-          "id": {
-            "description": "The ID of the Filter in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
             "type": [
@@ -33724,15 +33645,13 @@
             "items": {
               "$ref": "#/components/schemas/FilterStatus"
             }
-          },
-          "title": {
-            "description": "A title given by the user to name the filter.",
-            "type": [
-              "string",
-              "null"
-            ]
           }
         },
+        "required": [
+          "context",
+          "id",
+          "title"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Filter/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33766,26 +33685,22 @@
         "properties": {
           "id": {
             "description": "The ID of the FilterKeyword in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "keyword": {
             "description": "The phrase to be matched against.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "whole_word": {
             "description": "Should the filter consider word boundaries? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           }
         },
+        "required": [
+          "id",
+          "keyword",
+          "whole_word"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/FilterKeyword/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33802,14 +33717,7 @@
         "properties": {
           "filter": {
             "description": "The filter that was matched.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Filter"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/Filter"
           },
           "keyword_matches": {
             "description": "The keyword within the filter that was matched.",
@@ -33832,6 +33740,9 @@
             }
           }
         },
+        "required": [
+          "filter"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/FilterResult/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33860,19 +33771,17 @@
         "properties": {
           "id": {
             "description": "The ID of the FilterStatus in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "status_id": {
             "description": "The ID of the Status that will be filtered.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "id",
+          "status_id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/FilterStatus/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33926,50 +33835,149 @@
         "type": "object",
         "description": "Represents the software instance of Mastodon running on this domain.",
         "properties": {
-          "api_versions": {
-            "description": "Machine-readable API version information that allows clients to determine which API endpoints and features are available on this server. This provides a more reliable method for capability detection than parsing human-readable version strings, especially for forks and development builds. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "mastodon": {
-                "description": "API version number that increments with substantial API changes. Clients can use this value to determine API compatibility rather than parsing complex version strings like \"4.4+hometown-123\" from forks or nightly builds. This number increases independently of the human-readable version number.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              }
-            }
-          },
           "configuration": {
             "description": "Configured values and limits for this website.",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
+              "accounts": {
+                "description": "Limits related to accounts.",
+                "type": "object",
+                "properties": {
+                  "max_featured_tags": {
+                    "description": "The maximum number of featured tags allowed for each account.",
+                    "type": "integer"
+                  },
+                  "max_pinned_statuses": {
+                    "description": "The maximum number of pinned statuses for each account.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "max_featured_tags"
+                ]
+              },
+              "media_attachments": {
+                "description": "Hints for which attachments will be accepted.",
+                "type": "object",
+                "properties": {
+                  "image_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for image uploads.",
+                    "type": "integer"
+                  },
+                  "image_size_limit": {
+                    "description": "The maximum size of any uploaded image, in bytes.",
+                    "type": "integer"
+                  },
+                  "supported_mime_types": {
+                    "description": "Contains MIME types that can be uploaded.",
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "video_frame_rate_limit": {
+                    "description": "The maximum frame rate for any uploaded video.",
+                    "type": "integer"
+                  },
+                  "video_matrix_limit": {
+                    "description": "The maximum number of pixels (width times height) for video uploads.",
+                    "type": "integer"
+                  },
+                  "video_size_limit": {
+                    "description": "The maximum size of any uploaded video, in bytes.",
+                    "type": "integer"
+                  },
+                  "description_limit": {
+                    "description": "The maximum size of a description, in characters.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                },
+                "required": [
+                  "image_matrix_limit",
+                  "image_size_limit",
+                  "supported_mime_types",
+                  "video_frame_rate_limit",
+                  "video_matrix_limit",
+                  "video_size_limit"
+                ]
+              },
+              "polls": {
+                "description": "Limits related to polls.",
+                "type": "object",
+                "properties": {
+                  "max_characters_per_option": {
+                    "description": "Each poll option is allowed to have this many characters.",
+                    "type": "integer"
+                  },
+                  "max_expiration": {
+                    "description": "The longest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  },
+                  "max_options": {
+                    "description": "Each poll is allowed to have up to this many options.",
+                    "type": "integer"
+                  },
+                  "min_expiration": {
+                    "description": "The shortest allowed poll duration, in seconds.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_characters_per_option",
+                  "max_expiration",
+                  "max_options",
+                  "min_expiration"
+                ]
+              },
+              "statuses": {
+                "description": "Limits related to authoring statuses.",
+                "type": "object",
+                "properties": {
+                  "characters_reserved_per_url": {
+                    "description": "Each URL in a status will be assumed to be exactly this many characters.",
+                    "type": "integer"
+                  },
+                  "max_characters": {
+                    "description": "The maximum number of allowed characters per status.",
+                    "type": "integer"
+                  },
+                  "max_media_attachments": {
+                    "description": "The maximum number of media attachments that can be added to a status.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "characters_reserved_per_url",
+                  "max_characters",
+                  "max_media_attachments"
+                ]
+              },
+              "translation": {
+                "description": "Hints related to translation.",
+                "type": "object",
+                "properties": {
+                  "enabled": {
+                    "description": "Whether the Translations API is available on this server.",
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "enabled"
+                ]
+              },
               "urls": {
                 "description": "URLs of interest for clients apps.",
-                "type": [
-                  "object",
-                  "null"
-                ],
+                "type": "object",
                 "properties": {
                   "streaming": {
                     "description": "The Websockets URL for connecting to the streaming API.",
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "format": "uri"
-                  },
-                  "status": {
-                    "description": "The URL of the server's status page, if configured.",
-                    "type": [
-                      "string",
-                      "null"
-                    ],
+                    "type": "string",
                     "format": "uri"
                   },
                   "about": {
@@ -33988,6 +33996,14 @@
                     ],
                     "format": "uri"
                   },
+                  "status": {
+                    "description": "The URL of the server's status page, if configured.",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  },
                   "terms_of_service": {
                     "description": "The URL of the server's current terms of service, if any.",
                     "type": [
@@ -33996,174 +34012,10 @@
                     ],
                     "format": "uri"
                   }
-                }
-              },
-              "accounts": {
-                "description": "Limits related to accounts.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "max_featured_tags": {
-                    "description": "The maximum number of featured tags allowed for each account.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "max_pinned_statuses": {
-                    "description": "The maximum number of pinned statuses for each account.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
-              },
-              "statuses": {
-                "description": "Limits related to authoring statuses.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "max_characters": {
-                    "description": "The maximum number of allowed characters per status.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "max_media_attachments": {
-                    "description": "The maximum number of media attachments that can be added to a status.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "characters_reserved_per_url": {
-                    "description": "Each URL in a status will be assumed to be exactly this many characters.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
-              },
-              "media_attachments": {
-                "description": "Hints for which attachments will be accepted.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "supported_mime_types": {
-                    "description": "Contains MIME types that can be uploaded.",
-                    "type": [
-                      "array",
-                      "null"
-                    ],
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "description_limit": {
-                    "description": "The maximum size of a description, in characters.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "image_size_limit": {
-                    "description": "The maximum size of any uploaded image, in bytes.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "image_matrix_limit": {
-                    "description": "The maximum number of pixels (width times height) for image uploads.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "video_size_limit": {
-                    "description": "The maximum size of any uploaded video, in bytes.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "video_frame_rate_limit": {
-                    "description": "The maximum frame rate for any uploaded video.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "video_matrix_limit": {
-                    "description": "The maximum number of pixels (width times height) for video uploads.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
-              },
-              "polls": {
-                "description": "Limits related to polls.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "max_options": {
-                    "description": "Each poll is allowed to have up to this many options.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "max_characters_per_option": {
-                    "description": "Each poll option is allowed to have this many characters.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "min_expiration": {
-                    "description": "The shortest allowed poll duration, in seconds.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
-                  "max_expiration": {
-                    "description": "The longest allowed poll duration, in seconds.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
-              },
-              "translation": {
-                "description": "Hints related to translation.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "enabled": {
-                    "description": "Whether the Translations API is available on this server.",
-                    "type": [
-                      "boolean",
-                      "null"
-                    ]
-                  }
-                }
+                },
+                "required": [
+                  "streaming"
+                ]
               },
               "limited_federation": {
                 "description": "Whether federation is limited to explicitly allowed domains.",
@@ -34172,21 +34024,23 @@
                   "null"
                 ]
               }
-            }
+            },
+            "required": [
+              "accounts",
+              "media_attachments",
+              "polls",
+              "statuses",
+              "translation",
+              "urls"
+            ]
           },
           "contact": {
             "description": "Hints related to contacting a representative of the website.",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "email": {
                 "description": "An email address that can be messaged regarding inquiries or issues.",
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
                 "format": "email"
               },
               "account": {
@@ -34200,38 +34054,22 @@
                   }
                 ]
               }
-            }
+            },
+            "required": [
+              "email"
+            ]
           },
           "description": {
             "description": "A short, plain-text description defined by the admin.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "domain": {
             "description": "The WebFinger domain name of the server.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "icon": {
-            "description": "The list of available size variants for this server's configured icon.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/InstanceIcon"
-            }
+            "type": "string"
           },
           "languages": {
             "description": "Primary languages of the website and its staff.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string",
               "format": "iso-639-1"
@@ -34239,24 +34077,15 @@
           },
           "registrations": {
             "description": "Information about registering for this website.",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
-              "enabled": {
-                "description": "Whether registrations are enabled. This will be `false` if `registrations_mode` is `none` or if the server is in `single_user_mode`.",
-                "type": [
-                  "boolean",
-                  "null"
-                ]
-              },
               "approval_required": {
                 "description": "Whether registrations require moderator approval.",
-                "type": [
-                  "boolean",
-                  "null"
-                ]
+                "type": "boolean"
+              },
+              "enabled": {
+                "description": "Whether registrations are enabled. This will be `false` if `registrations_mode` is `none` or if the server is in `single_user_mode`.",
+                "type": "boolean"
               },
               "message": {
                 "description": "A custom message to be shown when registrations are closed. Will be `null` if registrations are open.",
@@ -34287,39 +34116,31 @@
                 ],
                 "format": "uri"
               }
-            }
+            },
+            "required": [
+              "approval_required",
+              "enabled"
+            ]
           },
           "rules": {
             "description": "An itemized list of rules for this website.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Rule"
             }
           },
           "source_url": {
             "description": "The URL for the source code of the software running on this server, per the AGPL license requirements.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           },
           "thumbnail": {
             "description": "An image used to represent this server.",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
               "url": {
                 "description": "The URL for the thumbnail image.",
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
                 "format": "uri"
               },
               "blurhash": {
@@ -34354,48 +34175,82 @@
                   }
                 }
               }
-            }
+            },
+            "required": [
+              "url"
+            ]
           },
           "title": {
             "description": "The title of the website.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "usage": {
             "description": "Usage data for this server.",
+            "type": "object",
+            "properties": {
+              "users": {
+                "description": "Usage data related to users on this server.",
+                "type": "object",
+                "properties": {
+                  "active_month": {
+                    "description": "The number of active users in the past 4 weeks. This is set to zero for server with `configuration[limited_federation]`.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "active_month"
+                ]
+              }
+            },
+            "required": [
+              "users"
+            ]
+          },
+          "version": {
+            "description": "The version of Mastodon installed on the server.",
+            "type": "string"
+          },
+          "api_versions": {
+            "description": "Machine-readable API version information that allows clients to determine which API endpoints and features are available on this server. This provides a more reliable method for capability detection than parsing human-readable version strings, especially for forks and development builds. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
             "type": [
               "object",
               "null"
             ],
             "properties": {
-              "users": {
-                "description": "Usage data related to users on this server.",
+              "mastodon": {
+                "description": "API version number that increments with substantial API changes. Clients can use this value to determine API compatibility rather than parsing complex version strings like \"4.4+hometown-123\" from forks or nightly builds. This number increases independently of the human-readable version number.",
                 "type": [
-                  "object",
+                  "integer",
                   "null"
-                ],
-                "properties": {
-                  "active_month": {
-                    "description": "The number of active users in the past 4 weeks. This is set to zero for server with `configuration[limited_federation]`.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
+                ]
               }
             }
           },
-          "version": {
-            "description": "The version of Mastodon installed on the server.",
+          "icon": {
+            "description": "The list of available size variants for this server's configured icon.",
             "type": [
-              "string",
+              "array",
               "null"
-            ]
+            ],
+            "items": {
+              "$ref": "#/components/schemas/InstanceIcon"
+            }
           }
         },
+        "required": [
+          "configuration",
+          "contact",
+          "description",
+          "domain",
+          "languages",
+          "registrations",
+          "rules",
+          "source_url",
+          "thumbnail",
+          "title",
+          "usage",
+          "version"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
           "description": "Official Mastodon API documentation"
@@ -34829,6 +34684,10 @@
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
         "properties": {
+          "exclusive": {
+            "description": "Whether members of the list should be removed from the “Home” feed.",
+            "type": "boolean"
+          },
           "id": {
             "description": "The ID of the list.",
             "type": "string"
@@ -34841,16 +34700,10 @@
           "title": {
             "description": "The user-defined title of the list.",
             "type": "string"
-          },
-          "exclusive": {
-            "description": "Whether members of the list should be removed from the “Home” feed.",
-            "type": [
-              "boolean",
-              "null"
-            ]
           }
         },
         "required": [
+          "exclusive",
           "id",
           "replies_policy",
           "title"
@@ -35714,20 +35567,18 @@
         "properties": {
           "content": {
             "description": "The rendered HTML content of the privacy policy.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "updated_at": {
             "description": "A timestamp of when the privacy policy was last updated.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           }
         },
+        "required": [
+          "content",
+          "updated_at"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/PrivacyPolicy/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35934,6 +35785,10 @@
             "description": "Do you have a pending follow request for this user?",
             "type": "boolean"
           },
+          "requested_by": {
+            "description": "Has this user requested to follow you?",
+            "type": "boolean"
+          },
           "showing_reblogs": {
             "description": "Are you receiving this user's boosts in your home timeline?",
             "type": "boolean"
@@ -35948,13 +35803,6 @@
               "type": "string",
               "format": "iso-639-1"
             }
-          },
-          "requested_by": {
-            "description": "Has this user requested to follow you?",
-            "type": [
-              "boolean",
-              "null"
-            ]
           }
         },
         "required": [
@@ -35970,6 +35818,7 @@
           "note",
           "notifying",
           "requested",
+          "requested_by",
           "showing_reblogs"
         ],
         "externalDocs": {
@@ -36066,9 +35915,31 @@
             "description": "Whether an action was taken yet.",
             "type": "boolean"
           },
+          "category": {
+            "description": "The generic reason for the report.",
+            "type": "string",
+            "$ref": "#/components/schemas/CategoryEnum"
+          },
+          "comment": {
+            "description": "The reason for the report.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When the report was created.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "forwarded": {
+            "description": "Whether the report was forwarded to a remote domain.",
+            "type": "boolean"
+          },
           "id": {
             "description": "The ID of the report in the database.",
             "type": "string"
+          },
+          "target_account": {
+            "description": "The account that was reported.",
+            "$ref": "#/components/schemas/Account"
           },
           "action_taken_at": {
             "description": "When an action was taken against the report.",
@@ -36077,36 +35948,6 @@
               "null"
             ],
             "format": "date-time"
-          },
-          "category": {
-            "description": "The generic reason for the report.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "$ref": "#/components/schemas/CategoryEnum"
-          },
-          "comment": {
-            "description": "The reason for the report.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "created_at": {
-            "description": "When the report was created.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time"
-          },
-          "forwarded": {
-            "description": "Whether the report was forwarded to a remote domain.",
-            "type": [
-              "boolean",
-              "null"
-            ]
           },
           "rule_ids": {
             "description": "IDs of the rules that have been cited as a violation by this report.",
@@ -36127,22 +35968,16 @@
             "items": {
               "type": "string"
             }
-          },
-          "target_account": {
-            "description": "The account that was reported.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Account"
-              },
-              {
-                "type": "null"
-              }
-            ]
           }
         },
         "required": [
           "action_taken",
-          "id"
+          "category",
+          "comment",
+          "created_at",
+          "forwarded",
+          "id",
+          "target_account"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Report/#attributes",
@@ -36191,40 +36026,32 @@
         "properties": {
           "color": {
             "description": "The hex code assigned to this role. If no hex code is assigned, the string will be empty.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "highlighted": {
             "description": "Whether the role is publicly visible as a badge on user profiles.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "id": {
             "description": "The ID of the Role in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "name": {
             "description": "The name of the role.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "permissions": {
             "description": "A bitmask that represents the sum of all permissions granted to the role.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "color",
+          "highlighted",
+          "id",
+          "name",
+          "permissions"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Role/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37310,28 +37137,27 @@
         "properties": {
           "content": {
             "description": "HTML-encoded translated content of the status.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "detected_source_language": {
             "description": "The language of the source text, as auto-detected by the machine translation provider.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "iso-639-1"
           },
           "media_attachments": {
             "description": "The translated media descriptions of the status.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Translation_Attachment"
             }
+          },
+          "provider": {
+            "description": "The service that provided the machine translation.",
+            "type": "string"
+          },
+          "spoiler_text": {
+            "description": "The translated spoiler warning of the status.",
+            "type": "string"
           },
           "poll": {
             "description": "The translated poll of the status.",
@@ -37343,22 +37169,15 @@
                 "type": "null"
               }
             ]
-          },
-          "provider": {
-            "description": "The service that provided the machine translation.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "spoiler_text": {
-            "description": "The translated spoiler warning of the status.",
-            "type": [
-              "string",
-              "null"
-            ]
           }
         },
+        "required": [
+          "content",
+          "detected_source_language",
+          "media_attachments",
+          "provider",
+          "spoiler_text"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37370,22 +37189,20 @@
         "properties": {
           "id": {
             "description": "The ID of the poll.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "options": {
             "description": "The translated poll options.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Translation_Poll_Option"
             }
           }
         },
+        "required": [
+          "id",
+          "options"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37397,12 +37214,12 @@
         "properties": {
           "title": {
             "description": "The translated title of the poll option.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "title"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37414,19 +37231,17 @@
         "properties": {
           "description": {
             "description": "The translated description of the attachment.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "id": {
             "description": "The id of the attachment.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "description",
+          "id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37505,6 +37320,19 @@
             "description": "Configured values and limits for this website.",
             "type": "object",
             "properties": {
+              "accounts": {
+                "description": "Limits related to accounts.",
+                "type": "object",
+                "properties": {
+                  "max_featured_tags": {
+                    "description": "The maximum number of featured tags allowed for each account.",
+                    "type": "integer"
+                  }
+                },
+                "required": [
+                  "max_featured_tags"
+                ]
+              },
               "media_attachments": {
                 "description": "Hints for which attachments will be accepted.",
                 "type": "object",
@@ -37596,25 +37424,10 @@
                   "max_characters",
                   "max_media_attachments"
                 ]
-              },
-              "accounts": {
-                "description": "Limits related to accounts.",
-                "type": [
-                  "object",
-                  "null"
-                ],
-                "properties": {
-                  "max_featured_tags": {
-                    "description": "The maximum number of featured tags allowed for each account.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  }
-                }
               }
             },
             "required": [
+              "accounts",
               "media_attachments",
               "polls",
               "statuses"
@@ -37946,6 +37759,64 @@
         "type": "object",
         "description": "Represents a subscription to the push streaming server.",
         "properties": {
+          "alerts": {
+            "description": "Which alerts should be delivered to the `endpoint`.",
+            "type": "object",
+            "properties": {
+              "admin.report": {
+                "description": "Receive a push notification when a new report has been filed?",
+                "type": "boolean"
+              },
+              "admin.sign_up": {
+                "description": "Receive a push notification when a new user has signed up?",
+                "type": "boolean"
+              },
+              "favourite": {
+                "description": "Receive a push notification when a status you created has been favourited by someone else?",
+                "type": "boolean"
+              },
+              "follow": {
+                "description": "Receive a push notification when someone has followed you?",
+                "type": "boolean"
+              },
+              "follow_request": {
+                "description": "Receive a push notification when someone has requested to followed you?",
+                "type": "boolean"
+              },
+              "mention": {
+                "description": "Receive a push notification when someone else has mentioned you in a status?",
+                "type": "boolean"
+              },
+              "poll": {
+                "description": "Receive a push notification when a poll you voted in or created has ended?",
+                "type": "boolean"
+              },
+              "reblog": {
+                "description": "Receive a push notification when a status you created has been boosted by someone else?",
+                "type": "boolean"
+              },
+              "status": {
+                "description": "Receive a push notification when a subscribed account posts a status?",
+                "type": "boolean"
+              },
+              "update": {
+                "description": "Receive a push notification when a status you interacted with has been edited?",
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "admin.report",
+              "admin.sign_up",
+              "favourite",
+              "follow",
+              "follow_request",
+              "mention",
+              "poll",
+              "reblog",
+              "status",
+              "update"
+            ]
+          },
           "endpoint": {
             "description": "Where push alerts will be sent to.",
             "type": "string",
@@ -37959,69 +37830,6 @@
             "description": "The streaming server's VAPID key.",
             "type": "string"
           },
-          "alerts": {
-            "description": "Which alerts should be delivered to the `endpoint`.",
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "mention": {
-                "description": "Receive a push notification when someone else has mentioned you in a status?",
-                "type": "boolean"
-              },
-              "status": {
-                "description": "Receive a push notification when a subscribed account posts a status?",
-                "type": "boolean"
-              },
-              "reblog": {
-                "description": "Receive a push notification when a status you created has been boosted by someone else?",
-                "type": "boolean"
-              },
-              "follow": {
-                "description": "Receive a push notification when someone has followed you?",
-                "type": "boolean"
-              },
-              "follow_request": {
-                "description": "Receive a push notification when someone has requested to followed you?",
-                "type": "boolean"
-              },
-              "favourite": {
-                "description": "Receive a push notification when a status you created has been favourited by someone else?",
-                "type": "boolean"
-              },
-              "poll": {
-                "description": "Receive a push notification when a poll you voted in or created has ended?",
-                "type": "boolean"
-              },
-              "update": {
-                "description": "Receive a push notification when a status you interacted with has been edited?",
-                "type": "boolean"
-              },
-              "admin.sign_up": {
-                "description": "Receive a push notification when a new user has signed up?",
-                "type": "boolean"
-              },
-              "admin.report": {
-                "description": "Receive a push notification when a new report has been filed?",
-                "type": [
-                  "boolean",
-                  "null"
-                ]
-              }
-            },
-            "required": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up"
-            ]
-          },
           "standard": {
             "description": "If the push messages follow the standardized specifications (RFC8030+RFC8291+RFC8292). Else they follow a legacy version of the specifications (4th draft of RFC8291 and 1st draft of RFC8292).",
             "type": [
@@ -38031,6 +37839,7 @@
           }
         },
         "required": [
+          "alerts",
           "endpoint",
           "id",
           "server_key"
@@ -38707,6 +38516,16 @@
           "violation"
         ]
       },
+      "FilterContext": {
+        "type": "string",
+        "enum": [
+          "account",
+          "home",
+          "notifications",
+          "public",
+          "thread"
+        ]
+      },
       "PolicyEnum": {
         "type": "string",
         "enum": [
@@ -38759,16 +38578,6 @@
           "rejected",
           "revoked",
           "unauthorized"
-        ]
-      },
-      "FilterContext": {
-        "type": "string",
-        "enum": [
-          "account",
-          "home",
-          "notifications",
-          "public",
-          "thread"
         ]
       },
       "TypesEnum": {
