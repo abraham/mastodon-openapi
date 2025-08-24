@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [dbc39a0](https://github.com/mastodon/documentation/commit/dbc39a0e4d1b7c72c92d7480660c3949871c23d6).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [19c65de](https://github.com/mastodon/documentation/commit/19c65dea422735362622f3c9cbb0eef2532c5d83).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
