@@ -175,4 +175,29 @@ export class VersionParser {
 
     return false;
   }
+
+  /**
+   * Extracts the version when the property itself was added (not enum values)
+   * by looking for lines like "version - added" without enum values in backticks
+   * @param versionHistory The raw version history text
+   * @returns The version when the property was added, or null if not found
+   */
+  static extractPropertyAddedVersion(versionHistory: string): string | null {
+    if (!versionHistory) {
+      return null;
+    }
+
+    // Replace literal \n with actual newlines to handle backslash-escaped newlines
+    const normalizedHistory = versionHistory.replace(/\\n/g, '\n');
+
+    // Look for lines that indicate the property itself was added
+    // Pattern: "version - added" or "version (additional info) - added" (not "version - added `enum_value`" or other modifications)
+    // This regex allows for optional text in parentheses between version and " - added"
+    // Also handle trailing backslashes which are common in markdown
+    const addedPattern =
+      /(?:^|\s)(\d+\.\d+\.\d+)(?:\s*\([^)]*\))?\s*-\s*added\s*\\?\s*$/gm;
+
+    const match = addedPattern.exec(normalizedHistory);
+    return match ? match[1] : null;
+  }
 }

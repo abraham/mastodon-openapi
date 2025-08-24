@@ -33598,6 +33598,15 @@
               "$ref": "#/components/schemas/FilterContext"
             }
           },
+          "filter_action": {
+            "description": "The action to be taken when a status matches this filter.",
+            "type": "string",
+            "enum": [
+              "warn",
+              "hide",
+              "blur"
+            ]
+          },
           "id": {
             "description": "The ID of the Filter in the database.",
             "type": "string"
@@ -33613,18 +33622,6 @@
               "null"
             ],
             "format": "date-time"
-          },
-          "filter_action": {
-            "description": "The action to be taken when a status matches this filter.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "enum": [
-              "warn",
-              "hide",
-              "blur"
-            ]
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
@@ -33649,6 +33646,7 @@
         },
         "required": [
           "context",
+          "filter_action",
           "id",
           "title"
         ],
@@ -34864,6 +34862,11 @@
             "description": "The id of the notification in the database.",
             "type": "string"
           },
+          "type": {
+            "description": "The type of event that resulted in the notification.",
+            "type": "string",
+            "$ref": "#/components/schemas/NotificationTypeEnum"
+          },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
             "oneOf": [
@@ -34914,20 +34917,13 @@
                 "type": "null"
               }
             ]
-          },
-          "type": {
-            "description": "The type of event that resulted in the notification.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "$ref": "#/components/schemas/NotificationTypeEnum"
           }
         },
         "required": [
           "account",
           "created_at",
-          "id"
+          "id",
+          "type"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Notification/#attributes",
