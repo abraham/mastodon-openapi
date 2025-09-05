@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [19c65de](https://github.com/mastodon/documentation/commit/19c65dea422735362622f3c9cbb0eef2532c5d83).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [062ecdd](https://github.com/mastodon/documentation/commit/062ecddd3783ec237cbad1ff0bc9d003b2decaa0).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -5151,7 +5151,7 @@
       "post": {
         "operationId": "createApp",
         "summary": "Create an application",
-        "description": "Create a new application to obtain OAuth2 credentials.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.2 - now returns `vapid_key`\\\n4.3.0 - deprecated `vapid_key`, please see [api/v2/instance]\\\n4.3.0 - added support for multiple `redirect_uris` in Form data parameters\\\n4.3.0 - added `redirect_uris` response property\\\n4.3.0 - deprecated `redirect_uri` response property, since this can be a non-URI if multiple `redirect_uris` are registered, use `redirect_uris` instead\\\n4.3.0 - changed entity type from [Application] to [CredentialApplication]",
+        "description": "Create a new application to obtain OAuth2 credentials.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.2 - now returns `vapid_key`\\\n4.3.0 - deprecated `vapid_key`, please see [api/v2/instance]\\\n4.3.0 - added support for multiple `redirect_uris` in Form data parameters\\\n4.3.0 - added `redirect_uris` response property\\\n4.3.0 - deprecated `redirect_uri` response property, since this can be a non-URI if multiple `redirect_uris` are registered, use `redirect_uris` instead\\\n4.3.0 - changed entity type from [Application] to [CredentialApplication]\n4.4.0 - added `client_secret_expires_at`",
         "tags": [
           "apps"
         ],
@@ -33083,7 +33083,7 @@
             "type": "string"
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application.",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
             "deprecated": true,
             "type": [
               "string",
@@ -33181,7 +33181,7 @@
             ]
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application.",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
             "deprecated": true,
             "type": [
               "string",
@@ -38945,12 +38945,14 @@
             "urn:ietf:wg:oauth:2.0:oob"
           ],
           "client_id": "TWhM-tNSuncnqN7DBJmoyeLnk6K3iJJ71KKXxgL1hPM",
-          "client_secret": "ZEaFUFmF0umgBX1qKJDjaU99Q31lDkOU8NutzTOoliw"
+          "client_secret": "ZEaFUFmF0umgBX1qKJDjaU99Q31lDkOU8NutzTOoliw",
+          "client_secret_expires_at": 0
         }
       },
       "Application200Example": {
         "summary": "Example for Application",
         "value": {
+          "id": "563419",
           "name": "Test Application",
           "website": "https://app.example",
           "scopes": [
@@ -38958,10 +38960,12 @@
             "write",
             "push"
           ],
+          "redirect_uri": "https://app.example/callback\nhttps://app.example/register",
           "redirect_uris": [
             "https://app.example/callback",
             "https://app.example/register"
-          ]
+          ],
+          "vapid_key": "BMAIjoaMYTDbJtfrfocuzO8pzDHI47dzmw0rha6Y="
         }
       },
       "Conversation200Example": {
