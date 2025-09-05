@@ -33083,7 +33083,7 @@
             "type": "string"
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
             "type": [
               "string",
@@ -33181,7 +33181,7 @@
             ]
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
             "type": [
               "string",
@@ -35236,11 +35236,11 @@
         "description": "Represents a user's preferences.",
         "properties": {
           "posting:default:sensitive": {
-            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]]({{< relref \"entities/Account#source-sensitive\" >}}).",
             "type": "boolean"
           },
           "posting:default:visibility": {
-            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
             "type": "string",
             "$ref": "#/components/schemas/VisibilityEnum"
           },
@@ -35258,7 +35258,7 @@
             "type": "boolean"
           },
           "posting:default:language": {
-            "description": "Default language for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
             "type": [
               "string",
               "null"
