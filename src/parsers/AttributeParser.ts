@@ -60,7 +60,7 @@ export class AttributeParser {
         /\*\*Description:\*\*\s*(.*?)\\?\s*\n\*\*Type:\*\*/s
       );
       const typeMatch = sectionContent.match(
-        /\*\*Type:\*\*\s*(.*?)(?=\n.*?(?:`[^`]+`\s*=|\*\*Version history:\*\*))/s
+        /\*\*Type:\*\*\s*(.*?)(?=\n(?:\*\*Version history:\*\*|###|####|`[^`]+`\s*=|\d+\.\d+\.\d+\s*-|$))/s
       );
 
       // Look for Version history in this specific section

@@ -34723,12 +34723,23 @@
         "type": "object",
         "description": "Represents the last read position within a user's timelines.",
         "properties": {
+          "last_read_id": {
+            "description": "The ID of the most recently viewed entity.",
+            "type": "string"
+          },
+          "updated_at": {
+            "description": "The timestamp of when the marker was set.",
+            "type": "string",
+            "format": "date-time"
+          },
           "version": {
             "description": "An incrementing counter, used for locking to prevent write conflicts.",
             "type": "integer"
           }
         },
         "required": [
+          "last_read_id",
+          "updated_at",
           "version"
         ],
         "externalDocs": {
@@ -34791,6 +34802,20 @@
                 "type": [
                   "object",
                   "null"
+                ],
+                "properties": {
+                  "x": {
+                    "description": "Horizontal focal point",
+                    "type": "number"
+                  },
+                  "y": {
+                    "description": "Vertical focal point",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "x",
+                  "y"
                 ]
               }
             }

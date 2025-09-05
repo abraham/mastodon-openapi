@@ -19,7 +19,9 @@ describe('AttributeParser - Newline in description', () => {
       expect(attributes[0].name).toBe('redirect_uri');
       expect(attributes[0].description).toContain('May contain');
       expect(attributes[0].description).toContain('\\n');
-      expect(attributes[0].description).toContain('characters when multiple redirect URIs are registered');
+      expect(attributes[0].description).toContain(
+        'characters when multiple redirect URIs are registered'
+      );
       expect(attributes[0].deprecated).toBe(true);
     });
 
@@ -39,9 +41,15 @@ completely until the Type section.\\
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('multiline_field');
-      expect(attributes[0].description).toContain('This is a description that spans');
-      expect(attributes[0].description).toContain('multiple lines and should be captured');
-      expect(attributes[0].description).toContain('completely until the Type section');
+      expect(attributes[0].description).toContain(
+        'This is a description that spans'
+      );
+      expect(attributes[0].description).toContain(
+        'multiple lines and should be captured'
+      );
+      expect(attributes[0].description).toContain(
+        'completely until the Type section'
+      );
     });
   });
 
@@ -63,7 +71,9 @@ completely until the Type section.\\
       expect(attributes[0].name).toBe('redirect_uri');
       expect(attributes[0].description).toContain('May contain');
       expect(attributes[0].description).toContain('\\n');
-      expect(attributes[0].description).toContain('characters when multiple redirect URIs are registered');
+      expect(attributes[0].description).toContain(
+        'characters when multiple redirect URIs are registered'
+      );
       expect(attributes[0].deprecated).toBe(true);
     });
 
@@ -83,9 +93,15 @@ completely until the Type section.\\
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('multiline_field');
-      expect(attributes[0].description).toContain('This is a description that spans');
-      expect(attributes[0].description).toContain('multiple lines and should be captured');
-      expect(attributes[0].description).toContain('completely until the Type section');
+      expect(attributes[0].description).toContain(
+        'This is a description that spans'
+      );
+      expect(attributes[0].description).toContain(
+        'multiple lines and should be captured'
+      );
+      expect(attributes[0].description).toContain(
+        'completely until the Type section'
+      );
     });
   });
 });
