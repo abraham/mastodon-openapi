@@ -57,10 +57,10 @@ export class AttributeParser {
 
       // Look for Description and Type in this specific section
       const descMatch = sectionContent.match(
-        /\*\*Description:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+        /\*\*Description:\*\*\s*(.*?)\\?\s*\n\*\*Type:\*\*/s
       );
       const typeMatch = sectionContent.match(
-        /\*\*Type:\*\*\s*([^\n\\]+)(?:\\[^\n]*)?/
+        /\*\*Type:\*\*\s*(.*?)(?=\n.*?(?:`[^`]+`\s*=|\*\*Version history:\*\*))/s
       );
 
       // Look for Version history in this specific section
@@ -216,7 +216,7 @@ export class AttributeParser {
     // Then potentially some enum values or additional content
     // Then: **Version history:**\
     const attributeRegex =
-      /#### `([^`]+)`[^{]*?(?:\{\{%([^%]+)%\}\})?\s*(?:\{#[^}]+\})?\s*\n\n\*\*Description:\*\*\s*([^\n]+?)\\?\s*\n\*\*Type:\*\*\s*([^\n]+?)\\?\s*\n(.*?)\*\*Version history:\*\*\\?\s*([\s\S]*?)(?=\n#### |$)/gs;
+      /#### `([^`]+)`[^{]*?(?:\{\{%([^%]+)%\}\})?\s*(?:\{#[^}]+\})?\s*\n\n\*\*Description:\*\*\s*(.*?)\\?\s*\n\*\*Type:\*\*\s*(.*?)\\?\s*\n(.*?)\*\*Version history:\*\*\\?\s*([\s\S]*?)(?=\n#### |$)/gs;
 
     let match;
     while ((match = attributeRegex.exec(content)) !== null) {

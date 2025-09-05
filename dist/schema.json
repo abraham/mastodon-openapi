@@ -33083,7 +33083,7 @@
             "type": "string"
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
             "type": [
               "string",
@@ -33181,7 +33181,7 @@
             ]
           },
           "redirect_uri": {
-            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `",
+            "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
             "type": [
               "string",
@@ -34723,23 +34723,12 @@
         "type": "object",
         "description": "Represents the last read position within a user's timelines.",
         "properties": {
-          "last_read_id": {
-            "description": "The ID of the most recently viewed entity.",
-            "type": "string"
-          },
-          "updated_at": {
-            "description": "The timestamp of when the marker was set.",
-            "type": "string",
-            "format": "date-time"
-          },
           "version": {
             "description": "An incrementing counter, used for locking to prevent write conflicts.",
             "type": "integer"
           }
         },
         "required": [
-          "last_read_id",
-          "updated_at",
           "version"
         ],
         "externalDocs": {
@@ -34802,20 +34791,6 @@
                 "type": [
                   "object",
                   "null"
-                ],
-                "properties": {
-                  "x": {
-                    "description": "Horizontal focal point",
-                    "type": "number"
-                  },
-                  "y": {
-                    "description": "Vertical focal point",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y"
                 ]
               }
             }
@@ -35236,11 +35211,11 @@
         "description": "Represents a user's preferences.",
         "properties": {
           "posting:default:sensitive": {
-            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]]({{< relref \"entities/Account#source-sensitive\" >}}).",
             "type": "boolean"
           },
           "posting:default:visibility": {
-            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
             "type": "string",
             "$ref": "#/components/schemas/VisibilityEnum"
           },
@@ -35258,7 +35233,7 @@
             "type": "boolean"
           },
           "posting:default:language": {
-            "description": "Default language for new posts. Equivalent to [CredentialAccount#source",
+            "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
             "type": [
               "string",
               "null"
