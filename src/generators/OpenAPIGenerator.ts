@@ -163,6 +163,9 @@ class OpenAPIGenerator {
       }
     }
 
+    // Consolidation step: rename identical enum components to use shorter names
+    const nameReplacements = this.consolidateIdenticalEnumComponents(spec, enumPatterns);
+
     // Second pass: replace inline enums with references to shared components
     if (spec.components?.schemas) {
       for (const [entityName, schema] of Object.entries(
@@ -653,14 +656,32 @@ class OpenAPIGenerator {
   ): void {
     const enumSignature = JSON.stringify([...enumValues].sort());
 
-    // Always use EntityAttributeEnum pattern for entity enums to avoid clashes
-    // The consolidation step will handle deduplication for identical values
-    const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
-    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
-    const capitalizedProp = this.toPascalCase(
-      propName.replace(/[^a-zA-Z0-9_]/g, '_')
+    // Determine if this property has clashes by checking ALL enums with same property name
+    const allEnumsForProperty = propertyEnumInfo.get(propName) || [];
+    
+    // Check if there are different enum values for the same property name
+    // (including method parameter enums)
+    const uniqueSignatures = new Set(
+      allEnumsForProperty.map(info => info.enumSignature)
     );
-    const componentName = `${capitalizedEntity}${capitalizedProp}Enum`;
+    const hasClashes = uniqueSignatures.size > 1;
+
+    let componentName: string;
+    if (hasClashes) {
+      // Use EntityAttributeEnum pattern for clashes
+      const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
+      const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
+      const capitalizedProp = this.toPascalCase(
+        propName.replace(/[^a-zA-Z0-9_]/g, '_')
+      );
+      componentName = `${capitalizedEntity}${capitalizedProp}Enum`;
+    } else {
+      // Use AttributeEnum pattern for no clashes
+      const capitalizedProp = this.toPascalCase(
+        propName.replace(/[^a-zA-Z0-9_]/g, '_')
+      );
+      componentName = `${capitalizedProp}Enum`;
+    }
 
     // Store the mapping and original values
     enumPatterns.set(enumSignature, componentName);
@@ -881,6 +902,85 @@ class OpenAPIGenerator {
         property.$ref = `#/components/schemas/${componentName}`;
       }
     }
+  }
+
+  /**
+   * Consolidate identical enum components to use shorter, better names
+   */
+  private consolidateIdenticalEnumComponents(
+    spec: OpenAPISpec,
+    enumPatterns: Map<string, string>
+  ): Map<string, string> {
+    const nameReplacements = new Map<string, string>();
+    
+    if (!spec.components?.schemas) return nameReplacements;
+
+    // Group enum components by their enum values (signature)
+    const signatureToNames = new Map<string, string[]>();
+    
+    for (const [componentName, schema] of Object.entries(spec.components.schemas)) {
+      if (schema && typeof schema === 'object' && 'enum' in schema && Array.isArray(schema.enum)) {
+        const signature = JSON.stringify([...schema.enum].sort());
+        if (!signatureToNames.has(signature)) {
+          signatureToNames.set(signature, []);
+        }
+        signatureToNames.get(signature)!.push(componentName);
+      }
+    }
+
+    // For each signature that has multiple names, choose the best one
+    for (const [signature, componentNames] of signatureToNames) {
+      if (componentNames.length > 1) {
+        // Choose the best name (shortest, or follow specific rules)
+        const bestName = this.chooseBestEnumName(componentNames, signature);
+        
+        // Remove duplicate components and track name replacements
+        for (const componentName of componentNames) {
+          if (componentName !== bestName) {
+            nameReplacements.set(componentName, bestName);
+            delete spec.components.schemas[componentName];
+          }
+        }
+      }
+    }
+
+    // Apply name replacements to all $ref occurrences
+    this.replaceComponentReferences(spec, nameReplacements);
+
+    return nameReplacements;
+  }
+
+  /**
+   * Choose the best name from multiple enum component names with identical values
+   */
+  private chooseBestEnumName(componentNames: string[], signature: string): string {
+    // Parse the enum values to help with decision making
+    let enumValues: string[] = [];
+    try {
+      enumValues = JSON.parse(signature);
+    } catch (e) {
+      // fallback to basic name selection
+    }
+
+    // Sort by preference: shorter names first, then alphabetical
+    const sortedNames = [...componentNames].sort((a, b) => {
+      // Prefer simple AttributeEnum over EntityAttributeEnum
+      const aIsSimple = !a.match(/^[A-Z][a-zA-Z]*[A-Z][a-zA-Z]*Enum$/); // Not in format like FilterContextEnum
+      const bIsSimple = !b.match(/^[A-Z][a-zA-Z]*[A-Z][a-zA-Z]*Enum$/);
+      
+      if (aIsSimple && !bIsSimple) return -1;
+      if (!aIsSimple && bIsSimple) return 1;
+
+      // If both are simple or both are complex, prefer shorter names
+      if (a.length !== b.length) {
+        return a.length - b.length;
+      }
+
+      // If same length, prefer alphabetical
+      return a.localeCompare(b);
+    });
+
+    return sortedNames[0];
   }
 }
 
