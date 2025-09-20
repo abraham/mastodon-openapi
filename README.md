@@ -14,6 +14,12 @@ Generate the most accurate OpenAPI spec for the current stable release of Mastod
 
 ## Usage
 
+### Update documentation version
+
+```bash
+npm run update-docs-sha
+```
+
 ### Generate Schema
 
 ```bash
