@@ -349,6 +349,9 @@ class OpenAPIGenerator {
         const commonBase = this.findCommonEntityBase(entityNames);
         if (commonBase) {
           return `${commonBase}TypeEnum`;
+        } else {
+          // No common base found, use generic TypeEnum
+          return 'TypeEnum';
         }
       }
       
@@ -391,13 +394,22 @@ class OpenAPIGenerator {
     const hasTrendsLink = entityNames.some(name => name.includes('Trends_Link'));
     
     if (hasPreviewCard && hasTrendsLink) {
-      return 'PreviewCard'; // PreviewCardTypeEnum vs TrendsLinkTypeEnum -> PreviewCardTypeEnum
+      return 'Preview'; // PreviewCardTypeEnum vs TrendsLinkTypeEnum -> PreviewTypeEnum
     }
 
     // Find the shortest name as the common base
     const shortestName = entityNames.reduce((shortest, current) => 
       current.length < shortest.length ? current : shortest
     );
+    
+    // For generic entity names that don't have meaningful common patterns,
+    // just return null to let the caller use a generic name
+    if (entityNames.every(name => !name.includes('Notification') && 
+                                    !name.includes('Preview') && 
+                                    !name.includes('Filter'))) {
+      // Check if this is a 'type' property consolidation for generic entities
+      return null; // This will make the caller use a generic name like TypeEnum
+    }
     
     return this.toPascalCase(shortestName);
   }
