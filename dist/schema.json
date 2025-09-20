@@ -33042,7 +33042,7 @@
           "severity": {
             "description": "The policy to be applied by this domain block.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminDomainblockSeverityEnum"
+            "$ref": "#/components/schemas/AdminDomainBlockSeverityEnum"
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
@@ -33248,7 +33248,7 @@
           "severity": {
             "description": "The associated policy with this IP block.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminIpblockSeverityEnum"
+            "$ref": "#/components/schemas/AdminIpBlockSeverityEnum"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -34065,7 +34065,7 @@
           "severity": {
             "description": "The level to which the domain is blocked.",
             "type": "string",
-            "$ref": "#/components/schemas/DomainblockSeverityEnum"
+            "$ref": "#/components/schemas/DomainBlockSeverityEnum"
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -35410,7 +35410,7 @@
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
-            "$ref": "#/components/schemas/MediaattachmentTypeEnum"
+            "$ref": "#/components/schemas/MediaAttachmentTypeEnum"
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -36587,7 +36587,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/RelationshipseveranceeventTypeEnum"
+            "$ref": "#/components/schemas/RelationshipSeveranceEventTypeEnum"
           }
         },
         "externalDocs": {
@@ -38792,7 +38792,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationgroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
           }
         },
         "externalDocs": {
@@ -39248,7 +39248,7 @@
           "month"
         ]
       },
-      "AdminDomainblockSeverityEnum": {
+      "AdminDomainBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
@@ -39256,7 +39256,7 @@
           "noop"
         ]
       },
-      "AdminIpblockSeverityEnum": {
+      "AdminIpBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "sign_up_requires_approval",
@@ -39281,7 +39281,7 @@
           "pending"
         ]
       },
-      "DomainblockSeverityEnum": {
+      "DomainBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
@@ -39314,7 +39314,7 @@
           "none"
         ]
       },
-      "MediaattachmentTypeEnum": {
+      "MediaAttachmentTypeEnum": {
         "type": "string",
         "enum": [
           "unknown",
@@ -39360,7 +39360,7 @@
           "unknown"
         ]
       },
-      "RelationshipseveranceeventTypeEnum": {
+      "RelationshipSeveranceEventTypeEnum": {
         "type": "string",
         "enum": [
           "domain_block",
@@ -39377,7 +39377,7 @@
           "direct"
         ]
       },
-      "NotificationgroupTypeEnum": {
+      "NotificationGroupTypeEnum": {
         "type": "string",
         "enum": [
           "mention",

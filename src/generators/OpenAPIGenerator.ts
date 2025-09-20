@@ -612,11 +612,20 @@ class OpenAPIGenerator {
 
   /**
    * Convert underscore-separated words to PascalCase
+   * Preserves existing camelCase within words
    */
   private toPascalCase(input: string): string {
     return input
       .split('_')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .map((word) => {
+        if (word.length === 0) return '';
+        // If the word already has mixed case (camelCase), preserve it but ensure first char is uppercase
+        if (word.match(/[a-z][A-Z]/)) {
+          return word.charAt(0).toUpperCase() + word.slice(1);
+        }
+        // Otherwise, capitalize first letter and lowercase the rest
+        return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+      })
       .join('');
   }
 
