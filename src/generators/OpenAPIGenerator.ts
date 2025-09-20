@@ -308,6 +308,17 @@ class OpenAPIGenerator {
    * Convert underscore-separated words to PascalCase
    */
   private toPascalCase(input: string): string {
+    // If the input doesn't contain underscores and is already in a reasonable case,
+    // preserve it to avoid converting PascalCase/camelCase to incorrect forms
+    if (!input.includes('_')) {
+      // If it's already PascalCase or camelCase, preserve it
+      if (/^[A-Z][a-zA-Z0-9]*$/.test(input) || /^[a-z][a-zA-Z0-9]*$/.test(input)) {
+        // Ensure first letter is uppercase for PascalCase
+        return input.charAt(0).toUpperCase() + input.slice(1);
+      }
+    }
+    
+    // For underscore-separated strings, convert each part
     return input
       .split('_')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())

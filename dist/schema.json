@@ -32597,7 +32597,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/AccountwarningActionEnum"
+            "$ref": "#/components/schemas/AccountWarningActionEnum"
           },
           "appeal": {
             "description": "Appeal submitted by the target account, if any.",
@@ -34065,7 +34065,7 @@
           "severity": {
             "description": "The level to which the domain is blocked.",
             "type": "string",
-            "$ref": "#/components/schemas/DomainblockSeverityEnum"
+            "$ref": "#/components/schemas/DomainBlockSeverityEnum"
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -35410,7 +35410,7 @@
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
-            "$ref": "#/components/schemas/MediaattachmentTypeEnum"
+            "$ref": "#/components/schemas/MediaAttachmentTypeEnum"
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -36335,7 +36335,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/QuoteapprovalCurrentUserEnum"
+            "$ref": "#/components/schemas/QuoteApprovalCurrentUserEnum"
           },
           "manual": {
             "description": "Describes who is expected to have their quotes of this status be manually reviewed by the author before being accepted. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
@@ -36587,7 +36587,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/RelationshipseveranceeventTypeEnum"
+            "$ref": "#/components/schemas/RelationshipSeveranceEventTypeEnum"
           }
         },
         "externalDocs": {
@@ -38792,7 +38792,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationgroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
           }
         },
         "externalDocs": {
@@ -39229,7 +39229,7 @@
           }
         ]
       },
-      "AccountwarningActionEnum": {
+      "AccountWarningActionEnum": {
         "type": "string",
         "enum": [
           "none",
@@ -39281,7 +39281,7 @@
           "pending"
         ]
       },
-      "DomainblockSeverityEnum": {
+      "DomainBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
@@ -39314,7 +39314,7 @@
           "none"
         ]
       },
-      "MediaattachmentTypeEnum": {
+      "MediaAttachmentTypeEnum": {
         "type": "string",
         "enum": [
           "unknown",
@@ -39380,7 +39380,7 @@
           "unauthorized"
         ]
       },
-      "QuoteapprovalCurrentUserEnum": {
+      "QuoteApprovalCurrentUserEnum": {
         "type": "string",
         "enum": [
           "automatic",
@@ -39389,7 +39389,7 @@
           "unknown"
         ]
       },
-      "RelationshipseveranceeventTypeEnum": {
+      "RelationshipSeveranceEventTypeEnum": {
         "type": "string",
         "enum": [
           "domain_block",
@@ -39397,7 +39397,7 @@
           "account_suspension"
         ]
       },
-      "NotificationgroupTypeEnum": {
+      "NotificationGroupTypeEnum": {
         "type": "string",
         "enum": [
           "mention",
