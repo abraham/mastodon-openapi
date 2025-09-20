@@ -312,15 +312,12 @@ class OpenAPIGenerator {
     // preserve it to avoid converting PascalCase/camelCase to incorrect forms
     if (!input.includes('_')) {
       // If it's already PascalCase or camelCase, preserve it
-      if (
-        /^[A-Z][a-zA-Z0-9]*$/.test(input) ||
-        /^[a-z][a-zA-Z0-9]*$/.test(input)
-      ) {
+      if (/^[A-Z][a-zA-Z0-9]*$/.test(input) || /^[a-z][a-zA-Z0-9]*$/.test(input)) {
         // Ensure first letter is uppercase for PascalCase
         return input.charAt(0).toUpperCase() + input.slice(1);
       }
     }
-
+    
     // For underscore-separated strings, convert each part
     return input
       .split('_')
@@ -342,8 +339,17 @@ class OpenAPIGenerator {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
+    // Handle special cases for shorter enum names when there are similar entities
+    let processedEntityName = sanitizedEntityName;
+    
+    // For NotificationGroup, prefer the shorter base name to avoid very long enum names
+    if (sanitizedEntityName === 'NotificationGroup') {
+      // Use just "Group" to make it shorter while avoiding conflicts with "Notification"
+      processedEntityName = 'Group';
+    }
+
     // Create a descriptive name using the pattern EntityAttributeEnum
-    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
+    const capitalizedEntity = this.toPascalCase(processedEntityName);
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
     // Default naming pattern: EntityAttributeEnum
