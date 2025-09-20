@@ -127,7 +127,8 @@ describe('EntityConverter enum deduplication', () => {
 
     // Check that StatusOneVisibilityEnum component is created (named after first entity)
     expect(spec.components?.schemas?.StatusOneVisibilityEnum).toBeDefined();
-    const visibilityEnum = spec.components!.schemas!.StatusOneVisibilityEnum as any;
+    const visibilityEnum = spec.components!.schemas!
+      .StatusOneVisibilityEnum as any;
     expect(visibilityEnum.type).toBe('string');
     expect(visibilityEnum.enum.sort()).toEqual([
       'direct',
@@ -145,8 +146,12 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(visibility1.type).toBe('array');
     expect(visibility2.type).toBe('array');
-    expect(visibility1.items?.$ref).toBe('#/components/schemas/StatusOneVisibilityEnum');
-    expect(visibility2.items?.$ref).toBe('#/components/schemas/StatusOneVisibilityEnum');
+    expect(visibility1.items?.$ref).toBe(
+      '#/components/schemas/StatusOneVisibilityEnum'
+    );
+    expect(visibility2.items?.$ref).toBe(
+      '#/components/schemas/StatusOneVisibilityEnum'
+    );
 
     // Should not have inline enum values
     expect(visibility1.enum).toBeUndefined();

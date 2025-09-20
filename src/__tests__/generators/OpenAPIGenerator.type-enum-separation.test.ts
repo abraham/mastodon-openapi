@@ -104,9 +104,15 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
     // Check PreviewCardTypeEnum
-    const previewCardTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
+    const previewCardTypeEnum = schema.components!.schemas!
+      .PreviewCardTypeEnum as any;
     expect(previewCardTypeEnum.type).toBe('string');
-    expect(previewCardTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
+    expect(previewCardTypeEnum.enum).toEqual([
+      'link',
+      'photo',
+      'rich',
+      'video',
+    ]);
 
     // Check that Notification uses NotificationTypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;
@@ -169,7 +175,7 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create entity-specific enum for each entity type 
+    // Should create entity-specific enum for each entity type
     expect(schema.components?.schemas?.SomeOtherEntityTypeEnum).toBeDefined();
     const typeEnum = schema.components!.schemas!.SomeOtherEntityTypeEnum as any;
     expect(typeEnum.type).toBe('string');

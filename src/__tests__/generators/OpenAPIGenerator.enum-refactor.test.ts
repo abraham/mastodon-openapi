@@ -28,10 +28,10 @@ describe('OpenAPIGenerator enum refactoring', () => {
 
     // Should use EntityAttributeEnum pattern
     expect(spec.components?.schemas?.AccountVisibilityEnum).toBeDefined();
-    
+
     // Should not use hardcoded names
     expect(spec.components?.schemas?.VisibilityEnum).toBeUndefined();
-    
+
     const accountSchema = spec.components!.schemas!.Account;
     expect(accountSchema.properties!.visibility.$ref).toBe(
       '#/components/schemas/AccountVisibilityEnum'
@@ -85,7 +85,9 @@ describe('OpenAPIGenerator enum refactoring', () => {
     const spec = generator.generateSchema(entities, []);
 
     // Should convert underscores to PascalCase
-    expect(spec.components?.schemas?.AccountSettingPrivacyLevelEnum).toBeDefined();
+    expect(
+      spec.components?.schemas?.AccountSettingPrivacyLevelEnum
+    ).toBeDefined();
 
     const settingSchema = spec.components!.schemas!['Account_Setting'];
     expect(settingSchema.properties!.privacy_level.$ref).toBe(

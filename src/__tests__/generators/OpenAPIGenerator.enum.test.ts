@@ -45,12 +45,16 @@ describe('OpenAPIGenerator Enum Support', () => {
       // Check that status field has reference to enum component
       expect(entitySchema.properties?.['status']).toBeDefined();
       const statusProperty = entitySchema.properties!['status'];
-      expect(statusProperty.$ref).toBe('#/components/schemas/TestEntityStatusEnum');
+      expect(statusProperty.$ref).toBe(
+        '#/components/schemas/TestEntityStatusEnum'
+      );
       expect(statusProperty.description).toBe('Status of the entity');
 
       // Check that the TestEntityStatusEnum component was created
       expect(spec.components?.schemas?.['TestEntityStatusEnum']).toBeDefined();
-      const statusEnum = spec.components!.schemas!['TestEntityStatusEnum'] as any;
+      const statusEnum = spec.components!.schemas![
+        'TestEntityStatusEnum'
+      ] as any;
       expect(statusEnum.type).toBe('string');
       expect(statusEnum.enum).toEqual(['active', 'inactive', 'pending']);
 
@@ -63,8 +67,12 @@ describe('OpenAPIGenerator Enum Support', () => {
       expect(visibilityProperty.description).toBe('Visibility setting');
 
       // Check that the TestEntityVisibilityEnum component was created
-      expect(spec.components?.schemas?.['TestEntityVisibilityEnum']).toBeDefined();
-      const visibilityEnum = spec.components!.schemas!['TestEntityVisibilityEnum'] as any;
+      expect(
+        spec.components?.schemas?.['TestEntityVisibilityEnum']
+      ).toBeDefined();
+      const visibilityEnum = spec.components!.schemas![
+        'TestEntityVisibilityEnum'
+      ] as any;
       expect(visibilityEnum.type).toBe('string');
       expect(visibilityEnum.enum).toEqual([
         'public',

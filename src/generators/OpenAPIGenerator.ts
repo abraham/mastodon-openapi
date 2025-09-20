@@ -211,24 +211,31 @@ class OpenAPIGenerator {
     if (!spec.components?.schemas) return;
 
     // First pass: collect all enum occurrences to detect sharing opportunities
-    const enumOccurrences = new Map<string, { entityName: string, propName: string, enumValues: any[] }[]>();
+    const enumOccurrences = new Map<
+      string,
+      { entityName: string; propName: string; enumValues: any[] }[]
+    >();
 
-    for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+    for (const [entityName, schema] of Object.entries(
+      spec.components.schemas
+    )) {
       const openAPISchema = schema as OpenAPISchema;
       if (!openAPISchema.properties) continue;
 
-      for (const [propName, property] of Object.entries(openAPISchema.properties)) {
+      for (const [propName, property] of Object.entries(
+        openAPISchema.properties
+      )) {
         // Check for direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
           const enumSignature = JSON.stringify([...property.enum].sort());
-          
+
           if (!enumOccurrences.has(enumSignature)) {
             enumOccurrences.set(enumSignature, []);
           }
           enumOccurrences.get(enumSignature)!.push({
             entityName,
             propName,
-            enumValues: property.enum
+            enumValues: property.enum,
           });
         }
 
@@ -241,14 +248,14 @@ class OpenAPIGenerator {
           Array.isArray(property.items.enum)
         ) {
           const enumSignature = JSON.stringify([...property.items.enum].sort());
-          
+
           if (!enumOccurrences.has(enumSignature)) {
             enumOccurrences.set(enumSignature, []);
           }
           enumOccurrences.get(enumSignature)!.push({
             entityName,
             propName,
-            enumValues: property.items.enum
+            enumValues: property.items.enum,
           });
         }
       }
@@ -257,7 +264,7 @@ class OpenAPIGenerator {
     // Second pass: create enum components based on first occurrence
     for (const [enumSignature, occurrences] of enumOccurrences) {
       if (occurrences.length === 0) continue;
-      
+
       // Use the first occurrence to determine the component name
       const firstOccurrence = occurrences[0];
       const componentName = this.generateEntityEnumComponentName(
@@ -268,7 +275,10 @@ class OpenAPIGenerator {
 
       // Store the mapping and original values
       enumPatterns.set(enumSignature, componentName);
-      enumSignatureToOriginalValues.set(enumSignature, firstOccurrence.enumValues);
+      enumSignatureToOriginalValues.set(
+        enumSignature,
+        firstOccurrence.enumValues
+      );
 
       // Create the enum component
       spec.components.schemas[componentName] = {
@@ -286,15 +296,17 @@ class OpenAPIGenerator {
     if (input.includes('_')) {
       return input
         .split('_')
-        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .map(
+          (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+        )
         .join('');
     }
-    
+
     // If it's already in PascalCase (starts with uppercase), return as-is
     if (/^[A-Z]/.test(input)) {
       return input;
     }
-    
+
     // Otherwise, just capitalize the first letter
     return input.charAt(0).toUpperCase() + input.slice(1);
   }
