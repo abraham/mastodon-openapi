@@ -459,6 +459,9 @@ class EntityConverter {
           oneOf: [{ $ref: property.$ref }, { type: 'null' }],
           ...(property.deprecated && { deprecated: true }),
         };
+      } else if (property.oneOf) {
+        // For properties that already have oneOf (e.g., multiple entity references), add null to the oneOf array
+        property.oneOf.push({ type: 'null' });
       } else if (property.type && typeof property.type === 'string') {
         // For regular type properties, convert type to an array that includes null
         property.type = [property.type, 'null'];

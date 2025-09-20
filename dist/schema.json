@@ -37218,6 +37218,9 @@
                 "$ref": "#/components/schemas/Quote"
               },
               {
+                "$ref": "#/components/schemas/ShallowQuote"
+              },
+              {
                 "type": "null"
               }
             ]
