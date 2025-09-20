@@ -100,7 +100,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const methodContextProp = requestBodySchema.properties!.context;
     expect(methodContextProp.type).toBe('array');
     expect(methodContextProp.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/ContextEnum'
     );
   });
 

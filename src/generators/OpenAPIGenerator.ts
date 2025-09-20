@@ -94,19 +94,7 @@ class OpenAPIGenerator {
       );
     }
 
-    // Collect enums from entity schemas (for remaining deduplication)
-    if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(
-        spec.components.schemas
-      )) {
-        this.collectEnumPatternsFromSchema(
-          schema as OpenAPISchema,
-          entityName,
-          enumPatterns,
-          enumSignatureToOriginalValues
-        );
-      }
-    }
+    // Note: No longer collecting from entity schemas again since extractEntityEnumsToComponents handles this
 
     // Collect enums from method parameters and request bodies
     if (spec.paths) {
@@ -151,11 +139,42 @@ class OpenAPIGenerator {
 
     // Create shared components for patterns that appear in multiple places
     // Also create individual components for patterns that appear only once
+    // Track component names to detect conflicts
+    const componentNameToSignature = new Map<string, string>();
+
     for (const [enumSignature, componentName] of enumPatterns) {
       const originalValues = enumSignatureToOriginalValues.get(enumSignature);
-      
+
       if (componentName && componentName !== '') {
         // This is a shared component (appears multiple times)
+
+        // Check for naming conflicts
+        if (componentNameToSignature.has(componentName)) {
+          const existingSignature = componentNameToSignature.get(componentName);
+          if (existingSignature !== enumSignature) {
+            // Naming conflict! Different enum signatures would have same name
+            // Add hash to make it unique
+            const enumSignatureForHash = JSON.stringify(
+              [...originalValues!].sort()
+            );
+            const hash = this.createShortHash(enumSignatureForHash);
+            const parts = componentName.split('Enum');
+            const newComponentName = `${parts[0]}${hash}Enum`;
+            enumPatterns.set(enumSignature, newComponentName);
+
+            if (spec.components?.schemas) {
+              spec.components.schemas[newComponentName] = {
+                type: 'string',
+                enum: originalValues,
+              } as any;
+            }
+            continue;
+          }
+        }
+
+        // No conflict, use the simple name
+        componentNameToSignature.set(componentName, enumSignature);
+
         if (spec.components?.schemas) {
           spec.components.schemas[componentName] = {
             type: 'string',
@@ -164,23 +183,22 @@ class OpenAPIGenerator {
         }
       } else if (componentName === '') {
         // This is a single occurrence - create entity-specific component
-        // Need to find the original context to generate proper entity name
         const contextInfo = this.findContextForEnumSignature(
           enumSignature,
           spec,
           enumSignatureToOriginalValues
         );
-        
+
         if (contextInfo) {
           const individualComponentName = this.generateEntityEnumComponentName(
             contextInfo.entityName,
             contextInfo.propertyName,
             originalValues || []
           );
-          
+
           // Update the mapping to use the individual component name
           enumPatterns.set(enumSignature, individualComponentName);
-          
+
           if (spec.components?.schemas) {
             spec.components.schemas[individualComponentName] = {
               type: 'string',
@@ -306,7 +324,7 @@ class OpenAPIGenerator {
   ): string {
     // Sanitize entity name to remove invalid characters
     const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
-    
+
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
@@ -403,11 +421,15 @@ class OpenAPIGenerator {
     if (!targetEnumValues || !spec.components?.schemas) return null;
 
     // Search through all entity schemas to find the matching enum
-    for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+    for (const [entityName, schema] of Object.entries(
+      spec.components.schemas
+    )) {
       const openAPISchema = schema as OpenAPISchema;
       if (!openAPISchema.properties) continue;
 
-      for (const [propName, property] of Object.entries(openAPISchema.properties)) {
+      for (const [propName, property] of Object.entries(
+        openAPISchema.properties
+      )) {
         // Check direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
           const propEnumSignature = JSON.stringify([...property.enum].sort());
@@ -424,7 +446,9 @@ class OpenAPIGenerator {
           property.items.enum &&
           Array.isArray(property.items.enum)
         ) {
-          const itemEnumSignature = JSON.stringify([...property.items.enum].sort());
+          const itemEnumSignature = JSON.stringify(
+            [...property.items.enum].sort()
+          );
           if (itemEnumSignature === enumSignature) {
             return { entityName, propertyName: propName };
           }
