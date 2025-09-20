@@ -8434,7 +8434,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/FilterContextEnum"
                     }
                   },
                   "phrase": {
@@ -8772,7 +8772,7 @@
                     "type": "array",
                     "description": "Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/FilterContextEnum"
                     }
                   },
                   "phrase": {
@@ -9225,7 +9225,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/FilterContextEnum"
                     }
                   },
                   "title": {
@@ -10218,7 +10218,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/FilterContextEnum"
                     }
                   },
                   "expires_in": {
@@ -13746,7 +13746,7 @@
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
                     "default": "list",
-                    "$ref": "#/components/schemas/RepliesPolicyEnum"
+                    "$ref": "#/components/schemas/ListRepliesPolicyEnum"
                   }
                 },
                 "required": [
@@ -14070,7 +14070,7 @@
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
                     "default": "list",
-                    "$ref": "#/components/schemas/RepliesPolicyEnum"
+                    "$ref": "#/components/schemas/ListRepliesPolicyEnum"
                   }
                 },
                 "required": [
@@ -16186,7 +16186,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           },
@@ -16245,7 +16245,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           }
@@ -17970,7 +17970,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           },
@@ -17991,7 +17991,7 @@
               "type": "array",
               "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite` and `reblog`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           },
@@ -18040,7 +18040,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           }
@@ -18672,7 +18672,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           },
@@ -18693,7 +18693,7 @@
               "type": "array",
               "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           },
@@ -18752,7 +18752,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "$ref": "#/components/schemas/TypesEnum"
+                "$ref": "#/components/schemas/GetApiV1NotificationsParamTypesEnum"
               }
             }
           }
@@ -21636,7 +21636,7 @@
                     "type": "string",
                     "description": "Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
                     "default": "other",
-                    "$ref": "#/components/schemas/CategoryEnum"
+                    "$ref": "#/components/schemas/AdminReportCategoryEnum"
                   },
                   "comment": {
                     "type": "string",
@@ -32597,7 +32597,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/ActionEnum"
+            "$ref": "#/components/schemas/AccountWarningActionEnum"
           },
           "appeal": {
             "description": "Appeal submitted by the target account, if any.",
@@ -32871,7 +32871,7 @@
           "frequency": {
             "description": "The size of the bucket for the returned data.",
             "type": "string",
-            "$ref": "#/components/schemas/FrequencyEnum"
+            "$ref": "#/components/schemas/AdminCohortFrequencyEnum"
           },
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
@@ -33042,7 +33042,7 @@
           "severity": {
             "description": "The policy to be applied by this domain block.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/AdminDomainblockSeverityEnum"
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
@@ -33248,7 +33248,7 @@
           "severity": {
             "description": "The associated policy with this IP block.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/AdminIpblockSeverityEnum"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -33368,7 +33368,7 @@
           "category": {
             "description": "The category under which the report is classified.",
             "type": "string",
-            "$ref": "#/components/schemas/CategoryEnum"
+            "$ref": "#/components/schemas/AdminReportCategoryEnum"
           },
           "comment": {
             "description": "An optional reason for reporting.",
@@ -33707,7 +33707,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/StateEnum"
+            "$ref": "#/components/schemas/AppealStateEnum"
           },
           "text": {
             "description": "Text of the appeal from the moderated account to the moderators.",
@@ -34065,7 +34065,7 @@
           "severity": {
             "description": "The level to which the domain is blocked.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/DomainBlockSeverityEnum"
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -34246,13 +34246,13 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FilterContext"
+              "$ref": "#/components/schemas/FilterContextEnum"
             }
           },
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
             "type": "string",
-            "$ref": "#/components/schemas/FilterActionEnum"
+            "$ref": "#/components/schemas/FilterFilterActionEnum"
           },
           "id": {
             "description": "The ID of the Filter in the database.",
@@ -35336,7 +35336,7 @@
           "replies_policy": {
             "description": "Which replies should be shown in the list.",
             "type": "string",
-            "$ref": "#/components/schemas/RepliesPolicyEnum"
+            "$ref": "#/components/schemas/ListRepliesPolicyEnum"
           },
           "title": {
             "description": "The user-defined title of the list.",
@@ -35410,7 +35410,7 @@
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/MediaAttachmentTypeEnum"
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -35883,12 +35883,12 @@
           "posting:default:visibility": {
             "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
             "type": "string",
-            "$ref": "#/components/schemas/VisibilityEnum"
+            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
           },
           "reading:expand:media": {
             "description": "Whether media attachments should be automatically displayed or blurred/hidden.",
             "type": "string",
-            "$ref": "#/components/schemas/MediaExpandEnum"
+            "$ref": "#/components/schemas/PreferencesReadingExpandMediaEnum"
           },
           "reading:expand:spoilers": {
             "description": "Whether CWs should be expanded by default.",
@@ -35958,7 +35958,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewTypeEnum"
+            "$ref": "#/components/schemas/PreviewCardTypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -36090,7 +36090,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewTypeEnum"
+            "$ref": "#/components/schemas/PreviewCardTypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -36244,7 +36244,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/StateEnum"
+            "$ref": "#/components/schemas/QuoteStateEnum"
           }
         },
         "externalDocs": {
@@ -36335,7 +36335,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/CurrentUserEnum"
+            "$ref": "#/components/schemas/QuoteApprovalCurrentUserEnum"
           },
           "manual": {
             "description": "Describes who is expected to have their quotes of this status be manually reviewed by the author before being accepted. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
@@ -36587,7 +36587,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/RelationshipSeveranceEventTypeEnum"
           }
         },
         "externalDocs": {
@@ -36606,7 +36606,7 @@
           "category": {
             "description": "The generic reason for the report.",
             "type": "string",
-            "$ref": "#/components/schemas/CategoryEnum"
+            "$ref": "#/components/schemas/AdminReportCategoryEnum"
           },
           "comment": {
             "description": "The reason for the report.",
@@ -37007,7 +37007,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/StateEnum"
+            "$ref": "#/components/schemas/QuoteStateEnum"
           }
         },
         "externalDocs": {
@@ -37095,7 +37095,7 @@
           "visibility": {
             "description": "Visibility of this status.",
             "type": "string",
-            "$ref": "#/components/schemas/VisibilityEnum"
+            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
           },
           "application": {
             "description": "The application used to post this status.",
@@ -37969,7 +37969,7 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FilterContext"
+              "$ref": "#/components/schemas/FilterContextEnum"
             }
           },
           "id": {
@@ -38792,7 +38792,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationTypeEnum"
+            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
           }
         },
         "externalDocs": {
@@ -39133,7 +39133,7 @@
           "visibility": {
             "type": "string",
             "description": "Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
-            "$ref": "#/components/schemas/VisibilityEnum"
+            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
           }
         }
       },
@@ -39229,7 +39229,7 @@
           }
         ]
       },
-      "ActionEnum": {
+      "AccountWarningActionEnum": {
         "type": "string",
         "enum": [
           "none",
@@ -39241,21 +39241,30 @@
           "suspend"
         ]
       },
-      "FrequencyEnum": {
+      "AdminCohortFrequencyEnum": {
         "type": "string",
         "enum": [
           "day",
           "month"
         ]
       },
-      "SeverityEnum": {
+      "AdminDomainblockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
-          "suspend"
+          "suspend",
+          "noop"
         ]
       },
-      "CategoryEnum": {
+      "AdminIpblockSeverityEnum": {
+        "type": "string",
+        "enum": [
+          "sign_up_requires_approval",
+          "sign_up_block",
+          "no_access"
+        ]
+      },
+      "AdminReportCategoryEnum": {
         "type": "string",
         "enum": [
           "spam",
@@ -39264,18 +39273,22 @@
           "other"
         ]
       },
-      "StateEnum": {
+      "AppealStateEnum": {
         "type": "string",
         "enum": [
-          "pending",
-          "accepted",
+          "approved",
           "rejected",
-          "revoked",
-          "deleted",
-          "unauthorized"
+          "pending"
         ]
       },
-      "FilterContext": {
+      "DomainBlockSeverityEnum": {
+        "type": "string",
+        "enum": [
+          "silence",
+          "suspend"
+        ]
+      },
+      "FilterContextEnum": {
         "type": "string",
         "enum": [
           "home",
@@ -39285,7 +39298,7 @@
           "account"
         ]
       },
-      "FilterActionEnum": {
+      "FilterFilterActionEnum": {
         "type": "string",
         "enum": [
           "warn",
@@ -39293,7 +39306,7 @@
           "blur"
         ]
       },
-      "RepliesPolicyEnum": {
+      "ListRepliesPolicyEnum": {
         "type": "string",
         "enum": [
           "followed",
@@ -39301,12 +39314,14 @@
           "none"
         ]
       },
-      "TypeEnum": {
+      "MediaAttachmentTypeEnum": {
         "type": "string",
         "enum": [
-          "domain_block",
-          "user_domain_block",
-          "account_suspension"
+          "unknown",
+          "image",
+          "gifv",
+          "video",
+          "audio"
         ]
       },
       "NotificationTypeEnum": {
@@ -39323,10 +39338,12 @@
           "admin.sign_up",
           "admin.report",
           "severed_relationships",
-          "moderation_warning"
+          "moderation_warning",
+          "quote",
+          "quoted_update"
         ]
       },
-      "VisibilityEnum": {
+      "PreferencesPostingDefaultVisibilityEnum": {
         "type": "string",
         "enum": [
           "public",
@@ -39335,7 +39352,7 @@
           "direct"
         ]
       },
-      "MediaExpandEnum": {
+      "PreferencesReadingExpandMediaEnum": {
         "type": "string",
         "enum": [
           "default",
@@ -39343,7 +39360,7 @@
           "hide_all"
         ]
       },
-      "PreviewTypeEnum": {
+      "PreviewCardTypeEnum": {
         "type": "string",
         "enum": [
           "link",
@@ -39352,7 +39369,18 @@
           "rich"
         ]
       },
-      "CurrentUserEnum": {
+      "QuoteStateEnum": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "accepted",
+          "rejected",
+          "revoked",
+          "deleted",
+          "unauthorized"
+        ]
+      },
+      "QuoteApprovalCurrentUserEnum": {
         "type": "string",
         "enum": [
           "automatic",
@@ -39361,7 +39389,32 @@
           "unknown"
         ]
       },
-      "TypesEnum": {
+      "RelationshipSeveranceEventTypeEnum": {
+        "type": "string",
+        "enum": [
+          "domain_block",
+          "user_domain_block",
+          "account_suspension"
+        ]
+      },
+      "NotificationGroupTypeEnum": {
+        "type": "string",
+        "enum": [
+          "mention",
+          "status",
+          "reblog",
+          "follow",
+          "follow_request",
+          "favourite",
+          "poll",
+          "update",
+          "admin.sign_up",
+          "admin.report",
+          "severed_relationships",
+          "moderation_warning"
+        ]
+      },
+      "GetApiV1NotificationsParamTypesEnum": {
         "type": "string",
         "enum": [
           "mention",
