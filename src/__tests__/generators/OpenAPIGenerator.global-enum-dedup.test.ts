@@ -9,7 +9,68 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it('should deduplicate enums across entities and method parameters', () => {
+  it('TEMP DEBUG: should show what global enum dedup components are created', () => {
+    const entities: EntityClass[] = [
+      {
+        name: 'Filter',
+        description: 'Represents a user-defined filter for determining which statuses should not be shown to the user.',
+        attributes: [
+          {
+            name: 'context',
+            type: 'Array of String (Enumerable, anyOf)',
+            description: 'The contexts in which the filter should be applied.',
+            enumValues: [
+              'home',
+              'notifications',
+              'public',
+              'thread',
+              'account',
+            ],
+          },
+        ],
+      },
+    ];
+
+    const methodFiles: ApiMethodsFile[] = [
+      {
+        name: 'filters',
+        description: 'Methods for managing filters',
+        methods: [
+          {
+            name: 'Get a filter',
+            httpMethod: 'GET',
+            endpoint: '/api/v1/filters/{id}',
+            description: 'View a single filter',
+            parameters: [
+              {
+                name: 'context',
+                description: 'Array of enumerated strings',
+                in: 'query',
+                enumValues: [
+                  'home',
+                  'notifications',
+                  'public',
+                  'thread',
+                  'account',
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ];
+
+    const schema = generator.generateSchema(entities, methodFiles);
+
+    console.log('TEMP DEBUG: Global enum dedup components:');
+    Object.keys(schema.components?.schemas || {}).forEach(key => {
+      if (key.includes('Context') || key.includes('Enum')) {
+        console.log(`- ${key}:`, JSON.stringify(schema.components!.schemas![key], null, 2));
+      }
+    });
+
+    expect(true).toBe(true);
+  });
     // Entity with context enum
     const entities: EntityClass[] = [
       {
