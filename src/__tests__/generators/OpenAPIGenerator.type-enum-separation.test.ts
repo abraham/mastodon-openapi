@@ -91,50 +91,51 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create separate shared components for each type enum
-    expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.PreviewTypeEnum).toBeDefined();
+    // Should create shared TypeEnum for notification types (identical values get deduplicated)
+    expect(schema.components?.schemas?.TypeEnum).toBeDefined();
+    // Should create separate PreviewcardTypeEnum for preview card type (different values)
+    expect(schema.components?.schemas?.PreviewcardTypeEnum).toBeDefined();
 
-    // Check NotificationTypeEnum
+    // Check shared TypeEnum (for Notification and NotificationGroup with identical values)
     const notificationTypeEnum = schema.components!.schemas!
-      .NotificationTypeEnum as any;
+      .TypeEnum as any;
     expect(notificationTypeEnum.type).toBe('string');
     expect(notificationTypeEnum.enum).toContain('favourite');
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
-    // Check PreviewTypeEnum
-    const previewTypeEnum = schema.components!.schemas!.PreviewTypeEnum as any;
+    // Check PreviewcardTypeEnum
+    const previewTypeEnum = schema.components!.schemas!.PreviewcardTypeEnum as any;
     expect(previewTypeEnum.type).toBe('string');
     expect(previewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
-    // Check that Notification uses NotificationTypeEnum
+    // Check that Notification uses shared TypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;
     const notificationTypeProp = notificationSchema.properties!.type;
     expect(notificationTypeProp.$ref).toBe(
-      '#/components/schemas/NotificationTypeEnum'
+      '#/components/schemas/TypeEnum'
     );
 
-    // Check that NotificationGroup also uses NotificationTypeEnum
+    // Check that NotificationGroup also uses shared TypeEnum
     const notificationGroupSchema =
       schema.components!.schemas!.NotificationGroup;
     const notificationGroupTypeProp = notificationGroupSchema.properties!.type;
     expect(notificationGroupTypeProp.$ref).toBe(
-      '#/components/schemas/NotificationTypeEnum'
+      '#/components/schemas/TypeEnum'
     );
 
-    // Check that PreviewCard uses PreviewTypeEnum
+    // Check that PreviewCard uses PreviewcardTypeEnum
     const previewCardSchema = schema.components!.schemas!.PreviewCard;
     const previewCardTypeProp = previewCardSchema.properties!.type;
     expect(previewCardTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewcardTypeEnum'
     );
 
-    // Check that Trends_Link also uses PreviewTypeEnum
+    // Check that Trends_Link also uses PreviewcardTypeEnum
     const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
     expect(trendsLinkTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/TrendsLinkTypeEnum'
     );
   });
 

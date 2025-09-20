@@ -54,9 +54,9 @@ describe('EntityConverter enum deduplication', () => {
     expect(spec.components?.schemas?.Filter).toBeDefined();
     expect(spec.components?.schemas?.V1_Filter).toBeDefined();
 
-    // Check that FilterContext component is created
-    expect(spec.components?.schemas?.FilterContext).toBeDefined();
-    const filterContext = spec.components!.schemas!.FilterContext as any;
+    // Check that ContextEnum component is created (shared enum for identical values)
+    expect(spec.components?.schemas?.ContextEnum).toBeDefined();
+    const filterContext = spec.components!.schemas!.ContextEnum as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toEqual([
       'home',
@@ -70,7 +70,7 @@ describe('EntityConverter enum deduplication', () => {
     const filterSchema = spec.components!.schemas!.Filter;
     const v1FilterSchema = spec.components!.schemas!.V1_Filter;
 
-    // Both should have context property as array with items referencing FilterContext
+    // Both should have context property as array with items referencing ContextEnum
     expect(filterSchema.properties?.context).toBeDefined();
     expect(v1FilterSchema.properties?.context).toBeDefined();
 
@@ -80,10 +80,10 @@ describe('EntityConverter enum deduplication', () => {
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
     expect(filterContext1.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/ContextEnum'
     );
     expect(filterContext2.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/ContextEnum'
     );
 
     // Should not have inline enum values
@@ -247,12 +247,12 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(filterContext.type).toBe('array');
     expect(filterContext.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/FilterContextEnum'
     );
 
-    // Should have created the FilterContext component
-    expect(spec.components?.schemas?.FilterContext).toBeDefined();
-    const enumComponent = spec.components!.schemas!.FilterContext as any;
+    // Should have created the FilterContextEnum component
+    expect(spec.components?.schemas?.FilterContextEnum).toBeDefined();
+    const enumComponent = spec.components!.schemas!.FilterContextEnum as any;
     expect(enumComponent.enum).toEqual([
       'home',
       'notifications',

@@ -45,12 +45,12 @@ describe('OpenAPIGenerator Enum Support', () => {
       // Check that status field has reference to enum component
       expect(entitySchema.properties?.['status']).toBeDefined();
       const statusProperty = entitySchema.properties!['status'];
-      expect(statusProperty.$ref).toBe('#/components/schemas/StatusEnum');
+      expect(statusProperty.$ref).toBe('#/components/schemas/TestentityStatusEnum');
       expect(statusProperty.description).toBe('Status of the entity');
 
-      // Check that the StatusEnum component was created
-      expect(spec.components?.schemas?.['StatusEnum']).toBeDefined();
-      const statusEnum = spec.components!.schemas!['StatusEnum'] as any;
+      // Check that the TestentityStatusEnum component was created
+      expect(spec.components?.schemas?.['TestentityStatusEnum']).toBeDefined();
+      const statusEnum = spec.components!.schemas!['TestentityStatusEnum'] as any;
       expect(statusEnum.type).toBe('string');
       expect(statusEnum.enum).toEqual(['active', 'inactive', 'pending']);
 
@@ -58,13 +58,13 @@ describe('OpenAPIGenerator Enum Support', () => {
       expect(entitySchema.properties?.['visibility']).toBeDefined();
       const visibilityProperty = entitySchema.properties!['visibility'];
       expect(visibilityProperty.$ref).toBe(
-        '#/components/schemas/VisibilityEnum'
+        '#/components/schemas/TestentityVisibilityEnum'
       );
       expect(visibilityProperty.description).toBe('Visibility setting');
 
-      // Check that the VisibilityEnum component was created
-      expect(spec.components?.schemas?.['VisibilityEnum']).toBeDefined();
-      const visibilityEnum = spec.components!.schemas!['VisibilityEnum'] as any;
+      // Check that the TestentityVisibilityEnum component was created
+      expect(spec.components?.schemas?.['TestentityVisibilityEnum']).toBeDefined();
+      const visibilityEnum = spec.components!.schemas!['TestentityVisibilityEnum'] as any;
       expect(visibilityEnum.type).toBe('string');
       expect(visibilityEnum.enum).toEqual([
         'public',

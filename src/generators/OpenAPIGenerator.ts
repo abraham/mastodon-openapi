@@ -150,15 +150,43 @@ class OpenAPIGenerator {
     }
 
     // Create shared components for patterns that appear in multiple places
+    // Also create individual components for patterns that appear only once
     for (const [enumSignature, componentName] of enumPatterns) {
-      if (componentName) {
-        const originalValues = enumSignatureToOriginalValues.get(enumSignature);
-
+      const originalValues = enumSignatureToOriginalValues.get(enumSignature);
+      
+      if (componentName && componentName !== '') {
+        // This is a shared component (appears multiple times)
         if (spec.components?.schemas) {
           spec.components.schemas[componentName] = {
             type: 'string',
             enum: originalValues,
           } as any;
+        }
+      } else if (componentName === '') {
+        // This is a single occurrence - create entity-specific component
+        // Need to find the original context to generate proper entity name
+        const contextInfo = this.findContextForEnumSignature(
+          enumSignature,
+          spec,
+          enumSignatureToOriginalValues
+        );
+        
+        if (contextInfo) {
+          const individualComponentName = this.generateEntityEnumComponentName(
+            contextInfo.entityName,
+            contextInfo.propertyName,
+            originalValues || []
+          );
+          
+          // Update the mapping to use the individual component name
+          enumPatterns.set(enumSignature, individualComponentName);
+          
+          if (spec.components?.schemas) {
+            spec.components.schemas[individualComponentName] = {
+              type: 'string',
+              enum: originalValues,
+            } as any;
+          }
         }
       }
     }
@@ -222,25 +250,16 @@ class OpenAPIGenerator {
         // Check for direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
           const enumSignature = JSON.stringify([...property.enum].sort());
+          const contextName = `${entityName}_${propName}`;
 
-          // Generate component name for this entity enum (with hash for uniqueness)
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
-          const componentName = this.generateEntityEnumComponentName(
-            entityName,
-            propName,
-            property.enum
+          // Use the processEnumPattern for proper deduplication tracking
+          this.processEnumPattern(
+            enumSignature,
+            property.enum,
+            contextName,
+            enumPatterns,
+            enumSignatureToOriginalValues
           );
-
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.enum);
-
-          // Create the enum component immediately
-          spec.components.schemas[componentName] = {
-            type: 'string',
-            enum: property.enum,
-          } as any;
         }
 
         // Check for array properties with enum items
@@ -252,25 +271,16 @@ class OpenAPIGenerator {
           Array.isArray(property.items.enum)
         ) {
           const enumSignature = JSON.stringify([...property.items.enum].sort());
+          const contextName = `${entityName}_${propName}`;
 
-          // Generate component name for this entity enum
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
-          const componentName = this.generateEntityEnumComponentName(
-            entityName,
-            propName,
-            property.items.enum
+          // Use the processEnumPattern for proper deduplication tracking
+          this.processEnumPattern(
+            enumSignature,
+            property.items.enum,
+            contextName,
+            enumPatterns,
+            enumSignatureToOriginalValues
           );
-
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.items.enum);
-
-          // Create the enum component immediately
-          spec.components.schemas[componentName] = {
-            type: 'string',
-            enum: property.items.enum,
-          } as any;
         }
       }
     }
@@ -294,86 +304,18 @@ class OpenAPIGenerator {
     propertyName: string,
     enumValues: any[]
   ): string {
+    // Sanitize entity name to remove invalid characters
+    const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
+    
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Create a descriptive name based on property name (convert to PascalCase)
+    // Create a descriptive name using the pattern EntityAttributeEnum
+    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
-    // Create a short hash from enum values to ensure uniqueness
-    const enumSignature = JSON.stringify([...enumValues].sort());
-    const hash = this.createShortHash(enumSignature);
-
-    // Special cases for well-known property names with unique hash
-    if (sanitizedPropName === 'context') {
-      // For context enums, check if they're the standard filter context values
-      const standardFilterContext = [
-        'home',
-        'notifications',
-        'public',
-        'thread',
-        'account',
-      ].sort();
-      const currentValues = [...enumValues].sort();
-
-      if (
-        JSON.stringify(currentValues) === JSON.stringify(standardFilterContext)
-      ) {
-        return 'FilterContext';
-      } else {
-        return `FilterContext${hash}`;
-      }
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (sanitizedPropName === 'type') {
-      // Notification type enum
-      if (
-        entityName.includes('Notification') ||
-        entityName.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityName.includes('PreviewCard') ||
-        entityName.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // Special cases for other properties
-    if (
-      sanitizedPropName === 'visibility' ||
-      sanitizedPropName === 'posting_default_visibility'
-    ) {
-      return 'VisibilityEnum';
-    }
-
-    if (sanitizedPropName === 'category') {
-      return 'CategoryEnum';
-    }
-
-    if (sanitizedPropName === 'state') {
-      return 'StateEnum';
-    }
-
-    if (sanitizedPropName === 'policy') {
-      return 'PolicyEnum';
-    }
-
-    // Special handling for media-related properties
-    if (sanitizedPropName === 'reading_expand_media') {
-      return 'MediaExpandEnum';
-    }
-
-    // For other enum types, create a descriptive name
-    return `${capitalizedProp}Enum`;
+    // Default naming pattern: EntityAttributeEnum
+    return `${capitalizedEntity}${capitalizedProp}Enum`;
   }
 
   /**
@@ -450,6 +392,50 @@ class OpenAPIGenerator {
   }
 
   /**
+   * Find context information for an enum signature to generate proper entity-specific names
+   */
+  private findContextForEnumSignature(
+    enumSignature: string,
+    spec: OpenAPISpec,
+    enumSignatureToOriginalValues: Map<string, any[]>
+  ): { entityName: string; propertyName: string } | null {
+    const targetEnumValues = enumSignatureToOriginalValues.get(enumSignature);
+    if (!targetEnumValues || !spec.components?.schemas) return null;
+
+    // Search through all entity schemas to find the matching enum
+    for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+      const openAPISchema = schema as OpenAPISchema;
+      if (!openAPISchema.properties) continue;
+
+      for (const [propName, property] of Object.entries(openAPISchema.properties)) {
+        // Check direct enum properties
+        if (property.enum && Array.isArray(property.enum)) {
+          const propEnumSignature = JSON.stringify([...property.enum].sort());
+          if (propEnumSignature === enumSignature) {
+            return { entityName, propertyName: propName };
+          }
+        }
+
+        // Check array properties with enum items
+        if (
+          property.type === 'array' &&
+          property.items &&
+          typeof property.items === 'object' &&
+          property.items.enum &&
+          Array.isArray(property.items.enum)
+        ) {
+          const itemEnumSignature = JSON.stringify([...property.items.enum].sort());
+          if (itemEnumSignature === enumSignature) {
+            return { entityName, propertyName: propName };
+          }
+        }
+      }
+    }
+
+    return null;
+  }
+
+  /**
    * Process a single enum pattern
    */
   private processEnumPattern(
@@ -488,40 +474,9 @@ class OpenAPIGenerator {
     const propertyName = parts[parts.length - 1];
 
     // Create a descriptive name based on property name
-    const capitalizedName =
-      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+    const capitalizedName = this.toPascalCase(propertyName);
 
-    // Special cases for well-known property names
-    if (propertyName === 'context') {
-      return 'FilterContext';
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (propertyName === 'type') {
-      // Check the entity context to determine the appropriate enum name
-      const entityContext = parts.slice(0, -1).join('_');
-
-      // Notification type enum
-      if (
-        entityContext.includes('Notification') ||
-        entityContext.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityContext.includes('PreviewCard') ||
-        entityContext.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // For other enum types, create a generic name
+    // Use the AttributeEnum pattern for shared enums
     return `${capitalizedName}Enum`;
   }
 

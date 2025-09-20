@@ -326,12 +326,7 @@ class EntityConverter {
     const capitalizedName =
       propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
 
-    // Special cases for well-known property names
-    if (propertyName === 'context') {
-      return 'FilterContext';
-    }
-
-    // For other enum types, create a generic name
+    // Use the AttributeEnum pattern for shared enums
     return `${capitalizedName}Enum`;
   }
 
