@@ -8434,7 +8434,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/ContextEnum"
                     }
                   },
                   "phrase": {
@@ -8772,7 +8772,7 @@
                     "type": "array",
                     "description": "Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/ContextEnum"
                     }
                   },
                   "phrase": {
@@ -9225,7 +9225,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/ContextEnum"
                     }
                   },
                   "title": {
@@ -10218,7 +10218,7 @@
                     "type": "array",
                     "description": "Where the filter should be applied. Specify at least one of `home`, `notifications`, `public`, `thread`, `account`.",
                     "items": {
-                      "$ref": "#/components/schemas/FilterContext"
+                      "$ref": "#/components/schemas/ContextEnum"
                     }
                   },
                   "expires_in": {
@@ -33042,7 +33042,7 @@
           "severity": {
             "description": "The policy to be applied by this domain block.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/AdminDomainblockSeverityEnum"
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
@@ -33248,7 +33248,7 @@
           "severity": {
             "description": "The associated policy with this IP block.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/AdminIpblockSeverityEnum"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -33707,7 +33707,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/StateEnum"
+            "$ref": "#/components/schemas/AppealStateEnum"
           },
           "text": {
             "description": "Text of the appeal from the moderated account to the moderators.",
@@ -34065,7 +34065,7 @@
           "severity": {
             "description": "The level to which the domain is blocked.",
             "type": "string",
-            "$ref": "#/components/schemas/SeverityEnum"
+            "$ref": "#/components/schemas/DomainblockSeverityEnum"
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -34246,7 +34246,7 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FilterContext"
+              "$ref": "#/components/schemas/ContextEnum"
             }
           },
           "filter_action": {
@@ -35410,7 +35410,7 @@
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/MediaattachmentTypeEnum"
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -35888,7 +35888,7 @@
           "reading:expand:media": {
             "description": "Whether media attachments should be automatically displayed or blurred/hidden.",
             "type": "string",
-            "$ref": "#/components/schemas/MediaExpandEnum"
+            "$ref": "#/components/schemas/ReadingExpandMediaEnum"
           },
           "reading:expand:spoilers": {
             "description": "Whether CWs should be expanded by default.",
@@ -35958,7 +35958,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewTypeEnum"
+            "$ref": "#/components/schemas/TypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -36090,7 +36090,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewTypeEnum"
+            "$ref": "#/components/schemas/TypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -36587,7 +36587,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/TypeEnum"
+            "$ref": "#/components/schemas/RelationshipseveranceeventTypeEnum"
           }
         },
         "externalDocs": {
@@ -37969,7 +37969,7 @@
             "description": "The contexts in which the filter should be applied.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/FilterContext"
+              "$ref": "#/components/schemas/ContextEnum"
             }
           },
           "id": {
@@ -38792,7 +38792,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationTypeEnum"
+            "$ref": "#/components/schemas/NotificationgroupTypeEnum"
           }
         },
         "externalDocs": {
@@ -39248,11 +39248,20 @@
           "month"
         ]
       },
-      "SeverityEnum": {
+      "AdminDomainblockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
-          "suspend"
+          "suspend",
+          "noop"
+        ]
+      },
+      "AdminIpblockSeverityEnum": {
+        "type": "string",
+        "enum": [
+          "sign_up_requires_approval",
+          "sign_up_block",
+          "no_access"
         ]
       },
       "CategoryEnum": {
@@ -39264,18 +39273,22 @@
           "other"
         ]
       },
-      "StateEnum": {
+      "AppealStateEnum": {
         "type": "string",
         "enum": [
-          "pending",
-          "accepted",
+          "approved",
           "rejected",
-          "revoked",
-          "deleted",
-          "unauthorized"
+          "pending"
         ]
       },
-      "FilterContext": {
+      "DomainblockSeverityEnum": {
+        "type": "string",
+        "enum": [
+          "silence",
+          "suspend"
+        ]
+      },
+      "ContextEnum": {
         "type": "string",
         "enum": [
           "home",
@@ -39301,12 +39314,14 @@
           "none"
         ]
       },
-      "TypeEnum": {
+      "MediaattachmentTypeEnum": {
         "type": "string",
         "enum": [
-          "domain_block",
-          "user_domain_block",
-          "account_suspension"
+          "unknown",
+          "image",
+          "gifv",
+          "video",
+          "audio"
         ]
       },
       "NotificationTypeEnum": {
@@ -39323,7 +39338,34 @@
           "admin.sign_up",
           "admin.report",
           "severed_relationships",
-          "moderation_warning"
+          "moderation_warning",
+          "quote",
+          "quoted_update"
+        ]
+      },
+      "ReadingExpandMediaEnum": {
+        "type": "string",
+        "enum": [
+          "default",
+          "show_all",
+          "hide_all"
+        ]
+      },
+      "CurrentUserEnum": {
+        "type": "string",
+        "enum": [
+          "automatic",
+          "manual",
+          "denied",
+          "unknown"
+        ]
+      },
+      "RelationshipseveranceeventTypeEnum": {
+        "type": "string",
+        "enum": [
+          "domain_block",
+          "user_domain_block",
+          "account_suspension"
         ]
       },
       "VisibilityEnum": {
@@ -39335,30 +39377,21 @@
           "direct"
         ]
       },
-      "MediaExpandEnum": {
+      "NotificationgroupTypeEnum": {
         "type": "string",
         "enum": [
-          "default",
-          "show_all",
-          "hide_all"
-        ]
-      },
-      "PreviewTypeEnum": {
-        "type": "string",
-        "enum": [
-          "link",
-          "photo",
-          "video",
-          "rich"
-        ]
-      },
-      "CurrentUserEnum": {
-        "type": "string",
-        "enum": [
-          "automatic",
-          "manual",
-          "denied",
-          "unknown"
+          "mention",
+          "status",
+          "reblog",
+          "follow",
+          "follow_request",
+          "favourite",
+          "poll",
+          "update",
+          "admin.sign_up",
+          "admin.report",
+          "severed_relationships",
+          "moderation_warning"
         ]
       },
       "TypesEnum": {
@@ -39374,6 +39407,26 @@
           "update",
           "admin.sign_up",
           "admin.report"
+        ]
+      },
+      "TypeEnum": {
+        "type": "string",
+        "enum": [
+          "link",
+          "photo",
+          "video",
+          "rich"
+        ]
+      },
+      "StateEnum": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "accepted",
+          "rejected",
+          "revoked",
+          "deleted",
+          "unauthorized"
         ]
       }
     },

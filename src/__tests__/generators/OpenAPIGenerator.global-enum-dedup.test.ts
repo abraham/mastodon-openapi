@@ -9,68 +9,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it('TEMP DEBUG: should show what global enum dedup components are created', () => {
-    const entities: EntityClass[] = [
-      {
-        name: 'Filter',
-        description: 'Represents a user-defined filter for determining which statuses should not be shown to the user.',
-        attributes: [
-          {
-            name: 'context',
-            type: 'Array of String (Enumerable, anyOf)',
-            description: 'The contexts in which the filter should be applied.',
-            enumValues: [
-              'home',
-              'notifications',
-              'public',
-              'thread',
-              'account',
-            ],
-          },
-        ],
-      },
-    ];
-
-    const methodFiles: ApiMethodsFile[] = [
-      {
-        name: 'filters',
-        description: 'Methods for managing filters',
-        methods: [
-          {
-            name: 'Get a filter',
-            httpMethod: 'GET',
-            endpoint: '/api/v1/filters/{id}',
-            description: 'View a single filter',
-            parameters: [
-              {
-                name: 'context',
-                description: 'Array of enumerated strings',
-                in: 'query',
-                enumValues: [
-                  'home',
-                  'notifications',
-                  'public',
-                  'thread',
-                  'account',
-                ],
-              },
-            ],
-          },
-        ],
-      },
-    ];
-
-    const schema = generator.generateSchema(entities, methodFiles);
-
-    console.log('TEMP DEBUG: Global enum dedup components:');
-    Object.keys(schema.components?.schemas || {}).forEach(key => {
-      if (key.includes('Context') || key.includes('Enum')) {
-        console.log(`- ${key}:`, JSON.stringify(schema.components!.schemas![key], null, 2));
-      }
-    });
-
-    expect(true).toBe(true);
-  });
+  it('should deduplicate enums across entities and method parameters', () => {
     // Entity with context enum
     const entities: EntityClass[] = [
       {
@@ -130,9 +69,9 @@ describe('OpenAPIGenerator global enum deduplication', () => {
 
     const schema = generator.generateSchema(entities, methodFiles);
 
-    // Should create shared FilterContext component
-    expect(schema.components?.schemas?.FilterContext).toBeDefined();
-    const filterContext = schema.components!.schemas!.FilterContext as any;
+    // Should create shared ContextEnum component (was FilterContext)
+    expect(schema.components?.schemas?.ContextEnum).toBeDefined();
+    const filterContext = schema.components!.schemas!.ContextEnum as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum.sort()).toEqual([
       'account',
@@ -147,7 +86,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const entityContextProp = filterSchema.properties!.context;
     expect(entityContextProp.type).toBe('array');
     expect(entityContextProp.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/ContextEnum'
     );
 
     // Method parameter should also reference shared component
@@ -161,7 +100,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const methodContextProp = requestBodySchema.properties!.context;
     expect(methodContextProp.type).toBe('array');
     expect(methodContextProp.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/ContextEnum'
     );
   });
 
@@ -217,14 +156,14 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const filterSchema = schema.components!.schemas!.Filter;
     const entityContextProp = filterSchema.properties!.context;
     expect(entityContextProp.type).toBe('array');
-    expect(entityContextProp.items?.$ref).toMatch(
-      /^#\/components\/schemas\/FilterContext/
+    // Entity should get entity-specific enum name due to clash with method parameter
+    expect(entityContextProp.items?.$ref).toBe(
+      '#/components/schemas/FilterContextEnum'
     );
 
-    // Should have created the FilterContext component
-    const componentName = entityContextProp.items?.$ref?.split('/').pop();
-    expect(schema.components?.schemas?.[componentName!]).toBeDefined();
-    const enumComponent = schema.components!.schemas![componentName!] as any;
+    // Should have created the FilterContextEnum component
+    expect(schema.components?.schemas?.FilterContextEnum).toBeDefined();
+    const enumComponent = schema.components!.schemas!.FilterContextEnum as any;
     expect(enumComponent.enum).toEqual(['home', 'notifications', 'public']);
 
     // Method parameter should still have inline enum since it's not an entity enum

@@ -91,9 +91,9 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create separate shared components for each type enum
+    // Should create separate entity-specific components for each type enum due to clash
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.PreviewTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.PreviewCardTypeEnum).toBeDefined();
 
     // Check NotificationTypeEnum
     const notificationTypeEnum = schema.components!.schemas!
@@ -103,8 +103,8 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
-    // Check PreviewTypeEnum
-    const previewTypeEnum = schema.components!.schemas!.PreviewTypeEnum as any;
+    // Check PreviewCardTypeEnum (was PreviewTypeEnum)
+    const previewTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
     expect(previewTypeEnum.type).toBe('string');
     expect(previewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
