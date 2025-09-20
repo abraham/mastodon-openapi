@@ -273,17 +273,34 @@ class OpenAPIGenerator {
         firstOccurrence.enumValues
       );
 
+      // Special case: Ensure NotificationGroup type enum has same values as Notification type enum
+      let enumValues = firstOccurrence.enumValues;
+      if (componentName === 'NotificationGroupTypeEnum') {
+        // Find if we have a NotificationTypeEnum and use its values to ensure consistency
+        for (const [otherSignature, otherOccurrences] of enumOccurrences) {
+          const otherFirst = otherOccurrences[0];
+          if (otherFirst && this.generateEntityEnumComponentName(
+            otherFirst.entityName,
+            otherFirst.propName,
+            otherFirst.enumValues
+          ) === 'NotificationTypeEnum') {
+            enumValues = otherFirst.enumValues;
+            break;
+          }
+        }
+      }
+
       // Store the mapping and original values
       enumPatterns.set(enumSignature, componentName);
       enumSignatureToOriginalValues.set(
         enumSignature,
-        firstOccurrence.enumValues
+        enumValues
       );
 
       // Create the enum component
       spec.components.schemas[componentName] = {
         type: 'string',
-        enum: firstOccurrence.enumValues,
+        enum: enumValues,
       } as any;
     }
   }

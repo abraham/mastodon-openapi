@@ -39425,7 +39425,9 @@
           "admin.sign_up",
           "admin.report",
           "severed_relationships",
-          "moderation_warning"
+          "moderation_warning",
+          "quote",
+          "quoted_update"
         ]
       },
       "GetApiV1NotificationsParamTypesEnum": {
