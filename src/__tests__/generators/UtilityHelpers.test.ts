@@ -101,7 +101,9 @@ describe('UtilityHelpers', () => {
       expect(utilityHelpers.sanitizeSchemaName('Admin_Account')).toBe(
         'AdminAccount'
       );
-      expect(utilityHelpers.sanitizeSchemaName('Poll_Option')).toBe('PollOption');
+      expect(utilityHelpers.sanitizeSchemaName('Poll_Option')).toBe(
+        'PollOption'
+      );
       expect(utilityHelpers.sanitizeSchemaName('Status_Mention')).toBe(
         'StatusMention'
       );
@@ -114,9 +116,9 @@ describe('UtilityHelpers', () => {
       expect(utilityHelpers.sanitizeSchemaName('Admin::Account_Setting')).toBe(
         'AdminAccountSetting'
       );
-      expect(utilityHelpers.sanitizeSchemaName('Admin::CanonicalEmailBlock')).toBe(
-        'AdminCanonicalEmailBlock'
-      );
+      expect(
+        utilityHelpers.sanitizeSchemaName('Admin::CanonicalEmailBlock')
+      ).toBe('AdminCanonicalEmailBlock');
     });
 
     it('should preserve already PascalCase names', () => {

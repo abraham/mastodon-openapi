@@ -32,10 +32,13 @@ describe('OpenAPI Schema Validation', () => {
     // But we just want to test that the script runs without throwing
     expect(() => {
       try {
-        execSync('npm run validate', {
+        const result = execSync('npm run validate', {
           cwd: path.join(__dirname, '..', '..'),
           stdio: 'pipe',
         });
+        // If validation passes, check for success message
+        const output = result.toString();
+        expect(output).toMatch(/valid|Woohoo/);
       } catch (error: any) {
         // Expect the command to exit with code 1 due to validation errors
         // but that's okay - we just want to ensure the script runs
