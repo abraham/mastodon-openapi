@@ -210,6 +210,13 @@ class OpenAPIGenerator {
   ): void {
     if (!spec.components?.schemas) return;
 
+    // First pass: collect all enums with their initial names
+    const enumInfo: Map<string, {
+      componentName: string;
+      enumValues: any[];
+      entities: Array<{ entityName: string; propName: string; isArray: boolean }>;
+    }> = new Map();
+
     for (const [entityName, schema] of Object.entries(
       spec.components.schemas
     )) {
@@ -222,25 +229,24 @@ class OpenAPIGenerator {
         // Check for direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
           const enumSignature = JSON.stringify([...property.enum].sort());
-
-          // Generate component name for this entity enum (with hash for uniqueness)
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
           const componentName = this.generateEntityEnumComponentName(
             entityName,
             propName,
             property.enum
           );
 
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.enum);
-
-          // Create the enum component immediately
-          spec.components.schemas[componentName] = {
-            type: 'string',
-            enum: property.enum,
-          } as any;
+          if (!enumInfo.has(enumSignature)) {
+            enumInfo.set(enumSignature, {
+              componentName,
+              enumValues: property.enum,
+              entities: []
+            });
+          }
+          enumInfo.get(enumSignature)!.entities.push({
+            entityName,
+            propName,
+            isArray: false
+          });
         }
 
         // Check for array properties with enum items
@@ -252,38 +258,165 @@ class OpenAPIGenerator {
           Array.isArray(property.items.enum)
         ) {
           const enumSignature = JSON.stringify([...property.items.enum].sort());
-
-          // Generate component name for this entity enum
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
           const componentName = this.generateEntityEnumComponentName(
             entityName,
             propName,
             property.items.enum
           );
 
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.items.enum);
-
-          // Create the enum component immediately
-          spec.components.schemas[componentName] = {
-            type: 'string',
-            enum: property.items.enum,
-          } as any;
+          if (!enumInfo.has(enumSignature)) {
+            enumInfo.set(enumSignature, {
+              componentName,
+              enumValues: property.items.enum,
+              entities: []
+            });
+          }
+          enumInfo.get(enumSignature)!.entities.push({
+            entityName,
+            propName,
+            isArray: true
+          });
         }
       }
+    }
+
+    // Second pass: consolidate enums with identical values
+    const consolidatedEnums = this.consolidateEnums(enumInfo);
+
+    // Create the enum components and update mappings
+    for (const [enumSignature, info] of consolidatedEnums) {
+      // Store the mapping and original values
+      enumPatterns.set(enumSignature, info.componentName);
+      enumSignatureToOriginalValues.set(enumSignature, info.enumValues);
+
+      // Create the enum component
+      spec.components.schemas[info.componentName] = {
+        type: 'string',
+        enum: info.enumValues,
+      } as any;
     }
   }
 
   /**
+   * Consolidate enums with identical values to use common names
+   */
+  private consolidateEnums(enumInfo: Map<string, {
+    componentName: string;
+    enumValues: any[];
+    entities: Array<{ entityName: string; propName: string; isArray: boolean }>;
+  }>): Map<string, {
+    componentName: string;
+    enumValues: any[];
+    entities: Array<{ entityName: string; propName: string; isArray: boolean }>;
+  }> {
+    const result = new Map(enumInfo);
+
+    // For enums that have multiple entities with the same values,
+    // find a common name
+    for (const [enumSignature, info] of enumInfo) {
+      if (info.entities.length > 1) {
+        const commonName = this.findCommonEnumName(info.entities, info.componentName);
+        result.set(enumSignature, {
+          ...info,
+          componentName: commonName
+        });
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Find a common name for enums that appear in multiple entities
+   */
+  private findCommonEnumName(entities: Array<{ entityName: string; propName: string; isArray: boolean }>, fallbackName: string): string {
+    // Group entities by property name
+    const entitiesByProp = new Map<string, string[]>();
+    for (const entity of entities) {
+      if (!entitiesByProp.has(entity.propName)) {
+        entitiesByProp.set(entity.propName, []);
+      }
+      entitiesByProp.get(entity.propName)!.push(entity.entityName);
+    }
+
+    // If there's only one property name, use it to find a common base
+    if (entitiesByProp.size === 1) {
+      const [propName, entityNames] = Array.from(entitiesByProp.entries())[0];
+      
+      // Special logic for finding common names
+      if (propName === 'type') {
+        // For type enums, try to find the shortest/most common entity name
+        const commonBase = this.findCommonEntityBase(entityNames);
+        if (commonBase) {
+          return `${commonBase}TypeEnum`;
+        }
+      }
+      
+      if (propName === 'context') {
+        // Context enums should be FilterContext (legacy naming)
+        return 'FilterContext';
+      }
+      
+      if (propName === 'visibility') {
+        return 'VisibilityEnum';
+      }
+      
+      // For other properties, try to find a common base
+      const commonBase = this.findCommonEntityBase(entityNames);
+      if (commonBase) {
+        const capitalizedProp = this.toPascalCase(propName);
+        return `${commonBase}${capitalizedProp}Enum`;
+      }
+    }
+
+    return fallbackName;
+  }
+
+  /**
+   * Find a common base name from a list of entity names
+   */
+  private findCommonEntityBase(entityNames: string[]): string | null {
+    if (entityNames.length === 0) return null;
+    if (entityNames.length === 1) return this.toPascalCase(entityNames[0]);
+
+    // Special cases for known patterns
+    const hasNotification = entityNames.some(name => name.includes('Notification'));
+    const hasNotificationGroup = entityNames.some(name => name.includes('NotificationGroup'));
+    
+    if (hasNotification && hasNotificationGroup) {
+      return 'Notification'; // NotificationTypeEnum vs NotificationGroupTypeEnum -> NotificationTypeEnum
+    }
+
+    const hasPreviewCard = entityNames.some(name => name.includes('PreviewCard'));
+    const hasTrendsLink = entityNames.some(name => name.includes('Trends_Link'));
+    
+    if (hasPreviewCard && hasTrendsLink) {
+      return 'PreviewCard'; // PreviewCardTypeEnum vs TrendsLinkTypeEnum -> PreviewCardTypeEnum
+    }
+
+    // Find the shortest name as the common base
+    const shortestName = entityNames.reduce((shortest, current) => 
+      current.length < shortest.length ? current : shortest
+    );
+    
+    return this.toPascalCase(shortestName);
+  }
+
+  /**
    * Convert underscore-separated words to PascalCase
+   * Handles cases where the input is already in PascalCase
    */
   private toPascalCase(input: string): string {
-    return input
-      .split('_')
-      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-      .join('');
+    // If input contains underscores, split on them
+    if (input.includes('_')) {
+      return input
+        .split('_')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+        .join('');
+    }
+    
+    // If already in PascalCase (or camelCase), preserve it and ensure first letter is uppercase
+    return input.charAt(0).toUpperCase() + input.slice(1);
   }
 
   /**
@@ -296,15 +429,15 @@ class OpenAPIGenerator {
   ): string {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
+    
+    // Sanitize entity name to remove invalid characters
+    const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Create a descriptive name based on property name (convert to PascalCase)
+    // Create EntityAttributeEnum format
+    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
-    // Create a short hash from enum values to ensure uniqueness
-    const enumSignature = JSON.stringify([...enumValues].sort());
-    const hash = this.createShortHash(enumSignature);
-
-    // Special cases for well-known property names with unique hash
+    // Special cases to maintain backward compatibility
     if (sanitizedPropName === 'context') {
       // For context enums, check if they're the standard filter context values
       const standardFilterContext = [
@@ -321,33 +454,11 @@ class OpenAPIGenerator {
       ) {
         return 'FilterContext';
       } else {
-        return `FilterContext${hash}`;
+        return `${capitalizedEntity}${capitalizedProp}Enum`;
       }
     }
 
-    // Special cases for 'type' property based on entity context
-    if (sanitizedPropName === 'type') {
-      // Notification type enum
-      if (
-        entityName.includes('Notification') ||
-        entityName.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityName.includes('PreviewCard') ||
-        entityName.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // Special cases for other properties
+    // Special cases for backward compatibility with existing tests
     if (
       sanitizedPropName === 'visibility' ||
       sanitizedPropName === 'posting_default_visibility'
@@ -355,25 +466,18 @@ class OpenAPIGenerator {
       return 'VisibilityEnum';
     }
 
-    if (sanitizedPropName === 'category') {
-      return 'CategoryEnum';
+    // For simple property names that don't benefit from entity prefix, use just PropertyEnum
+    if (
+      sanitizedPropName === 'status' ||
+      sanitizedPropName === 'category' ||
+      sanitizedPropName === 'state' ||
+      sanitizedPropName === 'policy'
+    ) {
+      return `${capitalizedProp}Enum`;
     }
 
-    if (sanitizedPropName === 'state') {
-      return 'StateEnum';
-    }
-
-    if (sanitizedPropName === 'policy') {
-      return 'PolicyEnum';
-    }
-
-    // Special handling for media-related properties
-    if (sanitizedPropName === 'reading_expand_media') {
-      return 'MediaExpandEnum';
-    }
-
-    // For other enum types, create a descriptive name
-    return `${capitalizedProp}Enum`;
+    // Default format: EntityAttributeEnum
+    return `${capitalizedEntity}${capitalizedProp}Enum`;
   }
 
   /**

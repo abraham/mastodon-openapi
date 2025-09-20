@@ -196,10 +196,10 @@ describe('EntityConverter enum deduplication', () => {
 
     // Should reference different components because enum values are different
     expect(filterContext1.items?.$ref).toMatch(
-      /^#\/components\/schemas\/FilterContext/
+      /^#\/components\/schemas\/Filter.*ContextEnum$/
     );
     expect(filterContext2.items?.$ref).toMatch(
-      /^#\/components\/schemas\/FilterContext/
+      /^#\/components\/schemas\/V1Filter.*ContextEnum$/
     );
     expect(filterContext1.items?.$ref).not.toBe(filterContext2.items?.$ref);
 
