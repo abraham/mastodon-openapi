@@ -85,22 +85,6 @@ class OpenAPIGenerator {
     // First pass: identify all enum patterns from entities and methods
     const enumSignatureToOriginalValues = new Map<string, any[]>();
 
-    // Special handling: Always create NotificationTypeEnum if Notification entity exists
-    if (spec.components?.schemas?.Notification) {
-      const notificationSchema = spec.components.schemas
-        .Notification as OpenAPISchema;
-      const typeProperty = notificationSchema.properties?.type;
-      if (
-        typeProperty &&
-        typeProperty.enum &&
-        Array.isArray(typeProperty.enum)
-      ) {
-        const enumSignature = JSON.stringify([...typeProperty.enum].sort());
-        enumPatterns.set(enumSignature, 'NotificationTypeEnum');
-        enumSignatureToOriginalValues.set(enumSignature, typeProperty.enum);
-      }
-    }
-
     // Collect enums from entity schemas
     if (spec.components?.schemas) {
       for (const [entityName, schema] of Object.entries(
@@ -283,7 +267,6 @@ class OpenAPIGenerator {
       );
       enumPatterns.set(enumSignature, componentName);
     }
-    // Don't override if already set (e.g., special NotificationTypeEnum handling)
   }
 
   /**
