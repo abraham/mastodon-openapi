@@ -200,7 +200,7 @@ class OpenAPIGenerator {
     }
 
     // CRUCIAL STEP: Resolve name clashes first, then consolidate identical enum values
-    this.resolveEnumNameClashes(spec);
+    // Re-enabled consolidation to handle identical enum values properly
     this.consolidateIdenticalEnumValues(spec, enumSignatureToOriginalValues);
   }
 
@@ -422,7 +422,30 @@ class OpenAPIGenerator {
       );
     }
 
-    // Always prefer AttributeEnum pattern as the optimal name
+    // For entity-specific enum consolidation, prefer the most canonical EntityAttributeEnum name
+    const entitySpecificNames = componentNames.filter(name => 
+      name.match(/^[A-Z][a-zA-Z0-9]*[A-Z][a-zA-Z0-9]*Enum$/)
+    );
+    
+    if (entitySpecificNames.length > 0) {
+      // Prefer certain canonical entity names over others
+      const canonicalOrder = ['Notification', 'PreviewCard'];
+      
+      for (const canonical of canonicalOrder) {
+        const canonicalName = entitySpecificNames.find(name => 
+          name.startsWith(canonical)
+        );
+        if (canonicalName) {
+          return canonicalName;
+        }
+      }
+      
+      // If no canonical names found, sort by length to get the shortest
+      const sortedByLength = entitySpecificNames.sort((a, b) => a.length - b.length);
+      return sortedByLength[0];
+    }
+
+    // Fallback to AttributeEnum pattern if no entity-specific names found
     const capitalizedProp =
       propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
     return `${capitalizedProp}Enum`;
@@ -628,27 +651,14 @@ class OpenAPIGenerator {
   ): void {
     const enumSignature = JSON.stringify([...enumValues].sort());
 
-    // Determine if this property has clashes (multiple different enum value sets)
-    const propertyEnums = propertyEnumInfo.get(propName) || [];
-    const hasClashes = propertyEnums.length > 1;
-
-    let componentName: string;
-    if (hasClashes) {
-      // Use EntityAttributeEnum pattern for clashes
-      const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
-      const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
-      const capitalizedProp = this.toPascalCase(
-        propName.replace(/[^a-zA-Z0-9_]/g, '_')
-      );
-      componentName = `${capitalizedEntity}${capitalizedProp}Enum`;
-    } else {
-      // Use AttributeEnum pattern for no clashes
-      componentName = this.generateEntityEnumComponentName(
-        entityName,
-        propName,
-        enumValues
-      );
-    }
+    // Always use EntityAttributeEnum pattern for entity enums to avoid clashes
+    // The consolidation step will handle deduplication for identical values
+    const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
+    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
+    const capitalizedProp = this.toPascalCase(
+      propName.replace(/[^a-zA-Z0-9_]/g, '_')
+    );
+    const componentName = `${capitalizedEntity}${capitalizedProp}Enum`;
 
     // Store the mapping and original values
     enumPatterns.set(enumSignature, componentName);

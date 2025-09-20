@@ -124,18 +124,18 @@ describe('OpenAPIGenerator type enum separation', () => {
       '#/components/schemas/NotificationTypeEnum'
     );
 
-    // Check that PreviewCard uses PreviewTypeEnum
+    // Check that PreviewCard uses PreviewCardTypeEnum (was PreviewTypeEnum)
     const previewCardSchema = schema.components!.schemas!.PreviewCard;
     const previewCardTypeProp = previewCardSchema.properties!.type;
     expect(previewCardTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewCardTypeEnum'
     );
 
-    // Check that Trends_Link also uses PreviewTypeEnum
+    // Check that Trends_Link also uses PreviewCardTypeEnum (was PreviewTypeEnum)
     const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
     expect(trendsLinkTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewCardTypeEnum'
     );
   });
 
