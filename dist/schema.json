@@ -35536,22 +35536,7 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "enum": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report",
-              "severed_relationships",
-              "moderation_warning",
-              "quote",
-              "quoted_update"
-            ]
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
@@ -39288,6 +39273,25 @@
               }
             }
           }
+        ]
+      },
+      "NotificationTypeEnum": {
+        "type": "string",
+        "enum": [
+          "admin.report",
+          "admin.sign_up",
+          "favourite",
+          "follow",
+          "follow_request",
+          "mention",
+          "moderation_warning",
+          "poll",
+          "quote",
+          "quoted_update",
+          "reblog",
+          "severed_relationships",
+          "status",
+          "update"
         ]
       },
       "CategoryEnum": {
