@@ -208,3 +208,4 @@ This document lists all enums that have the same values and appear in multiple p
 
 - Entity: `NotificationGroup` → Property: `type`
 - Entity: `NotificationGroup` → Property: `type`
+
