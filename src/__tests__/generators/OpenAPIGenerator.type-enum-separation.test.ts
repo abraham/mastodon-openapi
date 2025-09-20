@@ -93,7 +93,7 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     // Should create separate shared components for each type enum
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.PreviewTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.PreviewCardTypeEnum).toBeDefined();
 
     // Check NotificationTypeEnum
     const notificationTypeEnum = schema.components!.schemas!
@@ -103,10 +103,10 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
-    // Check PreviewTypeEnum
-    const previewTypeEnum = schema.components!.schemas!.PreviewTypeEnum as any;
-    expect(previewTypeEnum.type).toBe('string');
-    expect(previewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
+    // Check PreviewCardTypeEnum
+    const previewCardTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
+    expect(previewCardTypeEnum.type).toBe('string');
+    expect(previewCardTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
     // Check that Notification uses NotificationTypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;
@@ -123,22 +123,22 @@ describe('OpenAPIGenerator type enum separation', () => {
       '#/components/schemas/NotificationTypeEnum'
     );
 
-    // Check that PreviewCard uses PreviewTypeEnum
+    // Check that PreviewCard uses PreviewCardTypeEnum
     const previewCardSchema = schema.components!.schemas!.PreviewCard;
     const previewCardTypeProp = previewCardSchema.properties!.type;
     expect(previewCardTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewCardTypeEnum'
     );
 
-    // Check that Trends_Link also uses PreviewTypeEnum
+    // Check that Trends_Link also uses PreviewCardTypeEnum
     const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
     expect(trendsLinkTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewCardTypeEnum'
     );
   });
 
-  it('should still use generic TypeEnum for other contexts', () => {
+  it('should create enum based on first entity for shared values', () => {
     // Entity with type enum that doesn't match special cases
     const entities: EntityClass[] = [
       {
@@ -169,21 +169,21 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create generic TypeEnum for non-special cases
-    expect(schema.components?.schemas?.TypeEnum).toBeDefined();
-    const typeEnum = schema.components!.schemas!.TypeEnum as any;
+    // Should create entity-specific enum for each entity type 
+    expect(schema.components?.schemas?.SomeOtherEntityTypeEnum).toBeDefined();
+    const typeEnum = schema.components!.schemas!.SomeOtherEntityTypeEnum as any;
     expect(typeEnum.type).toBe('string');
     expect(typeEnum.enum).toEqual(['typeA', 'typeB']);
 
-    // Both entities should reference the generic TypeEnum
+    // Both entities should reference the same shared enum (first entity determines name)
     const someOtherEntitySchema = schema.components!.schemas!.SomeOtherEntity;
     expect(someOtherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/SomeOtherEntityTypeEnum'
     );
 
     const anotherEntitySchema = schema.components!.schemas!.AnotherEntity;
     expect(anotherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/SomeOtherEntityTypeEnum'
     );
   });
 });

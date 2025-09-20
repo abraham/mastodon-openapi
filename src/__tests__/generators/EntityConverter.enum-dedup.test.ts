@@ -54,9 +54,9 @@ describe('EntityConverter enum deduplication', () => {
     expect(spec.components?.schemas?.Filter).toBeDefined();
     expect(spec.components?.schemas?.V1_Filter).toBeDefined();
 
-    // Check that FilterContext component is created
-    expect(spec.components?.schemas?.FilterContext).toBeDefined();
-    const filterContext = spec.components!.schemas!.FilterContext as any;
+    // Check that FilterContextEnum component is created (named after first entity)
+    expect(spec.components?.schemas?.FilterContextEnum).toBeDefined();
+    const filterContext = spec.components!.schemas!.FilterContextEnum as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toEqual([
       'home',
@@ -80,10 +80,10 @@ describe('EntityConverter enum deduplication', () => {
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
     expect(filterContext1.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/FilterContextEnum'
     );
     expect(filterContext2.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/FilterContextEnum'
     );
 
     // Should not have inline enum values
@@ -125,9 +125,9 @@ describe('EntityConverter enum deduplication', () => {
     expect(spec.components?.schemas?.StatusOne).toBeDefined();
     expect(spec.components?.schemas?.StatusTwo).toBeDefined();
 
-    // Check that VisibilityEnum component is created
-    expect(spec.components?.schemas?.VisibilityEnum).toBeDefined();
-    const visibilityEnum = spec.components!.schemas!.VisibilityEnum as any;
+    // Check that StatusOneVisibilityEnum component is created (named after first entity)
+    expect(spec.components?.schemas?.StatusOneVisibilityEnum).toBeDefined();
+    const visibilityEnum = spec.components!.schemas!.StatusOneVisibilityEnum as any;
     expect(visibilityEnum.type).toBe('string');
     expect(visibilityEnum.enum.sort()).toEqual([
       'direct',
@@ -145,8 +145,8 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(visibility1.type).toBe('array');
     expect(visibility2.type).toBe('array');
-    expect(visibility1.items?.$ref).toBe('#/components/schemas/VisibilityEnum');
-    expect(visibility2.items?.$ref).toBe('#/components/schemas/VisibilityEnum');
+    expect(visibility1.items?.$ref).toBe('#/components/schemas/StatusOneVisibilityEnum');
+    expect(visibility2.items?.$ref).toBe('#/components/schemas/StatusOneVisibilityEnum');
 
     // Should not have inline enum values
     expect(visibility1.enum).toBeUndefined();
@@ -196,10 +196,10 @@ describe('EntityConverter enum deduplication', () => {
 
     // Should reference different components because enum values are different
     expect(filterContext1.items?.$ref).toMatch(
-      /^#\/components\/schemas\/FilterContext/
+      /^#\/components\/schemas\/.*ContextEnum/
     );
     expect(filterContext2.items?.$ref).toMatch(
-      /^#\/components\/schemas\/FilterContext/
+      /^#\/components\/schemas\/.*ContextEnum/
     );
     expect(filterContext1.items?.$ref).not.toBe(filterContext2.items?.$ref);
 
@@ -247,12 +247,12 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(filterContext.type).toBe('array');
     expect(filterContext.items?.$ref).toBe(
-      '#/components/schemas/FilterContext'
+      '#/components/schemas/FilterContextEnum'
     );
 
-    // Should have created the FilterContext component
-    expect(spec.components?.schemas?.FilterContext).toBeDefined();
-    const enumComponent = spec.components!.schemas!.FilterContext as any;
+    // Should have created the FilterContextEnum component
+    expect(spec.components?.schemas?.FilterContextEnum).toBeDefined();
+    const enumComponent = spec.components!.schemas!.FilterContextEnum as any;
     expect(enumComponent.enum).toEqual([
       'home',
       'notifications',
