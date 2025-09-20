@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [4e816e8](https://github.com/mastodon/documentation/commit/4e816e8affc4fe53c8509d1e93847c7c5b29054c).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [a10e880](https://github.com/mastodon/documentation/commit/a10e8807dc16a83b5c1d3f5187accf4375d8193c).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -37205,6 +37205,17 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Poll"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quote": {
+            "description": "Information about the status being quoted, if any",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Quote"
               },
               {
                 "type": "null"
