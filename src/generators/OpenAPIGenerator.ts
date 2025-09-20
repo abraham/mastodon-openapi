@@ -466,8 +466,20 @@ class OpenAPIGenerator {
 
   /**
    * Convert underscore-separated words to PascalCase
+   * If input already appears to be PascalCase (no underscores), return as-is
+   * For single words, capitalize the first letter
    */
   private toPascalCase(input: string): string {
+    // If there are no underscores, it might be a single word or already PascalCase
+    if (!input.includes('_')) {
+      // If it's a single word (all lowercase or all uppercase), capitalize it
+      if (input === input.toLowerCase() || input === input.toUpperCase()) {
+        return input.charAt(0).toUpperCase() + input.slice(1).toLowerCase();
+      }
+      // Otherwise assume it's already in PascalCase
+      return input;
+    }
+    
     return input
       .split('_')
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
@@ -485,10 +497,8 @@ class OpenAPIGenerator {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Convert entity name to PascalCase only if it contains underscores (snake_case)
-    const capitalizedEntity = entityName.includes('_') 
-      ? this.toPascalCase(entityName)
-      : entityName; // Already in PascalCase
+    // Always convert entity name to PascalCase to remove any underscores
+    const capitalizedEntity = this.toPascalCase(entityName);
 
     // Convert property name to PascalCase
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
