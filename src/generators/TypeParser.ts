@@ -35,26 +35,42 @@ class TypeParser {
 
     // Handle references to other entities (only for actual entity names, not documentation links)
     if (typeString.includes('[') && typeString.includes(']')) {
-      const refMatch = typeString.match(/\[([^\]]+)\]/);
-      if (refMatch) {
-        const refName = refMatch[1];
+      // Find all entity references using global flag to capture multiple entities
+      const entityMatches = typeString.match(/\[([^\]]+)\]/g);
+      if (entityMatches) {
+        const validEntityRefs: OpenAPIProperty[] = [];
 
-        // Only treat as entity reference if it's an actual entity name
-        // Skip documentation references like "Datetime", "Date", etc.
-        const isDocumentationLink =
-          refName.toLowerCase().includes('/') ||
-          refName.toLowerCase() === 'datetime' ||
-          refName.toLowerCase() === 'date' ||
-          refName.toLowerCase().includes('iso8601');
+        for (const match of entityMatches) {
+          const refName = match.slice(1, -1); // Remove [ and ]
 
-        if (!isDocumentationLink) {
-          // Clean up reference name and sanitize for OpenAPI compliance
-          const cleanRefName = refName.replace(/[^\w:]/g, '');
-          const sanitizedRefName =
-            this.utilityHelpers.sanitizeSchemaName(cleanRefName);
+          // Only treat as entity reference if it's an actual entity name
+          // Skip documentation references like "Datetime", "Date", etc.
+          const isDocumentationLink =
+            refName.toLowerCase().includes('/') ||
+            refName.toLowerCase() === 'datetime' ||
+            refName.toLowerCase() === 'date' ||
+            refName.toLowerCase().includes('iso8601');
+
+          if (!isDocumentationLink) {
+            // Clean up reference name and sanitize for OpenAPI compliance
+            const cleanRefName = refName.replace(/[^\w:]/g, '');
+            const sanitizedRefName =
+              this.utilityHelpers.sanitizeSchemaName(cleanRefName);
+            validEntityRefs.push({
+              $ref: `#/components/schemas/${sanitizedRefName}`,
+            });
+          }
+        }
+
+        // If we found multiple valid entities, return oneOf
+        if (validEntityRefs.length > 1) {
           return {
-            $ref: `#/components/schemas/${sanitizedRefName}`,
+            oneOf: validEntityRefs,
           };
+        }
+        // If we found exactly one valid entity, return it directly
+        else if (validEntityRefs.length === 1) {
+          return validEntityRefs[0];
         }
       }
     }

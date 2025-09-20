@@ -37218,7 +37218,7 @@
                 "$ref": "#/components/schemas/Quote"
               },
               {
-                "type": "null"
+                "$ref": "#/components/schemas/ShallowQuote"
               }
             ]
           },
