@@ -25,10 +25,9 @@ describe('Status Quote Attribute Integration Test', () => {
         JSON.stringify(quoteProperty, null, 2)
       );
 
-      // Check that the quote property has a oneOf structure with both Quote and ShallowQuote
-      // Note: nullable handling for oneOf structures is handled differently than simple $ref
+      // Check that the quote property has a oneOf structure with both Quote and ShallowQuote plus null
       if (quoteProperty.oneOf) {
-        // Check if it's directly oneOf with Quote and ShallowQuote
+        // Check if it's directly oneOf with Quote and ShallowQuote plus null
         const refs = quoteProperty.oneOf
           .filter((item: any) => item.$ref)
           .map((item: any) => item.$ref);
@@ -37,14 +36,17 @@ describe('Status Quote Attribute Integration Test', () => {
         const hasShallowQuote = refs.includes(
           '#/components/schemas/ShallowQuote'
         );
+        const hasNull = quoteProperty.oneOf.some(
+          (item: any) => item.type === 'null'
+        );
 
         expect(hasQuote).toBe(true);
         expect(hasShallowQuote).toBe(true);
+        expect(hasNull).toBe(true);
 
-        console.log('✓ Found both Quote and ShallowQuote references in oneOf');
-
-        // Note: The nullable handling for oneOf structures could be improved in the future
-        // but the main issue (missing ShallowQuote) is now fixed
+        console.log(
+          '✓ Found both Quote and ShallowQuote references plus null in oneOf'
+        );
       } else {
         // If there's a nested structure due to nullable handling, check it
         console.log('Quote property structure:', quoteProperty);
@@ -54,9 +56,10 @@ describe('Status Quote Attribute Integration Test', () => {
         const jsonStr = JSON.stringify(quoteProperty);
         expect(jsonStr).toContain('#/components/schemas/Quote');
         expect(jsonStr).toContain('#/components/schemas/ShallowQuote');
+        expect(jsonStr).toContain('"type":"null"');
 
         console.log(
-          '✓ Found both Quote and ShallowQuote references in the structure'
+          '✓ Found both Quote and ShallowQuote references and null in the structure'
         );
       }
     }

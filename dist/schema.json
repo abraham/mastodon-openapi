@@ -37219,6 +37219,9 @@
               },
               {
                 "$ref": "#/components/schemas/ShallowQuote"
+              },
+              {
+                "type": "null"
               }
             ]
           },
