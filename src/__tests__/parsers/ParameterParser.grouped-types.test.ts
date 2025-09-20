@@ -17,6 +17,10 @@ Types to filter include:
 - \`update\` = A status you boosted with has been edited
 - \`admin.sign_up\` = Someone signed up (optionally sent to admins)
 - \`admin.report\` = A new report has been filed
+- \`severed_relationships\` = Some of your follow relationships have been severed as a result of a moderation or block event
+- \`moderation_warning\` = A moderator has taken action against your account or has sent you a warning
+- \`quote\` = Someone has quoted one of your statuses
+- \`quoted_update\` = A status you have quoted has been edited
 
 ##### Query parameters
 
@@ -37,6 +41,10 @@ grouped_types[]
       'update',
       'admin.sign_up',
       'admin.report',
+      'severed_relationships',
+      'moderation_warning',
+      'quote',
+      'quoted_update',
     ]);
   });
 
@@ -76,7 +84,7 @@ limit
 
   it('should extract enum values from description with "include" pattern', () => {
     const description =
-      'Array of String. Restrict which notification types can be grouped. Types include `mention`, `status`, `reblog`, `follow`, `follow_request`, `favourite`, `poll`, `update`, `admin.sign_up`, `admin.report`.';
+      'Array of String. Restrict which notification types can be grouped. Types include `mention`, `status`, `reblog`, `follow`, `follow_request`, `favourite`, `poll`, `update`, `admin.sign_up`, `admin.report`, `severed_relationships`, `moderation_warning`, `quote`, `quoted_update`.';
 
     const enumValues =
       TypeInference.extractEnumValuesFromDescription(description);
@@ -92,6 +100,10 @@ limit
       'update',
       'admin.sign_up',
       'admin.report',
+      'severed_relationships',
+      'moderation_warning',
+      'quote',
+      'quoted_update',
     ]);
   });
 
@@ -103,7 +115,7 @@ limit
 ##### Query parameters
 
 grouped_types[]
-: Array of String. Restrict which notification types can be grouped. Types include \`mention\`, \`status\`, \`reblog\`, \`follow\`, \`follow_request\`, \`favourite\`, \`poll\`, \`update\`, \`admin.sign_up\`, \`admin.report\`.
+: Array of String. Restrict which notification types can be grouped. Types include \`mention\`, \`status\`, \`reblog\`, \`follow\`, \`follow_request\`, \`favourite\`, \`poll\`, \`update\`, \`admin.sign_up\`, \`admin.report\`, \`severed_relationships\`, \`moderation_warning\`, \`quote\`, \`quoted_update\`.
 
 limit
 : Integer. Maximum number of results to return.
@@ -136,6 +148,10 @@ limit
       'update',
       'admin.sign_up',
       'admin.report',
+      'severed_relationships',
+      'moderation_warning',
+      'quote',
+      'quoted_update',
     ]);
   });
 
