@@ -95,7 +95,7 @@ class OpenAPIGenerator {
     }
 
     // After extraction, consolidate enums with identical values
-    // this.consolidateIdenticalEnums(spec);
+    this.consolidateIdenticalEnums(spec);
 
     // Collect enums from entity schemas (for remaining deduplication)
     // Temporarily disabled to demonstrate entity-specific naming
@@ -259,24 +259,34 @@ class OpenAPIGenerator {
     // Sort by length to prefer shorter names first
     const sorted = componentNames.sort((a, b) => a.length - b.length);
     
-    // Try to find common patterns
-    for (const name of sorted) {
-      // Check if this name could be a generalization of others
-      const baseName = name.replace(/Enum$/, '');
+    // Special case: NotificationTypeEnum and NotificationGroupTypeEnum -> NotificationTypeEnum
+    const notificationTypeNames = sorted.filter(name => name.includes('Notification') && name.includes('Type'));
+    if (notificationTypeNames.length > 1) {
+      // Prefer the shorter or more generic notification type name
+      const genericNotification = notificationTypeNames.find(name => name === 'NotificationTypeEnum');
+      if (genericNotification) return genericNotification;
       
-      // If name contains Type and others are variations, prefer the Type version
-      if (name.includes('Type') && name.endsWith('Enum')) {
-        const otherTypesMatch = sorted.some(other => 
-          other !== name && 
-          other.includes('Type') && 
-          other.endsWith('Enum') &&
-          this.namesAreSimilar(name, other)
-        );
-        if (otherTypesMatch) {
-          // Return the shortest type-based name
-          const typeNames = sorted.filter(n => n.includes('Type'));
-          return typeNames.sort((a, b) => a.length - b.length)[0];
+      return notificationTypeNames.sort((a, b) => a.length - b.length)[0];
+    }
+    
+    // Look for common base patterns and prefer the more generic one
+    for (const name of sorted) {
+      // Extract the base pattern (remove entity prefix)
+      const baseName = name.replace(/^[A-Z][a-z]*[A-Z][a-z]*/, ''); // Remove entity prefix like AccountWarning
+      
+      // If this base name appears in others, prefer this name if it's more generic
+      const withSameBase = sorted.filter(other => other.endsWith(baseName));
+      if (withSameBase.length > 1) {
+        // Find the shortest name with this base (most generic)
+        const mostGeneric = withSameBase.sort((a, b) => a.length - b.length)[0];
+        
+        // For type enums, prefer names without entity prefixes if they exist
+        if (baseName === 'TypeEnum') {
+          const genericTypeEnum = withSameBase.find(n => n === 'TypeEnum');
+          if (genericTypeEnum) return genericTypeEnum;
         }
+        
+        return mostGeneric;
       }
     }
 

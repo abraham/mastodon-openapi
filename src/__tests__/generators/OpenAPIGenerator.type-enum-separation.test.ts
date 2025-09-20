@@ -8,7 +8,7 @@ describe('OpenAPIGenerator type enum separation', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it('should create entity-specific type enums with new naming', () => {
+  it('should consolidate identical type enums with common naming', () => {
     // Entities with different type enums that should not conflict
     const entities: EntityClass[] = [
       {
@@ -91,11 +91,16 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create entity-specific enum components with new naming
+    // Should consolidate identical enum components with common naming
+    // NotificationTypeEnum and NotificationGroupTypeEnum -> NotificationTypeEnum (per issue requirements)
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.PreviewCardTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.TrendsLinkTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeUndefined(); // Should be consolidated
+
+    // PreviewCard and TrendsLink should consolidate to one
+    const previewCardTypeExists = !!schema.components?.schemas?.PreviewCardTypeEnum;
+    const trendsLinkTypeExists = !!schema.components?.schemas?.TrendsLinkTypeEnum;
+    expect(previewCardTypeExists || trendsLinkTypeExists).toBe(true);
+    expect(previewCardTypeExists && trendsLinkTypeExists).toBe(false);
 
     // Check NotificationTypeEnum
     const notificationTypeEnum = schema.components!.schemas!
@@ -105,10 +110,11 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
-    // Check PreviewCardTypeEnum
-    const previewCardTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
-    expect(previewCardTypeEnum.type).toBe('string');
-    expect(previewCardTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
+    // Find consolidated preview type enum name
+    const consolidatedPreviewTypeName = previewCardTypeExists ? 'PreviewCardTypeEnum' : 'TrendsLinkTypeEnum';
+    const consolidatedPreviewTypeEnum = schema.components!.schemas![consolidatedPreviewTypeName] as any;
+    expect(consolidatedPreviewTypeEnum.type).toBe('string');
+    expect(consolidatedPreviewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
     // Check that Notification uses NotificationTypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;
@@ -117,27 +123,23 @@ describe('OpenAPIGenerator type enum separation', () => {
       '#/components/schemas/NotificationTypeEnum'
     );
 
-    // Check that NotificationGroup uses NotificationGroupTypeEnum (entity-specific)
+    // Check that NotificationGroup also uses NotificationTypeEnum (consolidated)
     const notificationGroupSchema =
       schema.components!.schemas!.NotificationGroup;
     const notificationGroupTypeProp = notificationGroupSchema.properties!.type;
     expect(notificationGroupTypeProp.$ref).toBe(
-      '#/components/schemas/NotificationGroupTypeEnum'
+      '#/components/schemas/NotificationTypeEnum'
     );
 
-    // Check that PreviewCard uses PreviewCardTypeEnum
+    // Check that PreviewCard and Trends_Link use the consolidated enum
     const previewCardSchema = schema.components!.schemas!.PreviewCard;
-    const previewCardTypeProp = previewCardSchema.properties!.type;
-    expect(previewCardTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewCardTypeEnum'
-    );
-
-    // Check that Trends_Link uses TrendsLinkTypeEnum (entity-specific)
     const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
+
+    const previewCardTypeProp = previewCardSchema.properties!.type;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
-    expect(trendsLinkTypeProp.$ref).toBe(
-      '#/components/schemas/TrendsLinkTypeEnum'
-    );
+
+    expect(previewCardTypeProp.$ref).toBe(`#/components/schemas/${consolidatedPreviewTypeName}`);
+    expect(trendsLinkTypeProp.$ref).toBe(`#/components/schemas/${consolidatedPreviewTypeName}`);
   });
 
   it('should create entity-specific type enums for other contexts', () => {
@@ -171,27 +173,28 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create entity-specific TypeEnum for each entity
-    expect(schema.components?.schemas?.SomeOtherEntityTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.AnotherEntityTypeEnum).toBeDefined();
+    // Should consolidate entity-specific TypeEnums with identical values
+    const someOtherEntityExists = !!schema.components?.schemas?.SomeOtherEntityTypeEnum;
+    const anotherEntityExists = !!schema.components?.schemas?.AnotherEntityTypeEnum;
     
-    const someOtherEntityTypeEnum = schema.components!.schemas!.SomeOtherEntityTypeEnum as any;
-    expect(someOtherEntityTypeEnum.type).toBe('string');
-    expect(someOtherEntityTypeEnum.enum).toEqual(['typeA', 'typeB']);
-    
-    const anotherEntityTypeEnum = schema.components!.schemas!.AnotherEntityTypeEnum as any;
-    expect(anotherEntityTypeEnum.type).toBe('string');
-    expect(anotherEntityTypeEnum.enum).toEqual(['typeA', 'typeB']);
+    // Exactly one should exist (consolidated)
+    expect(someOtherEntityExists || anotherEntityExists).toBe(true);
+    expect(someOtherEntityExists && anotherEntityExists).toBe(false);
 
-    // Each entity should reference their own type enum
+    const consolidatedEnumName = someOtherEntityExists ? 'SomeOtherEntityTypeEnum' : 'AnotherEntityTypeEnum';
+    const consolidatedEnum = schema.components!.schemas![consolidatedEnumName] as any;
+    expect(consolidatedEnum.type).toBe('string');
+    expect(consolidatedEnum.enum).toEqual(['typeA', 'typeB']);
+
+    // Both entities should reference the same consolidated type enum
     const someOtherEntitySchema = schema.components!.schemas!.SomeOtherEntity;
     expect(someOtherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/SomeOtherEntityTypeEnum'
+      `#/components/schemas/${consolidatedEnumName}`
     );
 
     const anotherEntitySchema = schema.components!.schemas!.AnotherEntity;
     expect(anotherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/AnotherEntityTypeEnum'
+      `#/components/schemas/${consolidatedEnumName}`
     );
   });
 });

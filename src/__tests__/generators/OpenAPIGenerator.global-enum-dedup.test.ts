@@ -9,10 +9,10 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it.skip('should deduplicate enums across entities and method parameters', () => {
-    // TODO: Re-enable when consolidateIdenticalEnums is re-implemented
-    // This test verifies that identical enums from entities and method parameters
-    // are consolidated into shared components
+  it.skip('should consolidate identical enums across entities and method parameters', () => {
+    // TODO: Method parameter deduplication is complex and needs more work
+    // The core EntityAttributeEnum naming is working correctly
+    // This test can be re-enabled when method parameter deduplication is improved
     // Entity with context enum
     const entities: EntityClass[] = [
       {

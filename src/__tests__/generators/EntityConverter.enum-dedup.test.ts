@@ -8,7 +8,7 @@ describe('EntityConverter enum deduplication', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it('should create entity-specific enum components for context enums', () => {
+  it('should consolidate identical context enums from different entities', () => {
     const entities: EntityClass[] = [
       {
         name: 'Filter',
@@ -54,24 +54,23 @@ describe('EntityConverter enum deduplication', () => {
     expect(spec.components?.schemas?.Filter).toBeDefined();
     expect(spec.components?.schemas?.V1_Filter).toBeDefined();
 
-    // With new EntityAttributeEnum naming, should create entity-specific components
-    expect(spec.components?.schemas?.FilterContextEnum).toBeDefined();
-    expect(spec.components?.schemas?.V1FilterContextEnum).toBeDefined();
+    // With consolidation enabled, identical enums should be merged
+    const filterContextExists = !!spec.components?.schemas?.FilterContextEnum;
+    const v1FilterContextExists = !!spec.components?.schemas?.V1FilterContextEnum;
+    
+    // Exactly one should exist (consolidated)
+    expect(filterContextExists || v1FilterContextExists).toBe(true);
+    expect(filterContextExists && v1FilterContextExists).toBe(false);
+
+    // Find which one exists (should be the more generic one)
+    const consolidatedEnumName = filterContextExists 
+      ? 'FilterContextEnum' 
+      : 'V1FilterContextEnum';
 
     // Check enum values are correct
-    const filterContextEnum = spec.components!.schemas!.FilterContextEnum as any;
-    const v1FilterContextEnum = spec.components!.schemas!.V1FilterContextEnum as any;
-    
-    expect(filterContextEnum.type).toBe('string');
-    expect(filterContextEnum.enum).toEqual([
-      'home',
-      'notifications',
-      'public',
-      'thread',
-      'account',
-    ]);
-    expect(v1FilterContextEnum.type).toBe('string');
-    expect(v1FilterContextEnum.enum).toEqual([
+    const consolidatedEnum = spec.components!.schemas![consolidatedEnumName] as any;
+    expect(consolidatedEnum.type).toBe('string');
+    expect(consolidatedEnum.enum).toEqual([
       'home',
       'notifications',
       'public',
@@ -79,7 +78,7 @@ describe('EntityConverter enum deduplication', () => {
       'account',
     ]);
 
-    // Check that both entities reference their own components
+    // Check that both entities reference the same consolidated component
     const filterSchema = spec.components!.schemas!.Filter;
     const v1FilterSchema = spec.components!.schemas!.V1_Filter;
 
@@ -88,11 +87,13 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
-    expect(filterContext1.items?.$ref).toBe('#/components/schemas/FilterContextEnum');
-    expect(filterContext2.items?.$ref).toBe('#/components/schemas/V1FilterContextEnum');
+    
+    // Both should reference the same consolidated enum
+    expect(filterContext1.items?.$ref).toBe(`#/components/schemas/${consolidatedEnumName}`);
+    expect(filterContext2.items?.$ref).toBe(`#/components/schemas/${consolidatedEnumName}`);
   });
 
-  it('should create entity-specific components for identical enum patterns', () => {
+  it('should consolidate identical enum patterns with common naming', () => {
     const entities: EntityClass[] = [
       {
         name: 'StatusOne',
@@ -126,30 +127,31 @@ describe('EntityConverter enum deduplication', () => {
     expect(spec.components?.schemas?.StatusOne).toBeDefined();
     expect(spec.components?.schemas?.StatusTwo).toBeDefined();
 
-    // With new EntityAttributeEnum naming, should create entity-specific components
-    expect(spec.components?.schemas?.StatusOneVisibilityEnum).toBeDefined();
-    expect(spec.components?.schemas?.StatusTwoVisibilityEnum).toBeDefined();
+    // With consolidation enabled, should consolidate identical enums
+    // One should exist (the consolidated one), the other should be removed
+    const statusOneVisibilityExists = !!spec.components?.schemas?.StatusOneVisibilityEnum;
+    const statusTwoVisibilityExists = !!spec.components?.schemas?.StatusTwoVisibilityEnum;
+    
+    // Exactly one should exist (consolidated)
+    expect(statusOneVisibilityExists || statusTwoVisibilityExists).toBe(true);
+    expect(statusOneVisibilityExists && statusTwoVisibilityExists).toBe(false);
+
+    // Find which one exists
+    const consolidatedEnumName = statusOneVisibilityExists 
+      ? 'StatusOneVisibilityEnum' 
+      : 'StatusTwoVisibilityEnum';
 
     // Check enum values are correct
-    const status1VisibilityEnum = spec.components!.schemas!.StatusOneVisibilityEnum as any;
-    const status2VisibilityEnum = spec.components!.schemas!.StatusTwoVisibilityEnum as any;
-    
-    expect(status1VisibilityEnum.type).toBe('string');
-    expect(status1VisibilityEnum.enum.sort()).toEqual([
-      'direct',
-      'private',
-      'public',
-      'unlisted',
-    ]);
-    expect(status2VisibilityEnum.type).toBe('string');
-    expect(status2VisibilityEnum.enum.sort()).toEqual([
+    const consolidatedEnum = spec.components!.schemas![consolidatedEnumName] as any;
+    expect(consolidatedEnum.type).toBe('string');
+    expect(consolidatedEnum.enum.sort()).toEqual([
       'direct',
       'private',
       'public',
       'unlisted',
     ]);
 
-    // Check that both entities reference their own components
+    // Check that both entities reference the same consolidated component
     const status1Schema = spec.components!.schemas!.StatusOne;
     const status2Schema = spec.components!.schemas!.StatusTwo;
 
@@ -158,8 +160,10 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(visibility1.type).toBe('array');
     expect(visibility2.type).toBe('array');
-    expect(visibility1.items?.$ref).toBe('#/components/schemas/StatusOneVisibilityEnum');
-    expect(visibility2.items?.$ref).toBe('#/components/schemas/StatusTwoVisibilityEnum');
+    
+    // Both should reference the same consolidated enum
+    expect(visibility1.items?.$ref).toBe(`#/components/schemas/${consolidatedEnumName}`);
+    expect(visibility2.items?.$ref).toBe(`#/components/schemas/${consolidatedEnumName}`);
 
     // Should not have inline enum values
     expect(visibility1.enum).toBeUndefined();
