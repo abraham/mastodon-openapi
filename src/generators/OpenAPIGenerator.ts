@@ -13,6 +13,16 @@ import { UtilityHelpers } from './UtilityHelpers';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { LinkGenerator } from './LinkGenerator';
 
+/**
+ * Interface for tracking enum information during collection phase
+ */
+interface EnumInfo {
+  values: any[];
+  contexts: string[];
+  propertyName: string;
+  entityNames: string[];
+}
+
 class OpenAPIGenerator {
   private spec: OpenAPISpec;
   private specBuilder: SpecBuilder;
@@ -79,120 +89,201 @@ class OpenAPIGenerator {
    * Perform global enum deduplication across entities and method parameters
    */
   private deduplicateEnumsGlobally(spec: OpenAPISpec): void {
-    // Track enum patterns: key = enum signature, value = shared component name
-    const enumPatterns = new Map<string, string>();
+    // Step 1: Collect all enum information
+    const enumInfo = new Map<string, {
+      values: any[];
+      candidateNames: string[];
+      contexts: string[];
+    }>();
 
-    // First pass: identify all enum patterns from entities and methods
-    const enumSignatureToOriginalValues = new Map<string, any[]>();
-
-    // Special first pass: Extract ALL entity enums into their own components
+    // Extract from entities
     if (spec.components?.schemas) {
-      this.extractEntityEnumsToComponents(
-        spec,
-        enumPatterns,
-        enumSignatureToOriginalValues
-      );
+      this.collectEntityEnums(spec, enumInfo);
     }
 
-    // Collect enums from entity schemas (for remaining deduplication)
-    if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(
-        spec.components.schemas
-      )) {
-        this.collectEnumPatternsFromSchema(
-          schema as OpenAPISchema,
-          entityName,
-          enumPatterns,
-          enumSignatureToOriginalValues
-        );
-      }
-    }
-
-    // Collect enums from method parameters and request bodies
+    // Collect from method parameters and request bodies
     if (spec.paths) {
-      for (const [path, pathItem] of Object.entries(spec.paths)) {
-        for (const [method, operation] of Object.entries(pathItem)) {
-          if (typeof operation === 'object' && operation !== null) {
-            // Collect from parameters
-            if (operation.parameters) {
-              for (const param of operation.parameters) {
-                if (param.schema) {
-                  // Sanitize path and method for valid component names
-                  const sanitizedPath = path.replace(/[^a-zA-Z0-9]/g, '_');
-                  const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
-                  this.collectEnumPatternsFromProperty(
-                    param.schema,
-                    `${sanitizedMethod}_${sanitizedPath}_param_${param.name}`,
-                    enumPatterns,
-                    enumSignatureToOriginalValues
-                  );
-                }
-              }
-            }
-
-            // Collect from request body
-            if (operation.requestBody?.content?.['application/json']?.schema) {
-              const schema =
-                operation.requestBody.content['application/json'].schema;
-              // Sanitize path and method for valid component names
-              const sanitizedPath = path.replace(/[^a-zA-Z0-9]/g, '_');
-              const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
-              this.collectEnumPatternsFromSchema(
-                schema as OpenAPISchema,
-                `${sanitizedMethod}_${sanitizedPath}_requestBody`,
-                enumPatterns,
-                enumSignatureToOriginalValues
-              );
-            }
-          }
-        }
-      }
+      this.collectMethodEnums(spec, enumInfo);
     }
 
-    // Create shared components for patterns that appear in multiple places
-    for (const [enumSignature, componentName] of enumPatterns) {
-      if (componentName) {
-        const originalValues = enumSignatureToOriginalValues.get(enumSignature);
+    // Step 2: Generate final names using deduplication logic
+    const finalNames = this.generateOptimalEnumNamesFromInfo(enumInfo);
 
+    // Step 3: Create shared components
+    for (const [signature, info] of enumInfo) {
+      const componentName = finalNames.get(signature);
+      if (componentName && info.contexts.length > 0) {
         if (spec.components?.schemas) {
           spec.components.schemas[componentName] = {
             type: 'string',
-            enum: originalValues,
+            enum: info.values,
           } as any;
         }
       }
     }
 
-    // Second pass: replace inline enums with references to shared components
+    // Step 4: Replace inline enums with references
+    this.replaceAllEnumsWithReferences(spec, finalNames);
+  }
+
+  /**
+   * Collect enum information from entities
+   */
+  private collectEntityEnums(
+    spec: OpenAPISpec, 
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>
+  ): void {
+    if (!spec.components?.schemas) return;
+
+    for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+      const openAPISchema = schema as OpenAPISchema;
+      if (!openAPISchema.properties) continue;
+
+      for (const [propName, property] of Object.entries(openAPISchema.properties)) {
+        // Handle direct enum properties
+        if (property.enum && Array.isArray(property.enum)) {
+          this.addEnumToInfo(enumInfo, property.enum, entityName, propName, `${entityName}.${propName}`);
+        }
+
+        // Handle array properties with enum items
+        if (
+          property.type === 'array' &&
+          property.items &&
+          typeof property.items === 'object' &&
+          property.items.enum &&
+          Array.isArray(property.items.enum)
+        ) {
+          this.addEnumToInfo(enumInfo, property.items.enum, entityName, propName, `${entityName}.${propName}[]`);
+        }
+      }
+    }
+  }
+
+  /**
+   * Collect enum information from method parameters
+   */
+  private collectMethodEnums(
+    spec: OpenAPISpec,
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>
+  ): void {
+    for (const [path, pathItem] of Object.entries(spec.paths)) {
+      for (const [method, operation] of Object.entries(pathItem)) {
+        if (typeof operation === 'object' && operation !== null) {
+          // Collect from parameters
+          if (operation.parameters) {
+            for (const param of operation.parameters) {
+              if (param.schema) {
+                this.collectEnumFromProperty(param.schema, enumInfo, 'Method', param.name, `${method}:${path}:${param.name}`);
+              }
+            }
+          }
+
+          // Collect from request body
+          if (operation.requestBody?.content?.['application/json']?.schema) {
+            const schema = operation.requestBody.content['application/json'].schema;
+            this.collectEnumFromSchema(schema as OpenAPISchema, enumInfo, 'Method', `${method}:${path}:body`);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Add enum information to the collection
+   */
+  private addEnumToInfo(
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>,
+    enumValues: any[],
+    entityName: string,
+    propertyName: string,
+    context: string
+  ): void {
+    const signature = JSON.stringify([...enumValues].sort());
+    
+    if (!enumInfo.has(signature)) {
+      enumInfo.set(signature, {
+        values: enumValues,
+        candidateNames: [],
+        contexts: []
+      });
+    }
+    
+    const info = enumInfo.get(signature)!;
+    
+    // Generate candidate names: AttributeEnum and EntityAttributeEnum
+    const sanitizedProp = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
+    const capitalizedProp = this.toPascalCase(sanitizedProp);
+    
+    const sanitizedEntity = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
+    const capitalizedEntity = this.toPascalCase(sanitizedEntity);
+    
+    // Add both AttributeEnum and EntityAttributeEnum as candidates
+    const attributeEnum = `${capitalizedProp}Enum`;
+    const entityAttributeEnum = `${capitalizedEntity}${capitalizedProp}Enum`;
+    
+    if (!info.candidateNames.includes(attributeEnum)) {
+      info.candidateNames.push(attributeEnum);
+    }
+    if (!info.candidateNames.includes(entityAttributeEnum)) {
+      info.candidateNames.push(entityAttributeEnum);
+    }
+    
+    info.contexts.push(context);
+  }
+
+  /**
+   * Generate optimal names considering deduplication
+   */
+  private generateOptimalEnumNamesFromInfo(
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>
+  ): Map<string, string> {
+    const finalNames = new Map<string, string>();
+    
+    // For each enum signature, choose the shortest candidate name
+    for (const [signature, info] of enumInfo) {
+      if (info.candidateNames.length === 0) continue;
+      
+      // Sort candidate names by length, then alphabetically
+      const sortedCandidates = info.candidateNames.sort((a, b) => {
+        if (a.length !== b.length) return a.length - b.length;
+        return a.localeCompare(b);
+      });
+      
+      finalNames.set(signature, sortedCandidates[0]);
+    }
+    
+    return finalNames;
+  }
+
+  /**
+   * Replace all inline enums with references
+   */
+  private replaceAllEnumsWithReferences(spec: OpenAPISpec, finalNames: Map<string, string>): void {
+    // Replace in entity schemas
     if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(
-        spec.components.schemas
-      )) {
-        this.replaceEnumsWithReferences(schema as OpenAPISchema, enumPatterns);
+      for (const schema of Object.values(spec.components.schemas)) {
+        this.replaceEnumsWithReferences(schema as OpenAPISchema, finalNames);
       }
     }
 
+    // Replace in method parameters and request bodies
     if (spec.paths) {
-      for (const [path, pathItem] of Object.entries(spec.paths)) {
-        for (const [method, operation] of Object.entries(pathItem)) {
+      for (const pathItem of Object.values(spec.paths)) {
+        for (const operation of Object.values(pathItem)) {
           if (typeof operation === 'object' && operation !== null) {
             // Replace in parameters
             if (operation.parameters) {
               for (const param of operation.parameters) {
                 if (param.schema) {
-                  this.replaceEnumsInProperty(param.schema, enumPatterns);
+                  this.replaceEnumsInProperty(param.schema, finalNames);
                 }
               }
             }
 
             // Replace in request body
             if (operation.requestBody?.content?.['application/json']?.schema) {
-              const schema =
-                operation.requestBody.content['application/json'].schema;
-              this.replaceEnumsWithReferences(
-                schema as OpenAPISchema,
-                enumPatterns
-              );
+              const schema = operation.requestBody.content['application/json'].schema;
+              this.replaceEnumsWithReferences(schema as OpenAPISchema, finalNames);
             }
           }
         }
@@ -300,80 +391,11 @@ class OpenAPIGenerator {
     // Create a descriptive name based on property name (convert to PascalCase)
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
-    // Create a short hash from enum values to ensure uniqueness
-    const enumSignature = JSON.stringify([...enumValues].sort());
-    const hash = this.createShortHash(enumSignature);
-
-    // Special cases for well-known property names with unique hash
-    if (sanitizedPropName === 'context') {
-      // For context enums, check if they're the standard filter context values
-      const standardFilterContext = [
-        'home',
-        'notifications',
-        'public',
-        'thread',
-        'account',
-      ].sort();
-      const currentValues = [...enumValues].sort();
-
-      if (
-        JSON.stringify(currentValues) === JSON.stringify(standardFilterContext)
-      ) {
-        return 'FilterContext';
-      } else {
-        return `FilterContext${hash}`;
-      }
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (sanitizedPropName === 'type') {
-      // Notification type enum
-      if (
-        entityName.includes('Notification') ||
-        entityName.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityName.includes('PreviewCard') ||
-        entityName.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // Special cases for other properties
-    if (
-      sanitizedPropName === 'visibility' ||
-      sanitizedPropName === 'posting_default_visibility'
-    ) {
-      return 'VisibilityEnum';
-    }
-
-    if (sanitizedPropName === 'category') {
-      return 'CategoryEnum';
-    }
-
-    if (sanitizedPropName === 'state') {
-      return 'StateEnum';
-    }
-
-    if (sanitizedPropName === 'policy') {
-      return 'PolicyEnum';
-    }
-
-    // Special handling for media-related properties
-    if (sanitizedPropName === 'reading_expand_media') {
-      return 'MediaExpandEnum';
-    }
-
-    // For other enum types, create a descriptive name
-    return `${capitalizedProp}Enum`;
+    // For now, always use EntityAttributeEnum pattern - deduplication will be handled later
+    const sanitizedEntityName = entityName.replace(/[^a-zA-Z0-9_]/g, '_');
+    const capitalizedEntity = this.toPascalCase(sanitizedEntityName);
+    
+    return `${capitalizedEntity}${capitalizedProp}Enum`;
   }
 
   /**
@@ -474,55 +496,35 @@ class OpenAPIGenerator {
   }
 
   /**
-   * Generate a name for a shared enum component
+   * Generate optimal enum names considering deduplication of identical values
    */
-  private generateSharedEnumComponentName(
-    contextName: string,
-    enumValues: any[]
-  ): string {
-    // Sanitize context name to remove invalid characters
-    const sanitizedContext = contextName.replace(/[^a-zA-Z0-9_]/g, '_');
-
-    // Extract property name from context
-    const parts = sanitizedContext.split('_');
-    const propertyName = parts[parts.length - 1];
-
-    // Create a descriptive name based on property name
-    const capitalizedName =
-      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-
-    // Special cases for well-known property names
-    if (propertyName === 'context') {
-      return 'FilterContext';
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (propertyName === 'type') {
-      // Check the entity context to determine the appropriate enum name
-      const entityContext = parts.slice(0, -1).join('_');
-
-      // Notification type enum
-      if (
-        entityContext.includes('Notification') ||
-        entityContext.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
+  private generateOptimalEnumNames(enumPatterns: Map<string, string[]>): Map<string, string> {
+    const finalNames = new Map<string, string>();
+    
+    // Group enum signatures by their values
+    const valueGroups = new Map<string, { signature: string; names: string[] }>();
+    
+    for (const [signature, candidateNames] of enumPatterns) {
+      if (!valueGroups.has(signature)) {
+        valueGroups.set(signature, { signature, names: candidateNames });
       }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityContext.includes('PreviewCard') ||
-        entityContext.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
     }
-
-    // For other enum types, create a generic name
-    return `${capitalizedName}Enum`;
+    
+    // For each group of identical values, choose the shortest name
+    for (const [signature, group] of valueGroups) {
+      if (group.names.length === 0) continue;
+      
+      // Sort names by length, then alphabetically to get the shortest/simplest name
+      const sortedNames = group.names.sort((a, b) => {
+        if (a.length !== b.length) return a.length - b.length;
+        return a.localeCompare(b);
+      });
+      
+      const chosenName = sortedNames[0];
+      finalNames.set(signature, chosenName);
+    }
+    
+    return finalNames;
   }
 
   /**
@@ -574,6 +576,49 @@ class OpenAPIGenerator {
         delete property.enum;
         property.$ref = `#/components/schemas/${componentName}`;
       }
+    }
+  }
+
+  /**
+   * Collect enum from a property
+   */
+  private collectEnumFromProperty(
+    property: OpenAPIProperty,
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>,
+    entityName: string,
+    propertyName: string,
+    context: string
+  ): void {
+    // Handle direct enum properties
+    if (property.enum && Array.isArray(property.enum)) {
+      this.addEnumToInfo(enumInfo, property.enum, entityName, propertyName, context);
+    }
+
+    // Handle array properties with enum items
+    if (
+      property.type === 'array' &&
+      property.items &&
+      typeof property.items === 'object' &&
+      property.items.enum &&
+      Array.isArray(property.items.enum)
+    ) {
+      this.addEnumToInfo(enumInfo, property.items.enum, entityName, propertyName, context + '[]');
+    }
+  }
+
+  /**
+   * Collect enum from a schema
+   */
+  private collectEnumFromSchema(
+    schema: OpenAPISchema,
+    enumInfo: Map<string, { values: any[]; candidateNames: string[]; contexts: string[] }>,
+    entityName: string,
+    context: string
+  ): void {
+    if (!schema.properties) return;
+
+    for (const [propName, property] of Object.entries(schema.properties)) {
+      this.collectEnumFromProperty(property, enumInfo, entityName, propName, `${context}.${propName}`);
     }
   }
 }
