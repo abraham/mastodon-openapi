@@ -199,11 +199,31 @@ class OpenAPIGenerator {
           // Update the mapping to use the individual component name
           enumPatterns.set(enumSignature, individualComponentName);
 
-          if (spec.components?.schemas) {
-            spec.components.schemas[individualComponentName] = {
-              type: 'string',
-              enum: originalValues,
-            } as any;
+          // Check if component name already exists and has different values
+          if (spec.components?.schemas && spec.components.schemas[individualComponentName]) {
+            const existingComponent = spec.components.schemas[individualComponentName] as any;
+            const existingValues = existingComponent.enum;
+            
+            // If values are different, add suffix to make unique
+            if (JSON.stringify([...existingValues].sort()) !== JSON.stringify([...originalValues!].sort())) {
+              const suffix = contextInfo.entityName === 'NotificationGroup' ? 'Group' : 'Individual';
+              const uniqueComponentName = `${individualComponentName.replace('Enum', '')}${suffix}Enum`;
+              
+              // Update mapping and create unique component
+              enumPatterns.set(enumSignature, uniqueComponentName);
+              spec.components.schemas[uniqueComponentName] = {
+                type: 'string',
+                enum: originalValues,
+              } as any;
+            }
+          } else {
+            // No conflict, create component normally
+            if (spec.components?.schemas) {
+              spec.components.schemas[individualComponentName] = {
+                type: 'string',
+                enum: originalValues,
+              } as any;
+            }
           }
         }
       }
@@ -339,13 +359,13 @@ class OpenAPIGenerator {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Handle special cases for shorter enum names when there are similar entities
+    // Handle special cases for keeping common aspects in enum names
     let processedEntityName = sanitizedEntityName;
     
-    // For NotificationGroup, prefer the shorter base name to avoid very long enum names
+    // For entities with common prefixes, use the common prefix to reduce duplication
     if (sanitizedEntityName === 'NotificationGroup') {
-      // Use just "Group" to make it shorter while avoiding conflicts with "Notification"
-      processedEntityName = 'Group';
+      // Use common "Notification" prefix instead of shortening to "Group"
+      processedEntityName = 'Notification';
     }
 
     // Create a descriptive name using the pattern EntityAttributeEnum

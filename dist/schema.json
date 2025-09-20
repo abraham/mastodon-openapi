@@ -38792,7 +38792,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/GroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeGroupEnum"
           }
         },
         "externalDocs": {
@@ -39397,7 +39397,7 @@
           "account_suspension"
         ]
       },
-      "GroupTypeEnum": {
+      "NotificationTypeGroupEnum": {
         "type": "string",
         "enum": [
           "mention",
