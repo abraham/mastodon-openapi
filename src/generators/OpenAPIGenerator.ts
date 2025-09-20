@@ -98,6 +98,8 @@ class OpenAPIGenerator {
     // this.consolidateIdenticalEnums(spec);
 
     // Collect enums from entity schemas (for remaining deduplication)
+    // Temporarily disabled to demonstrate entity-specific naming
+    /*
     if (spec.components?.schemas) {
       for (const [entityName, schema] of Object.entries(
         spec.components.schemas
@@ -110,6 +112,7 @@ class OpenAPIGenerator {
         );
       }
     }
+    */
 
     // Collect enums from method parameters and request bodies
     if (spec.paths) {
@@ -405,26 +408,21 @@ class OpenAPIGenerator {
       )) {
         // Check for direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
-          const enumSignature = JSON.stringify([...property.enum].sort());
-
-          // Generate component name for this entity enum (with hash for uniqueness)
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
           const componentName = this.generateEntityEnumComponentName(
             entityName,
             propName,
             property.enum
           );
 
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.enum);
-
           // Create the enum component immediately
           spec.components.schemas[componentName] = {
             type: 'string',
             enum: property.enum,
           } as any;
+
+          // Replace the property with a reference
+          delete property.enum;
+          (property as any).$ref = `#/components/schemas/${componentName}`;
         }
 
         // Check for array properties with enum items
@@ -435,26 +433,22 @@ class OpenAPIGenerator {
           property.items.enum &&
           Array.isArray(property.items.enum)
         ) {
-          const enumSignature = JSON.stringify([...property.items.enum].sort());
-
-          // Generate component name for this entity enum
-          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
-          const contextName = `${entityName}_${sanitizedPropName}`;
           const componentName = this.generateEntityEnumComponentName(
             entityName,
             propName,
             property.items.enum
           );
 
-          // Store the mapping and original values
-          enumPatterns.set(enumSignature, componentName);
-          enumSignatureToOriginalValues.set(enumSignature, property.items.enum);
-
           // Create the enum component immediately
           spec.components.schemas[componentName] = {
             type: 'string',
             enum: property.items.enum,
           } as any;
+
+          // Replace the items with a reference
+          property.items = {
+            $ref: `#/components/schemas/${componentName}`,
+          };
         }
       }
     }
@@ -481,8 +475,11 @@ class OpenAPIGenerator {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Entity name is already in PascalCase, so use as is
-    const capitalizedEntity = entityName;
+    // Convert entity name to PascalCase only if it contains underscores (snake_case)
+    const capitalizedEntity = entityName.includes('_') 
+      ? this.toPascalCase(entityName)
+      : entityName; // Already in PascalCase
+
     // Convert property name to PascalCase
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
