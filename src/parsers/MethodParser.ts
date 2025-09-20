@@ -26,6 +26,15 @@ class MethodParser {
       return methodFiles;
     }
 
+    // Load blocked files from config
+    let blockedFiles: string[] = [];
+    try {
+      const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+      blockedFiles = config.blockedFiles || [];
+    } catch (error) {
+      console.warn('Could not load blockedFiles from config.json:', error);
+    }
+
     const files = fs
       .readdirSync(this.methodsPath)
       .filter(
@@ -35,6 +44,13 @@ class MethodParser {
       );
 
     for (const file of files) {
+      // Check if file is blocked
+      const relativePath = `methods/${file}`;
+      if (blockedFiles.includes(relativePath)) {
+        console.log(`Skipping blocked file: ${relativePath}`);
+        continue;
+      }
+
       try {
         const methodFile = this.parseMethodFile(
           path.join(this.methodsPath, file)
