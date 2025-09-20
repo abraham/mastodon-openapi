@@ -31822,11 +31822,6 @@
             "description": "How many statuses are attached to this account.",
             "type": "integer"
           },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": "string",
-            "format": "uri"
-          },
           "username": {
             "description": "The username of the account, not including domain.",
             "type": "string"
@@ -31909,6 +31904,14 @@
               "null"
             ]
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -31936,7 +31939,6 @@
           "locked",
           "note",
           "statuses_count",
-          "uri",
           "username"
         ],
         "externalDocs": {
@@ -32187,11 +32189,6 @@
             "description": "How many statuses are attached to this account.",
             "type": "integer"
           },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": "string",
-            "format": "uri"
-          },
           "username": {
             "description": "The username of the account, not including domain.",
             "type": "string"
@@ -32274,6 +32271,14 @@
               "null"
             ]
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -32303,7 +32308,6 @@
           "role",
           "source",
           "statuses_count",
-          "uri",
           "username"
         ],
         "externalDocs": {
@@ -32393,11 +32397,6 @@
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
             "type": "integer"
-          },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": "string",
-            "format": "uri"
           },
           "username": {
             "description": "The username of the account, not including domain.",
@@ -32489,6 +32488,14 @@
               "null"
             ]
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -32516,7 +32523,6 @@
           "locked",
           "note",
           "statuses_count",
-          "uri",
           "username"
         ],
         "externalDocs": {
@@ -35323,10 +35329,6 @@
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
         "properties": {
-          "exclusive": {
-            "description": "Whether members of the list should be removed from the “Home” feed.",
-            "type": "boolean"
-          },
           "id": {
             "description": "The ID of the list.",
             "type": "string"
@@ -35339,10 +35341,16 @@
           "title": {
             "description": "The user-defined title of the list.",
             "type": "string"
+          },
+          "exclusive": {
+            "description": "Whether members of the list should be removed from the “Home” feed.",
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
-          "exclusive",
           "id",
           "replies_policy",
           "title"
@@ -37842,20 +37850,19 @@
             "type": "string",
             "format": "iso-639-1"
           },
-          "media_attachments": {
-            "description": "The translated media descriptions of the status.",
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Translation_Attachment"
-            }
-          },
           "provider": {
             "description": "The service that provided the machine translation.",
             "type": "string"
           },
-          "spoiler_text": {
-            "description": "The translated spoiler warning of the status.",
-            "type": "string"
+          "media_attachments": {
+            "description": "The translated media descriptions of the status.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Translation_Attachment"
+            }
           },
           "poll": {
             "description": "The translated poll of the status.",
@@ -37867,14 +37874,19 @@
                 "type": "null"
               }
             ]
+          },
+          "spoiler_text": {
+            "description": "The translated spoiler warning of the status.",
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
           "content",
           "detected_source_language",
-          "media_attachments",
-          "provider",
-          "spoiler_text"
+          "provider"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#attributes",
@@ -37887,20 +37899,22 @@
         "properties": {
           "id": {
             "description": "The ID of the poll.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "options": {
             "description": "The translated poll options.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/Translation_Poll_Option"
             }
           }
         },
-        "required": [
-          "id",
-          "options"
-        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37912,12 +37926,12 @@
         "properties": {
           "title": {
             "description": "The translated title of the poll option.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
-        "required": [
-          "title"
-        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37929,17 +37943,19 @@
         "properties": {
           "description": {
             "description": "The translated description of the attachment.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "id": {
             "description": "The id of the attachment.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
-        "required": [
-          "description",
-          "id"
-        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"

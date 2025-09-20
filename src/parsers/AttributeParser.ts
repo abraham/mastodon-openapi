@@ -166,7 +166,7 @@ export class AttributeParser {
               // If we found when the property was added, use that version for nullability check
               if (
                 VersionParser.hasNewerVersion([propertyAddedVersion]) ||
-                VersionParser.withinOneMinorVersion([propertyAddedVersion])
+                VersionParser.isVersionSupported([propertyAddedVersion])
               ) {
                 attribute.nullable = true;
               }
@@ -176,7 +176,7 @@ export class AttributeParser {
               if (
                 attribute.versions &&
                 (VersionParser.hasNewerVersion(attribute.versions) ||
-                  VersionParser.withinOneMinorVersion(attribute.versions))
+                  VersionParser.isVersionSupported(attribute.versions))
               ) {
                 attribute.nullable = true;
               }
@@ -188,7 +188,7 @@ export class AttributeParser {
             if (
               addedVersionsOnly.length > 0 &&
               (VersionParser.hasNewerVersion(addedVersionsOnly) ||
-                VersionParser.withinOneMinorVersion(addedVersionsOnly))
+                VersionParser.isVersionSupported(addedVersionsOnly))
             ) {
               attribute.nullable = true;
             }
@@ -329,7 +329,7 @@ export class AttributeParser {
             // If we found when the property was added, use that version for nullability check
             if (
               VersionParser.hasNewerVersion([propertyAddedVersion]) ||
-              VersionParser.withinOneMinorVersion([propertyAddedVersion])
+              VersionParser.isVersionSupported([propertyAddedVersion])
             ) {
               attribute.nullable = true;
             }
@@ -339,7 +339,7 @@ export class AttributeParser {
             if (
               attribute.versions &&
               (VersionParser.hasNewerVersion(attribute.versions) ||
-                VersionParser.withinOneMinorVersion(attribute.versions))
+                VersionParser.isVersionSupported(attribute.versions))
             ) {
               attribute.nullable = true;
             }
@@ -351,7 +351,7 @@ export class AttributeParser {
           if (
             addedVersionsOnly.length > 0 &&
             (VersionParser.hasNewerVersion(addedVersionsOnly) ||
-              VersionParser.withinOneMinorVersion(addedVersionsOnly))
+              VersionParser.isVersionSupported(addedVersionsOnly))
           ) {
             attribute.nullable = true;
           }

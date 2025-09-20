@@ -1,4 +1,5 @@
 {
   "mastodonDocsCommit": "4e816e8affc4fe53c8509d1e93847c7c5b29054c",
-  "mastodonVersion": "4.4.0"
+  "mastodonVersion": "4.4.0",
+  "minimumMastodonVersion": "4.2.0"
 }

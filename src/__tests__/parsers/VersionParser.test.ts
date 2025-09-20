@@ -1,12 +1,13 @@
 import { VersionParser } from '../../parsers/VersionParser';
 
-// Mock the config.json to return mastodon version 4.3.0
+// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.2.0
 jest.mock('fs', () => ({
   readFileSync: jest.fn((filePath: string) => {
     if (filePath === 'config.json') {
       return JSON.stringify({
         mastodonDocsCommit: 'mock-commit',
         mastodonVersion: '4.3.0',
+        minimumMastodonVersion: '4.2.0',
       });
     }
     return '';
@@ -182,6 +183,68 @@ describe('VersionParser', () => {
     it('should handle single digit minor versions', () => {
       const versions = ['1.1.0', '2.0.0'];
       expect(VersionParser.withinOneMinorVersion(versions, '1.0.0')).toBe(true);
+    });
+  });
+
+  describe('isVersionSupported', () => {
+    it('should return true when version is within supported range', () => {
+      const versions = ['4.2.0', '4.3.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        true
+      );
+    });
+
+    it('should return true when version equals minimum', () => {
+      const versions = ['4.2.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        true
+      );
+    });
+
+    it('should return true when version equals maximum', () => {
+      const versions = ['4.3.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        true
+      );
+    });
+
+    it('should return false when all versions are below minimum', () => {
+      const versions = ['4.0.0', '4.1.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        false
+      );
+    });
+
+    it('should return false when all versions are above maximum', () => {
+      const versions = ['4.4.0', '4.5.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        false
+      );
+    });
+
+    it('should return true when at least one version is supported', () => {
+      const versions = ['4.0.0', '4.2.0', '4.5.0'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        true
+      );
+    });
+
+    it('should use default minimum and maximum versions when not specified', () => {
+      const versions = ['4.2.0'];
+      expect(VersionParser.isVersionSupported(versions)).toBe(true);
+    });
+
+    it('should return false for empty or null arrays', () => {
+      expect(VersionParser.isVersionSupported([])).toBe(false);
+      expect(VersionParser.isVersionSupported(null as any)).toBe(false);
+      expect(VersionParser.isVersionSupported(undefined as any)).toBe(false);
+    });
+
+    it('should handle complex version numbers', () => {
+      const versions = ['4.2.1', '4.2.5'];
+      expect(VersionParser.isVersionSupported(versions, '4.2.0', '4.3.0')).toBe(
+        true
+      );
     });
   });
 });

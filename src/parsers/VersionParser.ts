@@ -10,9 +10,22 @@ function getSupportedVersion(): string {
 }
 
 /**
+ * Get the minimum supported Mastodon API version from config.json
+ */
+function getMinimumVersion(): string {
+  const config = JSON.parse(readFileSync('config.json', 'utf8'));
+  return config.minimumMastodonVersion;
+}
+
+/**
  * The currently supported Mastodon API version
  */
 export const SUPPORTED_VERSION = getSupportedVersion();
+
+/**
+ * The minimum supported Mastodon API version
+ */
+export const MINIMUM_VERSION = getMinimumVersion();
 
 /**
  * Utility class for parsing version numbers from version history strings
@@ -136,6 +149,42 @@ export class VersionParser {
         versionMajor === supportedMajor &&
         Math.abs(versionMinor - supportedMinor) <= 1
       );
+    });
+  }
+
+  /**
+   * Checks if any version in the array is supported (within the configured version range)
+   * @param versions Array of version strings to check
+   * @param minimumVersion The minimum supported version (default: MINIMUM_VERSION)
+   * @param maximumVersion The maximum supported version (default: SUPPORTED_VERSION)
+   * @returns True if any version is within the supported version range
+   */
+  static isVersionSupported(
+    versions: string[],
+    minimumVersion: string = MINIMUM_VERSION,
+    maximumVersion: string = SUPPORTED_VERSION
+  ): boolean {
+    if (!versions || versions.length === 0) {
+      return false;
+    }
+
+    // Ensure we have valid version strings
+    if (!minimumVersion || !maximumVersion) {
+      return false;
+    }
+
+    return versions.some((version) => {
+      if (!version) {
+        return false;
+      }
+      // Check if version is >= minimum and <= maximum
+      const isAboveMinimum =
+        this.compareVersions(version, minimumVersion) === version ||
+        version === minimumVersion;
+      const isBelowMaximum =
+        this.compareVersions(maximumVersion, version) === maximumVersion ||
+        version === maximumVersion;
+      return isAboveMinimum && isBelowMaximum;
     });
   }
 

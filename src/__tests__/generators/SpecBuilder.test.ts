@@ -7,9 +7,10 @@ const mockReadFileSync = readFileSync as jest.MockedFunction<
   typeof readFileSync
 >;
 
-// Mock VersionParser to control SUPPORTED_VERSION
+// Mock VersionParser to control SUPPORTED_VERSION and MINIMUM_VERSION
 jest.mock('../../parsers/VersionParser', () => ({
   SUPPORTED_VERSION: '4.3.0',
+  MINIMUM_VERSION: '4.2.0',
   VersionParser: class {
     static extractVersionNumbers = jest.fn();
     static compareVersions = jest.fn();
@@ -85,6 +86,7 @@ describe('SpecBuilder', () => {
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
         mastodonVersion: '4.3.0',
+        minimumMastodonVersion: '4.2.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
@@ -103,6 +105,7 @@ describe('SpecBuilder', () => {
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
         mastodonVersion: '4.3.0',
+        minimumMastodonVersion: '4.2.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
