@@ -15,9 +15,8 @@ describe('Integration: Filter context deduplication', () => {
     // Generate the OpenAPI schema
     const schema = generator.generateSchema(entities, methodFiles);
 
-    // Check that ContextEnum component was created (was FilterContext)
-    expect(schema.components?.schemas?.ContextEnum).toBeDefined();
-    const filterContext = schema.components!.schemas!.ContextEnum as any;
+    expect(schema.components?.schemas?.FilterContextEnum).toBeDefined();
+    const filterContext = schema.components!.schemas!.FilterContextEnum as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toBeDefined();
     expect(Array.isArray(filterContext.enum)).toBe(true);
@@ -55,7 +54,7 @@ describe('Integration: Filter context deduplication', () => {
     // Check that both use the FilterContext schema or have the expected enum values
     // V1_Filter uses $ref (non-nullable), Filter has inline enum (nullable)
     expect(v1FilterContextProp.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
+      '#/components/schemas/FilterContextEnum'
     );
 
     // For nullable arrays, the items might be inline instead of using $ref
@@ -71,7 +70,7 @@ describe('Integration: Filter context deduplication', () => {
     } else {
       // If it does use $ref, check that too
       expect(filterContextProp.items?.$ref).toBe(
-        '#/components/schemas/ContextEnum'
+        '#/components/schemas/FilterContextEnum'
       );
     }
 

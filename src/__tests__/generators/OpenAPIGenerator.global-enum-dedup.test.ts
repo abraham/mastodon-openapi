@@ -69,9 +69,8 @@ describe('OpenAPIGenerator global enum deduplication', () => {
 
     const schema = generator.generateSchema(entities, methodFiles);
 
-    // Should create shared ContextEnum component (was FilterContext)
-    expect(schema.components?.schemas?.ContextEnum).toBeDefined();
-    const filterContext = schema.components!.schemas!.ContextEnum as any;
+    expect(schema.components?.schemas?.FilterContextEnum).toBeDefined();
+    const filterContext = schema.components!.schemas!.FilterContextEnum as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum.sort()).toEqual([
       'account',
@@ -86,7 +85,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const entityContextProp = filterSchema.properties!.context;
     expect(entityContextProp.type).toBe('array');
     expect(entityContextProp.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
+      '#/components/schemas/FilterContextEnum'
     );
 
     // Method parameter should also reference shared component
@@ -100,7 +99,7 @@ describe('OpenAPIGenerator global enum deduplication', () => {
     const methodContextProp = requestBodySchema.properties!.context;
     expect(methodContextProp.type).toBe('array');
     expect(methodContextProp.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
+      '#/components/schemas/FilterContextEnum'
     );
   });
 

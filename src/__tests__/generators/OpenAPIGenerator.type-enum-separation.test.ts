@@ -171,20 +171,20 @@ describe('OpenAPIGenerator type enum separation', () => {
     const schema = generator.generateSchema(entities, []);
 
     // Should create generic TypeEnum for non-special cases
-    expect(schema.components?.schemas?.TypeEnum).toBeDefined();
-    const typeEnum = schema.components!.schemas!.TypeEnum as any;
+    expect(schema.components?.schemas?.AnotherEntityTypeEnum).toBeDefined();
+    const typeEnum = schema.components!.schemas!.AnotherEntityTypeEnum as any;
     expect(typeEnum.type).toBe('string');
     expect(typeEnum.enum).toEqual(['typeA', 'typeB']);
 
     // Both entities should reference the generic TypeEnum
     const someOtherEntitySchema = schema.components!.schemas!.SomeOtherEntity;
     expect(someOtherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/AnotherEntityTypeEnum'
     );
 
     const anotherEntitySchema = schema.components!.schemas!.AnotherEntity;
     expect(anotherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/AnotherEntityTypeEnum'
     );
   });
 });
