@@ -13746,7 +13746,7 @@
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
                     "default": "list",
-                    "$ref": "#/components/schemas/PolicyEnum"
+                    "$ref": "#/components/schemas/RepliesPolicyEnum"
                   }
                 },
                 "required": [
@@ -14070,7 +14070,7 @@
                     "type": "string",
                     "description": "One of `followed`, `list`, or `none`. Defaults to `list`.",
                     "default": "list",
-                    "$ref": "#/components/schemas/PolicyEnum"
+                    "$ref": "#/components/schemas/RepliesPolicyEnum"
                   }
                 },
                 "required": [
@@ -32591,15 +32591,7 @@
               "string",
               "null"
             ],
-            "enum": [
-              "none",
-              "disable",
-              "mark_statuses_as_sensitive",
-              "delete_statuses",
-              "sensitive",
-              "silence",
-              "suspend"
-            ]
+            "$ref": "#/components/schemas/ActionEnum"
           },
           "appeal": {
             "description": "Appeal submitted by the target account, if any.",
@@ -32873,10 +32865,7 @@
           "frequency": {
             "description": "The size of the bucket for the returned data.",
             "type": "string",
-            "enum": [
-              "day",
-              "month"
-            ]
+            "$ref": "#/components/schemas/FrequencyEnum"
           },
           "period": {
             "description": "The timestamp for the start of the period, at midnight.",
@@ -33047,11 +33036,7 @@
           "severity": {
             "description": "The policy to be applied by this domain block.",
             "type": "string",
-            "enum": [
-              "silence",
-              "suspend",
-              "noop"
-            ]
+            "$ref": "#/components/schemas/SeverityEnum"
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
@@ -33257,11 +33242,7 @@
           "severity": {
             "description": "The associated policy with this IP block.",
             "type": "string",
-            "enum": [
-              "sign_up_requires_approval",
-              "sign_up_block",
-              "no_access"
-            ]
+            "$ref": "#/components/schemas/SeverityEnum"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -33720,11 +33701,7 @@
               "string",
               "null"
             ],
-            "enum": [
-              "approved",
-              "rejected",
-              "pending"
-            ]
+            "$ref": "#/components/schemas/StateEnum"
           },
           "text": {
             "description": "Text of the appeal from the moderated account to the moderators.",
@@ -34082,10 +34059,7 @@
           "severity": {
             "description": "The level to which the domain is blocked.",
             "type": "string",
-            "enum": [
-              "silence",
-              "suspend"
-            ]
+            "$ref": "#/components/schemas/SeverityEnum"
           },
           "comment": {
             "description": "An optional reason for the domain block.",
@@ -34272,11 +34246,7 @@
           "filter_action": {
             "description": "The action to be taken when a status matches this filter.",
             "type": "string",
-            "enum": [
-              "warn",
-              "hide",
-              "blur"
-            ]
+            "$ref": "#/components/schemas/FilterActionEnum"
           },
           "id": {
             "description": "The ID of the Filter in the database.",
@@ -35364,7 +35334,7 @@
           "replies_policy": {
             "description": "Which replies should be shown in the list.",
             "type": "string",
-            "$ref": "#/components/schemas/PolicyEnum"
+            "$ref": "#/components/schemas/RepliesPolicyEnum"
           },
           "title": {
             "description": "The user-defined title of the list.",
@@ -35432,13 +35402,7 @@
           "type": {
             "description": "The type of the attachment.",
             "type": "string",
-            "enum": [
-              "unknown",
-              "image",
-              "gifv",
-              "video",
-              "audio"
-            ]
+            "$ref": "#/components/schemas/TypeEnum"
           },
           "url": {
             "description": "The location of the original full-size attachment.",
@@ -35536,22 +35500,7 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "enum": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report",
-              "severed_relationships",
-              "moderation_warning",
-              "quote",
-              "quoted_update"
-            ]
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
@@ -35931,11 +35880,7 @@
           "reading:expand:media": {
             "description": "Whether media attachments should be automatically displayed or blurred/hidden.",
             "type": "string",
-            "enum": [
-              "default",
-              "show_all",
-              "hide_all"
-            ]
+            "$ref": "#/components/schemas/MediaExpandEnum"
           },
           "reading:expand:spoilers": {
             "description": "Whether CWs should be expanded by default.",
@@ -36382,12 +36327,7 @@
               "string",
               "null"
             ],
-            "enum": [
-              "automatic",
-              "manual",
-              "denied",
-              "unknown"
-            ]
+            "$ref": "#/components/schemas/CurrentUserEnum"
           },
           "manual": {
             "description": "Describes who is expected to have their quotes of this status be manually reviewed by the author before being accepted. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
@@ -36639,11 +36579,7 @@
               "string",
               "null"
             ],
-            "enum": [
-              "domain_block",
-              "user_domain_block",
-              "account_suspension"
-            ]
+            "$ref": "#/components/schemas/TypeEnum"
           }
         },
         "externalDocs": {
@@ -38840,20 +38776,7 @@
               "string",
               "null"
             ],
-            "enum": [
-              "mention",
-              "status",
-              "reblog",
-              "follow",
-              "follow_request",
-              "favourite",
-              "poll",
-              "update",
-              "admin.sign_up",
-              "admin.report",
-              "severed_relationships",
-              "moderation_warning"
-            ]
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           }
         },
         "externalDocs": {
@@ -39290,26 +39213,71 @@
           }
         ]
       },
+      "ActionEnum": {
+        "type": "string",
+        "enum": [
+          "none",
+          "disable",
+          "mark_statuses_as_sensitive",
+          "delete_statuses",
+          "sensitive",
+          "silence",
+          "suspend"
+        ]
+      },
+      "FrequencyEnum": {
+        "type": "string",
+        "enum": [
+          "day",
+          "month"
+        ]
+      },
+      "SeverityEnum": {
+        "type": "string",
+        "enum": [
+          "silence",
+          "suspend"
+        ]
+      },
       "CategoryEnum": {
         "type": "string",
         "enum": [
-          "legal",
-          "other",
           "spam",
-          "violation"
+          "legal",
+          "violation",
+          "other"
+        ]
+      },
+      "StateEnum": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "accepted",
+          "rejected",
+          "revoked",
+          "deleted",
+          "unauthorized"
         ]
       },
       "FilterContext": {
         "type": "string",
         "enum": [
-          "account",
           "home",
           "notifications",
           "public",
-          "thread"
+          "thread",
+          "account"
         ]
       },
-      "PolicyEnum": {
+      "FilterActionEnum": {
+        "type": "string",
+        "enum": [
+          "warn",
+          "hide",
+          "blur"
+        ]
+      },
+      "RepliesPolicyEnum": {
         "type": "string",
         "enum": [
           "followed",
@@ -39317,13 +39285,46 @@
           "none"
         ]
       },
+      "TypeEnum": {
+        "type": "string",
+        "enum": [
+          "domain_block",
+          "user_domain_block",
+          "account_suspension"
+        ]
+      },
+      "NotificationTypeEnum": {
+        "type": "string",
+        "enum": [
+          "mention",
+          "status",
+          "reblog",
+          "follow",
+          "follow_request",
+          "favourite",
+          "poll",
+          "update",
+          "admin.sign_up",
+          "admin.report",
+          "severed_relationships",
+          "moderation_warning"
+        ]
+      },
       "VisibilityEnum": {
         "type": "string",
         "enum": [
-          "direct",
-          "private",
           "public",
-          "unlisted"
+          "unlisted",
+          "private",
+          "direct"
+        ]
+      },
+      "MediaExpandEnum": {
+        "type": "string",
+        "enum": [
+          "default",
+          "show_all",
+          "hide_all"
         ]
       },
       "PreviewTypeEnum": {
@@ -39331,34 +39332,32 @@
         "enum": [
           "link",
           "photo",
-          "rich",
-          "video"
+          "video",
+          "rich"
         ]
       },
-      "StateEnum": {
+      "CurrentUserEnum": {
         "type": "string",
         "enum": [
-          "accepted",
-          "deleted",
-          "pending",
-          "rejected",
-          "revoked",
-          "unauthorized"
+          "automatic",
+          "manual",
+          "denied",
+          "unknown"
         ]
       },
       "TypesEnum": {
         "type": "string",
         "enum": [
-          "admin.report",
-          "admin.sign_up",
-          "favourite",
+          "mention",
+          "status",
+          "reblog",
           "follow",
           "follow_request",
-          "mention",
+          "favourite",
           "poll",
-          "reblog",
-          "status",
-          "update"
+          "update",
+          "admin.sign_up",
+          "admin.report"
         ]
       }
     },

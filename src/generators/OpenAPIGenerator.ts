@@ -85,7 +85,16 @@ class OpenAPIGenerator {
     // First pass: identify all enum patterns from entities and methods
     const enumSignatureToOriginalValues = new Map<string, any[]>();
 
-    // Collect enums from entity schemas
+    // Special first pass: Extract ALL entity enums into their own components
+    if (spec.components?.schemas) {
+      this.extractEntityEnumsToComponents(
+        spec,
+        enumPatterns,
+        enumSignatureToOriginalValues
+      );
+    }
+
+    // Collect enums from entity schemas (for remaining deduplication)
     if (spec.components?.schemas) {
       for (const [entityName, schema] of Object.entries(
         spec.components.schemas
@@ -108,9 +117,12 @@ class OpenAPIGenerator {
             if (operation.parameters) {
               for (const param of operation.parameters) {
                 if (param.schema) {
+                  // Sanitize path and method for valid component names
+                  const sanitizedPath = path.replace(/[^a-zA-Z0-9]/g, '_');
+                  const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
                   this.collectEnumPatternsFromProperty(
                     param.schema,
-                    `${method}_${path}_param_${param.name}`,
+                    `${sanitizedMethod}_${sanitizedPath}_param_${param.name}`,
                     enumPatterns,
                     enumSignatureToOriginalValues
                   );
@@ -122,9 +134,12 @@ class OpenAPIGenerator {
             if (operation.requestBody?.content?.['application/json']?.schema) {
               const schema =
                 operation.requestBody.content['application/json'].schema;
+              // Sanitize path and method for valid component names
+              const sanitizedPath = path.replace(/[^a-zA-Z0-9]/g, '_');
+              const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
               this.collectEnumPatternsFromSchema(
                 schema as OpenAPISchema,
-                `${method}_${path}_requestBody`,
+                `${sanitizedMethod}_${sanitizedPath}_requestBody`,
                 enumPatterns,
                 enumSignatureToOriginalValues
               );
@@ -142,7 +157,7 @@ class OpenAPIGenerator {
         if (spec.components?.schemas) {
           spec.components.schemas[componentName] = {
             type: 'string',
-            enum: JSON.parse(enumSignature),
+            enum: originalValues,
           } as any;
         }
       }
@@ -183,6 +198,195 @@ class OpenAPIGenerator {
         }
       }
     }
+  }
+
+  /**
+   * Extract ALL entity enums into their own components
+   */
+  private extractEntityEnumsToComponents(
+    spec: OpenAPISpec,
+    enumPatterns: Map<string, string>,
+    enumSignatureToOriginalValues: Map<string, any[]>
+  ): void {
+    if (!spec.components?.schemas) return;
+
+    for (const [entityName, schema] of Object.entries(
+      spec.components.schemas
+    )) {
+      const openAPISchema = schema as OpenAPISchema;
+      if (!openAPISchema.properties) continue;
+
+      for (const [propName, property] of Object.entries(
+        openAPISchema.properties
+      )) {
+        // Check for direct enum properties
+        if (property.enum && Array.isArray(property.enum)) {
+          const enumSignature = JSON.stringify([...property.enum].sort());
+
+          // Generate component name for this entity enum (with hash for uniqueness)
+          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
+          const contextName = `${entityName}_${sanitizedPropName}`;
+          const componentName = this.generateEntityEnumComponentName(
+            entityName,
+            propName,
+            property.enum
+          );
+
+          // Store the mapping and original values
+          enumPatterns.set(enumSignature, componentName);
+          enumSignatureToOriginalValues.set(enumSignature, property.enum);
+
+          // Create the enum component immediately
+          spec.components.schemas[componentName] = {
+            type: 'string',
+            enum: property.enum,
+          } as any;
+        }
+
+        // Check for array properties with enum items
+        if (
+          property.type === 'array' &&
+          property.items &&
+          typeof property.items === 'object' &&
+          property.items.enum &&
+          Array.isArray(property.items.enum)
+        ) {
+          const enumSignature = JSON.stringify([...property.items.enum].sort());
+
+          // Generate component name for this entity enum
+          const sanitizedPropName = propName.replace(/[^a-zA-Z0-9_]/g, '_');
+          const contextName = `${entityName}_${sanitizedPropName}`;
+          const componentName = this.generateEntityEnumComponentName(
+            entityName,
+            propName,
+            property.items.enum
+          );
+
+          // Store the mapping and original values
+          enumPatterns.set(enumSignature, componentName);
+          enumSignatureToOriginalValues.set(enumSignature, property.items.enum);
+
+          // Create the enum component immediately
+          spec.components.schemas[componentName] = {
+            type: 'string',
+            enum: property.items.enum,
+          } as any;
+        }
+      }
+    }
+  }
+
+  /**
+   * Convert underscore-separated words to PascalCase
+   */
+  private toPascalCase(input: string): string {
+    return input
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+  }
+
+  /**
+   * Generate a unique name for an entity enum component
+   */
+  private generateEntityEnumComponentName(
+    entityName: string,
+    propertyName: string,
+    enumValues: any[]
+  ): string {
+    // Sanitize property name to remove invalid characters
+    const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
+
+    // Create a descriptive name based on property name (convert to PascalCase)
+    const capitalizedProp = this.toPascalCase(sanitizedPropName);
+
+    // Create a short hash from enum values to ensure uniqueness
+    const enumSignature = JSON.stringify([...enumValues].sort());
+    const hash = this.createShortHash(enumSignature);
+
+    // Special cases for well-known property names with unique hash
+    if (sanitizedPropName === 'context') {
+      // For context enums, check if they're the standard filter context values
+      const standardFilterContext = [
+        'home',
+        'notifications',
+        'public',
+        'thread',
+        'account',
+      ].sort();
+      const currentValues = [...enumValues].sort();
+
+      if (
+        JSON.stringify(currentValues) === JSON.stringify(standardFilterContext)
+      ) {
+        return 'FilterContext';
+      } else {
+        return `FilterContext${hash}`;
+      }
+    }
+
+    // Special cases for 'type' property based on entity context
+    if (sanitizedPropName === 'type') {
+      // Notification type enum
+      if (
+        entityName.includes('Notification') ||
+        entityName.includes('NotificationGroup')
+      ) {
+        return 'NotificationTypeEnum';
+      }
+
+      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
+      if (
+        entityName.includes('PreviewCard') ||
+        entityName.includes('Trends_Link')
+      ) {
+        return 'PreviewTypeEnum';
+      }
+
+      // Fallback to generic type enum for other contexts
+      return 'TypeEnum';
+    }
+
+    // Special cases for other properties
+    if (
+      sanitizedPropName === 'visibility' ||
+      sanitizedPropName === 'posting_default_visibility'
+    ) {
+      return 'VisibilityEnum';
+    }
+
+    if (sanitizedPropName === 'category') {
+      return 'CategoryEnum';
+    }
+
+    if (sanitizedPropName === 'state') {
+      return 'StateEnum';
+    }
+
+    if (sanitizedPropName === 'policy') {
+      return 'PolicyEnum';
+    }
+
+    // Special handling for media-related properties
+    if (sanitizedPropName === 'reading_expand_media') {
+      return 'MediaExpandEnum';
+    }
+
+    // For other enum types, create a descriptive name
+    return `${capitalizedProp}Enum`;
+  }
+
+  /**
+   * Create a short hash from a string
+   */
+  private createShortHash(input: string): string {
+    let hash = 0;
+    for (let i = 0; i < input.length; i++) {
+      const char = input.charCodeAt(i);
+      hash = (hash << 5) - hash + char;
+      hash = hash & hash; // Convert to 32-bit integer
+    }
+    return Math.abs(hash).toString(16).slice(0, 6);
   }
 
   /**
@@ -276,8 +480,11 @@ class OpenAPIGenerator {
     contextName: string,
     enumValues: any[]
   ): string {
+    // Sanitize context name to remove invalid characters
+    const sanitizedContext = contextName.replace(/[^a-zA-Z0-9_]/g, '_');
+
     // Extract property name from context
-    const parts = contextName.split('_');
+    const parts = sanitizedContext.split('_');
     const propertyName = parts[parts.length - 1];
 
     // Create a descriptive name based on property name

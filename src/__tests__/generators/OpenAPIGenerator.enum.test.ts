@@ -42,24 +42,36 @@ describe('OpenAPIGenerator Enum Support', () => {
       expect(spec.components?.schemas?.['TestEntity']).toBeDefined();
       const entitySchema = spec.components!.schemas!['TestEntity'];
 
-      // Check that status field has proper enum
+      // Check that status field has reference to enum component
       expect(entitySchema.properties?.['status']).toBeDefined();
       const statusProperty = entitySchema.properties!['status'];
-      expect(statusProperty.type).toBe('string');
-      expect(statusProperty.enum).toEqual(['active', 'inactive', 'pending']);
+      expect(statusProperty.$ref).toBe('#/components/schemas/StatusEnum');
       expect(statusProperty.description).toBe('Status of the entity');
 
-      // Check that visibility field has proper enum
+      // Check that the StatusEnum component was created
+      expect(spec.components?.schemas?.['StatusEnum']).toBeDefined();
+      const statusEnum = spec.components!.schemas!['StatusEnum'] as any;
+      expect(statusEnum.type).toBe('string');
+      expect(statusEnum.enum).toEqual(['active', 'inactive', 'pending']);
+
+      // Check that visibility field has reference to enum component
       expect(entitySchema.properties?.['visibility']).toBeDefined();
       const visibilityProperty = entitySchema.properties!['visibility'];
-      expect(visibilityProperty.type).toBe('string');
-      expect(visibilityProperty.enum).toEqual([
+      expect(visibilityProperty.$ref).toBe(
+        '#/components/schemas/VisibilityEnum'
+      );
+      expect(visibilityProperty.description).toBe('Visibility setting');
+
+      // Check that the VisibilityEnum component was created
+      expect(spec.components?.schemas?.['VisibilityEnum']).toBeDefined();
+      const visibilityEnum = spec.components!.schemas!['VisibilityEnum'] as any;
+      expect(visibilityEnum.type).toBe('string');
+      expect(visibilityEnum.enum).toEqual([
         'public',
         'unlisted',
         'private',
         'direct',
       ]);
-      expect(visibilityProperty.description).toBe('Visibility setting');
 
       // Check that regular field doesn't have enum
       expect(entitySchema.properties?.['regularField']).toBeDefined();
