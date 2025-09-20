@@ -124,7 +124,7 @@ describe('TrendsLink Entity Inheritance', () => {
     entityConverter.convertEntities(entities, spec);
 
     // Verify Trends::Link has all PreviewCard properties plus its own
-    const trendsLinkSchema = spec.components?.schemas?.Trends_Link;
+    const trendsLinkSchema = spec.components?.schemas?.TrendsLink;
     expect(trendsLinkSchema).toBeDefined();
     expect(trendsLinkSchema?.properties).toBeDefined();
 

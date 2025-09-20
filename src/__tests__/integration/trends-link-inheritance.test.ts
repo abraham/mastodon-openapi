@@ -49,7 +49,7 @@ describe('TrendsLink Entity Integration Test', () => {
 
     // Verify both schemas exist
     const previewCardSchema = spec.components?.schemas?.PreviewCard;
-    const trendsLinkSchema = spec.components?.schemas?.Trends_Link;
+    const trendsLinkSchema = spec.components?.schemas?.TrendsLink;
 
     expect(previewCardSchema).toBeDefined();
     expect(trendsLinkSchema).toBeDefined();
@@ -89,7 +89,7 @@ describe('TrendsLink Entity Integration Test', () => {
 
     entityConverter.convertEntities(entities, spec);
 
-    const trendsLinkSchema = spec.components?.schemas?.Trends_Link;
+    const trendsLinkSchema = spec.components?.schemas?.TrendsLink;
     expect(trendsLinkSchema?.properties).toBeDefined();
 
     const properties = Object.keys(trendsLinkSchema!.properties!);

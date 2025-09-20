@@ -29,7 +29,7 @@ describe('EntityConverter enum deduplication', () => {
         ],
       },
       {
-        name: 'V1_Filter',
+        name: 'V1Filter',
         description: 'A V1 filter',
         attributes: [
           {
@@ -52,7 +52,7 @@ describe('EntityConverter enum deduplication', () => {
 
     // Check that both entities exist
     expect(spec.components?.schemas?.Filter).toBeDefined();
-    expect(spec.components?.schemas?.V1_Filter).toBeDefined();
+    expect(spec.components?.schemas?.V1Filter).toBeDefined();
 
     // Check that FilterContextEnum component is created (named after first entity)
     expect(spec.components?.schemas?.FilterContextEnum).toBeDefined();
@@ -68,7 +68,7 @@ describe('EntityConverter enum deduplication', () => {
 
     // Check that both entities reference the shared component
     const filterSchema = spec.components!.schemas!.Filter;
-    const v1FilterSchema = spec.components!.schemas!.V1_Filter;
+    const v1FilterSchema = spec.components!.schemas!.V1Filter;
 
     // Both should have context property as array with items referencing FilterContext
     expect(filterSchema.properties?.context).toBeDefined();
@@ -173,7 +173,7 @@ describe('EntityConverter enum deduplication', () => {
         ],
       },
       {
-        name: 'V1_Filter',
+        name: 'V1Filter',
         description: 'A V1 filter',
         attributes: [
           {
@@ -190,7 +190,7 @@ describe('EntityConverter enum deduplication', () => {
 
     // Should create separate context components for different enums
     const filterSchema = spec.components!.schemas!.Filter;
-    const v1FilterSchema = spec.components!.schemas!.V1_Filter;
+    const v1FilterSchema = spec.components!.schemas!.V1Filter;
 
     const filterContext1 = filterSchema.properties!.context;
     const filterContext2 = v1FilterSchema.properties!.context;

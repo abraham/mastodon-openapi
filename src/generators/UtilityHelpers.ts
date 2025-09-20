@@ -41,12 +41,37 @@ class UtilityHelpers {
   }
 
   /**
-   * Sanitize schema name to be OpenAPI compliant
+   * Sanitize schema name to be OpenAPI compliant and convert to PascalCase
    */
   public sanitizeSchemaName(name: string): string {
-    // Replace :: with _ and spaces with _ to make schema names OpenAPI compliant
+    // Replace :: with _ and spaces with _ to normalize separators
     // OpenAPI schema names must match ^[a-zA-Z0-9\.\-_]+$
-    return name.replace(/::/g, '_').replace(/\s+/g, '_');
+    const normalized = name.replace(/::/g, '_').replace(/\s+/g, '_');
+
+    // If no underscores remain and it's already properly cased, return as-is
+    if (!normalized.includes('_')) {
+      // If it's already in PascalCase (starts with uppercase), return as-is
+      if (/^[A-Z]/.test(normalized)) {
+        return normalized;
+      }
+      // Otherwise, just capitalize the first letter
+      return normalized.charAt(0).toUpperCase() + normalized.slice(1);
+    }
+
+    // Convert to PascalCase by splitting on underscores and capitalizing each word
+    // Preserve original casing of words to handle cases like EmailBlock properly
+    return normalized
+      .split('_')
+      .filter((word) => word.length > 0) // Remove empty segments
+      .map((word) => {
+        // If word is all uppercase, convert to proper case
+        if (word === word.toUpperCase()) {
+          return word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+        }
+        // Otherwise just capitalize first letter and preserve rest
+        return word.charAt(0).toUpperCase() + word.slice(1);
+      })
+      .join('');
   }
 }
 

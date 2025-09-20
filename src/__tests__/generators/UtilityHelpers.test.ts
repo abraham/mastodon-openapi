@@ -86,13 +86,46 @@ describe('UtilityHelpers', () => {
   describe('sanitizeSchemaName', () => {
     it('should replace :: with _ and spaces with _', () => {
       expect(utilityHelpers.sanitizeSchemaName('Test::Entity')).toBe(
-        'Test_Entity'
+        'TestEntity'
       );
       expect(utilityHelpers.sanitizeSchemaName('Test Entity')).toBe(
-        'Test_Entity'
+        'TestEntity'
       );
       expect(utilityHelpers.sanitizeSchemaName('Test::Entity Name')).toBe(
-        'Test_Entity_Name'
+        'TestEntityName'
+      );
+    });
+
+    it('should convert underscores to PascalCase', () => {
+      expect(utilityHelpers.sanitizeSchemaName('Status_Tag')).toBe('StatusTag');
+      expect(utilityHelpers.sanitizeSchemaName('Admin_Account')).toBe(
+        'AdminAccount'
+      );
+      expect(utilityHelpers.sanitizeSchemaName('Poll_Option')).toBe(
+        'PollOption'
+      );
+      expect(utilityHelpers.sanitizeSchemaName('Status_Mention')).toBe(
+        'StatusMention'
+      );
+    });
+
+    it('should handle mixed separators', () => {
+      expect(utilityHelpers.sanitizeSchemaName('Test::Entity_Name')).toBe(
+        'TestEntityName'
+      );
+      expect(utilityHelpers.sanitizeSchemaName('Admin::Account_Setting')).toBe(
+        'AdminAccountSetting'
+      );
+      expect(
+        utilityHelpers.sanitizeSchemaName('Admin::CanonicalEmailBlock')
+      ).toBe('AdminCanonicalEmailBlock');
+    });
+
+    it('should preserve already PascalCase names', () => {
+      expect(utilityHelpers.sanitizeSchemaName('Account')).toBe('Account');
+      expect(utilityHelpers.sanitizeSchemaName('StatusTag')).toBe('StatusTag');
+      expect(utilityHelpers.sanitizeSchemaName('AdminAccount')).toBe(
+        'AdminAccount'
       );
     });
   });
