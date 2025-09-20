@@ -77,6 +77,15 @@ function main() {
   // Write schema to file
   fs.writeFileSync(schemaPath, generator.toJSON());
   console.log(`Schema written to ${schemaPath}`);
+
+  // Generate ENUMS.md file
+  console.log('Generating ENUMS.md...');
+  const enumsMarkdown = generator
+    .getEnumTallyGenerator()
+    .generateEnumsMarkdown();
+  const enumsPath = path.join(__dirname, '..', 'ENUMS.md');
+  fs.writeFileSync(enumsPath, enumsMarkdown);
+  console.log(`ENUMS.md written to ${enumsPath}`);
 }
 
 if (require.main === module) {

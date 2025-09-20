@@ -12,6 +12,7 @@ import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { LinkGenerator } from './LinkGenerator';
+import { EnumTallyGenerator } from './EnumTallyGenerator';
 
 class OpenAPIGenerator {
   private spec: OpenAPISpec;
@@ -22,12 +23,14 @@ class OpenAPIGenerator {
   private utilityHelpers: UtilityHelpers;
   private errorExampleRegistry: ErrorExampleRegistry;
   private linkGenerator: LinkGenerator;
+  private enumTallyGenerator: EnumTallyGenerator;
 
   constructor() {
     // Initialize helper modules
     this.utilityHelpers = new UtilityHelpers();
     this.typeParser = new TypeParser(this.utilityHelpers);
     this.errorExampleRegistry = new ErrorExampleRegistry();
+    this.enumTallyGenerator = new EnumTallyGenerator();
     this.entityConverter = new EntityConverter(
       this.typeParser,
       this.utilityHelpers
@@ -68,6 +71,13 @@ class OpenAPIGenerator {
 
   public toJSON(): string {
     return JSON.stringify(this.spec, null, 2);
+  }
+
+  /**
+   * Get the enum tally generator for generating ENUMS.md
+   */
+  public getEnumTallyGenerator(): EnumTallyGenerator {
+    return this.enumTallyGenerator;
   }
 
   // Public methods for testing - delegating to the appropriate modules
@@ -237,6 +247,13 @@ class OpenAPIGenerator {
             propName,
             enumValues: property.enum,
           });
+
+          // Track enum for tallying
+          this.enumTallyGenerator.trackEnum(
+            property.enum,
+            entityName,
+            propName
+          );
         }
 
         // Check for array properties with enum items
@@ -257,6 +274,13 @@ class OpenAPIGenerator {
             propName,
             enumValues: property.items.enum,
           });
+
+          // Track enum for tallying
+          this.enumTallyGenerator.trackEnum(
+            property.items.enum,
+            entityName,
+            propName
+          );
         }
       }
     }
@@ -389,6 +413,9 @@ class OpenAPIGenerator {
         enumPatterns,
         enumSignatureToOriginalValues
       );
+
+      // Track enum for tallying (from method parameter)
+      this.trackEnumFromContext(property.items.enum, contextName);
     }
     // Look for direct enum properties
     else if (property.enum && Array.isArray(property.enum)) {
@@ -400,6 +427,53 @@ class OpenAPIGenerator {
         enumPatterns,
         enumSignatureToOriginalValues
       );
+
+      // Track enum for tallying (from method parameter)
+      this.trackEnumFromContext(property.enum, contextName);
+    }
+  }
+
+  /**
+   * Track an enum based on context name (parse method path and parameter info)
+   */
+  private trackEnumFromContext(enumValues: any[], contextName: string): void {
+    // Context name format: method_path_param_paramName or method_path_requestBody
+    // or entityName_propName for entity properties
+
+    if (contextName.includes('_param_')) {
+      // This is a method parameter
+      const parts = contextName.split('_param_');
+      if (parts.length === 2) {
+        const methodPath = parts[0].replace(/_/g, '/'); // Convert back from sanitized format
+        const parameterName = parts[1];
+        this.enumTallyGenerator.trackEnum(
+          enumValues,
+          undefined,
+          undefined,
+          methodPath,
+          parameterName
+        );
+      }
+    } else if (contextName.includes('_requestBody')) {
+      // This is a request body enum
+      const methodPath = contextName
+        .replace('_requestBody', '')
+        .replace(/_/g, '/');
+      this.enumTallyGenerator.trackEnum(
+        enumValues,
+        undefined,
+        undefined,
+        methodPath,
+        'requestBody'
+      );
+    } else if (contextName.includes('_')) {
+      // This might be an entity property in format entityName_propName
+      const parts = contextName.split('_');
+      if (parts.length >= 2) {
+        const entityName = parts[0];
+        const propName = parts.slice(1).join('_');
+        this.enumTallyGenerator.trackEnum(enumValues, entityName, propName);
+      }
     }
   }
 
