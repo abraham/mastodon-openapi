@@ -136,8 +136,8 @@ describe('OpenAPIGenerator type enum separation', () => {
       '#/components/schemas/PreviewCardTypeEnum'
     );
 
-    // Check that Trends_Link also uses PreviewCardTypeEnum
-    const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
+    // Check that TrendsLink also uses PreviewCardTypeEnum
+    const trendsLinkSchema = schema.components!.schemas!.TrendsLink;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
     expect(trendsLinkTypeProp.$ref).toBe(
       '#/components/schemas/PreviewCardTypeEnum'

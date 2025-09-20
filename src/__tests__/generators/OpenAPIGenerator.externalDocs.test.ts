@@ -196,7 +196,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
 
       const spec = generator.generateSchema(entities, []);
 
-      const trendsLinkSchema = spec.components?.schemas?.Trends_Link;
+      const trendsLinkSchema = spec.components?.schemas?.TrendsLink;
       expect(trendsLinkSchema).toBeDefined();
       expect(trendsLinkSchema?.externalDocs).toBeDefined();
       expect(trendsLinkSchema?.externalDocs?.url).toBe(
@@ -225,7 +225,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
 
       const spec = generator.generateSchema(entities, []);
 
-      const dimensionSchema = spec.components?.schemas?.Admin_Dimension;
+      const dimensionSchema = spec.components?.schemas?.AdminDimension;
       expect(dimensionSchema).toBeDefined();
       expect(dimensionSchema?.externalDocs).toBeDefined();
       expect(dimensionSchema?.externalDocs?.url).toBe(
@@ -254,7 +254,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
 
       const spec = generator.generateSchema(entities, []);
 
-      const dimensionDataSchema = spec.components?.schemas?.Admin_DimensionData;
+      const dimensionDataSchema = spec.components?.schemas?.AdminDimensionData;
       expect(dimensionDataSchema).toBeDefined();
       expect(dimensionDataSchema?.externalDocs).toBeDefined();
       expect(dimensionDataSchema?.externalDocs?.url).toBe(
@@ -282,7 +282,7 @@ describe('OpenAPIGenerator ExternalDocs Generation', () => {
 
       const spec = generator.generateSchema(entities, []);
 
-      const adminSchema = spec.components?.schemas?.Admin_CanonicalEmailBlock;
+      const adminSchema = spec.components?.schemas?.AdminCanonicalEmailBlock;
       expect(adminSchema).toBeDefined();
       expect(adminSchema?.externalDocs).toBeDefined();
       expect(adminSchema?.externalDocs?.url).toBe(

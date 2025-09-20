@@ -33,13 +33,13 @@ describe('Integration: Filter context deduplication', () => {
       'thread',
     ]);
 
-    // Check that both Filter and V1_Filter exist
+    // Check that both Filter and V1Filter exist
     expect(schema.components?.schemas?.Filter).toBeDefined();
-    expect(schema.components?.schemas?.V1_Filter).toBeDefined();
+    expect(schema.components?.schemas?.V1Filter).toBeDefined();
 
     // Check that both entities reference the shared FilterContext component
     const filterSchema = schema.components!.schemas!.Filter;
-    const v1FilterSchema = schema.components!.schemas!.V1_Filter;
+    const v1FilterSchema = schema.components!.schemas!.V1Filter;
 
     expect(filterSchema.properties?.context).toBeDefined();
     expect(v1FilterSchema.properties?.context).toBeDefined();
@@ -48,12 +48,12 @@ describe('Integration: Filter context deduplication', () => {
     const v1FilterContextProp = v1FilterSchema.properties!.context;
 
     // Filter should not be nullable (added in v4.0.0, before supported v4.3.0),
-    // but V1_Filter should not be nullable (added in v2.4.3, different major)
+    // but V1Filter should not be nullable (added in v2.4.3, different major)
     expect(filterContextProp.type).toEqual('array');
     expect(v1FilterContextProp.type).toBe('array');
 
     // Check that both use the FilterContextEnum schema or have the expected enum values
-    // V1_Filter uses $ref (non-nullable), Filter has inline enum (nullable)
+    // V1Filter uses $ref (non-nullable), Filter has inline enum (nullable)
     expect(v1FilterContextProp.items?.$ref).toBe(
       '#/components/schemas/FilterContextEnum'
     );
@@ -79,7 +79,7 @@ describe('Integration: Filter context deduplication', () => {
     expect(filterContextProp.enum).toBeUndefined();
     expect(v1FilterContextProp.enum).toBeUndefined();
 
-    // V1_Filter (non-nullable) should use shared schema
+    // V1Filter (non-nullable) should use shared schema
     expect(v1FilterContextProp.items?.enum).toBeUndefined();
 
     // Filter (nullable) may have inline enum values instead of shared schema

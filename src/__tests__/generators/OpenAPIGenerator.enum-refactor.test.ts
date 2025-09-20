@@ -89,7 +89,7 @@ describe('OpenAPIGenerator enum refactoring', () => {
       spec.components?.schemas?.AccountSettingPrivacyLevelEnum
     ).toBeDefined();
 
-    const settingSchema = spec.components!.schemas!['Account_Setting'];
+    const settingSchema = spec.components!.schemas!['AccountSetting'];
     expect(settingSchema.properties!.privacy_level.$ref).toBe(
       '#/components/schemas/AccountSettingPrivacyLevelEnum'
     );

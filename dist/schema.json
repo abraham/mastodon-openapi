@@ -8184,11 +8184,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V1_Filter"
+                  "$ref": "#/components/schemas/V1Filter"
                 },
                 "examples": {
-                  "V1_Filter200Example": {
-                    "$ref": "#/components/examples/V1_Filter200Example"
+                  "V1Filter200Example": {
+                    "$ref": "#/components/examples/V1Filter200Example"
                   }
                 }
               }
@@ -8320,11 +8320,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V1_Filter"
+                  "$ref": "#/components/schemas/V1Filter"
                 },
                 "examples": {
-                  "V1_Filter200Example": {
-                    "$ref": "#/components/examples/V1_Filter200Example"
+                  "V1Filter200Example": {
+                    "$ref": "#/components/examples/V1Filter200Example"
                   }
                 }
               }
@@ -8501,11 +8501,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V1_Filter"
+                  "$ref": "#/components/schemas/V1Filter"
                 },
                 "examples": {
-                  "V1_Filter200Example": {
-                    "$ref": "#/components/examples/V1_Filter200Example"
+                  "V1Filter200Example": {
+                    "$ref": "#/components/examples/V1Filter200Example"
                   }
                 }
               }
@@ -8648,11 +8648,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V1_Filter"
+                  "$ref": "#/components/schemas/V1Filter"
                 },
                 "examples": {
-                  "V1_Filter200Example": {
-                    "$ref": "#/components/examples/V1_Filter200Example"
+                  "V1Filter200Example": {
+                    "$ref": "#/components/examples/V1Filter200Example"
                   }
                 }
               }
@@ -11958,11 +11958,11 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/V1_Instance"
+                  "$ref": "#/components/schemas/V1Instance"
                 },
                 "examples": {
-                  "V1_Instance200Example": {
-                    "$ref": "#/components/examples/V1_Instance200Example"
+                  "V1Instance200Example": {
+                    "$ref": "#/components/examples/V1Instance200Example"
                   }
                 }
               }
@@ -31123,12 +31123,12 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Trends_Link"
+                    "$ref": "#/components/schemas/TrendsLink"
                   }
                 },
                 "examples": {
-                  "Trends_Link200Example": {
-                    "$ref": "#/components/examples/Trends_Link200Example"
+                  "TrendsLink200Example": {
+                    "$ref": "#/components/examples/TrendsLink200Example"
                   }
                 }
               }
@@ -32659,7 +32659,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_Account": {
+      "AdminAccount": {
         "type": "object",
         "description": "Admin-level information about a given account.",
         "properties": {
@@ -32697,7 +32697,7 @@
             "description": "All known IP addresses associated with this account.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Admin_Ip"
+              "$ref": "#/components/schemas/AdminIp"
             }
           },
           "locale": {
@@ -32831,7 +32831,7 @@
           }
         }
       },
-      "Admin_CanonicalEmailBlock": {
+      "AdminCanonicalEmailBlock": {
         "type": "object",
         "description": "Represents a canonical email block (hashed).",
         "properties": {
@@ -32857,7 +32857,7 @@
           "canonical_email_hash": "b344e55d11b3fc25d0d53194e0475838bf17e9be67ce3e6469956222d9a34f9c"
         }
       },
-      "Admin_Cohort": {
+      "AdminCohort": {
         "type": "object",
         "description": "Represents a retention metric.",
         "properties": {
@@ -32917,7 +32917,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_Dimension": {
+      "AdminDimension": {
         "type": "object",
         "description": "Represents qualitative data about the server.",
         "properties": {
@@ -32925,7 +32925,7 @@
             "description": "The data available for the requested dimension.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Admin_DimensionData"
+              "$ref": "#/components/schemas/AdminDimensionData"
             }
           },
           "key": {
@@ -32942,7 +32942,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_DimensionData": {
+      "AdminDimensionData": {
         "type": "object",
         "description": "Nested entity extracted from Admin::Dimension.data",
         "properties": {
@@ -32977,7 +32977,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_DomainAllow": {
+      "AdminDomainAllow": {
         "type": "object",
         "description": "Represents a domain allowed to federate.",
         "properties": {
@@ -33010,7 +33010,7 @@
           "created_at": "2022-09-14T21:23:02.755Z"
         }
       },
-      "Admin_DomainBlock": {
+      "AdminDomainBlock": {
         "type": "object",
         "description": "Represents a domain limited from federating.",
         "properties": {
@@ -33042,7 +33042,7 @@
           "severity": {
             "description": "The policy to be applied by this domain block.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminDomainblockSeverityEnum"
+            "$ref": "#/components/schemas/AdminDomainBlockSeverityEnum"
           },
           "digest": {
             "description": "The sha256 hex digest of the domain that is not allowed to federated.",
@@ -33092,7 +33092,7 @@
           "obfuscate": false
         }
       },
-      "Admin_EmailDomainBlock": {
+      "AdminEmailDomainBlock": {
         "type": "object",
         "description": "Represents an email domain that cannot be used to sign up.",
         "properties": {
@@ -33109,7 +33109,7 @@
             "description": "Usage statistics for given days (typically the past week).",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Admin_EmailDomainBlockHistory"
+              "$ref": "#/components/schemas/AdminEmailDomainBlockHistory"
             }
           },
           "id": {
@@ -33170,7 +33170,7 @@
           ]
         }
       },
-      "Admin_EmailDomainBlockHistory": {
+      "AdminEmailDomainBlockHistory": {
         "type": "object",
         "description": "Nested entity extracted from Admin::EmailDomainBlock.history",
         "properties": {
@@ -33197,7 +33197,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_Ip": {
+      "AdminIp": {
         "type": "object",
         "description": "Represents an IP address associated with a user.",
         "properties": {
@@ -33224,7 +33224,7 @@
           "used_at": "2022-09-15T01:38:58.851Z"
         }
       },
-      "Admin_IpBlock": {
+      "AdminIpBlock": {
         "type": "object",
         "description": "Represents an IP address range that cannot be used to sign up.",
         "properties": {
@@ -33248,7 +33248,7 @@
           "severity": {
             "description": "The associated policy with this IP block.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminIpblockSeverityEnum"
+            "$ref": "#/components/schemas/AdminIpBlockSeverityEnum"
           },
           "expires_at": {
             "description": "When the IP block will expire.",
@@ -33279,7 +33279,7 @@
           "expires_at": null
         }
       },
-      "Admin_Measure": {
+      "AdminMeasure": {
         "type": "object",
         "description": "Represents quantitative data about the server.",
         "properties": {
@@ -33287,7 +33287,7 @@
             "description": "The data available for the requested measure, split into daily buckets.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Admin_MeasureData"
+              "$ref": "#/components/schemas/AdminMeasureData"
             }
           },
           "key": {
@@ -33330,7 +33330,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_MeasureData": {
+      "AdminMeasureData": {
         "type": "object",
         "description": "Nested entity extracted from Admin::Measure.data",
         "properties": {
@@ -33353,13 +33353,13 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_Report": {
+      "AdminReport": {
         "type": "object",
         "description": "Admin-level information about a filed report.",
         "properties": {
           "account": {
             "description": "The account which filed the report.",
-            "$ref": "#/components/schemas/Admin_Account"
+            "$ref": "#/components/schemas/AdminAccount"
           },
           "action_taken": {
             "description": "Whether an action was taken to resolve this report.",
@@ -33403,7 +33403,7 @@
           },
           "target_account": {
             "description": "The account being reported.",
-            "$ref": "#/components/schemas/Admin_Account"
+            "$ref": "#/components/schemas/AdminAccount"
           },
           "updated_at": {
             "description": "The time of last action on this report.",
@@ -33422,7 +33422,7 @@
             "description": "The account of the moderator who handled the report.",
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Admin_Account"
+                "$ref": "#/components/schemas/AdminAccount"
               },
               {
                 "type": "null"
@@ -33433,7 +33433,7 @@
             "description": "The account of the moderator assigned to this report.",
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Admin_Account"
+                "$ref": "#/components/schemas/AdminAccount"
               },
               {
                 "type": "null"
@@ -33524,7 +33524,7 @@
             "description": "Accounts mentioned in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Announcement_Account"
+              "$ref": "#/components/schemas/AnnouncementAccount"
             }
           },
           "published_at": {
@@ -33543,14 +33543,14 @@
             "description": "Statuses linked in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Announcement_Status"
+              "$ref": "#/components/schemas/AnnouncementStatus"
             }
           },
           "tags": {
             "description": "Tags linked in the announcement text.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status_Tag"
+              "$ref": "#/components/schemas/StatusTag"
             }
           },
           "updated_at": {
@@ -33641,7 +33641,7 @@
           ]
         }
       },
-      "Announcement_Account": {
+      "AnnouncementAccount": {
         "type": "object",
         "description": "Additional entity definition for Announcement::Account",
         "properties": {
@@ -33674,7 +33674,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Announcement_Status": {
+      "AnnouncementStatus": {
         "type": "object",
         "description": "Additional entity definition for Announcement::Status",
         "properties": {
@@ -35772,7 +35772,7 @@
             "description": "Possible answers for the poll.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Poll_Option"
+              "$ref": "#/components/schemas/PollOption"
             }
           },
           "votes_count": {
@@ -35848,7 +35848,7 @@
           "emojis": []
         }
       },
-      "Poll_Option": {
+      "PollOption": {
         "type": "object",
         "description": "Additional entity definition for Poll::Option",
         "properties": {
@@ -36027,7 +36027,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Trends_Link": {
+      "TrendsLink": {
         "type": "object",
         "description": "Additional entity definition for Trends::Link",
         "properties": {
@@ -37062,7 +37062,7 @@
             "description": "Mentions of users within the status content.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status_Mention"
+              "$ref": "#/components/schemas/StatusMention"
             }
           },
           "reblogs_count": {
@@ -37085,7 +37085,7 @@
             "description": "Hashtags used within the status content.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Status_Tag"
+              "$ref": "#/components/schemas/StatusTag"
             }
           },
           "uri": {
@@ -37378,7 +37378,7 @@
           "poll": null
         }
       },
-      "Status_Mention": {
+      "StatusMention": {
         "type": "object",
         "description": "Additional entity definition for Status::Mention",
         "properties": {
@@ -37411,7 +37411,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Status_Tag": {
+      "StatusTag": {
         "type": "object",
         "description": "Additional entity definition for Status::Tag",
         "properties": {
@@ -37740,7 +37740,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Admin_Tag": {
+      "AdminTag": {
         "type": "object",
         "description": "Additional entity definition for Admin::Tag",
         "properties": {
@@ -37875,14 +37875,14 @@
               "null"
             ],
             "items": {
-              "$ref": "#/components/schemas/Translation_Attachment"
+              "$ref": "#/components/schemas/TranslationAttachment"
             }
           },
           "poll": {
             "description": "The translated poll of the status.",
             "oneOf": [
               {
-                "$ref": "#/components/schemas/Translation_Poll"
+                "$ref": "#/components/schemas/TranslationPoll"
               },
               {
                 "type": "null"
@@ -37907,7 +37907,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Translation_Poll": {
+      "TranslationPoll": {
         "type": "object",
         "description": "Additional entity definition for Translation::Poll",
         "properties": {
@@ -37925,7 +37925,7 @@
               "null"
             ],
             "items": {
-              "$ref": "#/components/schemas/Translation_Poll_Option"
+              "$ref": "#/components/schemas/TranslationPollOption"
             }
           }
         },
@@ -37934,7 +37934,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Translation_Poll_Option": {
+      "TranslationPollOption": {
         "type": "object",
         "description": "Additional entity definition for Translation::Poll::Option",
         "properties": {
@@ -37951,7 +37951,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "Translation_Attachment": {
+      "TranslationAttachment": {
         "type": "object",
         "description": "Additional entity definition for Translation::Attachment",
         "properties": {
@@ -37975,7 +37975,7 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "V1_Filter": {
+      "V1Filter": {
         "type": "object",
         "description": "Represents a user-defined filter for determining which statuses should not be shown to the user. Contains a single keyword or phrase.",
         "properties": {
@@ -38036,7 +38036,7 @@
           "irreversible": true
         }
       },
-      "V1_Instance": {
+      "V1Instance": {
         "type": "object",
         "description": "Represents the software instance of Mastodon running on this domain.",
         "properties": {
@@ -38412,7 +38412,7 @@
           ]
         }
       },
-      "V1_NotificationPolicy": {
+      "V1NotificationPolicy": {
         "type": "object",
         "description": "Represents the notification filtering policy of the user.",
         "properties": {
@@ -39262,7 +39262,7 @@
           "month"
         ]
       },
-      "AdminDomainblockSeverityEnum": {
+      "AdminDomainBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
@@ -39270,7 +39270,7 @@
           "noop"
         ]
       },
-      "AdminIpblockSeverityEnum": {
+      "AdminIpBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "sign_up_requires_approval",
@@ -39982,8 +39982,8 @@
           }
         ]
       },
-      "V1_Filter200Example": {
-        "summary": "Example for V1_Filter",
+      "V1Filter200Example": {
+        "summary": "Example for V1Filter",
         "value": [
           {
             "id": "6191",
@@ -40061,8 +40061,8 @@
           }
         ]
       },
-      "V1_Instance200Example": {
-        "summary": "Example for V1_Instance",
+      "V1Instance200Example": {
+        "summary": "Example for V1Instance",
         "value": {
           "uri": "mastodon.social",
           "title": "Mastodon",
@@ -41193,8 +41193,8 @@
           "provider": "DeepL.com"
         }
       },
-      "Trends_Link200Example": {
-        "summary": "Example for Trends_Link",
+      "TrendsLink200Example": {
+        "summary": "Example for TrendsLink",
         "value": [
           {
             "url": "https://www.nbcnews.com/specials/plan-your-vote-2022-elections/index.html",

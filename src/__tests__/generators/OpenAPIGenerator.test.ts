@@ -188,10 +188,10 @@ describe('OpenAPIGenerator', () => {
 
       const spec = generator.generateSchema(entities, []);
 
-      // Check that schema names are sanitized (:: replaced with _, spaces replaced with _)
-      expect(spec.components?.schemas?.['Admin_DomainAllow']).toBeDefined();
-      expect(spec.components?.schemas?.['Status_Mention']).toBeDefined();
-      expect(spec.components?.schemas?.['Field_entity']).toBeDefined();
+      // Check that schema names are sanitized (:: and spaces converted to PascalCase)
+      expect(spec.components?.schemas?.['AdminDomainAllow']).toBeDefined();
+      expect(spec.components?.schemas?.['StatusMention']).toBeDefined();
+      expect(spec.components?.schemas?.['FieldEntity']).toBeDefined();
 
       // Check that original names with :: and spaces are not present
       expect(spec.components?.schemas?.['Admin::DomainAllow']).toBeUndefined();
@@ -199,9 +199,9 @@ describe('OpenAPIGenerator', () => {
       expect(spec.components?.schemas?.['Field entity']).toBeUndefined();
 
       // Check that references are also sanitized
-      const statusMentionSchema = spec.components!.schemas!['Status_Mention'];
+      const statusMentionSchema = spec.components!.schemas!['StatusMention'];
       expect(statusMentionSchema.properties?.['user']?.$ref).toBe(
-        '#/components/schemas/Admin_DomainAllow'
+        '#/components/schemas/AdminDomainAllow'
       );
 
       // Verify all schema names match OpenAPI regex ^[a-zA-Z0-9\.\-_]+$
