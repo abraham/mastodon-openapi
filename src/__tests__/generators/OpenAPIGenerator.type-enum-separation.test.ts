@@ -104,7 +104,8 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
     // Check PreviewCardTypeEnum (was PreviewTypeEnum)
-    const previewTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
+    const previewTypeEnum = schema.components!.schemas!
+      .PreviewCardTypeEnum as any;
     expect(previewTypeEnum.type).toBe('string');
     expect(previewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 

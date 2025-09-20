@@ -79,12 +79,8 @@ describe('EntityConverter enum deduplication', () => {
 
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
-    expect(filterContext1.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
-    );
-    expect(filterContext2.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
-    );
+    expect(filterContext1.items?.$ref).toBe('#/components/schemas/ContextEnum');
+    expect(filterContext2.items?.$ref).toBe('#/components/schemas/ContextEnum');
 
     // Should not have inline enum values
     expect(filterContext1.enum).toBeUndefined();
@@ -243,9 +239,7 @@ describe('EntityConverter enum deduplication', () => {
     const filterContext = filterSchema.properties!.context;
 
     expect(filterContext.type).toBe('array');
-    expect(filterContext.items?.$ref).toBe(
-      '#/components/schemas/ContextEnum'
-    );
+    expect(filterContext.items?.$ref).toBe('#/components/schemas/ContextEnum');
 
     // Should have created the ContextEnum component
     expect(spec.components?.schemas?.ContextEnum).toBeDefined();
