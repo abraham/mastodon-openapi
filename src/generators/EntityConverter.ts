@@ -322,14 +322,11 @@ class EntityConverter {
     propertyName: string,
     enumValues: any[]
   ): string {
-    // Create a descriptive name based on property name
-    const capitalizedName =
-      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
-
-    // Special cases for well-known property names
-    if (propertyName === 'context') {
-      return 'FilterContext';
-    }
+    // Convert property name to PascalCase (using same logic as OpenAPIGenerator)
+    const capitalizedName = propertyName
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
 
     // For other enum types, create a generic name
     return `${capitalizedName}Enum`;

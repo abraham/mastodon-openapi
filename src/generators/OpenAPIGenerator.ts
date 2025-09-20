@@ -94,6 +94,9 @@ class OpenAPIGenerator {
       );
     }
 
+    // After extraction, consolidate enums with identical values
+    // this.consolidateIdenticalEnums(spec);
+
     // Collect enums from entity schemas (for remaining deduplication)
     if (spec.components?.schemas) {
       for (const [entityName, schema] of Object.entries(
@@ -201,6 +204,187 @@ class OpenAPIGenerator {
   }
 
   /**
+   * Consolidate enums with identical values and find common names
+   */
+  private consolidateIdenticalEnums(spec: OpenAPISpec): void {
+    if (!spec.components?.schemas) return;
+
+    // Group enums by their values (signature)
+    const enumValueToComponents = new Map<string, string[]>();
+    const enumComponents = new Map<string, any>();
+
+    // Find all enum components and group by values
+    for (const [componentName, schema] of Object.entries(spec.components.schemas)) {
+      const component = schema as any;
+      if (component.type === 'string' && Array.isArray(component.enum)) {
+        const signature = JSON.stringify([...component.enum].sort());
+        if (!enumValueToComponents.has(signature)) {
+          enumValueToComponents.set(signature, []);
+        }
+        enumValueToComponents.get(signature)!.push(componentName);
+        enumComponents.set(componentName, component);
+      }
+    }
+
+    // For each set of enums with identical values, consolidate to a common name
+    for (const [signature, componentNames] of enumValueToComponents) {
+      if (componentNames.length > 1) {
+        const commonName = this.findCommonEnumName(componentNames);
+        const enumValues = enumComponents.get(componentNames[0]).enum;
+
+        // Keep only the common name component
+        spec.components.schemas[commonName] = {
+          type: 'string',
+          enum: enumValues,
+        } as any;
+
+        // Remove the other components and update all references
+        for (const oldName of componentNames) {
+          if (oldName !== commonName) {
+            delete spec.components.schemas[oldName];
+            this.updateEnumReferences(spec, oldName, commonName);
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Find a common name for enums with identical values
+   */
+  private findCommonEnumName(componentNames: string[]): string {
+    // Sort by length to prefer shorter names first
+    const sorted = componentNames.sort((a, b) => a.length - b.length);
+    
+    // Try to find common patterns
+    for (const name of sorted) {
+      // Check if this name could be a generalization of others
+      const baseName = name.replace(/Enum$/, '');
+      
+      // If name contains Type and others are variations, prefer the Type version
+      if (name.includes('Type') && name.endsWith('Enum')) {
+        const otherTypesMatch = sorted.some(other => 
+          other !== name && 
+          other.includes('Type') && 
+          other.endsWith('Enum') &&
+          this.namesAreSimilar(name, other)
+        );
+        if (otherTypesMatch) {
+          // Return the shortest type-based name
+          const typeNames = sorted.filter(n => n.includes('Type'));
+          return typeNames.sort((a, b) => a.length - b.length)[0];
+        }
+      }
+    }
+
+    // Default: return the shortest name
+    return sorted[0];
+  }
+
+  /**
+   * Check if two enum names are similar enough to be consolidated
+   */
+  private namesAreSimilar(name1: string, name2: string): boolean {
+    // Remove 'Enum' suffix for comparison
+    const base1 = name1.replace(/Enum$/, '');
+    const base2 = name2.replace(/Enum$/, '');
+    
+    // Check if one is contained in the other (e.g., NotificationType vs NotificationGroupType)
+    return base1.includes(base2) || base2.includes(base1) || 
+           this.shareCommonWords(base1, base2);
+  }
+
+  /**
+   * Check if two names share significant common words
+   */
+  private shareCommonWords(name1: string, name2: string): boolean {
+    // Split camelCase/PascalCase into words
+    const words1 = name1.split(/(?=[A-Z])/).filter(w => w.length > 1);
+    const words2 = name2.split(/(?=[A-Z])/).filter(w => w.length > 1);
+    
+    // Check if they share at least 2 significant words
+    const commonWords = words1.filter(w => words2.includes(w));
+    return commonWords.length >= 2;
+  }
+
+  /**
+   * Update all references from old enum name to new enum name
+   */
+  private updateEnumReferences(spec: OpenAPISpec, oldName: string, newName: string): void {
+    const oldRef = `#/components/schemas/${oldName}`;
+    const newRef = `#/components/schemas/${newName}`;
+
+    // Update references in entity schemas
+    if (spec.components?.schemas) {
+      for (const [entityName, schema] of Object.entries(spec.components.schemas)) {
+        this.updateReferencesInSchema(schema as OpenAPISchema, oldRef, newRef);
+      }
+    }
+
+    // Update references in paths
+    if (spec.paths) {
+      for (const [path, pathItem] of Object.entries(spec.paths)) {
+        for (const [method, operation] of Object.entries(pathItem)) {
+          if (typeof operation === 'object' && operation !== null) {
+            // Update parameters
+            if (operation.parameters) {
+              for (const param of operation.parameters) {
+                if (param.schema) {
+                  this.updateReferencesInProperty(param.schema, oldRef, newRef);
+                }
+              }
+            }
+
+            // Update request body
+            if (operation.requestBody?.content?.['application/json']?.schema) {
+              const schema = operation.requestBody.content['application/json'].schema;
+              this.updateReferencesInSchema(schema, oldRef, newRef);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  /**
+   * Update references in a schema recursively
+   */
+  private updateReferencesInSchema(schema: any, oldRef: string, newRef: string): void {
+    if (schema.$ref === oldRef) {
+      schema.$ref = newRef;
+    }
+
+    if (schema.properties) {
+      for (const property of Object.values(schema.properties)) {
+        this.updateReferencesInProperty(property, oldRef, newRef);
+      }
+    }
+
+    if (schema.items) {
+      this.updateReferencesInProperty(schema.items, oldRef, newRef);
+    }
+  }
+
+  /**
+   * Update references in a property
+   */
+  private updateReferencesInProperty(property: any, oldRef: string, newRef: string): void {
+    if (property.$ref === oldRef) {
+      property.$ref = newRef;
+    }
+
+    if (property.items?.$ref === oldRef) {
+      property.items.$ref = newRef;
+    }
+
+    if (property.properties) {
+      for (const nestedProperty of Object.values(property.properties)) {
+        this.updateReferencesInProperty(nestedProperty, oldRef, newRef);
+      }
+    }
+  }
+
+  /**
    * Extract ALL entity enums into their own components
    */
   private extractEntityEnumsToComponents(
@@ -297,83 +481,13 @@ class OpenAPIGenerator {
     // Sanitize property name to remove invalid characters
     const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
 
-    // Create a descriptive name based on property name (convert to PascalCase)
+    // Entity name is already in PascalCase, so use as is
+    const capitalizedEntity = entityName;
+    // Convert property name to PascalCase
     const capitalizedProp = this.toPascalCase(sanitizedPropName);
 
-    // Create a short hash from enum values to ensure uniqueness
-    const enumSignature = JSON.stringify([...enumValues].sort());
-    const hash = this.createShortHash(enumSignature);
-
-    // Special cases for well-known property names with unique hash
-    if (sanitizedPropName === 'context') {
-      // For context enums, check if they're the standard filter context values
-      const standardFilterContext = [
-        'home',
-        'notifications',
-        'public',
-        'thread',
-        'account',
-      ].sort();
-      const currentValues = [...enumValues].sort();
-
-      if (
-        JSON.stringify(currentValues) === JSON.stringify(standardFilterContext)
-      ) {
-        return 'FilterContext';
-      } else {
-        return `FilterContext${hash}`;
-      }
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (sanitizedPropName === 'type') {
-      // Notification type enum
-      if (
-        entityName.includes('Notification') ||
-        entityName.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityName.includes('PreviewCard') ||
-        entityName.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // Special cases for other properties
-    if (
-      sanitizedPropName === 'visibility' ||
-      sanitizedPropName === 'posting_default_visibility'
-    ) {
-      return 'VisibilityEnum';
-    }
-
-    if (sanitizedPropName === 'category') {
-      return 'CategoryEnum';
-    }
-
-    if (sanitizedPropName === 'state') {
-      return 'StateEnum';
-    }
-
-    if (sanitizedPropName === 'policy') {
-      return 'PolicyEnum';
-    }
-
-    // Special handling for media-related properties
-    if (sanitizedPropName === 'reading_expand_media') {
-      return 'MediaExpandEnum';
-    }
-
-    // For other enum types, create a descriptive name
-    return `${capitalizedProp}Enum`;
+    // Default naming pattern: EntityAttributeEnum
+    return `${capitalizedEntity}${capitalizedProp}Enum`;
   }
 
   /**
@@ -487,41 +601,10 @@ class OpenAPIGenerator {
     const parts = sanitizedContext.split('_');
     const propertyName = parts[parts.length - 1];
 
-    // Create a descriptive name based on property name
-    const capitalizedName =
-      propertyName.charAt(0).toUpperCase() + propertyName.slice(1);
+    // Convert property name to PascalCase
+    const capitalizedName = this.toPascalCase(propertyName);
 
-    // Special cases for well-known property names
-    if (propertyName === 'context') {
-      return 'FilterContext';
-    }
-
-    // Special cases for 'type' property based on entity context
-    if (propertyName === 'type') {
-      // Check the entity context to determine the appropriate enum name
-      const entityContext = parts.slice(0, -1).join('_');
-
-      // Notification type enum
-      if (
-        entityContext.includes('Notification') ||
-        entityContext.includes('NotificationGroup')
-      ) {
-        return 'NotificationTypeEnum';
-      }
-
-      // Preview card type enum (includes Trends_Link which inherits from PreviewCard)
-      if (
-        entityContext.includes('PreviewCard') ||
-        entityContext.includes('Trends_Link')
-      ) {
-        return 'PreviewTypeEnum';
-      }
-
-      // Fallback to generic type enum for other contexts
-      return 'TypeEnum';
-    }
-
-    // For other enum types, create a generic name
+    // For shared enums, create a generic name based on property
     return `${capitalizedName}Enum`;
   }
 
