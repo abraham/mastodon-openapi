@@ -100,7 +100,37 @@ class EntityConverter {
       }
 
       const sanitizedName = this.utilityHelpers.sanitizeSchemaName(entity.name);
-      entitySchemas.set(sanitizedName, schema);
+      
+      // Check if an entity with this name already exists
+      const existingSchema = entitySchemas.get(sanitizedName);
+      if (existingSchema) {
+        // If we already have a schema for this entity name, compare them
+        // and keep the one with more complete data (more properties or more enum values)
+        const existingProps = Object.keys(existingSchema.properties || {}).length;
+        const currentProps = Object.keys(schema.properties || {}).length;
+        
+        // For NotificationGroup specifically, also compare enum values
+        if (sanitizedName === 'NotificationGroup') {
+          const existingTypeEnum = existingSchema.properties?.type?.enum;
+          const currentTypeEnum = schema.properties?.type?.enum;
+          
+          if (existingTypeEnum && currentTypeEnum) {
+            // Keep the one with more enum values
+            if (currentTypeEnum.length > existingTypeEnum.length) {
+              entitySchemas.set(sanitizedName, schema);
+            }
+            // Otherwise keep existing (same or more complete)
+          }
+        } else {
+          // For other entities, keep the one with more properties
+          if (currentProps > existingProps) {
+            entitySchemas.set(sanitizedName, schema);
+          }
+        }
+      } else {
+        // No existing entity with this name, add it
+        entitySchemas.set(sanitizedName, schema);
+      }
     }
 
     // Second pass: detect and deduplicate identical enums

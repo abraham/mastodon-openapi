@@ -38794,7 +38794,7 @@
             }
           },
           "status_id": {
-            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, or `update`.",
+            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
             "type": [
               "string",
               "null"
@@ -38806,7 +38806,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           }
         },
         "externalDocs": {
@@ -39409,23 +39409,6 @@
           "domain_block",
           "user_domain_block",
           "account_suspension"
-        ]
-      },
-      "NotificationGroupTypeEnum": {
-        "type": "string",
-        "enum": [
-          "mention",
-          "status",
-          "reblog",
-          "follow",
-          "follow_request",
-          "favourite",
-          "poll",
-          "update",
-          "admin.sign_up",
-          "admin.report",
-          "severed_relationships",
-          "moderation_warning"
         ]
       },
       "GetApiV1NotificationsParamTypesEnum": {

@@ -38,7 +38,7 @@ describe('OpenAPIGenerator notification enum issue', () => {
     console.log('Generated components:', Object.keys(schema.components?.schemas || {}).filter(k => k.includes('Enum')));
   });
 
-  it('should include all enum values in NotificationGroupTypeEnum', () => {
+  it('should include all enum values in notification enums after deduplication', () => {
     const entities: EntityClass[] = [
       {
         name: 'Notification',
@@ -98,9 +98,11 @@ describe('OpenAPIGenerator notification enum issue', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Both enums should exist and be deduplicated to the same component
+    // Since both enums are identical, they should be deduplicated into a single component
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeDefined();
+    
+    // NotificationGroupTypeEnum should NOT exist because it was deduplicated
+    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeUndefined();
 
     // Check NotificationTypeEnum has all values
     const notificationTypeEnum = schema.components!.schemas!.NotificationTypeEnum as any;
@@ -109,21 +111,15 @@ describe('OpenAPIGenerator notification enum issue', () => {
     expect(notificationTypeEnum.enum).toContain('quote');
     expect(notificationTypeEnum.enum).toContain('quoted_update');
 
-    // Check NotificationGroupTypeEnum has all values (the issue)
-    const notificationGroupTypeEnum = schema.components!.schemas!.NotificationGroupTypeEnum as any;
-    expect(notificationGroupTypeEnum.type).toBe('string');
-    expect(notificationGroupTypeEnum.enum).toHaveLength(14);
-    expect(notificationGroupTypeEnum.enum).toContain('quote');
-    expect(notificationGroupTypeEnum.enum).toContain('quoted_update');
-
-    // Since the enums are identical, they should reference the same shared component
+    // Both entities should reference the same shared enum component
     const notificationSchema = schema.components!.schemas!.Notification;
     const notificationTypeProp = notificationSchema.properties!.type;
     
     const notificationGroupSchema = schema.components!.schemas!.NotificationGroup;
     const notificationGroupTypeProp = notificationGroupSchema.properties!.type;
 
-    // Both should reference the same enum component
-    expect(notificationTypeProp.$ref).toBe(notificationGroupTypeProp.$ref);
+    // Both should reference NotificationTypeEnum
+    expect(notificationTypeProp.$ref).toBe('#/components/schemas/NotificationTypeEnum');
+    expect(notificationGroupTypeProp.$ref).toBe('#/components/schemas/NotificationTypeEnum');
   });
 });

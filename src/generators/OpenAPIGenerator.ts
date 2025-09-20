@@ -273,18 +273,41 @@ class OpenAPIGenerator {
         firstOccurrence.enumValues
       );
 
-      // Store the mapping and original values
-      enumPatterns.set(enumSignature, componentName);
-      enumSignatureToOriginalValues.set(
-        enumSignature,
-        firstOccurrence.enumValues
-      );
+      // Check if a component with this name already exists and has different values
+      const existingComponent = spec.components.schemas[componentName] as any;
+      if (existingComponent && existingComponent.enum) {
+        const existingValues = existingComponent.enum;
+        const currentValues = firstOccurrence.enumValues;
+        
+        // If the existing component has fewer values than the current one,
+        // replace it with the more complete version
+        if (existingValues.length < currentValues.length) {
+          // Use the more complete enum values
+          spec.components.schemas[componentName] = {
+            type: 'string',
+            enum: currentValues,
+          } as any;
+          
+          // Update the stored mapping with the more complete values
+          enumSignatureToOriginalValues.set(enumSignature, currentValues);
+        }
+        // Otherwise keep the existing (more complete or equal) version
+      } else {
+        // Create new component if it doesn't exist
+        spec.components.schemas[componentName] = {
+          type: 'string',
+          enum: firstOccurrence.enumValues,
+        } as any;
+      }
 
-      // Create the enum component
-      spec.components.schemas[componentName] = {
-        type: 'string',
-        enum: firstOccurrence.enumValues,
-      } as any;
+      // Store the mapping
+      enumPatterns.set(enumSignature, componentName);
+      if (!enumSignatureToOriginalValues.has(enumSignature)) {
+        enumSignatureToOriginalValues.set(
+          enumSignature,
+          firstOccurrence.enumValues
+        );
+      }
     }
   }
 
