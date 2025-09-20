@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [b286fd6](https://github.com/mastodon/documentation/commit/b286fd6267b06f9c34f7fc943d000b994f6636ba).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [4e816e8](https://github.com/mastodon/documentation/commit/4e816e8affc4fe53c8509d1e93847c7c5b29054c).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -4230,7 +4230,7 @@
       "patch": {
         "operationId": "patchAccountsUpdateCredentials",
         "summary": "Update account credentials",
-        "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter",
+        "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter\\\n4.5.0 (`mastodon` [API version] 7) - added `quote_policy` parameter",
         "tags": [
           "accounts"
         ],
@@ -4437,6 +4437,10 @@
                       "language": {
                         "type": "string",
                         "description": "Default language to use for authored statuses (ISO 639-1)"
+                      },
+                      "quote_policy": {
+                        "type": "string",
+                        "description": "String (Enumerable, oneOf `public` `followers` `nobody`). Default quote policy for new posts."
                       }
                     }
                   }
@@ -20653,7 +20657,7 @@
       "get": {
         "operationId": "getPreferences",
         "summary": "View user preferences",
-        "description": "Preferences defined by the user in their account settings.\n\nVersion history:\n\n2.8.0 - added",
+        "description": "Preferences defined by the user in their account settings.\n\nVersion history:\n\n2.8.0 - added\\\n4.5.0 (`mastodon` [API version] 7) - added `posting:default:quoted_policy`",
         "tags": [
           "preferences"
         ],
@@ -20778,7 +20782,7 @@
       "post": {
         "operationId": "createPushSubscription",
         "summary": "Subscribe to push notifications",
-        "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.\n\nVersion history:\n\n2.4.0 - added\\\n3.3.0 - added `data[alerts][status]`\\\n3.4.0 - added `data[policy]`\\\n3.5.0 - added `data[alerts][update]` and `data[alerts][admin.sign_up]`\\\n4.0.0 - added `data[alerts][admin.report]`\\\n4.3.0 - added stricter request parameter validation, invalid endpoint URLs and subscription keys will now result in an error, previously these would be accepted, but silently fail.\\\n4.4.0 - added `subscription[standard]`",
+        "description": "Add a Web Push API subscription to receive notifications. Each access token can have one push subscription. If you create a new subscription, the old subscription is deleted.\n\nVersion history:\n\n2.4.0 - added\\\n3.3.0 - added `data[alerts][status]`\\\n3.4.0 - added `data[policy]`\\\n3.5.0 - added `data[alerts][update]` and `data[alerts][admin.sign_up]`\\\n4.0.0 - added `data[alerts][admin.report]`\\\n4.3.0 - added stricter request parameter validation, invalid endpoint URLs and subscription keys will now result in an error, previously these would be accepted, but silently fail.\\\n4.4.0 - added `subscription[standard]`\\\n4.5.0 (`mastodon` [API version] 7)- added `data[alerts][quote]` and `data[alerts][quoted_update]`",
         "tags": [
           "push"
         ],
@@ -20956,6 +20960,10 @@
                             "type": "boolean",
                             "description": "Receive mention notifications? Defaults to false."
                           },
+                          "quote": {
+                            "type": "boolean",
+                            "description": "Receive quote notifications? Defaults to false."
+                          },
                           "status": {
                             "type": "boolean",
                             "description": "Receive new subscribed account notifications? Defaults to false."
@@ -20983,6 +20991,10 @@
                           "update": {
                             "type": "boolean",
                             "description": "Receive status edited notifications? Defaults to false."
+                          },
+                          "quoted_update": {
+                            "type": "boolean",
+                            "description": "Receive quoted status edit notifications? Defaults to false."
                           },
                           "admin.sign_up": {
                             "type": "boolean",
@@ -22528,7 +22540,7 @@
       "post": {
         "operationId": "createStatus",
         "summary": "Post a new status",
-        "description": "Publish a status with the given parameters.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.0 - `scheduled_at` added\\\n2.8.0 - `poll` added",
+        "description": "Publish a status with the given parameters.\n\nVersion history:\n\n0.0.0 - added\\\n2.7.0 - `scheduled_at` added\\\n2.8.0 - `poll` added\n4.5.0 (`mastodon` [API version] 7) - `quoted_status_id` and `quote_approval_policy` added",
         "tags": [
           "statuses"
         ],
@@ -22590,10 +22602,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -22630,6 +22645,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -23223,7 +23241,7 @@
       "put": {
         "operationId": "updateStatus",
         "summary": "Edit a status",
-        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll’s options or changing whether it is multiple choice will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`",
+        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll’s options or changing whether it is multiple choice will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`\\\n4.5.0 (`mastodon` [API version] 7) - add `quote_approval_policy`",
         "tags": [
           "statuses"
         ],
@@ -23416,6 +23434,10 @@
                       }
                     }
                   },
+                  "quote_approval_policy": {
+                    "type": "string",
+                    "description": "String (Enumerable, oneOf). Sets who is allowed to quote the status. Ignored if `visibility` is `private` or `direct`, in which case the policy will always be set to `nobody`. Changing the policy does not invalidate past quotes."
+                  },
                   "sensitive": {
                     "type": "boolean",
                     "description": "Whether the status should be marked as sensitive."
@@ -23490,10 +23512,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -23530,6 +23555,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -23997,10 +24025,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -24037,6 +24068,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -24488,6 +24522,171 @@
         ]
       }
     },
+    "/api/v1/statuses/{id}/interaction_policy": {
+      "put": {
+        "operationId": "updateStatusInteractionPolicy",
+        "summary": "Edit a status' interaction policies",
+        "description": "Edit a given status to change its interaction policies. Currently, this means changing its quote approval policy.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
+        "tags": [
+          "statuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#edit_interaction_policy",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:statuses"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quote_approval_policy": {
+                    "type": "string",
+                    "description": "String (Enumerable, oneOf). Sets who is allowed to quote the status. Ignored if `visibility` is `private` or `direct`, in which case the policy will always be set to `nobody`. Changing the policy does not invalidate past quotes."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/statuses/{id}/mute": {
       "post": {
         "operationId": "postStatusMute",
@@ -24543,10 +24742,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -24583,6 +24785,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -24753,10 +24958,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -24793,6 +25001,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -24908,6 +25119,416 @@
         ]
       }
     },
+    "/api/v1/statuses/{id}/quotes": {
+      "get": {
+        "operationId": "getStatusQuotes",
+        "summary": "See quotes of a status",
+        "description": "View quotes of a status you have posted.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
+        "tags": [
+          "statuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "Array of [Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              },
+              "Link": {
+                "description": "Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel=\"prev\"",
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Status"
+                  }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#quotes",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:statuses"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of results to return. Defaults to 40 accounts. Max 80 accounts.",
+              "default": 40
+            }
+          },
+          {
+            "name": "max_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
+            }
+          },
+          {
+            "name": "since_id",
+            "in": "query",
+            "description": "Internal parameter. Use HTTP `Link` header for pagination.",
+            "schema": {
+              "type": "string",
+              "description": "Internal parameter. Use HTTP `Link` header for pagination."
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/statuses/{id}/quotes/{quoting_status_id}/revoke": {
+      "post": {
+        "operationId": "postStatusesByIdQuotesByQuotingStatusIdRevoke",
+        "summary": "Revoke a quote post",
+        "description": "Revoke quote authorization of status `quoting_status_id`, detaching status `id`.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
+        "tags": [
+          "statuses"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Status]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Status"
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
+                  }
+                }
+              }
+            },
+            "links": {
+              "getStatus": {
+                "$ref": "#/components/links/getStatusById"
+              },
+              "deleteStatus": {
+                "$ref": "#/components/links/deleteStatusById"
+              },
+              "getContext": {
+                "$ref": "#/components/links/getStatusContextById"
+              },
+              "postStatusAction": {
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+              },
+              "getRebloggedBy": {
+                "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
+              },
+              "getFavouritedBy": {
+                "$ref": "#/components/links/getStatusFavouritedByById"
+              },
+              "favouriteStatus": {
+                "$ref": "#/components/links/postStatusFavouriteById"
+              },
+              "unfavouriteStatus": {
+                "$ref": "#/components/links/postStatusUnfavouriteById"
+              },
+              "reblogStatus": {
+                "$ref": "#/components/links/postStatusReblogById"
+              },
+              "unreblogStatus": {
+                "$ref": "#/components/links/postStatusUnreblogById"
+              },
+              "bookmarkStatus": {
+                "$ref": "#/components/links/postStatusBookmarkById"
+              },
+              "unbookmarkStatus": {
+                "$ref": "#/components/links/postStatusUnbookmarkById"
+              },
+              "muteStatus": {
+                "$ref": "#/components/links/postStatusMuteById"
+              },
+              "unmuteStatus": {
+                "$ref": "#/components/links/postStatusUnmuteById"
+              },
+              "pinStatus": {
+                "$ref": "#/components/links/postStatusPinById"
+              },
+              "unpinStatus": {
+                "$ref": "#/components/links/postStatusUnpinById"
+              },
+              "updateStatus": {
+                "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
+              },
+              "getHistory": {
+                "$ref": "#/components/links/getStatusHistoryById"
+              },
+              "getSource": {
+                "$ref": "#/components/links/getStatusSourceById"
+              },
+              "getCard": {
+                "$ref": "#/components/links/getStatusCardById"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/statuses/#revoke_quote",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:statuses"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "quoting_status_id",
+            "in": "path",
+            "required": true,
+            "description": "quoting_status_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/statuses/{id}/reblog": {
       "post": {
         "operationId": "postStatusReblog",
@@ -24963,10 +25584,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -25003,6 +25627,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -25689,10 +26316,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -25729,6 +26359,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -25899,10 +26532,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -25939,6 +26575,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -26109,10 +26748,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -26149,6 +26791,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -26319,10 +26964,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -26359,6 +27007,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -26529,10 +27180,13 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusTranslateById"
+                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
+              },
+              "getStatusAction": {
+                "$ref": "#/components/links/getStatusQuotesById"
               },
               "getFavouritedBy": {
                 "$ref": "#/components/links/getStatusFavouritedByById"
@@ -26569,6 +27223,9 @@
               },
               "updateStatus": {
                 "$ref": "#/components/links/updateStatusById"
+              },
+              "putStatusAction": {
+                "$ref": "#/components/links/updateStatusInteractionPolicyById"
               },
               "getHistory": {
                 "$ref": "#/components/links/getStatusHistoryById"
@@ -31294,7 +31951,7 @@
           "locked": false,
           "bot": false,
           "created_at": "2017-02-08T02:00:53.274Z",
-          "note": "<p>:ms_rainbow_flag:​ :ms_bisexual_flagweb:​ :ms_nonbinary_flag:​ <a href=\"https://awoo.space/tags/awoo\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>awoo</span}.space <a href=\"https://awoo.space/tags/admin\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>admin</span} ~ <a href=\"https://awoo.space/tags/bi\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>bi</span} ~ <a href=\"https://awoo.space/tags/nonbinary\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>nonbinary</span} ~ compsci student ~ likes video <a href=\"https://awoo.space/tags/games\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>games</span} and weird/ old electronics and will post obsessively about both ~ avatar by <span class=\"h-card\"><a href=\"https://weirder.earth/@dzuk\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>dzuk</span}</span></p>",
+          "note": "<p>:ms_rainbow_flag:​ :ms_bisexual_flagweb:​ :ms_nonbinary_flag:​ <a href=\"https://awoo.space/tags/awoo\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>awoo</span></a>.space <a href=\"https://awoo.space/tags/admin\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>admin</span></a> ~ <a href=\"https://awoo.space/tags/bi\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>bi</span></a> ~ <a href=\"https://awoo.space/tags/nonbinary\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>nonbinary</span></a> ~ compsci student ~ likes video <a href=\"https://awoo.space/tags/games\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>games</span></a> and weird/ old electronics and will post obsessively about both ~ avatar by <span class=\"h-card\"><a href=\"https://weirder.earth/@dzuk\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>dzuk</span></a></span></p>",
           "url": "https://awoo.space/@noiob",
           "avatar": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
           "avatar_static": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
@@ -31334,17 +31991,17 @@
             },
             {
               "name": "Alt",
-              "value": "<span class=\"h-card\"><a href=\"https://cybre.space/@noiob\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>noiob</span}</span>",
+              "value": "<span class=\"h-card\"><a href=\"https://cybre.space/@noiob\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>noiob</span></a></span>",
               "verified_at": null
             },
             {
               "name": "Bots",
-              "value": "<span class=\"h-card\"><a href=\"https://botsin.space/@darksouls\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>darksouls</span}</span>, <span class=\"h-card\"><a href=\"https://botsin.space/@nierautomata\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>nierautomata</span}</span>, <span class=\"h-card\"><a href=\"https://mastodon.social/@fedi\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>fedi</span}</span>, code for <span class=\"h-card\"><a href=\"https://botsin.space/@awoobot\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>awoobot</span}</span>",
+              "value": "<span class=\"h-card\"><a href=\"https://botsin.space/@darksouls\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>darksouls</span></a></span>, <span class=\"h-card\"><a href=\"https://botsin.space/@nierautomata\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>nierautomata</span></a></span>, <span class=\"h-card\"><a href=\"https://mastodon.social/@fedi\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>fedi</span></a></span>, code for <span class=\"h-card\"><a href=\"https://botsin.space/@awoobot\" class=\"u-url mention\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">@<span>awoobot</span></a></span>",
               "verified_at": null
             },
             {
               "name": "Website",
-              "value": "<a href=\"http://shork.xyz\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">http://</span><span class=\"\">shork.xyz</span><span class=\"invisible\"></span}",
+              "value": "<a href=\"http://shork.xyz\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">http://</span><span class=\"\">shork.xyz</span><span class=\"invisible\"></span></a>",
               "verified_at": "2019-11-10T10:31:10.744+00:00"
             }
           ]
@@ -31504,6 +32161,18 @@
                   "null"
                 ],
                 "format": "iso-639-1"
+              },
+              "quote_policy": {
+                "description": "The default quote policy to be used for new statuses.",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "public",
+                  "followers",
+                  "nobody"
+                ]
               }
             },
             "required": [
@@ -34867,7 +35536,22 @@
           "type": {
             "description": "The type of event that resulted in the notification.",
             "type": "string",
-            "$ref": "#/components/schemas/NotificationTypeEnum"
+            "enum": [
+              "mention",
+              "status",
+              "reblog",
+              "follow",
+              "follow_request",
+              "favourite",
+              "poll",
+              "update",
+              "admin.sign_up",
+              "admin.report",
+              "severed_relationships",
+              "moderation_warning",
+              "quote",
+              "quoted_update"
+            ]
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
@@ -34910,7 +35594,7 @@
             ]
           },
           "status": {
-            "description": "Status that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, or `update`.",
+            "description": "Status that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Status"
@@ -35634,7 +36318,7 @@
             "reblogged": false,
             "muted": false,
             "bookmarked": false,
-            "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span}</p>",
+            "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span></a></p>",
             "reblog": null,
             "application": {
               "name": "Web",
@@ -35670,6 +36354,68 @@
             "card": null,
             "poll": null
           }
+        }
+      },
+      "QuoteApproval": {
+        "type": "object",
+        "description": "Summary of a status' quote approval policy and how it applies to the requesting user.",
+        "properties": {
+          "automatic": {
+            "description": "Describes who is expected to be able to quote that status and have the quote automatically authorized. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "public",
+                "followers",
+                "following",
+                "unsupported_policy"
+              ]
+            }
+          },
+          "current_user": {
+            "description": "Describes how this status' quote policy applies to the current user.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "automatic",
+              "manual",
+              "denied",
+              "unknown"
+            ]
+          },
+          "manual": {
+            "description": "Describes who is expected to have their quotes of this status be manually reviewed by the author before being accepted. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string",
+              "enum": [
+                "public",
+                "followers",
+                "following",
+                "unsupported_policy"
+              ]
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/QuoteApproval/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "automatic": [
+            "public"
+          ],
+          "manual": [],
+          "current_user": "automatic"
         }
       },
       "Reaction": {
@@ -36521,6 +37267,24 @@
               }
             ]
           },
+          "quote_approval": {
+            "description": "Summary of the post quote's approval policy and how it applies to the user making the request, that is, whether the user can be expected to be allowed to quote that post",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/QuoteApproval"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "quotes_count": {
+            "description": "How many accepted quotes this status has.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
           "reblog": {
             "description": "The status being reblogged.",
             "oneOf": [
@@ -36594,7 +37358,7 @@
           "reblogged": false,
           "muted": false,
           "bookmarked": false,
-          "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span}</p>",
+          "content": "<p>&quot;I lost my inheritance with one wrong digit on my sort code&quot;</p><p><a href=\"https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"ellipsis\">theguardian.com/money/2019/dec</span><span class=\"invisible\">/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code</span></a></p>",
           "reblog": null,
           "application": {
             "name": "Web",
@@ -36624,12 +37388,12 @@
             "fields": [
               {
                 "name": "Patreon",
-                "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span}",
+                "value": "<a href=\"https://www.patreon.com/mastodon\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://www.</span><span class=\"\">patreon.com/mastodon</span><span class=\"invisible\"></span></a>",
                 "verified_at": null
               },
               {
                 "name": "Homepage",
-                "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span}",
+                "value": "<a href=\"https://zeonfederated.com\" rel=\"me nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">https://</span><span class=\"\">zeonfederated.com</span><span class=\"invisible\"></span></a>",
                 "verified_at": "2019-07-15T18:29:57.191+00:00"
               }
             ]
@@ -38076,7 +38840,20 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationTypeEnum"
+            "enum": [
+              "mention",
+              "status",
+              "reblog",
+              "follow",
+              "follow_request",
+              "favourite",
+              "poll",
+              "update",
+              "admin.sign_up",
+              "admin.report",
+              "severed_relationships",
+              "moderation_warning"
+            ]
           }
         },
         "externalDocs": {
@@ -38392,6 +39169,14 @@
             "type": "string",
             "description": "ISO 639-1 language code for this status."
           },
+          "quote_approval_policy": {
+            "type": "string",
+            "description": "String (Enumerable, oneOf). Sets who is allowed to quote the status. When omitted, the user's [default setting] will be used instead. Ignored if `visibility` is `private` or `direct`, in which case the policy will always be set to `nobody`."
+          },
+          "quoted_status_id": {
+            "type": "string",
+            "description": "ID of the status being quoted, if any. Will raise an error if the status does not exist, the author does not have access to it, or quoting is denied by Mastodon's understanding of the attached quote policy. All posts except Private Mentions (`direct` visibility) are quotable by their author. Quoting a `private` post will restrict the quoting post's `visibility` to `private` or `direct` (if the given `visibility` is `public` or `unlisted`, `private` will be used instead). If the `status` text doesn't include a link to the quoted post, Mastodon will prepend a `<p class=\"quote-inline\">RE: <a href=\"…\">…</a></p>` paragraph for backward compatibility (such a paragraph will be hidden by Mastodon's web interface)."
+          },
           "scheduled_at": {
             "type": "string",
             "description": "[Datetime] at which to schedule a status. Providing this parameter will cause ScheduledStatus to be returned instead of Status. Must be at least 5 minutes in the future.",
@@ -38530,23 +39315,6 @@
           "followed",
           "list",
           "none"
-        ]
-      },
-      "NotificationTypeEnum": {
-        "type": "string",
-        "enum": [
-          "admin.report",
-          "admin.sign_up",
-          "favourite",
-          "follow",
-          "follow_request",
-          "mention",
-          "moderation_warning",
-          "poll",
-          "reblog",
-          "severed_relationships",
-          "status",
-          "update"
         ]
       },
       "VisibilityEnum": {
@@ -40516,6 +41284,13 @@
           "id": "$response.body#/id"
         }
       },
+      "getStatusQuotesById": {
+        "operationId": "getStatusQuotes",
+        "description": "Get the resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
       "getStatusFavouritedByById": {
         "operationId": "getStatusFavouritedBy",
         "description": "Get users who favourited the status using the response ID",
@@ -40565,6 +41340,13 @@
           "id": "$response.body#/id"
         }
       },
+      "postStatusesByIdQuotesByQuotingStatusIdRevokeById": {
+        "operationId": "postStatusesByIdQuotesByQuotingStatusIdRevoke",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
       "postStatusMuteById": {
         "operationId": "postStatusMute",
         "description": "Access the related resource using the response ID",
@@ -40595,6 +41377,13 @@
       },
       "updateStatusById": {
         "operationId": "updateStatus",
+        "description": "Access the related resource using the response ID",
+        "parameters": {
+          "id": "$response.body#/id"
+        }
+      },
+      "updateStatusInteractionPolicyById": {
+        "operationId": "updateStatusInteractionPolicy",
         "description": "Access the related resource using the response ID",
         "parameters": {
           "id": "$response.body#/id"
