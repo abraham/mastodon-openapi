@@ -59,11 +59,11 @@ describe('EntityConverter enum deduplication', () => {
     const filterContext = spec.components!.schemas!.FilterContext as any;
     expect(filterContext.type).toBe('string');
     expect(filterContext.enum).toEqual([
-      'account',
       'home',
       'notifications',
       'public',
       'thread',
+      'account',
     ]);
 
     // Check that both entities reference the shared component
@@ -183,29 +183,38 @@ describe('EntityConverter enum deduplication', () => {
 
     const spec = generator.generateSchema(entities, []);
 
-    // Should not create FilterContext component for different enums
-    expect(spec.components?.schemas?.FilterContext).toBeUndefined();
-
-    // Both should have inline enums
+    // Should create separate context components for different enums
     const filterSchema = spec.components!.schemas!.Filter;
     const v1FilterSchema = spec.components!.schemas!.V1_Filter;
 
     const filterContext1 = filterSchema.properties!.context;
     const filterContext2 = v1FilterSchema.properties!.context;
 
-    // Should still have inline enums since they're different, preserving original order
+    // Both should reference different enum components since enum values are different
     expect(filterContext1.type).toBe('array');
     expect(filterContext2.type).toBe('array');
-    expect(filterContext1.items?.enum).toEqual([
-      'home',
-      'notifications',
-      'public',
-    ]);
-    expect(filterContext2.items?.enum).toEqual([
-      'home',
-      'notifications',
-      'different',
-    ]);
+
+    // Should reference different components because enum values are different
+    expect(filterContext1.items?.$ref).toMatch(
+      /^#\/components\/schemas\/FilterContext/
+    );
+    expect(filterContext2.items?.$ref).toMatch(
+      /^#\/components\/schemas\/FilterContext/
+    );
+    expect(filterContext1.items?.$ref).not.toBe(filterContext2.items?.$ref);
+
+    // The components should exist and have the correct enum values
+    const componentName1 = filterContext1.items?.$ref?.split('/').pop();
+    const componentName2 = filterContext2.items?.$ref?.split('/').pop();
+
+    expect(spec.components?.schemas?.[componentName1!]).toBeDefined();
+    expect(spec.components?.schemas?.[componentName2!]).toBeDefined();
+
+    const enum1 = spec.components!.schemas![componentName1!] as any;
+    const enum2 = spec.components!.schemas![componentName2!] as any;
+
+    expect(enum1.enum).toEqual(['home', 'notifications', 'public']);
+    expect(enum2.enum).toEqual(['home', 'notifications', 'different']);
   });
 
   it('should handle single entity with context enum normally', () => {
@@ -232,14 +241,19 @@ describe('EntityConverter enum deduplication', () => {
 
     const spec = generator.generateSchema(entities, []);
 
-    // Should not create shared component for single entity
-    expect(spec.components?.schemas?.FilterContext).toBeUndefined();
-
-    // Should have inline enum on items with original order
+    // Should create FilterContextEnum component even for single entity (new behavior)
     const filterSchema = spec.components!.schemas!.Filter;
     const filterContext = filterSchema.properties!.context;
+
     expect(filterContext.type).toBe('array');
-    expect(filterContext.items?.enum).toEqual([
+    expect(filterContext.items?.$ref).toBe(
+      '#/components/schemas/FilterContext'
+    );
+
+    // Should have created the FilterContext component
+    expect(spec.components?.schemas?.FilterContext).toBeDefined();
+    const enumComponent = spec.components!.schemas!.FilterContext as any;
+    expect(enumComponent.enum).toEqual([
       'home',
       'notifications',
       'public',

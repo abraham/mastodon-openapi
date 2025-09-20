@@ -152,20 +152,21 @@ describe('OpenAPIGenerator global enum deduplication', () => {
 
     const schema = generator.generateSchema(entities, methodFiles);
 
-    // Should NOT create shared FilterContext component
-    expect(schema.components?.schemas?.FilterContext).toBeUndefined();
-
-    // Entity should have inline enum
+    // Entity should now have extracted enum (new behavior)
     const filterSchema = schema.components!.schemas!.Filter;
     const entityContextProp = filterSchema.properties!.context;
     expect(entityContextProp.type).toBe('array');
-    expect(entityContextProp.items?.enum).toEqual([
-      'home',
-      'notifications',
-      'public',
-    ]);
+    expect(entityContextProp.items?.$ref).toMatch(
+      /^#\/components\/schemas\/FilterContext/
+    );
 
-    // Method parameter should also have inline enum
+    // Should have created the FilterContext component
+    const componentName = entityContextProp.items?.$ref?.split('/').pop();
+    expect(schema.components?.schemas?.[componentName!]).toBeDefined();
+    const enumComponent = schema.components!.schemas![componentName!] as any;
+    expect(enumComponent.enum).toEqual(['home', 'notifications', 'public']);
+
+    // Method parameter should still have inline enum since it's not an entity enum
     const postOperation = schema.paths['/api/v2/filters']?.post;
     const requestBody = postOperation!.requestBody;
     const requestBodySchema = requestBody!.content!['application/json']!
