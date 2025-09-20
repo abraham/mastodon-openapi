@@ -8,7 +8,7 @@ describe('OpenAPIGenerator type enum separation', () => {
     generator = new OpenAPIGenerator();
   });
 
-  it('should create separate enums for notification type and preview card type', () => {
+  it('should create entity-specific type enums with new naming', () => {
     // Entities with different type enums that should not conflict
     const entities: EntityClass[] = [
       {
@@ -91,9 +91,11 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create separate shared components for each type enum
+    // Should create entity-specific enum components with new naming
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
-    expect(schema.components?.schemas?.PreviewTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.PreviewCardTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.TrendsLinkTypeEnum).toBeDefined();
 
     // Check NotificationTypeEnum
     const notificationTypeEnum = schema.components!.schemas!
@@ -103,10 +105,10 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
 
-    // Check PreviewTypeEnum
-    const previewTypeEnum = schema.components!.schemas!.PreviewTypeEnum as any;
-    expect(previewTypeEnum.type).toBe('string');
-    expect(previewTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
+    // Check PreviewCardTypeEnum
+    const previewCardTypeEnum = schema.components!.schemas!.PreviewCardTypeEnum as any;
+    expect(previewCardTypeEnum.type).toBe('string');
+    expect(previewCardTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
     // Check that Notification uses NotificationTypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;
@@ -115,30 +117,30 @@ describe('OpenAPIGenerator type enum separation', () => {
       '#/components/schemas/NotificationTypeEnum'
     );
 
-    // Check that NotificationGroup also uses NotificationTypeEnum
+    // Check that NotificationGroup uses NotificationGroupTypeEnum (entity-specific)
     const notificationGroupSchema =
       schema.components!.schemas!.NotificationGroup;
     const notificationGroupTypeProp = notificationGroupSchema.properties!.type;
     expect(notificationGroupTypeProp.$ref).toBe(
-      '#/components/schemas/NotificationTypeEnum'
+      '#/components/schemas/NotificationGroupTypeEnum'
     );
 
-    // Check that PreviewCard uses PreviewTypeEnum
+    // Check that PreviewCard uses PreviewCardTypeEnum
     const previewCardSchema = schema.components!.schemas!.PreviewCard;
     const previewCardTypeProp = previewCardSchema.properties!.type;
     expect(previewCardTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/PreviewCardTypeEnum'
     );
 
-    // Check that Trends_Link also uses PreviewTypeEnum
+    // Check that Trends_Link uses TrendsLinkTypeEnum (entity-specific)
     const trendsLinkSchema = schema.components!.schemas!.Trends_Link;
     const trendsLinkTypeProp = trendsLinkSchema.properties!.type;
     expect(trendsLinkTypeProp.$ref).toBe(
-      '#/components/schemas/PreviewTypeEnum'
+      '#/components/schemas/TrendsLinkTypeEnum'
     );
   });
 
-  it('should still use generic TypeEnum for other contexts', () => {
+  it('should create entity-specific type enums for other contexts', () => {
     // Entity with type enum that doesn't match special cases
     const entities: EntityClass[] = [
       {
@@ -169,21 +171,27 @@ describe('OpenAPIGenerator type enum separation', () => {
 
     const schema = generator.generateSchema(entities, []);
 
-    // Should create generic TypeEnum for non-special cases
-    expect(schema.components?.schemas?.TypeEnum).toBeDefined();
-    const typeEnum = schema.components!.schemas!.TypeEnum as any;
-    expect(typeEnum.type).toBe('string');
-    expect(typeEnum.enum).toEqual(['typeA', 'typeB']);
+    // Should create entity-specific TypeEnum for each entity
+    expect(schema.components?.schemas?.SomeOtherEntityTypeEnum).toBeDefined();
+    expect(schema.components?.schemas?.AnotherEntityTypeEnum).toBeDefined();
+    
+    const someOtherEntityTypeEnum = schema.components!.schemas!.SomeOtherEntityTypeEnum as any;
+    expect(someOtherEntityTypeEnum.type).toBe('string');
+    expect(someOtherEntityTypeEnum.enum).toEqual(['typeA', 'typeB']);
+    
+    const anotherEntityTypeEnum = schema.components!.schemas!.AnotherEntityTypeEnum as any;
+    expect(anotherEntityTypeEnum.type).toBe('string');
+    expect(anotherEntityTypeEnum.enum).toEqual(['typeA', 'typeB']);
 
-    // Both entities should reference the generic TypeEnum
+    // Each entity should reference their own type enum
     const someOtherEntitySchema = schema.components!.schemas!.SomeOtherEntity;
     expect(someOtherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/SomeOtherEntityTypeEnum'
     );
 
     const anotherEntitySchema = schema.components!.schemas!.AnotherEntity;
     expect(anotherEntitySchema.properties!.type.$ref).toBe(
-      '#/components/schemas/TypeEnum'
+      '#/components/schemas/AnotherEntityTypeEnum'
     );
   });
 });
