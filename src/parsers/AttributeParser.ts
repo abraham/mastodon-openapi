@@ -107,11 +107,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: Account#hide_collections should be nullable due to servers returning null values
-        if (entityName === 'Account' && heading.name === 'hide_collections') {
-          attribute.nullable = true;
-        }
-
         // Special case: Account#roles should be nullable
         if (entityName === 'Account' && heading.name === 'roles') {
           attribute.nullable = true;
@@ -264,12 +259,6 @@ export class AttributeParser {
       // Mark as optional if nullable pattern is detected
       if (isNullable) {
         attribute.optional = true;
-        attribute.nullable = true;
-      }
-
-      // Special case: Account#hide_collections should be nullable due to servers returning null values
-      // Note: this covers method entities that might reference Account fields
-      if (name === 'hide_collections') {
         attribute.nullable = true;
       }
 

@@ -231,12 +231,12 @@ describe('AttributeParser - Nullable Patterns', () => {
   });
 
   describe('Special cases', () => {
-    it('should mark Account#hide_collections as nullable due to servers returning null values', () => {
+    it('should mark Account#hide_collections as nullable due to nullable marker in documentation', () => {
       const content = `
 ### \`hide_collections\` {#hide_collections}
 
 **Description:** Whether the user hides the contents of their follows and followers collections.\\
-**Type:** Boolean\\
+**Type:** {{<nullable>}} Boolean\\
 **Version history:**\\
 4.3.0 - added
 `;
@@ -252,17 +252,39 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Boolean');
     });
 
-    it('should mark hide_collections as nullable in method entities as well', () => {
+    it('should mark hide_collections as nullable in method entities using nullable marker', () => {
       const content = `
 #### \`hide_collections\` {#hide_collections}
 
 **Description:** Whether the user hides the contents of their follows and followers collections.\\
-**Type:** Boolean\\
+**Type:** {{<nullable>}} Boolean\\
 **Version history:**\\
 4.3.0 - added
 `;
 
       const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('hide_collections');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('Boolean');
+    });
+
+    it('should mark hide_collections as nullable without special case handling', () => {
+      // Test that nullable marker works without relying on special case for entity name
+      const content = `
+### \`hide_collections\` {#hide_collections}
+
+**Description:** Whether the user hides the contents of their follows and followers collections.\\
+**Type:** {{<nullable>}} Boolean\\
+**Version history:**\\
+4.3.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content
+        // Intentionally not passing entity name to test without special case
+      );
 
       expect(attributes).toHaveLength(1);
       expect(attributes[0].name).toBe('hide_collections');
