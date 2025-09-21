@@ -107,12 +107,7 @@ describe('OpenAPIGenerator type enum separation', () => {
     const trendsLinkTypeEnum = schema.components!.schemas!
       .TrendsLinkTypeEnum as any;
     expect(trendsLinkTypeEnum.type).toBe('string');
-    expect(trendsLinkTypeEnum.enum).toEqual([
-      'link',
-      'photo',
-      'rich',
-      'video',
-    ]);
+    expect(trendsLinkTypeEnum.enum).toEqual(['link', 'photo', 'rich', 'video']);
 
     // Check that Notification uses NotificationTypeEnum
     const notificationSchema = schema.components!.schemas!.Notification;

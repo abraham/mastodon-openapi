@@ -219,10 +219,12 @@ class OpenAPIGenerator {
     // 3. As fallback, use alphabetical order
 
     const canonicalEntities = ['Status', 'Account', 'Notification', 'User'];
-    
+
     // First, try to find a canonical entity
     for (const canonicalEntity of canonicalEntities) {
-      const match = occurrences.find(occ => occ.entityName === canonicalEntity);
+      const match = occurrences.find(
+        (occ) => occ.entityName === canonicalEntity
+      );
       if (match) {
         return match;
       }
