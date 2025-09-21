@@ -4424,11 +4424,7 @@
                       "privacy": {
                         "type": "string",
                         "description": "Default post privacy for authored statuses. Can be `public`, `unlisted`, or `private`.",
-                        "enum": [
-                          "public",
-                          "unlisted",
-                          "private"
-                        ]
+                        "$ref": "#/components/schemas/StatusVisibilityEnum"
                       },
                       "sensitive": {
                         "type": "boolean",
@@ -31408,12 +31404,7 @@
               "privacy": {
                 "description": "The default post privacy to be used for new statuses.",
                 "type": "string",
-                "enum": [
-                  "public",
-                  "unlisted",
-                  "private",
-                  "direct"
-                ]
+                "$ref": "#/components/schemas/StatusVisibilityEnum"
               },
               "sensitive": {
                 "description": "Whether new statuses should be marked sensitive by default.",
@@ -31464,11 +31455,7 @@
                   "string",
                   "null"
                 ],
-                "enum": [
-                  "public",
-                  "followers",
-                  "nobody"
-                ]
+                "$ref": "#/components/schemas/CredentialAccountSourceQuotePolicyEnum"
               }
             },
             "required": [
@@ -36124,12 +36111,7 @@
               "visibility": {
                 "description": "The visibility that the status will have once it is posted.",
                 "type": "string",
-                "enum": [
-                  "public",
-                  "unlisted",
-                  "private",
-                  "direct"
-                ]
+                "$ref": "#/components/schemas/StatusVisibilityEnum"
               },
               "with_rate_limit": {
                 "description": "Whether status creation is subject to rate limiting. Provided for historical compatibility only and can be ignored.",
@@ -38537,6 +38519,23 @@
           }
         ]
       },
+      "StatusVisibilityEnum": {
+        "type": "string",
+        "enum": [
+          "public",
+          "unlisted",
+          "private",
+          "direct"
+        ]
+      },
+      "CredentialAccountSourceQuotePolicyEnum": {
+        "type": "string",
+        "enum": [
+          "public",
+          "followers",
+          "nobody"
+        ]
+      },
       "AccountWarningActionEnum": {
         "type": "string",
         "enum": [
@@ -38649,15 +38648,6 @@
           "moderation_warning",
           "quote",
           "quoted_update"
-        ]
-      },
-      "StatusVisibilityEnum": {
-        "type": "string",
-        "enum": [
-          "public",
-          "unlisted",
-          "private",
-          "direct"
         ]
       },
       "PreferencesReadingExpandMediaEnum": {

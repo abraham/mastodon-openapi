@@ -244,6 +244,71 @@ class OpenAPIGenerator {
   }
 
   /**
+   * Recursively collect enum properties from nested object structures
+   */
+  private collectEnumsFromProperties(
+    properties: Record<string, any>,
+    entityName: string,
+    parentPath: string,
+    enumOccurrences: Map<
+      string,
+      { entityName: string; propName: string; enumValues: any[] }[]
+    >
+  ): void {
+    for (const [propName, property] of Object.entries(properties)) {
+      const fullPropName = parentPath ? `${parentPath}.${propName}` : propName;
+
+      // Check for direct enum properties
+      if (property.enum && Array.isArray(property.enum)) {
+        const enumSignature = JSON.stringify([...property.enum].sort());
+
+        if (!enumOccurrences.has(enumSignature)) {
+          enumOccurrences.set(enumSignature, []);
+        }
+        enumOccurrences.get(enumSignature)!.push({
+          entityName,
+          propName: fullPropName,
+          enumValues: property.enum,
+        });
+      }
+
+      // Check for array properties with enum items
+      if (
+        property.type === 'array' &&
+        property.items &&
+        typeof property.items === 'object' &&
+        property.items.enum &&
+        Array.isArray(property.items.enum)
+      ) {
+        const enumSignature = JSON.stringify([...property.items.enum].sort());
+
+        if (!enumOccurrences.has(enumSignature)) {
+          enumOccurrences.set(enumSignature, []);
+        }
+        enumOccurrences.get(enumSignature)!.push({
+          entityName,
+          propName: fullPropName,
+          enumValues: property.items.enum,
+        });
+      }
+
+      // Recursively process nested object properties
+      if (
+        property.type === 'object' &&
+        property.properties &&
+        typeof property.properties === 'object'
+      ) {
+        this.collectEnumsFromProperties(
+          property.properties,
+          entityName,
+          fullPropName,
+          enumOccurrences
+        );
+      }
+    }
+  }
+
+  /**
    * Extract ALL entity enums into their own components
    */
   private extractEntityEnumsToComponents(
@@ -265,43 +330,13 @@ class OpenAPIGenerator {
       const openAPISchema = schema as OpenAPISchema;
       if (!openAPISchema.properties) continue;
 
-      for (const [propName, property] of Object.entries(
-        openAPISchema.properties
-      )) {
-        // Check for direct enum properties
-        if (property.enum && Array.isArray(property.enum)) {
-          const enumSignature = JSON.stringify([...property.enum].sort());
-
-          if (!enumOccurrences.has(enumSignature)) {
-            enumOccurrences.set(enumSignature, []);
-          }
-          enumOccurrences.get(enumSignature)!.push({
-            entityName,
-            propName,
-            enumValues: property.enum,
-          });
-        }
-
-        // Check for array properties with enum items
-        if (
-          property.type === 'array' &&
-          property.items &&
-          typeof property.items === 'object' &&
-          property.items.enum &&
-          Array.isArray(property.items.enum)
-        ) {
-          const enumSignature = JSON.stringify([...property.items.enum].sort());
-
-          if (!enumOccurrences.has(enumSignature)) {
-            enumOccurrences.set(enumSignature, []);
-          }
-          enumOccurrences.get(enumSignature)!.push({
-            entityName,
-            propName,
-            enumValues: property.items.enum,
-          });
-        }
-      }
+      // Use recursive helper to collect all enums including nested ones
+      this.collectEnumsFromProperties(
+        openAPISchema.properties,
+        entityName,
+        '',
+        enumOccurrences
+      );
     }
 
     // Second pass: create enum components based on best occurrence
@@ -443,6 +478,24 @@ class OpenAPIGenerator {
         enumPatterns,
         enumSignatureToOriginalValues
       );
+    }
+    // Look for nested object properties
+    else if (
+      property.type === 'object' &&
+      property.properties &&
+      typeof property.properties === 'object'
+    ) {
+      // Recursively process nested properties
+      for (const [nestedPropName, nestedProperty] of Object.entries(
+        property.properties
+      )) {
+        this.collectEnumPatternsFromProperty(
+          nestedProperty,
+          `${contextName}_${nestedPropName}`,
+          enumPatterns,
+          enumSignatureToOriginalValues
+        );
+      }
     }
   }
 
@@ -599,6 +652,17 @@ class OpenAPIGenerator {
         // Replace with reference to shared component
         delete property.enum;
         property.$ref = `#/components/schemas/${componentName}`;
+      }
+    }
+    // Handle nested object properties
+    else if (
+      property.type === 'object' &&
+      property.properties &&
+      typeof property.properties === 'object'
+    ) {
+      // Recursively process nested properties
+      for (const [, nestedProperty] of Object.entries(property.properties)) {
+        this.replaceEnumsInProperty(nestedProperty, enumPatterns);
       }
     }
   }
