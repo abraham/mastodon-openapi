@@ -22,7 +22,7 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
             description: 'The type of notification',
             enumValues: [
               'mention',
-              'status', 
+              'status',
               'reblog',
               'follow',
               'follow_request',
@@ -34,7 +34,7 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
               'severed_relationships',
               'moderation_warning',
               'quote',
-              'quoted_update'
+              'quoted_update',
             ],
           },
         ],
@@ -60,14 +60,14 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
                 enumValues: [
                   'mention',
                   'status',
-                  'reblog', 
+                  'reblog',
                   'follow',
                   'follow_request',
                   'favourite',
                   'poll',
                   'update',
                   'admin.sign_up',
-                  'admin.report'
+                  'admin.report',
                 ],
                 schema: {
                   type: 'array',
@@ -88,7 +88,7 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
                   'poll',
                   'update',
                   'admin.sign_up',
-                  'admin.report'
+                  'admin.report',
                 ],
                 schema: {
                   type: 'array',
@@ -109,12 +109,15 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
     expect(entityEnum.enum.length).toBe(14); // Entity has all 14 types
 
     // Should have parameter enum with subset of values and better naming
-    expect(spec.components?.schemas?.NotificationTypesParameterEnum).toBeDefined();
-    const paramEnum = spec.components!.schemas!.NotificationTypesParameterEnum as any;
+    expect(
+      spec.components?.schemas?.NotificationTypesParameterEnum
+    ).toBeDefined();
+    const paramEnum = spec.components!.schemas!
+      .NotificationTypesParameterEnum as any;
     expect(paramEnum.enum.length).toBe(10); // Parameter has only 10 types
     expect(paramEnum.enum).toEqual([
       'mention',
-      'status', 
+      'status',
       'reblog',
       'follow',
       'follow_request',
@@ -122,23 +125,35 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
       'poll',
       'update',
       'admin.sign_up',
-      'admin.report'
+      'admin.report',
     ]);
 
     // Check that the old problematic naming is not used
-    expect(spec.components?.schemas?.GetApiV1NotificationsParamTypesEnum).toBeUndefined();
+    expect(
+      spec.components?.schemas?.GetApiV1NotificationsParamTypesEnum
+    ).toBeUndefined();
 
     // Check that parameters reference the new parameter enum
     const operation = spec.paths?.['/api/v1/notifications']?.get;
-    const typesParam = operation?.parameters?.find((p: any) => p.name === 'types');
-    const excludeTypesParam = operation?.parameters?.find((p: any) => p.name === 'exclude_types');
-    
-    expect(typesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypesParameterEnum');
-    expect(excludeTypesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypesParameterEnum');
+    const typesParam = operation?.parameters?.find(
+      (p: any) => p.name === 'types'
+    );
+    const excludeTypesParam = operation?.parameters?.find(
+      (p: any) => p.name === 'exclude_types'
+    );
+
+    expect(typesParam?.schema?.items?.$ref).toBe(
+      '#/components/schemas/NotificationTypesParameterEnum'
+    );
+    expect(excludeTypesParam?.schema?.items?.$ref).toBe(
+      '#/components/schemas/NotificationTypesParameterEnum'
+    );
 
     // Check that entity still uses entity enum
     const notificationSchema = spec.components?.schemas?.Notification as any;
-    expect(notificationSchema?.properties?.type?.$ref).toBe('#/components/schemas/NotificationTypeEnum');
+    expect(notificationSchema?.properties?.type?.$ref).toBe(
+      '#/components/schemas/NotificationTypeEnum'
+    );
   });
 
   it('should improve naming compared to old problematic patterns', () => {
@@ -167,7 +182,7 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
           },
           {
             name: 'Get notifications v2',
-            httpMethod: 'GET', 
+            httpMethod: 'GET',
             endpoint: '/api/v2/notifications',
             description: 'Get notifications v2',
             parameters: [
@@ -191,17 +206,20 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
 
     // Should not have the old problematic naming pattern
     const enumNames = Object.keys(spec.components?.schemas || {});
-    
-    const hasProblematicNaming = enumNames.some(name => 
-      name.includes('GetApiV1NotificationsParamTypesEnum') ||
-      name.includes('GetApiV2NotificationsParamGroupedTypesEnum') ||
-      name.match(/^[A-Z][a-z]+Api[VR][0-9]+.*Enum$/)
+
+    const hasProblematicNaming = enumNames.some(
+      (name) =>
+        name.includes('GetApiV1NotificationsParamTypesEnum') ||
+        name.includes('GetApiV2NotificationsParamGroupedTypesEnum') ||
+        name.match(/^[A-Z][a-z]+Api[VR][0-9]+.*Enum$/)
     );
-    
+
     expect(hasProblematicNaming).toBe(false);
-    
+
     // Should have better naming that follows entity-attribute pattern
-    const hasNotificationGroupedTypesParameterEnum = enumNames.includes('NotificationGroupedTypesParameterEnum');
+    const hasNotificationGroupedTypesParameterEnum = enumNames.includes(
+      'NotificationGroupedTypesParameterEnum'
+    );
     expect(hasNotificationGroupedTypesParameterEnum).toBe(true);
   });
 });

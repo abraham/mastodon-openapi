@@ -122,7 +122,10 @@ class OpenAPIGenerator {
                   const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
                   // Generate better context names for parameters
                   const contextName = `${sanitizedMethod}_${sanitizedPath}_param`;
-                  const propertyContextName = this.generatePropertyContextName(contextName, param.name);
+                  const propertyContextName = this.generatePropertyContextName(
+                    contextName,
+                    param.name
+                  );
                   this.collectEnumPatternsFromProperty(
                     param.schema,
                     propertyContextName,
@@ -359,7 +362,10 @@ class OpenAPIGenerator {
 
     for (const [propName, property] of Object.entries(schema.properties)) {
       // Generate better context names for request body parameters
-      const propertyContextName = this.generatePropertyContextName(contextName, propName);
+      const propertyContextName = this.generatePropertyContextName(
+        contextName,
+        propName
+      );
       this.collectEnumPatternsFromProperty(
         property,
         propertyContextName,
@@ -460,10 +466,16 @@ class OpenAPIGenerator {
    * Generate better context names for request body parameters
    * Attempts to infer entity-attribute patterns from parameter contexts
    */
-  private generatePropertyContextName(contextName: string, propName: string): string {
+  private generatePropertyContextName(
+    contextName: string,
+    propName: string
+  ): string {
     // Check if this is a request body context (ends with _requestBody)
     // or a parameter context (ends with _param)
-    if (contextName.endsWith('_requestBody') || contextName.endsWith('_param')) {
+    if (
+      contextName.endsWith('_requestBody') ||
+      contextName.endsWith('_param')
+    ) {
       // Extract method and path information
       let baseName = contextName;
       if (contextName.endsWith('_requestBody')) {
@@ -471,17 +483,17 @@ class OpenAPIGenerator {
       } else if (contextName.endsWith('_param')) {
         baseName = contextName.replace('_param', '');
       }
-      
-      const parts = baseName.split('_').filter(p => p.length > 0); // Filter empty parts
+
+      const parts = baseName.split('_').filter((p) => p.length > 0); // Filter empty parts
       const method = parts[0];
       const pathParts = parts.slice(1);
-      
+
       // Try to infer entity name from path segments
       const entityName = this.inferEntityFromPath(pathParts, method);
-      
+
       // Clean up the property name to get the attribute
       const attributeName = this.inferAttributeFromProperty(propName);
-      
+
       // If we successfully inferred both entity and attribute, use entity-attribute pattern
       // Add a suffix to distinguish parameter enums from entity enums
       if (entityName && attributeName) {
@@ -489,7 +501,7 @@ class OpenAPIGenerator {
         return `${entityName}_${attributeName}${suffix}`;
       }
     }
-    
+
     // Fallback to original naming for non-request-body contexts or when inference fails
     return `${contextName}_${propName}`;
   }
@@ -497,28 +509,31 @@ class OpenAPIGenerator {
   /**
    * Infer entity name from API path parts and method
    */
-  private inferEntityFromPath(pathParts: string[], method: string): string | null {
+  private inferEntityFromPath(
+    pathParts: string[],
+    method: string
+  ): string | null {
     // Common path patterns in Mastodon API
     // /api/v1/notifications -> Notification
-    // /api/v1/statuses -> Status  
+    // /api/v1/statuses -> Status
     // /api/v2/filters -> Filter
-    
+
     for (const part of pathParts) {
       // Skip common parts that aren't entities
       if (['api', 'v1', 'v2', 'id'].includes(part.toLowerCase())) {
         continue;
       }
-      
+
       // Skip variable path segments (empty or single character like from {id} -> id)
       if (part.length <= 1) {
         continue;
       }
-      
+
       // Convert plural to singular and capitalize
       const singular = this.pluralToSingular(part);
       return this.toPascalCase(singular);
     }
-    
+
     return null;
   }
 
@@ -536,7 +551,7 @@ class OpenAPIGenerator {
    */
   private pluralToSingular(word: string): string {
     word = word.toLowerCase();
-    
+
     // Simple pluralization rules (not exhaustive but covers common cases)
     if (word.endsWith('ies')) {
       return word.slice(0, -3) + 'y';
@@ -547,7 +562,7 @@ class OpenAPIGenerator {
     if (word.endsWith('s') && word.length > 1) {
       return word.slice(0, -1);
     }
-    
+
     return word;
   }
 
