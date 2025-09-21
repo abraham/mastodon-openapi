@@ -120,9 +120,12 @@ class OpenAPIGenerator {
                   // Sanitize path and method for valid component names
                   const sanitizedPath = path.replace(/[^a-zA-Z0-9]/g, '_');
                   const sanitizedMethod = method.replace(/[^a-zA-Z0-9]/g, '_');
+                  // Generate better context names for parameters
+                  const contextName = `${sanitizedMethod}_${sanitizedPath}_param`;
+                  const propertyContextName = this.generatePropertyContextName(contextName, param.name);
                   this.collectEnumPatternsFromProperty(
                     param.schema,
-                    `${sanitizedMethod}_${sanitizedPath}_param_${param.name}`,
+                    propertyContextName,
                     enumPatterns,
                     enumSignatureToOriginalValues
                   );
@@ -355,9 +358,11 @@ class OpenAPIGenerator {
     if (!schema.properties) return;
 
     for (const [propName, property] of Object.entries(schema.properties)) {
+      // Generate better context names for request body parameters
+      const propertyContextName = this.generatePropertyContextName(contextName, propName);
       this.collectEnumPatternsFromProperty(
         property,
-        `${contextName}_${propName}`,
+        propertyContextName,
         enumPatterns,
         enumSignatureToOriginalValues
       );
@@ -449,6 +454,119 @@ class OpenAPIGenerator {
 
     // Create the enum name using the pattern: {Entity}{Attribute}Enum
     return `${pascalEntityName}${pascalPropName}Enum`;
+  }
+
+  /**
+   * Generate better context names for request body parameters
+   * Attempts to infer entity-attribute patterns from parameter contexts
+   */
+  private generatePropertyContextName(contextName: string, propName: string): string {
+    // Check if this is a request body context (ends with _requestBody)
+    // or a parameter context (ends with _param)
+    if (contextName.endsWith('_requestBody') || contextName.endsWith('_param')) {
+      // Extract method and path information
+      let baseName = contextName;
+      if (contextName.endsWith('_requestBody')) {
+        baseName = contextName.replace('_requestBody', '');
+      } else if (contextName.endsWith('_param')) {
+        baseName = contextName.replace('_param', '');
+      }
+      
+      const parts = baseName.split('_').filter(p => p.length > 0); // Filter empty parts
+      const method = parts[0];
+      const pathParts = parts.slice(1);
+      
+      // Try to infer entity name from path segments
+      const entityName = this.inferEntityFromPath(pathParts, method);
+      
+      // Clean up the property name to get the attribute
+      const attributeName = this.inferAttributeFromProperty(propName);
+      
+      // If we successfully inferred both entity and attribute, use entity-attribute pattern
+      // Add a suffix to distinguish parameter enums from entity enums
+      if (entityName && attributeName) {
+        const suffix = contextName.endsWith('_param') ? 'Parameter' : '';
+        return `${entityName}_${attributeName}${suffix}`;
+      }
+    }
+    
+    // Fallback to original naming for non-request-body contexts or when inference fails
+    return `${contextName}_${propName}`;
+  }
+
+  /**
+   * Infer entity name from API path parts and method
+   */
+  private inferEntityFromPath(pathParts: string[], method: string): string | null {
+    // Common path patterns in Mastodon API
+    // /api/v1/notifications -> Notification
+    // /api/v1/statuses -> Status  
+    // /api/v2/filters -> Filter
+    
+    for (const part of pathParts) {
+      // Skip common parts that aren't entities
+      if (['api', 'v1', 'v2', 'id'].includes(part.toLowerCase())) {
+        continue;
+      }
+      
+      // Skip variable path segments (empty or single character like from {id} -> id)
+      if (part.length <= 1) {
+        continue;
+      }
+      
+      // Convert plural to singular and capitalize
+      const singular = this.pluralToSingular(part);
+      return this.toPascalCase(singular);
+    }
+    
+    return null;
+  }
+
+  /**
+   * Infer attribute name from parameter property name
+   */
+  private inferAttributeFromProperty(propName: string): string | null {
+    // Clean up common parameter name patterns
+    // types -> Type
+    // exclude_types -> Type
+    // grouped_types -> Type
+    // context -> Context
+    // visibility -> Visibility
+    
+    if (propName.includes('type')) {
+      return 'Type';
+    }
+    
+    if (propName.includes('context')) {
+      return 'Context';
+    }
+    
+    if (propName.includes('visibility')) {
+      return 'Visibility';
+    }
+    
+    // Default: use the property name itself
+    return this.toPascalCase(propName);
+  }
+
+  /**
+   * Convert plural form to singular (simple heuristic)
+   */
+  private pluralToSingular(word: string): string {
+    word = word.toLowerCase();
+    
+    // Simple pluralization rules (not exhaustive but covers common cases)
+    if (word.endsWith('ies')) {
+      return word.slice(0, -3) + 'y';
+    }
+    if (word.endsWith('es') && !word.endsWith('ses')) {
+      return word.slice(0, -2);
+    }
+    if (word.endsWith('s') && word.length > 1) {
+      return word.slice(0, -1);
+    }
+    
+    return word;
   }
 
   /**
