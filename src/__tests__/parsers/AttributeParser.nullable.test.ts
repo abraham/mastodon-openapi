@@ -292,7 +292,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Boolean');
     });
 
-    it('should mark Rule#translations as nullable due to special exception', () => {
+    it('should mark Rule#translations as nullable due to version 4.4.0 being supported', () => {
       const content = `
 ### \`translations\` {#translations}
 

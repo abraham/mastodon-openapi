@@ -112,11 +112,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: Rule#translations should be nullable
-        if (entityName === 'Rule' && heading.name === 'translations') {
-          attribute.nullable = true;
-        }
-
         // Special case: Relationship#languages should be nullable
         if (entityName === 'Relationship' && heading.name === 'languages') {
           attribute.nullable = true;
