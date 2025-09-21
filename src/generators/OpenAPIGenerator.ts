@@ -526,26 +526,8 @@ class OpenAPIGenerator {
    * Infer attribute name from parameter property name
    */
   private inferAttributeFromProperty(propName: string): string | null {
-    // Clean up common parameter name patterns
-    // types -> Type
-    // exclude_types -> Type
-    // grouped_types -> Type
-    // context -> Context
-    // visibility -> Visibility
-    
-    if (propName.includes('type')) {
-      return 'Type';
-    }
-    
-    if (propName.includes('context')) {
-      return 'Context';
-    }
-    
-    if (propName.includes('visibility')) {
-      return 'Visibility';
-    }
-    
-    // Default: use the property name itself
+    // Use the property name itself, converted to PascalCase
+    // This handles underscore-separated names properly (e.g., "exclude_types" -> "ExcludeTypes")
     return this.toPascalCase(propName);
   }
 

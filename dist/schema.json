@@ -16186,7 +16186,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "$ref": "#/components/schemas/NotificationTypeParameterEnum"
+                "$ref": "#/components/schemas/NotificationTypesParameterEnum"
               }
             }
           },
@@ -16245,7 +16245,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "$ref": "#/components/schemas/NotificationTypeParameterEnum"
+                "$ref": "#/components/schemas/NotificationTypesParameterEnum"
               }
             }
           }
@@ -17970,7 +17970,7 @@
               "type": "array",
               "description": "Types to exclude from the results.",
               "items": {
-                "$ref": "#/components/schemas/NotificationTypeParameterEnum"
+                "$ref": "#/components/schemas/NotificationTypesParameterEnum"
               }
             }
           },
@@ -17991,7 +17991,7 @@
               "type": "array",
               "description": "Restrict which notification types can be grouped. Use this if there are notification types for which your client does not support grouping. If omitted, the server will group notifications of all types it supports (currently, `favourite`, `follow`, `reblog` and `admin.sign_up`). If you do not want any notification grouping, use [GET `/api/v1/notifications`] instead. Notifications that would be grouped if not for this parameter will instead be returned as individual single-notification groups with a unique `group_key` that can be assumed to be of the form `ungrouped-{notification_id}`. Please note that neither the streaming API nor the individual notification APIs are aware of this parameter and will always include a “proper” `group_key` that can be different from what is returned here, meaning that you may have to ignore `group_key` for such notifications that you do not want grouped and use `ungrouped-{notification_id}` instead for consistency.",
               "items": {
-                "$ref": "#/components/schemas/NotificationTypeParameterEnum"
+                "$ref": "#/components/schemas/NotificationTypesParameterEnum"
               }
             }
           },
@@ -18050,7 +18050,7 @@
               "type": "array",
               "description": "Types to include in the result.",
               "items": {
-                "$ref": "#/components/schemas/NotificationTypeParameterEnum"
+                "$ref": "#/components/schemas/NotificationTypesParameterEnum"
               }
             }
           }
@@ -38709,7 +38709,7 @@
           "account_suspension"
         ]
       },
-      "NotificationTypeParameterEnum": {
+      "NotificationTypesParameterEnum": {
         "type": "string",
         "enum": [
           "mention",

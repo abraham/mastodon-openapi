@@ -109,8 +109,8 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
     expect(entityEnum.enum.length).toBe(14); // Entity has all 14 types
 
     // Should have parameter enum with subset of values and better naming
-    expect(spec.components?.schemas?.NotificationTypeParameterEnum).toBeDefined();
-    const paramEnum = spec.components!.schemas!.NotificationTypeParameterEnum as any;
+    expect(spec.components?.schemas?.NotificationTypesParameterEnum).toBeDefined();
+    const paramEnum = spec.components!.schemas!.NotificationTypesParameterEnum as any;
     expect(paramEnum.enum.length).toBe(10); // Parameter has only 10 types
     expect(paramEnum.enum).toEqual([
       'mention',
@@ -133,8 +133,8 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
     const typesParam = operation?.parameters?.find((p: any) => p.name === 'types');
     const excludeTypesParam = operation?.parameters?.find((p: any) => p.name === 'exclude_types');
     
-    expect(typesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypeParameterEnum');
-    expect(excludeTypesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypeParameterEnum');
+    expect(typesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypesParameterEnum');
+    expect(excludeTypesParam?.schema?.items?.$ref).toBe('#/components/schemas/NotificationTypesParameterEnum');
 
     // Check that entity still uses entity enum
     const notificationSchema = spec.components?.schemas?.Notification as any;
@@ -201,7 +201,7 @@ describe('OpenAPIGenerator improved parameter enum naming', () => {
     expect(hasProblematicNaming).toBe(false);
     
     // Should have better naming that follows entity-attribute pattern
-    const hasNotificationTypeParameterEnum = enumNames.includes('NotificationTypeParameterEnum');
-    expect(hasNotificationTypeParameterEnum).toBe(true);
+    const hasNotificationGroupedTypesParameterEnum = enumNames.includes('NotificationGroupedTypesParameterEnum');
+    expect(hasNotificationGroupedTypesParameterEnum).toBe(true);
   });
 });
