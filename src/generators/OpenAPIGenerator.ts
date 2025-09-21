@@ -154,7 +154,9 @@ class OpenAPIGenerator {
       if (componentName) {
         const originalValues = enumSignatureToOriginalValues.get(enumSignature);
 
-        if (spec.components?.schemas) {
+        if (spec.components?.schemas && originalValues) {
+          // Only create/overwrite if we have valid enum values
+          // This prevents overwriting entity enums that were already created properly
           spec.components.schemas[componentName] = {
             type: 'string',
             enum: originalValues,
@@ -414,7 +416,23 @@ class OpenAPIGenerator {
     enumSignatureToOriginalValues: Map<string, any[]>
   ): void {
     if (!enumPatterns.has(enumSignature)) {
-      // First occurrence - save original values and mark it
+      // First occurrence - check if this enum is a subset of an existing entity enum
+      // But only for method parameter enums (not entity enums)
+      if (this.isMethodParameterContext(contextName)) {
+        const existingEntityEnum = this.findExistingEntityEnumForSubset(
+          enumValues,
+          enumPatterns,
+          enumSignatureToOriginalValues
+        );
+
+        if (existingEntityEnum) {
+          // Reuse existing entity enum instead of creating a new one
+          enumPatterns.set(enumSignature, existingEntityEnum);
+          return;
+        }
+      }
+
+      // Save original values and mark it for potential shared component creation
       enumPatterns.set(enumSignature, '');
       enumSignatureToOriginalValues.set(enumSignature, enumValues);
     } else if (enumPatterns.get(enumSignature) === '') {
@@ -425,6 +443,47 @@ class OpenAPIGenerator {
       );
       enumPatterns.set(enumSignature, componentName);
     }
+  }
+
+  /**
+   * Check if a context name indicates this is a method parameter enum
+   */
+  private isMethodParameterContext(contextName: string): boolean {
+    // Method parameter contexts have these patterns:
+    // - {method}_{path}_param_{paramName} (e.g., "get_api_v1_notifications_param_types")
+    // - {method}_{path}_requestBody (e.g., "post_api_v2_filters_requestBody")
+    // Entity contexts are just the entity name (e.g., "Filter", "Notification")
+    return (
+      contextName.includes('_param_') || contextName.includes('_requestBody')
+    );
+  }
+
+  /**
+   * Find an existing entity enum that contains all the values in the given subset
+   */
+  private findExistingEntityEnumForSubset(
+    subsetValues: any[],
+    enumPatterns: Map<string, string>,
+    enumSignatureToOriginalValues: Map<string, any[]>
+  ): string | null {
+    // Look through existing entity enum patterns to find one that contains all our values
+    for (const [signature, componentName] of enumPatterns.entries()) {
+      // Only consider entity enums (those that already have component names)
+      if (componentName && !componentName.includes('_')) {
+        const existingValues = enumSignatureToOriginalValues.get(signature);
+        if (existingValues && this.isSubsetOf(subsetValues, existingValues)) {
+          return componentName;
+        }
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Check if subset is completely contained within superset
+   */
+  private isSubsetOf(subset: any[], superset: any[]): boolean {
+    return subset.every((value) => superset.includes(value));
   }
 
   /**
