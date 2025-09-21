@@ -437,6 +437,11 @@ class OpenAPIGenerator {
     // Sanitize context name to remove invalid characters
     const sanitizedContext = contextName.replace(/[^a-zA-Z0-9_]/g, '_');
 
+    // Check if this is from a request body or parameter context
+    if (sanitizedContext.includes('_requestBody_') || sanitizedContext.includes('_param_')) {
+      return this.generateImprovedRequestEnumName(sanitizedContext, enumValues);
+    }
+
     // Extract entity and property names from context (format: EntityName_PropertyName)
     const parts = sanitizedContext.split('_');
     const propertyName = parts[parts.length - 1];
@@ -449,6 +454,83 @@ class OpenAPIGenerator {
 
     // Create the enum name using the pattern: {Entity}{Attribute}Enum
     return `${pascalEntityName}${pascalPropName}Enum`;
+  }
+
+  /**
+   * Generate improved names for request body and parameter enums
+   */
+  private generateImprovedRequestEnumName(
+    sanitizedContext: string,
+    enumValues: any[]
+  ): string {
+    const parts = sanitizedContext.split('_');
+    const propertyName = parts[parts.length - 1];
+
+    // Try to infer a semantic entity name from the API path and parameter name
+    let entityName = this.inferEntityFromRequestContext(sanitizedContext, propertyName, enumValues);
+    
+    if (entityName) {
+      const pascalEntityName = this.toPascalCase(entityName);
+      const pascalPropName = this.toPascalCase(propertyName);
+      return `${pascalEntityName}${pascalPropName}Enum`;
+    }
+
+    // Fallback: use just the property name with Enum suffix
+    const pascalPropName = this.toPascalCase(propertyName);
+    return `${pascalPropName}Enum`;
+  }
+
+  /**
+   * Infer entity name from request context and enum values
+   */
+  private inferEntityFromRequestContext(
+    sanitizedContext: string,
+    propertyName: string,
+    enumValues: any[]
+  ): string | null {
+    // Handle notification types specifically
+    if (propertyName === 'types' && sanitizedContext.includes('notifications')) {
+      // Check if these are notification type enum values
+      const notificationTypes = [
+        'mention', 'status', 'reblog', 'follow', 'follow_request', 
+        'favourite', 'poll', 'update', 'admin.sign_up', 'admin.report',
+        'severed_relationships', 'moderation_warning', 'quote', 'quoted_update'
+      ];
+      
+      // If most values match notification types, classify as notification
+      const matchCount = enumValues.filter(val => notificationTypes.includes(val)).length;
+      if (matchCount >= enumValues.length * 0.8) { // 80% match threshold
+        return 'Notification';
+      }
+    }
+
+    // Handle other common patterns
+    if (propertyName === 'visibility' && sanitizedContext.includes('status')) {
+      return 'Status';
+    }
+
+    if (propertyName === 'context' && sanitizedContext.includes('filter')) {
+      return 'Filter';
+    }
+
+    if (propertyName === 'category' && sanitizedContext.includes('report')) {
+      return 'Report';
+    }
+
+    // Try to extract entity from API path
+    const pathMatch = sanitizedContext.match(/api_v\d+_(\w+)/);
+    if (pathMatch && pathMatch[1]) {
+      // Singularize common plural forms
+      let entityName = pathMatch[1];
+      if (entityName.endsWith('s') && entityName.length > 1) {
+        entityName = entityName.slice(0, -1);
+      }
+      
+      // Capitalize first letter for entity name
+      return entityName.charAt(0).toUpperCase() + entityName.slice(1);
+    }
+
+    return null;
   }
 
   /**
