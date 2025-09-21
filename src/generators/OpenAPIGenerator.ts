@@ -180,7 +180,7 @@ class OpenAPIGenerator {
             if (operation.parameters) {
               for (const param of operation.parameters) {
                 if (param.schema) {
-                  this.replaceEnumsInProperty(param.schema, enumPatterns);
+                  this.replaceEnumsInProperty(param.schema, enumPatterns, param.name);
                 }
               }
             }
@@ -216,6 +216,9 @@ class OpenAPIGenerator {
       { entityName: string; propName: string; enumValues: any[] }[]
     >();
 
+    // Special handling for Notification/NotificationGroup type enums that should be unified
+    const notificationTypeEnums: { entityName: string; propName: string; enumValues: any[] }[] = [];
+
     for (const [entityName, schema] of Object.entries(
       spec.components.schemas
     )) {
@@ -227,16 +230,23 @@ class OpenAPIGenerator {
       )) {
         // Check for direct enum properties
         if (property.enum && Array.isArray(property.enum)) {
-          const enumSignature = JSON.stringify([...property.enum].sort());
-
-          if (!enumOccurrences.has(enumSignature)) {
-            enumOccurrences.set(enumSignature, []);
-          }
-          enumOccurrences.get(enumSignature)!.push({
+          const enumData = {
             entityName,
             propName,
             enumValues: property.enum,
-          });
+          };
+
+          // Special case: unify Notification and NotificationGroup type enums
+          if ((entityName === 'Notification' || entityName === 'NotificationGroup') && propName === 'type') {
+            notificationTypeEnums.push(enumData);
+            continue;
+          }
+
+          const enumSignature = JSON.stringify([...property.enum].sort());
+          if (!enumOccurrences.has(enumSignature)) {
+            enumOccurrences.set(enumSignature, []);
+          }
+          enumOccurrences.get(enumSignature)!.push(enumData);
         }
 
         // Check for array properties with enum items
@@ -259,6 +269,30 @@ class OpenAPIGenerator {
           });
         }
       }
+    }
+
+    // Handle special case: unify Notification and NotificationGroup type enums
+    if (notificationTypeEnums.length > 0) {
+      // Combine all enum values from both entities (union)
+      const allNotificationTypeValues = new Set<string>();
+      notificationTypeEnums.forEach(enumData => {
+        enumData.enumValues.forEach(value => allNotificationTypeValues.add(value));
+      });
+      const unifiedEnumValues = Array.from(allNotificationTypeValues).sort();
+
+      // Use NotificationTypeEnum as the shared component name
+      const sharedComponentName = 'NotificationTypeEnum';
+      const unifiedSignature = JSON.stringify(unifiedEnumValues);
+      
+      // Store the mapping for both entities
+      enumPatterns.set(unifiedSignature, sharedComponentName);
+      enumSignatureToOriginalValues.set(unifiedSignature, unifiedEnumValues);
+
+      // Create the unified enum component
+      spec.components.schemas[sharedComponentName] = {
+        type: 'string',
+        enum: unifiedEnumValues,
+      } as any;
     }
 
     // Second pass: create enum components based on first occurrence
@@ -461,7 +495,7 @@ class OpenAPIGenerator {
     if (!schema.properties) return;
 
     for (const [propName, property] of Object.entries(schema.properties)) {
-      this.replaceEnumsInProperty(property, enumPatterns);
+      this.replaceEnumsInProperty(property, enumPatterns, propName);
     }
   }
 
@@ -470,7 +504,8 @@ class OpenAPIGenerator {
    */
   private replaceEnumsInProperty(
     property: OpenAPIProperty,
-    enumPatterns: Map<string, string>
+    enumPatterns: Map<string, string>,
+    propName?: string
   ): void {
     // Handle array properties with enum items
     if (
@@ -492,8 +527,19 @@ class OpenAPIGenerator {
     }
     // Handle direct enum properties
     else if (property.enum && Array.isArray(property.enum)) {
-      const enumSignature = JSON.stringify([...property.enum].sort());
-      const componentName = enumPatterns.get(enumSignature);
+      let enumSignature = JSON.stringify([...property.enum].sort());
+      let componentName = enumPatterns.get(enumSignature);
+
+      // Special case: for notification type enums, always use the unified NotificationTypeEnum
+      if (propName === 'type' && !componentName) {
+        // Try to find the unified notification type enum by checking all signatures
+        for (const [signature, name] of enumPatterns) {
+          if (name === 'NotificationTypeEnum') {
+            componentName = name;
+            break;
+          }
+        }
+      }
 
       if (componentName) {
         // Replace with reference to shared component

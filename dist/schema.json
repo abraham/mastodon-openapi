@@ -38104,7 +38104,7 @@
               "string",
               "null"
             ],
-            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
           }
         },
         "externalDocs": {
@@ -38541,6 +38541,25 @@
           }
         ]
       },
+      "NotificationTypeEnum": {
+        "type": "string",
+        "enum": [
+          "admin.report",
+          "admin.sign_up",
+          "favourite",
+          "follow",
+          "follow_request",
+          "mention",
+          "moderation_warning",
+          "poll",
+          "quote",
+          "quoted_update",
+          "reblog",
+          "severed_relationships",
+          "status",
+          "update"
+        ]
+      },
       "AccountWarningActionEnum": {
         "type": "string",
         "enum": [
@@ -38636,25 +38655,6 @@
           "audio"
         ]
       },
-      "NotificationTypeEnum": {
-        "type": "string",
-        "enum": [
-          "mention",
-          "status",
-          "reblog",
-          "follow",
-          "follow_request",
-          "favourite",
-          "poll",
-          "update",
-          "admin.sign_up",
-          "admin.report",
-          "severed_relationships",
-          "moderation_warning",
-          "quote",
-          "quoted_update"
-        ]
-      },
       "PreferencesPostingDefaultVisibilityEnum": {
         "type": "string",
         "enum": [
@@ -38707,23 +38707,6 @@
           "domain_block",
           "user_domain_block",
           "account_suspension"
-        ]
-      },
-      "NotificationGroupTypeEnum": {
-        "type": "string",
-        "enum": [
-          "mention",
-          "status",
-          "reblog",
-          "follow",
-          "follow_request",
-          "favourite",
-          "poll",
-          "update",
-          "admin.sign_up",
-          "admin.report",
-          "severed_relationships",
-          "moderation_warning"
         ]
       },
       "GetApiV1NotificationsParamTypesEnum": {

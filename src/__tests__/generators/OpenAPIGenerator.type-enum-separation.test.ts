@@ -30,6 +30,10 @@ describe('OpenAPIGenerator type enum separation', () => {
               'reblog',
               'status',
               'update',
+              'severed_relationships',
+              'moderation_warning',
+              'quote',
+              'quoted_update',
             ],
           },
         ],
@@ -54,6 +58,10 @@ describe('OpenAPIGenerator type enum separation', () => {
               'reblog',
               'status',
               'update',
+              'severed_relationships',
+              'moderation_warning',
+              'quote',
+              'quoted_update',
             ],
           },
         ],
@@ -94,6 +102,9 @@ describe('OpenAPIGenerator type enum separation', () => {
     // Should create separate shared components for each type enum
     expect(schema.components?.schemas?.NotificationTypeEnum).toBeDefined();
     expect(schema.components?.schemas?.PreviewCardTypeEnum).toBeDefined();
+    
+    // NotificationGroupTypeEnum should not exist (both entities should share NotificationTypeEnum)
+    expect(schema.components?.schemas?.NotificationGroupTypeEnum).toBeUndefined();
 
     // Check NotificationTypeEnum
     const notificationTypeEnum = schema.components!.schemas!
@@ -102,6 +113,11 @@ describe('OpenAPIGenerator type enum separation', () => {
     expect(notificationTypeEnum.enum).toContain('favourite');
     expect(notificationTypeEnum.enum).toContain('follow');
     expect(notificationTypeEnum.enum).toContain('admin.report');
+    expect(notificationTypeEnum.enum).toContain('quote');
+    expect(notificationTypeEnum.enum).toContain('quoted_update');
+    expect(notificationTypeEnum.enum).toContain('severed_relationships');
+    expect(notificationTypeEnum.enum).toContain('moderation_warning');
+    expect(notificationTypeEnum.enum).toHaveLength(14);
 
     // Check PreviewCardTypeEnum
     const previewCardTypeEnum = schema.components!.schemas!
