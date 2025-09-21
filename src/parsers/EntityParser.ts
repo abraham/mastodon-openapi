@@ -46,11 +46,29 @@ class EntityParser {
 
     // Parse entities from method files
     if (fs.existsSync(this.methodsPath)) {
+      // Load blocked files from config
+      let blockedFiles: string[] = [];
+      try {
+        const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
+        blockedFiles = config.blockedFiles || [];
+      } catch (error) {
+        console.warn('Could not load blockedFiles from config.json:', error);
+      }
+
       const methodFiles = fs
         .readdirSync(this.methodsPath)
         .filter((file) => file.endsWith('.md'));
 
       for (const file of methodFiles) {
+        // Check if file is blocked
+        const relativePath = `methods/${file}`;
+        if (blockedFiles.includes(relativePath)) {
+          console.log(
+            `Skipping blocked file for entity parsing: ${relativePath}`
+          );
+          continue;
+        }
+
         try {
           const methodEntities = MethodEntityParser.parseEntitiesFromMethodFile(
             path.join(this.methodsPath, file)
