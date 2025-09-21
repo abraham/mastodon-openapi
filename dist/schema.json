@@ -20930,7 +20930,7 @@
                     "type": "string",
                     "description": "Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
                     "default": "other",
-                    "$ref": "#/components/schemas/AdminReportCategoryEnum"
+                    "$ref": "#/components/schemas/ReportCategoryEnum"
                   },
                   "comment": {
                     "type": "string",
@@ -32662,7 +32662,7 @@
           "category": {
             "description": "The category under which the report is classified.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminReportCategoryEnum"
+            "$ref": "#/components/schemas/ReportCategoryEnum"
           },
           "comment": {
             "description": "An optional reason for reporting.",
@@ -35177,7 +35177,7 @@
           "posting:default:visibility": {
             "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
             "type": "string",
-            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
+            "$ref": "#/components/schemas/StatusVisibilityEnum"
           },
           "reading:expand:media": {
             "description": "Whether media attachments should be automatically displayed or blurred/hidden.",
@@ -35252,7 +35252,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewCardTypeEnum"
+            "$ref": "#/components/schemas/TrendsLinkTypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -35384,7 +35384,7 @@
           "type": {
             "description": "The type of the preview card.",
             "type": "string",
-            "$ref": "#/components/schemas/PreviewCardTypeEnum"
+            "$ref": "#/components/schemas/TrendsLinkTypeEnum"
           },
           "url": {
             "description": "Location of linked resource.",
@@ -35900,7 +35900,7 @@
           "category": {
             "description": "The generic reason for the report.",
             "type": "string",
-            "$ref": "#/components/schemas/AdminReportCategoryEnum"
+            "$ref": "#/components/schemas/ReportCategoryEnum"
           },
           "comment": {
             "description": "The reason for the report.",
@@ -36389,7 +36389,7 @@
           "visibility": {
             "description": "Visibility of this status.",
             "type": "string",
-            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
+            "$ref": "#/components/schemas/StatusVisibilityEnum"
           },
           "application": {
             "description": "The application used to post this status.",
@@ -38441,7 +38441,7 @@
           "visibility": {
             "type": "string",
             "description": "Sets the visibility of the posted status to `public`, `unlisted`, `private`, `direct`.",
-            "$ref": "#/components/schemas/PreferencesPostingDefaultVisibilityEnum"
+            "$ref": "#/components/schemas/StatusVisibilityEnum"
           }
         }
       },
@@ -38572,7 +38572,7 @@
           "no_access"
         ]
       },
-      "AdminReportCategoryEnum": {
+      "ReportCategoryEnum": {
         "type": "string",
         "enum": [
           "spam",
@@ -38651,7 +38651,7 @@
           "quoted_update"
         ]
       },
-      "PreferencesPostingDefaultVisibilityEnum": {
+      "StatusVisibilityEnum": {
         "type": "string",
         "enum": [
           "public",
@@ -38668,7 +38668,7 @@
           "hide_all"
         ]
       },
-      "PreviewCardTypeEnum": {
+      "TrendsLinkTypeEnum": {
         "type": "string",
         "enum": [
           "link",

@@ -203,6 +203,45 @@ class OpenAPIGenerator {
   }
 
   /**
+   * Select the best occurrence from multiple entities sharing the same enum
+   * Prioritizes shorter entity names and more canonical entity names
+   */
+  private selectBestEnumOccurrence(
+    occurrences: { entityName: string; propName: string; enumValues: any[] }[]
+  ): { entityName: string; propName: string; enumValues: any[] } {
+    if (occurrences.length === 1) {
+      return occurrences[0];
+    }
+
+    // Priority rules:
+    // 1. Prefer certain canonical entities like "Status" over others
+    // 2. Prefer shorter entity names (more likely to be canonical)
+    // 3. As fallback, use alphabetical order
+
+    const canonicalEntities = ['Status', 'Account', 'Notification', 'User'];
+    
+    // First, try to find a canonical entity
+    for (const canonicalEntity of canonicalEntities) {
+      const match = occurrences.find(occ => occ.entityName === canonicalEntity);
+      if (match) {
+        return match;
+      }
+    }
+
+    // Then, prefer shorter entity names
+    occurrences.sort((a, b) => {
+      const lengthDiff = a.entityName.length - b.entityName.length;
+      if (lengthDiff !== 0) {
+        return lengthDiff;
+      }
+      // If same length, use alphabetical order
+      return a.entityName.localeCompare(b.entityName);
+    });
+
+    return occurrences[0];
+  }
+
+  /**
    * Extract ALL entity enums into their own components
    */
   private extractEntityEnumsToComponents(
@@ -263,29 +302,29 @@ class OpenAPIGenerator {
       }
     }
 
-    // Second pass: create enum components based on first occurrence
+    // Second pass: create enum components based on best occurrence
     for (const [enumSignature, occurrences] of enumOccurrences) {
       if (occurrences.length === 0) continue;
 
-      // Use the first occurrence to determine the component name
-      const firstOccurrence = occurrences[0];
+      // Choose the best occurrence to determine the component name
+      const bestOccurrence = this.selectBestEnumOccurrence(occurrences);
       const componentName = this.generateEntityEnumComponentName(
-        firstOccurrence.entityName,
-        firstOccurrence.propName,
-        firstOccurrence.enumValues
+        bestOccurrence.entityName,
+        bestOccurrence.propName,
+        bestOccurrence.enumValues
       );
 
       // Store the mapping and original values
       enumPatterns.set(enumSignature, componentName);
       enumSignatureToOriginalValues.set(
         enumSignature,
-        firstOccurrence.enumValues
+        bestOccurrence.enumValues
       );
 
       // Create the enum component
       spec.components.schemas[componentName] = {
         type: 'string',
-        enum: firstOccurrence.enumValues,
+        enum: bestOccurrence.enumValues,
       } as any;
     }
   }
