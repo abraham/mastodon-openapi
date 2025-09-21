@@ -36,10 +36,29 @@ describe('Integration: source[privacy] enum support', () => {
     expect(sourceProperty.type).toBe('object');
     expect(sourceProperty.properties).toBeDefined();
 
-    // Check that privacy property has the correct enum values
+    // Check that privacy property now references a shared enum component
     const privacyProperty = sourceProperty.properties.privacy;
     expect(privacyProperty).toBeDefined();
     expect(privacyProperty.type).toBe('string');
-    expect(privacyProperty.enum).toEqual(['public', 'unlisted', 'private']);
+
+    // CHANGED: Now privacy enum should be extracted to a schema reference
+    expect(privacyProperty.$ref).toBeDefined();
+    expect(privacyProperty.$ref).toMatch(/^#\/components\/schemas\/.+Enum$/);
+
+    // Verify the referenced enum component exists
+    const refMatch = privacyProperty.$ref.match(
+      /^#\/components\/schemas\/(.+)$/
+    );
+    expect(refMatch).toBeTruthy();
+
+    const enumComponentName = refMatch![1];
+    expect(schema.components?.schemas?.[enumComponentName]).toBeDefined();
+
+    const enumComponent = schema.components!.schemas![enumComponentName] as any;
+    expect(enumComponent.type).toBe('string');
+    expect(enumComponent.enum).toBeDefined();
+    expect(enumComponent.enum).toContain('public');
+    expect(enumComponent.enum).toContain('unlisted');
+    expect(enumComponent.enum).toContain('private');
   });
 });

@@ -312,6 +312,18 @@ class EntityConverter {
           property.$ref = `#/components/schemas/${componentName}`;
         }
       }
+      // Handle nested object properties
+      else if (
+        property.type === 'object' &&
+        property.properties &&
+        typeof property.properties === 'object'
+      ) {
+        // Recursively process nested properties
+        const nestedSchema: OpenAPISchema = {
+          properties: property.properties,
+        };
+        this.replaceEnumsWithReferences(nestedSchema, enumPatterns);
+      }
     }
   }
 
