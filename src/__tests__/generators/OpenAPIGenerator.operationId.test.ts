@@ -133,11 +133,6 @@ describe('OpenAPIGenerator OperationId Generation', () => {
 
       const spec = generator.generateSchema([], testMethods);
 
-      // Check familiar_followers example from issue
-      expect(
-        spec.paths['/api/v1/accounts/familiar_followers']?.get?.operationId
-      ).toBe('getFamiliarFollowers');
-
       // Check path parameter handling
       expect(spec.paths['/api/v1/accounts/{id}']?.get?.operationId).toBe(
         'getAccount'

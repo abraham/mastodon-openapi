@@ -3577,7 +3577,7 @@
     },
     "/api/v1/accounts/familiar_followers": {
       "get": {
-        "operationId": "getFamiliarFollowers",
+        "operationId": "getAccountsFamiliarFollowers",
         "summary": "Find familiar followers",
         "description": "Obtain a list of all accounts that follow a given account, filtered for accounts you follow.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
