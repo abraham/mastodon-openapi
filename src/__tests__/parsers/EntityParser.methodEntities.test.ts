@@ -55,6 +55,42 @@ describe('EntityParser - Method Entity Extraction', () => {
       expect(notificationGroup.attributes.some((a) => a.name === 'type')).toBe(
         true
       );
+
+      // Check that type attribute has enum values including quote and quoted_update
+      const typeAttribute = notificationGroup.attributes.find(
+        (a) => a.name === 'type'
+      );
+      expect(typeAttribute).toBeDefined();
+      if (typeAttribute) {
+        expect(typeAttribute.enumValues).toBeDefined();
+        expect(typeAttribute.enumValues).toContain('quote');
+        expect(typeAttribute.enumValues).toContain('quoted_update');
+        expect(typeAttribute.enumValues).toContain('mention');
+        expect(typeAttribute.enumValues).toContain('favourite');
+        // Should have all 14 values
+        expect(typeAttribute.enumValues?.length).toBe(14);
+      }
     }
+  });
+
+  test('should skip blocked method files for entity parsing', () => {
+    const entities = parser.parseAllEntities();
+
+    // Find all NotificationGroup entities
+    const notificationGroups = entities.filter(
+      (e) => e.name === 'NotificationGroup'
+    );
+
+    // Should only have one NotificationGroup entity (from grouped_notifications.md, not notifications_alpha.md)
+    expect(notificationGroups).toHaveLength(1);
+
+    // The single NotificationGroup should have complete enum values
+    const notificationGroup = notificationGroups[0];
+    const typeAttribute = notificationGroup.attributes.find(
+      (a) => a.name === 'type'
+    );
+    expect(typeAttribute?.enumValues).toContain('quote');
+    expect(typeAttribute?.enumValues).toContain('quoted_update');
+    expect(typeAttribute?.enumValues?.length).toBe(14);
   });
 });
