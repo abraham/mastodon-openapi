@@ -117,11 +117,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // REMOVED: Special case for Rule#translations - now handled by automatic versioning logic
-        // if (entityName === 'Rule' && heading.name === 'translations') {
-        //   attribute.nullable = true;
-        // }
-
         // Special case: Relationship#languages should be nullable
         if (entityName === 'Relationship' && heading.name === 'languages') {
           attribute.nullable = true;
