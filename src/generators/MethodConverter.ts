@@ -723,11 +723,6 @@ class MethodConverter {
       if (segments.length >= 2 && lastSegment.includes('_')) {
         const action = this.utilityHelpers.toPascalCase(lastSegment);
 
-        // Special case for familiar_followers since it's unique and the issue specifically requested it
-        if (lastSegment === 'familiar_followers') {
-          return semanticMethod + action;
-        }
-
         // Always include context for other actions to avoid conflicts
         const context = segments
           .slice(0, -1)
