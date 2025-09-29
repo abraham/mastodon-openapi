@@ -37,6 +37,9 @@ jobs:
       - name: Generate new schema
         run: npm run generate
 
+      - name: Format
+        run: npm run format
+
       - name: Check for changes
         id: check-changes
         run: |
