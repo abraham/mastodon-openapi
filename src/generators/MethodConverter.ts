@@ -153,7 +153,14 @@ class MethodConverter {
     const responses: Record<string, any> = {};
     const responseHeaders = this.generateResponseHeaders(method);
 
-    for (const responseCode of this.responseCodes) {
+    // Merge method-specific response codes with global codes
+    // Method-specific codes take precedence if there's a conflict
+    const responseCodesToUse = this.mergeResponseCodes(
+      this.responseCodes,
+      method.responseCodes
+    );
+
+    for (const responseCode of responseCodesToUse) {
       const isSuccessResponse = responseCode.code.startsWith('2');
       // First try to get method-specific example, then fall back to common error example
       let responseExample = method.responseExamples?.[responseCode.code];
@@ -484,6 +491,52 @@ class MethodConverter {
     }
 
     spec.paths[path][httpMethod] = operation;
+  }
+
+  /**
+   * Merge global response codes with method-specific codes
+   * Method-specific codes take precedence if there's a conflict
+   */
+  private mergeResponseCodes(
+    globalCodes: Array<{ code: string; description: string }>,
+    methodCodes?: Array<{ code: string; description: string }>
+  ): Array<{ code: string; description: string }> {
+    if (!methodCodes || methodCodes.length === 0) {
+      return globalCodes;
+    }
+
+    // Create a map from code to description for method-specific codes
+    const methodCodesMap = new Map<string, string>();
+    for (const methodCode of methodCodes) {
+      methodCodesMap.set(methodCode.code, methodCode.description);
+    }
+
+    // Start with global codes
+    const mergedCodes: Array<{ code: string; description: string }> = [];
+    const addedCodes = new Set<string>();
+
+    // Add global codes, but replace with method-specific if available
+    for (const globalCode of globalCodes) {
+      const methodDescription = methodCodesMap.get(globalCode.code);
+      if (methodDescription) {
+        mergedCodes.push({
+          code: globalCode.code,
+          description: methodDescription,
+        });
+      } else {
+        mergedCodes.push(globalCode);
+      }
+      addedCodes.add(globalCode.code);
+    }
+
+    // Add any method-specific codes that weren't in global codes
+    for (const methodCode of methodCodes) {
+      if (!addedCodes.has(methodCode.code)) {
+        mergedCodes.push(methodCode);
+      }
+    }
+
+    return mergedCodes;
   }
 
   /**
