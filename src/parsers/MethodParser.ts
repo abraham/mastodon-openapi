@@ -259,9 +259,10 @@ class MethodParser {
       // Try to extract entity name from the beginning of the description text
       // Pattern: "EntityName was created" or "EntityName is being processed" etc.
       // Look for capitalized words at the start that could be entity names
+      // Allow alphanumeric characters including underscores in entity names
       let returnType: string | undefined;
       const entityMatch = descriptionText.match(
-        /^([A-Z][a-zA-Z]+)\s+(was|is|will be|has been)/
+        /^([A-Z][a-zA-Z0-9_]*)\s+(was|is|will be|has been|have been)/
       );
       if (entityMatch) {
         returnType = entityMatch[1];

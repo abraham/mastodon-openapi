@@ -523,7 +523,8 @@ class MethodConverter {
     }>
   ): Array<{ code: string; description: string; returnType?: string }> {
     if (!methodCodes || methodCodes.length === 0) {
-      return globalCodes;
+      // Map global codes to include returnType field for consistent structure
+      return globalCodes.map((code) => ({ ...code, returnType: undefined }));
     }
 
     // Create a map from code to method-specific code info
@@ -556,7 +557,8 @@ class MethodConverter {
           returnType: methodCodeInfo.returnType,
         });
       } else {
-        mergedCodes.push(globalCode);
+        // Add global code with explicit returnType: undefined for consistent structure
+        mergedCodes.push({ ...globalCode, returnType: undefined });
       }
       addedCodes.add(globalCode.code);
     }
