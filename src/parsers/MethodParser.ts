@@ -11,6 +11,11 @@ import { ExampleParser } from './ExampleParser';
 class MethodParser {
   private methodsPath: string;
 
+  // Pattern to extract entity names from response code descriptions
+  // Matches patterns like "EntityName was created", "EntityName is being processed", etc.
+  private static readonly ENTITY_EXTRACTION_PATTERN =
+    /^([A-Z][a-zA-Z0-9_]*)\s+(was|is|will be|has been|have been)/;
+
   constructor() {
     this.methodsPath = path.join(
       __dirname,
@@ -257,12 +262,9 @@ class MethodParser {
       const descriptionText = remainingSection.substring(0, endPos).trim();
 
       // Try to extract entity name from the beginning of the description text
-      // Pattern: "EntityName was created" or "EntityName is being processed" etc.
-      // Look for capitalized words at the start that could be entity names
-      // Allow alphanumeric characters including underscores in entity names
       let returnType: string | undefined;
       const entityMatch = descriptionText.match(
-        /^([A-Z][a-zA-Z0-9_]*)\s+(was|is|will be|has been|have been)/
+        MethodParser.ENTITY_EXTRACTION_PATTERN
       );
       if (entityMatch) {
         returnType = entityMatch[1];
