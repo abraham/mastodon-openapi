@@ -122,12 +122,16 @@ export class ResponseCodeParser {
   private static getDefaultResponseCodes(): ResponseCode[] {
     return [
       { code: '200', description: 'OK. Request was handled successfully.' },
-      ...this.ADDITIONAL_CODES,
+      { code: '202', description: 'Accepted' },
+      { code: '206', description: 'Partial Content' },
+      { code: '400', description: 'Bad Request' },
       { code: '401', description: 'Unauthorized' },
+      { code: '403', description: 'Forbidden' },
       { code: '404', description: 'Not Found' },
       { code: '410', description: 'Gone' },
       { code: '422', description: 'Unprocessable Content' },
       { code: '429', description: 'Too Many Requests' },
+      { code: '500', description: 'Internal Server Error' },
       { code: '503', description: 'Service Unavailable' },
     ];
   }
