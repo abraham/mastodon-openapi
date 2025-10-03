@@ -285,12 +285,6 @@ export class AttributeParser {
         attribute.nullable = true;
       }
 
-      // Special case: MediaAttachment#url should be nullable
-      // Note: this covers method entities that might reference MediaAttachment fields
-      if (name === 'url') {
-        attribute.nullable = true;
-      }
-
       // Check for enum values in the content between Type and Version history
       if (enumContent && enumContent.trim()) {
         const enumValues = EntityParsingUtils.extractEnumValues(enumContent);
