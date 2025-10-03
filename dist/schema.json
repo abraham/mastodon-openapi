@@ -96,7 +96,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -120,7 +120,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -213,7 +213,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -377,7 +377,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -401,7 +401,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -494,7 +494,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -614,7 +614,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -638,7 +638,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -731,7 +731,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -848,7 +848,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -872,7 +872,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -965,7 +965,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1089,7 +1089,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -1113,7 +1113,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1206,7 +1206,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1342,7 +1342,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -1372,7 +1372,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1465,7 +1465,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1613,7 +1613,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -1637,7 +1637,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1730,7 +1730,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1847,7 +1847,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -1871,7 +1871,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -1964,7 +1964,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2133,7 +2133,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -2163,7 +2163,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2256,7 +2256,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2420,7 +2420,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -2450,7 +2450,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2543,7 +2543,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2700,7 +2700,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -2724,7 +2724,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2817,7 +2817,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -2943,7 +2943,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -2967,7 +2967,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3060,7 +3060,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3184,7 +3184,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -3208,7 +3208,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3301,7 +3301,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3448,7 +3448,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -3472,7 +3472,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3565,7 +3565,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3706,7 +3706,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -3730,7 +3730,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3823,7 +3823,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -3948,7 +3948,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -3972,7 +3972,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4065,7 +4065,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4204,7 +4204,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -4234,7 +4234,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4327,7 +4327,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4533,7 +4533,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -4557,7 +4557,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4650,7 +4650,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4774,7 +4774,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -4798,7 +4798,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -4891,7 +4891,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5015,7 +5015,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -5039,7 +5039,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5132,7 +5132,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5256,7 +5256,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -5280,7 +5280,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5373,7 +5373,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5497,7 +5497,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -5521,7 +5521,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5614,7 +5614,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5742,7 +5742,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -5766,7 +5766,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5859,7 +5859,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -5986,7 +5986,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -6010,7 +6010,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6103,7 +6103,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6224,7 +6224,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -6248,7 +6248,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6341,7 +6341,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6481,7 +6481,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -6505,7 +6505,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6598,7 +6598,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6762,7 +6762,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -6786,7 +6786,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -6879,7 +6879,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7076,7 +7076,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -7100,7 +7100,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7193,7 +7193,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7310,7 +7310,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -7334,7 +7334,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7427,7 +7427,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7526,7 +7526,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -7550,7 +7550,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7643,7 +7643,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7755,7 +7755,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -7779,7 +7779,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7872,7 +7872,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -7991,7 +7991,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -8015,7 +8015,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8108,7 +8108,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8241,7 +8241,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -8265,7 +8265,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8358,7 +8358,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8504,7 +8504,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -8528,7 +8528,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8621,7 +8621,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8747,7 +8747,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -8777,7 +8777,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -8870,7 +8870,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9037,7 +9037,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -9067,7 +9067,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9160,7 +9160,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9327,7 +9327,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -9357,7 +9357,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9450,7 +9450,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9590,7 +9590,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -9614,7 +9614,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9707,7 +9707,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9831,7 +9831,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -9855,7 +9855,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -9948,7 +9948,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10075,7 +10075,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -10099,7 +10099,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10192,7 +10192,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10301,7 +10301,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -10325,7 +10325,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10418,7 +10418,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10577,7 +10577,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -10607,7 +10607,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10700,7 +10700,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10839,7 +10839,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -10863,7 +10863,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -10956,7 +10956,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11077,7 +11077,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -11101,7 +11101,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11194,7 +11194,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11317,7 +11317,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -11341,7 +11341,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11434,7 +11434,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11578,7 +11578,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -11608,7 +11608,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11701,7 +11701,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11859,7 +11859,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -11889,7 +11889,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -11982,7 +11982,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12137,7 +12137,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -12161,7 +12161,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12254,7 +12254,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12365,7 +12365,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -12389,7 +12389,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12482,7 +12482,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12604,7 +12604,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -12628,7 +12628,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12721,7 +12721,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12848,7 +12848,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -12872,7 +12872,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -12965,7 +12965,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13078,7 +13078,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -13102,7 +13102,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13195,7 +13195,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13307,7 +13307,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -13331,7 +13331,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13424,7 +13424,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13581,7 +13581,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -13605,7 +13605,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13698,7 +13698,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13821,7 +13821,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -13845,7 +13845,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -13938,7 +13938,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14091,7 +14091,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -14115,7 +14115,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14208,7 +14208,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14336,7 +14336,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -14360,7 +14360,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14453,7 +14453,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14564,7 +14564,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -14588,7 +14588,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14681,7 +14681,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14859,7 +14859,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -14883,7 +14883,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -14976,7 +14976,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15098,7 +15098,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15122,7 +15122,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15215,7 +15215,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15366,7 +15366,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15390,7 +15390,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15483,7 +15483,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15605,7 +15605,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15629,7 +15629,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15722,7 +15722,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15866,7 +15866,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15890,7 +15890,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -15983,7 +15983,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16105,7 +16105,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -16129,7 +16129,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16222,7 +16222,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16389,7 +16389,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -16413,7 +16413,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16506,7 +16506,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16630,7 +16630,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -16654,7 +16654,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16747,7 +16747,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16869,7 +16869,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -16893,7 +16893,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -16986,7 +16986,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17120,7 +17120,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -17144,7 +17144,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17237,7 +17237,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17361,7 +17361,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -17385,7 +17385,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17478,7 +17478,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17600,7 +17600,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -17624,7 +17624,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17717,7 +17717,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17856,7 +17856,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -17886,7 +17886,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -17979,7 +17979,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18123,7 +18123,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -18147,7 +18147,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18240,7 +18240,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18365,7 +18365,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -18389,7 +18389,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18482,7 +18482,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18622,7 +18622,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -18652,7 +18652,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18745,7 +18745,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -18885,7 +18885,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -18909,7 +18909,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19002,7 +19002,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19108,7 +19108,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -19132,7 +19132,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19225,7 +19225,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19422,7 +19422,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -19446,7 +19446,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19539,7 +19539,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19648,7 +19648,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -19672,7 +19672,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19765,7 +19765,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19876,7 +19876,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -19900,7 +19900,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -19993,7 +19993,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20097,7 +20097,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -20121,7 +20121,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20214,7 +20214,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20320,7 +20320,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -20344,7 +20344,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20437,7 +20437,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20546,7 +20546,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -20570,7 +20570,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20663,7 +20663,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20769,7 +20769,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -20793,7 +20793,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20886,7 +20886,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -20992,7 +20992,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -21016,7 +21016,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21109,7 +21109,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21214,7 +21214,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -21238,7 +21238,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21331,7 +21331,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21437,7 +21437,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -21461,7 +21461,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21554,7 +21554,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21663,7 +21663,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -21687,7 +21687,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21780,7 +21780,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -21891,7 +21891,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -21915,7 +21915,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22008,7 +22008,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22152,7 +22152,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -22176,7 +22176,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22269,7 +22269,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22391,7 +22391,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -22415,7 +22415,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22508,7 +22508,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22648,7 +22648,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -22672,7 +22672,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22765,7 +22765,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -22904,7 +22904,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -22934,7 +22934,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23027,7 +23027,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23174,7 +23174,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -23198,7 +23198,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23291,7 +23291,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23424,7 +23424,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -23448,7 +23448,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23541,7 +23541,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23688,7 +23688,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -23712,7 +23712,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23805,7 +23805,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -23930,7 +23930,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -23954,7 +23954,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24047,7 +24047,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24194,7 +24194,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -24218,7 +24218,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24311,7 +24311,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24460,7 +24460,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -24484,7 +24484,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24577,7 +24577,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24687,7 +24687,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -24711,7 +24711,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24804,7 +24804,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -24926,7 +24926,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -24950,7 +24950,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25043,7 +25043,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25225,7 +25225,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -25249,7 +25249,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25342,7 +25342,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25505,7 +25505,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -25535,7 +25535,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25628,7 +25628,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25787,7 +25787,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -25817,7 +25817,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -25910,7 +25910,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26105,7 +26105,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -26129,7 +26129,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26222,7 +26222,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26334,7 +26334,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -26358,7 +26358,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26451,7 +26451,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26563,7 +26563,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -26587,7 +26587,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26680,7 +26680,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26808,7 +26808,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -26838,7 +26838,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -26931,7 +26931,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27083,7 +27083,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -27107,7 +27107,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27200,7 +27200,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27312,7 +27312,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -27336,7 +27336,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27429,7 +27429,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27541,7 +27541,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -27565,7 +27565,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27658,7 +27658,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27770,7 +27770,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -27794,7 +27794,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27887,7 +27887,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -27988,7 +27988,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -28012,7 +28012,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28105,7 +28105,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28206,7 +28206,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -28230,7 +28230,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28323,7 +28323,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28424,7 +28424,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -28448,7 +28448,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28541,7 +28541,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28711,7 +28711,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -28741,7 +28741,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -28834,7 +28834,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29050,7 +29050,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -29074,7 +29074,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29167,7 +29167,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29294,7 +29294,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -29318,7 +29318,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29411,7 +29411,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29523,7 +29523,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -29547,7 +29547,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29640,7 +29640,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29764,7 +29764,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -29788,7 +29788,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29881,7 +29881,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -29982,7 +29982,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -30006,7 +30006,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30099,7 +30099,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30257,7 +30257,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -30281,7 +30281,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30374,7 +30374,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30555,7 +30555,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -30579,7 +30579,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30672,7 +30672,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30809,7 +30809,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -30833,7 +30833,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -30926,7 +30926,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31070,7 +31070,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -31094,7 +31094,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31187,7 +31187,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31300,7 +31300,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -31324,7 +31324,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31417,7 +31417,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31555,7 +31555,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -31579,7 +31579,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31672,7 +31672,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31796,7 +31796,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -31820,7 +31820,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -31913,7 +31913,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32048,7 +32048,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -32072,7 +32072,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32165,7 +32165,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32278,7 +32278,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -32302,7 +32302,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32395,7 +32395,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32613,7 +32613,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -32637,7 +32637,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32730,7 +32730,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32841,7 +32841,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -32865,7 +32865,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -32958,7 +32958,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33126,7 +33126,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -33150,7 +33150,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33243,7 +33243,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33356,7 +33356,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -33380,7 +33380,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33473,7 +33473,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33651,7 +33651,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -33681,7 +33681,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33774,7 +33774,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -33926,7 +33926,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -33950,7 +33950,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34043,7 +34043,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34165,7 +34165,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -34189,7 +34189,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34282,7 +34282,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34410,7 +34410,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -34434,7 +34434,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34527,7 +34527,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34658,7 +34658,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -34688,7 +34688,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -34781,7 +34781,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35137,7 +35137,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -35229,7 +35229,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35322,7 +35322,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35468,7 +35468,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -35492,7 +35492,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35585,7 +35585,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35712,7 +35712,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -35736,7 +35736,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35829,7 +35829,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -35951,7 +35951,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -35975,7 +35975,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36068,7 +36068,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36199,7 +36199,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -36223,7 +36223,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36316,7 +36316,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36648,7 +36648,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -36740,7 +36740,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36833,7 +36833,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -36957,7 +36957,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -36981,7 +36981,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37074,7 +37074,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37199,7 +37199,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -37223,7 +37223,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37316,7 +37316,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37576,7 +37576,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -37668,7 +37668,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37761,7 +37761,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -37900,7 +37900,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -37930,7 +37930,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38023,7 +38023,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38178,7 +38178,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -38202,7 +38202,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38295,7 +38295,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38419,7 +38419,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -38443,7 +38443,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38536,7 +38536,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38813,7 +38813,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -38905,7 +38905,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -38998,7 +38998,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -39258,7 +39258,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -39350,7 +39350,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -39443,7 +39443,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -39582,7 +39582,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -39612,7 +39612,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -39705,7 +39705,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -39993,7 +39993,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -40085,7 +40085,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -40178,7 +40178,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -40447,7 +40447,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -40539,7 +40539,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -40632,7 +40632,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -40790,7 +40790,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -40820,7 +40820,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -40913,7 +40913,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41065,7 +41065,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -41089,7 +41089,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41182,7 +41182,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41306,7 +41306,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -41330,7 +41330,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41423,7 +41423,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41700,7 +41700,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -41792,7 +41792,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -41885,7 +41885,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -42145,7 +42145,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -42237,7 +42237,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -42330,7 +42330,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -42590,7 +42590,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -42682,7 +42682,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -42775,7 +42775,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43035,7 +43035,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -43127,7 +43127,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43220,7 +43220,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43480,7 +43480,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -43572,7 +43572,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43665,7 +43665,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43780,7 +43780,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -43804,7 +43804,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -43897,7 +43897,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44001,7 +44001,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -44025,7 +44025,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44118,7 +44118,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44234,7 +44234,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -44258,7 +44258,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44351,7 +44351,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44464,7 +44464,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -44488,7 +44488,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44581,7 +44581,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44678,7 +44678,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -44702,7 +44702,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44795,7 +44795,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -44911,7 +44911,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -44935,7 +44935,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45028,7 +45028,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45143,7 +45143,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -45167,7 +45167,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45260,7 +45260,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45375,7 +45375,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -45399,7 +45399,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45492,7 +45492,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45607,7 +45607,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -45631,7 +45631,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45724,7 +45724,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45829,7 +45829,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -45853,7 +45853,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -45946,7 +45946,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46063,7 +46063,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -46087,7 +46087,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46180,7 +46180,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46294,7 +46294,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -46318,7 +46318,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46411,7 +46411,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46533,7 +46533,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -46557,7 +46557,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46650,7 +46650,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46775,7 +46775,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -46799,7 +46799,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -46892,7 +46892,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47016,7 +47016,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -47040,7 +47040,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47133,7 +47133,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47257,7 +47257,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -47281,7 +47281,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47374,7 +47374,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47496,7 +47496,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -47520,7 +47520,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47613,7 +47613,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47737,7 +47737,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -47761,7 +47761,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47854,7 +47854,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -47993,7 +47993,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -48023,7 +48023,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48116,7 +48116,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48284,7 +48284,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -48314,7 +48314,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48407,7 +48407,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48569,7 +48569,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -48599,7 +48599,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48692,7 +48692,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48869,7 +48869,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -48899,7 +48899,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -48992,7 +48992,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49168,7 +49168,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -49198,7 +49198,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49291,7 +49291,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49488,7 +49488,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -49518,7 +49518,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49611,7 +49611,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49841,7 +49841,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -49865,7 +49865,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -49958,7 +49958,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50088,7 +50088,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -50112,7 +50112,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50205,7 +50205,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50335,7 +50335,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -50359,7 +50359,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50452,7 +50452,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50579,7 +50579,7 @@
             }
           },
           "206": {
-            "description": "Partial Content",
+            "description": "Partial content",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -50603,7 +50603,7 @@
             }
           },
           "400": {
-            "description": "Bad Request",
+            "description": "Client error",
             "content": {
               "application/json": {
                 "schema": {
@@ -50696,7 +50696,7 @@
             }
           },
           "500": {
-            "description": "Internal Server Error",
+            "description": "Server error",
             "content": {
               "application/json": {
                 "schema": {

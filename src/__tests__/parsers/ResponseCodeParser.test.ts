@@ -28,19 +28,23 @@ describe('ResponseCodeParser', () => {
 
       const rateLimited = codes.find((c) => c.code === '429');
       expect(rateLimited).toBeDefined();
+    });
 
-      // Should include additional response codes used in method docs
+    it('should parse response codes from method documentation files', () => {
+      const codes = ResponseCodeParser.parseResponseCodes();
+
+      // Should include codes that are only in method files, not in intro.md
       const accepted = codes.find((c) => c.code === '202');
       expect(accepted).toBeDefined();
       expect(accepted?.description).toBe('Accepted');
 
       const partialContent = codes.find((c) => c.code === '206');
       expect(partialContent).toBeDefined();
-      expect(partialContent?.description).toBe('Partial Content');
+      expect(partialContent?.description).toBe('Partial content');
 
       const badRequest = codes.find((c) => c.code === '400');
       expect(badRequest).toBeDefined();
-      expect(badRequest?.description).toBe('Bad Request');
+      expect(badRequest?.description).toBe('Client error');
 
       const forbidden = codes.find((c) => c.code === '403');
       expect(forbidden).toBeDefined();
@@ -48,7 +52,7 @@ describe('ResponseCodeParser', () => {
 
       const serverError = codes.find((c) => c.code === '500');
       expect(serverError).toBeDefined();
-      expect(serverError?.description).toBe('Internal Server Error');
+      expect(serverError?.description).toBe('Server error');
     });
 
     it('should return default codes if file cannot be parsed', () => {

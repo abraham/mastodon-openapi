@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync, readdirSync, statSync } from 'fs';
 import { join } from 'path';
 
 /**
@@ -10,25 +10,108 @@ export interface ResponseCode {
 }
 
 /**
- * Parser for extracting HTTP response codes from the intro.md file
+ * Parser for extracting HTTP response codes from the intro.md file and method documentation
  */
 export class ResponseCodeParser {
   private static readonly INTRO_FILE_PATH =
     'mastodon-documentation/content/en/client/intro.md';
+  private static readonly METHODS_PATH =
+    'mastodon-documentation/content/en/methods';
 
   /**
-   * Additional response codes not mentioned in intro.md but used in method docs
+   * Parse HTTP response codes from method documentation files
+   * Returns codes found in method files with format: ##### <code>: <description>
    */
-  private static readonly ADDITIONAL_CODES: ResponseCode[] = [
-    { code: '202', description: 'Accepted' },
-    { code: '206', description: 'Partial Content' },
-    { code: '400', description: 'Bad Request' },
-    { code: '403', description: 'Forbidden' },
-    { code: '500', description: 'Internal Server Error' },
-  ];
+  private static parseMethodResponseCodes(): ResponseCode[] {
+    const codes: ResponseCode[] = [];
+    const methodsPath = join(process.cwd(), this.METHODS_PATH);
+
+    try {
+      const files = readdirSync(methodsPath);
+
+      for (const file of files) {
+        if (!file.endsWith('.md')) {
+          continue;
+        }
+
+        const filePath = join(methodsPath, file);
+        const stat = statSync(filePath);
+
+        if (!stat.isFile()) {
+          continue;
+        }
+
+        try {
+          const content = readFileSync(filePath, 'utf-8');
+          // Match response code headers in format: ##### 202: Accepted
+          const responseMatches = content.matchAll(
+            /^##### (\d{3}):\s*(.+?)$/gm
+          );
+
+          for (const match of responseMatches) {
+            const code = match[1];
+            const description = match[2].trim();
+
+            // Check if we already have this code
+            const existingCode = codes.find((c) => c.code === code);
+            if (!existingCode) {
+              codes.push({ code, description });
+            }
+          }
+        } catch (fileError) {
+          // Skip files that can't be read
+          continue;
+        }
+      }
+
+      // Also check admin subdirectory
+      const adminPath = join(methodsPath, 'admin');
+      try {
+        const adminFiles = readdirSync(adminPath);
+
+        for (const file of adminFiles) {
+          if (!file.endsWith('.md')) {
+            continue;
+          }
+
+          const filePath = join(adminPath, file);
+          const stat = statSync(filePath);
+
+          if (!stat.isFile()) {
+            continue;
+          }
+
+          try {
+            const content = readFileSync(filePath, 'utf-8');
+            const responseMatches = content.matchAll(
+              /^##### (\d{3}):\s*(.+?)$/gm
+            );
+
+            for (const match of responseMatches) {
+              const code = match[1];
+              const description = match[2].trim();
+
+              const existingCode = codes.find((c) => c.code === code);
+              if (!existingCode) {
+                codes.push({ code, description });
+              }
+            }
+          } catch (fileError) {
+            continue;
+          }
+        }
+      } catch (adminError) {
+        // Admin directory may not exist
+      }
+    } catch (error) {
+      console.warn('Could not parse method response codes:', error);
+    }
+
+    return codes;
+  }
 
   /**
-   * Parse HTTP response codes from the intro.md file
+   * Parse HTTP response codes from the intro.md file and method documentation
    * Returns default codes if file cannot be read or parsed
    */
   public static parseResponseCodes(): ResponseCode[] {
@@ -91,12 +174,14 @@ export class ResponseCodeParser {
         });
       }
 
-      // Add additional response codes not mentioned in intro.md but used in method docs
-      // Use a Set for O(1) lookup performance
+      // Parse additional response codes from method documentation files
+      const methodCodes = this.parseMethodResponseCodes();
       const existingCodes = new Set(codes.map((code) => code.code));
-      for (const additionalCode of this.ADDITIONAL_CODES) {
-        if (!existingCodes.has(additionalCode.code)) {
-          codes.push(additionalCode);
+
+      for (const methodCode of methodCodes) {
+        if (!existingCodes.has(methodCode.code)) {
+          codes.push(methodCode);
+          existingCodes.add(methodCode.code);
         }
       }
 
