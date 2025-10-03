@@ -7,6 +7,7 @@ import { join } from 'path';
 export interface ResponseCode {
   code: string;
   description: string;
+  returnType?: string;
 }
 
 /**

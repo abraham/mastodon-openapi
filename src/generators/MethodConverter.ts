@@ -219,12 +219,29 @@ class MethodConverter {
           headers: responseHeaders,
         };
 
-        // Add example if available
-        if (responseExample) {
+        // Parse schema from returnType if specified
+        let schema = null;
+        if (responseCode.returnType) {
+          // Wrap in brackets to match the format expected by parseResponseSchema
+          schema = this.typeParser.parseResponseSchema(
+            `[${responseCode.returnType}]`,
+            spec,
+            undefined,
+            method.name
+          );
+        }
+
+        // Add content with schema and/or example if available
+        if (schema || responseExample) {
+          const content: any = {};
+          if (schema) {
+            content.schema = schema;
+          }
+          if (responseExample) {
+            content.example = responseExample;
+          }
           response.content = {
-            'application/json': {
-              example: responseExample,
-            },
+            'application/json': content,
           };
         }
 
@@ -499,32 +516,49 @@ class MethodConverter {
    */
   private mergeResponseCodes(
     globalCodes: Array<{ code: string; description: string }>,
-    methodCodes?: Array<{ code: string; description: string }>
-  ): Array<{ code: string; description: string }> {
+    methodCodes?: Array<{
+      code: string;
+      description: string;
+      returnType?: string;
+    }>
+  ): Array<{ code: string; description: string; returnType?: string }> {
     if (!methodCodes || methodCodes.length === 0) {
-      return globalCodes;
+      // Map global codes to include returnType field for consistent structure
+      return globalCodes.map((code) => ({ ...code, returnType: undefined }));
     }
 
-    // Create a map from code to description for method-specific codes
-    const methodCodesMap = new Map<string, string>();
+    // Create a map from code to method-specific code info
+    const methodCodesMap = new Map<
+      string,
+      { description: string; returnType?: string }
+    >();
     for (const methodCode of methodCodes) {
-      methodCodesMap.set(methodCode.code, methodCode.description);
+      methodCodesMap.set(methodCode.code, {
+        description: methodCode.description,
+        returnType: methodCode.returnType,
+      });
     }
 
     // Start with global codes
-    const mergedCodes: Array<{ code: string; description: string }> = [];
+    const mergedCodes: Array<{
+      code: string;
+      description: string;
+      returnType?: string;
+    }> = [];
     const addedCodes = new Set<string>();
 
     // Add global codes, but replace with method-specific if available
     for (const globalCode of globalCodes) {
-      const methodDescription = methodCodesMap.get(globalCode.code);
-      if (methodDescription) {
+      const methodCodeInfo = methodCodesMap.get(globalCode.code);
+      if (methodCodeInfo) {
         mergedCodes.push({
           code: globalCode.code,
-          description: methodDescription,
+          description: methodCodeInfo.description,
+          returnType: methodCodeInfo.returnType,
         });
       } else {
-        mergedCodes.push(globalCode);
+        // Add global code with explicit returnType: undefined for consistent structure
+        mergedCodes.push({ ...globalCode, returnType: undefined });
       }
       addedCodes.add(globalCode.code);
     }
