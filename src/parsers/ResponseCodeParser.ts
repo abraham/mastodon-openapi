@@ -80,6 +80,22 @@ export class ResponseCodeParser {
         });
       }
 
+      // Add additional response codes not mentioned in intro.md but used in method docs
+      const additionalCodes = [
+        { code: '202', description: 'Accepted' },
+        { code: '206', description: 'Partial Content' },
+        { code: '400', description: 'Bad Request' },
+        { code: '403', description: 'Forbidden' },
+        { code: '500', description: 'Internal Server Error' },
+      ];
+
+      for (const additionalCode of additionalCodes) {
+        const exists = codes.some((code) => code.code === additionalCode.code);
+        if (!exists) {
+          codes.push(additionalCode);
+        }
+      }
+
       // Fix incorrect 422 description from documentation
       const code422 = codes.find((code) => code.code === '422');
       if (code422 && code422.description === 'Unprocessed') {
@@ -102,11 +118,16 @@ export class ResponseCodeParser {
   private static getDefaultResponseCodes(): ResponseCode[] {
     return [
       { code: '200', description: 'OK. Request was handled successfully.' },
+      { code: '202', description: 'Accepted' },
+      { code: '206', description: 'Partial Content' },
+      { code: '400', description: 'Bad Request' },
       { code: '401', description: 'Unauthorized' },
+      { code: '403', description: 'Forbidden' },
       { code: '404', description: 'Not Found' },
       { code: '410', description: 'Gone' },
       { code: '422', description: 'Unprocessable Content' },
       { code: '429', description: 'Too Many Requests' },
+      { code: '500', description: 'Internal Server Error' },
       { code: '503', description: 'Service Unavailable' },
     ];
   }

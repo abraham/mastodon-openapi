@@ -28,6 +28,27 @@ describe('ResponseCodeParser', () => {
 
       const rateLimited = codes.find((c) => c.code === '429');
       expect(rateLimited).toBeDefined();
+
+      // Should include additional response codes used in method docs
+      const accepted = codes.find((c) => c.code === '202');
+      expect(accepted).toBeDefined();
+      expect(accepted?.description).toBe('Accepted');
+
+      const partialContent = codes.find((c) => c.code === '206');
+      expect(partialContent).toBeDefined();
+      expect(partialContent?.description).toBe('Partial Content');
+
+      const badRequest = codes.find((c) => c.code === '400');
+      expect(badRequest).toBeDefined();
+      expect(badRequest?.description).toBe('Bad Request');
+
+      const forbidden = codes.find((c) => c.code === '403');
+      expect(forbidden).toBeDefined();
+      expect(forbidden?.description).toBe('Forbidden');
+
+      const serverError = codes.find((c) => c.code === '500');
+      expect(serverError).toBeDefined();
+      expect(serverError?.description).toBe('Internal Server Error');
     });
 
     it('should return default codes if file cannot be parsed', () => {
@@ -45,6 +66,31 @@ describe('ResponseCodeParser', () => {
 
       const codes5xx = codes.filter((c) => c.code.startsWith('5'));
       expect(codes5xx.length).toBeGreaterThan(0);
+    });
+
+    it('should include all expected response codes', () => {
+      const codes = ResponseCodeParser.parseResponseCodes();
+      const codeMappings = codes.map((c) => c.code);
+
+      // Verify all expected codes are present
+      const expectedCodes = [
+        '200',
+        '202',
+        '206',
+        '400',
+        '401',
+        '403',
+        '404',
+        '410',
+        '422',
+        '429',
+        '500',
+        '503',
+      ];
+
+      for (const expectedCode of expectedCodes) {
+        expect(codeMappings).toContain(expectedCode);
+      }
     });
   });
 });
