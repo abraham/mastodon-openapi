@@ -199,6 +199,9 @@ class MethodParser {
     // Parse response examples from the section
     const responseExamples = ExampleParser.parseMethodResponseExamples(section);
 
+    // Parse response codes from the section
+    const responseCodes = this.parseMethodResponseCodes(section);
+
     return {
       name: cleanedName,
       httpMethod,
@@ -217,8 +220,31 @@ class MethodParser {
       isStreaming: isStreaming || undefined,
       responseExamples:
         Object.keys(responseExamples).length > 0 ? responseExamples : undefined,
+      responseCodes: responseCodes.length > 0 ? responseCodes : undefined,
       anchor,
     };
+  }
+
+  /**
+   * Parse response codes from method section
+   * Looks for patterns like "##### 200: OK" or "##### 202: Accepted"
+   */
+  private parseMethodResponseCodes(
+    section: string
+  ): Array<{ code: string; description: string }> {
+    const responseCodes: Array<{ code: string; description: string }> = [];
+
+    // Match response headers: ##### 200: OK or ##### 202: Accepted
+    const responseHeaderPattern = /^##### (\d{3}):\s*(.+)$/gm;
+    let match;
+
+    while ((match = responseHeaderPattern.exec(section)) !== null) {
+      const code = match[1];
+      const description = match[2].trim();
+      responseCodes.push({ code, description });
+    }
+
+    return responseCodes;
   }
 
   /**
