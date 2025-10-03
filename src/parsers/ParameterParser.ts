@@ -549,9 +549,8 @@ export class ParameterParser {
         const propType =
           prop.inferredType ||
           TypeInference.inferTypeFromDescription(prop.description);
-        const enumValues = TypeInference.extractEnumValuesFromDescription(
-          prop.description
-        );
+        // Use pre-extracted enum values instead of re-extracting from stripped description
+        const enumValues = prop.enumValues || [];
 
         if (prop.isArray) {
           allProperties[prop.property] = {

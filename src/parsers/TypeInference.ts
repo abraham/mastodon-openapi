@@ -60,10 +60,10 @@ export class TypeInference {
         /(?:set|choose|select)(?:\s+(?:to|from|between))?\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
         /can\s+be\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
         /(?:include|includes)\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi,
-        // Pattern for "One of" with backticks
-        /one\s+of\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
+        // Pattern for "One of" or "oneOf" with backticks
+        /one\s*of\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*(?:\s*,?\s*or\s+`[^`]+`)?)/gi,
         // Pattern for "One of X, Y, or Z" without backticks
-        /one\s+of\s+([a-z_,\s]+?)(?=\.|\s+defaults|\s+$)/gi,
+        /one\s*of\s+([a-z_,\s]+?)(?=\.|\s+defaults|\s+$)/gi,
       ];
 
       for (const pattern of patterns) {
@@ -88,8 +88,8 @@ export class TypeInference {
               }
             }
           }
-          // Handle "One of" pattern - both with and without backticks
-          else if (pattern.source.includes('one\\s+of')) {
+          // Handle "One of" or "oneOf" pattern - both with and without backticks
+          else if (pattern.source.includes('one\\s*of')) {
             if (valuesList.includes('`')) {
               // Pattern with backticks - use original logic
               const values = valuesList.match(/`([^`]+)`/g);
