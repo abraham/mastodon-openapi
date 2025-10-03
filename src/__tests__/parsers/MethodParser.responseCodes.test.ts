@@ -29,12 +29,22 @@ describe('MethodParser - Response Codes', () => {
     expect(codes).toContain('422'); // Unprocessable entity
     expect(codes).toContain('500'); // Server error
 
+    // Verify 200 also has parsed returnType
+    const code200 = postV2MediaMethod?.responseCodes?.find(
+      (rc) => rc.code === '200'
+    );
+    expect(code200).toBeDefined();
+    expect(code200?.returnType).toBe('MediaAttachment');
+
     // Verify 202 has correct description
     const code202 = postV2MediaMethod?.responseCodes?.find(
       (rc) => rc.code === '202'
     );
     expect(code202).toBeDefined();
     expect(code202?.description).toBe('Accepted');
+
+    // Verify 202 has parsed returnType
+    expect(code202?.returnType).toBe('MediaAttachment');
   });
 
   it('should parse 206 Partial content from GET /api/v1/media/:id', () => {

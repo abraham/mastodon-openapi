@@ -194,4 +194,68 @@ describe('MethodConverter - Method-Specific Response Codes', () => {
       postOperation?.responses['202']?.headers?.['X-RateLimit-Limit']
     ).toBeDefined();
   });
+
+  it('should use returnType from response codes to generate schema for 2xx responses', () => {
+    // First add a MediaAttachment schema to components
+    const spec: OpenAPISpec = {
+      openapi: '3.0.0',
+      info: { title: 'Test API', version: '1.0.0' },
+      paths: {},
+      components: {
+        schemas: {
+          MediaAttachment: {
+            type: 'object',
+            properties: {
+              id: { type: 'string' },
+              type: { type: 'string' },
+              url: { type: 'string' },
+            },
+          },
+        },
+      },
+    };
+
+    const methodWith202WithReturnType: ApiMethod = {
+      name: 'Upload media',
+      httpMethod: 'POST',
+      endpoint: '/api/v2/media',
+      description: 'Upload media asynchronously',
+      returns: '[MediaAttachment]',
+      responseCodes: [
+        { code: '200', description: 'OK' },
+        { code: '202', description: 'Accepted', returnType: 'MediaAttachment' },
+        { code: '401', description: 'Unauthorized' },
+      ],
+    };
+
+    const methodFile: ApiMethodsFile = {
+      name: 'media',
+      description: 'Media methods',
+      methods: [methodWith202WithReturnType],
+    };
+
+    methodConverter.convertMethods([methodFile], spec);
+
+    const postOperation = spec.paths['/api/v2/media']?.post;
+    expect(postOperation).toBeDefined();
+
+    // Verify 202 response has content with schema reference to MediaAttachment
+    expect(postOperation?.responses['202']).toBeDefined();
+    expect(postOperation?.responses['202'].content).toBeDefined();
+    expect(
+      postOperation?.responses['202'].content?.['application/json']
+    ).toBeDefined();
+    expect(
+      postOperation?.responses['202'].content?.['application/json'].schema
+    ).toBeDefined();
+    expect(
+      postOperation?.responses['202'].content?.['application/json'].schema.$ref
+    ).toBe('#/components/schemas/MediaAttachment');
+
+    // Verify 200 response also has schema
+    expect(postOperation?.responses['200'].content).toBeDefined();
+    expect(
+      postOperation?.responses['200'].content?.['application/json'].schema.$ref
+    ).toBe('#/components/schemas/MediaAttachment');
+  });
 });

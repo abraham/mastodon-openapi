@@ -228,11 +228,16 @@ class MethodParser {
   /**
    * Parse response codes from method section
    * Looks for patterns like "##### 200: OK" or "##### 202: Accepted"
+   * Also extracts return types from the description text if an entity is mentioned
    */
   private parseMethodResponseCodes(
     section: string
-  ): Array<{ code: string; description: string }> {
-    const responseCodes: Array<{ code: string; description: string }> = [];
+  ): Array<{ code: string; description: string; returnType?: string }> {
+    const responseCodes: Array<{
+      code: string;
+      description: string;
+      returnType?: string;
+    }> = [];
 
     // Match response headers: ##### 200: OK or ##### 202: Accepted
     const responseHeaderPattern = /^##### (\d{3}):\s*(.+)$/gm;
@@ -241,7 +246,28 @@ class MethodParser {
     while ((match = responseHeaderPattern.exec(section)) !== null) {
       const code = match[1];
       const description = match[2].trim();
-      responseCodes.push({ code, description });
+
+      // Extract the text after the status code header until the next header or code block
+      const startPos = match.index + match[0].length;
+      const remainingSection = section.substring(startPos);
+      const nextHeaderMatch = remainingSection.match(/\n(#{2,5}|```)/);
+      const endPos = nextHeaderMatch
+        ? nextHeaderMatch.index
+        : remainingSection.length;
+      const descriptionText = remainingSection.substring(0, endPos).trim();
+
+      // Try to extract entity name from the beginning of the description text
+      // Pattern: "EntityName was created" or "EntityName is being processed" etc.
+      // Look for capitalized words at the start that could be entity names
+      let returnType: string | undefined;
+      const entityMatch = descriptionText.match(
+        /^([A-Z][a-zA-Z]+)\s+(was|is|will be|has been)/
+      );
+      if (entityMatch) {
+        returnType = entityMatch[1];
+      }
+
+      responseCodes.push({ code, description, returnType });
     }
 
     return responseCodes;

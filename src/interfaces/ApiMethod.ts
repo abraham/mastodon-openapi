@@ -20,7 +20,11 @@ interface ApiMethod {
   deprecated?: boolean;
   isStreaming?: boolean;
   responseExamples?: Record<string, any>; // Response examples by status code
-  responseCodes?: Array<{ code: string; description: string }>; // Method-specific response codes
+  responseCodes?: Array<{
+    code: string;
+    description: string;
+    returnType?: string;
+  }>; // Method-specific response codes
   anchor?: string; // Anchor extracted from documentation header
 }
 
