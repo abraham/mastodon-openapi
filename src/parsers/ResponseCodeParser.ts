@@ -17,6 +17,17 @@ export class ResponseCodeParser {
     'mastodon-documentation/content/en/client/intro.md';
 
   /**
+   * Additional response codes not mentioned in intro.md but used in method docs
+   */
+  private static readonly ADDITIONAL_CODES: ResponseCode[] = [
+    { code: '202', description: 'Accepted' },
+    { code: '206', description: 'Partial Content' },
+    { code: '400', description: 'Bad Request' },
+    { code: '403', description: 'Forbidden' },
+    { code: '500', description: 'Internal Server Error' },
+  ];
+
+  /**
    * Parse HTTP response codes from the intro.md file
    * Returns default codes if file cannot be read or parsed
    */
@@ -81,17 +92,10 @@ export class ResponseCodeParser {
       }
 
       // Add additional response codes not mentioned in intro.md but used in method docs
-      const additionalCodes = [
-        { code: '202', description: 'Accepted' },
-        { code: '206', description: 'Partial Content' },
-        { code: '400', description: 'Bad Request' },
-        { code: '403', description: 'Forbidden' },
-        { code: '500', description: 'Internal Server Error' },
-      ];
-
-      for (const additionalCode of additionalCodes) {
-        const exists = codes.some((code) => code.code === additionalCode.code);
-        if (!exists) {
+      // Use a Set for O(1) lookup performance
+      const existingCodes = new Set(codes.map((code) => code.code));
+      for (const additionalCode of this.ADDITIONAL_CODES) {
+        if (!existingCodes.has(additionalCode.code)) {
           codes.push(additionalCode);
         }
       }
@@ -118,16 +122,12 @@ export class ResponseCodeParser {
   private static getDefaultResponseCodes(): ResponseCode[] {
     return [
       { code: '200', description: 'OK. Request was handled successfully.' },
-      { code: '202', description: 'Accepted' },
-      { code: '206', description: 'Partial Content' },
-      { code: '400', description: 'Bad Request' },
+      ...this.ADDITIONAL_CODES,
       { code: '401', description: 'Unauthorized' },
-      { code: '403', description: 'Forbidden' },
       { code: '404', description: 'Not Found' },
       { code: '410', description: 'Gone' },
       { code: '422', description: 'Unprocessable Content' },
       { code: '429', description: 'Too Many Requests' },
-      { code: '500', description: 'Internal Server Error' },
       { code: '503', description: 'Service Unavailable' },
     ];
   }
