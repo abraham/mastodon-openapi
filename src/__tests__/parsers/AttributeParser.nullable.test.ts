@@ -711,5 +711,65 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].nullable).toBeUndefined();
       expect(attributes[0].type).toBe('Hash');
     });
+
+    it('should mark MediaAttachment#url as nullable (entity format)', () => {
+      const content = `
+### \`url\` {#url}
+
+**Description:** The location of the original full-size attachment.\\
+**Type:** String (URL)\\
+**Version history:**\\
+0.6.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'MediaAttachment'
+      );
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('url');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('String (URL)');
+    });
+
+    it('should mark url field as nullable in method entities', () => {
+      const content = `
+#### \`url\` {#url}
+
+**Description:** The location of the original full-size attachment.\\
+**Type:** String (URL)\\
+**Version history:**\\
+0.6.0 - added
+`;
+
+      const attributes = AttributeParser.parseMethodEntityAttributes(content);
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('url');
+      expect(attributes[0].nullable).toBe(true);
+      expect(attributes[0].type).toBe('String (URL)');
+    });
+
+    it('should NOT mark url as nullable when not in MediaAttachment entity', () => {
+      const content = `
+### \`url\` {#url}
+
+**Description:** Some other URL field.\\
+**Type:** String (URL)\\
+**Version history:**\\
+0.6.0 - added
+`;
+
+      const attributes = AttributeParser.parseAttributesFromSection(
+        content,
+        'SomeOtherEntity'
+      );
+
+      expect(attributes).toHaveLength(1);
+      expect(attributes[0].name).toBe('url');
+      expect(attributes[0].nullable).toBeUndefined();
+      expect(attributes[0].type).toBe('String (URL)');
+    });
   });
 });
