@@ -122,6 +122,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: MediaAttachment#url should be nullable
+        if (entityName === 'MediaAttachment' && heading.name === 'url') {
+          attribute.nullable = true;
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content

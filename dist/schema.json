@@ -34693,11 +34693,6 @@
             "type": "string",
             "$ref": "#/components/schemas/MediaAttachmentTypeEnum"
           },
-          "url": {
-            "description": "The location of the original full-size attachment.",
-            "type": "string",
-            "format": "uri"
-          },
           "blurhash": {
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
             "type": [
@@ -34757,12 +34752,19 @@
               "null"
             ],
             "format": "uri"
+          },
+          "url": {
+            "description": "The location of the original full-size attachment.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
           }
         },
         "required": [
           "id",
-          "type",
-          "url"
+          "type"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
