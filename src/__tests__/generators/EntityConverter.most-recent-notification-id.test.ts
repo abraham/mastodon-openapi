@@ -44,8 +44,7 @@ describe('EntityConverter - most_recent_notification_id type', () => {
 
     entityConverter.convertEntities(entities, spec);
 
-    const notificationGroupSchema =
-      spec.components?.schemas?.NotificationGroup;
+    const notificationGroupSchema = spec.components?.schemas?.NotificationGroup;
     expect(notificationGroupSchema).toBeDefined();
     if (!notificationGroupSchema) return;
 
