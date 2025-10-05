@@ -76,7 +76,9 @@ class EntityConverter {
       } else if (entity.name === 'GroupedNotificationsResults') {
         // Special case: notification_groups should be an array of NotificationGroup
         // The documentation incorrectly states it's a single NotificationGroup,
-        // but the actual API returns an array
+        // but the actual API returns an array (as shown in the JSON examples).
+        // This is a known documentation bug that needs to be corrected here.
+        // See: https://github.com/mastodon/documentation/blob/main/content/en/methods/grouped_notifications.md
         allAttributes = entity.attributes.map((attr) => {
           if (attr.name === 'notification_groups') {
             return {
