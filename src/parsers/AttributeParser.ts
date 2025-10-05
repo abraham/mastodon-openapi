@@ -127,6 +127,12 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: most_recent_notification_id should be Integer not String
+        // Documentation says String but API actually returns Integer
+        if (heading.name === 'most_recent_notification_id') {
+          attribute.type = 'Integer';
+        }
+
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -283,6 +289,12 @@ export class AttributeParser {
       // Note: this covers method entities that might reference MediaAttachment fields
       if (name === 'meta') {
         attribute.nullable = true;
+      }
+
+      // Special case: most_recent_notification_id should be Integer not String
+      // Documentation says String but API actually returns Integer
+      if (name === 'most_recent_notification_id') {
+        attribute.type = 'Integer';
       }
 
       // Check for enum values in the content between Type and Version history

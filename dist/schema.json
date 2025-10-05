@@ -38324,7 +38324,7 @@
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
             "type": [
-              "string",
+              "integer",
               "null"
             ]
           },
