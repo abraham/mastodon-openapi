@@ -73,6 +73,19 @@ class EntityConverter {
             ...entity.attributes,
           ];
         }
+      } else if (entity.name === 'GroupedNotificationsResults') {
+        // Special case: notification_groups should be an array of NotificationGroup
+        // The documentation incorrectly states it's a single NotificationGroup,
+        // but the actual API returns an array
+        allAttributes = entity.attributes.map((attr) => {
+          if (attr.name === 'notification_groups') {
+            return {
+              ...attr,
+              type: 'Array of [NotificationGroup]',
+            };
+          }
+          return attr;
+        });
       }
 
       const schema: OpenAPISchema = {
