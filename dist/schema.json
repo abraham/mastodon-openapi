@@ -38184,14 +38184,13 @@
           },
           "notification_groups": {
             "description": "The grouped notifications themselves.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/NotificationGroup"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/NotificationGroup"
+            }
           },
           "partial_accounts": {
             "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
