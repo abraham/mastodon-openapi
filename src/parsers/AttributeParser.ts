@@ -127,6 +127,11 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
+        // Special case: FeaturedTag#last_status_at should be nullable
+        if (entityName === 'FeaturedTag' && heading.name === 'last_status_at') {
+          attribute.nullable = true;
+        }
+
         // Special case: most_recent_notification_id should be Integer not String
         // Documentation says String but API actually returns Integer
         if (heading.name === 'most_recent_notification_id') {
