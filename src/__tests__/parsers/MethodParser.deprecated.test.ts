@@ -65,7 +65,6 @@ View information about a profile.
     expect(result?.deprecated).toBeUndefined();
   });
 
-
   test('should generate OpenAPI operations with deprecated flag', () => {
     const testMethods: import('../../interfaces/ApiMethodsFile').ApiMethodsFile[] =
       [
