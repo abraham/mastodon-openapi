@@ -4,5 +4,8 @@
   "minimumMastodonVersion": "4.2.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
   "overridesRepository": "https://github.com/abraham/documentation",
-  "overrideCommits": ["b1d8f95b506e2d734876ef47ec0f4e1feb4f5618"]
+  "overrideCommits": [
+    "4590b4302eb9ab4124c7e3670aa8cbe69f03f3e4",
+    "b1d8f95b506e2d734876ef47ec0f4e1feb4f5618"
+  ]
 }
