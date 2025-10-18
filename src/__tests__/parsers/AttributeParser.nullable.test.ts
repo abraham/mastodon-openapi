@@ -611,51 +611,5 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].nullable).toBeUndefined();
       expect(attributes[0].type).toBe('String (URL)');
     });
-
-    it('should mark FeaturedTag#last_status_at as nullable (entity format)', () => {
-      const content = `
-### \`last_status_at\` {#last_status_at}
-
-**Description:** The date of the last authored status containing this hashtag.\\
-**Type:** String ([Date](/api/datetime-format#date))\\
-**Version history:**\\
-3.0.0 - added
-`;
-
-      const attributes = AttributeParser.parseAttributesFromSection(
-        content,
-        'FeaturedTag'
-      );
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('last_status_at');
-      expect(attributes[0].nullable).toBe(true);
-      expect(attributes[0].type).toBe(
-        'String ([Date](/api/datetime-format#date))'
-      );
-    });
-
-    it('should NOT mark last_status_at as nullable when not in FeaturedTag entity', () => {
-      const content = `
-### \`last_status_at\` {#last_status_at}
-
-**Description:** Some other last_status_at field.\\
-**Type:** String ([Date](/api/datetime-format#date))\\
-**Version history:**\\
-3.0.0 - added
-`;
-
-      const attributes = AttributeParser.parseAttributesFromSection(
-        content,
-        'SomeOtherEntity'
-      );
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('last_status_at');
-      expect(attributes[0].nullable).toBeUndefined();
-      expect(attributes[0].type).toBe(
-        'String ([Date](/api/datetime-format#date))'
-      );
-    });
   });
 });

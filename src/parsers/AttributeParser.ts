@@ -112,11 +112,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: FeaturedTag#last_status_at should be nullable
-        if (entityName === 'FeaturedTag' && heading.name === 'last_status_at') {
-          attribute.nullable = true;
-        }
-
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
