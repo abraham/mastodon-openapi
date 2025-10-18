@@ -571,29 +571,6 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].type).toBe('Array of [AccountRole](#AccountRole)');
     });
 
-    it('should mark Relationship#languages as nullable (entity format)', () => {
-      const content = `
-### \`languages\` {#languages}
-
-**Description:** Which languages are you following from this user?\\
-**Type:** Array of String (ISO 639-1 language two-letter code)\\
-**Version history:**\\
-4.0.0 - added
-`;
-
-      const attributes = AttributeParser.parseAttributesFromSection(
-        content,
-        'Relationship'
-      );
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('languages');
-      expect(attributes[0].nullable).toBe(true);
-      expect(attributes[0].type).toBe(
-        'Array of String (ISO 639-1 language two-letter code)'
-      );
-    });
-
     it('should mark roles field as nullable in method entities', () => {
       const content = `
 #### \`roles\` {#roles}
@@ -610,26 +587,6 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].name).toBe('roles');
       expect(attributes[0].nullable).toBe(true);
       expect(attributes[0].type).toBe('Array of [AccountRole](#AccountRole)');
-    });
-
-    it('should mark languages field as nullable in method entities', () => {
-      const content = `
-#### \`languages\` {#languages}
-
-**Description:** Which languages are you following from this user?\\
-**Type:** Array of String (ISO 639-1 language two-letter code)\\
-**Version history:**\\
-4.0.0 - added
-`;
-
-      const attributes = AttributeParser.parseMethodEntityAttributes(content);
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('languages');
-      expect(attributes[0].nullable).toBe(true);
-      expect(attributes[0].type).toBe(
-        'Array of String (ISO 639-1 language two-letter code)'
-      );
     });
 
     it('should mark languages as nullable when added in same major version (general backwards compatibility)', () => {

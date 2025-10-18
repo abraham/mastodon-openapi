@@ -6,6 +6,7 @@
   "overridesRepository": "https://github.com/abraham/documentation",
   "overrideCommits": [
     "4590b4302eb9ab4124c7e3670aa8cbe69f03f3e4",
+    "3b54807103bfa3936029fbb1d17a1fde9f054494",
     "b1d8f95b506e2d734876ef47ec0f4e1feb4f5618"
   ]
 }

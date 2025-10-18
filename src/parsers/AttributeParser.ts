@@ -112,11 +112,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: Relationship#languages should be nullable
-        if (entityName === 'Relationship' && heading.name === 'languages') {
-          attribute.nullable = true;
-        }
-
         // Special case: MediaAttachment#url should be nullable
         if (entityName === 'MediaAttachment' && heading.name === 'url') {
           attribute.nullable = true;
@@ -276,12 +271,6 @@ export class AttributeParser {
       // Special case: Account#roles should be nullable
       // Note: this covers method entities that might reference Account fields
       if (name === 'roles') {
-        attribute.nullable = true;
-      }
-
-      // Special case: Relationship#languages should be nullable
-      // Note: this covers method entities that might reference Relationship fields
-      if (name === 'languages') {
         attribute.nullable = true;
       }
 
