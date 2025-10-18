@@ -35184,6 +35184,28 @@
               "null"
             ],
             "properties": {
+              "small": {
+                "description": "Details about the small preview version of the attachment.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MetaDetails"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "original": {
+                "description": "Details about the original version of the attachment.",
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/MetaDetails"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
               "focus": {
                 "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails]({{< relref \"api/guidelines#focal-points\" >}}) for more.",
                 "type": [
@@ -35236,6 +35258,15 @@
           "id",
           "type"
         ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
+      "MetaDetails": {
+        "type": "object",
+        "description": "Additional entity definition for MetaDetails",
+        "properties": {},
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
           "description": "Official Mastodon API documentation"
