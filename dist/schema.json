@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.4.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [2667d6c](https://github.com/mastodon/documentation/commit/2667d6c3923255514561862139dea336c479ce2f).",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f760ffc](https://github.com/mastodon/documentation/commit/f760ffcdf3371a641ba5d731dd33348fc6eb4fe6).",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -5538,6 +5538,149 @@
         "security": [
           {
             "OAuth2ClientCredentials": []
+          }
+        ]
+      }
+    },
+    "/api/v1_alpha/async_refreshes/{id}": {
+      "get": {
+        "operationId": "getAsyncRefreshV1Alpha",
+        "summary": "Get Status of Async Refresh",
+        "description": "Sometimes an API request might not return the expected results or not all possible results as either a background job is already running to (re-)create these results or the request triggers a background job to create or fetch results.\n\nVersion history:\n\n4.4.0 - added",
+        "tags": [
+          "async_refreshes"
+        ],
+        "responses": {
+          "200": {
+            "description": "[AsyncRefresh]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "description": "Number of requests permitted per time period",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Remaining": {
+                "description": "Number of requests you can still make",
+                "schema": {
+                  "type": "integer"
+                }
+              },
+              "X-RateLimit-Reset": {
+                "description": "Timestamp when your rate limit will reset",
+                "schema": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AsyncRefresh"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/async_refreshes/#show",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2ClientCredentials": [
+              "read"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
           }
         ]
       }
@@ -33457,6 +33600,45 @@
           "description": "Official Mastodon API documentation"
         }
       },
+      "AsyncRefresh": {
+        "type": "object",
+        "description": "Status of an asynchronous refresh.",
+        "properties": {
+          "id": {
+            "description": "The ID of the async refresh",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "result_count": {
+            "description": "Optional number of results already created/fetched as part of this async refresh.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "status": {
+            "description": "Status of the async refresh.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "$ref": "#/components/schemas/AsyncRefreshStatusEnum"
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/AsyncRefresh/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "async_refresh": {
+            "id": "ImNvbnRleHQ6MTEzNjQwNTczMzAzNzg1MTc4OnJlZnJlc2gi--c526259eb4a1f3ef0d4b91cf8c99bf501330a815",
+            "status": "running",
+            "result_count": 2
+          }
+        }
+      },
       "Context": {
         "type": "object",
         "description": "Represents the tree around a given status. Used for reconstructing threads of statuses.",
@@ -38889,6 +39071,13 @@
           "approved",
           "rejected",
           "pending"
+        ]
+      },
+      "AsyncRefreshStatusEnum": {
+        "type": "string",
+        "enum": [
+          "running",
+          "finished"
         ]
       },
       "DomainBlockSeverityEnum": {
