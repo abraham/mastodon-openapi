@@ -107,11 +107,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: Account#roles should be nullable
-        if (entityName === 'Account' && heading.name === 'roles') {
-          attribute.nullable = true;
-        }
-
         // Special case: MediaAttachment#url should be nullable
         if (entityName === 'MediaAttachment' && heading.name === 'url') {
           attribute.nullable = true;
@@ -265,12 +260,6 @@ export class AttributeParser {
       // Mark as optional if nullable pattern is detected
       if (isNullable) {
         attribute.optional = true;
-        attribute.nullable = true;
-      }
-
-      // Special case: Account#roles should be nullable
-      // Note: this covers method entities that might reference Account fields
-      if (name === 'roles') {
         attribute.nullable = true;
       }
 

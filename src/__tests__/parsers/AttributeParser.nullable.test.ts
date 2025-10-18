@@ -550,45 +550,6 @@ describe('AttributeParser - Nullable Patterns', () => {
   });
 
   describe('Special case exceptions', () => {
-    it('should mark Account#roles as nullable (entity format)', () => {
-      const content = `
-### \`roles\` {#roles}
-
-**Description:** An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.\\
-**Type:** Array of [AccountRole](#AccountRole)\\
-**Version history:**\\
-4.1.0 - added
-`;
-
-      const attributes = AttributeParser.parseAttributesFromSection(
-        content,
-        'Account'
-      );
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('roles');
-      expect(attributes[0].nullable).toBe(true);
-      expect(attributes[0].type).toBe('Array of [AccountRole](#AccountRole)');
-    });
-
-    it('should mark roles field as nullable in method entities', () => {
-      const content = `
-#### \`roles\` {#roles}
-
-**Description:** An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.\\
-**Type:** Array of [AccountRole](#AccountRole)\\
-**Version history:**\\
-4.1.0 - added
-`;
-
-      const attributes = AttributeParser.parseMethodEntityAttributes(content);
-
-      expect(attributes).toHaveLength(1);
-      expect(attributes[0].name).toBe('roles');
-      expect(attributes[0].nullable).toBe(true);
-      expect(attributes[0].type).toBe('Array of [AccountRole](#AccountRole)');
-    });
-
     it('should mark languages as nullable when added in same major version (general backwards compatibility)', () => {
       const content = `
 ### \`languages\` {#languages}
