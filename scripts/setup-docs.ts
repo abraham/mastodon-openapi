@@ -18,6 +18,8 @@ function setupMastodonDocs(): void {
 
   const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
   const targetCommit = config.mastodonDocsCommit;
+  const overrideCommits = config.overrideCommits || [];
+  const overridesRepository = config.overridesRepository;
 
   if (!targetCommit) {
     console.error('mastodonDocsCommit not found in config.json');
@@ -51,6 +53,36 @@ function setupMastodonDocs(): void {
       stdio: 'inherit',
       cwd: docsDir,
     });
+
+    // Apply override commits if any
+    if (overrideCommits.length > 0) {
+      console.log(`Adding ${overridesRepository} overrides remote...`);
+      execSync(`git config user.email "bot@example.com"`, {
+        stdio: 'inherit',
+        cwd: docsDir,
+      });
+      execSync(`git config user.name "bot"`, {
+        stdio: 'inherit',
+        cwd: docsDir,
+      });
+      execSync(`git remote add overrides ${overridesRepository} || true`, {
+        stdio: 'inherit',
+        cwd: docsDir,
+      });
+      execSync(`git fetch overrides`, {
+        stdio: 'inherit',
+        cwd: docsDir,
+      });
+
+      console.log(`Applying ${overrideCommits.length} override commit(s)...`);
+      for (const commit of overrideCommits) {
+        console.log(`Cherry-picking commit ${commit}...`);
+        execSync(`git cherry-pick ${commit}`, {
+          stdio: 'inherit',
+          cwd: docsDir,
+        });
+      }
+    }
 
     console.log('Mastodon documentation setup complete.');
   } catch (error) {
