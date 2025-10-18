@@ -65,32 +65,6 @@ View information about a profile.
     expect(result?.deprecated).toBeUndefined();
   });
 
-  test('should find deprecated methods in actual statuses file', () => {
-    const methodFiles = methodParser.parseAllMethods();
-
-    // Find the statuses file
-    const statusesFile = methodFiles.find((f) => f.name === 'statuses');
-    expect(statusesFile).toBeDefined();
-
-    if (statusesFile) {
-      // Look for deprecated methods
-      const deprecatedMethods = statusesFile.methods.filter(
-        (method) => method.deprecated === true
-      );
-
-      // We should find at least one deprecated method
-      expect(deprecatedMethods.length).toBeGreaterThan(0);
-
-      // We should specifically find the card method
-      const cardMethod = deprecatedMethods.find(
-        (m) => m.endpoint === '/api/v1/statuses/:id/card'
-      );
-      expect(cardMethod).toBeDefined();
-      expect(cardMethod?.name).toBe('Fetch preview card');
-      expect(cardMethod?.deprecated).toBe(true);
-    }
-  });
-
   test('should generate OpenAPI operations with deprecated flag', () => {
     const testMethods: import('../../interfaces/ApiMethodsFile').ApiMethodsFile[] =
       [

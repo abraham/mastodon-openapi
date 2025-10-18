@@ -22327,9 +22327,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -23237,9 +23234,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -23330,155 +23324,6 @@
           {
             "OAuth2": [
               "write:bookmarks"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "id parameter",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/statuses/{id}/card": {
-      "get": {
-        "operationId": "getStatusCard",
-        "summary": "Fetch preview card",
-        "description": "Version history:\n\n0.0.0 - added\\\n2.6.0 - deprecated in favor of card property inlined on Status entity\\\n3.0.0 - removed",
-        "tags": [
-          "statuses"
-        ],
-        "responses": {
-          "200": {
-            "description": "[PreviewCard]",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "description": "Number of requests permitted per time period",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Remaining": {
-                "description": "Number of requests you can still make",
-                "schema": {
-                  "type": "integer"
-                }
-              },
-              "X-RateLimit-Reset": {
-                "description": "Timestamp when your rate limit will reset",
-                "schema": {
-                  "type": "string",
-                  "format": "date-time"
-                }
-              }
-            },
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PreviewCard"
-                },
-                "examples": {
-                  "PreviewCard200Example": {
-                    "$ref": "#/components/examples/PreviewCard200Example"
-                  }
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationError"
-                },
-                "examples": {
-                  "ValidationError422Example": {
-                    "$ref": "#/components/examples/ValidationError422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/statuses/#card",
-          "description": "Official Mastodon API documentation"
-        },
-        "deprecated": true,
-        "security": [
-          {
-            "OAuth2": [
-              "read:statuses"
             ]
           }
         ],
@@ -23750,9 +23595,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -24467,9 +24309,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -24683,9 +24522,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -25084,9 +24920,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -25324,9 +25157,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -26057,9 +25887,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -26273,9 +26100,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -26489,9 +26313,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -26705,9 +26526,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -26921,9 +26739,6 @@
               },
               "getSource": {
                 "$ref": "#/components/links/getStatusSourceById"
-              },
-              "getCard": {
-                "$ref": "#/components/links/getStatusCardById"
               }
             }
           },
@@ -31607,7 +31422,7 @@
             ]
           },
           "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or null if the account is remote.",
             "type": [
               "array",
               "null"
@@ -31965,7 +31780,7 @@
             ]
           },
           "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or null if the account is remote.",
             "type": [
               "array",
               "null"
@@ -32182,7 +31997,7 @@
             ]
           },
           "roles": {
-            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or if the account is remote.",
+            "description": "An array of roles assigned to the user that are publicly visible (highlighted roles only), if the account is local. Will be an empty array if no roles are highlighted or null if the account is remote.",
             "type": [
               "array",
               "null"
@@ -35246,7 +35061,7 @@
             "format": "uri"
           },
           "url": {
-            "description": "The location of the original full-size attachment.",
+            "description": "The location of the original full-size attachment. Url may be null if the file is still being processed. See [`POST /api/v2/media`]({{< relref \"methods/media\" >}}#v2).",
             "type": [
               "string",
               "null"
@@ -40885,24 +40700,6 @@
           }
         ]
       },
-      "PreviewCard200Example": {
-        "summary": "Example for PreviewCard",
-        "value": {
-          "url": "https://www.youtube.com/watch?v=OMv_EPMED8Y",
-          "title": "♪ Brand New Friend (Christmas Song!)",
-          "description": "",
-          "type": "video",
-          "author_name": "YOGSCAST Lewis & Simon",
-          "author_url": "https://www.youtube.com/user/BlueXephos",
-          "provider_name": "YouTube",
-          "provider_url": "https://www.youtube.com/",
-          "html": "<iframe width=\"480\" height=\"270\" src=\"https://www.youtube.com/embed/OMv_EPMED8Y?feature=oembed\" frameborder=\"0\" allowfullscreen=\"\"></iframe>",
-          "width": 480,
-          "height": 270,
-          "image": "https://files.mastodon.social/preview_cards/images/014/179/145/original/9cf4b7cf5567b569.jpeg",
-          "embed_url": ""
-        }
-      },
       "Context200Example": {
         "summary": "Example for Context",
         "value": {
@@ -41349,13 +41146,6 @@
       "getStatusSourceById": {
         "operationId": "getStatusSource",
         "description": "Get the status source using the response ID",
-        "parameters": {
-          "id": "$response.body#/id"
-        }
-      },
-      "getStatusCardById": {
-        "operationId": "getStatusCard",
-        "description": "Get the status preview card using the response ID",
         "parameters": {
           "id": "$response.body#/id"
         }

@@ -107,37 +107,6 @@ export class AttributeParser {
           attribute.nullable = true;
         }
 
-        // Special case: Account#roles should be nullable
-        if (entityName === 'Account' && heading.name === 'roles') {
-          attribute.nullable = true;
-        }
-
-        // Special case: Relationship#languages should be nullable
-        if (entityName === 'Relationship' && heading.name === 'languages') {
-          attribute.nullable = true;
-        }
-
-        // Special case: MediaAttachment#meta should be nullable
-        if (entityName === 'MediaAttachment' && heading.name === 'meta') {
-          attribute.nullable = true;
-        }
-
-        // Special case: MediaAttachment#url should be nullable
-        if (entityName === 'MediaAttachment' && heading.name === 'url') {
-          attribute.nullable = true;
-        }
-
-        // Special case: FeaturedTag#last_status_at should be nullable
-        if (entityName === 'FeaturedTag' && heading.name === 'last_status_at') {
-          attribute.nullable = true;
-        }
-
-        // Special case: most_recent_notification_id should be Integer not String
-        // Documentation says String but API actually returns Integer
-        if (heading.name === 'most_recent_notification_id') {
-          attribute.type = 'Integer';
-        }
-
         // Extract enum values if this is an enumerable type
         if (cleanedType.toLowerCase().includes('enumerable')) {
           // Look for enum values in the section content
@@ -276,30 +245,6 @@ export class AttributeParser {
       if (isNullable) {
         attribute.optional = true;
         attribute.nullable = true;
-      }
-
-      // Special case: Account#roles should be nullable
-      // Note: this covers method entities that might reference Account fields
-      if (name === 'roles') {
-        attribute.nullable = true;
-      }
-
-      // Special case: Relationship#languages should be nullable
-      // Note: this covers method entities that might reference Relationship fields
-      if (name === 'languages') {
-        attribute.nullable = true;
-      }
-
-      // Special case: MediaAttachment#meta should be nullable
-      // Note: this covers method entities that might reference MediaAttachment fields
-      if (name === 'meta') {
-        attribute.nullable = true;
-      }
-
-      // Special case: most_recent_notification_id should be Integer not String
-      // Documentation says String but API actually returns Integer
-      if (name === 'most_recent_notification_id') {
-        attribute.type = 'Integer';
       }
 
       // Check for enum values in the content between Type and Version history
