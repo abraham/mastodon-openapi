@@ -1,14 +1,15 @@
 import { EntityParser } from '../../parsers/EntityParser';
+import { EntityClass } from '../../interfaces/EntityClass';
 
 describe('EntityParser - MetaDetails Entity', () => {
-  let parser: EntityParser;
+  let entities: EntityClass[];
 
-  beforeEach(() => {
-    parser = new EntityParser();
+  beforeAll(() => {
+    const parser = new EntityParser();
+    entities = parser.parseAllEntities();
   });
 
   test('should parse MetaDetails entity', () => {
-    const entities = parser.parseAllEntities();
     const metaDetails = entities.find((e) => e.name === 'MetaDetails');
 
     expect(metaDetails).toBeDefined();
@@ -18,7 +19,6 @@ describe('EntityParser - MetaDetails Entity', () => {
   });
 
   test('MetaDetails should have all required properties', () => {
-    const entities = parser.parseAllEntities();
     const metaDetails = entities.find((e) => e.name === 'MetaDetails');
 
     expect(metaDetails).toBeDefined();
@@ -34,7 +34,6 @@ describe('EntityParser - MetaDetails Entity', () => {
   });
 
   test('MetaDetails properties should be nullable', () => {
-    const entities = parser.parseAllEntities();
     const metaDetails = entities.find((e) => e.name === 'MetaDetails');
 
     expect(metaDetails).toBeDefined();
@@ -47,7 +46,6 @@ describe('EntityParser - MetaDetails Entity', () => {
   });
 
   test('MediaAttachment should have meta[small] and meta[original] properties', () => {
-    const entities = parser.parseAllEntities();
     const mediaAttachment = entities.find((e) => e.name === 'MediaAttachment');
 
     expect(mediaAttachment).toBeDefined();
@@ -59,7 +57,6 @@ describe('EntityParser - MetaDetails Entity', () => {
   });
 
   test('MediaAttachment meta[small] should reference MetaDetails', () => {
-    const entities = parser.parseAllEntities();
     const mediaAttachment = entities.find((e) => e.name === 'MediaAttachment');
 
     expect(mediaAttachment).toBeDefined();
@@ -74,7 +71,6 @@ describe('EntityParser - MetaDetails Entity', () => {
   });
 
   test('MediaAttachment meta[original] should reference MetaDetails', () => {
-    const entities = parser.parseAllEntities();
     const mediaAttachment = entities.find((e) => e.name === 'MediaAttachment');
 
     expect(mediaAttachment).toBeDefined();
