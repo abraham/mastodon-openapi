@@ -1,8 +1,7 @@
 import { EntityParser } from '../../parsers/EntityParser';
-import { EntityClass } from '../../interfaces/EntityClass';
 
 describe('EntityParser - MetaDetails Entity', () => {
-  let entities: EntityClass[];
+  let entities: ReturnType<EntityParser['parseAllEntities']>;
 
   beforeAll(() => {
     const parser = new EntityParser();
