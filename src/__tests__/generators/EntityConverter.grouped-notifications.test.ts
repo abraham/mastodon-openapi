@@ -4,7 +4,7 @@ import { UtilityHelpers } from '../../generators/UtilityHelpers';
 import { EntityClass } from '../../interfaces/EntityClass';
 import { OpenAPISpec } from '../../interfaces/OpenAPISchema';
 
-describe('EntityConverter - GroupedNotificationsResults Special Case', () => {
+describe('EntityConverter - GroupedNotificationsResults', () => {
   let entityConverter: EntityConverter;
   let utilityHelpers: UtilityHelpers;
   let typeParser: TypeParser;
@@ -39,7 +39,7 @@ describe('EntityConverter - GroupedNotificationsResults Special Case', () => {
         attributes: [
           {
             name: 'notification_groups',
-            type: '[NotificationGroup]',
+            type: 'Array of [NotificationGroup]',
             description: 'The grouped notifications themselves.',
             optional: false,
             nullable: true,
@@ -114,7 +114,7 @@ describe('EntityConverter - GroupedNotificationsResults Special Case', () => {
         attributes: [
           {
             name: 'notification_groups',
-            type: '[NotificationGroup]',
+            type: 'Array of [NotificationGroup]',
             description: 'The grouped notifications themselves.',
             optional: false,
             nullable: false,
