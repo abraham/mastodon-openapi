@@ -157,10 +157,35 @@ export class EntityFileParser {
 
         // Find the content for this entity (from this heading to the next ## heading or end of file)
         const startIndex = match.index + fullMatch.length;
-        const nextSectionMatch = content.substring(startIndex).match(/\n## /);
-        const endIndex = nextSectionMatch
-          ? startIndex + (nextSectionMatch.index || 0)
-          : content.length;
+
+        // Check if the next section is an "## Attributes" heading
+        // If so, we need to include it in the entity content
+        let endIndex = content.length;
+        const remainingContent = content.substring(startIndex);
+        const nextAttributesMatch =
+          remainingContent.match(/\n## Attributes\s*\n/);
+
+        if (nextAttributesMatch && nextAttributesMatch.index !== undefined) {
+          // Found "## Attributes" - find the section after that
+          const afterAttributesStart =
+            startIndex +
+            nextAttributesMatch.index +
+            nextAttributesMatch[0].length;
+          const afterAttributesContent =
+            content.substring(afterAttributesStart);
+          const nextSectionMatch = afterAttributesContent.match(/\n## /);
+
+          if (nextSectionMatch && nextSectionMatch.index !== undefined) {
+            endIndex = afterAttributesStart + nextSectionMatch.index;
+          }
+          // If no next section found, use the rest of the file (endIndex already set to content.length)
+        } else {
+          // No "## Attributes" section found, look for next ## heading
+          const nextSectionMatch = remainingContent.match(/\n## /);
+          if (nextSectionMatch && nextSectionMatch.index !== undefined) {
+            endIndex = startIndex + nextSectionMatch.index;
+          }
+        }
 
         const entityContent = content.substring(startIndex, endIndex);
 

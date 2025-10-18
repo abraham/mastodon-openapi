@@ -35266,7 +35266,50 @@
       "MetaDetails": {
         "type": "object",
         "description": "Additional entity definition for MetaDetails",
-        "properties": {},
+        "properties": {
+          "aspect": {
+            "description": "The media aspect ratio of the video or image attachment.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "bitrate": {
+            "description": "The media bitrate of the video or audio attachment.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "duration": {
+            "description": "The duration of the video attachment.",
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "frame_rate": {
+            "description": "The frame rate of the video attachment.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "height": {
+            "description": "The height of the attachment in pixels.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          },
+          "width": {
+            "description": "The width of the attachment in pixels.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
           "description": "Official Mastodon API documentation"
