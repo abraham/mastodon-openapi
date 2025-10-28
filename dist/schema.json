@@ -34186,11 +34186,6 @@
                 "description": "URLs of interest for clients apps.",
                 "type": "object",
                 "properties": {
-                  "streaming": {
-                    "description": "The Websockets URL for connecting to the streaming API.",
-                    "type": "string",
-                    "format": "uri"
-                  },
                   "about": {
                     "description": "The URL of the server's about page.",
                     "type": [
@@ -34215,6 +34210,14 @@
                     ],
                     "format": "uri"
                   },
+                  "streaming": {
+                    "description": "The Websockets URL for connecting to the streaming API.",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uri"
+                  },
                   "terms_of_service": {
                     "description": "The URL of the server's current terms of service, if any.",
                     "type": [
@@ -34223,10 +34226,7 @@
                     ],
                     "format": "uri"
                   }
-                },
-                "required": [
-                  "streaming"
-                ]
+                }
               },
               "limited_federation": {
                 "description": "Whether federation is limited to explicitly allowed domains.",
