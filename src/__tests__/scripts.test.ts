@@ -9,8 +9,8 @@ describe('Scripts', () => {
     expect(fs.existsSync(setupDocsPath)).toBe(true);
   });
 
-  it('should have update-docs-sha.ts script', () => {
-    const updateShaPath = path.join(scriptsDir, 'update-docs-sha.ts');
+  it('should have update-docs.ts script', () => {
+    const updateShaPath = path.join(scriptsDir, 'update-docs.ts');
     expect(fs.existsSync(updateShaPath)).toBe(true);
   });
 
@@ -20,7 +20,7 @@ describe('Scripts', () => {
   });
 
   it('should export updateDocsCommit function', async () => {
-    const { updateDocsCommit } = await import('../../scripts/update-docs-sha');
+    const { updateDocsCommit } = await import('../../scripts/update-docs');
     expect(typeof updateDocsCommit).toBe('function');
   });
 });

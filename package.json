@@ -18,7 +18,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "ts-node scripts/setup-docs.ts",
-    "update-docs-sha": "ts-node scripts/update-docs-sha.ts"
+    "update-docs": "ts-node scripts/update-docs.ts"
   },
   "keywords": [
     "mastodon",

@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
+import { applyOverrides } from './apply-overrides';
 
 /**
  * Update the mastodonDocsCommit in config.json to the latest commit from main branch
@@ -28,9 +29,16 @@ function updateDocsCommit(): boolean {
   );
 
   try {
-    // Pull the latest changes from the remote repository
-    console.log('Pulling latest changes...');
-    execSync('git pull origin main', {
+    // Fetch the latest changes from the remote repository
+    console.log('Fetching latest changes...');
+    execSync('git fetch origin', {
+      cwd: docsDir,
+      stdio: 'inherit',
+    });
+
+    // Reset local branch to match origin/main, discarding any local changes
+    console.log('Resetting to origin/main...');
+    execSync('git reset --hard origin/main', {
       cwd: docsDir,
       stdio: 'inherit',
     });
@@ -61,6 +69,10 @@ function updateDocsCommit(): boolean {
     console.log(
       `Updated mastodonDocsCommit from ${oldCommit} to ${latestCommit}`
     );
+
+    // Apply override commits
+    applyOverrides();
+
     return true;
   } catch (error) {
     console.error('Error updating docs commit:', (error as Error).message);
