@@ -95,12 +95,7 @@ export class EntityParsingUtils {
     for (const attr of attributes) {
       // Consider all attributes that have version information
       if (attr.versions && attr.versions.length > 0) {
-        // Extract the earliest version (which should be the "added" version)
-        const earliestVersion = attr.versions.reduce((earliest, current) => {
-          return this.compareVersions(earliest, current) === current
-            ? current
-            : earliest;
-        });
+        const earliestVersion = this.getEarliestVersion(attr.versions);
         addedVersions.add(earliestVersion);
         attributesWithVersions.push(attr);
       }
@@ -112,17 +107,25 @@ export class EntityParsingUtils {
       return attributes.map((attr) => {
         // Only remove nullable from attributes that have version information
         if (attr.versions && attr.versions.length > 0) {
-          // Check if this attribute's earliest version matches the common version
-          const earliestVersion = attr.versions.reduce((earliest, current) => {
-            return this.compareVersions(earliest, current) === current
-              ? current
-              : earliest;
-          });
+          const earliestVersion = this.getEarliestVersion(attr.versions);
 
-          if (addedVersions.has(earliestVersion)) {
-            // Remove only the nullable flag, preserve optional
-            const { nullable, ...rest } = attr;
-            return rest;
+          if (addedVersions.has(earliestVersion) && attr.nullable === true) {
+            // Create a new object without the nullable property
+            const result: EntityAttribute = {
+              name: attr.name,
+              type: attr.type,
+              description: attr.description,
+            };
+
+            // Preserve other properties if they exist
+            if (attr.optional !== undefined) result.optional = attr.optional;
+            if (attr.deprecated !== undefined)
+              result.deprecated = attr.deprecated;
+            if (attr.enumValues !== undefined)
+              result.enumValues = attr.enumValues;
+            if (attr.versions !== undefined) result.versions = attr.versions;
+
+            return result;
           }
         }
         return attr;
@@ -133,12 +136,23 @@ export class EntityParsingUtils {
   }
 
   /**
-   * Compares two version strings and returns the smaller one
+   * Gets the earliest version from an array of version strings
+   * @param versions Array of version strings (e.g., ["4.4.0", "4.5.0"])
+   * @returns The earliest version string
+   */
+  private static getEarliestVersion(versions: string[]): string {
+    return versions.reduce((earliest, current) => {
+      return this.getMinVersion(earliest, current);
+    });
+  }
+
+  /**
+   * Compares two version strings and returns the smaller (earlier) one
    * @param version1 First version string (e.g., "1.2.3")
    * @param version2 Second version string (e.g., "2.1.0")
-   * @returns The smaller version string, or version1 if they're equal
+   * @returns The earlier version string, or version1 if they're equal
    */
-  private static compareVersions(version1: string, version2: string): string {
+  private static getMinVersion(version1: string, version2: string): string {
     const v1Parts = version1.split('.').map(Number);
     const v2Parts = version2.split('.').map(Number);
 

@@ -13,9 +13,7 @@ describe('Entity Same Version Nullable - Integration Test', () => {
     if (asyncRefreshEntity) {
       // Check that none of the attributes are marked as nullable
       // (except for explicitly optional ones like result_count)
-      const idAttr = asyncRefreshEntity.attributes.find(
-        (a) => a.name === 'id'
-      );
+      const idAttr = asyncRefreshEntity.attributes.find((a) => a.name === 'id');
       const statusAttr = asyncRefreshEntity.attributes.find(
         (a) => a.name === 'status'
       );
