@@ -6,6 +6,7 @@ import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { AttributeParser } from './AttributeParser';
 import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
+import { EntityParsingUtils } from './EntityParsingUtils';
 
 /**
  * Handles parsing entities from dedicated entity files
@@ -41,9 +42,13 @@ export class EntityFileParser {
     // Parse main entity attributes from markdown content
     const attributes = this.parseAttributes(parsed.content, className);
 
+    // Remove nullable flag if all attributes were added in the same version
+    const adjustedAttributes =
+      EntityParsingUtils.removeNullableIfSameVersion(attributes);
+
     // Extract nested hash entities and update parent attributes
     const { processedAttributes, nestedEntities } =
-      this.extractNestedHashEntities(className, attributes, sourceFile);
+      this.extractNestedHashEntities(className, adjustedAttributes, sourceFile);
 
     // Parse example from the content
     const example = ExampleParser.parseEntityExample(parsed.content);
@@ -195,9 +200,13 @@ export class EntityFileParser {
           entityName
         );
 
+        // Remove nullable flag if all attributes were added in the same version
+        const adjustedAttributes =
+          EntityParsingUtils.removeNullableIfSameVersion(attributes);
+
         // Collect all version numbers from attributes
         const entityVersions: string[] = [];
-        for (const attr of attributes) {
+        for (const attr of adjustedAttributes) {
           if (attr.versions) {
             entityVersions.push(...attr.versions);
           }
@@ -206,7 +215,7 @@ export class EntityFileParser {
         entities.push({
           name: entityName,
           description: `Additional entity definition for ${entityName}`,
-          attributes,
+          attributes: adjustedAttributes,
           versions: entityVersions.length > 0 ? entityVersions : undefined,
           sourceFile,
         });

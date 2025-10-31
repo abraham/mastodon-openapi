@@ -31986,10 +31986,7 @@
           },
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "noindex": {
@@ -32121,67 +32118,45 @@
         "properties": {
           "action": {
             "description": "Action taken against the account.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/AccountWarningActionEnum"
-          },
-          "appeal": {
-            "description": "Appeal submitted by the target account, if any.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Appeal"
-              },
-              {
-                "type": "null"
-              }
-            ]
           },
           "created_at": {
             "description": "When the event took place.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "id": {
             "description": "The ID of the account warning.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "status_ids": {
-            "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses. If the action is `delete_statuses` then they have been irrevocably deleted (irrespective of the appeal state), and will be inaccessible to the client.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "type": "string"
-            }
+            "type": "string"
           },
           "target_account": {
             "description": "Account against which a moderation decision has been taken. If this `AccountWarning` is present in a [Notification](/entities/Notification/) then this is always the same as the authenticated account that requested the notification.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Account"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/Account"
           },
           "text": {
             "description": "Message from the moderator to the target account.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
+          },
+          "appeal": {
+            "description": "Appeal submitted by the target account, if any.",
+            "$ref": "#/components/schemas/Appeal"
+          },
+          "status_ids": {
+            "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses. If the action is `delete_statuses` then they have been irrevocably deleted (irrespective of the appeal state), and will be inaccessible to the client.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
           }
         },
+        "required": [
+          "action",
+          "created_at",
+          "id",
+          "target_account",
+          "text"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/AccountWarning/#attributes",
           "description": "Official Mastodon API documentation"
@@ -32780,10 +32755,7 @@
           },
           "expires_at": {
             "description": "When the IP block will expire.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           }
         },
@@ -32828,24 +32800,15 @@
           },
           "human_value": {
             "description": "A human-readable formatted value for this data item.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "previous_total": {
             "description": "The numeric total associated with the requested measure, in the previous period. Previous period is calculated by subtracting the start_at and end_at dates, then offsetting both start and end dates backwards by the length of the time period.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "unit": {
             "description": "The units associated with this data item's value, if applicable.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
         "required": [
@@ -33088,25 +33051,16 @@
           },
           "ends_at": {
             "description": "When the announcement will end.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "starts_at": {
             "description": "When the announcement will start.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           }
         },
@@ -33231,20 +33185,18 @@
         "properties": {
           "state": {
             "description": "State of the appeal.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/AppealStateEnum"
           },
           "text": {
             "description": "Text of the appeal from the moderated account to the moderators.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "state",
+          "text"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Appeal/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33424,27 +33376,22 @@
         "properties": {
           "id": {
             "description": "The ID of the async refresh",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "result_count": {
-            "description": "Optional number of results already created/fetched as part of this async refresh.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "string"
           },
           "status": {
             "description": "Status of the async refresh.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/AsyncRefreshStatusEnum"
+          },
+          "result_count": {
+            "description": "Optional number of results already created/fetched as part of this async refresh.",
+            "type": "integer"
           }
         },
+        "required": [
+          "id",
+          "status"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/AsyncRefresh/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33532,14 +33479,7 @@
           },
           "last_status": {
             "description": "The last status in the conversation.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Status"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/Status"
           }
         },
         "required": [
@@ -33636,10 +33576,7 @@
           },
           "comment": {
             "description": "An optional reason for the domain block.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
         "required": [
@@ -33668,10 +33605,7 @@
           },
           "error_description": {
             "description": "A longer description of the error, mainly provided with the OAuth API.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
         "required": [
@@ -33833,28 +33767,19 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/FilterKeyword"
             }
           },
           "statuses": {
             "description": "The statuses grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/FilterStatus"
             }
@@ -33935,20 +33860,14 @@
           },
           "keyword_matches": {
             "description": "The keyword within the filter that was matched.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string"
             }
           },
           "status_matches": {
             "description": "The status ID within the filter that was matched.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string"
             }
@@ -34584,19 +34503,17 @@
         "properties": {
           "size": {
             "description": "The size of this icon.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "src": {
             "description": "The URL of this icon.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "size",
+          "src"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Instance/#attributes",
           "description": "Official Mastodon API documentation"
@@ -34932,63 +34849,51 @@
         "properties": {
           "for_limited_accounts": {
             "description": "Whether to `accept`, `filter` or `drop` notifications from accounts that were limited by a moderator. `drop` will prevent creation of the notification object altogether (without preventing the underlying activity), `filter` will cause it to be marked as filtered, and `accept` will not affect its processing.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "for_new_accounts": {
             "description": "Whether to `accept`, `filter` or `drop` notifications from accounts created in the past 30 days. `drop` will prevent creation of the notification object altogether (without preventing the underlying activity), `filter` will cause it to be marked as filtered, and `accept` will not affect its processing.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "for_not_followers": {
             "description": "Whether to `accept`, `filter` or `drop` notifications from accounts that are not following the user. `drop` will prevent creation of the notification object altogether (without preventing the underlying activity), `filter` will cause it to be marked as filtered, and `accept` will not affect its processing.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "for_not_following": {
             "description": "Whether to `accept`, `filter` or `drop` notifications from accounts the user is not following. `drop` will prevent creation of the notification object altogether (without preventing the underlying activity), `filter` will cause it to be marked as filtered, and `accept` will not affect its processing.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "for_private_mentions": {
             "description": "Whether to `accept`, `filter` or `drop` notifications from private mentions. `drop` will prevent creation of the notification object altogether (without preventing the underlying activity), `filter` will cause it to be marked as filtered, and `accept` will not affect its processing. Replies to private mentions initiated by the user, as well as accounts the user follows, are always allowed, regardless of this value.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "summary": {
             "description": "Summary of the filtered notifications",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
-              "pending_requests_count": {
-                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
               "pending_notifications_count": {
                 "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
+                "type": "integer"
+              },
+              "pending_requests_count": {
+                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
+                "type": "integer"
               }
-            }
+            },
+            "required": [
+              "pending_notifications_count",
+              "pending_requests_count"
+            ]
           }
         },
+        "required": [
+          "for_limited_accounts",
+          "for_new_accounts",
+          "for_not_followers",
+          "for_not_following",
+          "for_private_mentions",
+          "summary"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/NotificationPolicy/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35011,57 +34916,38 @@
         "properties": {
           "account": {
             "description": "The account that performed the action that generated the filtered notifications.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Account"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/Account"
           },
           "created_at": {
             "description": "The timestamp of the notification request, i.e. when the first filtered notification from that user was created.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "id": {
             "description": "The id of the notification request in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "last_status": {
-            "description": "Most recent status associated with a filtered notification from that account.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Status"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": "string"
           },
           "notifications_count": {
             "description": "How many of this account's notifications were filtered.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "updated_at": {
             "description": "The timestamp of when the notification request was last updated.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
+          },
+          "last_status": {
+            "description": "Most recent status associated with a filtered notification from that account.",
+            "$ref": "#/components/schemas/Status"
           }
         },
+        "required": [
+          "account",
+          "created_at",
+          "id",
+          "notifications_count",
+          "updated_at"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/NotificationRequest/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35134,35 +35020,23 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "own_votes": {
             "description": "When called with a user token, which options has the authorized user chosen? Contains an array of index values for `options`.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "integer"
             }
           },
           "voted": {
             "description": "When called with a user token, has the authorized user voted?",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "voters_count": {
             "description": "How many unique accounts have voted on a multiple-choice poll.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer"
           }
         },
         "required": [
@@ -35211,10 +35085,7 @@
           },
           "votes_count": {
             "description": "The total number of received votes for this option.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer"
           }
         },
         "required": [
@@ -35249,10 +35120,7 @@
           },
           "posting:default:language": {
             "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "iso-639-1"
           }
         },
@@ -35517,33 +35385,24 @@
         "type": "object",
         "description": "Represents an author in a rich preview card.",
         "properties": {
-          "account": {
-            "description": "The fediverse account of the author.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Account"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
           "name": {
             "description": "The original resource author's name. Replaces the deprecated `author_name` attribute of the preview card.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "url": {
             "description": "A link to the author of the original resource. Replaces the deprecated `author_url` attribute of the preview card.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
+          },
+          "account": {
+            "description": "The fediverse account of the author.",
+            "$ref": "#/components/schemas/Account"
           }
         },
+        "required": [
+          "name",
+          "url"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/PreviewCardAuthor/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35580,26 +35439,19 @@
         "type": "object",
         "description": "Represents a quote or a quote placeholder, with the current authorization status.",
         "properties": {
-          "quoted_status": {
-            "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Status"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
           "state": {
             "description": "The state of the quote. Unknown values should be treated as `unauthorized`.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/QuoteStateEnum"
+          },
+          "quoted_status": {
+            "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
+            "$ref": "#/components/schemas/Status"
           }
         },
+        "required": [
+          "state"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Quote/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35668,45 +35520,29 @@
         "properties": {
           "automatic": {
             "description": "Describes who is expected to be able to quote that status and have the quote automatically authorized. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string",
-              "enum": [
-                "public",
-                "followers",
-                "following",
-                "unsupported_policy"
-              ]
+              "$ref": "#/components/schemas/QuoteApprovalAutomaticEnum"
             }
           },
           "current_user": {
             "description": "Describes how this status' quote policy applies to the current user.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/QuoteApprovalCurrentUserEnum"
           },
           "manual": {
             "description": "Describes who is expected to have their quotes of this status be manually reviewed by the author before being accepted. An empty list means that nobody is expected to be able to quote this post. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string",
-              "enum": [
-                "public",
-                "followers",
-                "following",
-                "unsupported_policy"
-              ]
+              "$ref": "#/components/schemas/QuoteApprovalAutomaticEnum"
             }
           }
         },
+        "required": [
+          "automatic",
+          "current_user",
+          "manual"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/QuoteApproval/#attributes",
           "description": "Official Mastodon API documentation"
@@ -35733,25 +35569,16 @@
           },
           "me": {
             "description": "If there is a currently authorized user: Have you added this reaction?",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "static_url": {
             "description": "If the reaction is a custom emoji: A link to a non-animated version of the custom emoji.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           },
           "url": {
             "description": "If the reaction is a custom emoji: A link to the custom emoji.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           }
         },
@@ -35893,56 +35720,44 @@
         "properties": {
           "created_at": {
             "description": "When the event took place.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           },
           "followers_count": {
             "description": "Number of followers that were removed as result of the event.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer"
           },
           "following_count": {
             "description": "Number of accounts the user stopped following as result of the event.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer"
           },
           "id": {
             "description": "The ID of the relationship severance event in the database.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "purged": {
             "description": "Whether the list of severed relationships is unavailable because the underlying issue has been purged.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "target_name": {
             "description": "Name of the target of the moderation/block event. This is either a domain name or a user handle, depending on the event type.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "type": {
             "description": "Type of event.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/RelationshipSeveranceEventTypeEnum"
           }
         },
+        "required": [
+          "created_at",
+          "followers_count",
+          "following_count",
+          "id",
+          "purged",
+          "target_name",
+          "type"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/RelationshipSeveranceEvent/#attributes",
           "description": "Official Mastodon API documentation"
@@ -36342,22 +36157,19 @@
         "type": "object",
         "description": "Represents a quote or a quote placeholder, with the current authorization status.",
         "properties": {
-          "quoted_status_id": {
-            "description": "The identifier of the status being quoted. This will be `null`, unless the `state` attribute is one of `accepted`, `blocked_account`, `blocked_domain` or `muted_account`.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "state": {
             "description": "The state of the quote. Unknown values should be treated as `unauthorized`.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/QuoteStateEnum"
+          },
+          "quoted_status_id": {
+            "description": "The identifier of the status being quoted. This will be `null`, unless the `state` attribute is one of `accepted`, `blocked_account`, `blocked_domain` or `muted_account`.",
+            "type": "string"
           }
         },
+        "required": [
+          "state"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/ShallowQuote/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37135,35 +36947,28 @@
         "properties": {
           "content": {
             "description": "The rendered HTML content of the terms of service.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "effective": {
             "description": "Whether these terms of service are currently in effect.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "effective_date": {
             "description": "The date these terms of service are coming or have come in effect.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date"
           },
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date"
           }
         },
+        "required": [
+          "content",
+          "effective",
+          "effective_date"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/TermsOfService/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37275,22 +37080,20 @@
         "properties": {
           "id": {
             "description": "The ID of the poll.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "options": {
             "description": "The translated poll options.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/TranslationPollOption"
             }
           }
         },
+        "required": [
+          "id",
+          "options"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37302,12 +37105,12 @@
         "properties": {
           "title": {
             "description": "The translated title of the poll option.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "title"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37319,19 +37122,17 @@
         "properties": {
           "description": {
             "description": "The translated description of the attachment.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "id": {
             "description": "The id of the attachment.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           }
         },
+        "required": [
+          "description",
+          "id"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#translation",
           "description": "Official Mastodon API documentation"
@@ -37366,10 +37167,7 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "date-time"
           }
         },
@@ -37780,56 +37578,46 @@
         "properties": {
           "filter_new_accounts": {
             "description": "Whether to filter notifications from accounts created in the past 30 days.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "filter_not_followers": {
             "description": "Whether to filter notifications from accounts that are not following the user.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "filter_not_following": {
             "description": "Whether to filter notifications from accounts the user is not following.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "filter_private_mentions": {
             "description": "Whether to filter notifications from private mentions. Replies to private mentions initiated by the user, as well as accounts the user follows, are never filtered.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "summary": {
             "description": "Summary of the filtered notifications",
-            "type": [
-              "object",
-              "null"
-            ],
+            "type": "object",
             "properties": {
-              "pending_requests_count": {
-                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              },
               "pending_notifications_count": {
                 "description": "Number of total non-dismissed filtered notifications. May be inaccurate.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
+                "type": "integer"
+              },
+              "pending_requests_count": {
+                "description": "Number of different accounts from which the user has non-dismissed filtered notifications. Capped at 100.",
+                "type": "integer"
               }
-            }
+            },
+            "required": [
+              "pending_notifications_count",
+              "pending_requests_count"
+            ]
           }
         },
+        "required": [
+          "filter_new_accounts",
+          "filter_not_followers",
+          "filter_not_following",
+          "filter_private_mentions",
+          "summary"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/V1_NotificationPolicy/#attributes",
           "description": "Official Mastodon API documentation"
@@ -37958,45 +37746,38 @@
         "properties": {
           "accounts": {
             "description": "Accounts referenced by grouped notifications.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Account"
             }
           },
           "notification_groups": {
             "description": "The grouped notifications themselves.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/NotificationGroup"
             }
           },
-          "partial_accounts": {
-            "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/PartialAccountWithAvatar"
-            }
-          },
           "statuses": {
             "description": "Statuses referenced by grouped notifications.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "$ref": "#/components/schemas/Status"
             }
+          },
+          "partial_accounts": {
+            "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PartialAccountWithAvatar"
+            }
           }
         },
+        "required": [
+          "accounts",
+          "notification_groups",
+          "statuses"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/GroupedNotificationsResults/#attributes",
           "description": "Official Mastodon API documentation"
@@ -38008,57 +37789,45 @@
         "properties": {
           "acct": {
             "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "avatar": {
             "description": "An image icon that is shown next to statuses and in the profile.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           },
           "avatar_static": {
             "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           },
           "bot": {
             "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "id": {
             "description": "The account id.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "locked": {
             "description": "Whether the account manually approves follow requests.",
-            "type": [
-              "boolean",
-              "null"
-            ]
+            "type": "boolean"
           },
           "url": {
             "description": "The location of the user's profile page.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "format": "uri"
           }
         },
+        "required": [
+          "acct",
+          "avatar",
+          "avatar_static",
+          "bot",
+          "id",
+          "locked",
+          "url"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/#attributes",
           "description": "Official Mastodon API documentation"
@@ -38068,108 +37837,67 @@
         "type": "object",
         "description": "### Attributes",
         "properties": {
-          "event": {
-            "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/RelationshipSeveranceEvent"
-              },
-              {
-                "type": "null"
-              }
-            ]
-          },
           "group_key": {
             "description": "Group key identifying the grouped notifications. Should be treated as an opaque value.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "latest_page_notification_at": {
-            "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "date-time"
-          },
-          "moderation_warning": {
-            "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/AccountWarning"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": "string"
           },
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
-            "type": [
-              "integer",
-              "null"
-            ]
+            "type": "integer"
           },
           "notifications_count": {
             "description": "Total number of individual notifications that are part of this notification group.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "page_max_id": {
-            "description": "ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "page_min_id": {
-            "description": "ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "report": {
-            "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/Report"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "type": "integer"
           },
           "sample_account_ids": {
             "description": "IDs of some of the accounts who most recently triggered notifications in this group.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string"
             }
           },
-          "status_id": {
-            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
             "$ref": "#/components/schemas/NotificationTypeEnum"
+          },
+          "event": {
+            "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
+            "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+          },
+          "latest_page_notification_at": {
+            "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "moderation_warning": {
+            "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
+            "$ref": "#/components/schemas/AccountWarning"
+          },
+          "page_max_id": {
+            "description": "ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "type": "string"
+          },
+          "page_min_id": {
+            "description": "ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
+            "type": "string"
+          },
+          "report": {
+            "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
+            "$ref": "#/components/schemas/Report"
+          },
+          "status_id": {
+            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
+            "type": "string"
           }
         },
+        "required": [
+          "group_key",
+          "most_recent_notification_id",
+          "notifications_count",
+          "sample_account_ids",
+          "type"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/NotificationGroup/#attributes",
           "description": "Official Mastodon API documentation"
@@ -38771,6 +38499,15 @@
           "blocked_account",
           "blocked_domain",
           "muted_account"
+        ]
+      },
+      "QuoteApprovalAutomaticEnum": {
+        "type": "string",
+        "enum": [
+          "public",
+          "followers",
+          "following",
+          "unsupported_policy"
         ]
       },
       "QuoteApprovalCurrentUserEnum": {
