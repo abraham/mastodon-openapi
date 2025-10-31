@@ -39,7 +39,7 @@ class SpecBuilder {
       }
     }
 
-    const description = `Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [${config.mastodonDocsCommit.substring(0, 7)}](https://github.com/mastodon/documentation/commit/${config.mastodonDocsCommit}).`;
+    const description = `Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [${config.mastodonDocsCommit.substring(0, 7)}](https://github.com/mastodon/documentation/commit/${config.mastodonDocsCommit}). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.`;
 
     return {
       openapi: '3.1.0',
