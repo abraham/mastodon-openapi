@@ -31986,7 +31986,10 @@
           },
           "mute_expires_at": {
             "description": "When a timed mute will expire, if applicable.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "noindex": {
@@ -32140,11 +32143,21 @@
           },
           "appeal": {
             "description": "Appeal submitted by the target account, if any.",
-            "$ref": "#/components/schemas/Appeal"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Appeal"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "status_ids": {
             "description": "List of status IDs that are relevant to the warning. When `action` is `mark_statuses_as_sensitive` or `delete_statuses`, those are the affected statuses. If the action is `delete_statuses` then they have been irrevocably deleted (irrespective of the appeal state), and will be inaccessible to the client.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": "string"
             }
@@ -32755,7 +32768,10 @@
           },
           "expires_at": {
             "description": "When the IP block will expire.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           }
         },
@@ -32800,15 +32816,24 @@
           },
           "human_value": {
             "description": "A human-readable formatted value for this data item.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "previous_total": {
             "description": "The numeric total associated with the requested measure, in the previous period. Previous period is calculated by subtracting the start_at and end_at dates, then offsetting both start and end dates backwards by the length of the time period.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "unit": {
             "description": "The units associated with this data item's value, if applicable.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -33051,16 +33076,25 @@
           },
           "ends_at": {
             "description": "When the announcement will end.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "read": {
             "description": "Whether the announcement has been read by the current user.",
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           },
           "starts_at": {
             "description": "When the announcement will start.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           }
         },
@@ -33385,7 +33419,10 @@
           },
           "result_count": {
             "description": "Optional number of results already created/fetched as part of this async refresh.",
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         },
         "required": [
@@ -33479,7 +33516,14 @@
           },
           "last_status": {
             "description": "The last status in the conversation.",
-            "$ref": "#/components/schemas/Status"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Status"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
@@ -33576,7 +33620,10 @@
           },
           "comment": {
             "description": "An optional reason for the domain block.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -33605,7 +33652,10 @@
           },
           "error_description": {
             "description": "A longer description of the error, mainly provided with the OAuth API.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -33767,19 +33817,28 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "keywords": {
             "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/FilterKeyword"
             }
           },
           "statuses": {
             "description": "The statuses grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/FilterStatus"
             }
@@ -33860,14 +33919,20 @@
           },
           "keyword_matches": {
             "description": "The keyword within the filter that was matched.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": "string"
             }
           },
           "status_matches": {
             "description": "The status ID within the filter that was matched.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": "string"
             }
@@ -34938,7 +35003,14 @@
           },
           "last_status": {
             "description": "Most recent status associated with a filtered notification from that account.",
-            "$ref": "#/components/schemas/Status"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Status"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
@@ -35020,23 +35092,35 @@
           },
           "expires_at": {
             "description": "When the poll ends.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "own_votes": {
             "description": "When called with a user token, which options has the authorized user chosen? Contains an array of index values for `options`.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "type": "integer"
             }
           },
           "voted": {
             "description": "When called with a user token, has the authorized user voted?",
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           },
           "voters_count": {
             "description": "How many unique accounts have voted on a multiple-choice poll.",
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         },
         "required": [
@@ -35085,7 +35169,10 @@
           },
           "votes_count": {
             "description": "The total number of received votes for this option.",
-            "type": "integer"
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         },
         "required": [
@@ -35120,7 +35207,10 @@
           },
           "posting:default:language": {
             "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "iso-639-1"
           }
         },
@@ -35396,7 +35486,14 @@
           },
           "account": {
             "description": "The fediverse account of the author.",
-            "$ref": "#/components/schemas/Account"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Account"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
@@ -35446,7 +35543,14 @@
           },
           "quoted_status": {
             "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`.",
-            "$ref": "#/components/schemas/Status"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Status"
+              },
+              {
+                "type": "null"
+              }
+            ]
           }
         },
         "required": [
@@ -35569,16 +35673,25 @@
           },
           "me": {
             "description": "If there is a currently authorized user: Have you added this reaction?",
-            "type": "boolean"
+            "type": [
+              "boolean",
+              "null"
+            ]
           },
           "static_url": {
             "description": "If the reaction is a custom emoji: A link to a non-animated version of the custom emoji.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uri"
           },
           "url": {
             "description": "If the reaction is a custom emoji: A link to the custom emoji.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "uri"
           }
         },
@@ -36164,7 +36277,10 @@
           },
           "quoted_status_id": {
             "description": "The identifier of the status being quoted. This will be `null`, unless the `state` attribute is one of `accepted`, `blocked_account`, `blocked_domain` or `muted_account`.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -36960,7 +37076,10 @@
           },
           "succeeded_by": {
             "description": "If there are newer terms of service, their effective date.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date"
           }
         },
@@ -37167,7 +37286,10 @@
           },
           "expires_at": {
             "description": "When the filter should no longer be applied.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           }
         },
@@ -37767,7 +37889,10 @@
           },
           "partial_accounts": {
             "description": "Partial accounts referenced by grouped notifications. Those are only returned when requesting grouped notifications with `expand_accounts=partial_avatars`.",
-            "type": "array",
+            "type": [
+              "array",
+              "null"
+            ],
             "items": {
               "$ref": "#/components/schemas/PartialAccountWithAvatar"
             }
@@ -37863,32 +37988,65 @@
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
-            "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "latest_page_notification_at": {
             "description": "Date at which the most recent notification from this group within the current page has been created. This is only returned when paginating through notification groups.",
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "moderation_warning": {
             "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
-            "$ref": "#/components/schemas/AccountWarning"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AccountWarning"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "page_max_id": {
             "description": "ID of the newest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "page_min_id": {
             "description": "ID of the oldest notification from this group represented within the current page. This is only returned when paginating through notification groups. Useful when polling new notifications.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "report": {
             "description": "Report that was the object of the notification. Attached when `type` of the notification is `admin.report`.",
-            "$ref": "#/components/schemas/Report"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Report"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "status_id": {
             "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [

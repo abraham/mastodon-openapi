@@ -11,8 +11,7 @@ describe('Entity Same Version Nullable - Integration Test', () => {
     expect(asyncRefreshEntity).toBeDefined();
 
     if (asyncRefreshEntity) {
-      // Check that none of the attributes are marked as nullable
-      // (except for explicitly optional ones like result_count)
+      // Check that attributes are marked correctly
       const idAttr = asyncRefreshEntity.attributes.find((a) => a.name === 'id');
       const statusAttr = asyncRefreshEntity.attributes.find(
         (a) => a.name === 'status'
@@ -21,6 +20,7 @@ describe('Entity Same Version Nullable - Integration Test', () => {
         (a) => a.name === 'result_count'
       );
 
+      // id and status should NOT be nullable (no explicit nullable marker)
       expect(idAttr).toBeDefined();
       expect(idAttr?.nullable).toBeUndefined();
       expect(idAttr?.versions).toEqual(['4.4.0']);
@@ -29,9 +29,10 @@ describe('Entity Same Version Nullable - Integration Test', () => {
       expect(statusAttr?.nullable).toBeUndefined();
       expect(statusAttr?.versions).toEqual(['4.4.0']);
 
+      // result_count should remain nullable (explicitly marked with {{<nullable>}})
       expect(resultCountAttr).toBeDefined();
-      expect(resultCountAttr?.nullable).toBeUndefined();
-      // result_count is optional but not nullable
+      expect(resultCountAttr?.nullable).toBe(true);
+      expect(resultCountAttr?.explicitlyNullable).toBe(true);
       expect(resultCountAttr?.optional).toBe(true);
       expect(resultCountAttr?.versions).toEqual(['4.4.0']);
     }
@@ -65,15 +66,15 @@ describe('Entity Same Version Nullable - Integration Test', () => {
         expect(statusProp.type).not.toEqual(['string', 'null']);
       }
 
-      // Check result_count property - should be integer, not ["integer", "null"]
+      // Check result_count property - should be nullable (explicitly marked)
       const resultCountProp = asyncRefreshSchema.properties?.result_count;
       expect(resultCountProp).toBeDefined();
       if (resultCountProp && 'type' in resultCountProp) {
-        expect(resultCountProp.type).toBe('integer');
-        expect(resultCountProp.type).not.toEqual(['integer', 'null']);
+        // result_count is explicitly nullable, so it should be ["integer", "null"]
+        expect(resultCountProp.type).toEqual(['integer', 'null']);
       }
 
-      // Check required array - should include id and status, but not result_count
+      // Check required array - should include id and status, but not result_count (optional)
       expect(asyncRefreshSchema.required).toContain('id');
       expect(asyncRefreshSchema.required).toContain('status');
       expect(asyncRefreshSchema.required).not.toContain('result_count');
@@ -146,6 +147,38 @@ describe('Entity Same Version Nullable - Integration Test', () => {
 
       expect(humanValueAttr?.optional).toBe(true);
       expect(humanValueAttr?.nullable).toBeUndefined();
+    }
+  });
+
+  it('should preserve explicitly nullable attributes (Conversation#last_status)', () => {
+    const parser = new EntityParser();
+    const entities = parser.parseAllEntities();
+
+    const conversationEntity = entities.find((e) => e.name === 'Conversation');
+
+    expect(conversationEntity).toBeDefined();
+
+    if (conversationEntity) {
+      // All attributes were added in 2.6.0
+      const idAttr = conversationEntity.attributes.find((a) => a.name === 'id');
+      const unreadAttr = conversationEntity.attributes.find(
+        (a) => a.name === 'unread'
+      );
+      const lastStatusAttr = conversationEntity.attributes.find(
+        (a) => a.name === 'last_status'
+      );
+
+      // id and unread should NOT be nullable (version-based nullable removed)
+      expect(idAttr?.nullable).toBeUndefined();
+      expect(idAttr?.versions).toEqual(['2.6.0']);
+
+      expect(unreadAttr?.nullable).toBeUndefined();
+      expect(unreadAttr?.versions).toEqual(['2.6.0']);
+
+      // last_status should remain nullable because it's explicitly marked as nullable
+      expect(lastStatusAttr?.nullable).toBe(true);
+      expect(lastStatusAttr?.explicitlyNullable).toBe(true);
+      expect(lastStatusAttr?.versions).toEqual(['2.6.0']);
     }
   });
 });

@@ -76,9 +76,10 @@ export class EntityParsingUtils {
    * introduced in that version, so older versions wouldn't know about this entity type.
    * Therefore, attributes shouldn't be marked as nullable in this case.
    *
-   * Note: This only removes the nullable flag, not the optional flag. Optional fields
-   * (marked with {{%optional%}} in docs) should remain optional even if all attributes
-   * share the same version.
+   * Note: This only removes version-based nullable flags. Attributes explicitly marked as
+   * nullable in the documentation (with {{<nullable>}}, {{%nullable%}}, " or null", etc.)
+   * will retain their nullable flag even if all attributes share the same version.
+   * The optional flag is also preserved for all attributes.
    */
   static removeNullableIfSameVersion(
     attributes: EntityAttribute[]
@@ -89,12 +90,18 @@ export class EntityParsingUtils {
     }
 
     // Extract the "added" version for each attribute that has version information
+    // Exclude explicitly nullable attributes from this check
     const addedVersions = new Set<string>();
     const attributesWithVersions: EntityAttribute[] = [];
 
     for (const attr of attributes) {
       // Consider all attributes that have version information
-      if (attr.versions && attr.versions.length > 0) {
+      // Skip explicitly nullable attributes - they should always remain nullable
+      if (
+        attr.versions &&
+        attr.versions.length > 0 &&
+        !attr.explicitlyNullable
+      ) {
         const earliestVersion = this.getEarliestVersion(attr.versions);
         addedVersions.add(earliestVersion);
         attributesWithVersions.push(attr);
@@ -106,7 +113,12 @@ export class EntityParsingUtils {
     if (addedVersions.size === 1 && attributesWithVersions.length > 0) {
       return attributes.map((attr) => {
         // Only remove nullable from attributes that have version information
-        if (attr.versions && attr.versions.length > 0) {
+        // Skip explicitly nullable attributes - they should always remain nullable
+        if (
+          attr.versions &&
+          attr.versions.length > 0 &&
+          !attr.explicitlyNullable
+        ) {
           const earliestVersion = this.getEarliestVersion(attr.versions);
 
           if (addedVersions.has(earliestVersion) && attr.nullable === true) {

@@ -241,4 +241,44 @@ describe('EntityParsingUtils - removeNullableIfSameVersion', () => {
     // But optional should be preserved for explicitly optional fields
     expect(result[2].optional).toBe(true);
   });
+
+  it('should preserve nullable for explicitly nullable attributes even when all added in same version', () => {
+    // Test the Conversation entity case where last_status is explicitly nullable
+    const attributes: EntityAttribute[] = [
+      {
+        name: 'id',
+        type: 'String',
+        description: 'The ID',
+        versions: ['2.6.0'],
+        nullable: true,
+      },
+      {
+        name: 'unread',
+        type: 'Boolean',
+        description: 'Is unread',
+        versions: ['2.6.0'],
+        nullable: true,
+      },
+      {
+        name: 'last_status',
+        type: '[Status]',
+        description: 'The last status',
+        versions: ['2.6.0'],
+        nullable: true,
+        optional: true,
+        explicitlyNullable: true, // Explicitly marked with {{<nullable>}} in docs
+      },
+    ];
+
+    const result = EntityParsingUtils.removeNullableIfSameVersion(attributes);
+
+    // id and unread should have nullable removed
+    expect(result[0].nullable).toBeUndefined();
+    expect(result[1].nullable).toBeUndefined();
+
+    // last_status should remain nullable because it's explicitly nullable
+    expect(result[2].nullable).toBe(true);
+    expect(result[2].optional).toBe(true);
+    expect(result[2].explicitlyNullable).toBe(true);
+  });
 });
