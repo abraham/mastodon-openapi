@@ -91,7 +91,7 @@ describe('EntityParsingUtils - removeNullableIfSameVersion', () => {
     // The field without version info should remain unchanged
     expect(result[1].optional).toBe(true);
     expect(result[1].nullable).toBe(true);
-    
+
     // The version-based nullable field should have nullable removed
     expect(result[0].nullable).toBeUndefined();
   });

@@ -75,7 +75,7 @@ export class EntityParsingUtils {
    * If all attributes of an entity were added in the same version, the entity itself was
    * introduced in that version, so older versions wouldn't know about this entity type.
    * Therefore, attributes shouldn't be marked as nullable in this case.
-   * 
+   *
    * Note: This only removes the nullable flag, not the optional flag. Optional fields
    * (marked with {{%optional%}} in docs) should remain optional even if all attributes
    * share the same version.
