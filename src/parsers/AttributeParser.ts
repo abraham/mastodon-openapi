@@ -91,10 +91,12 @@ export class AttributeParser {
           if (heading.modifiers.includes('optional')) {
             attribute.optional = true;
             attribute.nullable = true;
+            attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
           }
           if (heading.modifiers.includes('nullable')) {
             attribute.optional = true;
             attribute.nullable = true;
+            attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
           }
           if (heading.modifiers.includes('deprecated')) {
             attribute.deprecated = true;
@@ -105,6 +107,7 @@ export class AttributeParser {
         if (isNullable) {
           attribute.optional = true;
           attribute.nullable = true;
+          attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
         }
 
         // Extract enum values if this is an enumerable type
@@ -231,10 +234,12 @@ export class AttributeParser {
         if (modifiers.includes('optional')) {
           attribute.optional = true;
           attribute.nullable = true;
+          attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
         }
         if (modifiers.includes('nullable')) {
           attribute.optional = true;
           attribute.nullable = true;
+          attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
         }
         if (modifiers.includes('deprecated')) {
           attribute.deprecated = true;
@@ -245,6 +250,7 @@ export class AttributeParser {
       if (isNullable) {
         attribute.optional = true;
         attribute.nullable = true;
+        attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
       }
 
       // Check for enum values in the content between Type and Version history
