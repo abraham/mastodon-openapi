@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [0afc571](https://github.com/mastodon/documentation/commit/0afc57159aecf25fd22522e948c07b4fdad332a3). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [b1a35a4](https://github.com/mastodon/documentation/commit/b1a35a43a22f647dc9389b0eab7be0cd06d2af9a). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -29768,7 +29768,7 @@
       "get": {
         "operationId": "getTimelineLink",
         "summary": "View link timeline",
-        "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.\n\nVersion history:\n\n4.3.0 - added",
+        "description": "View public statuses containing a link to the specified currently-trending article. This only lists statuses from people who have opted in to discoverability features.\n\nVersion history:\n\n4.3.0 - added\\\n4.5.0 - add [access control settings]",
         "tags": [
           "timelines"
         ],
@@ -29808,6 +29808,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Status"
+                  }
+                },
+                "examples": {
+                  "Status200Example": {
+                    "$ref": "#/components/examples/Status200Example"
                   }
                 }
               }
@@ -30152,7 +30157,7 @@
       "get": {
         "operationId": "getTimelinePublic",
         "summary": "View public timeline",
-        "description": "View public statuses.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n3.0.0 - auth is required if public preview is disabled\\\n3.1.4 - added `remote`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
+        "description": "View public statuses.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n3.0.0 - auth is required if public preview is disabled\\\n3.1.4 - added `remote`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now\\\n4.5.0 - add [access control settings]",
         "tags": [
           "timelines"
         ],
@@ -30367,7 +30372,7 @@
       "get": {
         "operationId": "getTimelinesTagByHashtag",
         "summary": "View hashtag timeline",
-        "description": "View public statuses containing the given hashtag.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n2.7.0 - add `any[]`, `all[]`, `none[]` for additional tags\\\n3.0.0 - auth is required if public preview is disabled\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now. add `remote`",
+        "description": "View public statuses containing the given hashtag.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n2.7.0 - add `any[]`, `all[]`, `none[]` for additional tags\\\n3.0.0 - auth is required if public preview is disabled\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now. add `remote`\\\n4.5.0 - add [access control settings]",
         "tags": [
           "timelines"
         ],
@@ -34222,7 +34227,7 @@
                   "null"
                 ]
               },
-              "timeline_access": {
+              "timelines_access": {
                 "description": "Access restrictions on different timelines.",
                 "type": [
                   "object",
@@ -34230,14 +34235,14 @@
                 ],
                 "properties": {
                   "live_feeds": {
-                    "description": "Access restrictions on [public “firehose” feeds]({{< relref \"methods/timelines#public\" >}}).",
+                    "description": "Access restrictions on [public feeds]({{< relref \"methods/timelines#public\" >}}).",
                     "type": [
                       "object",
                       "null"
                     ],
                     "properties": {
                       "local": {
-                        "description": "Access restrictions for local posts in the public “firehose” feed.",
+                        "description": "Access restrictions for local posts in the public feed.",
                         "type": [
                           "string",
                           "null"
@@ -34249,7 +34254,7 @@
                         ]
                       },
                       "remote": {
-                        "description": "Access restrictions for remote posts in the public “firehose” feed.",
+                        "description": "Access restrictions for remote posts in the public feed.",
                         "type": [
                           "string",
                           "null"
