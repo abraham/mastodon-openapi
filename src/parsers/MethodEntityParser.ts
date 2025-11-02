@@ -4,6 +4,7 @@ import { EntityClass } from '../interfaces/EntityClass';
 import { AttributeParser } from './AttributeParser';
 import { ExampleParser } from './ExampleParser';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
+import { EntityParsingUtils } from './EntityParsingUtils';
 
 /**
  * Handles parsing entities from method documentation files
@@ -45,6 +46,10 @@ export class MethodEntityParser {
       const attributes =
         AttributeParser.parseMethodEntityAttributes(entityContent);
 
+      // Remove nullable flag if all attributes were added in the same version
+      const adjustedAttributes =
+        EntityParsingUtils.removeNullableIfSameVersion(attributes);
+
       // Extract description from the content or use a default
       let description = `Entity defined in method documentation`;
 
@@ -57,7 +62,7 @@ export class MethodEntityParser {
       entities.push({
         name: entityName.trim(),
         description,
-        attributes,
+        attributes: adjustedAttributes,
       });
     }
 
