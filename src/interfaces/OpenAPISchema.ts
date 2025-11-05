@@ -68,6 +68,9 @@ interface OpenAPIProperty {
   required?: string[];
   example?: any;
   additionalProperties?: OpenAPIProperty | boolean;
+  propertyNames?: {
+    enum?: string[];
+  };
 }
 
 interface OpenAPISchema {
