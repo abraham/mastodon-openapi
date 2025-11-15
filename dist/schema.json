@@ -14981,7 +14981,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Hash of timeline key and associated [Marker]",
+            "description": "Hash of String (Enumerable, anyOf `home` or `notifications`) key and associated [Marker] value",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15006,11 +15006,27 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Marker"
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/Marker"
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "home",
+                      "notifications"
+                    ]
+                  }
                 },
-                "examples": {
-                  "Marker200Example": {
-                    "$ref": "#/components/examples/Marker200Example"
+                "example": {
+                  "notifications": {
+                    "last_read_id": "35098814",
+                    "version": 361,
+                    "updated_at": "2019-11-26T22:37:25.239Z"
+                  },
+                  "home": {
+                    "last_read_id": "103206604258487607",
+                    "version": 468,
+                    "updated_at": "2019-11-26T22:37:25.235Z"
                   }
                 }
               }
@@ -15130,7 +15146,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[Marker]",
+            "description": "Hash of String (Enumerable, anyOf `home` or `notifications`) key and associated [Marker] value",
             "headers": {
               "X-RateLimit-Limit": {
                 "description": "Number of requests permitted per time period",
@@ -15155,11 +15171,22 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Marker"
+                  "type": "object",
+                  "additionalProperties": {
+                    "$ref": "#/components/schemas/Marker"
+                  },
+                  "propertyNames": {
+                    "enum": [
+                      "home",
+                      "notifications"
+                    ]
+                  }
                 },
-                "examples": {
-                  "Marker200Example": {
-                    "$ref": "#/components/examples/Marker200Example"
+                "example": {
+                  "home": {
+                    "last_read_id": "103194548672408537",
+                    "version": 462,
+                    "updated_at": "2019-11-24T19:39:39.337Z"
                   }
                 }
               }
@@ -40330,21 +40357,6 @@
               }
             }
           ]
-        }
-      },
-      "Marker200Example": {
-        "summary": "Example for Marker",
-        "value": {
-          "notifications": {
-            "last_read_id": "35098814",
-            "version": 361,
-            "updated_at": "2019-11-26T22:37:25.239Z"
-          },
-          "home": {
-            "last_read_id": "103206604258487607",
-            "version": 468,
-            "updated_at": "2019-11-26T22:37:25.235Z"
-          }
         }
       },
       "MediaAttachment200Example": {

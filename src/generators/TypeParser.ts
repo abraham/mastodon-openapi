@@ -204,6 +204,42 @@ class TypeParser {
       }
     }
 
+    // Handle Hash with enumerable keys pattern:
+    // "Hash of String (Enumerable, anyOf `home` or `notifications`) key and associated [Entity] value"
+    const hashEnumMatch = returns.match(
+      /Hash of String \(Enumerable,\s*anyOf\s+([^)]+)\)\s+key and associated \[([^\]]+)\]/i
+    );
+    if (hashEnumMatch) {
+      const enumValuesStr = hashEnumMatch[1];
+      const entityName = hashEnumMatch[2];
+      const sanitizedEntityName =
+        this.utilityHelpers.sanitizeSchemaName(entityName);
+
+      // Extract enum values from backtick-quoted strings
+      const enumValues = enumValuesStr
+        .match(/`([^`]+)`/g)
+        ?.map((val) => val.replace(/`/g, ''));
+
+      // Check if the entity exists in the components.schemas
+      if (spec.components?.schemas?.[sanitizedEntityName]) {
+        const schema: OpenAPIProperty = {
+          type: 'object',
+          additionalProperties: {
+            $ref: `#/components/schemas/${sanitizedEntityName}`,
+          },
+        };
+
+        // Add propertyNames constraint with enum if we found enum values
+        if (enumValues && enumValues.length > 0) {
+          schema.propertyNames = {
+            enum: enumValues,
+          };
+        }
+
+        return schema;
+      }
+    }
+
     // Handle array responses: "Array of String", "Array of Integer", etc.
     const basicArrayMatch = returns.match(/Array of (\w+)/i);
     if (basicArrayMatch) {
