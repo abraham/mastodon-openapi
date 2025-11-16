@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [701fd40](https://github.com/mastodon/documentation/commit/701fd405b583afac6c94fa6ed461b0c84419fb6a). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f87c45a](https://github.com/mastodon/documentation/commit/f87c45a6ffcea51ab0bfb70f789d94f1a3ea5997). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -25649,7 +25649,7 @@
       "post": {
         "operationId": "postStatusTranslate",
         "summary": "Translate a status",
-        "description": "Translate the status content into some language.\n\nVersion history:\n\n4.0.0 - added",
+        "description": "Translate the status content into some language. Only statuses with Public and Unlisted visibility can be translated.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
           "statuses"
         ],
@@ -25700,6 +25700,21 @@
                 "examples": {
                   "Error401Example": {
                     "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
                   }
                 }
               }
@@ -37032,6 +37047,7 @@
           "replies_count": 5,
           "reblogs_count": 6,
           "favourites_count": 11,
+          "quotes_count": 2,
           "favourited": false,
           "reblogged": false,
           "muted": false,
@@ -37080,6 +37096,7 @@
           "mentions": [],
           "tags": [],
           "emojis": [],
+          "quote": null,
           "card": {
             "url": "https://www.theguardian.com/money/2019/dec/07/i-lost-my-193000-inheritance-with-one-wrong-digit-on-my-sort-code",
             "title": "‘I lost my £193,000 inheritance – with one wrong digit on my sort code’",
@@ -37095,7 +37112,12 @@
             "image": null,
             "embed_url": ""
           },
-          "poll": null
+          "poll": null,
+          "quote_approval": {
+            "automatic": [],
+            "manual": [],
+            "current_user": "automatic"
+          }
         }
       },
       "StatusMention": {
