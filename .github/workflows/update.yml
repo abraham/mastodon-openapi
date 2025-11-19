@@ -53,7 +53,7 @@ jobs:
         if: steps.check-changes.outputs.has-changes == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT }}
           commit-message: 'Update docs SHA and regenerate OpenAPI schema'
           title: 'Update docs SHA and regenerate OpenAPI schema'
           body: |
