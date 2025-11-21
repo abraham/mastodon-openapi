@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f87c45a](https://github.com/mastodon/documentation/commit/f87c45a6ffcea51ab0bfb70f789d94f1a3ea5997). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [131d4cd](https://github.com/mastodon/documentation/commit/131d4cddf6487a63023e701ba4101e6fb483019f). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -1571,6 +1571,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Account"
+                  }
+                },
+                "examples": {
+                  "Account200Example": {
+                    "$ref": "#/components/examples/Account200Example"
                   }
                 }
               }
@@ -3810,7 +3815,7 @@
     "/api/v1/accounts/lookup": {
       "get": {
         "operationId": "getAccountLookup",
-        "summary": "Lookup account ID from Webfinger address",
+        "summary": "Lookup account ID from WebFinger address",
         "description": "Quickly lookup a username to see if it is available, skipping WebFinger resolution.\n\nVersion history:\n\n3.4.0 - added",
         "tags": [
           "accounts"
@@ -3935,15 +3940,22 @@
           "url": "https://docs.joinmastodon.org/methods/accounts/#lookup",
           "description": "Official Mastodon API documentation"
         },
+        "security": [
+          {
+            "OAuth2": [
+              "read:accounts"
+            ]
+          }
+        ],
         "parameters": [
           {
             "name": "acct",
             "in": "query",
             "required": true,
-            "description": "The username or Webfinger address to lookup.",
+            "description": "The username or WebFinger address to lookup.",
             "schema": {
               "type": "string",
-              "description": "The username or Webfinger address to lookup."
+              "description": "The username or WebFinger address to lookup."
             }
           }
         ]
@@ -19367,10 +19379,10 @@
           {
             "name": "state",
             "in": "query",
-            "description": "Arbitrary value to passthrough to your server when the user authorizes or rejects the authorization request.",
+            "description": "Arbitrary value to pass through to your server when the user authorizes or rejects the authorization request.",
             "schema": {
               "type": "string",
-              "description": "Arbitrary value to passthrough to your server when the user authorizes or rejects the authorization request."
+              "description": "Arbitrary value to pass through to your server when the user authorizes or rejects the authorization request."
             }
           }
         ]
@@ -22009,7 +22021,7 @@
       "get": {
         "operationId": "getSearchV2",
         "summary": "Perform a search",
-        "description": "Perform a search for content in accounts, statuses and hashtags with the given parameters.\n\nVersion history:\n\n2.4.1 - added, limit hardcoded to 5\\\n2.8.0 - add `type`, `limit`, `offset`, `min_id`, `max_id`, `account_id`\\\n3.0.0 - add `exclude_unreviewed` param\\\n3.3.0 - `min_id` and `max_id` can be used together\\\n4.0.0 - no longer requires a user token. Without a valid user token, you cannot use the `resolve` or `offset` parameters.",
+        "description": "Perform a search for content in accounts, statuses and hashtags with the given parameters. Note that the availability of results depends on the specific backend search configuration of the server being queried. By default, accounts and hashtags are always searchable, while statuses depend on an ElasticSearch backend being present.\n\nVersion history:\n\n2.4.1 - added, limit hardcoded to 5\\\n2.8.0 - add `type`, `limit`, `offset`, `min_id`, `max_id`, `account_id`\\\n3.0.0 - add `exclude_unreviewed` param\\\n3.3.0 - `min_id` and `max_id` can be used together\\\n4.0.0 - no longer requires a user token. Without a valid user token, you cannot use the `resolve` or `offset` parameters.",
         "tags": [
           "search"
         ],
@@ -22047,6 +22059,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Search"
+                },
+                "examples": {
+                  "Search200Example": {
+                    "$ref": "#/components/examples/Search200Example"
+                  }
                 }
               }
             }
@@ -22212,10 +22229,10 @@
           {
             "name": "offset",
             "in": "query",
-            "description": "Skip the first n results.",
+            "description": "Skip the first n results. Only applies when `type` is also present (ignored otherwise).",
             "schema": {
               "type": "integer",
-              "description": "Skip the first n results."
+              "description": "Skip the first n results. Only applies when `type` is also present (ignored otherwise)."
             }
           },
           {
@@ -22941,7 +22958,7 @@
       "put": {
         "operationId": "updateStatus",
         "summary": "Edit a status",
-        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Note that editing a poll’s options or changing whether it is multiple choice will reset the votes.\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`\\\n4.5.0 (`mastodon` [API version] 7) - add `quote_approval_policy`",
+        "description": "Edit a given status to change its text, sensitivity, media attachments, or poll. Notes:\n\nVersion history:\n\n3.5.0 - added\\\n4.0.0 - add `language`\\\n4.5.0 (`mastodon` [API version] 7) - add `quote_approval_policy`",
         "tags": [
           "statuses"
         ],
@@ -25816,7 +25833,7 @@
                 "properties": {
                   "lang": {
                     "type": "string",
-                    "description": "String (ISO 639-1 language code). The status content will be translated into this language. Defaults to the user's current locale."
+                    "description": "String (ISO 639-1 language code). The status content will be translated into this language. Defaults to the user's current locale (which in turn falls back to server default)."
                   }
                 }
               }
@@ -28558,6 +28575,11 @@
                   "type": "array",
                   "items": {
                     "$ref": "#/components/schemas/Suggestion"
+                  }
+                },
+                "examples": {
+                  "Suggestion200Example": {
+                    "$ref": "#/components/examples/Suggestion200Example"
                   }
                 }
               }
@@ -31301,19 +31323,19 @@
           "write:reports",
           "write:statuses",
           "admin:read:accounts",
-          "admin:read:reports",
+          "admin:read:canonical_email_blocks",
           "admin:read:domain_allows",
           "admin:read:domain_blocks",
-          "admin:read:ip_blocks",
           "admin:read:email_domain_blocks",
-          "admin:read:canonical_email_blocks",
+          "admin:read:ip_blocks",
+          "admin:read:reports",
           "admin:write:accounts",
-          "admin:write:reports",
+          "admin:write:canonical_email_blocks",
           "admin:write:domain_allows",
           "admin:write:domain_blocks",
-          "admin:write:ip_blocks",
           "admin:write:email_domain_blocks",
-          "admin:write:canonical_email_blocks"
+          "admin:write:ip_blocks",
+          "admin:write:reports"
         ]
       },
       "OAuthScopes": {
@@ -31328,7 +31350,7 @@
         "description": "Represents a user of Mastodon and their associated profile.",
         "properties": {
           "acct": {
-            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
             "type": "string"
           },
           "avatar": {
@@ -31598,7 +31620,7 @@
         "description": "Additional entity definition for CredentialAccount",
         "properties": {
           "acct": {
-            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
             "type": "string"
           },
           "avatar": {
@@ -31895,7 +31917,7 @@
         "description": "Additional entity definition for MutedAccount",
         "properties": {
           "acct": {
-            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
             "type": "string"
           },
           "avatar": {
@@ -32272,6 +32294,10 @@
             "description": "The current role of the account.",
             "$ref": "#/components/schemas/Role"
           },
+          "sensitized": {
+            "description": "Whether the account is currently marked sensitive.",
+            "type": "boolean"
+          },
           "silenced": {
             "description": "Whether the account is currently silenced.",
             "type": "boolean"
@@ -32331,6 +32357,7 @@
           "ips",
           "locale",
           "role",
+          "sensitized",
           "silenced",
           "suspended",
           "username"
@@ -32359,6 +32386,7 @@
           "confirmed": true,
           "suspended": false,
           "silenced": false,
+          "sensitized": true,
           "disabled": false,
           "approved": true,
           "locale": null,
@@ -35182,17 +35210,19 @@
                 "properties": {
                   "x": {
                     "description": "Horizontal focal point",
-                    "type": "number"
+                    "type": [
+                      "number",
+                      "null"
+                    ]
                   },
                   "y": {
                     "description": "Vertical focal point",
-                    "type": "number"
+                    "type": [
+                      "number",
+                      "null"
+                    ]
                   }
-                },
-                "required": [
-                  "x",
-                  "y"
-                ]
+                }
               }
             }
           },
@@ -37616,6 +37646,10 @@
             "type": "string",
             "format": "iso-639-1"
           },
+          "language": {
+            "description": "The resulting language the text was translated into.",
+            "type": "string"
+          },
           "provider": {
             "description": "The service that provided the machine translation.",
             "type": "string"
@@ -37652,6 +37686,7 @@
         "required": [
           "content",
           "detected_source_language",
+          "language",
           "provider"
         ],
         "externalDocs": {
@@ -38057,6 +38092,9 @@
           "approval_required": false,
           "invites_enabled": true,
           "configuration": {
+            "accounts": {
+              "max_featured_tags": 10
+            },
             "statuses": {
               "max_characters": 500,
               "max_media_attachments": 4,
@@ -38379,7 +38417,7 @@
         "description": "These are stripped-down versions of [Account]({{< relref \"entities/Account\" >}}) that only contain what is necessary to display a list of avatars, as well as a few other useful properties. The aim is to cut back on expensive server-side serialization and reduce the network payload size of notification groups.",
         "properties": {
           "acct": {
-            "description": "The Webfinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
             "type": "string"
           },
           "avatar": {
@@ -39193,19 +39231,19 @@
               "write:reports": "Write access to reports",
               "write:statuses": "Write access to statuses",
               "admin:read:accounts": "Administrative read access to accounts",
-              "admin:read:reports": "Administrative read access to reports",
+              "admin:read:canonical_email_blocks": "Administrative read access to canonical_email_blocks",
               "admin:read:domain_allows": "Administrative read access to domain_allows",
               "admin:read:domain_blocks": "Administrative read access to domain_blocks",
-              "admin:read:ip_blocks": "Administrative read access to ip_blocks",
               "admin:read:email_domain_blocks": "Administrative read access to email_domain_blocks",
-              "admin:read:canonical_email_blocks": "Administrative read access to canonical_email_blocks",
+              "admin:read:ip_blocks": "Administrative read access to ip_blocks",
+              "admin:read:reports": "Administrative read access to reports",
               "admin:write:accounts": "Administrative write access to accounts",
-              "admin:write:reports": "Administrative write access to reports",
+              "admin:write:canonical_email_blocks": "Administrative write access to canonical_email_blocks",
               "admin:write:domain_allows": "Administrative write access to domain_allows",
               "admin:write:domain_blocks": "Administrative write access to domain_blocks",
-              "admin:write:ip_blocks": "Administrative write access to ip_blocks",
               "admin:write:email_domain_blocks": "Administrative write access to email_domain_blocks",
-              "admin:write:canonical_email_blocks": "Administrative write access to canonical_email_blocks"
+              "admin:write:ip_blocks": "Administrative write access to ip_blocks",
+              "admin:write:reports": "Administrative write access to reports"
             }
           }
         }
@@ -40760,6 +40798,64 @@
           }
         ]
       },
+      "Search200Example": {
+        "summary": "Example for Search",
+        "value": {
+          "accounts": [
+            {
+              "id": "180744",
+              "username": "catstar",
+              "acct": "catstar@catgram.jp",
+              "display_name": "catstar"
+            },
+            {
+              "id": "214293",
+              "username": "catsareweird",
+              "acct": "catsareweird",
+              "display_name": "Cats Are Weird"
+            }
+          ],
+          "statuses": [
+            {
+              "id": "103085519055545958",
+              "created_at": "2019-11-05T13:23:09.000Z",
+              "content": "<p>cats<br>cats never change</p>"
+            },
+            {
+              "id": "101068121469614510",
+              "created_at": "2018-11-14T06:31:48.000Z",
+              "spoiler_text": "Cats",
+              "content": "<p>Cats are inherently good at self-care. </p><p><a href=\"https://mspsocial.net/tags/cats\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>cats</span></a></p>"
+            }
+          ],
+          "hashtags": [
+            {
+              "id": "205",
+              "name": "cats",
+              "url": "https://mastodon.social/tags/cats",
+              "history": [
+                {
+                  "day": "1574553600",
+                  "uses": "10",
+                  "accounts": "9"
+                }
+              ]
+            },
+            {
+              "id": "708",
+              "name": "catsofmastodon",
+              "url": "https://mastodon.social/tags/catsofmastodon",
+              "history": [
+                {
+                  "day": "1574553600",
+                  "uses": "6",
+                  "accounts": "5"
+                }
+              ]
+            }
+          ]
+        }
+      },
       "Context200Example": {
         "summary": "Example for Context",
         "value": {
@@ -40917,6 +41013,27 @@
           "detected_source_language": "es",
           "provider": "DeepL.com"
         }
+      },
+      "Suggestion200Example": {
+        "summary": "Example for Suggestion",
+        "value": [
+          {
+            "source": "past_interactions",
+            "account": {
+              "id": "784058",
+              "username": "katie",
+              "acct": "katie@pleroma.voidlurker.net"
+            }
+          },
+          {
+            "source": "global",
+            "account": {
+              "id": "108194863260762493",
+              "username": "thunderbird",
+              "acct": "thunderbird@mastodon.online"
+            }
+          }
+        ]
       },
       "TrendsLink200Example": {
         "summary": "Example for TrendsLink",
