@@ -1,19 +1,12 @@
 {
-  "mastodonDocsCommit": "f87c45a6ffcea51ab0bfb70f789d94f1a3ea5997",
+  "mastodonDocsCommit": "131d4cddf6487a63023e701ba4101e6fb483019f",
   "mastodonVersion": "4.5.0",
   "minimumMastodonVersion": "4.2.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
   "overridesRepository": "https://github.com/abraham/documentation",
   "overrideCommits": [
-    "4590b4302eb9ab4124c7e3670aa8cbe69f03f3e4",
-    "3b54807103bfa3936029fbb1d17a1fde9f054494",
-    "0b3f4dfe8e5c404ec83bd22b2ecc52c88e058129",
     "b1d8f95b506e2d734876ef47ec0f4e1feb4f5618",
     "c6b60e2470226fd7bae1fcfebd4a372775f83419",
-    "cb223aa9f88db46557ee5722f347055a69e0b3df",
-    "ed347a1958f584f2a891e15521cffe7aff754a62",
-    "b7a315c559cb457723c726c1b49f07c35f2bd8a9",
-    "9a38bf8d99187663fbb905e4aba0205735accf32",
-    "6adf07364dc517388c488ff285aec0e9bcc80076"
+    "9a38bf8d99187663fbb905e4aba0205735accf32"
   ]
 }
