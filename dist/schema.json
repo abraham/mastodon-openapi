@@ -5682,7 +5682,7 @@
         },
         "security": [
           {
-            "OAuth2": [
+            "OAuth2ClientCredentials": [
               "read"
             ]
           }
