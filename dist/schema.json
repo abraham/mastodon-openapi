@@ -156,7 +156,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "write:accounts"
             ]
           }
@@ -5552,7 +5552,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": []
+            "OAuth2": []
           }
         ]
       }
@@ -5682,7 +5682,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read"
             ]
           }
@@ -25644,7 +25644,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read:statuses"
             ]
           }
@@ -25807,7 +25807,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read:statuses"
             ]
           }
@@ -29967,7 +29967,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read:statuses"
             ]
           }
@@ -30356,7 +30356,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read:statuses"
             ]
           }
@@ -30571,7 +30571,7 @@
         },
         "security": [
           {
-            "OAuth2ClientCredentials": [
+            "OAuth2": [
               "read:statuses"
             ]
           }
@@ -39193,11 +39193,11 @@
     "securitySchemes": {
       "OAuth2": {
         "type": "oauth2",
-        "description": "OAuth 2.0 authentication for user tokens (authorization code flow)",
+        "description": "OAuth 2.0 authentication",
         "flows": {
           "authorizationCode": {
-            "authorizationUrl": "https://mastodon.example/oauth/authorize",
-            "tokenUrl": "https://mastodon.example/oauth/token",
+            "authorizationUrl": "/oauth/authorize",
+            "tokenUrl": "/oauth/token",
             "scopes": {
               "profile": "Access to the current user profile information only",
               "read": "Read access",
@@ -39245,15 +39245,9 @@
               "admin:write:ip_blocks": "Administrative write access to ip_blocks",
               "admin:write:reports": "Administrative write access to reports"
             }
-          }
-        }
-      },
-      "OAuth2ClientCredentials": {
-        "type": "oauth2",
-        "description": "OAuth 2.0 authentication for app tokens (client credentials flow)",
-        "flows": {
+          },
           "clientCredentials": {
-            "tokenUrl": "https://mastodon.example/oauth/token",
+            "tokenUrl": "/oauth/token",
             "scopes": {
               "read": "Read access",
               "write": "Write access",

@@ -1009,13 +1009,13 @@ class MethodConverter {
 
       case 'app':
         // Required app token (client credentials flow)
-        securityRequirements.push({ OAuth2ClientCredentials: config.scopes });
+        securityRequirements.push({ OAuth2: config.scopes });
         break;
 
       case 'mixed':
-        // Supports both user and app tokens
-        securityRequirements.push({ OAuth2: config.scopes }); // User token
-        securityRequirements.push({ OAuth2ClientCredentials: config.scopes }); // App token
+        // Supports both user and app tokens - both use the same OAuth2 security scheme
+        // with different flows (authorizationCode for user tokens, clientCredentials for app tokens)
+        securityRequirements.push({ OAuth2: config.scopes });
         break;
 
       case 'unknown':

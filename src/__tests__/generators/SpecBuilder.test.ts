@@ -123,5 +123,76 @@ describe('SpecBuilder', () => {
         /\(https:\/\/github\.com\/mastodon\/documentation\/commit\/test123commit456\)\./
       );
     });
+
+    it('should have a single OAuth2 security scheme with both flows', () => {
+      const mockConfig = {
+        mastodonDocsCommit: 'test123commit456',
+      };
+
+      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+
+      const spec = specBuilder.buildInitialSpec();
+
+      // Check that there is only one OAuth2 security scheme
+      expect(spec.components?.securitySchemes).toBeDefined();
+      expect(spec.components?.securitySchemes?.OAuth2).toBeDefined();
+      expect(
+        spec.components?.securitySchemes?.OAuth2ClientCredentials
+      ).toBeUndefined();
+
+      // Check the OAuth2 security scheme has both flows
+      const oauth2 = spec.components?.securitySchemes?.OAuth2 as any;
+      expect(oauth2.type).toBe('oauth2');
+      expect(oauth2.description).toBe('OAuth 2.0 authentication');
+      expect(oauth2.flows?.authorizationCode).toBeDefined();
+      expect(oauth2.flows?.clientCredentials).toBeDefined();
+    });
+
+    it('should use path-only URLs for OAuth2 flows', () => {
+      const mockConfig = {
+        mastodonDocsCommit: 'test123commit456',
+      };
+
+      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+
+      const spec = specBuilder.buildInitialSpec();
+
+      const oauth2 = spec.components?.securitySchemes?.OAuth2 as any;
+
+      // Check authorizationCode flow URLs are path-only
+      expect(oauth2.flows?.authorizationCode?.authorizationUrl).toBe(
+        '/oauth/authorize'
+      );
+      expect(oauth2.flows?.authorizationCode?.tokenUrl).toBe('/oauth/token');
+
+      // Check clientCredentials flow URL is path-only
+      expect(oauth2.flows?.clientCredentials?.tokenUrl).toBe('/oauth/token');
+    });
+
+    it('should include scopes for both OAuth2 flows', () => {
+      const mockConfig = {
+        mastodonDocsCommit: 'test123commit456',
+      };
+
+      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+
+      const spec = specBuilder.buildInitialSpec();
+
+      const oauth2 = spec.components?.securitySchemes?.OAuth2 as any;
+
+      // Check authorizationCode flow has scopes (from mock: read, write)
+      expect(oauth2.flows?.authorizationCode?.scopes).toBeDefined();
+      expect(oauth2.flows?.authorizationCode?.scopes.read).toBe('Read access');
+      expect(oauth2.flows?.authorizationCode?.scopes.write).toBe(
+        'Write access'
+      );
+
+      // Check clientCredentials flow has scopes
+      expect(oauth2.flows?.clientCredentials?.scopes).toBeDefined();
+      expect(oauth2.flows?.clientCredentials?.scopes.read).toBe('Read access');
+      expect(oauth2.flows?.clientCredentials?.scopes.write).toBe(
+        'Write access'
+      );
+    });
   });
 });

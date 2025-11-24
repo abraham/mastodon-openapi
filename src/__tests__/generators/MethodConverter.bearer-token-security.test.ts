@@ -31,12 +31,12 @@ describe('MethodConverter Bearer Token Security', () => {
             description: 'OAuth 2.0 authentication',
             flows: {
               authorizationCode: {
-                authorizationUrl: 'https://mastodon.example/oauth/authorize',
-                tokenUrl: 'https://mastodon.example/oauth/token',
+                authorizationUrl: '/oauth/authorize',
+                tokenUrl: '/oauth/token',
                 scopes: {},
               },
               clientCredentials: {
-                tokenUrl: 'https://mastodon.example/oauth/token',
+                tokenUrl: '/oauth/token',
                 scopes: {},
               },
             },
@@ -143,10 +143,8 @@ describe('MethodConverter Bearer Token Security', () => {
 
       const operation = spec.paths['/api/v1/accounts']?.post;
       expect(operation).toBeDefined();
-      // Should require app token (client credentials flow)
-      expect(operation?.security).toEqual([
-        { OAuth2ClientCredentials: ['write:accounts'] },
-      ]);
+      // Should require app token (client credentials flow via OAuth2 security scheme)
+      expect(operation?.security).toEqual([{ OAuth2: ['write:accounts'] }]);
     });
 
     test('should handle app token with multiple scopes', () => {
@@ -163,7 +161,7 @@ describe('MethodConverter Bearer Token Security', () => {
       const operation = spec.paths['/api/v1/admin/action']?.post;
       expect(operation).toBeDefined();
       expect(operation?.security).toEqual([
-        { OAuth2ClientCredentials: ['admin:write', 'write:accounts'] },
+        { OAuth2: ['admin:write', 'write:accounts'] },
       ]);
     });
   });
@@ -182,11 +180,8 @@ describe('MethodConverter Bearer Token Security', () => {
 
       const operation = spec.paths['/api/v1/flexible']?.get;
       expect(operation).toBeDefined();
-      // Should support both user token and app token
-      expect(operation?.security).toEqual([
-        { OAuth2: ['read'] }, // User token
-        { OAuth2ClientCredentials: ['read'] }, // App token
-      ]);
+      // Mixed token types use the same OAuth2 security scheme with both flows available
+      expect(operation?.security).toEqual([{ OAuth2: ['read'] }]);
     });
 
     test('should handle token without scopes', () => {
