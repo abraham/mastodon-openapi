@@ -106,6 +106,41 @@ class SpecBuilder {
             },
           },
         },
+        headers: {
+          'X-RateLimit-Limit': {
+            description: 'Number of requests permitted per time period',
+            schema: {
+              type: 'integer',
+            },
+          },
+          'X-RateLimit-Remaining': {
+            description: 'Number of requests you can still make',
+            schema: {
+              type: 'integer',
+            },
+          },
+          'X-RateLimit-Reset': {
+            description: 'Timestamp when your rate limit will reset',
+            schema: {
+              type: 'string',
+              format: 'date-time',
+            },
+          },
+          Link: {
+            description:
+              'Pagination links. See [RFC 8288](https://www.rfc-editor.org/rfc/rfc8288) for more information.',
+            schema: {
+              type: 'string',
+            },
+          },
+          'Mastodon-Async-Refresh': {
+            description:
+              'Indicates an async refresh is in progress. Format: id="<string>", retry=<int>, result_count=<int>. The retry value indicates seconds to wait before retrying. The result_count is optional and indicates results already fetched.',
+            schema: {
+              type: 'string',
+            },
+          },
+        },
       },
     };
   }

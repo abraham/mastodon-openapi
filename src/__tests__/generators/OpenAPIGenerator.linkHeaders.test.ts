@@ -55,10 +55,9 @@ describe('OpenAPIGenerator Link Headers', () => {
 
         // Should include Link header
         expect(response200.headers?.['Link']).toBeDefined();
-        expect(response200.headers?.['Link'].description).toContain(
-          'Pagination links'
+        expect(response200.headers?.['Link'].$ref).toBe(
+          '#/components/headers/Link'
         );
-        expect(response200.headers?.['Link'].schema.type).toBe('string');
 
         // Should also include rate limit headers
         expect(response200.headers?.['X-RateLimit-Limit']).toBeDefined();
@@ -104,8 +103,8 @@ describe('OpenAPIGenerator Link Headers', () => {
       if (response200) {
         expect(response200.headers).toBeDefined();
         expect(response200.headers?.['Link']).toBeDefined();
-        expect(response200.headers?.['Link'].description).toContain(
-          'Pagination links'
+        expect(response200.headers?.['Link'].$ref).toBe(
+          '#/components/headers/Link'
         );
       }
     });
@@ -147,8 +146,8 @@ describe('OpenAPIGenerator Link Headers', () => {
       if (response200) {
         expect(response200.headers).toBeDefined();
         expect(response200.headers?.['Link']).toBeDefined();
-        expect(response200.headers?.['Link'].description).toContain(
-          'Pagination links'
+        expect(response200.headers?.['Link'].$ref).toBe(
+          '#/components/headers/Link'
         );
       }
     });

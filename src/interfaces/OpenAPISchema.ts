@@ -119,11 +119,12 @@ interface OpenAPIResponse {
 }
 
 interface OpenAPIHeader {
-  description: string;
-  schema: {
+  description?: string;
+  schema?: {
     type: string;
     format?: string;
   };
+  $ref?: string;
 }
 
 interface OpenAPIOperation {
@@ -173,6 +174,7 @@ interface OpenAPISpec {
     schemas?: Record<string, OpenAPISchema>;
     examples?: Record<string, OpenAPIExample>;
     securitySchemes?: Record<string, OpenAPISecurityScheme>;
+    headers?: Record<string, OpenAPIHeader>;
     links?: Record<string, OpenAPILink>;
   };
 }

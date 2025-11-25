@@ -576,25 +576,13 @@ class MethodConverter {
   /**
    * Generate rate limit headers for 2xx responses
    */
-  private generateRateLimitHeaders(): Record<string, OpenAPIHeader> {
-    const headers: Record<string, OpenAPIHeader> = {};
+  private generateRateLimitHeaders(): Record<string, any> {
+    const headers: Record<string, any> = {};
 
     for (const header of this.rateLimitHeaders) {
-      let schema: { type: string; format?: string } = { type: 'string' };
-
-      // Set appropriate schema types based on header name
-      if (
-        header.name === 'X-RateLimit-Limit' ||
-        header.name === 'X-RateLimit-Remaining'
-      ) {
-        schema = { type: 'integer' };
-      } else if (header.name === 'X-RateLimit-Reset') {
-        schema = { type: 'string', format: 'date-time' };
-      }
-
+      // Reference the shared component
       headers[header.name] = {
-        description: header.description,
-        schema,
+        $ref: `#/components/headers/${header.name}`,
       };
     }
 
@@ -618,13 +606,9 @@ class MethodConverter {
   /**
    * Generate Link header for pagination
    */
-  private generateLinkHeader(): OpenAPIHeader {
+  private generateLinkHeader(): any {
     return {
-      description:
-        'Pagination links for browsing older or newer results. Format: <https://mastodon.example/api/v1/endpoint?max_id=123456>; rel="next", <https://mastodon.example/api/v1/endpoint?min_id=789012>; rel="prev"',
-      schema: {
-        type: 'string',
-      },
+      $ref: '#/components/headers/Link',
     };
   }
 
@@ -641,23 +625,17 @@ class MethodConverter {
   /**
    * Generate Mastodon-Async-Refresh header for status context endpoint
    */
-  private generateAsyncRefreshHeader(): OpenAPIHeader {
+  private generateAsyncRefreshHeader(): any {
     return {
-      description:
-        'Indicates an async refresh is in progress. Format: id="<string>", retry=<int>, result_count=<int>. The retry value indicates seconds to wait before retrying. The result_count is optional and indicates results already fetched.',
-      schema: {
-        type: 'string',
-      },
+      $ref: '#/components/headers/Mastodon-Async-Refresh',
     };
   }
 
   /**
    * Generate combined headers for 2xx responses (rate limit + Link if applicable)
    */
-  private generateResponseHeaders(
-    method: ApiMethod
-  ): Record<string, OpenAPIHeader> {
-    const headers: Record<string, OpenAPIHeader> = {
+  private generateResponseHeaders(method: ApiMethod): Record<string, any> {
+    const headers: Record<string, any> = {
       ...this.generateRateLimitHeaders(),
     };
 
