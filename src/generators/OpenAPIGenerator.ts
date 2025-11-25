@@ -51,6 +51,9 @@ class OpenAPIGenerator {
     // First, collect error examples from all method files
     this.errorExampleRegistry.collectErrorExamples(methodFiles);
 
+    // Update clientCredentials scopes based on app token usage in methods
+    this.updateClientCredentialsScopes(methodFiles);
+
     // Convert entities to OpenAPI schemas (without deduplication)
     this.entityConverter.convertEntities(entities, this.spec);
 
@@ -64,6 +67,38 @@ class OpenAPIGenerator {
     this.deduplicateEnumsGlobally(this.spec);
 
     return this.spec;
+  }
+
+  /**
+   * Update the clientCredentials OAuth flow scopes based on app token usage in methods
+   * Only scopes that are explicitly used with App token authentication should be available
+   */
+  private updateClientCredentialsScopes(methodFiles: ApiMethodsFile[]): void {
+    // Collect all scopes used with App token authentication
+    const appTokenScopes =
+      this.methodConverter.collectAppTokenScopes(methodFiles);
+
+    // Get the OAuth scopes from the existing security scheme for descriptions
+    const existingScopes =
+      this.spec.components?.securitySchemes?.OAuth2?.flows?.authorizationCode
+        ?.scopes || {};
+
+    // Build the new clientCredentials scopes object
+    const clientCredentialsScopes: Record<string, string> = {};
+    for (const scopeName of appTokenScopes) {
+      // Use existing description if available, otherwise generate a default one
+      const description =
+        existingScopes[scopeName] || `Access scope: ${scopeName}`;
+      clientCredentialsScopes[scopeName] = description;
+    }
+
+    // Update the spec's clientCredentials scopes
+    if (
+      this.spec.components?.securitySchemes?.OAuth2?.flows?.clientCredentials
+    ) {
+      this.spec.components.securitySchemes.OAuth2.flows.clientCredentials.scopes =
+        clientCredentialsScopes;
+    }
   }
 
   public toJSON(): string {
