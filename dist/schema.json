@@ -37254,7 +37254,7 @@
         }
       },
       "Link": {
-        "description": "Pagination links. See [RFC 8288](https://www.rfc-editor.org/rfc/rfc8288) for more information.",
+        "description": "Pagination links for browsing older or newer results. Format: Link: <https://mastodon.example/api/v1/endpoint?max_id=7163058>; rel=\"next\", <https://mastodon.example/api/v1/endpoint?min_id=7275607>; rel=\"prev\". See [RFC 8288](https://www.rfc-editor.org/rfc/rfc8288) for more information.",
         "schema": {
           "type": "string"
         }
