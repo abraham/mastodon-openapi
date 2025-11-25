@@ -23417,6 +23417,12 @@
                   "type": "string",
                   "format": "date-time"
                 }
+              },
+              "Mastodon-Async-Refresh": {
+                "description": "Indicates an async refresh is in progress. Format: id=\"<string>\", retry=<int>, result_count=<int>. The retry value indicates seconds to wait before retrying. The result_count is optional and indicates results already fetched.",
+                "schema": {
+                  "type": "string"
+                }
               }
             },
             "content": {

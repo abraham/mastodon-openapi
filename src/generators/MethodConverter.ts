@@ -629,6 +629,29 @@ class MethodConverter {
   }
 
   /**
+   * Check if a method is the status context endpoint
+   */
+  private isStatusContextMethod(method: ApiMethod): boolean {
+    return (
+      method.httpMethod === 'GET' &&
+      method.endpoint === '/api/v1/statuses/:id/context'
+    );
+  }
+
+  /**
+   * Generate Mastodon-Async-Refresh header for status context endpoint
+   */
+  private generateAsyncRefreshHeader(): OpenAPIHeader {
+    return {
+      description:
+        'Indicates an async refresh is in progress. Format: id="<string>", retry=<int>, result_count=<int>. The retry value indicates seconds to wait before retrying. The result_count is optional and indicates results already fetched.',
+      schema: {
+        type: 'string',
+      },
+    };
+  }
+
+  /**
    * Generate combined headers for 2xx responses (rate limit + Link if applicable)
    */
   private generateResponseHeaders(
@@ -641,6 +664,11 @@ class MethodConverter {
     // Add Link header for methods with pagination parameters
     if (this.hasPaginationParameters(method)) {
       headers['Link'] = this.generateLinkHeader();
+    }
+
+    // Add Mastodon-Async-Refresh header for status context endpoint
+    if (this.isStatusContextMethod(method)) {
+      headers['Mastodon-Async-Refresh'] = this.generateAsyncRefreshHeader();
     }
 
     return headers;
