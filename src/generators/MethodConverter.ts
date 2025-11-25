@@ -1095,7 +1095,7 @@ class MethodConverter {
     const scopes = this.extractOAuthScopes(oauthText);
 
     // If App token is mentioned but no scopes are specified, default to 'read'
-    // Pattern: "App token\" or "App token\n"
+    // Pattern: "App token" or "App token\n"
     if (scopes.length === 0) {
       return ['read'];
     }
