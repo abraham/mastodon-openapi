@@ -1054,6 +1054,56 @@ class MethodConverter {
   }
 
   /**
+   * Collect app token scopes from all API methods
+   * These are scopes that should be available in the clientCredentials OAuth flow
+   * @returns Set of scope names that are used with App token authentication
+   */
+  public collectAppTokenScopes(methodFiles: ApiMethodsFile[]): Set<string> {
+    const appTokenScopes = new Set<string>();
+
+    for (const methodFile of methodFiles) {
+      for (const method of methodFile.methods) {
+        if (method.oauth) {
+          const scopes = this.extractAppTokenScopes(method.oauth);
+          for (const scope of scopes) {
+            appTokenScopes.add(scope);
+          }
+        }
+      }
+    }
+
+    return appTokenScopes;
+  }
+
+  /**
+   * Extract scopes that are specifically associated with App token authentication
+   * Handles patterns like:
+   * - "App token + `write:accounts`" -> ["write:accounts"]
+   * - "App token" -> ["read"] (default)
+   * - "User token + `read` or App token + `read`" -> ["read"]
+   * - "User token + `write:blocks`" -> [] (not app token)
+   */
+  private extractAppTokenScopes(oauthText: string): string[] {
+    const text = oauthText.toLowerCase().trim();
+
+    // Check if this method supports App token
+    if (!text.includes('app token')) {
+      return [];
+    }
+
+    // Extract scopes from the OAuth text
+    const scopes = this.extractOAuthScopes(oauthText);
+
+    // If App token is mentioned but no scopes are specified, default to 'read'
+    // Pattern: "App token\" or "App token\n"
+    if (scopes.length === 0) {
+      return ['read'];
+    }
+
+    return scopes;
+  }
+
+  /**
    * Check if a string is a valid OAuth scope
    * Valid scopes are either high-level scopes or granular scopes with colons
    */

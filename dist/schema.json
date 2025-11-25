@@ -39249,30 +39249,9 @@
           "clientCredentials": {
             "tokenUrl": "/oauth/token",
             "scopes": {
-              "read": "Read access",
-              "write": "Write access",
-              "read:accounts": "Read access to accounts",
-              "read:blocks": "Read access to blocks",
-              "read:bookmarks": "Read access to bookmarks",
-              "read:favourites": "Read access to favourites",
-              "read:filters": "Read access to filters",
-              "read:follows": "Read access to follows",
-              "read:lists": "Read access to lists",
-              "read:mutes": "Read access to mutes",
-              "read:search": "Read access to search",
-              "read:statuses": "Read access to statuses",
               "write:accounts": "Write access to accounts",
-              "write:blocks": "Write access to blocks",
-              "write:bookmarks": "Write access to bookmarks",
-              "write:conversations": "Write access to conversations",
-              "write:favourites": "Write access to favourites",
-              "write:filters": "Write access to filters",
-              "write:follows": "Write access to follows",
-              "write:lists": "Write access to lists",
-              "write:media": "Write access to media",
-              "write:mutes": "Write access to mutes",
-              "write:reports": "Write access to reports",
-              "write:statuses": "Write access to statuses"
+              "read": "Read access",
+              "read:statuses": "Read access to statuses"
             }
           }
         }
