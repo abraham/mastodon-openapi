@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [a58a477](https://github.com/mastodon/documentation/commit/a58a4775a9e78dee42c0edea50de200b2d70d00c). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [9740b2a](https://github.com/mastodon/documentation/commit/9740b2a386267ec66e064146516b820803657e5f). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -24679,7 +24679,7 @@
       "get": {
         "operationId": "getStatusQuotes",
         "summary": "See quotes of a status",
-        "description": "View quotes of a status you have posted.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
+        "description": "View quotes of a status.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
         "tags": [
           "statuses"
         ],
