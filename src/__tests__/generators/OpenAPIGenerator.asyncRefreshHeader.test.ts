@@ -48,17 +48,8 @@ describe('OpenAPIGenerator - Mastodon-Async-Refresh Header', () => {
 
     // Verify Mastodon-Async-Refresh header is present
     expect(response200?.headers?.['Mastodon-Async-Refresh']).toBeDefined();
-    expect(
-      response200?.headers?.['Mastodon-Async-Refresh']?.description
-    ).toContain('async refresh');
-    expect(
-      response200?.headers?.['Mastodon-Async-Refresh']?.description
-    ).toContain('retry');
-    expect(
-      response200?.headers?.['Mastodon-Async-Refresh']?.description
-    ).toContain('result_count');
-    expect(response200?.headers?.['Mastodon-Async-Refresh']?.schema.type).toBe(
-      'string'
+    expect(response200?.headers?.['Mastodon-Async-Refresh']?.$ref).toBe(
+      '#/components/headers/Mastodon-Async-Refresh'
     );
   });
 
@@ -158,10 +149,18 @@ describe('OpenAPIGenerator - Mastodon-Async-Refresh Header', () => {
     const asyncRefreshHeader =
       getOperation?.responses['200']?.headers?.['Mastodon-Async-Refresh'];
 
-    expect(asyncRefreshHeader?.description).toContain('id=');
-    expect(asyncRefreshHeader?.description).toContain('retry=');
-    expect(asyncRefreshHeader?.description).toContain('result_count=');
-    expect(asyncRefreshHeader?.description).toContain('<string>');
-    expect(asyncRefreshHeader?.description).toContain('<int>');
+    // Should reference the shared component
+    expect(asyncRefreshHeader?.$ref).toBe(
+      '#/components/headers/Mastodon-Async-Refresh'
+    );
+
+    // Check the component definition has the correct format description
+    const componentHeader =
+      spec.components?.headers?.['Mastodon-Async-Refresh'];
+    expect(componentHeader?.description).toContain('id=');
+    expect(componentHeader?.description).toContain('retry=');
+    expect(componentHeader?.description).toContain('result_count=');
+    expect(componentHeader?.description).toContain('<string>');
+    expect(componentHeader?.description).toContain('<int>');
   });
 });

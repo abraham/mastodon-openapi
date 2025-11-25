@@ -1,12 +1,30 @@
 import { readFileSync } from 'fs';
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
+import { HeaderParser } from '../parsers/HeaderParser';
 import { SUPPORTED_VERSION } from '../parsers/VersionParser';
 
 /**
  * Builder for OpenAPI specification with authentication setup
  */
 class SpecBuilder {
+  /**
+   * Build header components from documentation
+   */
+  private buildHeaderComponents(): Record<string, any> {
+    const headers: Record<string, any> = {};
+    const parsedHeaders = HeaderParser.parseHeaders();
+
+    for (const header of parsedHeaders) {
+      headers[header.name] = {
+        description: header.description,
+        schema: header.schema,
+      };
+    }
+
+    return headers;
+  }
+
   /**
    * Build initial OpenAPI specification with OAuth configuration
    */
@@ -106,6 +124,7 @@ class SpecBuilder {
             },
           },
         },
+        headers: this.buildHeaderComponents(),
       },
     };
   }
