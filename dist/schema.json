@@ -5230,15 +5230,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "async_refresh": {
-                      "$ref": "#/components/schemas/AsyncRefresh"
-                    }
-                  },
-                  "required": [
-                    "async_refresh"
-                  ]
+                  "$ref": "#/components/schemas/AsyncRefreshResponse"
                 }
               }
             }
@@ -16708,18 +16700,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "merged": {
-                      "type": "boolean"
-                    }
-                  },
-                  "required": [
-                    "merged"
-                  ]
+                  "$ref": "#/components/schemas/MergedResponse"
                 },
-                "example": {
-                  "merged": false
+                "examples": {
+                  "MergedResponse200Example": {
+                    "$ref": "#/components/examples/MergedResponse200Example"
+                  }
                 }
               }
             }
@@ -16841,18 +16827,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "count": {
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "count"
-                  ]
+                  "$ref": "#/components/schemas/CountResponse"
                 },
-                "example": {
-                  "count": 42
+                "examples": {
+                  "CountResponse200Example": {
+                    "$ref": "#/components/examples/CountResponse200Example"
+                  }
                 }
               }
             }
@@ -17784,18 +17764,12 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "object",
-                  "properties": {
-                    "count": {
-                      "type": "integer"
-                    }
-                  },
-                  "required": [
-                    "count"
-                  ]
+                  "$ref": "#/components/schemas/CountResponse"
                 },
-                "example": {
-                  "count": 42
+                "examples": {
+                  "CountResponse200Example": {
+                    "$ref": "#/components/examples/CountResponse200Example"
+                  }
                 }
               }
             }
@@ -36899,6 +36873,42 @@
           "details"
         ]
       },
+      "AsyncRefreshResponse": {
+        "type": "object",
+        "description": "Response containing an AsyncRefresh object",
+        "properties": {
+          "async_refresh": {
+            "$ref": "#/components/schemas/AsyncRefresh"
+          }
+        },
+        "required": [
+          "async_refresh"
+        ]
+      },
+      "CountResponse": {
+        "type": "object",
+        "description": "Response containing a count value",
+        "properties": {
+          "count": {
+            "type": "integer"
+          }
+        },
+        "required": [
+          "count"
+        ]
+      },
+      "MergedResponse": {
+        "type": "object",
+        "description": "Response containing a merged value",
+        "properties": {
+          "merged": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "merged"
+        ]
+      },
       "BaseStatus": {
         "type": "object",
         "description": "Common fields for all status creation requests",
@@ -38616,6 +38626,18 @@
             }
           }
         ]
+      },
+      "MergedResponse200Example": {
+        "summary": "Example for MergedResponse",
+        "value": {
+          "merged": false
+        }
+      },
+      "CountResponse200Example": {
+        "summary": "Example for CountResponse",
+        "value": {
+          "count": 42
+        }
       },
       "GroupedNotificationsResults200Example": {
         "summary": "Example for GroupedNotificationsResults",
