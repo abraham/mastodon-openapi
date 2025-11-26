@@ -186,6 +186,83 @@ class TypeParser {
       }
     }
 
+    // Handle "Hash with a single key of `key_name`" pattern (simple value wrapper)
+    // Example: "Hash with a single key of `count`"
+    const simpleHashKeyMatch = returns.match(
+      /Hash with a single key of `([^`]+)`$/i
+    );
+    if (simpleHashKeyMatch) {
+      const keyName = simpleHashKeyMatch[1];
+      return {
+        type: 'object',
+        properties: {
+          [keyName]: {
+            type: 'integer',
+          },
+        },
+        required: [keyName],
+      };
+    }
+
+    // Handle "Hash with a single [type] attribute `key_name`" pattern
+    // Example: "Hash with a single boolean attribute `merged`"
+    const hashAttrMatch = returns.match(
+      /Hash with a single (boolean|integer|string) attribute `([^`]+)`/i
+    );
+    if (hashAttrMatch) {
+      const typeName = hashAttrMatch[1].toLowerCase();
+      const keyName = hashAttrMatch[2];
+      let openApiType: string;
+
+      switch (typeName) {
+        case 'boolean':
+          openApiType = 'boolean';
+          break;
+        case 'integer':
+          openApiType = 'integer';
+          break;
+        case 'string':
+        default:
+          openApiType = 'string';
+          break;
+      }
+
+      return {
+        type: 'object',
+        properties: {
+          [keyName]: {
+            type: openApiType,
+          },
+        },
+        required: [keyName],
+      };
+    }
+
+    // Handle "Hash with a single key of `key_name` with value of [EntityName]" pattern
+    // Example: "Hash with a single key of `async_refresh` with value of [AsyncRefresh]"
+    const hashKeyEntityMatch = returns.match(
+      /Hash with a single key of `([^`]+)` with value of \[([^\]]+)\]/i
+    );
+    if (hashKeyEntityMatch) {
+      const keyName = hashKeyEntityMatch[1];
+      const entityName = hashKeyEntityMatch[2];
+      const sanitizedEntityName =
+        this.utilityHelpers.sanitizeSchemaName(entityName);
+
+      // Check if the entity exists in the components.schemas
+      if (spec.components?.schemas?.[sanitizedEntityName]) {
+        return {
+          type: 'object',
+          properties: {
+            [keyName]: {
+              $ref: `#/components/schemas/${sanitizedEntityName}`,
+            },
+          },
+          required: [keyName],
+        };
+      }
+    }
+
     // Handle array responses: "Array of [EntityName]"
     const arrayMatch = returns.match(/Array of \[([^\]]+)\]/i);
     if (arrayMatch) {

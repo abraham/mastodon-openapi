@@ -5215,7 +5215,7 @@
         ],
         "responses": {
           "200": {
-            "description": "[AsyncRefresh]",
+            "description": "Hash with a single key of `async_refresh` with value of [AsyncRefresh]",
             "headers": {
               "X-RateLimit-Limit": {
                 "$ref": "#/components/headers/X-RateLimit-Limit"
@@ -5230,7 +5230,15 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AsyncRefresh"
+                  "type": "object",
+                  "properties": {
+                    "async_refresh": {
+                      "$ref": "#/components/schemas/AsyncRefresh"
+                    }
+                  },
+                  "required": [
+                    "async_refresh"
+                  ]
                 }
               }
             }
@@ -16696,6 +16704,24 @@
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "merged": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": [
+                    "merged"
+                  ]
+                },
+                "example": {
+                  "merged": false
+                }
+              }
             }
           },
           "401": {
@@ -16810,6 +16836,24 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count"
+                  ]
+                },
+                "example": {
+                  "count": 42
+                }
               }
             }
           },
@@ -17735,6 +17779,24 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "count": {
+                      "type": "integer"
+                    }
+                  },
+                  "required": [
+                    "count"
+                  ]
+                },
+                "example": {
+                  "count": 42
+                }
               }
             }
           },
