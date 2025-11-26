@@ -36875,7 +36875,7 @@
       },
       "AsyncRefreshResponse": {
         "type": "object",
-        "description": "Response wrapper containing a AsyncRefresh entity",
+        "description": "Response containing an AsyncRefresh object",
         "properties": {
           "async_refresh": {
             "$ref": "#/components/schemas/AsyncRefresh"
@@ -36887,7 +36887,7 @@
       },
       "CountResponse": {
         "type": "object",
-        "description": "Response wrapper containing a count value",
+        "description": "Response containing a count value",
         "properties": {
           "count": {
             "type": "integer"
@@ -36899,7 +36899,7 @@
       },
       "MergedResponse": {
         "type": "object",
-        "description": "Response wrapper containing a merged value",
+        "description": "Response containing a merged value",
         "properties": {
           "merged": {
             "type": "boolean"

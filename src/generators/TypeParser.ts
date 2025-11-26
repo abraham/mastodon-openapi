@@ -200,7 +200,7 @@ class TypeParser {
         if (!spec.components.schemas[responseName]) {
           spec.components.schemas[responseName] = {
             type: 'object',
-            description: `Response wrapper containing a ${keyName} value`,
+            description: `Response containing a ${keyName} value`,
             properties: {
               [keyName]: {
                 type: 'integer',
@@ -256,7 +256,7 @@ class TypeParser {
         if (!spec.components.schemas[responseName]) {
           spec.components.schemas[responseName] = {
             type: 'object',
-            description: `Response wrapper containing a ${keyName} value`,
+            description: `Response containing a ${keyName} value`,
             properties: {
               [keyName]: {
                 type: openApiType,
@@ -302,7 +302,7 @@ class TypeParser {
         if (!spec.components.schemas[responseName]) {
           spec.components.schemas[responseName] = {
             type: 'object',
-            description: `Response wrapper containing a ${entityName} entity`,
+            description: `Response containing an ${entityName} object`,
             properties: {
               [keyName]: {
                 $ref: `#/components/schemas/${sanitizedEntityName}`,
