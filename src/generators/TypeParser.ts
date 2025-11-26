@@ -193,6 +193,28 @@ class TypeParser {
     );
     if (simpleHashKeyMatch) {
       const keyName = simpleHashKeyMatch[1];
+      const responseName = this.generateResponseName(keyName);
+
+      // Create a named component for the response wrapper
+      if (spec.components?.schemas) {
+        if (!spec.components.schemas[responseName]) {
+          spec.components.schemas[responseName] = {
+            type: 'object',
+            description: `Response wrapper containing a ${keyName} value`,
+            properties: {
+              [keyName]: {
+                type: 'integer',
+              },
+            },
+            required: [keyName],
+          } as any;
+        }
+        return {
+          $ref: `#/components/schemas/${responseName}`,
+        };
+      }
+
+      // Fallback to inline schema if components don't exist
       return {
         type: 'object',
         properties: {
@@ -227,6 +249,28 @@ class TypeParser {
           break;
       }
 
+      const responseName = this.generateResponseName(keyName);
+
+      // Create a named component for the response wrapper
+      if (spec.components?.schemas) {
+        if (!spec.components.schemas[responseName]) {
+          spec.components.schemas[responseName] = {
+            type: 'object',
+            description: `Response wrapper containing a ${keyName} value`,
+            properties: {
+              [keyName]: {
+                type: openApiType,
+              },
+            },
+            required: [keyName],
+          } as any;
+        }
+        return {
+          $ref: `#/components/schemas/${responseName}`,
+        };
+      }
+
+      // Fallback to inline schema if components don't exist
       return {
         type: 'object',
         properties: {
@@ -251,14 +295,25 @@ class TypeParser {
 
       // Check if the entity exists in the components.schemas
       if (spec.components?.schemas?.[sanitizedEntityName]) {
-        return {
-          type: 'object',
-          properties: {
-            [keyName]: {
-              $ref: `#/components/schemas/${sanitizedEntityName}`,
+        // Create a named response component using the entity name
+        const responseName = `${sanitizedEntityName}Response`;
+
+        // Create the response wrapper component if it doesn't exist
+        if (!spec.components.schemas[responseName]) {
+          spec.components.schemas[responseName] = {
+            type: 'object',
+            description: `Response wrapper containing a ${entityName} entity`,
+            properties: {
+              [keyName]: {
+                $ref: `#/components/schemas/${sanitizedEntityName}`,
+              },
             },
-          },
-          required: [keyName],
+            required: [keyName],
+          } as any;
+        }
+
+        return {
+          $ref: `#/components/schemas/${responseName}`,
         };
       }
     }
@@ -753,6 +808,21 @@ class TypeParser {
       .join('');
 
     // Add Response suffix to avoid naming conflicts
+    return `${pascalCase}Response`;
+  }
+
+  /**
+   * Generates a response component name from a key name
+   * Converts snake_case to PascalCase and appends "Response"
+   * Example: "count" -> "CountResponse", "async_refresh" -> "AsyncRefreshResponse"
+   */
+  private generateResponseName(keyName: string): string {
+    // Convert snake_case to PascalCase
+    const pascalCase = keyName
+      .split('_')
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join('');
+
     return `${pascalCase}Response`;
   }
 }

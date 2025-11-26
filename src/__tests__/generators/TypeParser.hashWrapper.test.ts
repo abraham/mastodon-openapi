@@ -36,8 +36,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/CountResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['CountResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a count value',
         properties: {
           count: {
             type: 'integer',
@@ -53,8 +60,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/MergedResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['MergedResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a merged value',
         properties: {
           merged: {
             type: 'integer',
@@ -72,8 +86,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component based on entity name
       expect(result).toEqual({
+        $ref: '#/components/schemas/AsyncRefreshResponse',
+      });
+
+      // Should add the response wrapper component to the spec
+      expect(spec.components?.schemas?.['AsyncRefreshResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a AsyncRefresh entity',
         properties: {
           async_refresh: {
             $ref: '#/components/schemas/AsyncRefresh',
@@ -98,8 +119,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component based on entity name
       expect(result).toEqual({
+        $ref: '#/components/schemas/StatusResponse',
+      });
+
+      // Should add the response wrapper component to the spec
+      expect(spec.components?.schemas?.['StatusResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a Status entity',
         properties: {
           status: {
             $ref: '#/components/schemas/Status',
@@ -127,8 +155,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/MergedResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['MergedResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a merged value',
         properties: {
           merged: {
             type: 'boolean',
@@ -144,8 +179,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/TotalResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['TotalResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a total value',
         properties: {
           total: {
             type: 'integer',
@@ -161,8 +203,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/NameResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['NameResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a name value',
         properties: {
           name: {
             type: 'string',
@@ -180,8 +229,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/CountResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['CountResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a count value',
         properties: {
           count: {
             type: 'integer',
@@ -197,8 +253,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component based on entity name
       expect(result).toEqual({
+        $ref: '#/components/schemas/AsyncRefreshResponse',
+      });
+
+      // Should add the response wrapper component to the spec
+      expect(spec.components?.schemas?.['AsyncRefreshResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a AsyncRefresh entity',
         properties: {
           async_refresh: {
             $ref: '#/components/schemas/AsyncRefresh',
@@ -214,8 +277,15 @@ describe('TypeParser - Hash wrapper pattern handling', () => {
         spec
       );
 
+      // Should create a named response component
       expect(result).toEqual({
+        $ref: '#/components/schemas/EnabledResponse',
+      });
+
+      // Should add the component to the spec
+      expect(spec.components?.schemas?.['EnabledResponse']).toEqual({
         type: 'object',
+        description: 'Response wrapper containing a enabled value',
         properties: {
           enabled: {
             type: 'boolean',
