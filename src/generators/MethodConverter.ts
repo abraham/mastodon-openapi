@@ -18,6 +18,10 @@ import {
   RateLimitHeader,
 } from '../parsers/RateLimitHeaderParser';
 import { VersionParser } from '../parsers/VersionParser';
+import {
+  StreamingSchemaGenerator,
+  STREAMING_ENDPOINT_EVENTS,
+} from './StreamingSchemaGenerator';
 
 /**
  * Interface for OAuth security configuration
@@ -38,6 +42,7 @@ class MethodConverter {
   private errorExampleRegistry: ErrorExampleRegistry;
   private responseCodes: Array<{ code: string; description: string }>;
   private rateLimitHeaders: RateLimitHeader[];
+  private streamingSchemaGenerator: StreamingSchemaGenerator;
 
   constructor(
     typeParser: TypeParser,
@@ -51,6 +56,8 @@ class MethodConverter {
     this.responseCodes = ResponseCodeParser.parseResponseCodes();
     // Parse rate limit headers once during initialization
     this.rateLimitHeaders = RateLimitHeaderParser.parseRateLimitHeaders();
+    // Initialize streaming schema generator
+    this.streamingSchemaGenerator = new StreamingSchemaGenerator();
   }
 
   /**
@@ -113,6 +120,9 @@ class MethodConverter {
     methodFiles: ApiMethodsFile[],
     spec: OpenAPISpec
   ): void {
+    // Create streaming event schemas before processing methods
+    this.streamingSchemaGenerator.createStreamingSchemas(spec);
+
     for (const methodFile of methodFiles) {
       for (const method of methodFile.methods) {
         this.convertMethod(method, methodFile.name, spec);
@@ -178,9 +188,15 @@ class MethodConverter {
           : 'application/json';
 
         if (method.isStreaming) {
-          // Streaming endpoints always have content with text/event-stream
-          // even if no specific schema is parsed from the returns field
-          const content: any = responseSchema ? { schema: responseSchema } : {};
+          // Streaming endpoints use SSE event schemas
+          // Get the appropriate streaming schema for this endpoint
+          const streamingSchema =
+            this.streamingSchemaGenerator.getStreamingSchemaRef(
+              this.normalizePath(method.endpoint)
+            );
+          const content: any = streamingSchema
+            ? { schema: streamingSchema }
+            : {};
           if (responseExample) {
             content.example = responseExample;
           }
