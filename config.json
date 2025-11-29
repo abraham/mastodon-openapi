@@ -1,5 +1,5 @@
 {
-  "mastodonDocsCommit": "9740b2a386267ec66e064146516b820803657e5f",
+  "mastodonDocsCommit": "f691fe0e1fc4b0f9c85b754faea2cb0667e93478",
   "mastodonVersion": "4.5.0",
   "minimumMastodonVersion": "4.2.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
@@ -7,7 +7,6 @@
   "overrideCommits": [
     "b1d8f95b506e2d734876ef47ec0f4e1feb4f5618",
     "c6b60e2470226fd7bae1fcfebd4a372775f83419",
-    "9a38bf8d99187663fbb905e4aba0205735accf32",
-    "15751167f62fb97fc2e25c76f986b4e363e2a477"
+    "9a38bf8d99187663fbb905e4aba0205735accf32"
   ]
 }
