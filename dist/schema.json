@@ -37108,6 +37108,20 @@
           "payload"
         ]
       },
+      "NotificationsMergedEvent": {
+        "type": "object",
+        "description": "Accepted notification requests have finished merging, and the notifications list should be refreshed. Payload can be ignored.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/NotificationsMergedEventEventEnum"
+          }
+        },
+        "required": [
+          "event"
+        ]
+      },
       "StreamingEvent": {
         "description": "Server-Sent Event from the Mastodon streaming API. The event field determines the type of payload.",
         "oneOf": [
@@ -37137,6 +37151,9 @@
           },
           {
             "$ref": "#/components/schemas/StatusUpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
           }
         ]
       },
@@ -37166,6 +37183,9 @@
           },
           {
             "$ref": "#/components/schemas/StatusUpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
           }
         ]
       },
@@ -37174,6 +37194,9 @@
         "oneOf": [
           {
             "$ref": "#/components/schemas/NotificationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
           }
         ]
       },
@@ -37723,6 +37746,12 @@
         "type": "string",
         "enum": [
           "status.update"
+        ]
+      },
+      "NotificationsMergedEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "notifications_merged"
         ]
       }
     },

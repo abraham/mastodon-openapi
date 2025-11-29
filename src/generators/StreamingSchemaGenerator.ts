@@ -31,8 +31,12 @@ const STREAMING_ENDPOINT_EVENTS: Record<string, string[]> = {
     'announcement.reaction',
     'announcement.delete',
     'status.update',
+    'notifications_merged',
   ],
-  '/api/v1/streaming/user/notification': ['notification'],
+  '/api/v1/streaming/user/notification': [
+    'notification',
+    'notifications_merged',
+  ],
   '/api/v1/streaming/public': ['update', 'delete', 'status.update'],
   '/api/v1/streaming/public/local': ['update', 'delete', 'status.update'],
   '/api/v1/streaming/public/remote': ['update', 'delete', 'status.update'],
@@ -99,6 +103,12 @@ const STREAMING_EVENTS: StreamingEventDefinition[] = [
     payloadType: 'status',
     description:
       'A Status has been edited. Payload contains a Status cast to a string.',
+  },
+  {
+    eventName: 'notifications_merged',
+    payloadType: 'none',
+    description:
+      'Accepted notification requests have finished merging, and the notifications list should be refreshed. Payload can be ignored.',
   },
 ];
 

@@ -53,6 +53,9 @@ describe('StreamingSchemaGenerator', () => {
         'AnnouncementDeleteEvent'
       );
       expect(spec.components?.schemas).toHaveProperty('StatusUpdateEvent');
+      expect(spec.components?.schemas).toHaveProperty(
+        'NotificationsMergedEvent'
+      );
     });
 
     it('should create combined streaming event schema', () => {
@@ -63,7 +66,7 @@ describe('StreamingSchemaGenerator', () => {
         'StreamingEvent'
       ] as any;
       expect(streamingEvent.oneOf).toBeDefined();
-      expect(streamingEvent.oneOf.length).toBe(9); // All event types
+      expect(streamingEvent.oneOf.length).toBe(10); // All event types including notifications_merged
     });
 
     it('should create endpoint-specific event schemas', () => {
@@ -147,7 +150,7 @@ describe('StreamingSchemaGenerator', () => {
 
       const userEvent = spec.components?.schemas?.['StreamingUserEvent'] as any;
       expect(userEvent.oneOf).toBeDefined();
-      expect(userEvent.oneOf.length).toBe(8); // All user events
+      expect(userEvent.oneOf.length).toBe(9); // All user events including notifications_merged
 
       // Check all expected event types are referenced
       const refs = userEvent.oneOf.map((ref: any) => ref.$ref);
@@ -159,6 +162,7 @@ describe('StreamingSchemaGenerator', () => {
       expect(refs).toContain('#/components/schemas/AnnouncementReactionEvent');
       expect(refs).toContain('#/components/schemas/AnnouncementDeleteEvent');
       expect(refs).toContain('#/components/schemas/StatusUpdateEvent');
+      expect(refs).toContain('#/components/schemas/NotificationsMergedEvent');
     });
 
     it('should create StreamingDirectEvent with only conversation event', () => {
