@@ -1,5 +1,5 @@
 {
-  "mastodonDocsCommit": "979c61daf5f57c85b7d9103f1c2bcaaee064504a",
+  "mastodonDocsCommit": "a6fe37b4fa2f1903dfd8bd141726d6398be420c1",
   "mastodonVersion": "4.5.0",
   "minimumMastodonVersion": "4.2.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
