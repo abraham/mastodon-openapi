@@ -1,13 +1,13 @@
 import { VersionParser } from '../../parsers/VersionParser';
 
-// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.2.0
+// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.3.0
 jest.mock('fs', () => ({
   readFileSync: jest.fn((filePath: string) => {
     if (filePath === 'config.json') {
       return JSON.stringify({
         mastodonDocsCommit: 'mock-commit',
         mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.2.0',
+        minimumMastodonVersion: '4.3.0',
       });
     }
     return '';
@@ -97,9 +97,9 @@ describe('VersionParser', () => {
     });
 
     it('should return fallback for empty array', () => {
-      expect(VersionParser.findMaxVersion([])).toBe('4.2.0');
-      expect(VersionParser.findMaxVersion(null as any)).toBe('4.2.0');
-      expect(VersionParser.findMaxVersion(undefined as any)).toBe('4.2.0');
+      expect(VersionParser.findMaxVersion([])).toBe('4.3.0');
+      expect(VersionParser.findMaxVersion(null as any)).toBe('4.3.0');
+      expect(VersionParser.findMaxVersion(undefined as any)).toBe('4.3.0');
     });
 
     it('should handle complex version scenarios', () => {
@@ -230,7 +230,7 @@ describe('VersionParser', () => {
     });
 
     it('should use default minimum and maximum versions when not specified', () => {
-      const versions = ['4.2.0'];
+      const versions = ['4.3.0'];
       expect(VersionParser.isVersionSupported(versions)).toBe(true);
     });
 

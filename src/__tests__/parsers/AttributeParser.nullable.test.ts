@@ -1,13 +1,13 @@
 import { AttributeParser } from '../../parsers/AttributeParser';
 
-// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.2.0
+// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.3.0
 jest.mock('fs', () => ({
   readFileSync: jest.fn((filePath: string) => {
     if (filePath === 'config.json') {
       return JSON.stringify({
         mastodonDocsCommit: 'mock-commit',
         mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.2.0',
+        minimumMastodonVersion: '4.3.0',
       });
     }
     return '';
@@ -459,7 +459,7 @@ describe('AttributeParser - Nullable Patterns', () => {
 **Description:** A feature added in an older version.\\
 **Type:** String\\
 **Version history:**\\
-4.2.0 - added
+4.3.0 - added
 `;
 
       const attributes = AttributeParser.parseAttributesFromSection(content);
@@ -468,7 +468,7 @@ describe('AttributeParser - Nullable Patterns', () => {
       expect(attributes[0].name).toBe('old_feature');
       expect(attributes[0].nullable).toBe(true); // Now nullable for backwards compatibility within major version
       expect(attributes[0].type).toBe('String');
-      expect(attributes[0].versions).toEqual(['4.2.0']);
+      expect(attributes[0].versions).toEqual(['4.3.0']);
     });
 
     it('should NOT mark attributes from different major version as nullable', () => {

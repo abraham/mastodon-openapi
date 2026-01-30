@@ -29440,6 +29440,11 @@
             "description": "How many statuses are attached to this account.",
             "type": "integer"
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
+          },
           "username": {
             "description": "The username of the account, not including domain.",
             "type": "string"
@@ -29522,14 +29527,6 @@
               "null"
             ]
           },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -29557,6 +29554,7 @@
           "locked",
           "note",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -29798,6 +29796,11 @@
             "description": "How many statuses are attached to this account.",
             "type": "integer"
           },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
+          },
           "username": {
             "description": "The username of the account, not including domain.",
             "type": "string"
@@ -29880,14 +29883,6 @@
               "null"
             ]
           },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -29917,6 +29912,7 @@
           "role",
           "source",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -30006,6 +30002,11 @@
           "statuses_count": {
             "description": "How many statuses are attached to this account.",
             "type": "integer"
+          },
+          "uri": {
+            "description": "The user's ActivityPub actor identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
           },
           "username": {
             "description": "The username of the account, not including domain.",
@@ -30097,14 +30098,6 @@
               "null"
             ]
           },
-          "uri": {
-            "description": "The user's ActivityPub actor identifier (used for federation).",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
           "url": {
             "description": "The location of the user's profile page (web interface URL).",
             "type": [
@@ -30132,6 +30125,7 @@
           "locked",
           "note",
           "statuses_count",
+          "uri",
           "username"
         ],
         "externalDocs": {
@@ -33111,6 +33105,10 @@
         "type": "object",
         "description": "Represents a list of some users that the authenticated user follows.",
         "properties": {
+          "exclusive": {
+            "description": "Whether members of the list should be removed from the “Home” feed.",
+            "type": "boolean"
+          },
           "id": {
             "description": "The ID of the list.",
             "type": "string"
@@ -33123,16 +33121,10 @@
           "title": {
             "description": "The user-defined title of the list.",
             "type": "string"
-          },
-          "exclusive": {
-            "description": "Whether members of the list should be removed from the “Home” feed.",
-            "type": [
-              "boolean",
-              "null"
-            ]
           }
         },
         "required": [
+          "exclusive",
           "id",
           "replies_policy",
           "title"
@@ -35686,19 +35678,20 @@
             "description": "The resulting language the text was translated into.",
             "type": "string"
           },
+          "media_attachments": {
+            "description": "The translated media descriptions of the status.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/TranslationAttachment"
+            }
+          },
           "provider": {
             "description": "The service that provided the machine translation.",
             "type": "string"
           },
-          "media_attachments": {
-            "description": "The translated media descriptions of the status.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/TranslationAttachment"
-            }
+          "spoiler_text": {
+            "description": "The translated spoiler warning of the status.",
+            "type": "string"
           },
           "poll": {
             "description": "The translated poll of the status.",
@@ -35710,20 +35703,15 @@
                 "type": "null"
               }
             ]
-          },
-          "spoiler_text": {
-            "description": "The translated spoiler warning of the status.",
-            "type": [
-              "string",
-              "null"
-            ]
           }
         },
         "required": [
           "content",
           "detected_source_language",
           "language",
-          "provider"
+          "media_attachments",
+          "provider",
+          "spoiler_text"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Translation/#attributes",
