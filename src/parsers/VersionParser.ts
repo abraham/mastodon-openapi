@@ -88,11 +88,11 @@ export class VersionParser {
   /**
    * Finds the maximum version from an array of version strings
    * @param versions Array of version strings
-   * @returns The maximum version, or "4.3.0" as fallback if no versions found
+   * @returns The maximum version, or MINIMUM_VERSION as fallback if no versions found
    */
   static findMaxVersion(versions: string[]): string {
     if (!versions || versions.length === 0) {
-      return '4.3.0'; // Fallback to current hardcoded version
+      return MINIMUM_VERSION; // Fallback to minimum version from config
     }
 
     return versions.reduce((max, current) =>
