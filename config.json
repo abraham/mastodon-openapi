@@ -1,7 +1,7 @@
 {
   "mastodonDocsCommit": "43970e819c95bb6e84722b6b5f92420f1a45fbd1",
   "mastodonVersion": "4.5.0",
-  "minimumMastodonVersion": "4.2.0",
+  "minimumMastodonVersion": "4.3.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
   "overridesRepository": "https://github.com/abraham/documentation",
   "overrideCommits": [

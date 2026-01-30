@@ -92,7 +92,7 @@ export class VersionParser {
    */
   static findMaxVersion(versions: string[]): string {
     if (!versions || versions.length === 0) {
-      return '4.2.0'; // Fallback to current hardcoded version
+      return '4.3.0'; // Fallback to current hardcoded version
     }
 
     return versions.reduce((max, current) =>

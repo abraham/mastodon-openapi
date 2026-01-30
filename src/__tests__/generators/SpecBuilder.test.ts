@@ -86,7 +86,7 @@ describe('SpecBuilder', () => {
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
         mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.2.0',
+        minimumMastodonVersion: '4.3.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
@@ -105,7 +105,7 @@ describe('SpecBuilder', () => {
       const mockConfig = {
         mastodonDocsCommit: testCommitSha,
         mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.2.0',
+        minimumMastodonVersion: '4.3.0',
       };
 
       mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));

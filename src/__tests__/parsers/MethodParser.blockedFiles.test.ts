@@ -46,7 +46,7 @@ describe('MethodParser - Blocked Files Feature', () => {
     const mockConfig = {
       mastodonDocsCommit: 'abc123',
       mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.2.0',
+      minimumMastodonVersion: '4.3.0',
       blockedFiles: [
         'methods/notifications_alpha.md',
         'methods/test_blocked.md',
@@ -110,7 +110,7 @@ Test method content`;
     const mockConfig = {
       mastodonDocsCommit: 'abc123',
       mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.2.0',
+      minimumMastodonVersion: '4.3.0',
       // No blockedFiles property
     };
 
@@ -172,7 +172,7 @@ Test method content`;
     const mockConfig = {
       mastodonDocsCommit: 'abc123',
       mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.2.0',
+      minimumMastodonVersion: '4.3.0',
       blockedFiles: [],
     };
 
@@ -202,7 +202,7 @@ Test method content`;
     const mockConfig = {
       mastodonDocsCommit: 'abc123',
       mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.2.0',
+      minimumMastodonVersion: '4.3.0',
       blockedFiles: ['methods/notifications_alpha.md'],
     };
 
