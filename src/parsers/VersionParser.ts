@@ -88,7 +88,7 @@ export class VersionParser {
   /**
    * Finds the maximum version from an array of version strings
    * @param versions Array of version strings
-   * @returns The maximum version, or "4.2.0" as fallback if no versions found
+   * @returns The maximum version, or "4.3.0" as fallback if no versions found
    */
   static findMaxVersion(versions: string[]): string {
     if (!versions || versions.length === 0) {
