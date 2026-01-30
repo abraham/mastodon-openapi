@@ -9,7 +9,7 @@ const mockFs = fs as jest.Mocked<typeof fs>;
 // Mock VersionParser to avoid config.json dependency
 jest.mock('../../parsers/VersionParser', () => ({
   SUPPORTED_VERSION: '4.4.0',
-  MINIMUM_VERSION: '4.2.0',
+  MINIMUM_VERSION: '4.3.0',
   VersionParser: class {
     static extractVersionNumbers = jest.fn();
     static compareVersions = jest.fn();

@@ -10,7 +10,7 @@ const mockReadFileSync = readFileSync as jest.MockedFunction<
 // Mock VersionParser to control SUPPORTED_VERSION and MINIMUM_VERSION
 jest.mock('../../parsers/VersionParser', () => ({
   SUPPORTED_VERSION: '4.3.0',
-  MINIMUM_VERSION: '4.2.0',
+  MINIMUM_VERSION: '4.3.0',
   VersionParser: class {
     static extractVersionNumbers = jest.fn();
     static compareVersions = jest.fn();
