@@ -1,6 +1,6 @@
 import { AttributeParser } from '../../parsers/AttributeParser';
 
-// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.2.0
+// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.3.0
 jest.mock('fs', () => ({
   readFileSync: jest.fn((filePath: string) => {
     if (filePath === 'config.json') {
