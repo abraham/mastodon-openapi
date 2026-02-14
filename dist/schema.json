@@ -25253,7 +25253,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingDirectEvent"
+                }
+              }
             }
           },
           "401": {
@@ -25371,7 +25375,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingHashtagEvent"
+                }
+              }
             }
           },
           "401": {
@@ -25501,7 +25509,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingHashtagLocalEvent"
+                }
+              }
             }
           },
           "401": {
@@ -25739,7 +25751,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingListEvent"
+                }
+              }
             }
           },
           "401": {
@@ -25869,7 +25885,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingPublicEvent"
+                }
+              }
             }
           },
           "401": {
@@ -25998,7 +26018,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingPublicLocalEvent"
+                }
+              }
             }
           },
           "401": {
@@ -26127,7 +26151,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingPublicRemoteEvent"
+                }
+              }
             }
           },
           "401": {
@@ -26256,7 +26284,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingUserEvent"
+                }
+              }
             }
           },
           "401": {
@@ -26375,7 +26407,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamingUserNotificationEvent"
+                }
+              }
             }
           },
           "401": {
@@ -36847,6 +36883,427 @@
           "height": null
         }
       },
+      "AnnouncementReactionPayload": {
+        "type": "object",
+        "description": "Payload for announcement.reaction streaming events",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The emoji used for the reaction"
+          },
+          "count": {
+            "type": "integer",
+            "description": "The total number of reactions with this emoji"
+          },
+          "announcement_id": {
+            "type": "string",
+            "description": "The ID of the announcement being reacted to"
+          }
+        },
+        "required": [
+          "name",
+          "count",
+          "announcement_id"
+        ]
+      },
+      "UpdateEvent": {
+        "type": "object",
+        "description": "A new Status has appeared. Payload contains a Status cast to a string.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/UpdateEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded Status object. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Status"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded Status string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "DeleteEvent": {
+        "type": "object",
+        "description": "A status has been deleted. Payload contains the String ID of the deleted Status.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/DeleteEventEventEnum"
+          },
+          "payload": {
+            "type": "string",
+            "description": "String ID of the deleted resource"
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "NotificationEvent": {
+        "type": "object",
+        "description": "A new notification has appeared. Payload contains a Notification cast to a string.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/NotificationEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded Notification object. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Notification"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded Notification string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "FiltersChangedEvent": {
+        "type": "object",
+        "description": "Keyword filters have been changed. Does not contain a payload for WebSocket connections.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/FiltersChangedEventEventEnum"
+          }
+        },
+        "required": [
+          "event"
+        ]
+      },
+      "ConversationEvent": {
+        "type": "object",
+        "description": "A direct conversation has been updated. Payload contains a Conversation cast to a string.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/ConversationEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded Conversation object. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Conversation"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded Conversation string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "AnnouncementEvent": {
+        "type": "object",
+        "description": "An announcement has been published. Payload contains an Announcement cast to a string.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/AnnouncementEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded Announcement object. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Announcement"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded Announcement string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "AnnouncementReactionEvent": {
+        "type": "object",
+        "description": "An announcement has received an emoji reaction. Payload contains a Hash with name, count, and announcement_id.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/AnnouncementReactionEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded reaction data. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AnnouncementReactionPayload"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded reaction data string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "AnnouncementDeleteEvent": {
+        "type": "object",
+        "description": "An announcement has been deleted. Payload contains the String ID of the deleted Announcement.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/AnnouncementDeleteEventEventEnum"
+          },
+          "payload": {
+            "type": "string",
+            "description": "String ID of the deleted resource"
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "StatusUpdateEvent": {
+        "type": "object",
+        "description": "A Status has been edited. Payload contains a Status cast to a string.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/StatusUpdateEventEventEnum"
+          },
+          "payload": {
+            "description": "JSON-encoded Status object. For SSE, this is a string that must be parsed.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Status"
+              },
+              {
+                "type": "string",
+                "description": "JSON-encoded Status string"
+              }
+            ]
+          }
+        },
+        "required": [
+          "event",
+          "payload"
+        ]
+      },
+      "NotificationsMergedEvent": {
+        "type": "object",
+        "description": "Accepted notification requests have finished merging, and the notifications list should be refreshed. Payload can be ignored.",
+        "properties": {
+          "event": {
+            "type": "string",
+            "description": "The type of event",
+            "$ref": "#/components/schemas/NotificationsMergedEventEventEnum"
+          }
+        },
+        "required": [
+          "event"
+        ]
+      },
+      "StreamingEvent": {
+        "description": "Server-Sent Event from the Mastodon streaming API. The event field determines the type of payload.",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/FiltersChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/ConversationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementReactionEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementDeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
+          }
+        ]
+      },
+      "StreamingUserEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/user streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/FiltersChangedEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementReactionEvent"
+          },
+          {
+            "$ref": "#/components/schemas/AnnouncementDeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
+          }
+        ]
+      },
+      "StreamingUserNotificationEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/user/notification streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/NotificationEvent"
+          },
+          {
+            "$ref": "#/components/schemas/NotificationsMergedEvent"
+          }
+        ]
+      },
+      "StreamingPublicEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/public streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingPublicLocalEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/public/local streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingPublicRemoteEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/public/remote streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingHashtagEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/hashtag streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingHashtagLocalEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/hashtag/local streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingListEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/list streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/UpdateEvent"
+          },
+          {
+            "$ref": "#/components/schemas/DeleteEvent"
+          },
+          {
+            "$ref": "#/components/schemas/StatusUpdateEvent"
+          }
+        ]
+      },
+      "StreamingDirectEvent": {
+        "description": "Server-Sent Events for the /api/v1/streaming/direct streaming endpoint",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ConversationEvent"
+          }
+        ]
+      },
       "ValidationError": {
         "type": "object",
         "description": "Represents a validation error with field-specific details.",
@@ -37247,6 +37704,66 @@
           "domain_block",
           "user_domain_block",
           "account_suspension"
+        ]
+      },
+      "UpdateEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "update"
+        ]
+      },
+      "DeleteEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "delete"
+        ]
+      },
+      "NotificationEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "notification"
+        ]
+      },
+      "FiltersChangedEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "filters_changed"
+        ]
+      },
+      "ConversationEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "conversation"
+        ]
+      },
+      "AnnouncementEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "announcement"
+        ]
+      },
+      "AnnouncementReactionEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "announcement.reaction"
+        ]
+      },
+      "AnnouncementDeleteEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "announcement.delete"
+        ]
+      },
+      "StatusUpdateEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "status.update"
+        ]
+      },
+      "NotificationsMergedEventEventEnum": {
+        "type": "string",
+        "enum": [
+          "notifications_merged"
         ]
       }
     },
