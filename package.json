@@ -31,7 +31,7 @@
     "@redocly/cli": "^2.21.1",
     "@types/jest": "^30.0.0",
     "@types/js-yaml": "^4.0.9",
-    "@types/node": "^25.4.0",
+    "@types/node": "^25.5.0",
     "@typescript-eslint/eslint-plugin": "^8.57.0",
     "@typescript-eslint/parser": "^8.55.0",
     "eslint": "^10.0.3",
