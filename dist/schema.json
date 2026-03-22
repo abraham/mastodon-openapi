@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [4f4dc07](https://github.com/mastodon/documentation/commit/4f4dc07606580042a725fc43c62434b520789d6e). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f2feffe](https://github.com/mastodon/documentation/commit/f2feffedeb4f71272da187304e2412d412dce82c). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -29520,6 +29520,27 @@
               "$ref": "#/components/schemas/AccountRole"
             }
           },
+          "show_featured": {
+            "description": "Whether the account wishes to have a “Featured” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media": {
+            "description": "Whether the account wishes to have a “Media” tab with media attachments on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media_replies": {
+            "description": "Whether the account wishes to have replies in the “Media” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
             "type": [
@@ -29580,6 +29601,9 @@
           "statuses_count": 28468,
           "last_status_at": "2019-11-17",
           "indexable": true,
+          "show_media": true,
+          "show_media_replies": true,
+          "show_featured": true,
           "roles": [],
           "emojis": [
             {
@@ -29876,6 +29900,27 @@
               "$ref": "#/components/schemas/AccountRole"
             }
           },
+          "show_featured": {
+            "description": "Whether the account wishes to have a “Featured” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media": {
+            "description": "Whether the account wishes to have a “Media” tab with media attachments on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media_replies": {
+            "description": "Whether the account wishes to have replies in the “Media” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
             "type": [
@@ -30090,6 +30135,27 @@
             "items": {
               "$ref": "#/components/schemas/AccountRole"
             }
+          },
+          "show_featured": {
+            "description": "Whether the account wishes to have a “Featured” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media": {
+            "description": "Whether the account wishes to have a “Media” tab with media attachments on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "show_media_replies": {
+            "description": "Whether the account wishes to have replies in the “Media” tab on their profile.",
+            "type": [
+              "boolean",
+              "null"
+            ]
           },
           "suspended": {
             "description": "An extra attribute returned only when an account is suspended.",
@@ -32126,6 +32192,20 @@
                     "description": "The maximum number of featured tags allowed for each account.",
                     "type": "integer"
                   },
+                  "max_display_name_length": {
+                    "description": "The maximum length allowed for an account's display name.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "max_note_length": {
+                    "description": "The maximum length allowed for an account's bio.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
                   "max_pinned_statuses": {
                     "description": "The maximum number of pinned statuses for each account.",
                     "type": [
@@ -32733,6 +32813,8 @@
               "public_key": "BCk-QqERU0q-CfYZjcuB6lnyyOYfJ2AifKqfeGIm7Z-HiTU5T9eTG5GxVA0_OH5mMlI4UkkDTpaZwozy0TzdZ2M="
             },
             "accounts": {
+              "max_display_name_lenth": 30,
+              "max_note_length": 500,
               "max_featured_tags": 10,
               "max_pinned_statuses": 5,
               "max_profile_fields": 4,
@@ -33836,6 +33918,13 @@
               "null"
             ],
             "format": "uri"
+          },
+          "missing_attribution": {
+            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`]({{< relref \"entities/Account#source[attribution_domains]\" >}})). This is used to prompt them to review and add the domain.",
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
@@ -33968,6 +34057,13 @@
               "null"
             ],
             "format": "uri"
+          },
+          "missing_attribution": {
+            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`]({{< relref \"entities/Account#source[attribution_domains]\" >}})). This is used to prompt them to review and add the domain.",
+            "type": [
+              "boolean",
+              "null"
+            ]
           }
         },
         "required": [
@@ -34276,7 +34372,7 @@
             "type": "boolean"
           },
           "note": {
-            "description": "This user's profile bio",
+            "description": "The authenticated user's personal comment about this account",
             "type": "string"
           },
           "notifying": {
@@ -34305,6 +34401,14 @@
               "type": "string",
               "format": "iso-639-1"
             }
+          },
+          "muting_expires_at": {
+            "description": "Date at which the mute expires, if there is any.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "date-time"
           }
         },
         "required": [
@@ -34337,6 +34441,7 @@
           "blocked_by": false,
           "muting": false,
           "muting_notifications": false,
+          "muting_expires_at": null,
           "requested": false,
           "requested_by": false,
           "domain_blocking": false,
@@ -34435,6 +34540,16 @@
             ],
             "format": "date-time"
           },
+          "collection_ids": {
+            "description": "IDs of Featured Collections that have been attached to this report for additional context.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "type": "string"
+            }
+          },
           "rule_ids": {
             "description": "IDs of the rules that have been cited as a violation by this report.",
             "type": [
@@ -34480,6 +34595,7 @@
           "status_ids": [
             "108882889550545820"
           ],
+          "collection_ids": [],
           "rule_ids": null,
           "target_account": {
             "id": "108366849347798387",
