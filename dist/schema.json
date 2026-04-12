@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f2feffe](https://github.com/mastodon/documentation/commit/f2feffedeb4f71272da187304e2412d412dce82c). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [3584c39](https://github.com/mastodon/documentation/commit/3584c39b9cea3ffde27c21f9a5000a8735794578). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -30231,11 +30231,11 @@
         "description": "Additional entity definition for Field",
         "properties": {
           "name": {
-            "description": "The key of a given field's key-value pair.",
+            "description": "The key of a given field's key-value pair. This is the raw string before processing, not HTML.",
             "type": "string"
           },
           "value": {
-            "description": "The value associated with the `name` key.",
+            "description": "The value associated with the `name` key. This is the raw string before processing, not HTML.",
             "type": "string"
           },
           "verified_at": {
@@ -34143,6 +34143,173 @@
         "example": {
           "updated_at": "2022-10-07T00:00:00+00:00",
           "content": "<p>This privacy policy describes how example.com (&quot;example.com&quot;, &quot;we&quot;, &quot;us&quot;) collects,\nprotects and uses the personally identifiable information you may provide\nthrough the example.com website or its API.</p>\n\n<h1>What information do we collect?</h1>\n\n<ul>\n<li><strong>Basic account information</strong>: If you register on this server, you may be\nasked to enter a username, an e-mail address and a password.</li>\n<li><strong>Posts, following and other public information</strong>: The list of people you\nfollow is listed publicly, the same is true for your followers.</li>\n<li><strong>Direct and followers-only posts</strong>: All posts are stored and processed on the\nserver. You may\ntoggle an option to approve and reject new followers manually in the settings.\n<strong>Please keep in mind that the operators of the server and any receiving\nserver may view such messages</strong>, and that recipients may screenshot, copy or\notherwise re-share them. <strong>Do not share any sensitive information over\nMastodon.</strong></li>\n<li><strong>IPs and other metadata</strong>: When you log in, we record the IP address you log\nin from, as well as the name of your browser application.</li>\n</ul>\n\n<hr>\n\n<p>This document is CC-BY-SA. Originally adapted from the <a href=\"https://github.com/discourse/discourse\">Discourse privacy\npolicy</a>.</p>\n"
+        }
+      },
+      "Profile": {
+        "type": "object",
+        "description": "Represents the current user's profile, with source values for all the editable fields.",
+        "properties": {
+          "attribution_domains": {
+            "description": "Domains of websites allowed to credit the account.",
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "avatar_description": {
+            "description": "A textual description of the avatar, to be used for the visually impaired or when avatars do not load.",
+            "type": "string"
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot. This is determined by the account's `actor_type` being set to 'Application' or 'Service'.",
+            "type": "boolean"
+          },
+          "display_name": {
+            "description": "The profile's display name.",
+            "type": "string"
+          },
+          "fields": {
+            "description": "Metadata about the account. Those contain the raw unprocessed names and values.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Field"
+            }
+          },
+          "header_description": {
+            "description": "A textual description of the profile header, to be used for the visually impaired or when avatars do not load.",
+            "type": "string"
+          },
+          "id": {
+            "description": "The account id.",
+            "type": "string"
+          },
+          "indexable": {
+            "description": "Whether the account allows indexing by search engines.",
+            "type": "boolean"
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": "boolean"
+          },
+          "note": {
+            "description": "The profile's bio or description. Unlike for [Account]({{< relref \"entities/Account\">}}), this is the raw unprocessed text, not the rendered HTML.",
+            "type": "string"
+          },
+          "show_featured": {
+            "description": "Whether the account wishes to have a “Featured” tab on their profile.",
+            "type": "boolean"
+          },
+          "show_media": {
+            "description": "Whether the account wishes to have a “Media” tab with media attachments on their profile.",
+            "type": "boolean"
+          },
+          "show_media_replies": {
+            "description": "Whether the account wishes to have replies in the “Media” tab on their profile.",
+            "type": "boolean"
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the avatar is unset.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the avatar is unset.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "discoverable": {
+            "description": "Whether the account has opted into discovery features such as the profile directory.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "header": {
+            "description": "An image banner that is shown above the profile and in profile cards. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the header is unset.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "header_static": {
+            "description": "A static version of the header. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the header is unset.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "hide_collections": {
+            "description": "Whether the user hides the contents of their follows and followers collections.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "attribution_domains",
+          "avatar_description",
+          "bot",
+          "display_name",
+          "fields",
+          "header_description",
+          "id",
+          "indexable",
+          "locked",
+          "note",
+          "show_featured",
+          "show_media",
+          "show_media_replies"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Profile/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "id": "116222600881276277",
+          "display_name": "Documentation user",
+          "note": "I'm only here as an example for documentation",
+          "fields": [
+            {
+              "name": "pronouns",
+              "value": "it/its",
+              "verified_at": null
+            }
+          ],
+          "avatar": null,
+          "avatar_static": null,
+          "avatar_description": "",
+          "header": null,
+          "header_static": null,
+          "header_description": "",
+          "locked": false,
+          "bot": false,
+          "hide_collections": null,
+          "discoverable": true,
+          "indexable": true,
+          "show_media": true,
+          "show_media_replies": true,
+          "show_featured": true,
+          "attribution_domains": [
+            "articles.example.com"
+          ],
+          "featured_tags": [
+            {
+              "id": "1",
+              "name": "foo",
+              "url": "https://example.com/@darrel_metz0/tagged/foo",
+              "statuses_count": "0",
+              "last_status_at": null
+            }
+          ]
         }
       },
       "Quote": {
