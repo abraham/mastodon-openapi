@@ -17737,6 +17737,131 @@
             ]
           }
         ]
+      },
+      "patch": {
+        "operationId": "patchNotificationPolicyV2",
+        "summary": "Update the filtering policy for notifications",
+        "description": "Update the user's notifications filtering policy.\n\nVersion history:\n\n4.3.0 - added",
+        "tags": [
+          "notifications"
+        ],
+        "responses": {
+          "200": {
+            "description": "[NotificationPolicy]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/NotificationPolicy"
+                },
+                "examples": {
+                  "NotificationPolicy200Example": {
+                    "$ref": "#/components/examples/NotificationPolicy200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/notifications/#update-the-filtering-policy-for-notifications",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:notifications"
+            ]
+          }
+        ]
       }
     },
     "/api/v2/notifications/unread_count": {
@@ -19163,6 +19288,589 @@
           {
             "OAuth2": [
               "read:accounts"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1/profile": {
+      "get": {
+        "operationId": "getProfile",
+        "summary": "Get current user profile",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 8) - added\\\n4.6.0 (`mastodon` [API version] 9) - added `avatar_description` and `header_description`",
+        "tags": [
+          "profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Profile]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                },
+                "examples": {
+                  "Profile200Example": {
+                    "$ref": "#/components/examples/Profile200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/profile/#get-current-user-profile",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "profile",
+              "read:accounts"
+            ]
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "patchProfile",
+        "summary": "Update current user profile",
+        "description": "Update the current user's profile.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 8) - added",
+        "tags": [
+          "profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Profile]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Profile"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error422Example": {
+                    "$ref": "#/components/examples/Error422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/profile/#update-current-user-profile",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:accounts"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "attribution_domains": {
+                    "type": "array",
+                    "description": "Domains of websites allowed to credit the account. Maximum of 10 domains.",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "avatar": {
+                    "type": "string",
+                    "description": "Avatar image encoded using `multipart/form-data`"
+                  },
+                  "avatar_description": {
+                    "type": "string",
+                    "description": "A plain-text description of the avatar, for accessibility purposes."
+                  },
+                  "bot": {
+                    "type": "boolean",
+                    "description": "Whether the account has a bot flag."
+                  },
+                  "discoverable": {
+                    "type": "boolean",
+                    "description": "Whether the account should be shown in the profile directory."
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "description": "The display name to use for the profile."
+                  },
+                  "fields_attributes": {
+                    "type": "object",
+                    "description": "The profile fields to be set. Each hash includes `name` and `value`. By default, max 4 fields (specified in [Instance#max_profile_fields])."
+                  },
+                  "header": {
+                    "type": "string",
+                    "description": "Header image encoded using `multipart/form-data`"
+                  },
+                  "header_description": {
+                    "type": "string",
+                    "description": "A plain-text description of the header, for accessibility purposes."
+                  },
+                  "hide_collections": {
+                    "type": "boolean",
+                    "description": "Whether to hide followers and followed accounts."
+                  },
+                  "indexable": {
+                    "type": "boolean",
+                    "description": "Whether public posts should be searchable to anyone."
+                  },
+                  "locked": {
+                    "type": "boolean",
+                    "description": "Whether manual approval of follow requests is required."
+                  },
+                  "note": {
+                    "type": "string",
+                    "description": "The account bio."
+                  },
+                  "show_featured": {
+                    "type": "boolean",
+                    "description": "Whether a “Featured” tab should be shown on this profile."
+                  },
+                  "show_media": {
+                    "type": "boolean",
+                    "description": "Whether a “Media” tab with media attachments should be shown on this profile."
+                  },
+                  "show_media_replies": {
+                    "type": "boolean",
+                    "description": "Whether media attachments in replies should be shown in the “Media” tab of this profile."
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/profile/avatar": {
+      "delete": {
+        "operationId": "deleteAvatar",
+        "summary": "Delete profile avatar",
+        "description": "Version history:\n\n4.2.0 - added\n\nDeletes the avatar associated with the user's profile.",
+        "tags": [
+          "profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "[CredentialAccount]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialAccount"
+                },
+                "examples": {
+                  "CredentialAccount200Example": {
+                    "$ref": "#/components/examples/CredentialAccount200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/profile/#delete-profile-avatar",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:accounts"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1/profile/header": {
+      "delete": {
+        "operationId": "deleteProfileHeader",
+        "summary": "Delete profile header",
+        "description": "Version history:\n\n4.2.0 - added\n\nDeletes the header image associated with the user's profile.",
+        "tags": [
+          "profile"
+        ],
+        "responses": {
+          "200": {
+            "description": "[CredentialAccount]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CredentialAccount"
+                },
+                "examples": {
+                  "CredentialAccount200Example": {
+                    "$ref": "#/components/examples/CredentialAccount200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/profile/#delete-profile-header",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:accounts"
             ]
           }
         ]
@@ -39014,10 +39722,11 @@
       "NotificationPolicy200Example": {
         "summary": "Example for NotificationPolicy",
         "value": {
-          "filter_not_following": false,
-          "filter_not_followers": false,
-          "filter_new_accounts": false,
-          "filter_private_mentions": true,
+          "for_not_following": "accept",
+          "for_not_followers": "accept",
+          "for_new_accounts": "accept",
+          "for_private_mentions": "drop",
+          "for_limited_accounts": "filter",
           "summary": {
             "pending_requests_count": 0,
             "pending_notifications_count": 0
@@ -39080,6 +39789,47 @@
             }
           ],
           "emojis": []
+        }
+      },
+      "Profile200Example": {
+        "summary": "Example for Profile",
+        "value": {
+          "id": "116222600881276277",
+          "display_name": "Documentation user",
+          "note": "I'm only here as an example for documentation",
+          "fields": [
+            {
+              "name": "pronouns",
+              "value": "it/its",
+              "verified_at": null
+            }
+          ],
+          "avatar": null,
+          "avatar_static": null,
+          "avatar_description": "",
+          "header": null,
+          "header_static": null,
+          "header_description": "",
+          "locked": false,
+          "bot": false,
+          "hide_collections": null,
+          "discoverable": true,
+          "indexable": true,
+          "show_media": true,
+          "show_media_replies": true,
+          "show_featured": true,
+          "attribution_domains": [
+            "articles.example.com"
+          ],
+          "featured_tags": [
+            {
+              "id": "1",
+              "name": "foo",
+              "url": "https://example.com/@darrel_metz0/tagged/foo",
+              "statuses_count": "0",
+              "last_status_at": null
+            }
+          ]
         }
       },
       "WebPushSubscription200Example": {

@@ -164,6 +164,41 @@ describe('MethodParser', () => {
     expect(foundFormParam).toBe(true);
   });
 
+  test('should parse methods from files without explicit heading anchors', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    const profileMethodsFile = methodFiles.find((f) => f.name === 'profile');
+    expect(profileMethodsFile).toBeDefined();
+
+    if (profileMethodsFile) {
+      const getProfileMethod = profileMethodsFile.methods.find(
+        (method) =>
+          method.httpMethod === 'GET' && method.endpoint === '/api/v1/profile'
+      );
+
+      expect(getProfileMethod).toBeDefined();
+      expect(getProfileMethod?.anchor).toBe('get-current-user-profile');
+    }
+  });
+
+  test('should parse nested level-3 method headers in filters file', () => {
+    const methodFiles = methodParser.parseAllMethods();
+
+    const filtersMethodsFile = methodFiles.find((f) => f.name === 'filters');
+    expect(filtersMethodsFile).toBeDefined();
+
+    if (filtersMethodsFile) {
+      const legacyListMethod = filtersMethodsFile.methods.find(
+        (method) =>
+          method.httpMethod === 'GET' && method.endpoint === '/api/v1/filters'
+      );
+
+      expect(legacyListMethod).toBeDefined();
+      expect(legacyListMethod?.deprecated).toBe(true);
+      expect(legacyListMethod?.anchor).toBe('get-v1');
+    }
+  });
+
   test('should extract HTTP methods and endpoints correctly', () => {
     const methodFiles = methodParser.parseAllMethods();
 
