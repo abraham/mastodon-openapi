@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [3584c39](https://github.com/mastodon/documentation/commit/3584c39b9cea3ffde27c21f9a5000a8735794578). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [5c85970](https://github.com/mastodon/documentation/commit/5c8597039a7ce1acb0941a5331d34d412e2613fd). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -12689,7 +12689,7 @@
       "get": {
         "operationId": "getInstanceV2",
         "summary": "View server information",
-        "description": "Obtain general information about the server.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - added `configuration.urls.status`\\\n4.2.0 - added `registrations.url`\n4.3.0 - added `configuration.vapid.public_key`, `api_versions`, `configuration.accounts.max_pinned_statuses`, `icon`\n4.4.0 - added `configuration.urls.about`, `configuration.urls.privacy_policy`, `configuration.urls.terms_of_service`, `registrations.min_age`, `registrations.reason_required`, `configuration.limited_federation`",
+        "description": "Obtain general information about the server.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - added `configuration.urls.status`\\\n4.2.0 - added `registrations.url`\\\n4.3.0 - added `configuration.vapid.public_key`, `api_versions`, `configuration.accounts.max_pinned_statuses`, `icon`\\\n4.4.0 - added `configuration.urls.about`, `configuration.urls.privacy_policy`, `configuration.urls.terms_of_service`, `registrations.min_age`, `registrations.reason_required`, `configuration.limited_federation`",
         "tags": [
           "instance"
         ],
@@ -15135,7 +15135,7 @@
         ],
         "responses": {
           "200": {
-            "description": "Array of [Account]",
+            "description": "Array of [MutedAccount]",
             "headers": {
               "X-RateLimit-Limit": {
                 "$ref": "#/components/headers/X-RateLimit-Limit"
@@ -15155,12 +15155,12 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/Account"
+                    "$ref": "#/components/schemas/MutedAccount"
                   }
                 },
                 "examples": {
-                  "Account200Example": {
-                    "$ref": "#/components/examples/Account200Example"
+                  "MutedAccount200Example": {
+                    "$ref": "#/components/examples/MutedAccount200Example"
                   }
                 }
               }
@@ -39537,6 +39537,23 @@
           "description": "test uploaded via api",
           "blurhash": "UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}"
         }
+      },
+      "MutedAccount200Example": {
+        "summary": "Example for MutedAccount",
+        "value": [
+          {
+            "id": "963076",
+            "username": "Simia91",
+            "acct": "Simia91",
+            "display_name": ""
+          },
+          {
+            "id": "1001524",
+            "username": "hakogamae",
+            "acct": "hakogamae",
+            "display_name": "Hakogamae 🔞"
+          }
+        ]
       },
       "Notification200Example": {
         "summary": "Example for Notification",
