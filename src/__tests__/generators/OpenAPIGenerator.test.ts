@@ -126,10 +126,17 @@ describe('OpenAPIGenerator', () => {
 
       expect(spec.openapi).toBe('3.1.0');
       expect(spec.paths).toEqual({});
-      // With empty inputs, the schema should only contain the OAuth scope schemas
+      // With empty inputs, the schema should contain the OAuth scope schemas
+      // and the streaming event schemas (added by MethodConverter even with empty methods)
       expect(spec.components?.schemas).toHaveProperty('OAuthScope');
       expect(spec.components?.schemas).toHaveProperty('OAuthScopes');
-      expect(Object.keys(spec.components?.schemas || {}).length).toBe(2);
+      // Should also contain streaming-related schemas
+      expect(spec.components?.schemas).toHaveProperty('StreamingEvent');
+      expect(spec.components?.schemas).toHaveProperty('UpdateEvent');
+      // The total number of schemas will be more than 2 due to streaming schemas
+      expect(
+        Object.keys(spec.components?.schemas || {}).length
+      ).toBeGreaterThan(2);
     });
 
     it('should include default public security at root level', () => {
