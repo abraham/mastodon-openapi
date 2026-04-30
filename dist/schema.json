@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [5c85970](https://github.com/mastodon/documentation/commit/5c8597039a7ce1acb0941a5331d34d412e2613fd). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [7634535](https://github.com/mastodon/documentation/commit/763453594e0b904554d3b58a9c4281057f4c7929). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -12689,7 +12689,7 @@
       "get": {
         "operationId": "getInstanceV2",
         "summary": "View server information",
-        "description": "Obtain general information about the server.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - added `configuration.urls.status`\\\n4.2.0 - added `registrations.url`\\\n4.3.0 - added `configuration.vapid.public_key`, `api_versions`, `configuration.accounts.max_pinned_statuses`, `icon`\\\n4.4.0 - added `configuration.urls.about`, `configuration.urls.privacy_policy`, `configuration.urls.terms_of_service`, `registrations.min_age`, `registrations.reason_required`, `configuration.limited_federation`",
+        "description": "Obtain general information about the server.\n\nVersion history:\n\n4.0.0 - added\\\n4.1.0 - added `configuration.urls.status`\\\n4.2.0 - added `registrations.url`\\\n4.3.0 - added `configuration.vapid.public_key`, `api_versions`, `configuration.accounts.max_pinned_statuses`, `icon`\\\n4.4.0 - added `configuration.urls.about`, `configuration.urls.privacy_policy`, `configuration.urls.terms_of_service`, `registrations.min_age`, `registrations.reason_required`, `configuration.limited_federation`\\\n4.6.0 - added `thumbnail.description`",
         "tags": [
           "instance"
         ],
@@ -33344,6 +33344,13 @@
                   "null"
                 ]
               },
+              "description": {
+                "description": "The thumbnail's alt text (a description of the image to help people with visual impairments understand its content).",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
               "versions": {
                 "description": "Links to scaled resolution images, for high DPI screens.",
                 "type": [
@@ -33462,6 +33469,7 @@
           },
           "thumbnail": {
             "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+            "description": "Colourful illustration of a Mastodon (a sort of elephant) carrying a bindle and joining a group of other Mastodons. The other Mastodons have many different colours and are holding up a Welcome sign.",
             "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
             "versions": {
               "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
@@ -39088,6 +39096,7 @@
           },
           "thumbnail": {
             "url": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
+            "description": "Colourful illustration of a Mastodon (a sort of elephant) carrying a bindle and joining a group of other Mastodons. The other Mastodons have many different colours and are holding up a Welcome sign.",
             "blurhash": "UeKUpFxuo~R%0nW;WCnhF6RjaJt757oJodS$",
             "versions": {
               "@1x": "https://files.mastodon.social/site_uploads/files/000/000/001/@1x/57c12f441d083cde.png",
