@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [7a432a3](https://github.com/mastodon/documentation/commit/7a432a31a99a1cfbb7700ebdd843298f2d0cf34d). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [5347ee6](https://github.com/mastodon/documentation/commit/5347ee641ef4ca8b7ec56a1f72eea76671fb3c19). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -30157,10 +30157,24 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -30302,8 +30316,10 @@
           "url": "https://awoo.space/@noiob",
           "avatar": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
           "avatar_static": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
+          "avatar_description": "a shark",
           "header": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
           "header_static": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
+          "header_description": "sharks in the sea",
           "followers_count": 547,
           "following_count": 404,
           "statuses_count": 28468,
@@ -30537,10 +30553,24 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -30765,10 +30795,24 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -37432,56 +37476,6 @@
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/GroupedNotificationsResults/#attributes",
-          "description": "Official Mastodon API documentation"
-        }
-      },
-      "PartialAccountWithAvatar": {
-        "type": "object",
-        "description": "These are stripped-down versions of [Account]({{< relref \"entities/Account\" >}}) that only contain what is necessary to display a list of avatars, as well as a few other useful properties. The aim is to cut back on expensive server-side serialization and reduce the network payload size of notification groups.",
-        "properties": {
-          "acct": {
-            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
-            "type": "string"
-          },
-          "avatar": {
-            "description": "An image icon that is shown next to statuses and in the profile.",
-            "type": "string",
-            "format": "uri"
-          },
-          "avatar_static": {
-            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
-            "type": "string",
-            "format": "uri"
-          },
-          "bot": {
-            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
-            "type": "boolean"
-          },
-          "id": {
-            "description": "The account id.",
-            "type": "string"
-          },
-          "locked": {
-            "description": "Whether the account manually approves follow requests.",
-            "type": "boolean"
-          },
-          "url": {
-            "description": "The location of the user's profile page.",
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "required": [
-          "acct",
-          "avatar",
-          "avatar_static",
-          "bot",
-          "id",
-          "locked",
-          "url"
-        ],
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
