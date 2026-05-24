@@ -142,11 +142,13 @@ export class EntityFileParser {
     // Find all sections that define additional entities
     // Pattern 1: ## [EntityName] entity attributes {#[id]} - extract just EntityName, not "EntityName entity"
     // Pattern 2: ## [EntityName] attributes {#[id]}
+    // Pattern 3: ## `[EntityName]` entity {#[id]} - backtick-wrapped entity name
     const entitySectionRegex1 = /## ([^#\n]+?) entity attributes \{#([^}]+)\}/g;
     const entitySectionRegex2 = /## ([^#\n]+?) attributes \{#([^}]+)\}/g;
+    const entitySectionRegex3 = /## `([^`]+)` entity \{#([^}]+)\}/g;
 
-    // Process both patterns
-    [entitySectionRegex1, entitySectionRegex2].forEach((regex) => {
+    // Process all patterns
+    [entitySectionRegex1, entitySectionRegex2, entitySectionRegex3].forEach((regex) => {
       let match;
       while ((match = regex.exec(content)) !== null) {
         const [fullMatch, entityNameRaw, entityId] = match;

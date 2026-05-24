@@ -32313,6 +32313,75 @@
           "description": "Official Mastodon API documentation"
         }
       },
+      "PartialAccountWithAvatar": {
+        "type": "object",
+        "description": "Additional entity definition for PartialAccountWithAvatar",
+        "properties": {
+          "acct": {
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "id": {
+            "description": "The account id.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
       "AccountWarning": {
         "type": "object",
         "description": "Moderation warning against a particular account.",
@@ -34704,6 +34773,11 @@
                 "description": "URLs of interest for clients apps.",
                 "type": "object",
                 "properties": {
+                  "streaming": {
+                    "description": "The Websockets URL for connecting to the streaming API.",
+                    "type": "string",
+                    "format": "uri"
+                  },
                   "about": {
                     "description": "The URL of the server's about page.",
                     "type": [
@@ -34728,14 +34802,6 @@
                     ],
                     "format": "uri"
                   },
-                  "streaming": {
-                    "description": "The Websockets URL for connecting to the streaming API.",
-                    "type": [
-                      "string",
-                      "null"
-                    ],
-                    "format": "uri"
-                  },
                   "terms_of_service": {
                     "description": "The URL of the server's current terms of service, if any.",
                     "type": [
@@ -34744,7 +34810,10 @@
                     ],
                     "format": "uri"
                   }
-                }
+                },
+                "required": [
+                  "streaming"
+                ]
               },
               "limited_federation": {
                 "description": "Whether federation is limited to explicitly allowed domains.",
@@ -35646,28 +35715,6 @@
               "null"
             ],
             "properties": {
-              "small": {
-                "description": "Details about the small preview version of the attachment.",
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/MetaDetails"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
-              "original": {
-                "description": "Details about the original version of the attachment.",
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/MetaDetails"
-                  },
-                  {
-                    "type": "null"
-                  }
-                ]
-              },
               "focus": {
                 "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails]({{< relref \"api/guidelines#focal-points\" >}}) for more.",
                 "type": [
@@ -35722,58 +35769,6 @@
           "id",
           "type"
         ],
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
-          "description": "Official Mastodon API documentation"
-        }
-      },
-      "MetaDetails": {
-        "type": "object",
-        "description": "Additional entity definition for MetaDetails",
-        "properties": {
-          "aspect": {
-            "description": "The media aspect ratio of the video or image attachment.",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "bitrate": {
-            "description": "The media bitrate of the video or audio attachment.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "duration": {
-            "description": "The duration of the video attachment.",
-            "type": [
-              "number",
-              "null"
-            ]
-          },
-          "frame_rate": {
-            "description": "The frame rate of the video attachment.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "height": {
-            "description": "The height of the attachment in pixels.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
-          "width": {
-            "description": "The width of the attachment in pixels.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          }
-        },
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
           "description": "Official Mastodon API documentation"
@@ -39173,7 +39168,7 @@
           },
           "most_recent_notification_id": {
             "description": "ID of the most recent notification in the group.",
-            "type": "integer"
+            "type": "string"
           },
           "notifications_count": {
             "description": "Total number of individual notifications that are part of this notification group.",
