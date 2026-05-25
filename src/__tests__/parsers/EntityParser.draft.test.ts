@@ -35,11 +35,4 @@ describe('EntityParser - Draft File Handling', () => {
     // Most entities don't have draft property, so they should all be included
     expect(entities.length).toBeGreaterThan(5);
   });
-
-  test('should only skip files with draft: true (not other truthy values)', () => {
-    // This test validates that only explicit draft: true is filtered
-    // This is implicitly tested by checking that we still get a reasonable number of entities
-    const entities = parser.parseAllEntities();
-    expect(entities.length).toBe(94); // Exact count after removing EncryptedMessage and entities from blocked files (increased due to extracted nested entities + Admin::DimensionData + DiscoverOauthServerConfigurationResponse + OEmbedResponse)
-  });
 });

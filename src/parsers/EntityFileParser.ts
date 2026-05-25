@@ -142,85 +142,89 @@ export class EntityFileParser {
     // Find all sections that define additional entities
     // Pattern 1: ## [EntityName] entity attributes {#[id]} - extract just EntityName, not "EntityName entity"
     // Pattern 2: ## [EntityName] attributes {#[id]}
+    // Pattern 3: ## `[EntityName]` entity {#[id]} - backtick-wrapped entity name
     const entitySectionRegex1 = /## ([^#\n]+?) entity attributes \{#([^}]+)\}/g;
     const entitySectionRegex2 = /## ([^#\n]+?) attributes \{#([^}]+)\}/g;
+    const entitySectionRegex3 = /## `([^`]+)` entity \{#([^}]+)\}/g;
 
-    // Process both patterns
-    [entitySectionRegex1, entitySectionRegex2].forEach((regex) => {
-      let match;
-      while ((match = regex.exec(content)) !== null) {
-        const [fullMatch, entityNameRaw, entityId] = match;
+    // Process all patterns
+    [entitySectionRegex1, entitySectionRegex2, entitySectionRegex3].forEach(
+      (regex) => {
+        let match;
+        while ((match = regex.exec(content)) !== null) {
+          const [fullMatch, entityNameRaw, entityId] = match;
 
-        // For Pattern 1 (entity attributes), remove " entity" suffix if present
-        // This handles cases like "CredentialAccount entity attributes" -> "CredentialAccount"
-        const entityName = entityNameRaw.trim().replace(/\s+entity$/, '');
+          // For Pattern 1 (entity attributes), remove " entity" suffix if present
+          // This handles cases like "CredentialAccount entity attributes" -> "CredentialAccount"
+          const entityName = entityNameRaw.trim().replace(/\s+entity$/, '');
 
-        // Skip if we already processed this entity (avoid duplicates)
-        if (entities.some((e) => e.name === entityName)) {
-          continue;
-        }
-
-        // Find the content for this entity (from this heading to the next ## heading or end of file)
-        const startIndex = match.index + fullMatch.length;
-
-        // Check if the next section is an "## Attributes" heading
-        // If so, we need to include it in the entity content
-        let endIndex = content.length;
-        const remainingContent = content.substring(startIndex);
-        const nextAttributesMatch =
-          remainingContent.match(/\n## Attributes\s*\n/);
-
-        if (nextAttributesMatch && nextAttributesMatch.index !== undefined) {
-          // Found "## Attributes" - find the section after that
-          const afterAttributesStart =
-            startIndex +
-            nextAttributesMatch.index +
-            nextAttributesMatch[0].length;
-          const afterAttributesContent =
-            content.substring(afterAttributesStart);
-          const nextSectionMatch = afterAttributesContent.match(/\n## /);
-
-          if (nextSectionMatch && nextSectionMatch.index !== undefined) {
-            endIndex = afterAttributesStart + nextSectionMatch.index;
+          // Skip if we already processed this entity (avoid duplicates)
+          if (entities.some((e) => e.name === entityName)) {
+            continue;
           }
-          // If no next section found, use the rest of the file (endIndex already set to content.length)
-        } else {
-          // No "## Attributes" section found, look for next ## heading
-          const nextSectionMatch = remainingContent.match(/\n## /);
-          if (nextSectionMatch && nextSectionMatch.index !== undefined) {
-            endIndex = startIndex + nextSectionMatch.index;
+
+          // Find the content for this entity (from this heading to the next ## heading or end of file)
+          const startIndex = match.index + fullMatch.length;
+
+          // Check if the next section is an "## Attributes" heading
+          // If so, we need to include it in the entity content
+          let endIndex = content.length;
+          const remainingContent = content.substring(startIndex);
+          const nextAttributesMatch =
+            remainingContent.match(/\n## Attributes\s*\n/);
+
+          if (nextAttributesMatch && nextAttributesMatch.index !== undefined) {
+            // Found "## Attributes" - find the section after that
+            const afterAttributesStart =
+              startIndex +
+              nextAttributesMatch.index +
+              nextAttributesMatch[0].length;
+            const afterAttributesContent =
+              content.substring(afterAttributesStart);
+            const nextSectionMatch = afterAttributesContent.match(/\n## /);
+
+            if (nextSectionMatch && nextSectionMatch.index !== undefined) {
+              endIndex = afterAttributesStart + nextSectionMatch.index;
+            }
+            // If no next section found, use the rest of the file (endIndex already set to content.length)
+          } else {
+            // No "## Attributes" section found, look for next ## heading
+            const nextSectionMatch = remainingContent.match(/\n## /);
+            if (nextSectionMatch && nextSectionMatch.index !== undefined) {
+              endIndex = startIndex + nextSectionMatch.index;
+            }
           }
-        }
 
-        const entityContent = content.substring(startIndex, endIndex);
+          const entityContent = content.substring(startIndex, endIndex);
 
-        // Parse attributes for this entity
-        const attributes = AttributeParser.parseAttributesFromSection(
-          entityContent,
-          entityName
-        );
+          // Parse attributes for this entity
+          const attributes = AttributeParser.parseAttributesFromSection(
+            entityContent,
+            entityName
+          );
 
-        // Remove nullable flag if all attributes were added in the same version
-        const adjustedAttributes =
-          EntityParsingUtils.removeNullableIfSameVersion(attributes);
+          // Remove nullable flag if all attributes were added in the same version
+          const adjustedAttributes =
+            EntityParsingUtils.removeNullableIfSameVersion(attributes);
 
-        // Collect all version numbers from attributes
-        const entityVersions: string[] = [];
-        for (const attr of adjustedAttributes) {
-          if (attr.versions) {
-            entityVersions.push(...attr.versions);
+          // Collect all version numbers from attributes
+          const entityVersions: string[] = [];
+          for (const attr of adjustedAttributes) {
+            if (attr.versions) {
+              entityVersions.push(...attr.versions);
+            }
           }
-        }
 
-        entities.push({
-          name: entityName,
-          description: `Additional entity definition for ${entityName}`,
-          attributes: adjustedAttributes,
-          versions: entityVersions.length > 0 ? entityVersions : undefined,
-          sourceFile,
-        });
+          entities.push({
+            name: entityName,
+            description: `Additional entity definition for ${entityName}`,
+            attributes: adjustedAttributes,
+            versions: entityVersions.length > 0 ? entityVersions : undefined,
+            sourceFile,
+          });
+        }
       }
-    });
+    );
 
     return entities;
   }

@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [7a432a3](https://github.com/mastodon/documentation/commit/7a432a31a99a1cfbb7700ebdd843298f2d0cf34d). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [816b083](https://github.com/mastodon/documentation/commit/816b08323a8920aebee7ce986e91d16e1abc4b31). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -31,6 +31,152 @@
   ],
   "security": [],
   "paths": {
+    "/api/v1/{account_id}/collections": {
+      "get": {
+        "operationId": "getByAccountIdCollections",
+        "summary": "Get all Collections from a given account",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "{account_id}"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Collections]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#get_collections",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "description": "account_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
+              "default": 40
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Skip the first n results. Defaults to 0.",
+            "schema": {
+              "type": "integer",
+              "description": "Skip the first n results. Defaults to 0.",
+              "default": 0
+            }
+          }
+        ]
+      }
+    },
     "/api/v1/accounts": {
       "post": {
         "operationId": "createAccount",
@@ -5677,6 +5823,1077 @@
             "schema": {
               "type": "string",
               "description": "Internal parameter. Use HTTP `Link` header for pagination."
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/collections": {
+      "post": {
+        "operationId": "createCollection",
+        "summary": "Create a Collection",
+        "description": "Create a new Collection.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "[WrappedCollection]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomError422"
+                },
+                "examples": {
+                  "CustomError422422Example": {
+                    "$ref": "#/components/examples/CustomError422422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#create",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "description": "A name for this Collection, max. 40 characters"
+                  },
+                  "account_ids": {
+                    "type": "string",
+                    "description": "IDs of the accounts to feature in this Collection"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "A longer description of this Collection, max. 100 characters"
+                  },
+                  "discoverable": {
+                    "type": "boolean",
+                    "description": "Whether this Collection should appear in search results and other discovery mechanisms"
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "One of Mastodon's supported language codes (two letter ISO 639-1 plus exceptions)"
+                  },
+                  "sensitive": {
+                    "type": "boolean",
+                    "description": "Whether this Collection should be marked as sensitive"
+                  },
+                  "tag_name": {
+                    "type": "string",
+                    "description": "A single hashtag that describes the Collection"
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/items": {
+      "post": {
+        "operationId": "postCollectionItems",
+        "summary": "Add an account to a Collection",
+        "description": "Add an account to a Collection.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "[WrappedCollectionItem]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error422Example": {
+                    "$ref": "#/components/examples/Error422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#add_account",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "description": "collection_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "string",
+                    "description": "ID of the account to add to this Collection"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/v1/collections/{collection_id}/items/{id}": {
+      "delete": {
+        "operationId": "deleteCollectionItem",
+        "summary": "Remove account from a Collection",
+        "description": "Remove an account from a Collection.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#remove_account",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "description": "collection_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/collections/{collection_id}/items/{id}/revoke": {
+      "post": {
+        "operationId": "postCollectionsByCollectionIdItemsByIdRevoke",
+        "summary": "Revoke inclusion in a Collection",
+        "description": "Remove the current user from a Collection created by a different user.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#revoke_item",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "collection_id",
+            "in": "path",
+            "required": true,
+            "description": "collection_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/collections/{id}": {
+      "get": {
+        "operationId": "getCollection",
+        "summary": "Get a single Collection",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "[CollectionWithAccounts]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CollectionWithAccounts"
+                },
+                "examples": {
+                  "CollectionWithAccounts200Example": {
+                    "$ref": "#/components/examples/CollectionWithAccounts200Example"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#get_collection",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      },
+      "patch": {
+        "operationId": "updateCollection",
+        "summary": "Update a Collection",
+        "description": "Update an existing Collection.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "[WrappedCollection]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomError422"
+                },
+                "examples": {
+                  "CustomError422422Example": {
+                    "$ref": "#/components/examples/CustomError422422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#update_collection",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "JSON request body parameters",
+          "required": false,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "description": {
+                    "type": "string",
+                    "description": "A longer description of this Collection, max. 100 characters"
+                  },
+                  "discoverable": {
+                    "type": "boolean",
+                    "description": "Whether this Collection should appear in search results and other discovery mechanisms"
+                  },
+                  "language": {
+                    "type": "string",
+                    "description": "One of Mastodon's supported language codes (two letter ISO 639-1 plus exceptions)"
+                  },
+                  "name": {
+                    "type": "string",
+                    "description": "A name for this Collection, max. 40 characters"
+                  },
+                  "sensitive": {
+                    "type": "boolean",
+                    "description": "Whether this Collection should be marked as sensitive"
+                  },
+                  "tag_name": {
+                    "type": "string",
+                    "description": "A single hashtag that describes the Collection"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "operationId": "deleteCollection",
+        "summary": "Delete a Collection",
+        "description": "Delete a Collection.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "collections"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "403": {
+            "description": "Forbidden",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error403Example": {
+                    "$ref": "#/components/examples/Error403Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#delete_collection",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "id parameter",
+            "schema": {
+              "type": "string"
             }
           }
         ]
@@ -15293,7 +16510,7 @@
       "get": {
         "operationId": "getNotifications",
         "summary": "Get all notifications",
-        "description": "Notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n0.0.0 - added\\\n2.6.0 - added `min_id`\\\n2.9.0 - added `account_id`\\\n3.1.0 - added `follow_request` type\\\n3.3.0 - added `status` type; both `min_id` and `max_id` can be used at the same time now\\\n3.5.0 - added `types`; add `update` and `admin.sign_up` types\\\n4.0.0 - added `admin.report` type\\\n4.1.0 - notification limit changed from 15 (max 30) to 40 (max 80)\\\n4.3.0 - added `include_filtered` parameter",
+        "description": "Notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n0.0.0 - added\\\n2.6.0 - added `min_id`\\\n2.9.0 - added `account_id`\\\n3.1.0 - added `follow_request` type\\\n3.3.0 - added `status` type; both `min_id` and `max_id` can be used at the same time now\\\n3.5.0 - added `types`; add `update` and `admin.sign_up` types\\\n4.0.0 - added `admin.report` type\\\n4.1.0 - notification limit changed from 15 (max 30) to 40 (max 80)\\\n4.3.0 - added `include_filtered` parameter\\\n4.6.0 (`mastodon` [API version] 10) - added `supported_types` optional parameter",
         "tags": [
           "notifications"
         ],
@@ -15490,6 +16707,18 @@
             }
           },
           {
+            "name": "supported_types",
+            "in": "query",
+            "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification's `fallback` attribute.",
+            "schema": {
+              "type": "array",
+              "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification's `fallback` attribute.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
             "name": "types",
             "in": "query",
             "description": "Types to include in the result.",
@@ -15508,7 +16737,7 @@
       "get": {
         "operationId": "getNotification",
         "summary": "Get a single notification",
-        "description": "View information about a notification with a given ID.\n\nVersion history:\n\n0.0.0 - added",
+        "description": "View information about a notification with a given ID.\n\nVersion history:\n\n0.0.0 - added\\\n4.6.0 (`mastodon` [API version] 10) - added `supported_types` optional parameter",
         "tags": [
           "notifications"
         ],
@@ -15637,6 +16866,18 @@
             "description": "id parameter",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "supported_types",
+            "in": "query",
+            "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification's `fallback` attribute.",
+            "schema": {
+              "type": "array",
+              "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification's `fallback` attribute.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -16978,7 +18219,7 @@
       "get": {
         "operationId": "getNotificationsV2",
         "summary": "Get all grouped notifications",
-        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added\\\n4.4.0 - added `admin.sign_up` to grouped notification types",
+        "description": "Return grouped notifications concerning the user. This API returns Link headers containing links to the next/previous page. However, the links can also be constructed dynamically using query params and `id` values.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added\\\n4.4.0 - added `admin.sign_up` to grouped notification types\\\n4.6.0 (`mastodon` [API version] 10) - added `supported_types` optional parameter",
         "tags": [
           "notifications"
         ],
@@ -17193,6 +18434,18 @@
             }
           },
           {
+            "name": "supported_types",
+            "in": "query",
+            "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification group's `fallback` attribute.",
+            "schema": {
+              "type": "array",
+              "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification group's `fallback` attribute.",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          {
             "name": "types",
             "in": "query",
             "description": "Types to include in the result.",
@@ -17211,7 +18464,7 @@
       "get": {
         "operationId": "getNotificationsByGroupKeyV2",
         "summary": "Get a single notification group",
-        "description": "View information about a specific notification group with a given group key.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added",
+        "description": "View information about a specific notification group with a given group key.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added\\\n4.6.0 (`mastodon` [API version] 10) - added `supported_types` optional parameter",
         "tags": [
           "notifications"
         ],
@@ -17340,6 +18593,18 @@
             "description": "group_key parameter",
             "schema": {
               "type": "string"
+            }
+          },
+          {
+            "name": "supported_types",
+            "in": "query",
+            "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification group's `fallback` attribute.",
+            "schema": {
+              "type": "array",
+              "description": "Notification types to not get fallback representation for even when some is available. Passing this parameter is required to get any notification fallback at all. When this parameter is used, and a notification which type is *not* included in `supported_types` has an available fallback representation, it will be included in the notification group's `fallback` attribute.",
+              "items": {
+                "type": "string"
+              }
             }
           }
         ]
@@ -30157,10 +31422,35 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "feature_approval": {
+            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FeatureApproval"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -30302,8 +31592,10 @@
           "url": "https://awoo.space/@noiob",
           "avatar": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
           "avatar_static": "https://files.mastodon.social/accounts/avatars/000/023/634/original/6ca8804dc46800ad.png",
+          "avatar_description": "a shark",
           "header": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
           "header_static": "https://files.mastodon.social/accounts/headers/000/023/634/original/256eb8d7ac40f49a.png",
+          "header_description": "sharks in the sea",
           "followers_count": 547,
           "following_count": 404,
           "statuses_count": 28468,
@@ -30354,7 +31646,14 @@
               "value": "<a href=\"http://shork.xyz\" rel=\"nofollow noopener noreferrer\" target=\"_blank\"><span class=\"invisible\">http://</span><span class=\"\">shork.xyz</span><span class=\"invisible\"></span></a>",
               "verified_at": "2019-11-10T10:31:10.744+00:00"
             }
-          ]
+          ],
+          "feature_approval": {
+            "automatic": [
+              "public"
+            ],
+            "manual": [],
+            "current_user": "automatic"
+          }
         }
       },
       "CredentialAccount": {
@@ -30537,10 +31836,35 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "feature_approval": {
+            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FeatureApproval"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -30765,10 +32089,35 @@
             "description": "The username of the account, not including domain.",
             "type": "string"
           },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "discoverable": {
             "description": "Whether the account has opted into discovery features such as the profile directory.",
             "type": [
               "boolean",
+              "null"
+            ]
+          },
+          "feature_approval": {
+            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/FeatureApproval"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "header_description": {
+            "description": "A textual description of the header image.",
+            "type": [
+              "string",
               "null"
             ]
           },
@@ -30961,6 +32310,75 @@
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Account/#Field",
+          "description": "Official Mastodon API documentation"
+        }
+      },
+      "PartialAccountWithAvatar": {
+        "type": "object",
+        "description": "Additional entity definition for PartialAccountWithAvatar",
+        "properties": {
+          "acct": {
+            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "avatar": {
+            "description": "An image icon that is shown next to statuses and in the profile.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "avatar_description": {
+            "description": "A textual description of the avatar image.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "id": {
+            "description": "The account id.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": [
+              "boolean",
+              "null"
+            ]
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -32296,6 +33714,257 @@
           }
         }
       },
+      "Collection": {
+        "type": "object",
+        "description": "Represents a curated collection of accounts that a user recommends others to follow.",
+        "properties": {
+          "account_id": {
+            "description": "The id of the account that curates this Collection.",
+            "type": "string"
+          },
+          "created_at": {
+            "description": "When the Collection was created.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "description": {
+            "description": "An optional description of the Collection.",
+            "type": "string"
+          },
+          "discoverable": {
+            "description": "Whether the Collection should show up in search results and recommendations.",
+            "type": "boolean"
+          },
+          "id": {
+            "description": "The collection id.",
+            "type": "string"
+          },
+          "item_count": {
+            "description": "The number of items in this Collection.",
+            "type": "integer"
+          },
+          "items": {
+            "description": "The items in this Collection.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CollectionItem"
+            }
+          },
+          "local": {
+            "description": "Whether the Collection was created on this server or resides on a remote server.",
+            "type": "boolean"
+          },
+          "name": {
+            "description": "The name of the Collection.",
+            "type": "string"
+          },
+          "sensitive": {
+            "description": "Whether the Collection has been marked as including sensitive content.",
+            "type": "boolean"
+          },
+          "updated_at": {
+            "description": "When the Collection was last updated.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "uri": {
+            "description": "The Collection's ActivityPub identifier (used for federation).",
+            "type": "string",
+            "format": "uri"
+          },
+          "language": {
+            "description": "Primary language of this Collection.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "iso-639-1"
+          },
+          "tag": {
+            "description": "A single hashtag that describes this Collection.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ShallowTag"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "url": {
+            "description": "The url of the Collection's HTML page (web interface URL).",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          }
+        },
+        "required": [
+          "account_id",
+          "created_at",
+          "description",
+          "discoverable",
+          "id",
+          "item_count",
+          "items",
+          "local",
+          "name",
+          "sensitive",
+          "updated_at",
+          "uri"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Collection/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "id": "116131056935959117",
+          "account_id": "113668893442515793",
+          "uri": "https://example.com/ap/113668893442515793/collections/116131056935959117",
+          "url": "https://example.com/collections/116131056935959117",
+          "name": "Excellent people",
+          "description": "Well worth following",
+          "language": "en",
+          "local": true,
+          "sensitive": false,
+          "discoverable": true,
+          "tag": {
+            "name": "discovery",
+            "url": "https://example.com/tags/discovery"
+          },
+          "item_count": 2,
+          "items": [
+            {
+              "id": "116141056635954112",
+              "account_id": "112658193342215767",
+              "state": "accepted",
+              "created_at": "2026-02-25T11:35:01.394Z"
+            },
+            {
+              "id": "116141051635254139",
+              "account_id": "117628196343117789",
+              "state": "pending",
+              "created_at": "2026-02-25T11:35:01.394Z"
+            }
+          ],
+          "created_at": "2026-02-25T11:35:01.394Z",
+          "updated_at": "2026-02-25T11:37:38.182Z"
+        }
+      },
+      "CollectionItem": {
+        "type": "object",
+        "description": "Represents a single item in a Collection.",
+        "properties": {
+          "created_at": {
+            "description": "When the item was added to the collection.",
+            "type": "string",
+            "format": "date-time"
+          },
+          "id": {
+            "description": "The item id.",
+            "type": "string"
+          },
+          "state": {
+            "description": "The current state of the item.",
+            "type": "string",
+            "$ref": "#/components/schemas/CollectionItemStateEnum"
+          },
+          "account_id": {
+            "description": "The id of the account this item represents.",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "created_at",
+          "id",
+          "state"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/CollectionItem/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "id": "116141056635954112",
+          "account_id": "112658193342215767",
+          "state": "accepted",
+          "created_at": "2026-02-25T11:35:01.394Z"
+        }
+      },
+      "CollectionWithAccounts": {
+        "type": "object",
+        "description": "A curated Collection of accounts that a user recommends others to follow plus the full account data",
+        "properties": {
+          "accounts": {
+            "description": "Full account entities for the owner of the Collection and every account within the Collection.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "collection": {
+            "description": "The actual Collection.",
+            "$ref": "#/components/schemas/Collection"
+          }
+        },
+        "required": [
+          "accounts",
+          "collection"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/CollectionWithAccounts/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "accounts": [
+            {
+              "id": "113668893442515793"
+            },
+            {
+              "id": "112658193342215767"
+            },
+            {
+              "id": "117628196343117789"
+            }
+          ],
+          "collection": {
+            "id": "116131056935959117",
+            "account_id": "113668893442515793",
+            "uri": "https://example.com/ap/113668893442515793/collections/116131056935959117",
+            "url": "https://example.com/collections/116131056935959117",
+            "name": "Excellent people",
+            "description": "Well worth following",
+            "language": "en",
+            "local": true,
+            "sensitive": false,
+            "discoverable": true,
+            "tag": {
+              "name": "discovery",
+              "url": "https://example.com/tags/discovery"
+            },
+            "item_count": 2,
+            "items": [
+              {
+                "id": "116141056635954112",
+                "account_id": "112658193342215767",
+                "state": "accepted",
+                "created_at": "2026-02-25T11:35:01.394Z"
+              },
+              {
+                "id": "116141051635254139",
+                "account_id": "117628196343117789",
+                "state": "pending",
+                "created_at": "2026-02-25T11:35:01.394Z"
+              }
+            ],
+            "created_at": "2026-02-25T11:35:01.394Z",
+            "updated_at": "2026-02-25T11:37:38.182Z"
+          }
+        }
+      },
       "Context": {
         "type": "object",
         "description": "Represents the tree around a given status. Used for reconstructing threads of statuses.",
@@ -32597,6 +34266,47 @@
             "accounts": []
           }
         ]
+      },
+      "FeatureApproval": {
+        "type": "object",
+        "description": "Summary of an account's policy with regards to being featured in a Collection and how it applies to the requesting user.",
+        "properties": {
+          "automatic": {
+            "description": "Describes who is expected to be able to feature the account in a Collection and have this authorized automatically. An empty list means that nobody is expected to be able to feature this account with automatic approval. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteApprovalAutomaticEnum"
+            }
+          },
+          "current_user": {
+            "description": "Describes how this account's feature approval policy applies to the current user.",
+            "type": "string",
+            "$ref": "#/components/schemas/FeatureApprovalCurrentUserEnum"
+          },
+          "manual": {
+            "description": "Describes who is expected to have attempts of featuring this account in a Collection be manually reviewed by the account owner before being accepted. An empty list means that nobody is expected to be able to feature this account with manual approval. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/QuoteApprovalAutomaticEnum"
+            }
+          }
+        },
+        "required": [
+          "automatic",
+          "current_user",
+          "manual"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/FeatureApproval/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "automatic": [
+            "public"
+          ],
+          "manual": [],
+          "current_user": "automatic"
+        }
       },
       "FeaturedTag": {
         "type": "object",
@@ -34171,6 +35881,17 @@
               }
             ]
           },
+          "fallback": {
+            "description": "Fallback information available for some notification types that clients may not support. Only available for some notification types, and only if the `supported_types` parameter is used when querying.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/NotificationFallback"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "group_key": {
             "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
             "type": [
@@ -34220,6 +35941,37 @@
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Notification/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
+      "NotificationFallback": {
+        "type": "object",
+        "description": "Represents a notification of an event relevant to the user.",
+        "properties": {
+          "title": {
+            "description": "Localized fallback title for the notification, for instance “Alice added you to a collection”.",
+            "type": "string"
+          },
+          "details": {
+            "description": "Localized details for the notifications, to be displayed when clicking the notification, for instance.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "summary": {
+            "description": "Localized fallback summary for the notification, for instance “You're on an app that does not support the most recent version of Mastodon. Sign in to the Mastodon web app for full functionality.”",
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/NotificationFallback/#attributes",
           "description": "Official Mastodon API documentation"
         }
       },
@@ -35528,6 +37280,13 @@
           "permissions": {
             "description": "A bitmask that represents the sum of all permissions granted to the role. This is a potentially large integer in decimal representation. The absence of special permissions is denoted by `'0'`.",
             "type": "string"
+          },
+          "collection_limit": {
+            "description": "Maximum number of Collections that users with this role are allowed to create.",
+            "type": [
+              "integer",
+              "null"
+            ]
           }
         },
         "required": [
@@ -35546,7 +37305,8 @@
           "name": "Owner",
           "color": "#ff3838",
           "permissions": "1048575",
-          "highlighted": true
+          "highlighted": true,
+          "collection_limit": 10
         }
       },
       "Rule": {
@@ -35811,6 +37571,33 @@
           "quoted_status_id": "103270115826048975"
         }
       },
+      "ShallowTag": {
+        "type": "object",
+        "description": "Minimal representation of a hashtag.",
+        "properties": {
+          "name": {
+            "description": "The value of the hashtag after the # sign.",
+            "type": "string"
+          },
+          "url": {
+            "description": "A link to the hashtag on the local server.",
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "name",
+          "url"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/ShallowTag/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "name": "nowplaying",
+          "url": "https://mastodon.social/tags/nowplaying"
+        }
+      },
       "Status": {
         "type": "object",
         "description": "Represents a status posted by an account.",
@@ -36052,6 +37839,16 @@
               "boolean",
               "null"
             ]
+          },
+          "tagged_collections": {
+            "description": "If `content` includes links to Collections that the server recognized, this includes the actual Collections.",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Collection"
+            }
           },
           "text": {
             "description": "Plain-text source of a status. Returned instead of `content` when status is deleted, so the user may redraft from the source text without the client having to reverse-engineer the original text from the HTML content.",
@@ -37435,56 +39232,6 @@
           "description": "Official Mastodon API documentation"
         }
       },
-      "PartialAccountWithAvatar": {
-        "type": "object",
-        "description": "These are stripped-down versions of [Account]({{< relref \"entities/Account\" >}}) that only contain what is necessary to display a list of avatars, as well as a few other useful properties. The aim is to cut back on expensive server-side serialization and reduce the network payload size of notification groups.",
-        "properties": {
-          "acct": {
-            "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
-            "type": "string"
-          },
-          "avatar": {
-            "description": "An image icon that is shown next to statuses and in the profile.",
-            "type": "string",
-            "format": "uri"
-          },
-          "avatar_static": {
-            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
-            "type": "string",
-            "format": "uri"
-          },
-          "bot": {
-            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
-            "type": "boolean"
-          },
-          "id": {
-            "description": "The account id.",
-            "type": "string"
-          },
-          "locked": {
-            "description": "Whether the account manually approves follow requests.",
-            "type": "boolean"
-          },
-          "url": {
-            "description": "The location of the user's profile page.",
-            "type": "string",
-            "format": "uri"
-          }
-        },
-        "required": [
-          "acct",
-          "avatar",
-          "avatar_static",
-          "bot",
-          "id",
-          "locked",
-          "url"
-        ],
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/entities/PartialAccountWithAvatar/#attributes",
-          "description": "Official Mastodon API documentation"
-        }
-      },
       "NotificationGroup": {
         "type": "object",
         "description": "### Attributes",
@@ -37518,6 +39265,17 @@
             "oneOf": [
               {
                 "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "fallback": {
+            "description": "Fallback information available for some notification types that clients may not support. Only available for some notification types, and only if the `supported_types` parameter is used when querying.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/NotificationFallback"
               },
               {
                 "type": "null"
@@ -37896,6 +39654,52 @@
           "async_refresh"
         ]
       },
+      "CustomError422": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "object",
+            "properties": {
+              "details": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "description": {
+                          "type": "string"
+                        },
+                        "error": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "description",
+                        "error"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "name"
+                ]
+              },
+              "error": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "details",
+              "error"
+            ]
+          }
+        },
+        "required": [
+          "error"
+        ]
+      },
       "CountResponse": {
         "type": "object",
         "description": "Response containing a count value",
@@ -38129,11 +39933,37 @@
           "finished"
         ]
       },
+      "CollectionItemStateEnum": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "accepted"
+        ]
+      },
       "DomainBlockSeverityEnum": {
         "type": "string",
         "enum": [
           "silence",
           "suspend"
+        ]
+      },
+      "QuoteApprovalAutomaticEnum": {
+        "type": "string",
+        "enum": [
+          "public",
+          "followers",
+          "following",
+          "unsupported_policy"
+        ]
+      },
+      "FeatureApprovalCurrentUserEnum": {
+        "type": "string",
+        "enum": [
+          "automatic",
+          "manual",
+          "denied",
+          "unknown",
+          "missing"
         ]
       },
       "FilterContextEnum": {
@@ -38220,15 +40050,6 @@
           "blocked_account",
           "blocked_domain",
           "muted_account"
-        ]
-      },
-      "QuoteApprovalAutomaticEnum": {
-        "type": "string",
-        "enum": [
-          "public",
-          "followers",
-          "following",
-          "unsupported_policy"
         ]
       },
       "QuoteApprovalCurrentUserEnum": {
@@ -38639,6 +40460,48 @@
             "https://app.example/register"
           ],
           "vapid_key": "BMAIjoaMYTDbJtfrfocuzO8pzDHI47dzmw0rha6Y="
+        }
+      },
+      "CustomError422422Example": {
+        "summary": "Example for CustomError422",
+        "value": {
+          "error": {
+            "error": "Validation failed: Name is too long (maximum is 40 characters)",
+            "details": {
+              "name": [
+                {
+                  "error": "ERR_TOO_LONG",
+                  "description": "is too long (maximum is 40 characters)"
+                }
+              ]
+            }
+          }
+        }
+      },
+      "CollectionWithAccounts200Example": {
+        "summary": "Example for CollectionWithAccounts",
+        "value": {
+          "accounts": [],
+          "collection": {
+            "id": "116131056935959117",
+            "account_id": "113668893442515793",
+            "uri": "https://example.com/ap/113668893442515793/collections/116131056935959117",
+            "url": "https://example.com/collections/116131056935959117",
+            "name": "Nice accounts",
+            "description": "These accounts are very nice",
+            "language": "en",
+            "local": true,
+            "sensitive": false,
+            "discoverable": true,
+            "tag": {
+              "name": "accounts",
+              "url": "https://example.com/tags/accounts"
+            },
+            "item_count": 2,
+            "items": [],
+            "created_at": "2026-02-25T11:35:01.394Z",
+            "updated_at": "2026-02-25T11:35:01.394Z"
+          }
         }
       },
       "Conversation200Example": {
