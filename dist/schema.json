@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [816b083](https://github.com/mastodon/documentation/commit/816b08323a8920aebee7ce986e91d16e1abc4b31). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [b65f86f](https://github.com/mastodon/documentation/commit/b65f86f45ce0dc363d75d1e07d6c61a3b5c14eeb). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -21811,7 +21811,7 @@
       "post": {
         "operationId": "createReport",
         "summary": "File a report",
-        "description": "Report problematic accounts and contents to your moderators.\n\nVersion history:\n\n1.1 - added\\\n2.3.0 - add `forward` parameter\\\n3.5.0 - add `category` and `rule_ids` parameters\\\n4.0.0 - `category` is now optional if `rule_ids` is provided\\\n4.2.0 - add `legal` category",
+        "description": "Report problematic accounts and contents to your moderators.\n\nVersion history:\n\n1.1 - added\\\n2.3.0 - add `forward` parameter\\\n3.5.0 - add `category` and `rule_ids` parameters\\\n4.0.0 - `category` is now optional if `rule_ids` is provided\\\n4.2.0 - add `legal` category\\\n4.6.0 - add `collection_ids` parameter",
         "tags": [
           "reports"
         ],
@@ -21950,6 +21950,13 @@
                     "description": "Specify if the report is due to `spam`, `legal` (illegal content), `violation` of enumerated instance rules, or some `other` reason. Defaults to `other`. Will be set to `violation` if `rule_ids[]` is provided (regardless of any category value you provide).",
                     "default": "other",
                     "$ref": "#/components/schemas/ReportCategoryEnum"
+                  },
+                  "collection_ids": {
+                    "type": "array",
+                    "description": "You can attach Collections to the report to provide additional context.",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "comment": {
                     "type": "string",
