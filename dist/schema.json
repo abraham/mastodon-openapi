@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.5.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [b65f86f](https://github.com/mastodon/documentation/commit/b65f86f45ce0dc363d75d1e07d6c61a3b5c14eeb). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [960eeb0](https://github.com/mastodon/documentation/commit/960eeb05f61209f2f7e8e97456239a3a8e143c6f). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -135,6 +135,152 @@
         },
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/methods/collections/#get_collections",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "description": "account_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
+              "default": 40
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Skip the first n results. Defaults to 0.",
+            "schema": {
+              "type": "integer",
+              "description": "Skip the first n results. Defaults to 0.",
+              "default": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/{account_id}/in_collections": {
+      "get": {
+        "operationId": "getByAccountIdInCollections",
+        "summary": "Get all Collections an account is featured in",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "{account_id}"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Collections]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#in_collections",
           "description": "Official Mastodon API documentation"
         },
         "security": [
@@ -5059,6 +5205,639 @@
             "in": "path",
             "required": true,
             "description": "name parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/annual_reports": {
+      "get": {
+        "operationId": "getAnnualReports",
+        "summary": "Get all annual reports",
+        "description": "Returns all of the current user's generated annual reports, if any.\n\nVersion history:\n\n4.3.0 - added",
+        "tags": [
+          "annual_reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "[WrappedAnnualReports]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/annual_reports/#index",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:accounts"
+            ]
+          }
+        ]
+      }
+    },
+    "/api/v1/annual_reports/{year}": {
+      "get": {
+        "operationId": "getAnnualReportsByYear",
+        "summary": "Get a single annual report",
+        "description": "Returns the current user's generated annual report for the given year, if it exists.\n\nVersion history:\n\n4.4.0 - added",
+        "tags": [
+          "annual_reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "[WrappedAnnualReports]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/annual_reports/#get",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:accounts"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "description": "year parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/annual_reports/{year}/generate": {
+      "post": {
+        "operationId": "postAnnualReportGenerate",
+        "summary": "Generate a new annual report {generate}",
+        "description": "Generate the user's annual report for the specified year.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 8) - added",
+        "tags": [
+          "annual_reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "202": {
+            "description": "Accepted",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/annual_reports/#generate-a-new-annual-report-generate",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:accounts"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "description": "year parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/annual_reports/{year}/read": {
+      "post": {
+        "operationId": "postAnnualReportRead",
+        "summary": "Mark an annual report as read",
+        "description": "Marks the user's generated annual report for the given year as read.\n\nVersion history:\n\n4.3.0 - added",
+        "tags": [
+          "annual_reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "Empty",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/annual_reports/#read",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "write:accounts"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "description": "year parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/annual_reports/{year}/state": {
+      "get": {
+        "operationId": "getAnnualReportState",
+        "summary": "Get the state of an annual report",
+        "description": "Returns the state of the annual report for the current user and given year.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 8) - added",
+        "tags": [
+          "annual_reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "Hash with a single `state` key with a value of String (Enumerable, oneOf `available`, `generating`, `eligible`, or `ineligible`)",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/annual_reports/#get-state",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:accounts"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "year",
+            "in": "path",
+            "required": true,
+            "description": "year parameter",
             "schema": {
               "type": "string"
             }
@@ -22787,10 +23566,10 @@
           {
             "name": "resolve",
             "in": "query",
-            "description": "Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
+            "description": "Only relevant if `type` includes `accounts` or if `q` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status, account or Collection is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead.",
             "schema": {
               "type": "boolean",
-              "description": "Only relevant if `type` includes `accounts` or if `query` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
+              "description": "Only relevant if `type` includes `accounts` or if `q` is a HTTPS URL. In the first case, if `true` and (a) the search query is for a remote account (e.g., `someaccount@someother.server`) and (b) the local server does not know about the account, [WebFinger] is used to try and resolve the account at `someother.server`. This provides the best recall at higher latency. If `false`, only accounts the server knows about are returned. In the second case, if `true`, resolving the URL and returning the matching status, account or Collection is attempted. If `false`, this resolving logic is circumvented and a regular search is performed instead."
             }
           },
           {
@@ -33491,6 +34270,147 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Announcement/#announcement",
           "description": "Official Mastodon API documentation"
+        }
+      },
+      "AnnualReport": {
+        "type": "object",
+        "description": "Represents a summary of a user's activity during a given year.",
+        "properties": {
+          "account_id": {
+            "description": "The account ID the report is about.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "data": {
+            "description": "The raw data contained in the report. The schema of that data is dependent on the value of `schema_version`.",
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "archetype": {
+                "description": "Archetype the user corresponds to. This is meant to represent a playful and very coarse overview of the user's posting habits over the year.",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "enum": [
+                  "lurker",
+                  "booster",
+                  "pollster",
+                  "replier",
+                  "oracle"
+                ]
+              },
+              "type_distribution": {
+                "description": "Provides a breakdown of the user's posts statistics over the year. Only available in schema version 1.",
+                "type": [
+                  "object",
+                  "null"
+                ]
+              },
+              "top_statuses": {
+                "description": "Provides a breakdown of the user's most-interacted statuses by type of interaction (reblogs, favourites, replies) over the year.",
+                "type": [
+                  "object",
+                  "null"
+                ]
+              }
+            }
+          },
+          "data[most_used_apps] {#data-most_used_apps}\n\n**Description:** Provides a breakdown of the apps the user used the most for posting statuses over the year": {
+            "type": "object",
+            "description": "data[most_used_apps] {#data-most_used_apps}\n\n**Description:** Provides a breakdown of the apps the user used the most for posting statuses over the year object",
+            "properties": {
+              " Only available in schema version 1[\\\n**Type:** Array of Hash\\\n**Version history:**\\\n4][3][0 - added\\\n4][6][0 - removed in schema version 2\n\n####]": {
+                "description": "Provides a breakdown of the accounts the user have the most frequently replied to over the year. Only available in schema version 1.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "data[percentiles] {#data-percentiles}\n\n**Description:** Which percentile of the most prolific posters on the same server the user is in": {
+            "type": "object",
+            "description": "data[percentiles] {#data-percentiles}\n\n**Description:** Which percentile of the most prolific posters on the same server the user is in object",
+            "properties": {
+              " Only available in schema version 1[\\\n**Type:** Float\\\n**Version history:**\\\n4][3][0 - added\\\n4][6][0 - removed in schema version 2\n\n###]": {
+                "description": "The schema version of the report, defines how to interpret `data`.",
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              }
+            }
+          },
+          "data[top_hashtags] {#data-top_hashtags}\n\n**Description:** Provides a breakdown of the user's most frequently used hashtags over the year": {
+            "type": "object",
+            "description": "data[top_hashtags] {#data-top_hashtags}\n\n**Description:** Provides a breakdown of the user's most frequently used hashtags over the year object",
+            "properties": {
+              "\\\n**Type:** Array of Hash\\\n**Version history:**\\\n4[3][0 - added\\\n4][6][0 - changed to be limited to a single hashtag in schema version 2\n\n####]": {
+                "description": "Provides a breakdown of the accounts the user has reblogged the most over the year. Only available in schema version 1.",
+                "type": [
+                  "array",
+                  "null"
+                ],
+                "items": {
+                  "type": "object"
+                }
+              }
+            }
+          },
+          "share_url": {
+            "description": "An optional link to a shareable version of the report.",
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          },
+          "year": {
+            "description": "The year this report is from.",
+            "type": [
+              "integer",
+              "null"
+            ]
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/AnnualReport/#attributes",
+          "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "year": 2025,
+          "data": {
+            "archetype": "oracle",
+            "time_series": [
+              {
+                "month": 12,
+                "statuses": 7123,
+                "followers": 48
+              }
+            ],
+            "top_hashtags": [
+              {
+                "name": "Mastodon",
+                "count": 12
+              }
+            ],
+            "top_statuses": {
+              "by_reblogs": "114348347829110933",
+              "by_replies": null,
+              "by_favourites": null
+            }
+          },
+          "schema_version": 2,
+          "share_url": "https://example.com/@Foobar/wrapstodon/2025/7fa0231c0f206390",
+          "account_id": "55911"
         }
       },
       "Appeal": {
