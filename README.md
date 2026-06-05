@@ -1,6 +1,6 @@
 # mastodon-openapi
 
-A tool for generating OpenAPI schemas from the [Mastodon](https://joinmastodon.org/) [API documentation](https://github.com/mastodon/documentation).
+A tool for generating OpenAPI schemas from the [Mastodon](https://joinmastodon.org/) [API documentation](https://github.com/mastodon/documentation). Created for for the [mastodon](https://github.com/abraham/mastodon-dart) dart package.
 
 ## Goal
 
