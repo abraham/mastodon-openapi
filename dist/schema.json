@@ -35223,7 +35223,7 @@
             "description": "Describes who is expected to be able to feature the account in a Collection and have this authorized automatically. An empty list means that nobody is expected to be able to feature this account with automatic approval. Other values may be added in the future, so unknown values should be treated as `unsupported_policy`.",
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/QuoteApprovalAutomaticEnum"
+              "$ref": "#/components/schemas/FeatureApprovalAutomaticEnum"
             }
           },
           "current_user": {
@@ -40895,13 +40895,14 @@
           "suspend"
         ]
       },
-      "QuoteApprovalAutomaticEnum": {
+      "FeatureApprovalAutomaticEnum": {
         "type": "string",
         "enum": [
           "public",
           "followers",
           "following",
-          "unsupported_policy"
+          "unsupported_policy",
+          "disabled"
         ]
       },
       "FeatureApprovalCurrentUserEnum": {
@@ -40912,6 +40913,15 @@
           "denied",
           "unknown",
           "missing"
+        ]
+      },
+      "QuoteApprovalAutomaticEnum": {
+        "type": "string",
+        "enum": [
+          "public",
+          "followers",
+          "following",
+          "unsupported_policy"
         ]
       },
       "FilterContextEnum": {
