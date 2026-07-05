@@ -491,12 +491,7 @@ export class ParameterParser {
         // Create schema with the inferred type
         param.schema = {
           type: inferredType as
-            | 'string'
-            | 'number'
-            | 'boolean'
-            | 'object'
-            | 'array'
-            | 'integer',
+            'string' | 'number' | 'boolean' | 'object' | 'array' | 'integer',
         };
 
         // For string parameters, check for date/datetime formats
