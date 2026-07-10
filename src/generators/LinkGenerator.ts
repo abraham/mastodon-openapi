@@ -63,11 +63,7 @@ export class LinkGenerator {
 
         if (pathInSpec) {
           const httpMethod = method.httpMethod.toLowerCase() as
-            | 'get'
-            | 'post'
-            | 'put'
-            | 'delete'
-            | 'patch';
+            'get' | 'post' | 'put' | 'delete' | 'patch';
           const operation = pathInSpec[httpMethod];
 
           if (operation?.operationId) {
