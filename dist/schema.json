@@ -32197,6 +32197,10 @@
             "description": "The account id.",
             "type": "string"
           },
+          "indexable": {
+            "description": "Whether the account allows indexing by search engines.",
+            "type": "boolean"
+          },
           "locked": {
             "description": "Whether the account manually approves follow requests.",
             "type": "boolean"
@@ -32252,13 +32256,6 @@
           },
           "hide_collections": {
             "description": "Whether the user hides the contents of their follows and followers collections.",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "indexable": {
-            "description": "Whether the account allows indexing by search engines.",
             "type": [
               "boolean",
               "null"
@@ -32366,6 +32363,7 @@
           "header",
           "header_static",
           "id",
+          "indexable",
           "locked",
           "note",
           "statuses_count",
@@ -32523,6 +32521,10 @@
             "description": "The account id.",
             "type": "string"
           },
+          "indexable": {
+            "description": "Whether the account allows indexing by search engines.",
+            "type": "boolean"
+          },
           "locked": {
             "description": "Whether the account manually approves follow requests.",
             "type": "boolean"
@@ -32549,6 +32551,10 @@
               "follow_requests_count": {
                 "description": "The number of pending follow requests.",
                 "type": "integer"
+              },
+              "indexable": {
+                "description": "Whether public posts should be searchable to anyone.",
+                "type": "boolean"
               },
               "note": {
                 "description": "Profile bio, in plain text instead of HTML.",
@@ -32587,13 +32593,6 @@
                   "null"
                 ]
               },
-              "indexable": {
-                "description": "Whether public posts should be searchable to anyone.",
-                "type": [
-                  "boolean",
-                  "null"
-                ]
-              },
               "language": {
                 "description": "The default posting language for new statuses.",
                 "type": [
@@ -32614,6 +32613,7 @@
             "required": [
               "fields",
               "follow_requests_count",
+              "indexable",
               "note",
               "privacy",
               "sensitive"
@@ -32666,13 +32666,6 @@
           },
           "hide_collections": {
             "description": "Whether the user hides the contents of their follows and followers collections.",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "indexable": {
-            "description": "Whether the account allows indexing by search engines.",
             "type": [
               "boolean",
               "null"
@@ -32780,6 +32773,7 @@
           "header",
           "header_static",
           "id",
+          "indexable",
           "locked",
           "note",
           "role",
@@ -32864,6 +32858,10 @@
             "description": "The account id.",
             "type": "string"
           },
+          "indexable": {
+            "description": "Whether the account allows indexing by search engines.",
+            "type": "boolean"
+          },
           "locked": {
             "description": "Whether the account manually approves follow requests.",
             "type": "boolean"
@@ -32919,13 +32917,6 @@
           },
           "hide_collections": {
             "description": "Whether the user hides the contents of their follows and followers collections.",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "indexable": {
-            "description": "Whether the account allows indexing by search engines.",
             "type": [
               "boolean",
               "null"
@@ -33041,6 +33032,7 @@
           "header",
           "header_static",
           "id",
+          "indexable",
           "locked",
           "note",
           "statuses_count",
@@ -33115,17 +33107,33 @@
         "properties": {
           "acct": {
             "description": "The WebFinger account URI. Equal to `username` for local users, or `username@domain` for remote users.",
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "avatar": {
             "description": "An image icon that is shown next to statuses and in the profile.",
-            "type": [
-              "string",
-              "null"
-            ],
+            "type": "string",
+            "format": "uri"
+          },
+          "avatar_static": {
+            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
+            "type": "string",
+            "format": "uri"
+          },
+          "bot": {
+            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
+            "type": "boolean"
+          },
+          "id": {
+            "description": "The account id.",
+            "type": "string"
+          },
+          "locked": {
+            "description": "Whether the account manually approves follow requests.",
+            "type": "boolean"
+          },
+          "url": {
+            "description": "The location of the user's profile page.",
+            "type": "string",
             "format": "uri"
           },
           "avatar_description": {
@@ -33134,45 +33142,17 @@
               "string",
               "null"
             ]
-          },
-          "avatar_static": {
-            "description": "A static version of the avatar. Equal to `avatar` if its value is a static image; different if `avatar` is an animated GIF.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
-          "bot": {
-            "description": "Indicates that the account may perform automated actions, may not be monitored, or identifies as a robot.",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "id": {
-            "description": "The account id.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "locked": {
-            "description": "Whether the account manually approves follow requests.",
-            "type": [
-              "boolean",
-              "null"
-            ]
-          },
-          "url": {
-            "description": "The location of the user's profile page.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
           }
         },
+        "required": [
+          "acct",
+          "avatar",
+          "avatar_static",
+          "bot",
+          "id",
+          "locked",
+          "url"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Account/#attributes",
           "description": "Official Mastodon API documentation"
@@ -33604,6 +33584,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "digest": {
+            "description": "The sha256 hex digest of the domain that is not allowed to federated.",
+            "type": "string"
+          },
           "domain": {
             "description": "The domain that is not allowed to federate.",
             "type": "string"
@@ -33629,13 +33613,6 @@
             "type": "string",
             "$ref": "#/components/schemas/AdminDomainBlockSeverityEnum"
           },
-          "digest": {
-            "description": "The sha256 hex digest of the domain that is not allowed to federated.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "private_comment": {
             "description": "",
             "type": [
@@ -33653,6 +33630,7 @@
         },
         "required": [
           "created_at",
+          "digest",
           "domain",
           "id",
           "obfuscate",
@@ -34286,6 +34264,10 @@
         "type": "object",
         "description": "Represents a summary of a user's activity during a given year.",
         "properties": {
+          "year": {
+            "description": "The year this report is from.",
+            "type": "integer"
+          },
           "account_id": {
             "description": "The account ID the report is about.",
             "type": [
@@ -34302,10 +34284,7 @@
             "properties": {
               "archetype": {
                 "description": "Archetype the user corresponds to. This is meant to represent a playful and very coarse overview of the user's posting habits over the year.",
-                "type": [
-                  "string",
-                  "null"
-                ],
+                "type": "string",
                 "enum": [
                   "lurker",
                   "booster",
@@ -34316,10 +34295,7 @@
               },
               "type_distribution": {
                 "description": "Provides a breakdown of the user's posts statistics over the year. Only available in schema version 1.",
-                "type": [
-                  "object",
-                  "null"
-                ]
+                "type": "object"
               },
               "top_statuses": {
                 "description": "Provides a breakdown of the user's most-interacted statuses by type of interaction (reblogs, favourites, replies) over the year.",
@@ -34330,20 +34306,14 @@
               },
               "most_used_apps": {
                 "description": "Provides a breakdown of the apps the user used the most for posting statuses over the year. Only available in schema version 1.",
-                "type": [
-                  "array",
-                  "null"
-                ],
+                "type": "array",
                 "items": {
                   "type": "object"
                 }
               },
               "commonly_interacted_with_accounts": {
                 "description": "Provides a breakdown of the accounts the user have the most frequently replied to over the year. Only available in schema version 1.",
-                "type": [
-                  "array",
-                  "null"
-                ],
+                "type": "array",
                 "items": {
                   "type": "object"
                 }
@@ -34370,22 +34340,24 @@
               },
               "most_reblogged_accounts": {
                 "description": "Provides a breakdown of the accounts the user has reblogged the most over the year. Only available in schema version 1.",
-                "type": [
-                  "array",
-                  "null"
-                ],
+                "type": "array",
                 "items": {
                   "type": "object"
                 }
               },
               "percentiles": {
                 "description": "Which percentile of the most prolific posters on the same server the user is in. Only available in schema version 1.",
-                "type": [
-                  "number",
-                  "null"
-                ]
+                "type": "number"
               }
-            }
+            },
+            "required": [
+              "archetype",
+              "type_distribution",
+              "most_used_apps",
+              "commonly_interacted_with_accounts",
+              "most_reblogged_accounts",
+              "percentiles"
+            ]
           },
           "schema_version": {
             "description": "The schema version of the report, defines how to interpret `data`.",
@@ -34401,15 +34373,11 @@
               "null"
             ],
             "format": "uri"
-          },
-          "year": {
-            "description": "The year this report is from.",
-            "type": [
-              "integer",
-              "null"
-            ]
           }
         },
+        "required": [
+          "year"
+        ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/AnnualReport/#attributes",
           "description": "Official Mastodon API documentation"
@@ -34480,17 +34448,11 @@
           "redirect_uri": {
             "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "redirect_uris": {
             "description": "The registered redirection URI(s) for the application.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string",
               "format": "uri"
@@ -34498,22 +34460,12 @@
           },
           "scopes": {
             "description": "The scopes for the application. This is the registered `scopes` string split on whitespace.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/OAuthScopes"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
             "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps]({{< relref \"methods/apps#create\" >}}). Equivalent to [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}) and [Instance#vapid_public_key]({{< relref \"entities/Instance#vapid_public_key\" >}})",
             "deprecated": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "website": {
             "description": "The website associated with the application.",
@@ -34526,7 +34478,11 @@
         },
         "required": [
           "id",
-          "name"
+          "name",
+          "redirect_uri",
+          "redirect_uris",
+          "scopes",
+          "vapid_key"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
@@ -34568,27 +34524,14 @@
             "description": "The name of the application.",
             "type": "string"
           },
-          "client_secret_expires_at": {
-            "description": "When the client secret key will expire. Presently this always returns `0` indicating that OAuth Clients do not expire.",
-            "type": [
-              "integer",
-              "null"
-            ]
-          },
           "redirect_uri": {
             "description": "The registered redirection URI(s) for the application stored as a single string. Multiple URIs are separated by whitespace characters. May contain `\\n` characters when multiple redirect URIs are registered.",
             "deprecated": true,
-            "type": [
-              "string",
-              "null"
-            ]
+            "type": "string"
           },
           "redirect_uris": {
             "description": "The registered redirection URI(s) for the application.",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
               "type": "string",
               "format": "uri"
@@ -34596,20 +34539,17 @@
           },
           "scopes": {
             "description": "The scopes for the application. This is the registered `scopes` string split on whitespace.",
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/OAuthScopes"
-              },
-              {
-                "type": "null"
-              }
-            ]
+            "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
             "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps]({{< relref \"methods/apps#create\" >}}). Equivalent to [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}) and [Instance#vapid_public_key]({{< relref \"entities/Instance#vapid_public_key\" >}})",
             "deprecated": true,
+            "type": "string"
+          },
+          "client_secret_expires_at": {
+            "description": "When the client secret key will expire. Presently this always returns `0` indicating that OAuth Clients do not expire.",
             "type": [
-              "string",
+              "integer",
               "null"
             ]
           },
@@ -34626,7 +34566,11 @@
           "client_id",
           "client_secret",
           "id",
-          "name"
+          "name",
+          "redirect_uri",
+          "redirect_uris",
+          "scopes",
+          "vapid_key"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Application/#attributes",
@@ -35554,6 +35498,19 @@
         "type": "object",
         "description": "Represents the software instance of Mastodon running on this domain.",
         "properties": {
+          "api_versions": {
+            "description": "Machine-readable API version information that allows clients to determine which API endpoints and features are available on this server. This provides a more reliable method for capability detection than parsing human-readable version strings, especially for forks and development builds. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
+            "type": "object",
+            "properties": {
+              "mastodon": {
+                "description": "API version number that increments with substantial API changes. Clients can use this value to determine API compatibility rather than parsing complex version strings like \"4.4+hometown-123\" from forks or nightly builds. This number increases independently of the human-readable version number.",
+                "type": "integer"
+              }
+            },
+            "required": [
+              "mastodon"
+            ]
+          },
           "configuration": {
             "description": "Configured values and limits for this website.",
             "type": "object",
@@ -35564,6 +35521,10 @@
                 "properties": {
                   "max_featured_tags": {
                     "description": "The maximum number of featured tags allowed for each account.",
+                    "type": "integer"
+                  },
+                  "max_pinned_statuses": {
+                    "description": "The maximum number of pinned statuses for each account.",
                     "type": "integer"
                   },
                   "max_avatar_description_length": {
@@ -35594,13 +35555,6 @@
                       "null"
                     ]
                   },
-                  "max_pinned_statuses": {
-                    "description": "The maximum number of pinned statuses for each account.",
-                    "type": [
-                      "integer",
-                      "null"
-                    ]
-                  },
                   "max_profile_fields": {
                     "description": "The maximum number of custom profile fields allowed to be set.",
                     "type": [
@@ -35624,7 +35578,8 @@
                   }
                 },
                 "required": [
-                  "max_featured_tags"
+                  "max_featured_tags",
+                  "max_pinned_statuses"
                 ]
               },
               "media_attachments": {
@@ -35941,6 +35896,13 @@
             "description": "The WebFinger domain name of the server.",
             "type": "string"
           },
+          "icon": {
+            "description": "The list of available size variants for this server's configured icon.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/InstanceIcon"
+            }
+          },
           "languages": {
             "description": "Primary languages of the website and its staff.",
             "type": "array",
@@ -36091,32 +36053,6 @@
             "description": "The version of Mastodon installed on the server.",
             "type": "string"
           },
-          "api_versions": {
-            "description": "Machine-readable API version information that allows clients to determine which API endpoints and features are available on this server. This provides a more reliable method for capability detection than parsing human-readable version strings, especially for forks and development builds. It contains at least a `mastodon` attribute, and other implementations may have their own additional attributes.",
-            "type": [
-              "object",
-              "null"
-            ],
-            "properties": {
-              "mastodon": {
-                "description": "API version number that increments with substantial API changes. Clients can use this value to determine API compatibility rather than parsing complex version strings like \"4.4+hometown-123\" from forks or nightly builds. This number increases independently of the human-readable version number.",
-                "type": [
-                  "integer",
-                  "null"
-                ]
-              }
-            }
-          },
-          "icon": {
-            "description": "The list of available size variants for this server's configured icon.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/InstanceIcon"
-            }
-          },
           "wrapstodon": {
             "description": "The current Wrapstodon ([Annual report]({{< relref \"methods/annual_reports\" >}}) campaign identifier (year), if any.",
             "type": [
@@ -36126,10 +36062,12 @@
           }
         },
         "required": [
+          "api_versions",
           "configuration",
           "contact",
           "description",
           "domain",
+          "icon",
           "languages",
           "registrations",
           "rules",
@@ -36838,6 +36776,10 @@
             "type": "string",
             "format": "date-time"
           },
+          "group_key": {
+            "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
+            "type": "string"
+          },
           "id": {
             "description": "The id of the notification in the database.",
             "type": "string"
@@ -36880,13 +36822,6 @@
               }
             ]
           },
-          "group_key": {
-            "description": "Group key shared by similar notifications, to be used in the grouped notifications feature. Should be considered opaque, but ungrouped notifications can be assumed to have a `group_key` of the form `ungrouped-{notification_id}`.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
           "moderation_warning": {
             "description": "Moderation warning that caused the notification. Attached when `type` of the notification is `moderation_warning`.",
             "oneOf": [
@@ -36924,6 +36859,7 @@
         "required": [
           "account",
           "created_at",
+          "group_key",
           "id",
           "type"
         ],
@@ -37291,6 +37227,22 @@
         "type": "object",
         "description": "Represents a rich preview card that is generated using OpenGraph tags from a URL.",
         "properties": {
+          "author_name": {
+            "description": "The author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string"
+          },
+          "author_url": {
+            "description": "A link to the author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string",
+            "format": "uri"
+          },
+          "authors": {
+            "description": "Fediverse account of the authors of the original resource.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PreviewCardAuthor"
+            }
+          },
           "description": {
             "description": "Description of preview.",
             "type": "string"
@@ -37340,31 +37292,6 @@
             "description": "Width of preview, in pixels.",
             "type": "integer"
           },
-          "author_name": {
-            "description": "The author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "author_url": {
-            "description": "A link to the author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
-          "authors": {
-            "description": "Fediverse account of the authors of the original resource.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/PreviewCardAuthor"
-            }
-          },
           "blurhash": {
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
             "type": [
@@ -37389,6 +37316,9 @@
           }
         },
         "required": [
+          "author_name",
+          "author_url",
+          "authors",
           "description",
           "embed_url",
           "height",
@@ -37410,6 +37340,22 @@
         "type": "object",
         "description": "Additional entity definition for Trends::Link",
         "properties": {
+          "author_name": {
+            "description": "The author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string"
+          },
+          "author_url": {
+            "description": "A link to the author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
+            "type": "string",
+            "format": "uri"
+          },
+          "authors": {
+            "description": "Fediverse account of the authors of the original resource.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PreviewCardAuthor"
+            }
+          },
           "description": {
             "description": "Description of preview.",
             "type": "string"
@@ -37485,31 +37431,6 @@
             "description": "Width of preview, in pixels.",
             "type": "integer"
           },
-          "author_name": {
-            "description": "The author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
-            "type": [
-              "string",
-              "null"
-            ]
-          },
-          "author_url": {
-            "description": "A link to the author of the original resource. Deprecated since 4.3.0, clients should use `authors` instead.",
-            "type": [
-              "string",
-              "null"
-            ],
-            "format": "uri"
-          },
-          "authors": {
-            "description": "Fediverse account of the authors of the original resource.",
-            "type": [
-              "array",
-              "null"
-            ],
-            "items": {
-              "$ref": "#/components/schemas/PreviewCardAuthor"
-            }
-          },
           "blurhash": {
             "description": "A hash computed by [the BlurHash algorithm](https://github.com/woltapp/blurhash), for generating colorful preview thumbnails when media has not been downloaded yet.",
             "type": [
@@ -37534,6 +37455,9 @@
           }
         },
         "required": [
+          "author_name",
+          "author_url",
+          "authors",
           "description",
           "embed_url",
           "height",
@@ -38313,6 +38237,10 @@
         "type": "object",
         "description": "Represents a rule that server users should follow.",
         "properties": {
+          "hint": {
+            "description": "Longer-form description of the rule.",
+            "type": "string"
+          },
           "id": {
             "description": "An identifier for the rule.",
             "type": "string"
@@ -38320,13 +38248,6 @@
           "text": {
             "description": "The rule to be followed.",
             "type": "string"
-          },
-          "hint": {
-            "description": "Longer-form description of the rule.",
-            "type": [
-              "string",
-              "null"
-            ]
           },
           "translations": {
             "description": "Available translations for this rule's `text` and `hint`, as a Hash where keys are locale codes and values are hashes with `text` and `hint` keys.",
@@ -38337,6 +38258,7 @@
           }
         },
         "required": [
+          "hint",
           "id",
           "text"
         ],
@@ -39220,24 +39142,15 @@
           },
           "sources": {
             "description": "A list of reasons this account is being suggested. This replaces `source`",
-            "type": [
-              "array",
-              "null"
-            ],
+            "type": "array",
             "items": {
-              "type": "string",
-              "enum": [
-                "featured",
-                "most_followed",
-                "most_interactions",
-                "similar_to_recently_followed",
-                "friends_of_friends"
-              ]
+              "$ref": "#/components/schemas/SuggestionSourcesEnum"
             }
           }
         },
         "required": [
-          "account"
+          "account",
+          "sources"
         ],
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Suggestion/#attributes",
@@ -39263,6 +39176,10 @@
               "$ref": "#/components/schemas/TagHistory"
             }
           },
+          "id": {
+            "description": "ID of the hashtag in the database. Useful for constructing URLs for the moderation tools & Admin API.",
+            "type": "string"
+          },
           "name": {
             "description": "The value of the hashtag after the # sign.",
             "type": "string"
@@ -39285,17 +39202,11 @@
               "boolean",
               "null"
             ]
-          },
-          "id": {
-            "description": "ID of the hashtag in the database. Useful for constructing URLs for the moderation tools & Admin API.",
-            "type": [
-              "string",
-              "null"
-            ]
           }
         },
         "required": [
           "history",
+          "id",
           "name",
           "url"
         ],
@@ -41106,6 +41017,16 @@
           "domain_block",
           "user_domain_block",
           "account_suspension"
+        ]
+      },
+      "SuggestionSourcesEnum": {
+        "type": "string",
+        "enum": [
+          "featured",
+          "most_followed",
+          "most_interactions",
+          "similar_to_recently_followed",
+          "friends_of_friends"
         ]
       },
       "NotificationGroupTypeEnum": {
