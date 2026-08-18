@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.6.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [960eeb0](https://github.com/mastodon/documentation/commit/960eeb05f61209f2f7e8e97456239a3a8e143c6f). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [26e7ad7](https://github.com/mastodon/documentation/commit/26e7ad7bac3ffeadefa9b59548cbd93247ec147a). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "license": {
       "name": "GFDL-1.3",
       "url": "https://www.gnu.org/licenses/fdl-1.3.en.html"
@@ -31,298 +31,6 @@
   ],
   "security": [],
   "paths": {
-    "/api/v1/{account_id}/collections": {
-      "get": {
-        "operationId": "getByAccountIdCollections",
-        "summary": "Get all Collections from a given account",
-        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
-        "tags": [
-          "{account_id}"
-        ],
-        "responses": {
-          "200": {
-            "description": "[Collections]",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "$ref": "#/components/headers/X-RateLimit-Limit"
-              },
-              "X-RateLimit-Remaining": {
-                "$ref": "#/components/headers/X-RateLimit-Remaining"
-              },
-              "X-RateLimit-Reset": {
-                "$ref": "#/components/headers/X-RateLimit-Reset"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationError"
-                },
-                "examples": {
-                  "ValidationError422Example": {
-                    "$ref": "#/components/examples/ValidationError422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/collections/#get_collections",
-          "description": "Official Mastodon API documentation"
-        },
-        "security": [
-          {
-            "OAuth2": [
-              "read:collections"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "description": "account_id parameter",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
-            "schema": {
-              "type": "integer",
-              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
-              "default": 40
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Skip the first n results. Defaults to 0.",
-            "schema": {
-              "type": "integer",
-              "description": "Skip the first n results. Defaults to 0.",
-              "default": 0
-            }
-          }
-        ]
-      }
-    },
-    "/api/v1/{account_id}/in_collections": {
-      "get": {
-        "operationId": "getByAccountIdInCollections",
-        "summary": "Get all Collections an account is featured in",
-        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
-        "tags": [
-          "{account_id}"
-        ],
-        "responses": {
-          "200": {
-            "description": "[Collections]",
-            "headers": {
-              "X-RateLimit-Limit": {
-                "$ref": "#/components/headers/X-RateLimit-Limit"
-              },
-              "X-RateLimit-Remaining": {
-                "$ref": "#/components/headers/X-RateLimit-Remaining"
-              },
-              "X-RateLimit-Reset": {
-                "$ref": "#/components/headers/X-RateLimit-Reset"
-              }
-            }
-          },
-          "401": {
-            "description": "Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error401Example": {
-                    "$ref": "#/components/examples/Error401Example"
-                  }
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error404Example": {
-                    "$ref": "#/components/examples/Error404Example"
-                  }
-                }
-              }
-            }
-          },
-          "410": {
-            "description": "Gone"
-          },
-          "422": {
-            "description": "Unprocessable Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ValidationError"
-                },
-                "examples": {
-                  "ValidationError422Example": {
-                    "$ref": "#/components/examples/ValidationError422Example"
-                  }
-                }
-              }
-            }
-          },
-          "429": {
-            "description": "Too Many Requests",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error429Example": {
-                    "$ref": "#/components/examples/Error429Example"
-                  }
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                },
-                "examples": {
-                  "Error503Example": {
-                    "$ref": "#/components/examples/Error503Example"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "externalDocs": {
-          "url": "https://docs.joinmastodon.org/methods/collections/#in_collections",
-          "description": "Official Mastodon API documentation"
-        },
-        "security": [
-          {
-            "OAuth2": [
-              "read:collections"
-            ]
-          }
-        ],
-        "parameters": [
-          {
-            "name": "account_id",
-            "in": "path",
-            "required": true,
-            "description": "account_id parameter",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
-            "schema": {
-              "type": "integer",
-              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 accounts.",
-              "default": 40
-            }
-          },
-          {
-            "name": "offset",
-            "in": "query",
-            "description": "Skip the first n results. Defaults to 0.",
-            "schema": {
-              "type": "integer",
-              "description": "Skip the first n results. Defaults to 0.",
-              "default": 0
-            }
-          }
-        ]
-      }
-    },
     "/api/v1/accounts": {
       "post": {
         "operationId": "createAccount",
@@ -625,6 +333,298 @@
               "items": {
                 "type": "string"
               }
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/{account_id}/collections": {
+      "get": {
+        "operationId": "getAccountCollections",
+        "summary": "Get all Collections from a given account",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Collections]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#get_collections",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "description": "account_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 Collections.",
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 Collections.",
+              "default": 40
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Skip the first n results. Defaults to 0.",
+            "schema": {
+              "type": "integer",
+              "description": "Skip the first n results. Defaults to 0.",
+              "default": 0
+            }
+          }
+        ]
+      }
+    },
+    "/api/v1/accounts/{account_id}/in_collections": {
+      "get": {
+        "operationId": "getAccountInCollections",
+        "summary": "Get all Collections the current account is featured in",
+        "description": "Version history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
+        "tags": [
+          "accounts"
+        ],
+        "responses": {
+          "200": {
+            "description": "[Collections]",
+            "headers": {
+              "X-RateLimit-Limit": {
+                "$ref": "#/components/headers/X-RateLimit-Limit"
+              },
+              "X-RateLimit-Remaining": {
+                "$ref": "#/components/headers/X-RateLimit-Remaining"
+              },
+              "X-RateLimit-Reset": {
+                "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error401Example": {
+                    "$ref": "#/components/examples/Error401Example"
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error404Example": {
+                    "$ref": "#/components/examples/Error404Example"
+                  }
+                }
+              }
+            }
+          },
+          "410": {
+            "description": "Gone"
+          },
+          "422": {
+            "description": "Unprocessable Content",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ValidationError"
+                },
+                "examples": {
+                  "ValidationError422Example": {
+                    "$ref": "#/components/examples/ValidationError422Example"
+                  }
+                }
+              }
+            }
+          },
+          "429": {
+            "description": "Too Many Requests",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error429Example": {
+                    "$ref": "#/components/examples/Error429Example"
+                  }
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Error"
+                },
+                "examples": {
+                  "Error503Example": {
+                    "$ref": "#/components/examples/Error503Example"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/methods/collections/#in_collections",
+          "description": "Official Mastodon API documentation"
+        },
+        "security": [
+          {
+            "OAuth2": [
+              "read:collections"
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "account_id",
+            "in": "path",
+            "required": true,
+            "description": "account_id parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "Maximum number of results. Defaults to 40 Collections. Max 80 Collections.",
+            "schema": {
+              "type": "integer",
+              "description": "Maximum number of results. Defaults to 40 Collections. Max 80 Collections.",
+              "default": 40
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "description": "Skip the first n results. Defaults to 0.",
+            "schema": {
+              "type": "integer",
+              "description": "Skip the first n results. Defaults to 0.",
+              "default": 0
             }
           }
         ]
@@ -4340,7 +4340,7 @@
       "patch": {
         "operationId": "patchAccountsUpdateCredentials",
         "summary": "Update account credentials",
-        "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter\\\n4.5.0 (`mastodon` [API version] 7) - added `quote_policy` parameter",
+        "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter\\\n4.5.0 (`mastodon` [API version] 7) - added `quote_policy` parameter\\\n4.6.1 (`mastodon` [API version] 11) - added `avatar_description` and `header_description` parameter",
         "tags": [
           "accounts"
         ],
@@ -4481,6 +4481,10 @@
                     "type": "string",
                     "description": "Avatar image encoded using `multipart/form-data`"
                   },
+                  "avatar_description": {
+                    "type": "string",
+                    "description": "A plain-text description of the avatar, for accessibility purposes."
+                  },
                   "bot": {
                     "type": "boolean",
                     "description": "Whether the account has a bot flag."
@@ -4500,6 +4504,10 @@
                   "header": {
                     "type": "string",
                     "description": "Header image encoded using `multipart/form-data`"
+                  },
+                  "header_description": {
+                    "type": "string",
+                    "description": "A plain-text description of the header, for accessibility purposes."
                   },
                   "hide_collections": {
                     "type": "boolean",
@@ -6731,7 +6739,7 @@
                 "properties": {
                   "name": {
                     "type": "string",
-                    "description": "A name for this Collection, max. 40 characters"
+                    "description": "A name for this Collection, max. 40 characters. String is taken \"as is\", which means there is currently no special handling of URLs and hashtags and no support for custom emoji."
                   },
                   "account_ids": {
                     "type": "string",
@@ -6739,11 +6747,11 @@
                   },
                   "description": {
                     "type": "string",
-                    "description": "A longer description of this Collection, max. 100 characters"
+                    "description": "A longer description of this Collection, max. 100 characters. String is taken \"as is\", which means there is currently no special handling of URLs a"
                   },
                   "discoverable": {
                     "type": "boolean",
-                    "description": "Whether this Collection should appear in search results and other discovery mechanisms"
+                    "description": "Whether this Collection should appear on the user's profile, in search results and other discovery mechanisms"
                   },
                   "language": {
                     "type": "string",
@@ -21226,7 +21234,7 @@
       "get": {
         "operationId": "getPreferences",
         "summary": "View user preferences",
-        "description": "Preferences defined by the user in their account settings.\n\nVersion history:\n\n2.8.0 - added\\\n4.5.0 (`mastodon` [API version] 7) - added `posting:default:quoted_policy`",
+        "description": "Preferences defined by the user in their account settings.\n\nVersion history:\n\n2.8.0 - added\\\n4.1.0 - added `reading:autoplay:gifs`\\\n4.5.0 (`mastodon` [API version] 7) - added `posting:default:quoted_policy`",
         "tags": [
           "preferences"
         ],
@@ -21613,7 +21621,7 @@
                   },
                   "discoverable": {
                     "type": "boolean",
-                    "description": "Whether the account should be shown in the profile directory."
+                    "description": "Whether the account should be shown in the profile directory and be available for other discovery features, like being included in Collections."
                   },
                   "display_name": {
                     "type": "string",
@@ -21633,7 +21641,7 @@
                   },
                   "hide_collections": {
                     "type": "boolean",
-                    "description": "Whether to hide followers and followed accounts."
+                    "description": "Whether to hide followers and followed accounts. This field predates the Collections feature and has nothing to do with it, despite the name."
                   },
                   "indexable": {
                     "type": "boolean",
@@ -32600,7 +32608,7 @@
                   "string",
                   "null"
                 ],
-                "$ref": "#/components/schemas/CredentialAccountSourceQuotePolicyEnum"
+                "$ref": "#/components/schemas/ScheduledStatusParamsQuoteApprovalPolicyEnum"
               }
             },
             "required": [
@@ -34680,7 +34688,7 @@
             "type": "string"
           },
           "discoverable": {
-            "description": "Whether the Collection should show up in search results and recommendations.",
+            "description": "Whether the Collection should show up on the owner's profile, in search results and recommendations.",
             "type": "boolean"
           },
           "id": {
@@ -35558,8 +35566,22 @@
                     "description": "The maximum number of featured tags allowed for each account.",
                     "type": "integer"
                   },
+                  "max_avatar_description_length": {
+                    "description": "The maximum length allowed for an account's avatar description.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
                   "max_display_name_length": {
                     "description": "The maximum length allowed for an account's display name.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "max_header_description_length": {
+                    "description": "The maximum length allowed for an account's profile header description.",
                     "type": [
                       "integer",
                       "null"
@@ -36094,6 +36116,13 @@
             "items": {
               "$ref": "#/components/schemas/InstanceIcon"
             }
+          },
+          "wrapstodon": {
+            "description": "The current Wrapstodon ([Annual report]({{< relref \"methods/annual_reports\" >}}) campaign identifier (year), if any.",
+            "type": [
+              "string",
+              "null"
+            ]
           }
         },
         "required": [
@@ -36818,6 +36847,17 @@
             "type": "string",
             "$ref": "#/components/schemas/NotificationTypeEnum"
           },
+          "collection": {
+            "description": "Collection that was the object of the notification. Attached when `type` of the notification is `added_to_collection` or `collection_update`.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Collection"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
             "oneOf": [
@@ -37277,6 +37317,11 @@
             "type": "string",
             "format": "uri"
           },
+          "published_at": {
+            "description": "UNIX timestamp of publication date.",
+            "type": "string",
+            "format": "date-time"
+          },
           "title": {
             "description": "Title of linked resource.",
             "type": "string"
@@ -37350,6 +37395,7 @@
           "html",
           "provider_name",
           "provider_url",
+          "published_at",
           "title",
           "type",
           "url",
@@ -37415,6 +37461,11 @@
             "description": "A link to the provider of the original resource.",
             "type": "string",
             "format": "uri"
+          },
+          "published_at": {
+            "description": "UNIX timestamp of publication date.",
+            "type": "string",
+            "format": "date-time"
           },
           "title": {
             "description": "Title of linked resource.",
@@ -37490,6 +37541,7 @@
           "html",
           "provider_name",
           "provider_url",
+          "published_at",
           "title",
           "type",
           "url",
@@ -38408,6 +38460,21 @@
                   "hide_totals"
                 ]
               },
+              "quote_approval_policy": {
+                "description": "The quote policy for the Status.",
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "$ref": "#/components/schemas/ScheduledStatusParamsQuoteApprovalPolicyEnum"
+              },
+              "quoted_status_id": {
+                "description": "ID of the Status being quoted.",
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
               "scheduled_at": {
                 "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
                 "type": [
@@ -38477,6 +38544,16 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Status"
+            }
+          },
+          "collections": {
+            "description": "Collections which match the given query",
+            "type": [
+              "array",
+              "null"
+            ],
+            "items": {
+              "$ref": "#/components/schemas/Collection"
             }
           }
         },
@@ -40206,7 +40283,7 @@
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
             "type": "string",
-            "$ref": "#/components/schemas/NotificationTypeEnum"
+            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
@@ -40814,7 +40891,7 @@
           "direct"
         ]
       },
-      "CredentialAccountSourceQuotePolicyEnum": {
+      "ScheduledStatusParamsQuoteApprovalPolicyEnum": {
         "type": "string",
         "enum": [
           "public",
@@ -40885,7 +40962,9 @@
         "type": "string",
         "enum": [
           "pending",
-          "accepted"
+          "accepted",
+          "rejected",
+          "revoked"
         ]
       },
       "DomainBlockSeverityEnum": {
@@ -40976,7 +41055,9 @@
           "severed_relationships",
           "moderation_warning",
           "quote",
-          "quoted_update"
+          "quoted_update",
+          "added_to_collection",
+          "collection_update"
         ]
       },
       "PreferencesReadingExpandMediaEnum": {
@@ -41025,6 +41106,25 @@
           "domain_block",
           "user_domain_block",
           "account_suspension"
+        ]
+      },
+      "NotificationGroupTypeEnum": {
+        "type": "string",
+        "enum": [
+          "mention",
+          "status",
+          "reblog",
+          "follow",
+          "follow_request",
+          "favourite",
+          "poll",
+          "update",
+          "admin.sign_up",
+          "admin.report",
+          "severed_relationships",
+          "moderation_warning",
+          "quote",
+          "quoted_update"
         ]
       }
     },
@@ -42752,7 +42852,9 @@
               "scheduled_at": null,
               "spoiler_text": null,
               "application_id": 596551,
-              "in_reply_to_id": null
+              "in_reply_to_id": null,
+              "quoted_status_id": null,
+              "quote_approval_policy": "followers"
             },
             "media_attachments": []
           }
