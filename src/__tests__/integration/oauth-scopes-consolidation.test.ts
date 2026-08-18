@@ -34,26 +34,16 @@ describe('OAuth Scopes Consolidation', () => {
     expect(oauthScopes.type).toBe('array');
     expect(oauthScopes.items?.$ref).toBe('#/components/schemas/OAuthScope');
 
-    // Check that Application schema uses the common OAuthScopes schema (now in oneOf due to nullable)
+    // Check that Application schema uses the common OAuthScopes schema
     const applicationSchema = spec.components!.schemas!.Application as any;
     const scopesProperty = applicationSchema.properties?.scopes;
-    expect(scopesProperty?.oneOf).toBeDefined();
-    expect(scopesProperty.oneOf.length).toBe(2);
-    expect(scopesProperty.oneOf[0].$ref).toBe(
-      '#/components/schemas/OAuthScopes'
-    );
-    expect(scopesProperty.oneOf[1].type).toBe('null');
+    expect(scopesProperty?.$ref).toBe('#/components/schemas/OAuthScopes');
 
-    // Check that CredentialApplication schema uses the common OAuthScopes schema (now in oneOf due to nullable)
+    // Check that CredentialApplication schema uses the common OAuthScopes schema
     const credentialApplicationSchema = spec.components!.schemas!
       .CredentialApplication as any;
     const credScopesProperty = credentialApplicationSchema.properties?.scopes;
-    expect(credScopesProperty?.oneOf).toBeDefined();
-    expect(credScopesProperty.oneOf.length).toBe(2);
-    expect(credScopesProperty.oneOf[0].$ref).toBe(
-      '#/components/schemas/OAuthScopes'
-    );
-    expect(credScopesProperty.oneOf[1].type).toBe('null');
+    expect(credScopesProperty?.$ref).toBe('#/components/schemas/OAuthScopes');
 
     // Check that createApp requestBody uses format scopes (changed behavior)
     const createAppOperation = spec.paths['/api/v1/apps']?.post;
