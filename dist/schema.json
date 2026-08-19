@@ -6742,8 +6742,11 @@
                     "description": "A name for this Collection, max. 40 characters. String is taken \"as is\", which means there is currently no special handling of URLs and hashtags and no support for custom emoji."
                   },
                   "account_ids": {
-                    "type": "string",
-                    "description": "IDs of the accounts to feature in this Collection"
+                    "type": "array",
+                    "description": "IDs of the accounts to feature in this Collection",
+                    "items": {
+                      "type": "string"
+                    }
                   },
                   "description": {
                     "type": "string",
