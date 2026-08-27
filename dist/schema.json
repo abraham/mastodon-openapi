@@ -359,6 +359,18 @@
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collections"
+                },
+                "examples": {
+                  "Collections200Example": {
+                    "$ref": "#/components/examples/Collections200Example"
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -504,6 +516,18 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Collections"
+                },
+                "examples": {
+                  "Collections200Example": {
+                    "$ref": "#/components/examples/Collections200Example"
+                  }
+                }
               }
             }
           },
@@ -5241,6 +5265,13 @@
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedAnnualReports"
+                }
+              }
             }
           },
           "401": {
@@ -5355,6 +5386,13 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedAnnualReports"
+                }
               }
             }
           },
@@ -6636,6 +6674,18 @@
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
               }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedCollection"
+                },
+                "examples": {
+                  "WrappedCollection200Example": {
+                    "$ref": "#/components/examples/WrappedCollection200Example"
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -6798,6 +6848,18 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedCollectionItem"
+                },
+                "examples": {
+                  "WrappedCollectionItem200Example": {
+                    "$ref": "#/components/examples/WrappedCollectionItem200Example"
+                  }
+                }
               }
             }
           },
@@ -7392,6 +7454,18 @@
               },
               "X-RateLimit-Reset": {
                 "$ref": "#/components/headers/X-RateLimit-Reset"
+              }
+            },
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WrappedCollection"
+                },
+                "examples": {
+                  "WrappedCollection200Example": {
+                    "$ref": "#/components/examples/WrappedCollection200Example"
+                  }
+                }
               }
             }
           },
@@ -34413,6 +34487,42 @@
           "account_id": "55911"
         }
       },
+      "WrappedAnnualReports": {
+        "type": "object",
+        "description": "Additional entity definition for WrappedAnnualReports",
+        "properties": {
+          "accounts": {
+            "description": "Full Account entities for the accounts mentioned in the reports.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Account"
+            }
+          },
+          "annual_reports": {
+            "description": "Full AnnualReport entities for the reports.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AnnualReport"
+            }
+          },
+          "statuses": {
+            "description": "Full Status entities for the statuses mentioned in the reports.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Status"
+            }
+          }
+        },
+        "required": [
+          "accounts",
+          "annual_reports",
+          "statuses"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/AnnualReport/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
       "Appeal": {
         "type": "object",
         "description": "Appeal against a moderation action.",
@@ -34755,6 +34865,43 @@
           "updated_at": "2026-02-25T11:37:38.182Z"
         }
       },
+      "WrappedCollection": {
+        "type": "object",
+        "description": "Additional entity definition for WrappedCollection",
+        "properties": {
+          "collection": {
+            "description": "The actual Collection.",
+            "$ref": "#/components/schemas/Collection"
+          }
+        },
+        "required": [
+          "collection"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Collection/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
+      "Collections": {
+        "type": "object",
+        "description": "Additional entity definition for Collections",
+        "properties": {
+          "collections": {
+            "description": "A list of Collections.",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Collection"
+            }
+          }
+        },
+        "required": [
+          "collections"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Collection/#attributes",
+          "description": "Official Mastodon API documentation"
+        }
+      },
       "CollectionItem": {
         "type": "object",
         "description": "Represents a single item in a Collection.",
@@ -34795,6 +34942,23 @@
           "account_id": "112658193342215767",
           "state": "accepted",
           "created_at": "2026-02-25T11:35:01.394Z"
+        }
+      },
+      "WrappedCollectionItem": {
+        "type": "object",
+        "description": "Additional entity definition for WrappedCollectionItem",
+        "properties": {
+          "collection_item": {
+            "description": "The actual Collection item.",
+            "$ref": "#/components/schemas/CollectionItem"
+          }
+        },
+        "required": [
+          "collection_item"
+        ],
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/CollectionItem/#attributes",
+          "description": "Official Mastodon API documentation"
         }
       },
       "CollectionWithAccounts": {
@@ -35095,6 +35259,15 @@
         "example": {
           "error": "invalid_grant",
           "error_description": "The provided authorization grant is invalid, expired, revoked, does not match the redirection URI used in the authorization request, or was issued to another client."
+        }
+      },
+      "422-Unprocessable": {
+        "type": "object",
+        "description": "Additional entity definition for 422 - Unprocessable",
+        "properties": {},
+        "externalDocs": {
+          "url": "https://docs.joinmastodon.org/entities/Error/#attributes",
+          "description": "Official Mastodon API documentation"
         }
       },
       "ExtendedDescription": {
@@ -41246,6 +41419,33 @@
           }
         ]
       },
+      "Collections200Example": {
+        "summary": "Example for Collections",
+        "value": {
+          "collections:": [
+            {
+              "id": "116131056935959117",
+              "account_id": "113668893442515793",
+              "uri": "https://example.com/ap/113668893442515793/collections/116131056935959117",
+              "url": "https://example.com/collections/116131056935959117",
+              "name": "Nice accounts",
+              "description": "These accounts are very nice",
+              "language": "en",
+              "local": true,
+              "sensitive": false,
+              "discoverable": true,
+              "tag": {
+                "name": "accounts",
+                "url": "https://example.com/tags/accounts"
+              },
+              "item_count": 2,
+              "items": [],
+              "created_at": "2026-02-25T11:35:01.394Z",
+              "updated_at": "2026-02-25T11:35:01.394Z"
+            }
+          ]
+        }
+      },
       "Relationship200Example": {
         "summary": "Example for Relationship",
         "value": {
@@ -41450,6 +41650,31 @@
           "vapid_key": "BMAIjoaMYTDbJtfrfocuzO8pzDHI47dzmw0rha6Y="
         }
       },
+      "WrappedCollection200Example": {
+        "summary": "Example for WrappedCollection",
+        "value": {
+          "collection": {
+            "id": "116131056935959117",
+            "account_id": "113668893442515793",
+            "uri": "https://example.com/ap/113668893442515793/collections/116131056935959117",
+            "url": "https://example.com/collections/116131056935959117",
+            "name": "Nice accounts",
+            "description": "These accounts are very nice",
+            "language": "en",
+            "local": true,
+            "sensitive": false,
+            "discoverable": true,
+            "tag": {
+              "name": "accounts",
+              "url": "https://example.com/tags/accounts"
+            },
+            "item_count": 2,
+            "items": [],
+            "created_at": "2026-02-25T11:35:01.394Z",
+            "updated_at": "2026-02-25T11:35:01.394Z"
+          }
+        }
+      },
       "CustomError422422Example": {
         "summary": "Example for CustomError422",
         "value": {
@@ -41463,6 +41688,17 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "WrappedCollectionItem200Example": {
+        "summary": "Example for WrappedCollectionItem",
+        "value": {
+          "collection_item": {
+            "id": "116151066915353115",
+            "account_id": "112658193342215767",
+            "state": "accepted",
+            "created_at": "2026-02-25T11:35:01.394Z"
           }
         }
       },
