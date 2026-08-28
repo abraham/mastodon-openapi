@@ -34740,10 +34740,6 @@
             "type": "string",
             "format": "date-time"
           },
-          "description": {
-            "description": "An optional description of the Collection.",
-            "type": "string"
-          },
           "discoverable": {
             "description": "Whether the Collection should show up on the owner's profile, in search results and recommendations.",
             "type": "boolean"
@@ -34785,6 +34781,13 @@
             "type": "string",
             "format": "uri"
           },
+          "description": {
+            "description": "An optional description of the Collection.",
+            "type": [
+              "string",
+              "null"
+            ]
+          },
           "language": {
             "description": "Primary language of this Collection.",
             "type": [
@@ -34816,7 +34819,6 @@
         "required": [
           "account_id",
           "created_at",
-          "description",
           "discoverable",
           "id",
           "item_count",
