@@ -40376,7 +40376,18 @@
           "type": {
             "description": "The type of event that resulted in the notifications in this group.",
             "type": "string",
-            "$ref": "#/components/schemas/NotificationGroupTypeEnum"
+            "$ref": "#/components/schemas/NotificationTypeEnum"
+          },
+          "collection": {
+            "description": "Collection that was the object of the notification. Attached when `type` of the notification is `added_to_collection` or `collection_update`.",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Collection"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "event": {
             "description": "Summary of the event that caused follow relationships to be severed. Attached when `type` of the notification is `severed_relationships`.",
@@ -41209,25 +41220,6 @@
           "most_interactions",
           "similar_to_recently_followed",
           "friends_of_friends"
-        ]
-      },
-      "NotificationGroupTypeEnum": {
-        "type": "string",
-        "enum": [
-          "mention",
-          "status",
-          "reblog",
-          "follow",
-          "follow_request",
-          "favourite",
-          "poll",
-          "update",
-          "admin.sign_up",
-          "admin.report",
-          "severed_relationships",
-          "moderation_warning",
-          "quote",
-          "quoted_update"
         ]
       }
     },

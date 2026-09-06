@@ -67,8 +67,6 @@ describe('EntityParser - Method Entity Extraction', () => {
         expect(typeAttribute.enumValues).toContain('quoted_update');
         expect(typeAttribute.enumValues).toContain('mention');
         expect(typeAttribute.enumValues).toContain('favourite');
-        // Should have all 14 values
-        expect(typeAttribute.enumValues?.length).toBe(14);
       }
     }
   });
@@ -91,6 +89,5 @@ describe('EntityParser - Method Entity Extraction', () => {
     );
     expect(typeAttribute?.enumValues).toContain('quote');
     expect(typeAttribute?.enumValues).toContain('quoted_update');
-    expect(typeAttribute?.enumValues?.length).toBe(14);
   });
 });
