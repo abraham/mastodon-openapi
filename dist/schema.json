@@ -40266,7 +40266,7 @@
           },
           "id": {
             "description": "The ID of the Web Push subscription in the database.",
-            "type": "string"
+            "type": "integer"
           },
           "server_key": {
             "description": "The streaming server's VAPID key.",
