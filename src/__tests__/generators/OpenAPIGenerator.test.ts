@@ -257,4 +257,15 @@ describe('OpenAPIGenerator', () => {
       );
     });
   });
+
+  describe('contact', () => {
+    it('should include contact information in the generated schema', () => {
+      const spec = generator.generateSchema([], []);
+
+      expect(spec.info.contact).toEqual({
+        name: 'Abraham Williams',
+        email: 'hi@abrah.am',
+      });
+    });
+  });
 });
