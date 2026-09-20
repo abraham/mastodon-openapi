@@ -1,5 +1,6 @@
-import { readFileSync } from 'fs';
-import { docsContentPath } from '../config';
+import { DocumentSource } from '../source/DocumentSource';
+import { defaultSource } from '../source/FileSystemSource';
+import { MarkdownDocument } from '../document/MarkdownDocument';
 
 /**
  * Interface for HTTP response code information
@@ -10,6 +11,8 @@ export interface ResponseCode {
   returnType?: string;
 }
 
+const INTRO_FILE = 'client/intro.md';
+
 /**
  * Parser for extracting HTTP response codes from the intro.md file
  */
@@ -17,30 +20,23 @@ export class ResponseCodeParser {
   /**
    * Parse HTTP response codes from the intro.md file
    */
-  public static parseResponseCodes(): ResponseCode[] {
-    const introPath = docsContentPath('client', 'intro.md');
-
-    let content: string;
-    try {
-      content = readFileSync(introPath, 'utf-8');
-    } catch (error) {
-      throw new Error(
-        `Could not read ${introPath}: ${(error as Error).message}. Run \`npm run setup-docs\`.`
-      );
-    }
-
-    // Find the responses section
-    const responsesMatch = content.match(
-      /## How to use API response data {#responses}([\s\S]*?)(?=\n##|\n$)/
+  public static parseResponseCodes(
+    source: DocumentSource = defaultSource()
+  ): ResponseCode[] {
+    const document = MarkdownDocument.parse(
+      source.readGuide(INTRO_FILE),
+      INTRO_FILE
     );
 
-    if (!responsesMatch) {
+    const section = document.findSection('How to use API response data');
+
+    if (!section) {
       throw new Error(
-        `No "How to use API response data" section found in ${introPath}`
+        `No "How to use API response data" section found in ${INTRO_FILE}`
       );
     }
 
-    const responsesSection = responsesMatch[1];
+    const responsesSection = section.body;
     const codes: ResponseCode[] = [];
 
     // Parse individual response codes
@@ -93,7 +89,7 @@ export class ResponseCodeParser {
     }
 
     if (codes.length === 0) {
-      throw new Error(`No response codes found in ${introPath}`);
+      throw new Error(`No response codes found in ${INTRO_FILE}`);
     }
 
     return codes;

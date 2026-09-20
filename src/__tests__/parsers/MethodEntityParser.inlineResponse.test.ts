@@ -1,6 +1,4 @@
 import { MethodEntityParser } from '../../parsers/MethodEntityParser';
-import * as fs from 'fs';
-import * as path from 'path';
 
 describe('MethodEntityParser - Inline Response Entity Parsing', () => {
   const testMarkdown = `---
@@ -60,24 +58,9 @@ A regular method that returns an entity reference.
 Returns an Account entity.
 `;
 
-  let tempFilePath: string;
-
-  beforeEach(() => {
-    // Create a temporary test file
-    tempFilePath = path.join(__dirname, 'test-oauth-methods.md');
-    fs.writeFileSync(tempFilePath, testMarkdown);
-  });
-
-  afterEach(() => {
-    // Clean up the temporary file
-    if (fs.existsSync(tempFilePath)) {
-      fs.unlinkSync(tempFilePath);
-    }
-  });
-
   test('should parse inline JSON response entities', () => {
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(testMarkdown);
 
     // Should find one entity from the inline JSON response
     expect(entities).toHaveLength(1);
@@ -92,7 +75,7 @@ Returns an Account entity.
 
   test('should correctly parse JSON structure to attributes', () => {
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(testMarkdown);
     const entity = entities[0];
 
     // Check that basic string properties are parsed correctly
@@ -111,7 +94,7 @@ Returns an Account entity.
 
   test('should include example JSON in the entity', () => {
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(testMarkdown);
     const entity = entities[0];
 
     expect(entity.example).toEqual({
@@ -144,20 +127,11 @@ GET /api/v1/accounts/:id HTTP/1.1
 Returns an Account.
 `;
 
-    const regularTempPath = path.join(__dirname, 'test-regular-methods.md');
-    fs.writeFileSync(regularTempPath, regularMarkdown);
+    const entities =
+      MethodEntityParser.parseEntitiesFromMethodFile(regularMarkdown);
 
-    try {
-      const entities =
-        MethodEntityParser.parseEntitiesFromMethodFile(regularTempPath);
-
-      // Should not find any inline response entities since this uses [Account] reference
-      expect(entities).toHaveLength(0);
-    } finally {
-      if (fs.existsSync(regularTempPath)) {
-        fs.unlinkSync(regularTempPath);
-      }
-    }
+    // Should not find any inline response entities since this uses [Account] reference
+    expect(entities).toHaveLength(0);
   });
 
   test('should handle methods without response examples', () => {
@@ -178,22 +152,10 @@ GET /api/v1/test HTTP/1.1
 No JSON example provided here.
 `;
 
-    const noExampleTempPath = path.join(
-      __dirname,
-      'test-no-example-methods.md'
-    );
-    fs.writeFileSync(noExampleTempPath, noExampleMarkdown);
+    const entities =
+      MethodEntityParser.parseEntitiesFromMethodFile(noExampleMarkdown);
 
-    try {
-      const entities =
-        MethodEntityParser.parseEntitiesFromMethodFile(noExampleTempPath);
-
-      // Should not create an entity since there's no JSON example to parse
-      expect(entities).toHaveLength(0);
-    } finally {
-      if (fs.existsSync(noExampleTempPath)) {
-        fs.unlinkSync(noExampleTempPath);
-      }
-    }
+    // Should not create an entity since there's no JSON example to parse
+    expect(entities).toHaveLength(0);
   });
 });

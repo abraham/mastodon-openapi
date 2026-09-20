@@ -1,10 +1,11 @@
-import * as fs from 'fs';
 import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
 import { AttributeParser } from './AttributeParser';
 import { ExampleParser } from './ExampleParser';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { EntityParsingUtils } from './EntityParsingUtils';
+import { responseEntityNameFor } from '../overrides/overrides';
+import { splitOutsideFences } from '../document/blocks';
 
 /**
  * Handles parsing entities from method documentation files
@@ -12,9 +13,9 @@ import { EntityParsingUtils } from './EntityParsingUtils';
 export class MethodEntityParser {
   /**
    * Parses entities from a method documentation file
+   * @param content Raw markdown, including frontmatter
    */
-  static parseEntitiesFromMethodFile(filePath: string): EntityClass[] {
-    const content = fs.readFileSync(filePath, 'utf-8');
+  static parseEntitiesFromMethodFile(content: string): EntityClass[] {
     const parsed = matter(content);
 
     // Skip draft files
@@ -79,8 +80,10 @@ export class MethodEntityParser {
   private static parseInlineResponseEntities(content: string): EntityClass[] {
     const entities: EntityClass[] = [];
 
-    // Split the content into method sections (each starting with ##)
-    const methodSections = content.split(/(?=^## )/gm);
+    // Split the content into method sections, ignoring ## lines inside fenced samples
+    const methodSections = splitOutsideFences(content, (line) =>
+      line.startsWith('## ')
+    );
 
     for (const section of methodSections) {
       // Look for sections with returns field indicating inline JSON
@@ -168,9 +171,9 @@ export class MethodEntityParser {
       .replace(/\s+/g, ' ')
       .trim();
 
-    // Special case for OEmbed - use simplified name
-    if (cleaned.toLowerCase().includes('oembed')) {
-      return 'OEmbedResponse';
+    const overridden = responseEntityNameFor(cleaned);
+    if (overridden) {
+      return overridden;
     }
 
     // Convert to PascalCase

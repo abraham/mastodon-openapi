@@ -3,6 +3,8 @@ import { HashAttribute } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { EntityParsingUtils } from '../parsers/EntityParsingUtils';
 import { UtilityHelpers } from './UtilityHelpers';
+import { parseTypeRef } from '../model/parseTypeRef';
+import { typeRefToProperty } from '../model/typeRefToProperty';
 
 /**
  * Type parser for converting various type formats to OpenAPI properties
@@ -18,145 +20,7 @@ class TypeParser {
    * Parse type string to OpenAPI property
    */
   public parseType(typeString: string): OpenAPIProperty {
-    const cleanType = typeString.toLowerCase().trim();
-
-    // Handle arrays
-    if (cleanType.includes('array of')) {
-      const itemTypeMatch = typeString.match(/array of\s+(.+)/i);
-      if (itemTypeMatch) {
-        const itemType = this.parseType(itemTypeMatch[1]);
-        return {
-          type: 'array',
-          items: itemType,
-        };
-      }
-      return { type: 'array' };
-    }
-
-    // Handle references to other entities (only for actual entity names, not documentation links)
-    if (typeString.includes('[') && typeString.includes(']')) {
-      // Find all entity references using global flag to capture multiple entities
-      const entityMatches = typeString.match(/\[([^\]]+)\]/g);
-      if (entityMatches) {
-        const validEntityRefs: OpenAPIProperty[] = [];
-
-        for (const match of entityMatches) {
-          const refName = match.slice(1, -1); // Remove [ and ]
-
-          // Only treat as entity reference if it's an actual entity name
-          // Skip documentation references like "Datetime", "Date", etc.
-          const isDocumentationLink =
-            refName.toLowerCase().includes('/') ||
-            refName.toLowerCase() === 'datetime' ||
-            refName.toLowerCase() === 'date' ||
-            refName.toLowerCase().includes('iso8601');
-
-          if (!isDocumentationLink) {
-            // Clean up reference name and sanitize for OpenAPI compliance
-            const cleanRefName = refName.replace(/[^\w:]/g, '');
-            const sanitizedRefName =
-              this.utilityHelpers.sanitizeSchemaName(cleanRefName);
-            validEntityRefs.push({
-              $ref: `#/components/schemas/${sanitizedRefName}`,
-            });
-          }
-        }
-
-        // If we found multiple valid entities, return oneOf
-        if (validEntityRefs.length > 1) {
-          return {
-            oneOf: validEntityRefs,
-          };
-        }
-        // If we found exactly one valid entity, return it directly
-        else if (validEntityRefs.length === 1) {
-          return validEntityRefs[0];
-        }
-      }
-    }
-
-    // Handle basic types
-    if (cleanType.includes('string')) {
-      const property: OpenAPIProperty = { type: 'string' };
-
-      // Check for datetime/date formats first (they take precedence over URL mentions)
-      if (
-        cleanType.includes('iso8601') ||
-        typeString.includes('[Datetime]') ||
-        typeString.includes('[ISO8601') ||
-        (cleanType.includes('datetime') &&
-          !cleanType.includes('datetime-format'))
-      ) {
-        property.format = 'date-time';
-      } else if (
-        typeString.includes('[Date]') &&
-        !typeString.toLowerCase().includes('[datetime]') &&
-        !typeString.toLowerCase().includes('[iso8601') &&
-        !typeString.toLowerCase().includes('iso8601')
-      ) {
-        // Specific [Date] reference should use date format
-        property.format = 'date';
-      } else if (cleanType.includes('email')) {
-        property.format = 'email';
-      } else if (cleanType.includes('url')) {
-        // Only apply URI format if no datetime/date format was specified
-        property.format = 'uri';
-      } else if (cleanType.includes('html')) {
-        property.description = (property.description || '') + ' (HTML content)';
-      } else if (
-        cleanType.includes('iso 639') ||
-        cleanType.includes('iso639')
-      ) {
-        // Check for ISO 639 language code format
-        property.format = 'iso-639-1';
-      }
-
-      return property;
-    }
-
-    // Check for ISO 639 format even if type doesn't contain "string"
-    // This handles parameter descriptions that mention ISO 639 without "String" prefix
-    if (cleanType.includes('iso 639') || cleanType.includes('iso639')) {
-      return {
-        type: 'string',
-        format: 'iso-639-1',
-      };
-    }
-
-    if (
-      cleanType.includes('integer') ||
-      cleanType.includes('cast from an integer')
-    ) {
-      return { type: 'integer' };
-    }
-
-    if (cleanType.includes('boolean')) {
-      return { type: 'boolean' };
-    }
-
-    if (cleanType.includes('number') || cleanType.includes('float')) {
-      return { type: 'number' };
-    }
-
-    if (cleanType.includes('hash') || cleanType.includes('object')) {
-      return { type: 'object' };
-    }
-
-    // Handle enums
-    if (cleanType.includes('enumerable') || cleanType.includes('oneof')) {
-      return {
-        type: 'string',
-        description: typeString.includes('Enumerable')
-          ? 'Enumerable value'
-          : '',
-      };
-    }
-
-    // Default to string for unknown types
-    return {
-      type: 'string',
-      description: `Original type: ${typeString}`,
-    };
+    return typeRefToProperty(parseTypeRef(typeString), this.utilityHelpers);
   }
 
   /**

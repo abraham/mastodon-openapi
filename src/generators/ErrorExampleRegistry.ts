@@ -1,10 +1,13 @@
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 
+/** Response examples are arbitrary JSON taken from the documentation. */
+type ExampleValue = unknown;
+
 /**
  * Registry for collecting and managing error response examples across all API methods
  */
 export class ErrorExampleRegistry {
-  private errorExamples: Map<string, any> = new Map();
+  private errorExamples: Map<string, ExampleValue> = new Map();
 
   /**
    * Collect error examples from all method files
@@ -34,15 +37,15 @@ export class ErrorExampleRegistry {
   /**
    * Get the common error example for a status code
    */
-  public getErrorExample(statusCode: string): any | null {
-    return this.errorExamples.get(statusCode) || null;
+  public getErrorExample(statusCode: string): ExampleValue | null {
+    return this.errorExamples.get(statusCode) ?? null;
   }
 
   /**
    * Get all collected error examples
    */
-  public getAllErrorExamples(): Record<string, any> {
-    const result: Record<string, any> = {};
+  public getAllErrorExamples(): Record<string, ExampleValue> {
+    const result: Record<string, ExampleValue> = {};
     for (const [statusCode, example] of this.errorExamples.entries()) {
       result[statusCode] = example;
     }

@@ -1,3 +1,8 @@
+import { MarkdownDocument } from '../document/MarkdownDocument';
+import { firstCodeBlock, leadingCodeBlock } from '../document/codeBlocks';
+import { splitOutsideFences } from '../document/blocks';
+import { reportOverride } from '../overrides/report';
+
 /**
  * Handles parsing of JSON examples from markdown content
  */
@@ -79,17 +84,38 @@ export class ExampleParser {
   /**
    * Parses JSON examples from an "## Example" section in entity markdown
    */
-  static parseEntityExample(content: string): any | null {
-    // Look for "## Example" section followed by a JSON code block
-    const exampleMatch = content.match(
-      /## Example\s*\n\s*```json\s*\n([\s\S]*?)\n\s*```/i
-    );
+  static parseEntityExample(
+    content: string,
+    sourceLabel = 'entity'
+  ): any | null {
+    const section = MarkdownDocument.fromBody(content)
+      .allSections()
+      .find(
+        (candidate) =>
+          candidate.heading.level === 2 &&
+          candidate.heading.title.toLowerCase() === 'example'
+      );
 
-    if (!exampleMatch) {
+    if (!section) {
       return null;
     }
 
-    const jsonContent = exampleMatch[1].trim();
+    // The fence must directly follow the heading. Entities that introduce the
+    // sample with a paragraph or a subheading are skipped, matching long-standing
+    // behaviour; see docs/pipeline-rewrite.md §8.5.
+    const block = leadingCodeBlock(section.body, 'json');
+    if (!block) {
+      if (firstCodeBlock(section.content, 'json')) {
+        reportOverride(
+          'workaround',
+          `${sourceLabel} example skipped: sample is not directly after the heading`,
+          'preserved behaviour, see docs/pipeline-rewrite.md §10 D1'
+        );
+      }
+      return null;
+    }
+
+    const jsonContent = block.content.trim();
     if (!jsonContent) {
       return null;
     }
@@ -109,8 +135,10 @@ export class ExampleParser {
   static parseMethodResponseExamples(content: string): Record<string, any> {
     const examples: Record<string, any> = {};
 
-    // Split content by response headers to process each response section individually
-    const responseSections = content.split(/(?=##### \d{3}:)/);
+    // Split content by response headers, ignoring lines inside fenced samples
+    const responseSections = splitOutsideFences(content, (line) =>
+      /^##### \d{3}:/.test(line)
+    );
 
     for (const section of responseSections) {
       // Check if this section contains a response status header
@@ -122,12 +150,12 @@ export class ExampleParser {
       const statusCode = headerMatch[1];
 
       // Look for JSON blocks within this response section
-      const jsonMatch = section.match(/```json\s*\n([\s\S]*?)\n\s*```/);
-      if (!jsonMatch) {
+      const block = firstCodeBlock(section, 'json');
+      if (!block) {
         continue;
       }
 
-      const jsonContent = jsonMatch[1].trim();
+      const jsonContent = block.content.trim();
       if (jsonContent) {
         const result = this.parseJsonWithFallback(jsonContent);
         if (result !== null) {

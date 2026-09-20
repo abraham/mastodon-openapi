@@ -7,6 +7,7 @@ import {
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
+import { parentEntityOf } from '../overrides/overrides';
 
 /**
  * Converter for transforming entity classes to OpenAPI schemas
@@ -34,44 +35,12 @@ class EntityConverter {
     for (const entity of entities) {
       let allAttributes = entity.attributes;
 
-      // Special handling for entity inheritance
-      if (entity.name === 'CredentialApplication') {
-        // Find the Application entity to inherit from
-        const applicationEntity = entities.find(
-          (e) => e.name === 'Application'
-        );
-        if (applicationEntity) {
-          // Combine Application attributes with CredentialApplication attributes
-          allAttributes = [
-            ...applicationEntity.attributes,
-            ...entity.attributes,
-          ];
-        }
-      } else if (entity.name === 'CredentialAccount') {
-        // Find the Account entity to inherit from
-        const accountEntity = entities.find((e) => e.name === 'Account');
-        if (accountEntity) {
-          // Combine Account attributes with CredentialAccount attributes
-          allAttributes = [...accountEntity.attributes, ...entity.attributes];
-        }
-      } else if (entity.name === 'MutedAccount') {
-        // Find the Account entity to inherit from
-        const accountEntity = entities.find((e) => e.name === 'Account');
-        if (accountEntity) {
-          // Combine Account attributes with MutedAccount attributes
-          allAttributes = [...accountEntity.attributes, ...entity.attributes];
-        }
-      } else if (entity.name === 'Trends::Link') {
-        // Find the PreviewCard entity to inherit from
-        const previewCardEntity = entities.find(
-          (e) => e.name === 'PreviewCard'
-        );
-        if (previewCardEntity) {
-          // Combine PreviewCard attributes with Trends::Link attributes
-          allAttributes = [
-            ...previewCardEntity.attributes,
-            ...entity.attributes,
-          ];
+      // Entities documented as extensions of another entity list only their extras
+      const parentName = parentEntityOf(entity.name);
+      if (parentName) {
+        const parent = entities.find((e) => e.name === parentName);
+        if (parent) {
+          allAttributes = [...parent.attributes, ...entity.attributes];
         }
       }
 

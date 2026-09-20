@@ -3,6 +3,7 @@ import { TextUtils } from './TextUtils';
 import { TypeInference } from './TypeInference';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { OAuthScopeParser } from './OAuthScopeParser';
+import { MarkdownDocument } from '../document/MarkdownDocument';
 
 /**
  * Parsed parameter structure for nested objects
@@ -245,23 +246,21 @@ export class ParameterParser {
       enumValues?: string[];
     }> = [];
 
-    // Find all parameter sections with the given name
-    const regex = new RegExp(
-      `##### ${sectionName}\\s*([\\s\\S]*?)(?=\\n#{1,5}|$)`,
-      'g'
-    );
-    const matches: RegExpExecArray[] = [];
-    let sectionMatch;
+    // Find all parameter sections with the given name. Section bounds come from
+    // the heading tree, so a section cannot swallow the ones after it.
+    const paramSections = MarkdownDocument.fromBody(section)
+      .allSections()
+      .filter(
+        (candidate) =>
+          candidate.heading.level === 5 &&
+          candidate.heading.title === sectionName
+      );
 
-    while ((sectionMatch = regex.exec(section)) !== null) {
-      matches.push(sectionMatch);
-    }
-
-    if (matches.length === 0) return [];
+    if (paramSections.length === 0) return [];
 
     // Process each matching section
-    for (const sectionMatchResult of matches) {
-      const paramSection = sectionMatchResult[1];
+    for (const paramSectionNode of paramSections) {
+      const paramSection = paramSectionNode.body;
 
       // Skip empty sections (sections that don't contain any parameter definitions)
       const hasParams = /^[a-zA-Z_][a-zA-Z0-9_.\[\]-]*\s*\n:\s*/m.test(
@@ -269,12 +268,13 @@ export class ParameterParser {
       );
       if (!hasParams) continue;
 
-      // Skip sections that contain other section headers (indicating we captured too much)
-      // This happens when an empty section captures content until the next heading
-      if (paramSection.includes(`##### `)) continue;
-
       // Match parameter definitions: parameter_name\n: description
       // Allow dots, brackets, and hyphens in parameter names to support patterns like alerts[admin.sign_up] and Idempotency-Key
+      //
+      // Not yet moved to document/definitionList: that parser joins continuation
+      // lines differently and has no notion of HTML comments, so swapping it in
+      // would change descriptions and leak commented-out parameters. See
+      // docs/pipeline-rewrite.md §10 D14 and D15.
       const paramRegex =
         /^([a-zA-Z_][a-zA-Z0-9_.\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 

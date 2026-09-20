@@ -1,5 +1,5 @@
-import { readFileSync } from 'fs';
-import { SECURITY_POLICY_PATH } from '../config';
+import { DocumentSource } from '../source/DocumentSource';
+import { defaultSource } from '../source/FileSystemSource';
 
 export interface SupportedVersions {
   /** Lowest still-supported release, e.g. "4.4.0". */
@@ -18,9 +18,11 @@ export interface SupportedVersions {
 export class SupportedVersionsParser {
   private static cached: SupportedVersions | undefined;
 
-  public static parse(): SupportedVersions {
+  public static parse(
+    source: DocumentSource = defaultSource()
+  ): SupportedVersions {
     if (!this.cached) {
-      this.cached = this.read();
+      this.cached = this.parseContent(source.readSecurityPolicy());
     }
     return this.cached;
   }
@@ -28,20 +30,6 @@ export class SupportedVersionsParser {
   /** Test seam: drop the memoized result. */
   public static reset(): void {
     this.cached = undefined;
-  }
-
-  private static read(): SupportedVersions {
-    let content: string;
-    try {
-      content = readFileSync(SECURITY_POLICY_PATH, 'utf8');
-    } catch (error) {
-      throw new Error(
-        `Could not read ${SECURITY_POLICY_PATH}: ${(error as Error).message}. ` +
-          'Run `npm run setup-security-policy` to vendor it.'
-      );
-    }
-
-    return this.parseContent(content);
   }
 
   public static parseContent(content: string): SupportedVersions {

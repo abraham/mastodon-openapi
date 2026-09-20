@@ -2,18 +2,25 @@ import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
 import { HeaderParser } from '../parsers/HeaderParser';
 import { SUPPORTED_VERSION } from '../parsers/VersionParser';
-import { getConfig } from '../config';
+import {
+  PipelineContext,
+  createPipelineContext,
+} from '../pipeline/PipelineContext';
 
 /**
  * Builder for OpenAPI specification with authentication setup
  */
 class SpecBuilder {
+  constructor(
+    private readonly context: PipelineContext = createPipelineContext()
+  ) {}
+
   /**
    * Build header components from documentation
    */
   private buildHeaderComponents(): Record<string, any> {
     const headers: Record<string, any> = {};
-    const parsedHeaders = HeaderParser.parseHeaders();
+    const parsedHeaders = HeaderParser.parseHeaders(this.context.source);
 
     for (const header of parsedHeaders) {
       headers[header.name] = {
@@ -29,10 +36,10 @@ class SpecBuilder {
    * Build initial OpenAPI specification with OAuth configuration
    */
   public buildInitialSpec(): OpenAPISpec {
-    const config = getConfig();
+    const config = this.context.config;
 
     // Parse OAuth scopes from documentation
-    const oauthParser = new OAuthScopeParser();
+    const oauthParser = new OAuthScopeParser(this.context.source);
     const oauthScopes = oauthParser.parseOAuthScopes();
 
     // Convert scopes to the format needed for OpenAPI
