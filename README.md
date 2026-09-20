@@ -20,6 +20,18 @@ Generate the most accurate OpenAPI spec for the current stable release of Mastod
 npm run update-docs
 ```
 
+Updates `mastodonDocsCommit` and `mastodonSecurityCommit` in `config.json`, then re-applies
+the documentation overrides and re-downloads the pinned `SECURITY.md`.
+
+### Supported versions
+
+The Mastodon version range targeted by the schema is read from
+[mastodon/mastodon `SECURITY.md`](https://github.com/mastodon/mastodon/blob/main/SECURITY.md),
+pinned by `config.json#mastodonSecurityCommit` and vendored into `mastodon-security/` by
+`npm run setup-security-policy` (also run on `postinstall`). Rows marked with an expiry date
+count as supported regardless of the date, so generation depends only on the pinned commit
+and never on the current date.
+
 ### Generate Schema
 
 ```bash

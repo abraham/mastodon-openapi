@@ -1,17 +1,10 @@
 import { VersionParser } from '../../parsers/VersionParser';
 
-// Mock the config.json to return mastodon version 4.3.0 and minimum version 4.3.0
-jest.mock('fs', () => ({
-  readFileSync: jest.fn((filePath: string) => {
-    if (filePath === 'config.json') {
-      return JSON.stringify({
-        mastodonDocsCommit: 'mock-commit',
-        mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.3.0',
-      });
-    }
-    return '';
-  }),
+// Pin the supported version window to 4.3.0
+jest.mock('../../parsers/SupportedVersionsParser', () => ({
+  SupportedVersionsParser: {
+    parse: () => ({ minimum: '4.3.0', maximum: '4.3.0' }),
+  },
 }));
 
 describe('VersionParser.isOperationUnreleased', () => {

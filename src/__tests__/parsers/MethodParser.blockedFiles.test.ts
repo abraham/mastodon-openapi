@@ -1,10 +1,34 @@
 import { MethodParser } from '../../parsers/MethodParser';
 import * as fs from 'fs';
 import * as path from 'path';
+import { Config, getConfig } from '../../config';
 
-// Mock fs to control config.json content
+// Mock fs to control the documentation tree
 jest.mock('fs');
 const mockFs = fs as jest.Mocked<typeof fs>;
+
+// Mock only getConfig so path helpers keep working
+jest.mock('../../config', () => ({
+  ...jest.requireActual('../../config'),
+  getConfig: jest.fn(),
+}));
+const mockGetConfig = getConfig as jest.MockedFunction<typeof getConfig>;
+
+const baseConfig: Config = {
+  mastodonDocsCommit: 'abc123',
+  mastodonSecurityCommit: 'def456',
+  blockedFiles: [],
+  overridesRepository: 'https://github.com/example/documentation',
+  overrideCommits: [],
+};
+
+const methodFileContent = `---
+title: Test API methods
+---
+
+## Test Method {#test-method}
+
+Test method content`;
 
 // Mock VersionParser to avoid config.json dependency
 jest.mock('../../parsers/VersionParser', () => ({
@@ -42,31 +66,15 @@ describe('MethodParser - Blocked Files Feature', () => {
   });
 
   test('should skip blocked files during parsing', () => {
-    // Mock config.json with blocked files
-    const mockConfig = {
-      mastodonDocsCommit: 'abc123',
-      mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.3.0',
+    mockGetConfig.mockReturnValue({
+      ...baseConfig,
       blockedFiles: [
         'methods/notifications_alpha.md',
         'methods/test_blocked.md',
       ],
-    };
-
-    // Mock readFileSync for config.json
-    mockFs.readFileSync.mockImplementation((filePath) => {
-      if (filePath === 'config.json') {
-        return JSON.stringify(mockConfig);
-      }
-      // Mock method file content
-      return `---
-title: Test API methods
----
-
-## Test Method {#test-method}
-
-Test method content`;
     });
+
+    mockFs.readFileSync.mockReturnValue(methodFileContent);
 
     // Mock readdirSync to return test files including blocked ones
     mockFs.readdirSync.mockReturnValue([
@@ -90,9 +98,9 @@ Test method content`;
     );
 
     // Verify that readFileSync was not called for blocked files
-    const readFileCalls = mockFs.readFileSync.mock.calls
-      .filter((call) => call[0] !== 'config.json')
-      .map((call) => path.basename(call[0] as string));
+    const readFileCalls = mockFs.readFileSync.mock.calls.map((call) =>
+      path.basename(call[0] as string)
+    );
 
     expect(readFileCalls).not.toContain('notifications_alpha.md');
     expect(readFileCalls).not.toContain('test_blocked.md');
@@ -105,90 +113,18 @@ Test method content`;
     consoleSpy.mockRestore();
   });
 
-  test('should handle missing blockedFiles in config gracefully', () => {
-    // Mock config.json without blockedFiles property
-    const mockConfig = {
-      mastodonDocsCommit: 'abc123',
-      mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.3.0',
-      // No blockedFiles property
-    };
+  test('should throw when the methods directory is missing', () => {
+    mockGetConfig.mockReturnValue(baseConfig);
+    mockFs.existsSync.mockReturnValue(false);
 
-    mockFs.readFileSync.mockImplementation((filePath) => {
-      if (filePath === 'config.json') {
-        return JSON.stringify(mockConfig);
-      }
-      return `---
-title: Test API methods
----
-
-## Test Method {#test-method}
-
-Test method content`;
-    });
-
-    mockFs.readdirSync.mockReturnValue(['accounts.md', 'statuses.md'] as any);
-
-    const methodFiles = methodParser.parseAllMethods();
-
-    // Should not throw error and should parse all files
-    expect(methodFiles).toHaveLength(2);
-  });
-
-  test('should handle missing config.json gracefully', () => {
-    // Mock readFileSync to throw error for config.json
-    mockFs.readFileSync.mockImplementation((filePath) => {
-      if (filePath === 'config.json') {
-        throw new Error('ENOENT: no such file or directory');
-      }
-      return `---
-title: Test API methods
----
-
-## Test Method {#test-method}
-
-Test method content`;
-    });
-
-    mockFs.readdirSync.mockReturnValue(['accounts.md', 'statuses.md'] as any);
-
-    // Spy on console.warn to verify warning message
-    const consoleSpy = jest.spyOn(console, 'warn').mockImplementation();
-
-    const methodFiles = methodParser.parseAllMethods();
-
-    // Should not throw error and should parse all files
-    expect(methodFiles).toHaveLength(2);
-    expect(consoleSpy).toHaveBeenCalledWith(
-      'Could not load blockedFiles from config.json:',
-      expect.any(Error)
+    expect(() => methodParser.parseAllMethods()).toThrow(
+      /Methods path does not exist/
     );
-
-    consoleSpy.mockRestore();
   });
 
   test('should handle empty blockedFiles array', () => {
-    // Mock config.json with empty blockedFiles array
-    const mockConfig = {
-      mastodonDocsCommit: 'abc123',
-      mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.3.0',
-      blockedFiles: [],
-    };
-
-    mockFs.readFileSync.mockImplementation((filePath) => {
-      if (filePath === 'config.json') {
-        return JSON.stringify(mockConfig);
-      }
-      return `---
-title: Test API methods
----
-
-## Test Method {#test-method}
-
-Test method content`;
-    });
-
+    mockGetConfig.mockReturnValue(baseConfig);
+    mockFs.readFileSync.mockReturnValue(methodFileContent);
     mockFs.readdirSync.mockReturnValue(['accounts.md', 'statuses.md'] as any);
 
     const methodFiles = methodParser.parseAllMethods();
@@ -198,26 +134,12 @@ Test method content`;
   });
 
   test('should use correct relative path format for blocking', () => {
-    // Mock config.json with blocked file using methods/ prefix
-    const mockConfig = {
-      mastodonDocsCommit: 'abc123',
-      mastodonVersion: '4.4.0',
-      minimumMastodonVersion: '4.3.0',
+    mockGetConfig.mockReturnValue({
+      ...baseConfig,
       blockedFiles: ['methods/notifications_alpha.md'],
-    };
-
-    mockFs.readFileSync.mockImplementation((filePath) => {
-      if (filePath === 'config.json') {
-        return JSON.stringify(mockConfig);
-      }
-      return `---
-title: Test API methods
----
-
-## Test Method {#test-method}
-
-Test method content`;
     });
+
+    mockFs.readFileSync.mockReturnValue(methodFileContent);
 
     mockFs.readdirSync.mockReturnValue([
       'accounts.md',

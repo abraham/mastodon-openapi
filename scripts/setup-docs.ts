@@ -4,26 +4,15 @@ import fs from 'fs';
 import path from 'path';
 import { execSync } from 'child_process';
 import { applyOverrides } from './apply-overrides';
+import { setupSecurityPolicy } from './setup-security-policy';
+import { getConfig, DOCS_ROOT, REPO_ROOT } from '../src/config';
 
 /**
  * Setup Mastodon documentation repository at the configured commit SHA
  */
 function setupMastodonDocs(): void {
-  const configPath = path.join(__dirname, '..', 'config.json');
-  const docsDir = path.join(__dirname, '..', 'mastodon-documentation');
-
-  if (!fs.existsSync(configPath)) {
-    console.error('config.json not found');
-    process.exit(1);
-  }
-
-  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-  const targetCommit = config.mastodonDocsCommit;
-
-  if (!targetCommit) {
-    console.error('mastodonDocsCommit not found in config.json');
-    process.exit(1);
-  }
+  const docsDir = DOCS_ROOT;
+  const targetCommit = getConfig().mastodonDocsCommit;
 
   console.log(`Setting up Mastodon documentation at commit ${targetCommit}...`);
 
@@ -35,7 +24,7 @@ function setupMastodonDocs(): void {
         'git clone https://github.com/mastodon/documentation mastodon-documentation',
         {
           stdio: 'inherit',
-          cwd: path.join(__dirname, '..'),
+          cwd: REPO_ROOT,
         }
       );
     } else {
@@ -68,6 +57,10 @@ function setupMastodonDocs(): void {
 
 if (require.main === module) {
   setupMastodonDocs();
+  setupSecurityPolicy().catch((error: Error) => {
+    console.error('Error setting up security policy:', error.message);
+    process.exit(1);
+  });
 }
 
 export { setupMastodonDocs };

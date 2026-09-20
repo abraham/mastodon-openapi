@@ -1,20 +1,26 @@
 import { main } from '../index';
 import * as fs from 'fs';
+import * as os from 'os';
 import * as path from 'path';
 
 describe('main', () => {
-  const schemaPath = path.join(__dirname, '..', '..', 'dist', 'schema.json');
+  let distDir: string;
+  let schemaPath: string;
 
   beforeEach(() => {
-    // Clean up the schema file if it exists
-    if (fs.existsSync(schemaPath)) {
-      fs.unlinkSync(schemaPath);
-    }
+    // Write to a scratch directory so parallel suites reading the committed
+    // dist/schema.json are not racing this one
+    distDir = fs.mkdtempSync(path.join(os.tmpdir(), 'mastodon-openapi-'));
+    schemaPath = path.join(distDir, 'schema.json');
+  });
+
+  afterEach(() => {
+    fs.rmSync(distDir, { recursive: true, force: true });
   });
 
   it('should generate and write schema.json to dist directory', () => {
     // Run the main function
-    main();
+    main(distDir);
 
     // Check that the file was created
     expect(fs.existsSync(schemaPath)).toBe(true);

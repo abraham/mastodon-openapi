@@ -1,31 +1,15 @@
 import { UtilityHelpers } from '../generators/UtilityHelpers';
-import { readFileSync } from 'fs';
+import { SupportedVersionsParser } from './SupportedVersionsParser';
 
 /**
- * Get the currently supported Mastodon API version from config.json
+ * The currently supported Mastodon API version, from mastodon/mastodon SECURITY.md
  */
-function getSupportedVersion(): string {
-  const config = JSON.parse(readFileSync('config.json', 'utf8'));
-  return config.mastodonVersion;
-}
+export const SUPPORTED_VERSION = SupportedVersionsParser.parse().maximum;
 
 /**
- * Get the minimum supported Mastodon API version from config.json
+ * The minimum supported Mastodon API version, from mastodon/mastodon SECURITY.md
  */
-function getMinimumVersion(): string {
-  const config = JSON.parse(readFileSync('config.json', 'utf8'));
-  return config.minimumMastodonVersion;
-}
-
-/**
- * The currently supported Mastodon API version
- */
-export const SUPPORTED_VERSION = getSupportedVersion();
-
-/**
- * The minimum supported Mastodon API version
- */
-export const MINIMUM_VERSION = getMinimumVersion();
+export const MINIMUM_VERSION = SupportedVersionsParser.parse().minimum;
 
 /**
  * Utility class for parsing version numbers from version history strings

@@ -13,10 +13,7 @@ import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
-import {
-  RateLimitHeaderParser,
-  RateLimitHeader,
-} from '../parsers/RateLimitHeaderParser';
+import { HeaderParser, HttpHeader } from '../parsers/HeaderParser';
 import { VersionParser } from '../parsers/VersionParser';
 
 /**
@@ -37,7 +34,7 @@ class MethodConverter {
   private utilityHelpers: UtilityHelpers;
   private errorExampleRegistry: ErrorExampleRegistry;
   private responseCodes: Array<{ code: string; description: string }>;
-  private rateLimitHeaders: RateLimitHeader[];
+  private rateLimitHeaders: HttpHeader[];
 
   constructor(
     typeParser: TypeParser,
@@ -50,7 +47,7 @@ class MethodConverter {
     // Parse response codes once during initialization
     this.responseCodes = ResponseCodeParser.parseResponseCodes();
     // Parse rate limit headers once during initialization
-    this.rateLimitHeaders = RateLimitHeaderParser.parseRateLimitHeaders();
+    this.rateLimitHeaders = HeaderParser.parseRateLimitHeaders();
   }
 
   /**

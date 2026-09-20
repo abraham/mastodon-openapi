@@ -18,6 +18,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "postinstall": "ts-node scripts/setup-docs.ts",
+    "setup-security-policy": "ts-node scripts/setup-security-policy.ts",
     "update-docs": "ts-node scripts/update-docs.ts"
   },
   "keywords": [

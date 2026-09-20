@@ -1,16 +1,17 @@
 #!/usr/bin/env ts-node
 
 import fs from 'fs';
-import path from 'path';
 import { execSync } from 'child_process';
 import { applyOverrides } from './apply-overrides';
+import { setupSecurityPolicy } from './setup-security-policy';
+import { CONFIG_PATH, DOCS_ROOT, resetConfigCache } from '../src/config';
 
 /**
  * Update the mastodonDocsCommit in config.json to the latest commit from main branch
  */
 function updateDocsCommit(): boolean {
-  const configPath = path.join(__dirname, '..', 'config.json');
-  const docsDir = path.join(__dirname, '..', 'mastodon-documentation');
+  const configPath = CONFIG_PATH;
+  const docsDir = DOCS_ROOT;
 
   if (!fs.existsSync(configPath)) {
     console.error('config.json not found');
@@ -80,9 +81,51 @@ function updateDocsCommit(): boolean {
   }
 }
 
-if (require.main === module) {
-  const hasChanges = updateDocsCommit();
-  process.exit(hasChanges ? 0 : 1); // Exit with 1 if no changes (for CI workflow)
+/**
+ * Update mastodonSecurityCommit to the current mastodon/mastodon main SHA and
+ * re-vendor SECURITY.md, which is the canonical list of supported versions.
+ */
+async function updateSecurityCommit(): Promise<boolean> {
+  console.log('Resolving latest mastodon/mastodon commit...');
+
+  const lsRemote = execSync(
+    'git ls-remote https://github.com/mastodon/mastodon refs/heads/main',
+    { encoding: 'utf8' }
+  ).trim();
+  const latestCommit = lsRemote.split(/\s+/)[0];
+
+  if (!/^[0-9a-f]{40}$/.test(latestCommit)) {
+    throw new Error(`Unexpected git ls-remote output: ${lsRemote}`);
+  }
+
+  const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf8'));
+  const oldCommit = config.mastodonSecurityCommit;
+
+  if (oldCommit !== latestCommit) {
+    config.mastodonSecurityCommit = latestCommit;
+    fs.writeFileSync(CONFIG_PATH, JSON.stringify(config, null, 2) + '\n');
+    resetConfigCache();
+    console.log(
+      `Updated mastodonSecurityCommit from ${oldCommit} to ${latestCommit}`
+    );
+  }
+
+  await setupSecurityPolicy();
+
+  return oldCommit !== latestCommit;
 }
 
-export { updateDocsCommit };
+if (require.main === module) {
+  const docsChanged = updateDocsCommit();
+  updateSecurityCommit()
+    .then((securityChanged) => {
+      const hasChanges = docsChanged || securityChanged;
+      process.exit(hasChanges ? 0 : 1); // Exit with 1 if no changes (for CI workflow)
+    })
+    .catch((error: Error) => {
+      console.error('Error updating security commit:', error.message);
+      process.exit(1);
+    });
+}
+
+export { updateDocsCommit, updateSecurityCommit };

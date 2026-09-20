@@ -1,8 +1,8 @@
-import { readFileSync } from 'fs';
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { OAuthScopeParser } from '../parsers/OAuthScopeParser';
 import { HeaderParser } from '../parsers/HeaderParser';
 import { SUPPORTED_VERSION } from '../parsers/VersionParser';
+import { getConfig } from '../config';
 
 /**
  * Builder for OpenAPI specification with authentication setup
@@ -29,8 +29,7 @@ class SpecBuilder {
    * Build initial OpenAPI specification with OAuth configuration
    */
   public buildInitialSpec(): OpenAPISpec {
-    // load config.json
-    const config = JSON.parse(readFileSync('config.json', 'utf8'));
+    const config = getConfig();
 
     // Parse OAuth scopes from documentation
     const oauthParser = new OAuthScopeParser();
