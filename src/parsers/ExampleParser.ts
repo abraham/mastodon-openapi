@@ -80,7 +80,7 @@ export class ExampleParser {
    * 1. Strips out line and block comments before parsing
    * 2. If parsing fails, wraps content in {} and tries again
    */
-  private static parseJsonWithFallback(jsonContent: string): any | null {
+  private static parseJsonWithFallback(jsonContent: string): unknown | null {
     if (!jsonContent.trim()) {
       return null;
     }
@@ -108,7 +108,7 @@ export class ExampleParser {
   /**
    * Parses JSON examples from an "## Example" section in entity markdown
    */
-  static parseEntityExample(content: string): any | null {
+  static parseEntityExample(content: string): unknown | null {
     const section = MarkdownDocument.fromBody(content)
       .allSections()
       .find(
@@ -146,8 +146,8 @@ export class ExampleParser {
    * Parses JSON examples from method response sections
    * Returns a map of status codes to examples
    */
-  static parseMethodResponseExamples(content: string): Record<string, any> {
-    const examples: Record<string, any> = {};
+  static parseMethodResponseExamples(content: string): Record<string, unknown> {
+    const examples: Record<string, unknown> = {};
 
     // Split content by response headers, ignoring lines inside fenced samples
     const responseSections = splitOutsideFences(content, (line) =>
