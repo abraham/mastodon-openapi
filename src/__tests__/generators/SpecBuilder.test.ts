@@ -1,12 +1,6 @@
 import { SpecBuilder } from '../../generators/SpecBuilder';
-import { Config, getConfig } from '../../config';
-
-// Mock only getConfig so path helpers keep resolving real documentation
-jest.mock('../../config', () => ({
-  ...jest.requireActual('../../config'),
-  getConfig: jest.fn(),
-}));
-const mockGetConfig = getConfig as jest.MockedFunction<typeof getConfig>;
+import { Config } from '../../config';
+import { createPipelineContext } from '../../pipeline/PipelineContext';
 
 const baseConfig: Config = {
   mastodonDocsCommit: 'test123commit456',
@@ -43,28 +37,19 @@ jest.mock('../../parsers/OAuthScopeParser', () => {
   };
 });
 
+function buildSpec(config: Config = baseConfig) {
+  return new SpecBuilder(createPipelineContext({ config })).buildInitialSpec();
+}
+
 describe('SpecBuilder', () => {
-  let specBuilder: SpecBuilder;
-
-  beforeEach(() => {
-    specBuilder = new SpecBuilder();
-
-    // Reset mocks
-    jest.clearAllMocks();
-  });
-
   describe('buildInitialSpec', () => {
     it('should include commit SHA in the description', () => {
-      // Mock config.json with a test commit SHA
       const testCommitSha = 'abc123def456789';
-      const mockConfig = {
+
+      const spec = buildSpec({
         ...baseConfig,
         mastodonDocsCommit: testCommitSha,
-      };
-
-      mockGetConfig.mockReturnValue(mockConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      });
 
       // Check that the description contains the commit SHA
       expect(spec.info.description).toContain(testCommitSha.substring(0, 7));
@@ -74,17 +59,13 @@ describe('SpecBuilder', () => {
     });
 
     it('should truncate commit SHA to 7 characters in description', () => {
-      // Mock config.json with a full commit SHA
       const fullCommitSha = 'cae24a64155b75631b5ad37029c2d9747ffc1c43';
       const expectedTruncated = 'cae24a6';
-      const mockConfig = {
+
+      const spec = buildSpec({
         ...baseConfig,
         mastodonDocsCommit: fullCommitSha,
-      };
-
-      mockGetConfig.mockReturnValue(mockConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      });
 
       // Check that the description contains the truncated SHA
       expect(spec.info.description).toContain(expectedTruncated);
@@ -92,16 +73,12 @@ describe('SpecBuilder', () => {
     });
 
     it('should include full commit SHA in the link URL', () => {
-      // Mock config.json with a test commit SHA
       const testCommitSha = 'abcdef1234567890abcdef1234567890abcdef12';
-      const mockConfig = {
+
+      const spec = buildSpec({
         ...baseConfig,
         mastodonDocsCommit: testCommitSha,
-      };
-
-      mockGetConfig.mockReturnValue(mockConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      });
 
       // Check that the full commit SHA is used in the URL
       expect(spec.info.description).toContain(
@@ -110,16 +87,10 @@ describe('SpecBuilder', () => {
     });
 
     it('should have a well-formed description with commit reference', () => {
-      // Mock config.json
-      const testCommitSha = 'test123commit456';
-      const mockConfig = {
+      const spec = buildSpec({
         ...baseConfig,
-        mastodonDocsCommit: testCommitSha,
-      };
-
-      mockGetConfig.mockReturnValue(mockConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+        mastodonDocsCommit: 'test123commit456',
+      });
 
       // Check the structure of the description
       const description = spec.info.description;
@@ -134,9 +105,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should have a single OAuth2 security scheme with both flows', () => {
-      mockGetConfig.mockReturnValue(baseConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      const spec = buildSpec();
 
       // Check that there is only one OAuth2 security scheme
       expect(spec.components?.securitySchemes).toBeDefined();
@@ -154,9 +123,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should use path-only URLs for OAuth2 flows', () => {
-      mockGetConfig.mockReturnValue(baseConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      const spec = buildSpec();
 
       const oauth2 = spec.components?.securitySchemes?.OAuth2 as any;
 
@@ -171,9 +138,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should include scopes for both OAuth2 flows', () => {
-      mockGetConfig.mockReturnValue(baseConfig);
-
-      const spec = specBuilder.buildInitialSpec();
+      const spec = buildSpec();
 
       const oauth2 = spec.components?.securitySchemes?.OAuth2 as any;
 

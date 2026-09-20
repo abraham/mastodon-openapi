@@ -1,6 +1,9 @@
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { VersionParser } from './VersionParser';
+import { isExcludedAttribute } from '../overrides/overrides';
+import { reportOverride } from '../overrides/report';
+import { MarkdownDocument } from '../document/MarkdownDocument';
 
 /**
  * Handles parsing of entity attributes from different content formats
@@ -15,45 +18,48 @@ export class AttributeParser {
   ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
-    // First, find all attribute headings with their positions
-    const headingRegex =
-      /#{3,5} `([^`]+)`(?:[^{\n]*(?:\{\{[%<]([^%>]+)[%>]\})?[^{\n]*)?(?:\{#[^}]+\})?\s*\n\n/g;
-    const headings: Array<{
-      name: string;
-      modifiers?: string;
-      start: number;
-      end: number;
-    }> = [];
+    const named = MarkdownDocument.fromBody(content)
+      .allSections()
+      .filter(
+        (section) =>
+          section.heading.level >= 3 &&
+          section.heading.level <= 5 &&
+          // Attribute headings name the attribute in backticks
+          /^`[^`]+`$/.test(section.heading.title)
+      );
 
-    let headingMatch;
-    while ((headingMatch = headingRegex.exec(content)) !== null) {
-      headings.push({
-        name: headingMatch[1],
-        modifiers: headingMatch[2],
-        start: headingMatch.index,
-        end: headingRegex.lastIndex,
-      });
+    // A heading with no blank line after it is not recognised today;
+    // preserved deliberately, see docs/pipeline-rewrite.md §10 D13
+    for (const section of named) {
+      if (!section.body.startsWith('\n')) {
+        reportOverride(
+          'workaround',
+          `attribute ${section.heading.title} skipped: no blank line after the heading`,
+          'preserved behaviour, see docs/pipeline-rewrite.md §10 D13'
+        );
+      }
     }
 
-    // For each heading, extract the description and type that immediately follow
-    for (let i = 0; i < headings.length; i++) {
-      const heading = headings[i];
+    const headings = named
+      .filter((section) => section.body.startsWith('\n'))
+      .map((section) => ({
+        name: section.heading.title.slice(1, -1),
+        modifiers: section.heading.modifiers,
+        content: section.content,
+      }));
 
+    for (const heading of headings) {
       // Skip attributes marked as removed
-      if (heading.modifiers && heading.modifiers.includes('removed')) {
+      if (heading.modifiers.includes('removed')) {
         continue;
       }
 
-      // Special exception: exclude 'source' attribute from Suggestion entity
-      if (entityName === 'Suggestion' && heading.name === 'source') {
+      // Attributes the documentation lists but the schema deliberately omits
+      if (isExcludedAttribute(entityName, heading.name)) {
         continue;
       }
 
-      const nextHeadingStart =
-        i + 1 < headings.length ? headings[i + 1].start : content.length;
-
-      // Get the content between this heading and the next one (or end of content)
-      const sectionContent = content.substring(heading.end, nextHeadingStart);
+      const sectionContent = heading.content;
 
       // Look for Description and Type in this specific section
       const descMatch = sectionContent.match(
@@ -87,20 +93,18 @@ export class AttributeParser {
         };
 
         // Check for optional/deprecated/nullable modifiers
-        if (heading.modifiers) {
-          if (heading.modifiers.includes('optional')) {
-            attribute.optional = true;
-            attribute.nullable = true;
-            attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
-          }
-          if (heading.modifiers.includes('nullable')) {
-            attribute.optional = true;
-            attribute.nullable = true;
-            attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
-          }
-          if (heading.modifiers.includes('deprecated')) {
-            attribute.deprecated = true;
-          }
+        if (heading.modifiers.includes('optional')) {
+          attribute.optional = true;
+          attribute.nullable = true;
+          attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
+        }
+        if (heading.modifiers.includes('nullable')) {
+          attribute.optional = true;
+          attribute.nullable = true;
+          attribute.explicitlyNullable = true; // Mark as explicitly nullable from docs
+        }
+        if (heading.modifiers.includes('deprecated')) {
+          attribute.deprecated = true;
         }
 
         // Mark as optional if nullable pattern is detected

@@ -1,20 +1,6 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { MethodEntityParser } from '../../parsers/MethodEntityParser';
 
 describe('MethodEntityParser - OEmbed inline response', () => {
-  let tempFilePath: string;
-
-  beforeEach(() => {
-    tempFilePath = path.join(__dirname, 'test-oembed-methods.md');
-  });
-
-  afterEach(() => {
-    if (fs.existsSync(tempFilePath)) {
-      fs.unlinkSync(tempFilePath);
-    }
-  });
-
   test('should detect and parse OEmbed metadata inline response', () => {
     // Create markdown content that mimics the actual oembed.md structure
     const oembedMarkdown = `---
@@ -55,10 +41,8 @@ Represents OEmbed "rich" preview, with associated iframe and metadata.
 \`\`\`
 `;
 
-    fs.writeFileSync(tempFilePath, oembedMarkdown);
-
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(oembedMarkdown);
 
     // Should find one entity from the inline JSON response
     expect(entities).toHaveLength(1);
@@ -116,10 +100,8 @@ title: oembed API methods
 \`\`\`
 `;
 
-    fs.writeFileSync(tempFilePath, oembedMarkdown);
-
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(oembedMarkdown);
     const entity = entities[0];
 
     expect(entity.example).toEqual({
@@ -165,10 +147,8 @@ title: test methods
 \`\`\`
 `;
 
-    fs.writeFileSync(tempFilePath, metadataMarkdown);
-
     const entities =
-      MethodEntityParser.parseEntitiesFromMethodFile(tempFilePath);
+      MethodEntityParser.parseEntitiesFromMethodFile(metadataMarkdown);
 
     expect(entities).toHaveLength(2);
 

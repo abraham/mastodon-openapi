@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as path from 'path';
 import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
@@ -7,16 +6,19 @@ import { AttributeParser } from './AttributeParser';
 import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
 import { EntityParsingUtils } from './EntityParsingUtils';
+import { MarkdownDocument } from '../document/MarkdownDocument';
 
 /**
  * Handles parsing entities from dedicated entity files
  */
 export class EntityFileParser {
   /**
-   * Parses entities from a single entity file
+   * Parses entities from a single entity document
+   * @param content Raw markdown, including frontmatter
+   * @param documentId Document name such as `Account.md`, used for diagnostics
+   *   and for the `sourceFile` back-link
    */
-  static parseEntityFile(filePath: string): EntityClass[] {
-    const content = fs.readFileSync(filePath, 'utf-8');
+  static parseEntityFile(content: string, documentId: string): EntityClass[] {
     const parsed = matter(content);
 
     // Skip draft files
@@ -27,12 +29,12 @@ export class EntityFileParser {
     const entities: EntityClass[] = [];
 
     // Extract source file name (without path and extension)
-    const sourceFile = require('path').basename(filePath, '.md');
+    const sourceFile = path.basename(documentId, '.md');
 
     // Extract main class name from frontmatter title
     const className = parsed.data.title;
     if (!className) {
-      console.warn(`No title found in ${filePath}`);
+      console.warn(`No title found in ${documentId}`);
       return entities;
     }
 
@@ -51,7 +53,7 @@ export class EntityFileParser {
       this.extractNestedHashEntities(className, adjustedAttributes, sourceFile);
 
     // Parse example from the content
-    const example = ExampleParser.parseEntityExample(parsed.content);
+    const example = ExampleParser.parseEntityExample(parsed.content, className);
 
     // Collect all version numbers from attributes
     const allVersions: string[] = [];
@@ -91,30 +93,32 @@ export class EntityFileParser {
     entityName: string
   ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
+    const document = MarkdownDocument.fromBody(content);
 
-    // Find the "## Attributes" section (for main entity only)
-    // Stop at any additional entity definitions
-    const attributesMatch = content.match(
-      /## Attributes\s*([\s\S]*?)(?=\n## .* entity attributes|\n## |$)/
-    );
-    if (attributesMatch) {
-      const attributesSection = attributesMatch[1];
+    const topLevel = (title: string) =>
+      document
+        .allSections()
+        .find(
+          (section) =>
+            section.heading.level === 2 && section.heading.title === title
+        );
+
+    // Attribute subsections live under the heading, so take the full content
+    const attributesSection = topLevel('Attributes');
+    if (attributesSection) {
       attributes.push(
         ...AttributeParser.parseAttributesFromSection(
-          attributesSection,
+          attributesSection.content,
           entityName
         )
       );
     }
 
     // Also look for "## Data attributes" section and convert to data[][] format
-    const dataAttributesMatch = content.match(
-      /## Data attributes\s*([\s\S]*?)(?=\n## |$)/
-    );
-    if (dataAttributesMatch) {
-      const dataAttributesSection = dataAttributesMatch[1];
+    const dataAttributesSection = topLevel('Data attributes');
+    if (dataAttributesSection) {
       const dataAttributes = AttributeParser.parseAttributesFromSection(
-        dataAttributesSection,
+        dataAttributesSection.content,
         entityName
       );
 

@@ -1,18 +1,7 @@
 import { MethodParser } from '../../parsers/MethodParser';
-import * as fs from 'fs';
-import * as path from 'path';
-import { Config, getConfig } from '../../config';
-
-// Mock fs to control the documentation tree
-jest.mock('fs');
-const mockFs = fs as jest.Mocked<typeof fs>;
-
-// Mock only getConfig so path helpers keep working
-jest.mock('../../config', () => ({
-  ...jest.requireActual('../../config'),
-  getConfig: jest.fn(),
-}));
-const mockGetConfig = getConfig as jest.MockedFunction<typeof getConfig>;
+import { Config } from '../../config';
+import { InMemorySource } from '../../source/InMemorySource';
+import { createPipelineContext } from '../../pipeline/PipelineContext';
 
 const baseConfig: Config = {
   mastodonDocsCommit: 'abc123',
@@ -30,7 +19,7 @@ title: Test API methods
 
 Test method content`;
 
-// Mock VersionParser to avoid config.json dependency
+// Mock VersionParser to avoid SECURITY.md dependency
 jest.mock('../../parsers/VersionParser', () => ({
   SUPPORTED_VERSION: '4.4.0',
   MINIMUM_VERSION: '4.3.0',
@@ -43,53 +32,39 @@ jest.mock('../../parsers/VersionParser', () => ({
   },
 }));
 
+function sourceWith(...ids: string[]): InMemorySource {
+  const method: Record<string, string> = {};
+  for (const id of ids) {
+    method[id] = methodFileContent;
+  }
+  return new InMemorySource({ method });
+}
+
+function parserFor(source: InMemorySource, blockedFiles: string[] = []) {
+  return new MethodParser(
+    createPipelineContext({
+      config: { ...baseConfig, blockedFiles },
+      source,
+    })
+  );
+}
+
 describe('MethodParser - Blocked Files Feature', () => {
-  let methodParser: MethodParser;
-
-  beforeEach(() => {
-    methodParser = new MethodParser();
-    jest.clearAllMocks();
-
-    // Mock existsSync to return true for methods path
-    mockFs.existsSync.mockImplementation((pathArg) => {
-      const pathStr = pathArg.toString();
-      return (
-        pathStr.includes('methods') ||
-        pathStr.includes('mastodon-documentation')
-      );
-    });
-
-    // Mock statSync to return file stats
-    mockFs.statSync.mockReturnValue({
-      isFile: () => true,
-    } as any);
-  });
-
   test('should skip blocked files during parsing', () => {
-    mockGetConfig.mockReturnValue({
-      ...baseConfig,
-      blockedFiles: [
-        'methods/notifications_alpha.md',
-        'methods/test_blocked.md',
-      ],
-    });
-
-    mockFs.readFileSync.mockReturnValue(methodFileContent);
-
-    // Mock readdirSync to return test files including blocked ones
-    mockFs.readdirSync.mockReturnValue([
+    const source = sourceWith(
       'accounts.md',
-      'notifications_alpha.md', // This should be blocked
+      'notifications_alpha.md',
       'statuses.md',
-      'test_blocked.md', // This should be blocked
-    ] as any);
-
-    // Spy on console.log to verify blocked file message
+      'test_blocked.md'
+    );
+    const readSpy = jest.spyOn(source, 'read');
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
 
-    const methodFiles = methodParser.parseAllMethods();
+    const methodFiles = parserFor(source, [
+      'methods/notifications_alpha.md',
+      'methods/test_blocked.md',
+    ]).parseAllMethods();
 
-    // Verify that blocked files are skipped
     expect(consoleSpy).toHaveBeenCalledWith(
       'Skipping blocked file: methods/notifications_alpha.md'
     );
@@ -97,61 +72,41 @@ describe('MethodParser - Blocked Files Feature', () => {
       'Skipping blocked file: methods/test_blocked.md'
     );
 
-    // Verify that readFileSync was not called for blocked files
-    const readFileCalls = mockFs.readFileSync.mock.calls.map((call) =>
-      path.basename(call[0] as string)
-    );
+    // Blocked documents must never be read
+    const readIds = readSpy.mock.calls.map((call) => call[1]);
+    expect(readIds).toEqual(['accounts.md', 'statuses.md']);
 
-    expect(readFileCalls).not.toContain('notifications_alpha.md');
-    expect(readFileCalls).not.toContain('test_blocked.md');
-    expect(readFileCalls).toContain('accounts.md');
-    expect(readFileCalls).toContain('statuses.md');
-
-    // Should have 2 method files (accounts.md and statuses.md)
     expect(methodFiles).toHaveLength(2);
 
     consoleSpy.mockRestore();
   });
 
-  test('should throw when the methods directory is missing', () => {
-    mockGetConfig.mockReturnValue(baseConfig);
-    mockFs.existsSync.mockReturnValue(false);
+  test('should throw when a listed document cannot be read', () => {
+    const source = sourceWith('accounts.md');
+    jest.spyOn(source, 'read').mockImplementation(() => {
+      throw new Error('ENOENT');
+    });
 
-    expect(() => methodParser.parseAllMethods()).toThrow(
-      /Methods path does not exist/
+    expect(() => parserFor(source).parseAllMethods()).toThrow(
+      /Error parsing method file accounts\.md/
     );
   });
 
   test('should handle empty blockedFiles array', () => {
-    mockGetConfig.mockReturnValue(baseConfig);
-    mockFs.readFileSync.mockReturnValue(methodFileContent);
-    mockFs.readdirSync.mockReturnValue(['accounts.md', 'statuses.md'] as any);
+    const methodFiles = parserFor(
+      sourceWith('accounts.md', 'statuses.md')
+    ).parseAllMethods();
 
-    const methodFiles = methodParser.parseAllMethods();
-
-    // Should parse all files when blockedFiles is empty
     expect(methodFiles).toHaveLength(2);
   });
 
   test('should use correct relative path format for blocking', () => {
-    mockGetConfig.mockReturnValue({
-      ...baseConfig,
-      blockedFiles: ['methods/notifications_alpha.md'],
-    });
-
-    mockFs.readFileSync.mockReturnValue(methodFileContent);
-
-    mockFs.readdirSync.mockReturnValue([
-      'accounts.md',
-      'notifications_alpha.md',
-    ] as any);
-
-    // Spy on console.log to verify the exact path format used
     const consoleSpy = jest.spyOn(console, 'log').mockImplementation();
 
-    methodParser.parseAllMethods();
+    parserFor(sourceWith('accounts.md', 'notifications_alpha.md'), [
+      'methods/notifications_alpha.md',
+    ]).parseAllMethods();
 
-    // Verify the exact path format: "methods/filename.md"
     expect(consoleSpy).toHaveBeenCalledWith(
       'Skipping blocked file: methods/notifications_alpha.md'
     );

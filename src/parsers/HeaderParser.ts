@@ -1,5 +1,7 @@
-import { readFileSync } from 'fs';
-import { docsContentPath } from '../config';
+import { DocumentSource } from '../source/DocumentSource';
+import { defaultSource } from '../source/FileSystemSource';
+import { MarkdownDocument } from '../document/MarkdownDocument';
+import { parseDefinitionList } from '../document/definitionList';
 
 /**
  * Interface for HTTP header information
@@ -13,100 +15,77 @@ export interface HttpHeader {
   };
 }
 
+const RATE_LIMITS_FILE = 'api/rate-limits.md';
+const GUIDELINES_FILE = 'api/guidelines.md';
+const ASYNC_REFRESH_FILE = 'methods/async_refreshes.md';
+
 /**
  * Parser for extracting HTTP headers from Mastodon documentation
  */
 export class HeaderParser {
-  private static rateLimitsFile(): string {
-    return docsContentPath('api', 'rate-limits.md');
-  }
-
-  private static guidelinesFile(): string {
-    return docsContentPath('api', 'guidelines.md');
-  }
-
-  private static asyncRefreshFile(): string {
-    return docsContentPath('methods', 'async_refreshes.md');
-  }
-
-  private static read(filePath: string): string {
-    try {
-      return readFileSync(filePath, 'utf-8');
-    } catch (error) {
-      throw new Error(
-        `Could not read ${filePath}: ${(error as Error).message}. Run \`npm run setup-docs\`.`
-      );
-    }
-  }
-
   /**
    * Parse all HTTP headers from documentation
    */
-  public static parseHeaders(): HttpHeader[] {
+  public static parseHeaders(
+    source: DocumentSource = defaultSource()
+  ): HttpHeader[] {
     return [
-      ...this.parseRateLimitHeaders(),
-      this.parseLinkHeader(),
-      this.parseAsyncRefreshHeader(),
+      ...this.parseRateLimitHeaders(source),
+      this.parseLinkHeader(source),
+      this.parseAsyncRefreshHeader(source),
     ];
   }
 
   /**
    * Parse rate limit headers from rate-limits.md
    */
-  public static parseRateLimitHeaders(): HttpHeader[] {
-    const filePath = this.rateLimitsFile();
-    const content = this.read(filePath);
+  public static parseRateLimitHeaders(
+    source: DocumentSource = defaultSource()
+  ): HttpHeader[] {
+    const document = MarkdownDocument.parse(
+      source.readGuide(RATE_LIMITS_FILE),
+      RATE_LIMITS_FILE
+    );
 
     const headers: HttpHeader[] = [];
+    const section = document.findSection('Headers');
 
-    // Find the Headers section
-    const headersMatch = content.match(/## Headers\n\n([\s\S]*?)(?=\n##|$)/);
+    for (const entry of section ? parseDefinitionList(section.content) : []) {
+      const { term: name, definition: description } = entry;
 
-    if (headersMatch) {
-      const headersSection = headersMatch[1];
+      // Determine type and format based on header name and description
+      let type = 'string';
+      let format: string | undefined = undefined;
 
-      // Extract header definitions
-      // Pattern: `HeaderName`\n: Description
-      const headerMatches = headersSection.matchAll(/`([^`]+)`\n:\s*([^\n]+)/g);
-
-      for (const match of headerMatches) {
-        const name = match[1];
-        const description = match[2];
-
-        // Determine type and format based on header name and description
-        let type = 'string';
-        let format: string | undefined = undefined;
-
-        // Check for timestamp/date types first (more specific)
-        if (
-          name.includes('Reset') ||
-          description.toLowerCase().includes('timestamp')
-        ) {
-          type = 'string';
-          format = 'date-time';
-        }
-        // Check for numeric types
-        else if (
-          name.includes('Limit') ||
-          name.includes('Remaining') ||
-          description.toLowerCase().includes('number of')
-        ) {
-          type = 'integer';
-        }
-
-        headers.push({
-          name,
-          description,
-          schema: {
-            type,
-            ...(format && { format }),
-          },
-        });
+      // Check for timestamp/date types first (more specific)
+      if (
+        name.includes('Reset') ||
+        description.toLowerCase().includes('timestamp')
+      ) {
+        type = 'string';
+        format = 'date-time';
       }
+      // Check for numeric types
+      else if (
+        name.includes('Limit') ||
+        name.includes('Remaining') ||
+        description.toLowerCase().includes('number of')
+      ) {
+        type = 'integer';
+      }
+
+      headers.push({
+        name,
+        description,
+        schema: {
+          type,
+          ...(format && { format }),
+        },
+      });
     }
 
     if (headers.length === 0) {
-      throw new Error(`No rate limit headers found in ${filePath}`);
+      throw new Error(`No rate limit headers found in ${RATE_LIMITS_FILE}`);
     }
 
     return headers;
@@ -115,9 +94,8 @@ export class HeaderParser {
   /**
    * Parse Link header from guidelines.md
    */
-  private static parseLinkHeader(): HttpHeader {
-    const filePath = this.guidelinesFile();
-    const content = this.read(filePath);
+  private static parseLinkHeader(source: DocumentSource): HttpHeader {
+    const content = source.readGuide(GUIDELINES_FILE);
 
     // Find the pagination section with Link header examples
     const paginationMatch = content.match(
@@ -125,7 +103,7 @@ export class HeaderParser {
     );
 
     if (!paginationMatch) {
-      throw new Error(`No Link header example found in ${filePath}`);
+      throw new Error(`No Link header example found in ${GUIDELINES_FILE}`);
     }
 
     const example = paginationMatch[0];
@@ -147,9 +125,8 @@ export class HeaderParser {
   /**
    * Parse Mastodon-Async-Refresh header from async_refreshes.md
    */
-  private static parseAsyncRefreshHeader(): HttpHeader {
-    const filePath = this.asyncRefreshFile();
-    const content = this.read(filePath);
+  private static parseAsyncRefreshHeader(source: DocumentSource): HttpHeader {
+    const content = source.readGuide(ASYNC_REFRESH_FILE);
 
     // Find the header format
     const headerMatch = content.match(
@@ -158,7 +135,7 @@ export class HeaderParser {
 
     if (!headerMatch) {
       throw new Error(
-        `No Mastodon-Async-Refresh header format found in ${filePath}`
+        `No Mastodon-Async-Refresh header format found in ${ASYNC_REFRESH_FILE}`
       );
     }
 

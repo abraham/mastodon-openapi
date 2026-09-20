@@ -1,64 +1,39 @@
-import * as fs from 'fs';
-import * as path from 'path';
 import { EntityClass } from '../interfaces/EntityClass';
 import { EntityFileParser } from './EntityFileParser';
 import { MethodEntityParser } from './MethodEntityParser';
-import { getConfig, docsContentPath } from '../config';
+import {
+  PipelineContext,
+  createPipelineContext,
+} from '../pipeline/PipelineContext';
 
 class EntityParser {
-  private entitiesPath: string;
-  private methodsPath: string;
-
-  constructor() {
-    this.entitiesPath = docsContentPath('entities');
-    this.methodsPath = docsContentPath('methods');
-  }
+  constructor(
+    private readonly context: PipelineContext = createPipelineContext()
+  ) {}
 
   public parseAllEntities(): EntityClass[] {
     const entities: EntityClass[] = [];
-
-    if (!fs.existsSync(this.entitiesPath)) {
-      throw new Error(
-        `Entities path does not exist: ${this.entitiesPath}. Run \`npm run setup-docs\`.`
-      );
-    }
-
-    if (!fs.existsSync(this.methodsPath)) {
-      throw new Error(
-        `Methods path does not exist: ${this.methodsPath}. Run \`npm run setup-docs\`.`
-      );
-    }
+    const source = this.context.source;
 
     // Parse entities from dedicated entity files
-    const files = fs
-      .readdirSync(this.entitiesPath)
-      .filter((file) => file.endsWith('.md'));
-
-    for (const file of files) {
+    for (const id of source.list('entity')) {
       try {
-        const fileEntities = EntityFileParser.parseEntityFile(
-          path.join(this.entitiesPath, file)
+        entities.push(
+          ...EntityFileParser.parseEntityFile(source.read('entity', id), id)
         );
-        if (fileEntities) {
-          entities.push(...fileEntities);
-        }
       } catch (error) {
         throw new Error(
-          `Error parsing entity file ${file}: ${(error as Error).message}`,
+          `Error parsing entity file ${id}: ${(error as Error).message}`,
           { cause: error }
         );
       }
     }
 
     // Parse entities from method files
-    const blockedFiles = getConfig().blockedFiles;
+    const blockedFiles = this.context.config.blockedFiles;
 
-    const methodFiles = fs
-      .readdirSync(this.methodsPath)
-      .filter((file) => file.endsWith('.md'));
-
-    for (const file of methodFiles) {
-      const relativePath = `methods/${file}`;
+    for (const id of source.list('method')) {
+      const relativePath = `methods/${id}`;
       if (blockedFiles.includes(relativePath)) {
         console.log(
           `Skipping blocked file for entity parsing: ${relativePath}`
@@ -67,15 +42,14 @@ class EntityParser {
       }
 
       try {
-        const methodEntities = MethodEntityParser.parseEntitiesFromMethodFile(
-          path.join(this.methodsPath, file)
+        entities.push(
+          ...MethodEntityParser.parseEntitiesFromMethodFile(
+            source.read('method', id)
+          )
         );
-        if (methodEntities.length > 0) {
-          entities.push(...methodEntities);
-        }
       } catch (error) {
         throw new Error(
-          `Error parsing entities from method file ${file}: ${(error as Error).message}`,
+          `Error parsing entities from method file ${id}: ${(error as Error).message}`,
           { cause: error }
         );
       }

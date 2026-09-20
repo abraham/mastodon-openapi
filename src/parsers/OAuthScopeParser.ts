@@ -1,23 +1,22 @@
-import * as fs from 'fs';
-import matter from 'gray-matter';
 import { OAuthScope, OAuthScopeCollection } from '../interfaces/OAuthScope';
-import { docsContentPath } from '../config';
+import { DocumentSource } from '../source/DocumentSource';
+import { defaultSource } from '../source/FileSystemSource';
+import { MarkdownDocument } from '../document/MarkdownDocument';
+import { parseTables } from '../document/tables';
 
 class OAuthScopeParser {
-  private oauthScopesPath: string;
-
-  constructor() {
-    this.oauthScopesPath = docsContentPath('api', 'oauth-scopes.md');
-  }
+  constructor(private readonly source: DocumentSource = defaultSource()) {}
 
   public parseOAuthScopes(): OAuthScopeCollection {
     const scopes: OAuthScope[] = [];
 
-    const content = fs.readFileSync(this.oauthScopesPath, 'utf-8');
-    const parsed = matter(content);
+    const document = MarkdownDocument.parse(
+      this.source.readGuide('api/oauth-scopes.md'),
+      'api/oauth-scopes.md'
+    );
 
     // Extract scopes from the markdown content
-    const extractedScopes = this.extractScopesFromMarkdown(parsed.content);
+    const extractedScopes = this.extractScopesFromMarkdown(document.body);
     scopes.push(...extractedScopes);
 
     return { scopes };
@@ -72,43 +71,26 @@ class OAuthScopeParser {
   private parseGranularScopesTable(content: string): OAuthScope[] {
     const scopes: OAuthScope[] = [];
 
-    // Find the granular scopes table
-    const tableMatch = content.match(
-      /\| Scope\s+\| Granular Scopes\s+\|([\s\S]*?)(?=\n##|\n\n#|$)/
+    const table = parseTables(content).find(
+      (candidate) =>
+        candidate.headers[0] === 'Scope' &&
+        candidate.headers[1] === 'Granular Scopes'
     );
-    if (!tableMatch) {
+
+    if (!table) {
       return scopes;
     }
 
-    const tableContent = tableMatch[1];
+    for (const row of table.rows) {
+      for (const cell of row) {
+        for (const match of cell.matchAll(/`([^`]+)`/g)) {
+          const scopeName = match[1];
 
-    // Parse table rows - look for lines that contain granular scope names
-    const lines = tableContent.split('\n');
-
-    for (const line of lines) {
-      // Skip table separator lines and empty lines
-      if (
-        line.trim() === '' ||
-        line.includes('---') ||
-        line.includes('Scope')
-      ) {
-        continue;
-      }
-
-      // Look for lines that have granular scopes in backticks
-      const scopeMatches = line.match(/`([^`]+)`/g);
-      if (scopeMatches) {
-        for (const match of scopeMatches) {
-          const scopeName = match.slice(1, -1); // Remove backticks
-
-          // Only process granular scopes (those with colons), skip high-level scopes
+          // Only granular scopes; the high-level ones are described by hand
           if (scopeName.includes(':') && !this.isHighLevelScope(scopeName)) {
-            // Generate description based on scope name
-            const description = this.generateScopeDescription(scopeName);
-
             scopes.push({
               name: scopeName,
-              description,
+              description: this.generateScopeDescription(scopeName),
             });
           }
         }

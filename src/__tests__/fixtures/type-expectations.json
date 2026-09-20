@@ -1,0 +1,669 @@
+{
+  "Array of Hash": {
+    "type": "array",
+    "items": {
+      "type": "object"
+    }
+  },
+  "Array of Integer": {
+    "type": "array",
+    "items": {
+      "type": "integer"
+    }
+  },
+  "Array of String": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of String (Enumerable anyOf)": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of String (Enumerable oneOf)": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of String (Enumerable, anyOf)": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of String (ISO 639-1 language two-letter code)": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "format": "iso-639-1"
+    }
+  },
+  "Array of String (ISO 639-1 two-letter code)": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "format": "iso-639-1"
+    }
+  },
+  "Array of String (URLs or `\"urn:ietf:wg:oauth:2.0:oob\"` as values)": {
+    "type": "array",
+    "items": {
+      "type": "string",
+      "format": "uri"
+    }
+  },
+  "Array of String (cast from integer), or null": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of String, or null": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of Strings": {
+    "type": "array",
+    "items": {
+      "type": "string"
+    }
+  },
+  "Array of [AccountRole](#AccountRole)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AccountRole"
+    }
+  },
+  "Array of [Account]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Account"
+    }
+  },
+  "Array of [Admin::DimensionData]": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AdminDimensionData"
+    }
+  },
+  "Array of [Admin::EmailDomainBlockHistory]": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AdminEmailDomainBlockHistory"
+    }
+  },
+  "Array of [Admin::Ip]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AdminIp"
+    }
+  },
+  "Array of [Admin::MeasureData]": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AdminMeasureData"
+    }
+  },
+  "Array of [Announcement::Account](#Account)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AnnouncementAccount"
+    }
+  },
+  "Array of [Announcement::Status](#Status)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AnnouncementStatus"
+    }
+  },
+  "Array of [AnnualReport]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/AnnualReport"
+    }
+  },
+  "Array of [CohortData](#CohortData)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/CohortData"
+    }
+  },
+  "Array of [CollectionItem]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/CollectionItem"
+    }
+  },
+  "Array of [Collection]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Collection"
+    }
+  },
+  "Array of [CustomEmoji]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/CustomEmoji"
+    }
+  },
+  "Array of [Field](#Field)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Field"
+    }
+  },
+  "Array of [FilterKeyword]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/FilterKeyword"
+    }
+  },
+  "Array of [FilterResult]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/FilterResult"
+    }
+  },
+  "Array of [FilterStatus]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/FilterStatus"
+    }
+  },
+  "Array of [InstanceIcon](#InstanceIcon)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/InstanceIcon"
+    }
+  },
+  "Array of [MediaAttachment]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/MediaAttachment"
+    }
+  },
+  "Array of [NotificationGroup](#NotificationGroup)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/NotificationGroup"
+    }
+  },
+  "Array of [PartialAccountWithAvatar]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/PartialAccountWithAvatar"
+    }
+  },
+  "Array of [Poll::Option](#Option)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/PollOption"
+    }
+  },
+  "Array of [PreviewCardAuthor]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/PreviewCardAuthor"
+    }
+  },
+  "Array of [Reaction]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Reaction"
+    }
+  },
+  "Array of [Rule]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Rule"
+    }
+  },
+  "Array of [Status::Mention](#Mention)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/StatusMention"
+    }
+  },
+  "Array of [Status::Tag](#Tag)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/StatusTag"
+    }
+  },
+  "Array of [Status::Tag]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/StatusTag"
+    }
+  },
+  "Array of [Status]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Status"
+    }
+  },
+  "Array of [TagHistory]": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/TagHistory"
+    }
+  },
+  "Array of [Tag]()": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/Tag"
+    }
+  },
+  "Array of [Translation::Attachment](#Attachment)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/TranslationAttachment"
+    }
+  },
+  "Array of [Translation::Poll::Option](#Option)": {
+    "type": "array",
+    "items": {
+      "$ref": "#/components/schemas/TranslationPollOption"
+    }
+  },
+  "Boolean": {
+    "type": "boolean"
+  },
+  "Float": {
+    "type": "number"
+  },
+  "Float or null": {
+    "type": "number"
+  },
+  "Float, or null if the attachment is not video or audio": {
+    "type": "number"
+  },
+  "Float, or null if the attachment is not visual": {
+    "type": "number"
+  },
+  "Hash": {
+    "type": "object"
+  },
+  "Hash or null": {
+    "type": "object"
+  },
+  "Integer": {
+    "type": "integer"
+  },
+  "Integer, or null if `multiple` is false.": {
+    "type": "integer"
+  },
+  "Integer, or null if results are not published yet.": {
+    "type": "integer"
+  },
+  "Integer, or null if the attachment is an image": {
+    "type": "integer"
+  },
+  "Integer, or null if the attachment is not visual": {
+    "type": "integer"
+  },
+  "Null": {
+    "type": "string",
+    "description": "Original type: Null"
+  },
+  "Number": {
+    "type": "number"
+  },
+  "Number (UNIX Timestamp)": {
+    "type": "number"
+  },
+  "String": {
+    "type": "string"
+  },
+  "String (Blurhash)": {
+    "type": "string"
+  },
+  "String (Email)": {
+    "type": "string",
+    "format": "email"
+  },
+  "String (Enumerable anyOf)": {
+    "type": "string"
+  },
+  "String (Enumerable oneOf)": {
+    "type": "string"
+  },
+  "String (Enumerable, anyOf)": {
+    "type": "string"
+  },
+  "String (Enumerable, oneOf)": {
+    "type": "string"
+  },
+  "String (HTML)": {
+    "type": "string",
+    "description": " (HTML content)"
+  },
+  "String (IP address and prefix)": {
+    "type": "string"
+  },
+  "String (IP address)": {
+    "type": "string"
+  },
+  "String (ISO 639-1 language code)": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 language two-letter code)": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 language two-letter code), or null": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 language two-letter code, or empty string)": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 two-letter code)": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 two-letter language code)": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (ISO 639-1 two-letter language code) or null": {
+    "type": "string",
+    "format": "iso-639-1"
+  },
+  "String (SHA256)": {
+    "type": "string"
+  },
+  "String (UNIX timestamp)": {
+    "type": "string"
+  },
+  "String (URL)": {
+    "type": "string",
+    "format": "uri"
+  },
+  "String (URL) or null": {
+    "type": "string",
+    "format": "uri"
+  },
+  "String (URL), or null if the attachment is local": {
+    "type": "string",
+    "format": "uri"
+  },
+  "String (URLs or `\"urn:ietf:wg:oauth:2.0:oob\"` as values)": {
+    "type": "string",
+    "format": "uri"
+  },
+  "String ([Date](/api/datetime-format#date) or [Datetime](/api/datetime-format#datetime))": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Date](/api/datetime-format#date))": {
+    "type": "string",
+    "format": "date"
+  },
+  "String ([Date](/api/datetime-format#date)), or null if no statuses": {
+    "type": "string",
+    "format": "date"
+  },
+  "String ([Datetime](/api/datetime-format#datetime))": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Datetime](/api/datetime-format#datetime)) if `value` is a verified URL. Otherwise, null.": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Datetime](/api/datetime-format#datetime)) or null": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Datetime](/api/datetime-format#datetime)), or null if the filter does not expire": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Datetime](/api/datetime-format#datetime)), or null if the mute is indefinite": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String ([Datetime](/api/datetime-format#datetime)), or null if the poll does not end": {
+    "type": "string",
+    "format": "date-time"
+  },
+  "String (cast from an integer but not guaranteed to be a number)": {
+    "type": "string"
+  },
+  "String (cast from an integer but not guaranteed to be a number) or null": {
+    "type": "string"
+  },
+  "String (cast from an integer)": {
+    "type": "string"
+  },
+  "String (cast from an integer, but not guaranteed to be a number)": {
+    "type": "string"
+  },
+  "String (cast from integer but not guaranteed to be a number)": {
+    "type": "string"
+  },
+  "String (cast from integer)": {
+    "type": "string"
+  },
+  "String (cast from integer), or null": {
+    "type": "string"
+  },
+  "String (cast from integer, but not guaranteed to be a number)": {
+    "type": "string"
+  },
+  "String (fraction), or null if the attachment is not a video": {
+    "type": "string"
+  },
+  "String (in the form of `12x34`, where `12` is the width and `34` is the height of the icon)": {
+    "type": "string"
+  },
+  "String (one of `accept`, `filter` or `drop`)": {
+    "type": "string"
+  },
+  "String (raw text)": {
+    "type": "string"
+  },
+  "String or null": {
+    "type": "string"
+  },
+  "String, or null": {
+    "type": "string"
+  },
+  "String, or null for local accounts": {
+    "type": "string"
+  },
+  "String, or null if alternate text was not provided for the media attachment": {
+    "type": "string"
+  },
+  "Strings": {
+    "type": "string"
+  },
+  "[AccountRole](#AccountRole)": {
+    "$ref": "#/components/schemas/AccountRole"
+  },
+  "[AccountWarning]()": {
+    "$ref": "#/components/schemas/AccountWarning"
+  },
+  "[Account]()": {
+    "$ref": "#/components/schemas/Account"
+  },
+  "[Account]() or null": {
+    "$ref": "#/components/schemas/Account"
+  },
+  "[Account](), or null if the profile has not moved or is suspended.": {
+    "$ref": "#/components/schemas/Account"
+  },
+  "[Admin::Account]()": {
+    "$ref": "#/components/schemas/AdminAccount"
+  },
+  "[Admin::Account]() or null": {
+    "$ref": "#/components/schemas/AdminAccount"
+  },
+  "[Admin::DimensionData]": {
+    "$ref": "#/components/schemas/AdminDimensionData"
+  },
+  "[Admin::EmailDomainBlockHistory]": {
+    "$ref": "#/components/schemas/AdminEmailDomainBlockHistory"
+  },
+  "[Admin::Ip]()": {
+    "$ref": "#/components/schemas/AdminIp"
+  },
+  "[Admin::MeasureData]": {
+    "$ref": "#/components/schemas/AdminMeasureData"
+  },
+  "[Announcement::Account](#Account)": {
+    "$ref": "#/components/schemas/AnnouncementAccount"
+  },
+  "[Announcement::Status](#Status)": {
+    "$ref": "#/components/schemas/AnnouncementStatus"
+  },
+  "[AnnualReport]()": {
+    "$ref": "#/components/schemas/AnnualReport"
+  },
+  "[Appeal](), or null": {
+    "$ref": "#/components/schemas/Appeal"
+  },
+  "[CohortData](#CohortData)": {
+    "$ref": "#/components/schemas/CohortData"
+  },
+  "[CollectionItem]()": {
+    "$ref": "#/components/schemas/CollectionItem"
+  },
+  "[Collection]()": {
+    "$ref": "#/components/schemas/Collection"
+  },
+  "[CustomEmoji]()": {
+    "$ref": "#/components/schemas/CustomEmoji"
+  },
+  "[FeatureApproval]()": {
+    "$ref": "#/components/schemas/FeatureApproval"
+  },
+  "[Field](#Field)": {
+    "$ref": "#/components/schemas/Field"
+  },
+  "[FilterKeyword]()": {
+    "$ref": "#/components/schemas/FilterKeyword"
+  },
+  "[FilterResult]()": {
+    "$ref": "#/components/schemas/FilterResult"
+  },
+  "[FilterStatus]()": {
+    "$ref": "#/components/schemas/FilterStatus"
+  },
+  "[Filter]()": {
+    "$ref": "#/components/schemas/Filter"
+  },
+  "[InstanceIcon](#InstanceIcon)": {
+    "$ref": "#/components/schemas/InstanceIcon"
+  },
+  "[MediaAttachment]()": {
+    "$ref": "#/components/schemas/MediaAttachment"
+  },
+  "[MetaDetails](#MetaDetails) or null": {
+    "$ref": "#/components/schemas/MetaDetails"
+  },
+  "[NotificationFallback]()": {
+    "$ref": "#/components/schemas/NotificationFallback"
+  },
+  "[NotificationGroup](#NotificationGroup)": {
+    "$ref": "#/components/schemas/NotificationGroup"
+  },
+  "[PartialAccountWithAvatar]()": {
+    "$ref": "#/components/schemas/PartialAccountWithAvatar"
+  },
+  "[Poll::Option](#Option)": {
+    "$ref": "#/components/schemas/PollOption"
+  },
+  "[Poll]() or null": {
+    "$ref": "#/components/schemas/Poll"
+  },
+  "[PreviewCardAuthor]()": {
+    "$ref": "#/components/schemas/PreviewCardAuthor"
+  },
+  "[PreviewCard]() or null": {
+    "$ref": "#/components/schemas/PreviewCard"
+  },
+  "[QuoteApproval]()": {
+    "$ref": "#/components/schemas/QuoteApproval"
+  },
+  "[Quote]() or [ShallowQuote]()": {
+    "oneOf": [
+      {
+        "$ref": "#/components/schemas/Quote"
+      },
+      {
+        "$ref": "#/components/schemas/ShallowQuote"
+      }
+    ]
+  },
+  "[Quote](), [ShallowQuote]() or null": {
+    "oneOf": [
+      {
+        "$ref": "#/components/schemas/Quote"
+      },
+      {
+        "$ref": "#/components/schemas/ShallowQuote"
+      }
+    ]
+  },
+  "[Reaction]()": {
+    "$ref": "#/components/schemas/Reaction"
+  },
+  "[RelationshipSeveranceEvent]()": {
+    "$ref": "#/components/schemas/RelationshipSeveranceEvent"
+  },
+  "[Report]()": {
+    "$ref": "#/components/schemas/Report"
+  },
+  "[Role]()": {
+    "$ref": "#/components/schemas/Role"
+  },
+  "[Rule]()": {
+    "$ref": "#/components/schemas/Rule"
+  },
+  "[ShallowTag]()": {
+    "$ref": "#/components/schemas/ShallowTag"
+  },
+  "[Status::Mention](#Mention)": {
+    "$ref": "#/components/schemas/StatusMention"
+  },
+  "[Status::Tag](#Tag)": {
+    "$ref": "#/components/schemas/StatusTag"
+  },
+  "[Status::Tag]()": {
+    "$ref": "#/components/schemas/StatusTag"
+  },
+  "[Status]()": {
+    "$ref": "#/components/schemas/Status"
+  },
+  "[Status]() or null": {
+    "$ref": "#/components/schemas/Status"
+  },
+  "[TagHistory]": {
+    "$ref": "#/components/schemas/TagHistory"
+  },
+  "[Tag]()": {
+    "$ref": "#/components/schemas/Tag"
+  },
+  "[Translation::Attachment](#Attachment)": {
+    "$ref": "#/components/schemas/TranslationAttachment"
+  },
+  "[Translation::Poll::Option](#Option)": {
+    "$ref": "#/components/schemas/TranslationPollOption"
+  },
+  "[Translation::Poll](#Poll)": {
+    "$ref": "#/components/schemas/TranslationPoll"
+  },
+  "integer": {
+    "type": "integer"
+  }
+}
