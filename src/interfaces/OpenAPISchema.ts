@@ -3,10 +3,17 @@ interface OpenAPILicense {
   url?: string;
 }
 
+interface OpenAPIContact {
+  name?: string;
+  url?: string;
+  email?: string;
+}
+
 interface OpenAPIInfo {
   title: string;
   version: string;
   description?: string;
+  contact?: OpenAPIContact;
   license?: OpenAPILicense;
   'x-logo'?: {
     url: string;
@@ -181,6 +188,7 @@ interface OpenAPISpec {
 
 export {
   OpenAPILicense,
+  OpenAPIContact,
   OpenAPIInfo,
   OpenAPIServer,
   OpenAPIExternalDocs,

@@ -71,6 +71,10 @@ class SpecBuilder {
         title: 'Mastodon API',
         version: SUPPORTED_VERSION,
         description,
+        contact: {
+          name: 'Abraham Williams',
+          email: 'hi@abrah.am',
+        },
         license: {
           name: 'GFDL-1.3',
           url: 'https://www.gnu.org/licenses/fdl-1.3.en.html',
