@@ -1,11 +1,20 @@
 import { SpecBuilder } from '../../generators/SpecBuilder';
-import { readFileSync } from 'fs';
+import { Config, getConfig } from '../../config';
 
-// Mock fs to control config.json content
-jest.mock('fs');
-const mockReadFileSync = readFileSync as jest.MockedFunction<
-  typeof readFileSync
->;
+// Mock only getConfig so path helpers keep resolving real documentation
+jest.mock('../../config', () => ({
+  ...jest.requireActual('../../config'),
+  getConfig: jest.fn(),
+}));
+const mockGetConfig = getConfig as jest.MockedFunction<typeof getConfig>;
+
+const baseConfig: Config = {
+  mastodonDocsCommit: 'test123commit456',
+  mastodonSecurityCommit: '0000000000000000000000000000000000000000',
+  blockedFiles: [],
+  overridesRepository: 'https://github.com/example/documentation',
+  overrideCommits: [],
+};
 
 // Mock VersionParser to control SUPPORTED_VERSION and MINIMUM_VERSION
 jest.mock('../../parsers/VersionParser', () => ({
@@ -49,10 +58,11 @@ describe('SpecBuilder', () => {
       // Mock config.json with a test commit SHA
       const testCommitSha = 'abc123def456789';
       const mockConfig = {
+        ...baseConfig,
         mastodonDocsCommit: testCommitSha,
       };
 
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(mockConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -68,10 +78,11 @@ describe('SpecBuilder', () => {
       const fullCommitSha = 'cae24a64155b75631b5ad37029c2d9747ffc1c43';
       const expectedTruncated = 'cae24a6';
       const mockConfig = {
+        ...baseConfig,
         mastodonDocsCommit: fullCommitSha,
       };
 
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(mockConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -84,12 +95,11 @@ describe('SpecBuilder', () => {
       // Mock config.json with a test commit SHA
       const testCommitSha = 'abcdef1234567890abcdef1234567890abcdef12';
       const mockConfig = {
+        ...baseConfig,
         mastodonDocsCommit: testCommitSha,
-        mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.3.0',
       };
 
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(mockConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -103,12 +113,11 @@ describe('SpecBuilder', () => {
       // Mock config.json
       const testCommitSha = 'test123commit456';
       const mockConfig = {
+        ...baseConfig,
         mastodonDocsCommit: testCommitSha,
-        mastodonVersion: '4.3.0',
-        minimumMastodonVersion: '4.3.0',
       };
 
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(mockConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -125,11 +134,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should have a single OAuth2 security scheme with both flows', () => {
-      const mockConfig = {
-        mastodonDocsCommit: 'test123commit456',
-      };
-
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(baseConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -149,11 +154,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should use path-only URLs for OAuth2 flows', () => {
-      const mockConfig = {
-        mastodonDocsCommit: 'test123commit456',
-      };
-
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(baseConfig);
 
       const spec = specBuilder.buildInitialSpec();
 
@@ -170,11 +171,7 @@ describe('SpecBuilder', () => {
     });
 
     it('should include scopes for both OAuth2 flows', () => {
-      const mockConfig = {
-        mastodonDocsCommit: 'test123commit456',
-      };
-
-      mockReadFileSync.mockReturnValue(JSON.stringify(mockConfig));
+      mockGetConfig.mockReturnValue(baseConfig);
 
       const spec = specBuilder.buildInitialSpec();
 

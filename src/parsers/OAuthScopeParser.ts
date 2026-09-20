@@ -1,16 +1,13 @@
 import * as fs from 'fs';
-import * as path from 'path';
 import matter from 'gray-matter';
 import { OAuthScope, OAuthScopeCollection } from '../interfaces/OAuthScope';
+import { docsContentPath } from '../config';
 
 class OAuthScopeParser {
   private oauthScopesPath: string;
 
   constructor() {
-    this.oauthScopesPath = path.join(
-      __dirname,
-      '../../mastodon-documentation/content/en/api/oauth-scopes.md'
-    );
+    this.oauthScopesPath = docsContentPath('api', 'oauth-scopes.md');
   }
 
   public parseOAuthScopes(): OAuthScopeCollection {

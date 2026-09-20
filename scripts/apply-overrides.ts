@@ -1,20 +1,14 @@
 #!/usr/bin/env ts-node
 
 import fs from 'fs';
-import path from 'path';
 import { execSync } from 'child_process';
+import { getConfig, DOCS_ROOT } from '../src/config';
 
 /**
  * Apply override commits to the mastodon-documentation repository
  */
 function applyOverrides(): void {
-  const configPath = path.join(__dirname, '..', 'config.json');
-  const docsDir = path.join(__dirname, '..', 'mastodon-documentation');
-
-  if (!fs.existsSync(configPath)) {
-    console.error('config.json not found');
-    process.exit(1);
-  }
+  const docsDir = DOCS_ROOT;
 
   if (!fs.existsSync(docsDir)) {
     console.error(
@@ -23,8 +17,8 @@ function applyOverrides(): void {
     process.exit(1);
   }
 
-  const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-  const overrideCommits = config.overrideCommits || [];
+  const config = getConfig();
+  const overrideCommits = config.overrideCommits;
   const overridesRepository = config.overridesRepository;
 
   // Exit early if no overrides to apply

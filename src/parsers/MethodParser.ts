@@ -7,6 +7,7 @@ import { ParameterParser } from './ParameterParser';
 import { TextUtils } from './TextUtils';
 import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
+import { getConfig, docsContentPath } from '../config';
 
 class MethodParser {
   private methodsPath: string;
@@ -17,28 +18,19 @@ class MethodParser {
     /^([A-Z][a-zA-Z0-9_]*)\s+(was|is|will be|has been|have been)/;
 
   constructor() {
-    this.methodsPath = path.join(
-      __dirname,
-      '../../mastodon-documentation/content/en/methods'
-    );
+    this.methodsPath = docsContentPath('methods');
   }
 
   public parseAllMethods(): ApiMethodsFile[] {
     const methodFiles: ApiMethodsFile[] = [];
 
     if (!fs.existsSync(this.methodsPath)) {
-      console.error(`Methods path does not exist: ${this.methodsPath}`);
-      return methodFiles;
+      throw new Error(
+        `Methods path does not exist: ${this.methodsPath}. Run \`npm run setup-docs\`.`
+      );
     }
 
-    // Load blocked files from config
-    let blockedFiles: string[] = [];
-    try {
-      const config = JSON.parse(fs.readFileSync('config.json', 'utf8'));
-      blockedFiles = config.blockedFiles || [];
-    } catch (error) {
-      console.warn('Could not load blockedFiles from config.json:', error);
-    }
+    const blockedFiles = getConfig().blockedFiles;
 
     const files = fs
       .readdirSync(this.methodsPath)
@@ -64,7 +56,10 @@ class MethodParser {
           methodFiles.push(methodFile);
         }
       } catch (error) {
-        console.error(`Error parsing method file ${file}:`, error);
+        throw new Error(
+          `Error parsing method file ${file}: ${(error as Error).message}`,
+          { cause: error }
+        );
       }
     }
 
