@@ -13,6 +13,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "clean": "rm -rf dist",
+    "typecheck": "tsc --noEmit && tsc --noEmit -p scripts/tsconfig.json",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",

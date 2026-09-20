@@ -23,17 +23,12 @@ describe('AttributeParser heading recognition', () => {
     expect(attributes).toEqual([]);
   });
 
-  /**
-   * Current behaviour, not desired behaviour: an attribute heading with no
-   * blank line after it is skipped, which is why Instance.configuration.vapid
-   * is absent from the schema. Pinned so fixing it upstream is deliberate.
-   * See docs/pipeline-rewrite.md §10 D13.
-   */
-  it('drops an attribute whose heading is not followed by a blank line', () => {
+  it('reads an attribute whose heading is not followed by a blank line', () => {
     const attributes = AttributeParser.parseAttributesFromSection(
       `#### \`public_key\` {#public_key}\n${attributeBlock}\n`
     );
 
-    expect(attributes).toEqual([]);
+    expect(attributes.map((a) => a.name)).toEqual(['public_key']);
+    expect(attributes[0].type).toBe('String');
   });
 });

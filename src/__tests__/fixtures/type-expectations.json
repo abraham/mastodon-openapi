@@ -309,8 +309,7 @@
     "type": "integer"
   },
   "Null": {
-    "type": "string",
-    "description": "Original type: Null"
+    "type": "null"
   },
   "Number": {
     "type": "number"

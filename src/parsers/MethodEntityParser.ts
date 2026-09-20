@@ -6,6 +6,7 @@ import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { responseEntityNameFor } from '../overrides/overrides';
 import { splitOutsideFences } from '../document/blocks';
+import { resolveRelrefs } from '../document/shortcodes';
 
 /**
  * Handles parsing entities from method documentation files
@@ -16,7 +17,7 @@ export class MethodEntityParser {
    * @param content Raw markdown, including frontmatter
    */
   static parseEntitiesFromMethodFile(content: string): EntityClass[] {
-    const parsed = matter(content);
+    const parsed = matter(resolveRelrefs(content));
 
     // Skip draft files
     if (parsed.data.draft === true) {

@@ -789,7 +789,7 @@
       "post": {
         "operationId": "postAccountBlock",
         "summary": "Block account",
-        "description": "[Blocks]({{< relref \"user/moderating#block\">}}) the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
+        "description": "[Blocks](https://docs.joinmastodon.org/user/moderating/#block) the given account.\n\nVersion history:\n\n0.0.0 - added\\\n3.5.0 - deprecated `follow` scope. now additionally accepts `write`",
         "tags": [
           "accounts"
         ],
@@ -3744,7 +3744,7 @@
     },
     "/api/v1/accounts/familiar_followers": {
       "get": {
-        "operationId": "getAccountsFamiliarFollowers",
+        "operationId": "getAccountFamiliarFollowers",
         "summary": "Find familiar followers",
         "description": "Obtain a list of all accounts that follow a given account, filtered for accounts you follow.\n\nVersion history:\n\n3.5.0 - added",
         "tags": [
@@ -4362,7 +4362,7 @@
     },
     "/api/v1/accounts/update_credentials": {
       "patch": {
-        "operationId": "patchAccountsUpdateCredentials",
+        "operationId": "patchAccountUpdateCredentials",
         "summary": "Update account credentials",
         "description": "Update the user's display and preferences.\n\nVersion history:\n\n1.1.1 - added\\\n2.3.0 - added `locked` parameter\\\n2.4.0 - added `source[privacy,sensitive]` parameters\\\n2.4.2 - added `source[language]` parameter\\\n2.7.0 - added `discoverable` parameter\\\n4.1.0 - added `hide_collections` parameter\\\n4.2.0 - added `indexable` parameter\\\n4.4.0 (`mastodon` [API version] 3) - added `attribution_domains` parameter\\\n4.5.0 (`mastodon` [API version] 7) - added `quote_policy` parameter\\\n4.6.1 (`mastodon` [API version] 11) - added `avatar_description` and `header_description` parameter",
         "tags": [
@@ -4523,7 +4523,21 @@
                   },
                   "fields_attributes": {
                     "type": "object",
-                    "description": "The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields (specified in [Instance#max_profile_fields])."
+                    "description": "The profile fields to be set. Inside this hash, the key is an integer cast to a string (although the exact integer does not matter), and the value is another hash including `name` and `value`. By default, max 4 fields (specified in [Instance#max_profile_fields]).",
+                    "properties": {},
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the profile field. By default, max 255 characters (specified in [Instance#profile_field_name_limit])."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The value of the profile field. By default, max 255 characters (specified in [Instance#profile_field_value_limit])."
+                        }
+                      }
+                    }
                   },
                   "header": {
                     "type": "string",
@@ -4581,7 +4595,7 @@
     },
     "/api/v1/accounts/verify_credentials": {
       "get": {
-        "operationId": "getAccountsVerifyCredentials",
+        "operationId": "getAccountVerifyCredentials",
         "summary": "Verify account credentials",
         "description": "Test to make sure that the user token works.\n\nVersion history:\n\n0.0.0 - added\\\n4.3.0 - added `profile` scope",
         "tags": [
@@ -5270,6 +5284,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/WrappedAnnualReports"
+                },
+                "examples": {
+                  "WrappedAnnualReports200Example": {
+                    "$ref": "#/components/examples/WrappedAnnualReports200Example"
+                  }
                 }
               }
             }
@@ -5368,7 +5387,7 @@
     },
     "/api/v1/annual_reports/{year}": {
       "get": {
-        "operationId": "getAnnualReportsByYear",
+        "operationId": "getAnnualReport",
         "summary": "Get a single annual report",
         "description": "Returns the current user's generated annual report for the given year, if it exists.\n\nVersion history:\n\n4.4.0 - added",
         "tags": [
@@ -5392,6 +5411,11 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/WrappedAnnualReports"
+                },
+                "examples": {
+                  "WrappedAnnualReports200Example": {
+                    "$ref": "#/components/examples/WrappedAnnualReports200Example"
+                  }
                 }
               }
             }
@@ -6053,7 +6077,7 @@
     },
     "/api/v1/apps/verify_credentials": {
       "get": {
-        "operationId": "getAppsVerifyCredentials",
+        "operationId": "getAppVerifyCredentials",
         "summary": "Verify your app works",
         "description": "Confirm that the app's OAuth2 credentials work.\n\nVersion history:\n\n2.0.0 - added\\\n2.7.2 - now returns `vapid_key`\\\n4.3.0 - deprecated `vapid_key`, please see [api/v2/instance]\\\n4.3.0 - removed needing `read` scope to access this API, now any valid App token can be used\\\n4.3.0 - added `scopes` and `redirect_uris` properties",
         "tags": [
@@ -7150,7 +7174,7 @@
     },
     "/api/v1/collections/{collection_id}/items/{id}/revoke": {
       "post": {
-        "operationId": "postCollectionsByCollectionIdItemsByIdRevoke",
+        "operationId": "postCollectionItemRevoke",
         "summary": "Revoke inclusion in a Collection",
         "description": "Remove the current user from a Collection created by a different user.\n\nVersion history:\n\n4.6.0 (`mastodon` [API version] 10) - added",
         "tags": [
@@ -10962,7 +10986,7 @@
                   },
                   "keywords_attributes": {
                     "type": "array",
-                    "description": "Array of objects with properties: keyword, whole_word, id, _destroy",
+                    "description": "Array of objects with properties: keyword, whole_word",
                     "items": {
                       "type": "object",
                       "properties": {
@@ -10973,14 +10997,6 @@
                         "whole_word": {
                           "type": "boolean",
                           "description": "Whether the keyword should consider word boundaries."
-                        },
-                        "id": {
-                          "type": "string",
-                          "description": "Will cause a 404 error if provided."
-                        },
-                        "_destroy": {
-                          "type": "boolean",
-                          "description": "Will cause the keyword to not be attached if provided."
                         }
                       }
                     }
@@ -12051,7 +12067,7 @@
     },
     "/api/v2/filters/keywords/{id}": {
       "get": {
-        "operationId": "getFiltersKeywordsByIdV2",
+        "operationId": "getFilterKeywordV2",
         "summary": "View a single keyword",
         "description": "Get one filter keyword by the given id.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -12187,7 +12203,7 @@
         ]
       },
       "put": {
-        "operationId": "updateFiltersKeywordsByIdV2",
+        "operationId": "updateFilterKeywordV2",
         "summary": "Edit a keyword within a filter",
         "description": "Update the given filter keyword.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -12347,7 +12363,7 @@
         }
       },
       "delete": {
-        "operationId": "deleteFiltersKeywordsByIdV2",
+        "operationId": "deleteFilterKeywordV2",
         "summary": "Remove keywords from a filter",
         "description": "Deletes the given filter keyword.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -12473,7 +12489,7 @@
     },
     "/api/v2/filters/statuses/{id}": {
       "get": {
-        "operationId": "getFiltersStatusesByIdV2",
+        "operationId": "getFilterStatusV2",
         "summary": "View a single status filter",
         "description": "Obtain a single status filter.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -12609,7 +12625,7 @@
         ]
       },
       "delete": {
-        "operationId": "deleteFiltersStatusesByIdV2",
+        "operationId": "deleteFilterStatusV2",
         "summary": "Remove a status from a filter group",
         "description": "Remove a status filter from the current filter group.\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -13471,7 +13487,7 @@
       "get": {
         "operationId": "getInstance",
         "summary": "View server information (v1)",
-        "description": "Obtain general information about the server. See [api/v2/instance]({{< relref \"methods/Instance#v2\">}}) instead.\n\nVersion history:\n\n1.1.0 - added\\\n3.0.0 - requires user token if instance is in whitelist mode\\\n3.1.4 - added `invites_enabled` to response\\\n3.4.0 - added `rules`\\\n3.4.2 - added `configuration`\\\n4.0.0 - deprecated. added `configuration[accounts]`.",
+        "description": "Obtain general information about the server. See [api/v2/instance](https://docs.joinmastodon.org/methods/Instance/#v2) instead.\n\nVersion history:\n\n1.1.0 - added\\\n3.0.0 - requires user token if instance is in whitelist mode\\\n3.1.4 - added `invites_enabled` to response\\\n3.4.0 - added `rules`\\\n3.4.2 - added `configuration`\\\n4.0.0 - deprecated. added `configuration[accounts]`.",
         "tags": [
           "instance"
         ],
@@ -18162,7 +18178,7 @@
     },
     "/api/v1/notifications/requests/{id}": {
       "get": {
-        "operationId": "getNotificationsRequestsById",
+        "operationId": "getNotificationRequest",
         "summary": "Get a single notification request",
         "description": "View information about a notification request with a given ID.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18300,7 +18316,7 @@
     },
     "/api/v1/notifications/requests/{id}/accept": {
       "post": {
-        "operationId": "postNotificationsRequestsByIdAccept",
+        "operationId": "postNotificationRequestAccept",
         "summary": "Accept a single notification request",
         "description": "Accept a notification request, which merges the filtered notifications from that user back into the main notification and accepts any future notification from them.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18426,7 +18442,7 @@
     },
     "/api/v1/notifications/requests/{id}/dismiss": {
       "post": {
-        "operationId": "postNotificationsRequestsByIdDismiss",
+        "operationId": "postNotificationRequestDismiss",
         "summary": "Dismiss a single notification request",
         "description": "Dismiss a notification request, which hides it and prevent it from contributing to the pending notification requests count.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18552,7 +18568,7 @@
     },
     "/api/v1/notifications/requests/accept": {
       "post": {
-        "operationId": "createNotificationsRequestsAccept",
+        "operationId": "createNotificationRequestAccept",
         "summary": "Accept multiple notification requests",
         "description": "Accepts multiple notification requests, which merges the filtered notifications from those users back into the main notifications and accepts any future notification from them.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18667,7 +18683,7 @@
     },
     "/api/v1/notifications/requests/dismiss": {
       "post": {
-        "operationId": "createNotificationsRequestsDismiss",
+        "operationId": "createNotificationRequestDismiss",
         "summary": "Dismiss multiple notification requests",
         "description": "Dismiss multiple notification requests, which hides them and prevent them from contributing to the pending notification requests count.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18782,7 +18798,7 @@
     },
     "/api/v1/notifications/requests/merged": {
       "get": {
-        "operationId": "getNotificationsRequestsMerged",
+        "operationId": "getNotificationRequestMerged",
         "summary": "Check if accepted notification requests have been merged",
         "description": "Check whether accepted notification requests have been merged.\n\nVersion history:\n\n4.3.0 - added",
         "tags": [
@@ -18909,7 +18925,7 @@
     },
     "/api/v1/notifications/unread_count": {
       "get": {
-        "operationId": "getNotificationsUnreadCount",
+        "operationId": "getNotificationUnreadCount",
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notifications for the current user.",
         "tags": [
@@ -19326,7 +19342,7 @@
     },
     "/api/v2/notifications/{group_key}": {
       "get": {
-        "operationId": "getNotificationsByGroupKeyV2",
+        "operationId": "getNotificationV2",
         "summary": "Get a single notification group",
         "description": "View information about a specific notification group with a given group key.\n\nVersion history:\n\n4.3.0 (`mastodon` [API version] 2) - added\\\n4.6.0 (`mastodon` [API version] 10) - added `supported_types` optional parameter",
         "tags": [
@@ -19995,7 +20011,7 @@
     },
     "/api/v2/notifications/unread_count": {
       "get": {
-        "operationId": "getNotificationsUnreadCountV2",
+        "operationId": "getNotificationUnreadCountV2",
         "summary": "Get the number of unread notifications",
         "description": "Get the (capped) number of unread notification groups for the current user.",
         "tags": [
@@ -21706,7 +21722,21 @@
                   },
                   "fields_attributes": {
                     "type": "object",
-                    "description": "The profile fields to be set. Each hash includes `name` and `value`. By default, max 4 fields (specified in [Instance#max_profile_fields])."
+                    "description": "The profile fields to be set. Each hash includes `name` and `value`. By default, max 4 fields (specified in [Instance#max_profile_fields]).",
+                    "properties": {},
+                    "additionalProperties": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "The name of the profile field. By default, max 255 characters (specified in [Instance#profile_field_name_limit])."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The value of the profile field. By default, max 255 characters (specified in [Instance#profile_field_value_limit])."
+                        }
+                      }
+                    }
                   },
                   "header": {
                     "type": "string",
@@ -21753,7 +21783,7 @@
     },
     "/api/v1/profile/avatar": {
       "delete": {
-        "operationId": "deleteAvatar",
+        "operationId": "deleteProfileAvatar",
         "summary": "Delete profile avatar",
         "description": "Version history:\n\n4.2.0 - added\n\nDeletes the avatar associated with the user's profile.",
         "tags": [
@@ -23725,7 +23755,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -24582,7 +24612,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -24926,7 +24956,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -25597,7 +25627,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -25800,7 +25830,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -26132,7 +26162,7 @@
     },
     "/api/v1/statuses/{id}/quotes/{quoting_status_id}/revoke": {
       "post": {
-        "operationId": "postStatusesByIdQuotesByQuotingStatusIdRevoke",
+        "operationId": "postStatusQuoteRevoke",
         "summary": "Revoke a quote post",
         "description": "Revoke quote authorization of status `quoting_status_id`, detaching status `id`.\n\nVersion history:\n\n4.5.0 (`mastodon` [API version] 7) - added",
         "tags": [
@@ -26175,7 +26205,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -26402,7 +26432,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -27104,7 +27134,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -27307,7 +27337,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -27510,7 +27540,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -27713,7 +27743,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -27916,7 +27946,7 @@
                 "$ref": "#/components/links/getStatusContextById"
               },
               "postStatusAction": {
-                "$ref": "#/components/links/postStatusesByIdQuotesByQuotingStatusIdRevokeById"
+                "$ref": "#/components/links/postStatusQuoteRevokeById"
               },
               "getRebloggedBy": {
                 "$ref": "#/components/links/getStatusRebloggedByById"
@@ -29460,7 +29490,7 @@
     },
     "/api/v1/suggestions/{account_id}": {
       "delete": {
-        "operationId": "deleteSuggestionsByAccountId",
+        "operationId": "deleteSuggestion",
         "summary": "Remove a suggestion",
         "description": "Remove an account from follow suggestions.\n\nVersion history:\n\n2.4.3 - added",
         "tags": [
@@ -30004,7 +30034,7 @@
     },
     "/api/v1/tags/{name}": {
       "get": {
-        "operationId": "getTagsByName",
+        "operationId": "getTag",
         "summary": "View information about a single tag",
         "description": "Show a hashtag and its associated information\n\nVersion history:\n\n4.0.0 - added",
         "tags": [
@@ -30960,7 +30990,7 @@
     },
     "/api/v1/timelines/list/{list_id}": {
       "get": {
-        "operationId": "getTimelinesListByListId",
+        "operationId": "getTimelineList",
         "summary": "View list timeline",
         "description": "View statuses in the given list timeline.\n\nVersion history:\n\n2.1.0 - added\\\n2.6.0 - add `min_id`\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now",
         "tags": [
@@ -31343,7 +31373,7 @@
     },
     "/api/v1/timelines/tag/{hashtag}": {
       "get": {
-        "operationId": "getTimelinesTagByHashtag",
+        "operationId": "getTimelineTagByHashtag",
         "summary": "View hashtag timeline",
         "description": "View public statuses containing the given hashtag.\n\nVersion history:\n\n0.0.0 - added\\\n2.3.0 - added `only_media`\\\n2.6.0 - add `min_id`\\\n2.7.0 - add `any[]`, `all[]`, `none[]` for additional tags\\\n3.0.0 - auth is required if public preview is disabled\\\n3.3.0 - both `min_id` and `max_id` can be used at the same time now. add `remote`\\\n4.5.0 - add [access control settings]",
         "tags": [
@@ -32314,7 +32344,7 @@
             ]
           },
           "feature_approval": {
-            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "description": "Summary of the account's policy with regards to being featured in a [Collection](https://docs.joinmastodon.org/entities/Collection/) and how it applies to the user making the request.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/FeatureApproval"
@@ -32615,7 +32645,7 @@
             "$ref": "#/components/schemas/Role"
           },
           "source": {
-            "description": "An extra attribute that contains source values to be used with API methods that [verify credentials]({{< relref \"methods/accounts#verify_credentials\" >}}) and [update credentials]({{< relref \"methods/accounts#update_credentials\" >}}).",
+            "description": "An extra attribute that contains source values to be used with API methods that [verify credentials](https://docs.joinmastodon.org/methods/accounts/#verify_credentials) and [update credentials](https://docs.joinmastodon.org/methods/accounts/#update_credentials).",
             "type": "object",
             "properties": {
               "fields": {
@@ -32724,7 +32754,7 @@
             ]
           },
           "feature_approval": {
-            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "description": "Summary of the account's policy with regards to being featured in a [Collection](https://docs.joinmastodon.org/entities/Collection/) and how it applies to the user making the request.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/FeatureApproval"
@@ -32975,7 +33005,7 @@
             ]
           },
           "feature_approval": {
-            "description": "Summary of the account's policy with regards to being featured in a [Collection]({{< relref \"entities/Collection\" >}}) and how it applies to the user making the request.",
+            "description": "Summary of the account's policy with regards to being featured in a [Collection](https://docs.joinmastodon.org/entities/Collection/) and how it applies to the user making the request.",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/FeatureApproval"
@@ -33362,7 +33392,7 @@
             "type": "string"
           },
           "created_by_application_id": {
-            "description": "The ID of the [Application]({{< relref \"entities/application\" >}}) that created this account, if applicable.",
+            "description": "The ID of the [Application](https://docs.joinmastodon.org/entities/application/) that created this account, if applicable.",
             "type": [
               "string",
               "null"
@@ -33383,7 +33413,7 @@
             ]
           },
           "invited_by_account_id": {
-            "description": "The ID of the [Account]({{< relref \"entities/account\" >}}) that invited this user, if applicable.",
+            "description": "The ID of the [Account](https://docs.joinmastodon.org/entities/account/) that invited this user, if applicable.",
             "type": [
               "string",
               "null"
@@ -33529,6 +33559,17 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Admin_Cohort/#attributes",
           "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "period": "2022-09-01T00:00:00+00:00",
+          "frequency": "month",
+          "data": [
+            {
+              "date": "2022-09-01T00:00:00+00:00",
+              "rate": 1,
+              "value": "2"
+            }
+          ]
         }
       },
       "CohortData": {
@@ -34576,7 +34617,7 @@
             "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
-            "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps]({{< relref \"methods/apps#create\" >}}). Equivalent to [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}) and [Instance#vapid_public_key]({{< relref \"entities/Instance#vapid_public_key\" >}})",
+            "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps](https://docs.joinmastodon.org/methods/apps/#create). Equivalent to [WebPushSubscription#server_key](https://docs.joinmastodon.org/entities/WebPushSubscription/#server_key) and [Instance#vapid_public_key](https://docs.joinmastodon.org/entities/Instance/#vapid_public_key)",
             "deprecated": true,
             "type": "string"
           },
@@ -34655,7 +34696,7 @@
             "$ref": "#/components/schemas/OAuthScopes"
           },
           "vapid_key": {
-            "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps]({{< relref \"methods/apps#create\" >}}). Equivalent to [WebPushSubscription#server_key]({{< relref \"entities/WebPushSubscription#server_key\" >}}) and [Instance#vapid_public_key]({{< relref \"entities/Instance#vapid_public_key\" >}})",
+            "description": "Used for Push Streaming API. Returned with [POST /api/v1/apps](https://docs.joinmastodon.org/methods/apps/#create). Equivalent to [WebPushSubscription#server_key](https://docs.joinmastodon.org/entities/WebPushSubscription/#server_key) and [Instance#vapid_public_key](https://docs.joinmastodon.org/entities/Instance/#vapid_public_key)",
             "deprecated": true,
             "type": "string"
           },
@@ -35467,7 +35508,7 @@
             "format": "date-time"
           },
           "keywords": {
-            "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
+            "description": "The keywords grouped under this filter. Omitted when part of a [FilterResult](https://docs.joinmastodon.org/entities/FilterResult/).",
             "type": [
               "array",
               "null"
@@ -35477,7 +35518,7 @@
             }
           },
           "statuses": {
-            "description": "The statuses grouped under this filter. Omitted when part of a [FilterResult]({{< relref \"entities/FilterResult\" >}}).",
+            "description": "The statuses grouped under this filter. Omitted when part of a [FilterResult](https://docs.joinmastodon.org/entities/FilterResult/).",
             "type": [
               "array",
               "null"
@@ -35533,7 +35574,7 @@
             "type": "string"
           },
           "whole_word": {
-            "description": "Should the filter consider word boundaries? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
+            "description": "Should the filter consider word boundaries? See [implementation guidelines for filters](https://docs.joinmastodon.org/api/guidelines/#filters).",
             "type": "boolean"
           }
         },
@@ -35933,7 +35974,7 @@
                 ],
                 "properties": {
                   "live_feeds": {
-                    "description": "Access restrictions on [public feeds]({{< relref \"methods/timelines#public\" >}}).",
+                    "description": "Access restrictions on [public feeds](https://docs.joinmastodon.org/methods/timelines/#public).",
                     "type": [
                       "object",
                       "null"
@@ -35966,7 +36007,7 @@
                     }
                   },
                   "hashtag_feeds": {
-                    "description": "Access restrictions on [hashtag feeds]({{< relref \"methods/timelines#tag\" >}}).",
+                    "description": "Access restrictions on [hashtag feeds](https://docs.joinmastodon.org/methods/timelines/#tag).",
                     "type": [
                       "object",
                       "null"
@@ -35998,7 +36039,7 @@
                     }
                   },
                   "trending_link_feeds": {
-                    "description": "Access restrictions on [trending link feeds]({{< relref \"methods/timelines#link\" >}}).",
+                    "description": "Access restrictions on [trending link feeds](https://docs.joinmastodon.org/methods/timelines/#link).",
                     "type": [
                       "object",
                       "null"
@@ -36030,6 +36071,19 @@
                     }
                   }
                 }
+              },
+              "vapid": {
+                "type": "object",
+                "description": "vapid object",
+                "properties": {
+                  "public_key": {
+                    "description": "The server's VAPID public key, used for push notifications, the same as [WebPushSubscription#server_key](https://docs.joinmastodon.org/entities/WebPushSubscription/#server_key).",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "public_key"
+                ]
               }
             },
             "required": [
@@ -36232,7 +36286,7 @@
             "type": "string"
           },
           "wrapstodon": {
-            "description": "The current Wrapstodon ([Annual report]({{< relref \"methods/annual_reports\" >}}) campaign identifier (year), if any.",
+            "description": "The current Wrapstodon ([Annual report](https://docs.joinmastodon.org/methods/annual_reports/) campaign identifier (year), if any.",
             "type": [
               "string",
               "null"
@@ -36831,7 +36885,7 @@
                 ]
               },
               "focus": {
-                "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails]({{< relref \"api/guidelines#focal-points\" >}}) for more.",
+                "description": "Coordinates that may be used for smart thumbnail cropping -- see [Focal points for cropped media thumbnails](https://docs.joinmastodon.org/api/guidelines/#focal-points) for more.",
                 "type": [
                   "object",
                   "null"
@@ -36872,7 +36926,7 @@
             "format": "uri"
           },
           "url": {
-            "description": "The location of the original full-size attachment. Url may be null if the file is still being processed. See [`POST /api/v2/media`]({{< relref \"methods/media\" >}}#v2).",
+            "description": "The location of the original full-size attachment. Url may be null if the file is still being processed. See [`POST /api/v2/media`](https://docs.joinmastodon.org/methods/media/#v2).",
             "type": [
               "string",
               "null"
@@ -36887,6 +36941,34 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/MediaAttachment/#attributes",
           "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "id": "22345792",
+          "type": "image",
+          "url": "https://files.mastodon.social/media_attachments/files/022/345/792/original/57859aede991da25.jpeg",
+          "preview_url": "https://files.mastodon.social/media_attachments/files/022/345/792/small/57859aede991da25.jpeg",
+          "remote_url": null,
+          "text_url": "https://mastodon.social/media/2N4uvkuUtPVrkZGysms",
+          "meta": {
+            "original": {
+              "width": 640,
+              "height": 480,
+              "size": "640x480",
+              "aspect": 1.3333333333333333
+            },
+            "small": {
+              "width": 461,
+              "height": 346,
+              "size": "461x346",
+              "aspect": 1.3323699421965318
+            },
+            "focus": {
+              "x": -0.27,
+              "y": 0.51
+            }
+          },
+          "description": "test media description",
+          "blurhash": "UFBWY:8_0Jxv4mx]t8t64.%M-:IUWGWAt6M}"
         }
       },
       "MetaDetails": {
@@ -37357,11 +37439,11 @@
         "description": "Represents a user's preferences.",
         "properties": {
           "posting:default:sensitive": {
-            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]]({{< relref \"entities/Account#source-sensitive\" >}}).",
+            "description": "Default sensitivity flag for new posts. Equivalent to [CredentialAccount#source\\[sensitive\\]](https://docs.joinmastodon.org/entities/Account/#source-sensitive).",
             "type": "boolean"
           },
           "posting:default:visibility": {
-            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]]({{< relref \"entities/Account#source-privacy\" >}}).",
+            "description": "Default visibility for new posts. Equivalent to [CredentialAccount#source\\[privacy\\]](https://docs.joinmastodon.org/entities/Account/#source-privacy).",
             "type": "string",
             "$ref": "#/components/schemas/StatusVisibilityEnum"
           },
@@ -37375,7 +37457,7 @@
             "type": "boolean"
           },
           "posting:default:language": {
-            "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]]({{< relref \"entities/Account#source-language\" >}})",
+            "description": "Default language for new posts. Equivalent to [CredentialAccount#source\\[language\\]](https://docs.joinmastodon.org/entities/Account/#source-language)",
             "type": [
               "string",
               "null"
@@ -37481,7 +37563,7 @@
             "format": "uri"
           },
           "missing_attribution": {
-            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`]({{< relref \"entities/Account#source[attribution_domains]\" >}})). This is used to prompt them to review and add the domain.",
+            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`](https://docs.joinmastodon.org/entities/Account/#source[attribution_domains])). This is used to prompt them to review and add the domain.",
             "type": [
               "boolean",
               "null"
@@ -37622,7 +37704,7 @@
             "format": "uri"
           },
           "missing_attribution": {
-            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`]({{< relref \"entities/Account#source[attribution_domains]\" >}})). This is used to prompt them to review and add the domain.",
+            "description": "True if the linked article claims to be written by the current user without the user having the article's domain in their [`attribution_domains`](https://docs.joinmastodon.org/entities/Account/#source[attribution_domains])). This is used to prompt them to review and add the domain.",
             "type": [
               "boolean",
               "null"
@@ -37766,7 +37848,7 @@
             "type": "boolean"
           },
           "note": {
-            "description": "The profile's bio or description. Unlike for [Account]({{< relref \"entities/Account\">}}), this is the raw unprocessed text, not the rendered HTML.",
+            "description": "The profile's bio or description. Unlike for [Account](https://docs.joinmastodon.org/entities/Account/), this is the raw unprocessed text, not the rendered HTML.",
             "type": "string"
           },
           "show_featured": {
@@ -37782,7 +37864,7 @@
             "type": "boolean"
           },
           "avatar": {
-            "description": "An image icon that is shown next to statuses and in the profile. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the avatar is unset.",
+            "description": "An image icon that is shown next to statuses and in the profile. Unlike for [Account](https://docs.joinmastodon.org/entities/Account/), this is nullable and will be null if the avatar is unset.",
             "type": [
               "string",
               "null"
@@ -37790,7 +37872,7 @@
             "format": "uri"
           },
           "avatar_static": {
-            "description": "A static version of the avatar. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the avatar is unset.",
+            "description": "A static version of the avatar. Unlike for [Account](https://docs.joinmastodon.org/entities/Account/), this is nullable and will be null if the avatar is unset.",
             "type": [
               "string",
               "null"
@@ -37805,7 +37887,7 @@
             ]
           },
           "header": {
-            "description": "An image banner that is shown above the profile and in profile cards. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the header is unset.",
+            "description": "An image banner that is shown above the profile and in profile cards. Unlike for [Account](https://docs.joinmastodon.org/entities/Account/), this is nullable and will be null if the header is unset.",
             "type": [
               "string",
               "null"
@@ -37813,7 +37895,7 @@
             "format": "uri"
           },
           "header_static": {
-            "description": "A static version of the header. Unlike for [Account]({{< relref \"entities/Account\">}}), this is nullable and will be null if the header is unset.",
+            "description": "A static version of the header. Unlike for [Account](https://docs.joinmastodon.org/entities/Account/), this is nullable and will be null if the header is unset.",
             "type": [
               "string",
               "null"
@@ -37896,7 +37978,7 @@
             "$ref": "#/components/schemas/QuoteStateEnum"
           },
           "quoted_status": {
-            "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`, `blocked_account`, `blocked_domain`, or `muted_account`, or the wrapping [Status]({{< relref \"entities/status\" >}}) entity has been obtained by calling `DELETE /api/v1/statuses/:id`..",
+            "description": "The status being quoted, if the quote has been accepted. This will be `null`, unless the `state` attribute is `accepted`, `blocked_account`, `blocked_domain`, or `muted_account`, or the wrapping [Status](https://docs.joinmastodon.org/entities/status/) entity has been obtained by calling `DELETE /api/v1/statuses/:id`..",
             "oneOf": [
               {
                 "$ref": "#/components/schemas/Status"
@@ -38581,10 +38663,7 @@
               },
               "scheduled_at": {
                 "description": "When the status will be scheduled. This will be null because the status is only scheduled once.",
-                "type": [
-                  "string",
-                  "null"
-                ]
+                "type": "null"
               },
               "sensitive": {
                 "description": "Whether the status will be marked as sensitive.",
@@ -38623,6 +38702,27 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/ScheduledStatus/#attributes",
           "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "id": "1",
+          "scheduled_at": "2022-09-29T00:00:00.000Z",
+          "params": {
+            "text": "test post",
+            "media_ids": null,
+            "sensitive": null,
+            "spoiler_text": null,
+            "visibility": null,
+            "language": null,
+            "scheduled_at": null,
+            "poll": null,
+            "idempotency": null,
+            "with_rate_limit": false,
+            "in_reply_to_id": null,
+            "application_id": 3,
+            "quoted_status_id": null,
+            "quote_approval_policy": "followers"
+          },
+          "media_attachments": []
         }
       },
       "Search": {
@@ -38669,6 +38769,66 @@
         "externalDocs": {
           "url": "https://docs.joinmastodon.org/entities/Search/#attributes",
           "description": "Official Mastodon API documentation"
+        },
+        "example": {
+          "accounts": [
+            {
+              "id": "180744",
+              "username": "catstar",
+              "acct": "catstar@catgram.jp",
+              "display_name": "catstar"
+            },
+            {
+              "id": "214293",
+              "username": "catsareweird",
+              "acct": "catsareweird",
+              "display_name": "Cats Are Weird"
+            }
+          ],
+          "statuses": [
+            {
+              "id": "103085519055545958",
+              "created_at": "2019-11-05T13:23:09.000Z",
+              "content": "<p>cats<br>cats never change</p>"
+            },
+            {
+              "id": "101068121469614510",
+              "created_at": "2018-11-14T06:31:48.000Z",
+              "spoiler_text": "Cats",
+              "content": "<p>Cats are inherently good at self-care. </p><p><a href=\"https://mspsocial.net/tags/cats\" class=\"mention hashtag\" rel=\"nofollow noopener noreferrer\" target=\"_blank\">#<span>cats</span></a></p>"
+            }
+          ],
+          "hashtags": [
+            {
+              "name": "cats",
+              "url": "https://mastodon.social/tags/cats",
+              "history": [
+                {
+                  "day": "1574553600",
+                  "uses": "10",
+                  "accounts": "9"
+                }
+              ]
+            },
+            {
+              "name": "catsofmastodon",
+              "url": "https://mastodon.social/tags/catsofmastodon",
+              "history": [
+                {
+                  "day": "1574553600",
+                  "uses": "6",
+                  "accounts": "5"
+                }
+              ]
+            }
+          ],
+          "collections": [
+            {
+              "id": "123456789012345678",
+              "name": "Cats",
+              "description": "Posters who are cats"
+            }
+          ]
         }
       },
       "ShallowQuote": {
@@ -38681,7 +38841,7 @@
             "$ref": "#/components/schemas/QuoteStateEnum"
           },
           "quoted_status_id": {
-            "description": "The identifier of the status being quoted. This will be `null`, unless the `state` attribute is one of `accepted`, `blocked_account`, `blocked_domain` or `muted_account`, or the wrapping [Status]({{< relref \"entities/status\" >}}) entity has been obtained by calling `DELETE /api/v1/statuses/:id`.",
+            "description": "The identifier of the status being quoted. This will be `null`, unless the `state` attribute is one of `accepted`, `blocked_account`, `blocked_domain` or `muted_account`, or the wrapping [Status](https://docs.joinmastodon.org/entities/status/) entity has been obtained by calling `DELETE /api/v1/statuses/:id`.",
             "type": [
               "string",
               "null"
@@ -39712,7 +39872,7 @@
             "type": "string"
           },
           "irreversible": {
-            "description": "Should matching entities in home and notifications be dropped by the server? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
+            "description": "Should matching entities in home and notifications be dropped by the server? See [implementation guidelines for filters](https://docs.joinmastodon.org/api/guidelines/#filters).",
             "type": "boolean"
           },
           "phrase": {
@@ -39720,7 +39880,7 @@
             "type": "string"
           },
           "whole_word": {
-            "description": "Should the filter consider word boundaries? See [implementation guidelines for filters]({{< relref \"api/guidelines#filters\" >}}).",
+            "description": "Should the filter consider word boundaries? See [implementation guidelines for filters](https://docs.joinmastodon.org/api/guidelines/#filters).",
             "type": "boolean"
           },
           "expires_at": {
@@ -40456,7 +40616,7 @@
             ]
           },
           "status_id": {
-            "description": "ID of the [Status]({{< relref \"entities/Status\" >}}) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
+            "description": "ID of the [Status](https://docs.joinmastodon.org/entities/Status/) that was the object of the notification. Attached when `type` of the notification is `favourite`, `reblog`, `status`, `mention`, `poll`, `update`, `quote` or `quoted_update`. In the case of `quoted_update`, your quote of the edited status is attached, not the status that was edited.",
             "type": [
               "string",
               "null"
@@ -41604,6 +41764,69 @@
             ]
           }
         ]
+      },
+      "WrappedAnnualReports200Example": {
+        "summary": "Example for WrappedAnnualReports",
+        "value": {
+          "annual_reports": [
+            {
+              "year": 2025,
+              "data": {
+                "archetype": "oracle",
+                "time_series": [
+                  {
+                    "month": 12,
+                    "statuses": 7123,
+                    "followers": 48
+                  }
+                ],
+                "top_hashtags": [
+                  {
+                    "name": "Mastodon",
+                    "count": 12
+                  }
+                ],
+                "top_statuses": {
+                  "by_reblogs": "114348347829110933",
+                  "by_replies": null,
+                  "by_favourites": null
+                }
+              },
+              "schema_version": 2,
+              "share_url": "https://example.com/@Foobar/wrapstodon/2025/7fa0231c0f206390",
+              "account_id": "55911"
+            },
+            {
+              "year": 2026,
+              "data": {
+                "archetype": "oracle",
+                "time_series": [
+                  {
+                    "month": 12,
+                    "statuses": 6241,
+                    "followers": 42
+                  }
+                ],
+                "top_hashtags": [
+                  {
+                    "name": "Cats",
+                    "count": 13
+                  }
+                ],
+                "top_statuses": {
+                  "by_reblogs": "116680004222523313",
+                  "by_replies": null,
+                  "by_favourites": null
+                }
+              },
+              "schema_version": 2,
+              "share_url": "https://example.com/@Foobar/wrapstodon/2026/dd6a5b58ec0e3c12",
+              "account_id": "55911"
+            }
+          ],
+          "accounts": [],
+          "statuses": []
+        }
       },
       "CredentialApplication200Example": {
         "summary": "Example for CredentialApplication",
@@ -43484,8 +43707,8 @@
           "id": "$response.body#/id"
         }
       },
-      "postStatusesByIdQuotesByQuotingStatusIdRevokeById": {
-        "operationId": "postStatusesByIdQuotesByQuotingStatusIdRevoke",
+      "postStatusQuoteRevokeById": {
+        "operationId": "postStatusQuoteRevoke",
         "description": "Access the related resource using the response ID",
         "parameters": {
           "id": "$response.body#/id"

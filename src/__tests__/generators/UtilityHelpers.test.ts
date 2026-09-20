@@ -63,9 +63,21 @@ describe('UtilityHelpers', () => {
 
     it('should handle words that are already singular', () => {
       expect(utilityHelpers.toSingular('account')).toBe('account');
-      // Note: The current logic doesn't distinguish between "status" (singular) and plural words ending in 's'
-      // This is expected behavior given the simple heuristic approach
-      expect(utilityHelpers.toSingular('status')).toBe('statu');
+      expect(utilityHelpers.toSingular('status')).toBe('status');
+      expect(utilityHelpers.toSingular('dismiss')).toBe('dismiss');
+      expect(utilityHelpers.toSingular('media')).toBe('media');
+    });
+
+    it('should not strip letters from words ending in a non-sibilant -es', () => {
+      expect(utilityHelpers.toSingular('votes')).toBe('vote');
+      expect(utilityHelpers.toSingular('rules')).toBe('rule');
+      expect(utilityHelpers.toSingular('preferences')).toBe('preference');
+      expect(utilityHelpers.toSingular('translation_languages')).toBe(
+        'translation_language'
+      );
+      expect(utilityHelpers.toSingular('async_refreshes')).toBe(
+        'async_refresh'
+      );
     });
   });
 

@@ -84,130 +84,56 @@ export class OperationIdBuilder {
     };
 
     const semanticMethod = getSemanticMethod(method, segments);
+    const isParam = (segment: string) =>
+      segment.startsWith('{') && segment.endsWith('}');
+    const singularizes = (segment: string) =>
+      this.utilityHelpers.toSingular(segment) !== segment;
 
-    // Handle different patterns
-    if (segments.length === 1) {
-      // Simple resource: /accounts -> getAccounts, /statuses + POST -> createStatus
-      const resource = segments[0];
-      if (semanticMethod === 'create') {
-        // For create operations, use singular form
-        return (
-          semanticMethod +
-          this.utilityHelpers.toPascalCase(
-            this.utilityHelpers.toSingular(resource)
-          )
-        );
+    let lastLiteralIndex = -1;
+    segments.forEach((segment, index) => {
+      if (!isParam(segment)) {
+        lastLiteralIndex = index;
       }
-      // For other operations like GET, use plural form
-      return semanticMethod + this.utilityHelpers.toPascalCase(resource);
-    }
+    });
 
-    // Check for path parameters
-    const hasPathParams = segments.some(
-      (segment) => segment.startsWith('{') && segment.endsWith('}')
-    );
+    const nameParts = segments.map((segment, index) => {
+      const previous = index > 0 ? segments[index - 1] : undefined;
 
-    if (hasPathParams) {
-      // Handle path parameters
-      if (segments.length === 2 && segments[1] === '{id}') {
-        // Pattern like /accounts/{id} -> getAccount, updateList, etc.
-        const resource = segments[0];
-        const singular = this.utilityHelpers.toSingular(resource);
-        return semanticMethod + this.utilityHelpers.toPascalCase(singular);
-      } else {
-        // Check for common nested resource pattern: /resource1/{id}/resource2/{param}
-        if (
-          segments.length === 4 &&
-          segments[1].startsWith('{') &&
-          segments[1].endsWith('}') &&
-          segments[3].startsWith('{') &&
-          segments[3].endsWith('}')
-        ) {
-          // Pattern like /announcements/{id}/reactions/{name}
-          // Generate: updateAnnouncementReaction (not updateAnnouncementsByIdReactionsByName)
-          const resource1 = this.utilityHelpers.toSingular(segments[0]); // announcements -> announcement
-          const resource2 = this.utilityHelpers.toSingular(segments[2]); // reactions -> reaction
-          return (
-            semanticMethod +
-            this.utilityHelpers.toPascalCase(resource1) +
-            this.utilityHelpers.toPascalCase(resource2)
-          );
+      if (isParam(segment)) {
+        const paramName = segment.slice(1, -1);
+        // A parameter that selects one item out of a collection adds nothing
+        // to the name: either it is a plain identifier, or the collection it
+        // follows already went singular. `/accounts/{id}` reads `getAccount`
+        // and `/media/{id}` reads `getMedia`. Anything else still has to be
+        // named, which is what keeps `/instance/terms_of_service/{date}`
+        // distinct from its own parent path.
+        const selectsOneItem =
+          /^(.*_)?id$/.test(paramName) ||
+          (previous !== undefined &&
+            !isParam(previous) &&
+            singularizes(previous));
+        if (selectsOneItem) {
+          return '';
         }
-
-        // Check for 3-segment pattern: /resource/{id}/sub-resource
-        if (
-          segments.length === 3 &&
-          segments[1].startsWith('{') &&
-          segments[1].endsWith('}')
-        ) {
-          // Pattern like /accounts/{id}/endorsements
-          // Generate: getAccountEndorsements (not getAccountsByIdEndorsements)
-          const mainResource = this.utilityHelpers.toSingular(segments[0]); // accounts -> account
-          const subResource = segments[2]; // endorsements (keep as is, could be plural or singular)
-          return (
-            semanticMethod +
-            this.utilityHelpers.toPascalCase(mainResource) +
-            this.utilityHelpers.toPascalCase(subResource)
-          );
-        }
-
-        // More complex path with parameters - fallback to original logic
-        const pathParts: string[] = [];
-        for (let i = 0; i < segments.length; i++) {
-          const segment = segments[i];
-          if (segment.startsWith('{') && segment.endsWith('}')) {
-            const paramName = segment.slice(1, -1);
-            pathParts.push('By' + this.utilityHelpers.toPascalCase(paramName));
-          } else {
-            pathParts.push(this.utilityHelpers.toPascalCase(segment));
-          }
-        }
-        return semanticMethod + pathParts.join('');
-      }
-    } else {
-      // No path parameters
-      const lastSegment = segments[segments.length - 1];
-
-      // For specific actions like familiar_followers, check if we need context to avoid conflicts
-      if (segments.length >= 2 && lastSegment.includes('_')) {
-        const action = this.utilityHelpers.toPascalCase(lastSegment);
-
-        // Always include context for other actions to avoid conflicts
-        const context = segments
-          .slice(0, -1)
-          .map((s) => this.utilityHelpers.toPascalCase(s))
-          .join('');
-        return semanticMethod + context + action;
+        return 'By' + this.utilityHelpers.toPascalCase(paramName);
       }
 
-      // For multi-segment paths, prefer the last segment if it makes sense
-      if (segments.length === 2) {
-        const [firstSegment, lastSegment] = segments;
+      const qualifiedByParam =
+        index + 1 < segments.length && isParam(segments[index + 1]);
+      // A bare collection POST names the thing it creates: `/statuses` ->
+      // `createStatus`. A trailing segment of a longer path is an action or a
+      // sub-collection, so it keeps its documented form.
+      const createsThisResource =
+        semanticMethod === 'create' && segments.length === 1;
+      const singularize =
+        qualifiedByParam || index !== lastLiteralIndex || createsThisResource;
 
-        // List of specific terms that don't need context
-        const specificTerms = ['avatar'];
-
-        // If the last segment is specific, use just the last segment
-        if (specificTerms.includes(lastSegment)) {
-          return semanticMethod + this.utilityHelpers.toPascalCase(lastSegment);
-        }
-
-        // By default, combine both segments for better context
-        return (
-          semanticMethod +
-          this.utilityHelpers.toPascalCase(
-            this.utilityHelpers.toSingular(firstSegment)
-          ) +
-          this.utilityHelpers.toPascalCase(lastSegment)
-        );
-      }
-
-      // Default: combine all segments
-      return (
-        semanticMethod +
-        segments.map((s) => this.utilityHelpers.toPascalCase(s)).join('')
+      return this.utilityHelpers.toPascalCase(
+        singularize ? this.utilityHelpers.toSingular(segment) : segment
       );
-    }
+    });
+
+    return semanticMethod + nameParts.join('');
   }
 
   /**

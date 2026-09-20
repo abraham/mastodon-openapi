@@ -11,6 +11,7 @@ import {
   createPipelineContext,
 } from '../pipeline/PipelineContext';
 import { splitOutsideFences } from '../document/blocks';
+import { resolveRelrefs } from '../document/shortcodes';
 
 class MethodParser {
   // Pattern to extract entity names from response code descriptions
@@ -55,7 +56,7 @@ class MethodParser {
     content: string,
     documentId: string
   ): ApiMethodsFile | null {
-    const parsed = matter(content);
+    const parsed = matter(resolveRelrefs(content));
 
     // Skip draft files
     if (parsed.data.draft === true) {

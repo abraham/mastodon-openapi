@@ -1,4 +1,4 @@
-import { ApiParameter } from '../interfaces/ApiParameter';
+import { ApiParameter, ApiProperty } from '../interfaces/ApiParameter';
 import { HashAttribute } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
 import { EntityParsingUtils } from '../parsers/EntityParsingUtils';
@@ -343,6 +343,41 @@ class TypeParser {
   }
 
   /**
+   * Copy a parsed parameter property tree into an OpenAPI property, at any depth.
+   */
+  private apiPropertyToOpenAPI(source: ApiProperty): OpenAPIProperty {
+    const property: OpenAPIProperty = { type: source.type };
+
+    if (source.description) {
+      property.description = source.description;
+    }
+
+    if (source.enum && source.enum.length > 0) {
+      property.enum = source.enum;
+    }
+
+    if (source.items) {
+      property.items = { type: source.items.type };
+    }
+
+    if (source.properties) {
+      const nested: Record<string, OpenAPIProperty> = {};
+      for (const [name, value] of Object.entries(source.properties)) {
+        nested[name] = this.apiPropertyToOpenAPI(value);
+      }
+      property.properties = nested;
+    }
+
+    if (source.additionalProperties) {
+      property.additionalProperties = this.apiPropertyToOpenAPI(
+        source.additionalProperties
+      );
+    }
+
+    return property;
+  }
+
+  /**
    * Convert API parameter to OpenAPI schema
    */
   public convertParameterToSchema(param: ApiParameter): OpenAPIProperty {
@@ -460,62 +495,25 @@ class TypeParser {
           }
           schema.items.properties = itemProperties;
         }
-      } else if (param.schema.type === 'object' && param.schema.properties) {
-        const properties: Record<string, OpenAPIProperty> = {};
-        for (const [propName, propSchema] of Object.entries(
-          param.schema.properties
-        )) {
-          const property: OpenAPIProperty = {
-            type: propSchema.type,
-          };
-
-          if (propSchema.description) {
-            property.description = propSchema.description;
+      } else if (
+        param.schema.type === 'object' &&
+        (param.schema.properties || param.schema.additionalProperties)
+      ) {
+        if (param.schema.properties) {
+          const properties: Record<string, OpenAPIProperty> = {};
+          for (const [propName, propSchema] of Object.entries(
+            param.schema.properties
+          )) {
+            properties[propName] = this.apiPropertyToOpenAPI(propSchema);
           }
-
-          if (propSchema.enum && propSchema.enum.length > 0) {
-            property.enum = propSchema.enum;
-          }
-
-          if (propSchema.items) {
-            property.items = {
-              type: propSchema.items.type,
-            };
-          }
-
-          // Handle nested object properties recursively
-          if (propSchema.type === 'object' && propSchema.properties) {
-            const nestedProperties: Record<string, OpenAPIProperty> = {};
-            for (const [nestedPropName, nestedPropSchema] of Object.entries(
-              propSchema.properties
-            )) {
-              const nestedProperty: OpenAPIProperty = {
-                type: nestedPropSchema.type,
-              };
-
-              if (nestedPropSchema.description) {
-                nestedProperty.description = nestedPropSchema.description;
-              }
-
-              if (nestedPropSchema.enum && nestedPropSchema.enum.length > 0) {
-                nestedProperty.enum = nestedPropSchema.enum;
-              }
-
-              if (nestedPropSchema.items) {
-                nestedProperty.items = {
-                  type: nestedPropSchema.items.type,
-                };
-              }
-
-              // TODO: Could be made more recursive for deeper nesting if needed
-              nestedProperties[nestedPropName] = nestedProperty;
-            }
-            property.properties = nestedProperties;
-          }
-
-          properties[propName] = property;
+          schema.properties = properties;
         }
-        schema.properties = properties;
+
+        if (param.schema.additionalProperties) {
+          schema.additionalProperties = this.apiPropertyToOpenAPI(
+            param.schema.additionalProperties
+          );
+        }
       }
 
       return schema;

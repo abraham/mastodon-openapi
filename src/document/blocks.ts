@@ -72,3 +72,48 @@ export function splitOutsideFences(
 
   return chunks;
 }
+
+/**
+ * Blank out HTML comments, preserving line count so positions stay aligned.
+ * Comments inside fenced blocks are left alone, since they are sample content
+ * rather than commentary.
+ */
+export function stripHtmlComments(content: string): string {
+  const lines = content.split('\n');
+  const mask = fenceMask(lines);
+
+  let inComment = false;
+
+  return lines
+    .map((line, i) => {
+      if (mask[i]) {
+        return line;
+      }
+
+      let result = '';
+      let rest = line;
+
+      while (rest.length > 0) {
+        if (inComment) {
+          const close = rest.indexOf('-->');
+          if (close === -1) {
+            return result;
+          }
+          rest = rest.slice(close + 3);
+          inComment = false;
+          continue;
+        }
+
+        const open = rest.indexOf('<!--');
+        if (open === -1) {
+          return result + rest;
+        }
+        result += rest.slice(0, open);
+        rest = rest.slice(open + 4);
+        inComment = true;
+      }
+
+      return result;
+    })
+    .join('\n');
+}

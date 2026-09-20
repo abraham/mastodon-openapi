@@ -4,6 +4,7 @@ import { TypeInference } from './TypeInference';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { OAuthScopeParser } from './OAuthScopeParser';
 import { MarkdownDocument } from '../document/MarkdownDocument';
+import { stripHtmlComments } from '../document/blocks';
 
 /**
  * Parsed parameter structure for nested objects
@@ -177,25 +178,17 @@ export class ParameterParser {
       }
     >
   ): ApiProperty {
-    const properties: Record<string, ApiProperty> = {};
+    const root: ApiProperty = { type: 'object', properties: {} };
 
     for (const param of parameters) {
-      let current = properties;
+      let node = root;
 
       // Navigate through the path, creating nested objects as needed
       for (let i = 0; i < param.path.length - 1; i++) {
-        const pathSegment = param.path[i];
-        if (!current[pathSegment]) {
-          current[pathSegment] = {
-            type: 'object',
-            properties: {},
-          };
-        }
-        current = current[pathSegment].properties!;
+        node = ParameterParser.descendInto(node, param.path[i]);
       }
 
-      // Set the final property
-      const finalProperty = param.path[param.path.length - 1];
+      const finalSegment = param.path[param.path.length - 1];
       const propType =
         param.inferredType ||
         TypeInference.inferTypeFromDescription(param.description);
@@ -212,21 +205,55 @@ export class ParameterParser {
         property.enum = enumValues;
       }
 
-      if (param.isArray) {
-        current[finalProperty] = {
-          type: 'array',
-          items: property,
-          description: EntityParsingUtils.stripTypePrefix(param.description),
-        };
-      } else {
-        current[finalProperty] = property;
-      }
+      ParameterParser.assignInto(
+        node,
+        finalSegment,
+        param.isArray
+          ? {
+              type: 'array',
+              items: property,
+              description: EntityParsingUtils.stripTypePrefix(
+                param.description
+              ),
+            }
+          : property
+      );
     }
 
-    return {
-      type: 'object',
-      properties,
-    };
+    return root;
+  }
+
+  /**
+   * A `:name` path segment is a placeholder for an arbitrary key rather than a
+   * literal property, e.g. `fields_attributes[:index][name]`.
+   */
+  private static isPlaceholder(segment: string): boolean {
+    return segment.startsWith(':');
+  }
+
+  private static descendInto(node: ApiProperty, segment: string): ApiProperty {
+    if (ParameterParser.isPlaceholder(segment)) {
+      node.additionalProperties ??= { type: 'object', properties: {} };
+      return node.additionalProperties;
+    }
+
+    node.properties ??= {};
+    node.properties[segment] ??= { type: 'object', properties: {} };
+    return node.properties[segment];
+  }
+
+  private static assignInto(
+    node: ApiProperty,
+    segment: string,
+    value: ApiProperty
+  ): void {
+    if (ParameterParser.isPlaceholder(segment)) {
+      node.additionalProperties = value;
+      return;
+    }
+
+    node.properties ??= {};
+    node.properties[segment] = value;
   }
 
   /**
@@ -260,10 +287,11 @@ export class ParameterParser {
 
     // Process each matching section
     for (const paramSectionNode of paramSections) {
-      const paramSection = paramSectionNode.body;
+      // Commented-out parameters are documentation notes, not request fields
+      const paramSection = stripHtmlComments(paramSectionNode.body);
 
       // Skip empty sections (sections that don't contain any parameter definitions)
-      const hasParams = /^[a-zA-Z_][a-zA-Z0-9_.\[\]-]*\s*\n:\s*/m.test(
+      const hasParams = /^[a-zA-Z_][a-zA-Z0-9_.:\[\]-]*\s*\n:\s*/m.test(
         paramSection
       );
       if (!hasParams) continue;
@@ -272,11 +300,10 @@ export class ParameterParser {
       // Allow dots, brackets, and hyphens in parameter names to support patterns like alerts[admin.sign_up] and Idempotency-Key
       //
       // Not yet moved to document/definitionList: that parser joins continuation
-      // lines differently and has no notion of HTML comments, so swapping it in
-      // would change descriptions and leak commented-out parameters. See
-      // docs/pipeline-rewrite.md §10 D14 and D15.
+      // lines differently, so swapping it in would change descriptions. See
+      // docs/pipeline-rewrite.md §10 D15.
       const paramRegex =
-        /^([a-zA-Z_][a-zA-Z0-9_.\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
+        /^([a-zA-Z_][a-zA-Z0-9_.:\[\]-]*)\s*\n:\s*([^]*?)(?=\n[a-zA-Z_]|\n\n|$)/gm;
 
       let paramMatch;
       while ((paramMatch = paramRegex.exec(paramSection)) !== null) {
@@ -524,12 +551,14 @@ export class ParameterParser {
     // Process all object groups (combining nested and simple properties)
     for (const [rootName, groups] of Object.entries(allObjectGroups)) {
       const allProperties: Record<string, ApiProperty> = {};
+      let additionalProperties: ApiProperty | undefined;
       let hasRequiredProperty = false;
 
       // Process nested properties first
       if (groups.nested.length > 0) {
         const nestedSchema = ParameterParser.buildNestedObject(groups.nested);
         Object.assign(allProperties, nestedSchema.properties);
+        additionalProperties = nestedSchema.additionalProperties;
 
         // Check if any nested property is required
         for (const param of groups.nested) {
@@ -571,16 +600,30 @@ export class ParameterParser {
         }
       }
 
-      parameters.push({
-        name: rootName,
-        description: `Object containing properties`,
-        required: hasRequiredProperty ? true : undefined,
-        in: parameterLocation,
-        schema: {
-          type: 'object',
-          properties: allProperties,
-        },
-      });
+      const schema = {
+        type: 'object' as const,
+        properties: allProperties,
+        ...(additionalProperties && { additionalProperties }),
+      };
+
+      // A root parameter of the same name carries the documented description,
+      // so attach the shape to it rather than emitting a second parameter.
+      const documentedRoot = parameters.find((p) => p.name === rootName);
+
+      if (documentedRoot) {
+        documentedRoot.schema = schema;
+        if (hasRequiredProperty) {
+          documentedRoot.required = true;
+        }
+      } else {
+        parameters.push({
+          name: rootName,
+          description: `Object containing properties`,
+          required: hasRequiredProperty ? true : undefined,
+          in: parameterLocation,
+          schema,
+        });
+      }
     }
 
     // Process array of objects groups

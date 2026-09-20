@@ -14,20 +14,38 @@ class UtilityHelpers {
   }
 
   /**
+   * Plurals whose singular cannot be recovered from the suffix alone.
+   * `statuses` would otherwise collide with the `-ses` -> `-se` rule.
+   */
+  private static readonly IRREGULAR_PLURALS: Record<string, string> = {
+    statuses: 'status',
+    scheduled_statuses: 'scheduled_status',
+  };
+
+  /**
    * Convert plural word to singular form
    */
   public toSingular(word: string): string {
-    // Handle common plural forms
-    if (word.endsWith('ies')) {
-      return word.slice(0, -3) + 'y'; // stories -> story
-    } else if (word.endsWith('ines')) {
-      return word.slice(0, -1); // timelines -> timeline
-    } else if (word.endsWith('es')) {
-      return word.slice(0, -2); // statuses -> status
-    } else if (word.endsWith('s')) {
-      return word.slice(0, -1); // accounts -> account
+    const irregular = UtilityHelpers.IRREGULAR_PLURALS[word];
+    if (irregular) {
+      return irregular;
     }
-    return word;
+
+    // Not plurals: "dismiss", "status", "consensus".
+    if (!word.endsWith('s') || word.endsWith('ss') || word.endsWith('us')) {
+      return word;
+    }
+
+    if (/[^aeiou]ies$/.test(word)) {
+      return word.slice(0, -3) + 'y'; // stories -> story
+    }
+
+    // Only sibilant stems take an "-es" plural; "votes" and "timelines" do not.
+    if (/(x|z|ch|sh)es$/.test(word)) {
+      return word.slice(0, -2); // async_refreshes -> async_refresh
+    }
+
+    return word.slice(0, -1); // accounts -> account
   }
 
   /**

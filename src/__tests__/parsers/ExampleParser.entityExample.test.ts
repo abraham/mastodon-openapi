@@ -23,14 +23,8 @@ describe('ExampleParser.parseEntityExample', () => {
     ).toBeNull();
   });
 
-  /**
-   * Current behaviour, not desired behaviour: nine entity pages introduce their
-   * sample with a paragraph or a subheading and lose the example entirely.
-   * Pinned so that fixing it upstream is a visible, deliberate change.
-   * See docs/pipeline-rewrite.md §8.5.
-   */
-  describe('samples that are not adjacent to the heading (known gap)', () => {
-    it('drops a sample introduced by a paragraph', () => {
+  describe('samples that are not adjacent to the heading', () => {
+    it('reads a sample introduced by a paragraph', () => {
       expect(
         ExampleParser.parseEntityExample(`## Example
 
@@ -40,10 +34,10 @@ Monthly retention data for the month of 2022-09.
 { "period": "2022-09-01T00:00:00+00:00" }
 \`\`\`
 `)
-      ).toBeNull();
+      ).toEqual({ period: '2022-09-01T00:00:00+00:00' });
     });
 
-    it('drops a sample nested under a subheading', () => {
+    it('reads a sample nested under a subheading', () => {
       expect(
         ExampleParser.parseEntityExample(`## Example
 
@@ -53,7 +47,26 @@ Monthly retention data for the month of 2022-09.
 { "id": "22345792" }
 \`\`\`
 `)
-      ).toBeNull();
+      ).toEqual({ id: '22345792' });
+    });
+
+    it('takes the first sample when several are shown', () => {
+      expect(
+        ExampleParser.parseEntityExample(`## Example
+
+### Image
+
+\`\`\`json
+{ "type": "image" }
+\`\`\`
+
+### Video
+
+\`\`\`json
+{ "type": "video" }
+\`\`\`
+`)
+      ).toEqual({ type: 'image' });
     });
   });
 });

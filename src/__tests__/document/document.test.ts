@@ -1,12 +1,12 @@
 import { MarkdownDocument } from '../../document/MarkdownDocument';
-import { fenceMask, splitOutsideFences } from '../../document/blocks';
+import {
+  fenceMask,
+  splitOutsideFences,
+  stripHtmlComments,
+} from '../../document/blocks';
 import { parseDefinitionList } from '../../document/definitionList';
 import { parseTables } from '../../document/tables';
-import {
-  firstCodeBlock,
-  leadingCodeBlock,
-  parseCodeBlocks,
-} from '../../document/codeBlocks';
+import { firstCodeBlock, parseCodeBlocks } from '../../document/codeBlocks';
 
 describe('parseCodeBlocks', () => {
   it('returns blocks with their info string', () => {
@@ -38,31 +38,11 @@ describe('parseCodeBlocks', () => {
   });
 });
 
-describe('leadingCodeBlock', () => {
-  it('returns a block that opens the content', () => {
-    expect(leadingCodeBlock('\n\n```json\n{}\n```', 'json')).toEqual({
-      lang: 'json',
-      content: '{}',
-    });
-  });
-
-  it('returns nothing when prose precedes the block', () => {
-    expect(
-      leadingCodeBlock('Some explanation.\n\n```json\n{}\n```', 'json')
-    ).toBeUndefined();
-  });
-
-  it('returns nothing when the leading block has another language', () => {
-    expect(leadingCodeBlock('```http\nGET /x\n```', 'json')).toBeUndefined();
-  });
-});
-
 describe('fenceMask', () => {
   it('marks lines inside a fenced block', () => {
     const lines = ['a', '```json', '{ "x": 1 }', '```', 'b'];
     expect(fenceMask(lines)).toEqual([false, true, true, true, false]);
   });
-
   it('handles tilde fences', () => {
     const lines = ['a', '~~~', 'x', '~~~', 'b'];
     expect(fenceMask(lines)).toEqual([false, true, true, true, false]);
@@ -225,5 +205,45 @@ describe('parseTables', () => {
     expect(parseTables('```\n| a | b |\n| - | - |\n| 1 | 2 |\n```')).toEqual(
       []
     );
+  });
+});
+
+describe('stripHtmlComments', () => {
+  it('removes a multi-line comment but keeps line count', () => {
+    const input = [
+      'keyword',
+      ': A keyword.',
+      '',
+      '<!-- TODO: remove when fixed',
+      'id',
+      ': Will 404 if provided.',
+      '-->',
+      '',
+      'whole_word',
+      ': Boolean.',
+    ].join('\n');
+
+    const output = stripHtmlComments(input);
+
+    expect(output.split('\n')).toHaveLength(input.split('\n').length);
+    expect(output).toContain('keyword');
+    expect(output).toContain('whole_word');
+    expect(output).not.toContain('Will 404 if provided');
+    expect(output).not.toContain('TODO');
+  });
+
+  it('removes an inline comment', () => {
+    expect(stripHtmlComments('before <!-- hidden --> after')).toBe(
+      'before  after'
+    );
+  });
+
+  it('leaves comments inside fenced blocks alone', () => {
+    const input = '```html\n<!-- kept -->\n```';
+    expect(stripHtmlComments(input)).toBe(input);
+  });
+
+  it('drops an unterminated comment through to the end', () => {
+    expect(stripHtmlComments('a\n<!-- b\nc')).toBe('a\n\n');
   });
 });
