@@ -90,6 +90,11 @@ export function parseTypeRef(typeString: string): TypeRef {
     }
   }
 
+  // A field documented as exactly `Null` is always null, not a nullable string
+  if (lowered === 'null') {
+    return { kind: 'primitive', type: 'null' };
+  }
+
   if (lowered.includes('string')) {
     const format = stringFormat(typeString, lowered);
     if (format) {

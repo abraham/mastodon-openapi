@@ -7,6 +7,7 @@ import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { MarkdownDocument } from '../document/MarkdownDocument';
+import { resolveRelrefs } from '../document/shortcodes';
 
 /**
  * Handles parsing entities from dedicated entity files
@@ -19,7 +20,7 @@ export class EntityFileParser {
    *   and for the `sourceFile` back-link
    */
   static parseEntityFile(content: string, documentId: string): EntityClass[] {
-    const parsed = matter(content);
+    const parsed = matter(resolveRelrefs(content));
 
     // Skip draft files
     if (parsed.data.draft === true) {
@@ -53,7 +54,7 @@ export class EntityFileParser {
       this.extractNestedHashEntities(className, adjustedAttributes, sourceFile);
 
     // Parse example from the content
-    const example = ExampleParser.parseEntityExample(parsed.content, className);
+    const example = ExampleParser.parseEntityExample(parsed.content);
 
     // Collect all version numbers from attributes
     const allVersions: string[] = [];

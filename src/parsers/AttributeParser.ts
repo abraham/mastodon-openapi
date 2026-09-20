@@ -18,7 +18,7 @@ export class AttributeParser {
   ): EntityAttribute[] {
     const attributes: EntityAttribute[] = [];
 
-    const named = MarkdownDocument.fromBody(content)
+    const headings = MarkdownDocument.fromBody(content)
       .allSections()
       .filter(
         (section) =>
@@ -26,22 +26,7 @@ export class AttributeParser {
           section.heading.level <= 5 &&
           // Attribute headings name the attribute in backticks
           /^`[^`]+`$/.test(section.heading.title)
-      );
-
-    // A heading with no blank line after it is not recognised today;
-    // preserved deliberately, see docs/pipeline-rewrite.md §10 D13
-    for (const section of named) {
-      if (!section.body.startsWith('\n')) {
-        reportOverride(
-          'workaround',
-          `attribute ${section.heading.title} skipped: no blank line after the heading`,
-          'preserved behaviour, see docs/pipeline-rewrite.md §10 D13'
-        );
-      }
-    }
-
-    const headings = named
-      .filter((section) => section.body.startsWith('\n'))
+      )
       .map((section) => ({
         name: section.heading.title.slice(1, -1),
         modifiers: section.heading.modifiers,

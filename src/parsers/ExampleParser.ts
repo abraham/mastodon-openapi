@@ -1,15 +1,83 @@
 import { MarkdownDocument } from '../document/MarkdownDocument';
-import { firstCodeBlock, leadingCodeBlock } from '../document/codeBlocks';
+import { firstCodeBlock } from '../document/codeBlocks';
 import { splitOutsideFences } from '../document/blocks';
-import { reportOverride } from '../overrides/report';
 
 /**
  * Handles parsing of JSON examples from markdown content
  */
 export class ExampleParser {
   /**
+   * Remove line and block comments, ignoring anything inside strings.
+   * Newlines are preserved so line-based fallbacks still line up.
+   */
+  private static stripJsonComments(content: string): string {
+    let result = '';
+    let inString = false;
+    let escaped = false;
+    let inLineComment = false;
+    let inBlockComment = false;
+
+    for (let i = 0; i < content.length; i++) {
+      const char = content[i];
+      const next = content[i + 1];
+
+      if (inLineComment) {
+        if (char === '\n') {
+          inLineComment = false;
+          result += char;
+        }
+        continue;
+      }
+
+      if (inBlockComment) {
+        if (char === '*' && next === '/') {
+          inBlockComment = false;
+          i++;
+        } else if (char === '\n') {
+          result += char;
+        }
+        continue;
+      }
+
+      if (inString) {
+        result += char;
+        if (escaped) {
+          escaped = false;
+        } else if (char === '\\') {
+          escaped = true;
+        } else if (char === '"') {
+          inString = false;
+        }
+        continue;
+      }
+
+      if (char === '"') {
+        inString = true;
+        result += char;
+        continue;
+      }
+
+      if (char === '/' && next === '/') {
+        inLineComment = true;
+        i++;
+        continue;
+      }
+
+      if (char === '/' && next === '*') {
+        inBlockComment = true;
+        i++;
+        continue;
+      }
+
+      result += char;
+    }
+
+    return result;
+  }
+
+  /**
    * Attempts to parse JSON with improved error handling
-   * 1. Strips out comments (e.g. // ...) before parsing
+   * 1. Strips out line and block comments before parsing
    * 2. If parsing fails, wraps content in {} and tries again
    */
   private static parseJsonWithFallback(jsonContent: string): any | null {
@@ -17,51 +85,7 @@ export class ExampleParser {
       return null;
     }
 
-    // First, strip out line comments (// ...)
-    // This handles comments at the end of lines
-    let cleanedContent = jsonContent
-      .split('\n')
-      .map((line) => {
-        // Find // that's not inside a string
-        // More robust approach: track if we're inside a string
-        let inString = false;
-        let escaped = false;
-        let commentIndex = -1;
-
-        for (let i = 0; i < line.length - 1; i++) {
-          const char = line[i];
-          const nextChar = line[i + 1];
-
-          if (escaped) {
-            escaped = false;
-            continue;
-          }
-
-          if (char === '\\') {
-            escaped = true;
-            continue;
-          }
-
-          if (char === '"') {
-            inString = !inString;
-            continue;
-          }
-
-          // If we're not in a string and we find //, mark it
-          if (!inString && char === '/' && nextChar === '/') {
-            commentIndex = i;
-            break;
-          }
-        }
-
-        if (commentIndex !== -1) {
-          return line.substring(0, commentIndex).trimEnd();
-        }
-
-        return line;
-      })
-      .join('\n')
-      .trim();
+    let cleanedContent = ExampleParser.stripJsonComments(jsonContent).trim();
 
     // Remove trailing commas before closing braces/brackets
     // This handles cases where comments were removed leaving trailing commas
@@ -84,10 +108,7 @@ export class ExampleParser {
   /**
    * Parses JSON examples from an "## Example" section in entity markdown
    */
-  static parseEntityExample(
-    content: string,
-    sourceLabel = 'entity'
-  ): any | null {
+  static parseEntityExample(content: string): any | null {
     const section = MarkdownDocument.fromBody(content)
       .allSections()
       .find(
@@ -100,18 +121,11 @@ export class ExampleParser {
       return null;
     }
 
-    // The fence must directly follow the heading. Entities that introduce the
-    // sample with a paragraph or a subheading are skipped, matching long-standing
-    // behaviour; see docs/pipeline-rewrite.md §8.5.
-    const block = leadingCodeBlock(section.body, 'json');
+    // Pages introduce the sample in several ways: directly, after a paragraph,
+    // or under a subheading such as `### Image`. Take the first JSON block in
+    // the section regardless.
+    const block = firstCodeBlock(section.content, 'json');
     if (!block) {
-      if (firstCodeBlock(section.content, 'json')) {
-        reportOverride(
-          'workaround',
-          `${sourceLabel} example skipped: sample is not directly after the heading`,
-          'preserved behaviour, see docs/pipeline-rewrite.md §10 D1'
-        );
-      }
       return null;
     }
 

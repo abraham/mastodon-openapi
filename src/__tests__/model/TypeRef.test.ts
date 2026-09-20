@@ -85,9 +85,7 @@ describe('TypeRef', () => {
         (value: string) => unknownLeaves(parseTypeRef(value)).length > 0
       );
 
-      // `Null` is ScheduledStatus.params[scheduled_at], documented as always
-      // null. It falls through to the string default; see §10 D16.
-      expect(unresolved.sort()).toEqual(['Null']);
+      expect(unresolved.sort()).toEqual([]);
     });
   });
 });

@@ -56,24 +56,3 @@ export function firstCodeBlock(
     (block) => lang === undefined || block.lang === lang
   );
 }
-
-/**
- * A fenced block that opens the content, preceded by nothing but blank lines.
- * Used where the documentation convention is "heading, then the sample".
- */
-export function leadingCodeBlock(
-  content: string,
-  lang?: string
-): CodeBlock | undefined {
-  const lines = content.split('\n');
-  const opensAt = lines.findIndex((line) => line.trim() !== '');
-
-  if (opensAt === -1 || !/^\s*(`{3,}|~{3,})/.test(lines[opensAt])) {
-    return undefined;
-  }
-
-  const block = parseCodeBlocks(lines.slice(opensAt).join('\n'))[0];
-  return block && (lang === undefined || block.lang === lang)
-    ? block
-    : undefined;
-}

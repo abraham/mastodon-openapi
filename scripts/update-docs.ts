@@ -120,7 +120,15 @@ if (require.main === module) {
   updateSecurityCommit()
     .then((securityChanged) => {
       const hasChanges = docsChanged || securityChanged;
-      process.exit(hasChanges ? 0 : 1); // Exit with 1 if no changes (for CI workflow)
+      console.log(
+        hasChanges
+          ? 'Pinned commits updated.'
+          : 'Pinned commits already current.'
+      );
+
+      // Nothing to update is a normal outcome, not a failure. Callers that care
+      // should diff config.json and dist/schema.json.
+      process.exit(0);
     })
     .catch((error: Error) => {
       console.error('Error updating security commit:', error.message);

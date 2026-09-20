@@ -68,7 +68,7 @@ describe('OpenAPIGenerator OperationId Generation', () => {
         'createStatus'
       );
       expect(spec.paths['/api/v1/profile/avatar']?.delete?.operationId).toBe(
-        'deleteAvatar'
+        'deleteProfileAvatar'
       );
       expect(spec.paths['/api/v1/lists']?.get?.operationId).toBe('getLists');
       expect(spec.paths['/api/v1/lists/{id}']?.get?.operationId).toBe(
@@ -151,7 +151,7 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       // Check snake_case handling
       expect(
         spec.paths['/api/v1/accounts/update_credentials']?.patch?.operationId
-      ).toBe('patchAccountsUpdateCredentials');
+      ).toBe('patchAccountUpdateCredentials');
 
       // Check other HTTP methods
       expect(spec.paths['/api/v1/statuses/{id}']?.delete?.operationId).toBe(
@@ -326,6 +326,116 @@ describe('OpenAPIGenerator OperationId Generation', () => {
       expect(spec.paths['/api/v1/accounts/search']?.get?.operationId).toBe(
         'getAccountSearch'
       );
+    });
+
+    it('should name a sub-collection and one of its items consistently', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'filters',
+          description: 'Filter methods',
+          methods: [
+            {
+              name: 'List keywords',
+              httpMethod: 'GET',
+              endpoint: '/api/v2/filters/:filter_id/keywords',
+              description: 'List the keywords of a filter',
+            },
+            {
+              name: 'View keyword',
+              httpMethod: 'GET',
+              endpoint: '/api/v2/filters/keywords/:id',
+              description: 'View one keyword',
+            },
+            {
+              name: 'Delete keyword',
+              httpMethod: 'DELETE',
+              endpoint: '/api/v2/filters/keywords/:id',
+              description: 'Delete one keyword',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      // Plural names the collection, singular names one item. Neither form
+      // leaks a `ById` suffix.
+      expect(
+        spec.paths['/api/v2/filters/{filter_id}/keywords']?.get?.operationId
+      ).toBe('getFilterKeywordsV2');
+      expect(
+        spec.paths['/api/v2/filters/keywords/{id}']?.get?.operationId
+      ).toBe('getFilterKeywordV2');
+      expect(
+        spec.paths['/api/v2/filters/keywords/{id}']?.delete?.operationId
+      ).toBe('deleteFilterKeywordV2');
+    });
+
+    it('should name an action the same way whether or not it targets one item', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'notifications',
+          description: 'Notification methods',
+          methods: [
+            {
+              name: 'Accept one request',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/notifications/requests/:id/accept',
+              description: 'Accept a single notification request',
+            },
+            {
+              name: 'Accept multiple requests',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/notifications/requests/accept',
+              description: 'Accept multiple notification requests',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      expect(
+        spec.paths['/api/v1/notifications/requests/{id}/accept']?.post
+          ?.operationId
+      ).toBe('postNotificationRequestAccept');
+      expect(
+        spec.paths['/api/v1/notifications/requests/accept']?.post?.operationId
+      ).toBe('createNotificationRequestAccept');
+    });
+
+    it('should keep naming a path parameter that does not select one item', () => {
+      const testMethods: ApiMethodsFile[] = [
+        {
+          name: 'instance',
+          description: 'Instance methods',
+          methods: [
+            {
+              name: 'View terms of service',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/instance/terms_of_service',
+              description: 'View the current terms of service',
+            },
+            {
+              name: 'View dated terms of service',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/instance/terms_of_service/:date',
+              description: 'View a specific version of the terms of service',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], testMethods);
+
+      // `terms_of_service` has no distinct singular, so dropping `{date}`
+      // would collide with the parent path.
+      expect(
+        spec.paths['/api/v1/instance/terms_of_service']?.get?.operationId
+      ).toBe('getInstanceTermsOfService');
+      expect(
+        spec.paths['/api/v1/instance/terms_of_service/{date}']?.get?.operationId
+      ).toBe('getInstanceTermsOfServiceByDate');
     });
   });
 });

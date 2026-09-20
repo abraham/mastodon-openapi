@@ -28,7 +28,7 @@ export interface UnionType {
 }
 
 export type PrimitiveName =
-  'string' | 'integer' | 'number' | 'boolean' | 'object';
+  'string' | 'integer' | 'number' | 'boolean' | 'object' | 'null';
 
 export interface PrimitiveType {
   kind: 'primitive';
