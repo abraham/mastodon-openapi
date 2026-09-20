@@ -157,20 +157,22 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
         const responseLinks = response200.links as Record<string, any>;
         expect(responseLinks).toBeDefined();
 
-        // Should have links to all the status operations
+        // Should have links to all the status operations, keyed by operationId
         expect(responseLinks.getStatus).toBeDefined();
-        expect(responseLinks.favouriteStatus).toBeDefined();
-        expect(responseLinks.unfavouriteStatus).toBeDefined();
-        expect(responseLinks.muteStatus).toBeDefined();
-        expect(responseLinks.reblogStatus).toBeDefined();
+        expect(responseLinks.postStatusFavourite).toBeDefined();
+        expect(responseLinks.postStatusUnfavourite).toBeDefined();
+        expect(responseLinks.postStatusMute).toBeDefined();
+        expect(responseLinks.postStatusReblog).toBeDefined();
 
         // Verify that these links point to the correct component references
         expect(responseLinks.getStatus.$ref).toContain('#/components/links/');
-        expect(responseLinks.favouriteStatus.$ref).toContain(
+        expect(responseLinks.postStatusFavourite.$ref).toContain(
           '#/components/links/'
         );
-        expect(responseLinks.muteStatus.$ref).toContain('#/components/links/');
-        expect(responseLinks.reblogStatus.$ref).toContain(
+        expect(responseLinks.postStatusMute.$ref).toContain(
+          '#/components/links/'
+        );
+        expect(responseLinks.postStatusReblog.$ref).toContain(
           '#/components/links/'
         );
       }
@@ -286,11 +288,11 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
 
         // Should have specific links mentioned in the issue
         expect(responseLinks.deleteStatus).toBeDefined();
-        expect(responseLinks.getRebloggedBy).toBeDefined();
+        expect(responseLinks.getStatusRebloggedBy).toBeDefined();
 
         // Verify the links reference the correct consolidated components
         expect(responseLinks.deleteStatus.$ref).toContain('deleteStatusById');
-        expect(responseLinks.getRebloggedBy.$ref).toContain(
+        expect(responseLinks.getStatusRebloggedBy.$ref).toContain(
           'getStatusRebloggedByById'
         );
       }
@@ -457,16 +459,16 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
         const responseLinks = response200.links as Record<string, any>;
         expect(responseLinks).toBeDefined();
 
-        // Should have links to all the account operations
+        // Should have links to all the account operations, keyed by operationId
         expect(responseLinks.getAccount).toBeDefined();
-        expect(responseLinks.followAccount).toBeDefined();
-        expect(responseLinks.unfollowAccount).toBeDefined();
+        expect(responseLinks.postAccountFollow).toBeDefined();
+        expect(responseLinks.postAccountUnfollow).toBeDefined();
         expect(responseLinks.getAccountStatuses).toBeDefined();
         expect(responseLinks.getAccountFollowers).toBeDefined();
 
         // Verify that these links point to the correct component references
         expect(responseLinks.getAccount.$ref).toContain('#/components/links/');
-        expect(responseLinks.followAccount.$ref).toContain(
+        expect(responseLinks.postAccountFollow.$ref).toContain(
           '#/components/links/'
         );
         expect(responseLinks.getAccountStatuses.$ref).toContain(
@@ -542,6 +544,91 @@ describe('OpenAPIGenerator Link Generation Tests', () => {
 
       // Should not have any links generated since the only POST operation returns FilterStatus
       expect(Object.keys(links).length).toBe(0);
+    });
+  });
+
+  describe('link naming', () => {
+    it('should keep every link reachable when endpoints share no naming pattern', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Post a new status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Publish a status.',
+              returns: 'Status',
+            },
+            // Two sibling actions that no hardcoded segment list would cover.
+            {
+              name: 'Translate a status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/translate',
+              description: 'Translate a status.',
+              returns: 'Translation',
+            },
+            {
+              name: 'Revoke a quote post',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses/:id/quotes/:quoting_status_id/revoke',
+              description: 'Revoke a quote.',
+              returns: 'Quote',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      const links = spec.components?.links || {};
+      const responseLinks = (
+        spec.paths['/api/v1/statuses']?.post?.responses['200'] as any
+      ).links as Record<string, any>;
+
+      const referenced = new Set(
+        Object.values(responseLinks).map((link: any) =>
+          link.$ref.split('/').pop()
+        )
+      );
+
+      // Every declared component must be reachable: a naming scheme that
+      // collides silently drops one of the two actions.
+      expect(Object.keys(links).sort()).toEqual([...referenced].sort());
+      expect(responseLinks.postStatusTranslate).toBeDefined();
+      expect(responseLinks.postStatusQuoteRevoke).toBeDefined();
+    });
+
+    it('should describe a link with the target operation summary', () => {
+      const methodFiles: ApiMethodsFile[] = [
+        {
+          name: 'statuses',
+          description: 'Status methods',
+          methods: [
+            {
+              name: 'Post a new status',
+              httpMethod: 'POST',
+              endpoint: '/api/v1/statuses',
+              description: 'Publish a status.',
+              returns: 'Status',
+            },
+            {
+              name: 'See who boosted a status',
+              httpMethod: 'GET',
+              endpoint: '/api/v1/statuses/:id/reblogged_by',
+              description: 'Accounts that boosted a status.',
+              returns: '[Account]',
+            },
+          ],
+        },
+      ];
+
+      const spec = generator.generateSchema([], methodFiles);
+
+      expect(
+        spec.components?.links?.['getStatusRebloggedByById']?.description
+      ).toBe('See who boosted a status, using `id` from this response');
     });
   });
 });

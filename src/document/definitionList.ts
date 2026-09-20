@@ -57,7 +57,11 @@ export function parseDefinitionList(content: string): DefinitionEntry[] {
 
     entries.push({
       term: stripBackticks(term),
-      definition: parts.join(' ').trim(),
+      // A trailing backslash is a markdown hard line break, not content.
+      definition: parts
+        .map((part) => part.replace(/\\$/, '').trim())
+        .join(' ')
+        .trim(),
     });
 
     i = j - 1;

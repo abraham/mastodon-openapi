@@ -179,6 +179,15 @@ since_id
     expect(entries[0].definition).toBe('first second');
   });
 
+  it('drops the trailing backslash of a markdown hard line break', () => {
+    const entries = parseDefinitionList(
+      'quote_approval_policy\n: Sets who may quote.\\\n`public` = Anyone.\\\n`nobody` = Only the author.'
+    );
+    expect(entries[0].definition).toBe(
+      'Sets who may quote. `public` = Anyone. `nobody` = Only the author.'
+    );
+  });
+
   it('ignores definition lists inside fenced blocks', () => {
     expect(parseDefinitionList('```\nterm\n: value\n```')).toEqual([]);
   });

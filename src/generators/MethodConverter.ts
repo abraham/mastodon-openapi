@@ -27,6 +27,8 @@ import { OperationIdBuilder } from '../naming/OperationId';
 import { OAuthSecurityConfig, SecurityEmitter } from './SecurityEmitter';
 import { SchemaSorting } from './SchemaSorting';
 import { ComponentEmitter } from './ComponentEmitter';
+import { ResponseEmitter } from './ResponseEmitter';
+import { RequestBodyEmitter } from './RequestBodyEmitter';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -34,13 +36,12 @@ import { ComponentEmitter } from './ComponentEmitter';
 class MethodConverter {
   private typeParser: TypeParser;
   private utilityHelpers: UtilityHelpers;
-  private errorExampleRegistry: ErrorExampleRegistry;
-  private responseCodes: Array<{ code: string; description: string }>;
-  private rateLimitHeaders: HttpHeader[];
   private operationIds: OperationIdBuilder;
   private security: SecurityEmitter;
   private sorting: SchemaSorting;
   private components: ComponentEmitter;
+  private responses: ResponseEmitter;
+  private requestBodies: RequestBodyEmitter;
 
   constructor(
     typeParser: TypeParser,
@@ -50,45 +51,21 @@ class MethodConverter {
   ) {
     this.typeParser = typeParser;
     this.utilityHelpers = utilityHelpers;
-    this.errorExampleRegistry = errorExampleRegistry;
     this.operationIds = new OperationIdBuilder(utilityHelpers);
     this.security = new SecurityEmitter();
     this.sorting = new SchemaSorting();
     this.components = new ComponentEmitter(this.sorting);
-    // Parse response codes once during initialization
-    this.responseCodes = ResponseCodeParser.parseResponseCodes(context.source);
-    // Parse rate limit headers once during initialization
-    this.rateLimitHeaders = HeaderParser.parseRateLimitHeaders(context.source);
-  }
-
-  /**
-   * Check if a parameter is a file parameter based on its description
-   */
-  private isFileParameter(param: ApiParameter): boolean {
-    return !!(
-      param.description &&
-      param.description.toLowerCase().includes('multipart form data')
+    this.responses = new ResponseEmitter(
+      typeParser,
+      errorExampleRegistry,
+      this.components,
+      ResponseCodeParser.parseResponseCodes(context.source),
+      HeaderParser.parseRateLimitHeaders(context.source)
     );
-  }
-
-  /**
-   * Check if an endpoint is a media upload endpoint that should use multipart/form-data
-   */
-  private isMediaUploadEndpoint(method: ApiMethod, path: string): boolean {
-    // Media upload endpoints
-    return (
-      (method.httpMethod === 'POST' &&
-        (path === '/api/v1/media' || path === '/api/v2/media')) ||
-      (method.httpMethod === 'PUT' && path === '/api/v1/media/{id}')
-    );
-  }
-
-  /**
-   * Check if method has any file parameters
-   */
-  private hasFileParameters(method: ApiMethod): boolean {
-    return (
-      method.parameters?.some((param) => this.isFileParameter(param)) || false
+    this.requestBodies = new RequestBodyEmitter(
+      typeParser,
+      this.sorting,
+      this.components
     );
   }
 
@@ -149,502 +126,113 @@ class MethodConverter {
       spec.paths[path] = {};
     }
 
-    // Parse response schema from returns field
-    const responseSchema = this.typeParser.parseResponseSchema(
-      method.returns,
-      spec,
-      method.hashAttributes,
-      method.name
-    );
-
-    // Build responses object with all available response codes
-    const responses: Record<string, any> = {};
-    const responseHeaders = this.generateResponseHeaders(method);
-
-    // Merge method-specific response codes with global codes
-    // Method-specific codes take precedence if there's a conflict
-    const responseCodesToUse = this.mergeResponseCodes(
-      this.responseCodes,
-      method.responseCodes
-    );
-
-    for (const responseCode of responseCodesToUse) {
-      const isSuccessResponse = responseCode.code.startsWith('2');
-      // First try to get method-specific example, then fall back to common error example
-      let responseExample = method.responseExamples?.[responseCode.code];
-      if (!responseExample && !isSuccessResponse) {
-        responseExample = this.errorExampleRegistry.getErrorExample(
-          responseCode.code
-        );
-      }
-
-      if (responseCode.code === '200') {
-        // 200 response includes the schema from the returns field
-        // For streaming endpoints, use text/event-stream content type
-        const contentType = method.isStreaming
-          ? 'text/event-stream'
-          : 'application/json';
-
-        if (method.isStreaming) {
-          // Streaming endpoints always have content with text/event-stream
-          // even if no specific schema is parsed from the returns field
-          const content: any = responseSchema ? { schema: responseSchema } : {};
-          if (responseExample) {
-            content.example = responseExample;
-          }
-          responses[responseCode.code] = {
-            description: method.returns || responseCode.description,
-            headers: responseHeaders,
-            content: {
-              [contentType]: content,
-            },
-          };
-        } else {
-          // Non-streaming endpoints use the existing logic
-          if (responseSchema) {
-            const content: any = { schema: responseSchema };
-            if (responseExample) {
-              content.example = responseExample;
-            }
-            responses[responseCode.code] = {
-              description: method.returns || responseCode.description,
-              headers: responseHeaders,
-              content: {
-                [contentType]: content,
-              },
-            };
-          } else {
-            responses[responseCode.code] = {
-              description: method.returns || responseCode.description,
-              headers: responseHeaders,
-            };
-          }
-        }
-      } else if (isSuccessResponse) {
-        // Other 2xx responses also get rate limit headers
-        const response: any = {
-          description: responseCode.description,
-          headers: responseHeaders,
-        };
-
-        // Parse schema from returnType if specified
-        let schema = null;
-        if (responseCode.returnType) {
-          // Wrap in brackets to match the format expected by parseResponseSchema
-          schema = this.typeParser.parseResponseSchema(
-            `[${responseCode.returnType}]`,
-            spec,
-            undefined,
-            method.name
-          );
-        }
-
-        // Add content with schema and/or example if available
-        if (schema || responseExample) {
-          const content: any = {};
-          if (schema) {
-            content.schema = schema;
-          }
-          if (responseExample) {
-            content.example = responseExample;
-          }
-          response.content = {
-            'application/json': content,
-          };
-        }
-
-        responses[responseCode.code] = response;
-      } else {
-        // Other response codes are error responses with simple descriptions
-        const response: any = {
-          description: responseCode.description,
-        };
-
-        // Add example and potentially schema if available
-        if (responseExample) {
-          const errorSchema = this.components.generateErrorSchema(
-            responseExample,
-            responseCode.code,
-            spec
-          );
-          const content: any = {
-            example: responseExample,
-          };
-
-          if (errorSchema) {
-            content.schema = errorSchema;
-          }
-
-          response.content = {
-            'application/json': content,
-          };
-        }
-
-        responses[responseCode.code] = response;
-      }
-    }
-
     const operation: OpenAPIOperation = {
       operationId: this.generateOperationId(method.httpMethod, path),
       summary: method.name,
       description: this.buildDescriptionWithVersionHistory(method),
       tags: [this.extractTagFromEndpoint(method.endpoint)],
-      responses,
+      responses: this.responses.build(method, path, spec),
       externalDocs: this.generateMethodExternalDocs(method, category),
     };
 
-    // Add deprecated flag if method is deprecated
     if (method.deprecated) {
       operation.deprecated = true;
     }
 
-    // Add unreleased badge if method was added in a version newer than supported
     if (method.version && VersionParser.isOperationUnreleased(method.version)) {
       (operation as any)['x-badges'] = [{ name: 'Unreleased' }];
     }
 
-    // Add security configuration based on OAuth requirements
     if (method.oauth) {
       const oauthConfig = this.parseOAuthConfig(method.oauth);
       operation.security = this.generateSecurityRequirement(oauthConfig);
     }
 
-    // Add parameters
     if (method.parameters && method.parameters.length > 0) {
-      operation.parameters = [];
-      const bodyParams: ApiParameter[] = [];
+      const bodyParams = this.collectParameters(method, httpMethod, operation);
 
-      for (const param of method.parameters) {
-        // Use the 'in' property to determine parameter location
-        if (
-          param.in === 'query' ||
-          param.in === 'path' ||
-          param.in === 'header'
-        ) {
-          operation.parameters.push({
-            name: param.name,
-            in: param.in,
-            required: param.required,
-            description: param.description,
-            schema: this.typeParser.convertParameterToSchema(param),
-          });
-        } else if (param.in === 'formData') {
-          // Form data parameters go in request body
-          bodyParams.push(param);
-        } else {
-          // Fallback to old behavior for backwards compatibility
-          if (httpMethod === 'get') {
-            operation.parameters.push({
-              name: param.name,
-              in: 'query',
-              required: param.required,
-              description: param.description,
-              schema: this.typeParser.convertParameterToSchema(param),
-            });
-          } else {
-            bodyParams.push(param);
-          }
-        }
-      }
-
-      // Sort parameters by required first, then alphabetically
-      if (operation.parameters.length > 0) {
-        operation.parameters = this.sorting.sortParameters(
-          operation.parameters
-        );
-      }
-
-      // Add request body for form data parameters
-      if (bodyParams.length > 0) {
-        const properties: Record<string, OpenAPIProperty> = {};
-        const required: string[] = [];
-
-        for (const param of bodyParams) {
-          properties[param.name] =
-            this.typeParser.convertParameterToSchema(param);
-          if (param.required) {
-            required.push(param.name);
-          }
-        }
-
-        // Sort properties by required first, then alphabetically
-        const { sortedProperties, sortedRequired } =
-          this.sorting.sortPropertiesAndRequired(properties, required);
-
-        // Special handling for POST /api/v1/statuses endpoint
-        // Split into different status types using oneOf with component references
-        if (
-          requestBodyOverrideFor(method.httpMethod, path) ===
-            'status-variants' &&
-          sortedRequired.includes('status') &&
-          sortedRequired.includes('media_ids') &&
-          sortedRequired.includes('poll')
-        ) {
-          // Create status components for reusability
-          this.components.createStatusComponents(
-            sortedProperties,
-            sortedRequired,
-            spec
-          );
-
-          operation.requestBody = {
-            description:
-              'JSON request body parameters for creating a status. Different types of statuses have different requirements.',
-            required: true,
-            content: {
-              'application/json': {
-                schema: {
-                  oneOf: [
-                    { $ref: '#/components/schemas/TextStatus' },
-                    { $ref: '#/components/schemas/MediaStatus' },
-                    { $ref: '#/components/schemas/PollStatus' },
-                  ],
-                } as OpenAPIProperty,
-              },
-            },
-          };
-        } else if (
-          requestBodyOverrideFor(method.httpMethod, path) === 'create-app' &&
-          sortedProperties.redirect_uris
-        ) {
-          // redirect_uris is documented as "string or array"; always emit the array form
-          sortedProperties.redirect_uris = {
-            type: 'array',
-            items: {
-              type: 'string',
-              format: 'uri',
-            },
-            description: sortedProperties.redirect_uris.description,
-          };
-
-          // Override scopes to use format scopes without enum values
-          if (sortedProperties.scopes) {
-            sortedProperties.scopes = {
-              type: 'string',
-              format: 'scopes',
-              description: sortedProperties.scopes.description,
-              default: 'read',
-            };
-          }
-
-          // Default behavior for createApp endpoint
-          operation.requestBody = {
-            description: 'JSON request body parameters',
-            required: sortedRequired.length > 0,
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: sortedProperties,
-                  required:
-                    sortedRequired.length > 0 ? sortedRequired : undefined,
-                } as OpenAPIProperty,
-              },
-            },
-          };
-        } else if (
-          this.isMediaUploadEndpoint(method, path) ||
-          this.hasFileParameters(method)
-        ) {
-          // Special handling for media upload endpoints with file parameters
-          // Use multipart/form-data instead of application/json
-          // Set file parameters to have format: binary
-          const multipartProperties: Record<string, OpenAPIProperty> = {};
-
-          for (const [name, property] of Object.entries(sortedProperties)) {
-            const param = method.parameters?.find((p) => p.name === name);
-            if (param && this.isFileParameter(param)) {
-              // File parameters should have format: binary
-              multipartProperties[name] = {
-                ...property,
-                type: 'string',
-                format: 'binary',
-              };
-            } else {
-              multipartProperties[name] = property;
-            }
-          }
-
-          operation.requestBody = {
-            description: 'Multipart form data parameters',
-            required: sortedRequired.length > 0,
-            content: {
-              'multipart/form-data': {
-                schema: {
-                  type: 'object',
-                  properties: multipartProperties,
-                  required:
-                    sortedRequired.length > 0 ? sortedRequired : undefined,
-                } as OpenAPIProperty,
-              },
-            },
-          };
-        } else {
-          // Default behavior for all other endpoints
-          operation.requestBody = {
-            description: 'JSON request body parameters',
-            required: sortedRequired.length > 0,
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'object',
-                  properties: sortedProperties,
-                  required:
-                    sortedRequired.length > 0 ? sortedRequired : undefined,
-                } as OpenAPIProperty,
-              },
-            },
-          };
-        }
+      const requestBody = this.requestBodies.build(
+        method,
+        path,
+        bodyParams,
+        spec
+      );
+      if (requestBody) {
+        operation.requestBody = requestBody;
       }
     }
 
-    // Extract path parameters
-    const pathParams = this.extractPathParameters(path);
-    if (pathParams.length > 0) {
-      if (!operation.parameters) {
-        operation.parameters = [];
-      }
-      for (const pathParam of pathParams) {
-        operation.parameters.push({
-          name: pathParam,
-          in: 'path',
-          required: true,
-          description: `${pathParam} parameter`,
-          schema: { type: 'string' },
-        });
-      }
-
-      // Re-sort parameters after adding path parameters
-      operation.parameters = this.sorting.sortParameters(operation.parameters);
-    }
+    this.addPathParameters(path, operation);
 
     spec.paths[path][httpMethod] = operation;
   }
 
   /**
-   * Merge global response codes with method-specific codes
-   * Method-specific codes take precedence if there's a conflict
+   * Splits declared parameters into the operation's own parameter list and the
+   * form-data parameters that become a request body.
    */
-  private mergeResponseCodes(
-    globalCodes: Array<{ code: string; description: string }>,
-    methodCodes?: Array<{
-      code: string;
-      description: string;
-      returnType?: string;
-    }>
-  ): Array<{ code: string; description: string; returnType?: string }> {
-    if (!methodCodes || methodCodes.length === 0) {
-      // Map global codes to include returnType field for consistent structure
-      return globalCodes.map((code) => ({ ...code, returnType: undefined }));
-    }
+  private collectParameters(
+    method: ApiMethod,
+    httpMethod: keyof OpenAPIPath,
+    operation: OpenAPIOperation
+  ): ApiParameter[] {
+    operation.parameters = [];
+    const bodyParams: ApiParameter[] = [];
 
-    // Create a map from code to method-specific code info
-    const methodCodesMap = new Map<
-      string,
-      { description: string; returnType?: string }
-    >();
-    for (const methodCode of methodCodes) {
-      methodCodesMap.set(methodCode.code, {
-        description: methodCode.description,
-        returnType: methodCode.returnType,
+    for (const param of method.parameters || []) {
+      const location =
+        param.in === 'query' || param.in === 'path' || param.in === 'header'
+          ? param.in
+          : param.in === 'formData'
+            ? 'body'
+            : // Undeclared location: GET takes a query parameter, anything
+              // else takes a body field.
+              httpMethod === 'get'
+              ? 'query'
+              : 'body';
+
+      if (location === 'body') {
+        bodyParams.push(param);
+        continue;
+      }
+
+      operation.parameters.push({
+        name: param.name,
+        in: location,
+        required: param.required,
+        description: param.description,
+        schema: this.typeParser.convertParameterToSchema(param),
       });
     }
 
-    // Start with global codes
-    const mergedCodes: Array<{
-      code: string;
-      description: string;
-      returnType?: string;
-    }> = [];
-    const addedCodes = new Set<string>();
-
-    // Add global codes, but replace with method-specific if available
-    for (const globalCode of globalCodes) {
-      const methodCodeInfo = methodCodesMap.get(globalCode.code);
-      if (methodCodeInfo) {
-        mergedCodes.push({
-          code: globalCode.code,
-          description: methodCodeInfo.description,
-          returnType: methodCodeInfo.returnType,
-        });
-      } else {
-        // Add global code with explicit returnType: undefined for consistent structure
-        mergedCodes.push({ ...globalCode, returnType: undefined });
-      }
-      addedCodes.add(globalCode.code);
+    if (operation.parameters.length > 0) {
+      operation.parameters = this.sorting.sortParameters(operation.parameters);
     }
 
-    // Add any method-specific codes that weren't in global codes
-    for (const methodCode of methodCodes) {
-      if (!addedCodes.has(methodCode.code)) {
-        mergedCodes.push(methodCode);
-      }
-    }
-
-    return mergedCodes;
+    return bodyParams;
   }
 
-  /**
-   * Generate rate limit headers for 2xx responses
-   */
-  private generateRateLimitHeaders(): Record<string, any> {
-    const headers: Record<string, any> = {};
-
-    for (const header of this.rateLimitHeaders) {
-      // Reference the shared component
-      headers[header.name] = {
-        $ref: `#/components/headers/${header.name}`,
-      };
+  private addPathParameters(path: string, operation: OpenAPIOperation): void {
+    const pathParams = this.extractPathParameters(path);
+    if (pathParams.length === 0) {
+      return;
     }
 
-    return headers;
-  }
-
-  /**
-   * Check if a method has pagination parameters (max_id, since_id, min_id)
-   */
-  private hasPaginationParameters(method: ApiMethod): boolean {
-    if (!method.parameters) {
-      return false;
+    if (!operation.parameters) {
+      operation.parameters = [];
     }
 
-    const paginationParams = ['max_id', 'since_id', 'min_id'];
-    return method.parameters.some((param) =>
-      paginationParams.includes(param.name)
-    );
-  }
-
-  /**
-   * Generate Link header for pagination
-   */
-  private generateLinkHeader(): any {
-    return {
-      $ref: '#/components/headers/Link',
-    };
-  }
-
-  /**
-   * Generate combined headers for 2xx responses (rate limit + Link if applicable)
-   */
-  private generateResponseHeaders(method: ApiMethod): Record<string, any> {
-    const headers: Record<string, any> = {
-      ...this.generateRateLimitHeaders(),
-    };
-
-    // Add Link header for methods with pagination parameters
-    if (this.hasPaginationParameters(method)) {
-      headers['Link'] = this.generateLinkHeader();
+    for (const pathParam of pathParams) {
+      operation.parameters.push({
+        name: pathParam,
+        in: 'path',
+        required: true,
+        description: `${pathParam} parameter`,
+        schema: { type: 'string' },
+      });
     }
 
-    for (const name of extraResponseHeadersFor(
-      method.httpMethod,
-      this.normalizePath(method.endpoint)
-    )) {
-      headers[name] = { $ref: `#/components/headers/${name}` };
-    }
-
-    return headers;
+    operation.parameters = this.sorting.sortParameters(operation.parameters);
   }
 
   // Naming is delegated to OperationIdBuilder; these remain for callers and tests.

@@ -11,6 +11,7 @@ import {
   createPipelineContext,
 } from '../pipeline/PipelineContext';
 import { splitOutsideFences } from '../document/blocks';
+import { firstCodeBlock } from '../document/codeBlocks';
 import { resolveRelrefs } from '../document/shortcodes';
 
 class MethodParser {
@@ -133,10 +134,13 @@ class MethodParser {
     // Check if method is marked as deprecated
     const isDeprecated = name.includes('{{%deprecated%}}');
 
-    // Extract HTTP method and endpoint: ```http\nMETHOD /path\n```
-    const httpMatch = section.match(
-      /```http\s*\n([A-Z]+)\s+([^\s\n]+)[^\n]*\n```/
-    );
+    // The request line of the first ```http fence. The fence may carry headers
+    // and a body on following lines, so only the first line is significant.
+    const httpBlock = firstCodeBlock(section, 'http');
+    const requestLine = httpBlock?.content
+      .split('\n')
+      .find((line) => line.trim().length > 0);
+    const httpMatch = requestLine?.match(/^\s*([A-Z]+)\s+(\S+)/);
     if (!httpMatch) return null;
 
     const httpMethod = httpMatch[1].trim();

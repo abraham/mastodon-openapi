@@ -1,6 +1,7 @@
 import {
   OpenAPIParameter,
   OpenAPIProperty,
+  OpenAPISchema,
   OpenAPISpec,
 } from '../interfaces/OpenAPISchema';
 
@@ -61,6 +62,42 @@ export class SchemaSorting {
     }
 
     return { sortedProperties, sortedRequired };
+  }
+
+  /**
+   * Sort a schema's properties in place, descending into nested objects and
+   * arrays of objects.
+   */
+  public sortSchemaProperties(schema: OpenAPISchema): void {
+    if (!schema.properties || Object.keys(schema.properties).length === 0) {
+      return;
+    }
+
+    const { sortedProperties, sortedRequired } = this.sortPropertiesAndRequired(
+      schema.properties,
+      schema.required || []
+    );
+
+    schema.properties = sortedProperties;
+    schema.required = sortedRequired.length > 0 ? sortedRequired : undefined;
+
+    for (const property of Object.values(schema.properties)) {
+      if (!property || typeof property !== 'object') {
+        continue;
+      }
+
+      if (property.type === 'object' && property.properties) {
+        this.sortSchemaProperties(property as OpenAPISchema);
+      } else if (
+        property.type === 'array' &&
+        property.items &&
+        typeof property.items === 'object' &&
+        property.items.type === 'object' &&
+        property.items.properties
+      ) {
+        this.sortSchemaProperties(property.items as OpenAPISchema);
+      }
+    }
   }
 
   /**
