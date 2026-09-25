@@ -39,7 +39,7 @@
     "eslint": "^10.10.0",
     "eslint-config-prettier": "^10.1.8",
     "jest": "^30.5.1",
-    "prettier": "^3.9.6",
+    "prettier": "^3.9.8",
     "ts-jest": "^29.4.12",
     "ts-node": "^10.9.0",
     "typescript": "^6.0.0"
