@@ -1,6 +1,6 @@
 {
-  "mastodonDocsCommit": "bbf2634464593f8b937adb0515bceab900f54e0e",
-  "mastodonSecurityCommit": "79f21a20736ba85a0b59c976cddbf88e880b28c9",
+  "mastodonDocsCommit": "58425765225abf378b08ddf0b1d48403674e7afa",
+  "mastodonSecurityCommit": "9e3fab2708b2f8ee2b513d3c816aac7e2e6786e7",
   "blockedFiles": ["methods/notifications_alpha.md"],
   "overridesRepository": "https://github.com/abraham/documentation",
   "overrideCommits": [
@@ -8,10 +8,6 @@
     "c6b60e2470226fd7bae1fcfebd4a372775f83419",
     "9a38bf8d99187663fbb905e4aba0205735accf32",
     "c1bc0bdbaaeb12dddee8dd378a5042a742273bb2",
-    "0313b4c13db4e11108ea1538bdbe73639a6db915",
-    "a7d3ba38d06ff7e4bd4e371b13ea78460e54217c",
-    "fbec553ad92248dc5ff8ff5333aad313715a2be4",
-    "cee272d2a0cd2b05019e4a9b4450f0c0c857f94b",
-    "b3c382ef5ff9bffbfc157b01fca93c5a7206518e"
+    "0313b4c13db4e11108ea1538bdbe73639a6db915"
   ]
 }
