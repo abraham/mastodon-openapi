@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.7.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [bbf2634](https://github.com/mastodon/documentation/commit/bbf2634464593f8b937adb0515bceab900f54e0e). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [5842576](https://github.com/mastodon/documentation/commit/58425765225abf378b08ddf0b1d48403674e7afa). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "contact": {
       "name": "Abraham Williams",
       "email": "hi@abrah.am"
@@ -31468,7 +31468,7 @@
             }
           },
           "404": {
-            "description": "Not found",
+            "description": "Not Found",
             "content": {
               "application/json": {
                 "schema": {
