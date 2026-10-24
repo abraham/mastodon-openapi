@@ -60,6 +60,7 @@ interface OpenAPISecurityScheme {
 }
 
 interface OpenAPIProperty {
+  title?: string;
   type?: string | string[];
   format?: string;
   description?: string;
