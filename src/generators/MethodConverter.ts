@@ -126,8 +126,9 @@ class MethodConverter {
       spec.paths[path] = {};
     }
 
+    const operationId = this.generateOperationId(method.httpMethod, path);
     const operation: OpenAPIOperation = {
-      operationId: this.generateOperationId(method.httpMethod, path),
+      operationId,
       summary: method.name,
       description: this.buildDescriptionWithVersionHistory(method),
       tags: [this.extractTagFromEndpoint(method.endpoint)],
@@ -154,6 +155,7 @@ class MethodConverter {
       const requestBody = this.requestBodies.build(
         method,
         path,
+        operationId,
         bodyParams,
         spec
       );
