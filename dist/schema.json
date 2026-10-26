@@ -163,6 +163,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateAccountRequest",
                 "type": "object",
                 "properties": {
                   "agreement": {
@@ -1552,6 +1553,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostAccountFollowRequest",
                 "type": "object",
                 "properties": {
                   "languages": {
@@ -2349,6 +2351,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostAccountMuteRequest",
                 "type": "object",
                 "properties": {
                   "duration": {
@@ -2510,6 +2513,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostAccountNoteRequest",
                 "type": "object",
                 "properties": {
                   "comment": {
@@ -4497,6 +4501,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PatchAccountUpdateCredentialsRequest",
                 "type": "object",
                 "properties": {
                   "attribution_domains": {
@@ -6091,6 +6096,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateAppRequest",
                 "type": "object",
                 "properties": {
                   "client_name": {
@@ -6860,6 +6866,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateCollectionRequest",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -7060,6 +7067,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostCollectionItemsRequest",
                 "type": "object",
                 "properties": {
                   "account_id": {
@@ -7666,6 +7674,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateCollectionRequest",
                 "type": "object",
                 "properties": {
                   "description": {
@@ -8850,6 +8859,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateDomainBlockRequest",
                 "type": "object",
                 "properties": {
                   "domain": {
@@ -8985,6 +8995,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "DeleteDomainBlocksRequest",
                 "type": "object",
                 "properties": {
                   "domain": {
@@ -9134,6 +9145,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateEmailConfirmationsRequest",
                 "type": "object",
                 "properties": {
                   "email": {
@@ -9742,6 +9754,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateFeaturedTagRequest",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -10273,6 +10286,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateFilterRequest",
                 "type": "object",
                 "properties": {
                   "context": {
@@ -10591,6 +10605,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateFilterRequest",
                 "type": "object",
                 "properties": {
                   "context": {
@@ -11014,6 +11029,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateFilterV2Request",
                 "type": "object",
                 "properties": {
                   "context": {
@@ -11344,6 +11360,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostFilterKeywordsV2Request",
                 "type": "object",
                 "properties": {
                   "keyword": {
@@ -11645,6 +11662,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostFilterStatusesV2Request",
                 "type": "object",
                 "properties": {
                   "status_id": {
@@ -11939,6 +11957,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateFilterV2Request",
                 "type": "object",
                 "properties": {
                   "context": {
@@ -12394,6 +12413,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateFilterKeywordV2Request",
                 "type": "object",
                 "properties": {
                   "keyword": {
@@ -15213,6 +15233,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateListRequest",
                 "type": "object",
                 "properties": {
                   "title": {
@@ -15517,6 +15538,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateListRequest",
                 "type": "object",
                 "properties": {
                   "title": {
@@ -15976,6 +15998,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostListAccountsRequest",
                 "type": "object",
                 "properties": {
                   "account_ids": {
@@ -16123,6 +16146,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "DeleteListAccountsRequest",
                 "type": "object",
                 "properties": {
                   "account_ids": {
@@ -16440,6 +16464,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateMarkerRequest",
                 "type": "object",
                 "properties": {
                   "home": {
@@ -16602,6 +16627,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "title": "CreateMediaRequest",
                 "type": "object",
                 "properties": {
                   "file": {
@@ -17048,6 +17074,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "title": "UpdateMediaRequest",
                 "type": "object",
                 "properties": {
                   "description": {
@@ -17243,6 +17270,7 @@
           "content": {
             "multipart/form-data": {
               "schema": {
+                "title": "CreateMediaV2Request",
                 "type": "object",
                 "properties": {
                   "file": {
@@ -20604,6 +20632,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostOauthRevokeRequest",
                 "type": "object",
                 "properties": {
                   "client_id": {
@@ -20770,6 +20799,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostOauthTokenRequest",
                 "type": "object",
                 "properties": {
                   "client_id": {
@@ -21377,6 +21407,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostPollVotesRequest",
                 "type": "object",
                 "properties": {
                   "choices": {
@@ -21764,6 +21795,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PatchProfileRequest",
                 "type": "object",
                 "properties": {
                   "attribution_domains": {
@@ -22240,6 +22272,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreatePushSubscriptionRequest",
                 "type": "object",
                 "properties": {
                   "subscription": {
@@ -22597,6 +22630,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PutPushSubscriptionRequest",
                 "type": "object",
                 "properties": {
                   "data": {
@@ -22906,6 +22940,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "CreateReportRequest",
                 "type": "object",
                 "properties": {
                   "account_id": {
@@ -23408,6 +23443,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateScheduledStatusRequest",
                 "type": "object",
                 "properties": {
                   "scheduled_at": {
@@ -24575,6 +24611,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateStatusRequest",
                 "type": "object",
                 "properties": {
                   "language": {
@@ -25651,6 +25688,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "UpdateStatusInteractionPolicyRequest",
                 "type": "object",
                 "properties": {
                   "quote_approval_policy": {
@@ -26688,6 +26726,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostStatusReblogRequest",
                 "type": "object",
                 "properties": {
                   "visibility": {
@@ -27170,6 +27209,7 @@
           "content": {
             "application/json": {
               "schema": {
+                "title": "PostStatusTranslateRequest",
                 "type": "object",
                 "properties": {
                   "lang": {

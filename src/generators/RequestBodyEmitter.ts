@@ -23,6 +23,7 @@ export class RequestBodyEmitter {
   public build(
     method: ApiMethod,
     path: string,
+    operationId: string,
     bodyParams: ApiParameter[],
     spec: OpenAPISpec
   ): OpenAPIOperation['requestBody'] | undefined {
@@ -44,6 +45,7 @@ export class RequestBodyEmitter {
       this.sorting.sortPropertiesAndRequired(properties, required);
 
     const override = requestBodyOverrideFor(method.httpMethod, path);
+    const title = requestBodyTitle(operationId);
 
     if (
       override === 'status-variants' &&
@@ -56,14 +58,19 @@ export class RequestBodyEmitter {
 
     if (override === 'create-app' && sortedProperties.redirect_uris) {
       this.applyCreateAppOverride(sortedProperties);
-      return this.jsonBody(sortedProperties, sortedRequired);
+      return this.jsonBody(title, sortedProperties, sortedRequired);
     }
 
     if (this.isMediaUploadEndpoint(method, path) || hasFileParameters(method)) {
-      return this.multipartBody(method, sortedProperties, sortedRequired);
+      return this.multipartBody(
+        title,
+        method,
+        sortedProperties,
+        sortedRequired
+      );
     }
 
-    return this.jsonBody(sortedProperties, sortedRequired);
+    return this.jsonBody(title, sortedProperties, sortedRequired);
   }
 
   private statusVariants(
@@ -116,6 +123,7 @@ export class RequestBodyEmitter {
   }
 
   private multipartBody(
+    title: string,
     method: ApiMethod,
     sortedProperties: Record<string, OpenAPIProperty>,
     sortedRequired: string[]
@@ -136,6 +144,7 @@ export class RequestBodyEmitter {
       content: {
         'multipart/form-data': {
           schema: {
+            title,
             type: 'object',
             properties: multipartProperties,
             required: sortedRequired.length > 0 ? sortedRequired : undefined,
@@ -146,6 +155,7 @@ export class RequestBodyEmitter {
   }
 
   private jsonBody(
+    title: string,
     sortedProperties: Record<string, OpenAPIProperty>,
     sortedRequired: string[]
   ): OpenAPIOperation['requestBody'] {
@@ -155,6 +165,7 @@ export class RequestBodyEmitter {
       content: {
         'application/json': {
           schema: {
+            title,
             type: 'object',
             properties: sortedProperties,
             required: sortedRequired.length > 0 ? sortedRequired : undefined,
@@ -171,6 +182,11 @@ export class RequestBodyEmitter {
       (method.httpMethod === 'PUT' && path === '/api/v1/media/{id}')
     );
   }
+}
+
+/** Names the inline body so code generators don't fall back to `Body1`, `Body2`, ... */
+export function requestBodyTitle(operationId: string): string {
+  return `${operationId.charAt(0).toUpperCase()}${operationId.slice(1)}Request`;
 }
 
 /** File parameters are identified only by their prose. */
