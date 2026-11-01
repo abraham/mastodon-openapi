@@ -15,12 +15,12 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Setup Node.js
-        uses: actions/setup-node@v7
+        uses: actions/setup-node@v7.1.0
         with:
           node-version: '24'
           cache: 'npm'
@@ -51,7 +51,7 @@ jobs:
 
       - name: Create Pull Request
         if: steps.check-changes.outputs.has-changes == 'true'
-        uses: peter-evans/create-pull-request@v8
+        uses: peter-evans/create-pull-request@v8.1.1
         with:
           token: ${{ secrets.PAT }}
           commit-message: 'Update docs SHA and regenerate OpenAPI schema'
