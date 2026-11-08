@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.7.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [f9e4c01](https://github.com/mastodon/documentation/commit/f9e4c0116b17d28b56db63798662f1bc3aa15420). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [431e64f](https://github.com/mastodon/documentation/commit/431e64f8a31b4e25d602d6ce6e2b56e9fdf3b7b9). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "contact": {
       "name": "Abraham Williams",
       "email": "hi@abrah.am"
