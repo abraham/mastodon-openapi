@@ -108,7 +108,7 @@ export class SchemaSorting {
     const pathEntries = Object.entries(spec.paths).map(([path, pathItem]) => {
       // Get the first operation's first tag as the primary tag for sorting
       let primaryTag = 'unknown';
-      for (const [httpMethod, operation] of Object.entries(pathItem)) {
+      for (const operation of Object.values(pathItem)) {
         if (
           typeof operation === 'object' &&
           operation !== null &&

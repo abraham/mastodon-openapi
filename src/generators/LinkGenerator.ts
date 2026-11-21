@@ -214,8 +214,8 @@ export class LinkGenerator {
     // Add links to successful responses (200, 201) of source operations
     for (const [sourceOpId, links] of linksBySource) {
       // Find the source operation in the spec
-      for (const [path, pathItem] of Object.entries(spec.paths)) {
-        for (const [method, operation] of Object.entries(pathItem)) {
+      for (const pathItem of Object.values(spec.paths)) {
+        for (const operation of Object.values(pathItem)) {
           if (
             operation &&
             typeof operation === 'object' &&

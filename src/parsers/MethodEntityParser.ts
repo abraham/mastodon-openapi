@@ -31,7 +31,7 @@ export class MethodEntityParser {
 
     let match;
     while ((match = entityRegex.exec(parsed.content)) !== null) {
-      const [fullMatch, entityName, entityId] = match;
+      const [fullMatch, entityName] = match;
 
       // Find the content for this entity (from this heading to the next ## heading or end of file)
       const startIndex = match.index + fullMatch.length;

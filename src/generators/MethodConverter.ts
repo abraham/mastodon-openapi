@@ -4,25 +4,18 @@ import { ApiParameter } from '../interfaces/ApiParameter';
 import {
   OpenAPIOperation,
   OpenAPIPath,
-  OpenAPIProperty,
   OpenAPISpec,
-  OpenAPIHeader,
-  OpenAPIExample,
 } from '../interfaces/OpenAPISchema';
 import { TypeParser } from './TypeParser';
 import { UtilityHelpers } from './UtilityHelpers';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { ResponseCodeParser } from '../parsers/ResponseCodeParser';
-import { HeaderParser, HttpHeader } from '../parsers/HeaderParser';
+import { HeaderParser } from '../parsers/HeaderParser';
 import { VersionParser } from '../parsers/VersionParser';
 import {
   PipelineContext,
   createPipelineContext,
 } from '../pipeline/PipelineContext';
-import {
-  extraResponseHeadersFor,
-  requestBodyOverrideFor,
-} from '../overrides/overrides';
 import { OperationIdBuilder } from '../naming/OperationId';
 import { OAuthSecurityConfig, SecurityEmitter } from './SecurityEmitter';
 import { SchemaSorting } from './SchemaSorting';

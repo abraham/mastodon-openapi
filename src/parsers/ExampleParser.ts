@@ -94,12 +94,12 @@ export class ExampleParser {
     // Try parsing the cleaned content directly
     try {
       return JSON.parse(cleanedContent);
-    } catch (error) {
+    } catch {
       // If that fails, try wrapping in braces
       try {
         const wrappedContent = `{${cleanedContent}}`;
         return JSON.parse(wrappedContent);
-      } catch (secondError) {
+      } catch {
         // If both attempts fail, return null
         return null;
       }

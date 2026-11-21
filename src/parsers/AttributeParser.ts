@@ -2,7 +2,6 @@ import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { VersionParser } from './VersionParser';
 import { isExcludedAttribute } from '../overrides/overrides';
-import { reportOverride } from '../overrides/report';
 import { MarkdownDocument } from '../document/MarkdownDocument';
 
 /**

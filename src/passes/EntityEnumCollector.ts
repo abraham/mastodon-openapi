@@ -1,8 +1,4 @@
-import {
-  OpenAPISpec,
-  OpenAPISchema,
-  OpenAPIProperty,
-} from '../interfaces/OpenAPISchema';
+import { OpenAPISpec, OpenAPISchema } from '../interfaces/OpenAPISchema';
 import { generateEntityEnumComponentName } from './EnumNaming';
 
 /**
@@ -151,8 +147,7 @@ export function extractEntityEnumsToComponents(
     const bestOccurrence = selectBestEnumOccurrence(occurrences);
     const componentName = generateEntityEnumComponentName(
       bestOccurrence.entityName,
-      bestOccurrence.propName,
-      bestOccurrence.enumValues
+      bestOccurrence.propName
     );
 
     // Store the mapping and original values

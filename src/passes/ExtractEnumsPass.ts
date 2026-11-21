@@ -4,13 +4,9 @@ import {
   OpenAPIProperty,
 } from '../interfaces/OpenAPISchema';
 import { SpecPass } from './SpecPass';
-import {
-  collectEnumsFromProperties,
-  extractEntityEnumsToComponents,
-} from './EntityEnumCollector';
+import { extractEntityEnumsToComponents } from './EntityEnumCollector';
 import {
   findExistingEntityEnumForSubset,
-  generateEntityEnumComponentName,
   generateSharedEnumComponentName,
   isMethodParameterContext,
 } from './EnumNaming';
@@ -119,16 +115,14 @@ export class ExtractEnumsPass implements SpecPass {
 
     // Second pass: replace inline enums with references to shared components
     if (spec.components?.schemas) {
-      for (const [entityName, schema] of Object.entries(
-        spec.components.schemas
-      )) {
+      for (const schema of Object.values(spec.components.schemas)) {
         this.replaceEnumsWithReferences(schema as OpenAPISchema, enumPatterns);
       }
     }
 
     if (spec.paths) {
-      for (const [path, pathItem] of Object.entries(spec.paths)) {
-        for (const [method, operation] of Object.entries(pathItem)) {
+      for (const pathItem of Object.values(spec.paths)) {
+        for (const operation of Object.values(pathItem)) {
           if (typeof operation === 'object' && operation !== null) {
             // Replace in parameters
             if (operation.parameters) {
@@ -264,10 +258,7 @@ export class ExtractEnumsPass implements SpecPass {
       enumSignatureToOriginalValues.set(enumSignature, enumValues);
     } else if (enumPatterns.get(enumSignature) === '') {
       // Second occurrence - create shared component
-      const componentName = generateSharedEnumComponentName(
-        contextName,
-        enumValues
-      );
+      const componentName = generateSharedEnumComponentName(contextName);
       enumPatterns.set(enumSignature, componentName);
     }
   }
@@ -281,7 +272,7 @@ export class ExtractEnumsPass implements SpecPass {
   ): void {
     if (!schema.properties) return;
 
-    for (const [propName, property] of Object.entries(schema.properties)) {
+    for (const property of Object.values(schema.properties)) {
       this.replaceEnumsInProperty(property, enumPatterns);
     }
   }
