@@ -1,17 +1,2 @@
-# Dependencies
-node_modules/
-
-# Build output
-dist/
-
-# Coverage reports
-coverage/
-
-# Logs
-*.log
-
-# Documentation clone
-mastodon-documentation/
-
-# Lock files
+dist/schema.json
 package-lock.json
