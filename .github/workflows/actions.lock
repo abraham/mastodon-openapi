@@ -3,10 +3,10 @@
 # Docs: https://gh.io/actions-lockfile
 version: 'v0.0.3'
 workflows:
-    '.github/workflows/copilot-setup-steps.yml':
+    '.github/workflows/ci.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-node@v7.1.0'
-    '.github/workflows/main.yml':
+    '.github/workflows/copilot-setup-steps.yml':
         - 'actions/checkout@v7.0.1'
         - 'actions/setup-node@v7.1.0'
     '.github/workflows/pages.yml':

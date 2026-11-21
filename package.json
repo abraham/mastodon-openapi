@@ -1,13 +1,16 @@
 {
   "name": "mastodon-openapi",
   "version": "1.0.0",
+  "private": true,
   "description": "Mastodon OpenAPI package",
+  "engines": {
+    "node": "26"
+  },
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc",
-    "start": "npx @redocly/cli preview-docs dist/schema.json",
-    "dev": "ts-node src/index.ts",
+    "start": "redocly preview -d dist",
     "generate": "ts-node src/index.ts",
     "validate": "redocly lint --format=github-actions dist/schema.json",
     "test": "jest",
@@ -39,7 +42,7 @@
     "eslint": "^10.15.0",
     "eslint-config-prettier": "^10.1.8",
     "jest": "^30.5.2",
-    "prettier": "^3.10.1",
+    "prettier": "3.10.1",
     "ts-jest": "^29.4.15",
     "ts-node": "^10.9.0",
     "typescript": "^6.0.0"

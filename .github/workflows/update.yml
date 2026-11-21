@@ -6,23 +6,29 @@ on:
     - cron: '0 8 * * 0'
   workflow_dispatch: # Allow manual trigger
 
+permissions:
+  contents: read
+
 jobs:
   update-schema:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
+    concurrency:
+      group: update-schema
+      cancel-in-progress: false
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v7.0.1
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          persist-credentials: false
 
       - name: Setup Node.js
         uses: actions/setup-node@v7.1.0
         with:
-          node-version-file: '.nvmrc'
+          node-version-file: 'package.json'
           cache: 'npm'
 
       - name: Install dependencies
@@ -44,9 +50,9 @@ jobs:
         id: check-changes
         run: |
           if git diff --quiet dist/schema.json config.json; then
-            echo "has-changes=false" >> $GITHUB_OUTPUT
+            echo "has-changes=false" >> "$GITHUB_OUTPUT"
           else
-            echo "has-changes=true" >> $GITHUB_OUTPUT
+            echo "has-changes=true" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Create Pull Request
