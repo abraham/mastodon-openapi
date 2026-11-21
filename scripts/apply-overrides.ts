@@ -1,8 +1,10 @@
 #!/usr/bin/env ts-node
 
 import fs from 'fs';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { getConfig, DOCS_ROOT } from '../src/config';
+
+const GIT_SHA_RE = /^[0-9a-f]{40}$/;
 
 /**
  * Apply override commits to the mastodon-documentation repository
@@ -27,28 +29,56 @@ function applyOverrides(): void {
     return;
   }
 
+  for (const commit of overrideCommits) {
+    if (!GIT_SHA_RE.test(commit)) {
+      console.error(`Invalid override commit SHA: ${commit}`);
+      process.exit(1);
+    }
+  }
+
   console.log(`Applying ${overrideCommits.length} override commit(s)...`);
 
   try {
     // Configure git user for cherry-picking
     console.log('Configuring git user...');
-    execSync(`git config user.email "bot@example.com"`, {
+    execFileSync('git', ['config', 'user.email', 'bot@example.com'], {
       stdio: 'inherit',
       cwd: docsDir,
     });
-    execSync(`git config user.name "bot"`, {
+    execFileSync('git', ['config', 'user.name', 'bot'], {
       stdio: 'inherit',
       cwd: docsDir,
     });
 
-    // Add overrides remote if repository is specified
+    // Add or update overrides remote if repository is specified
     if (overridesRepository) {
-      console.log(`Adding ${overridesRepository} overrides remote...`);
-      execSync(`git remote add overrides ${overridesRepository} || true`, {
-        stdio: 'inherit',
-        cwd: docsDir,
-      });
-      execSync(`git fetch overrides`, {
+      console.log(`Configuring ${overridesRepository} overrides remote...`);
+      let hasRemote = false;
+      try {
+        execFileSync('git', ['remote', 'get-url', 'overrides'], {
+          stdio: 'ignore',
+          cwd: docsDir,
+        });
+        hasRemote = true;
+      } catch {
+        hasRemote = false;
+      }
+
+      execFileSync(
+        'git',
+        [
+          'remote',
+          hasRemote ? 'set-url' : 'add',
+          '--',
+          'overrides',
+          overridesRepository,
+        ],
+        {
+          stdio: 'inherit',
+          cwd: docsDir,
+        }
+      );
+      execFileSync('git', ['fetch', 'overrides'], {
         stdio: 'inherit',
         cwd: docsDir,
       });
@@ -57,7 +87,7 @@ function applyOverrides(): void {
     // Apply each override commit
     for (const commit of overrideCommits) {
       console.log(`Cherry-picking commit ${commit}...`);
-      execSync(`git cherry-pick ${commit}`, {
+      execFileSync('git', ['cherry-pick', commit], {
         stdio: 'inherit',
         cwd: docsDir,
       });

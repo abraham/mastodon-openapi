@@ -37,9 +37,6 @@ jobs:
       - name: Update docs SHA
         run: npm run update-docs
 
-      - name: Install dependencies
-        run: npm ci
-
       - name: Generate new schema
         run: npm run generate
 

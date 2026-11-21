@@ -1,7 +1,7 @@
 #!/usr/bin/env ts-node
 
 import fs from 'fs';
-import { execSync } from 'child_process';
+import { execFileSync } from 'child_process';
 import { applyOverrides } from './apply-overrides';
 import { setupSecurityPolicy } from './setup-security-policy';
 import { CONFIG_PATH, DOCS_ROOT, resetConfigCache } from '../src/config';
@@ -32,20 +32,13 @@ function updateDocsCommit(): boolean {
   try {
     // Fetch the latest changes from the remote repository
     console.log('Fetching latest changes...');
-    execSync('git fetch origin', {
+    execFileSync('git', ['fetch', 'origin'], {
       cwd: docsDir,
       stdio: 'inherit',
     });
 
-    // Reset local branch to match origin/main, discarding any local changes
-    console.log('Resetting to origin/main...');
-    execSync('git reset --hard origin/main', {
-      cwd: docsDir,
-      stdio: 'inherit',
-    });
-
-    // Get the latest commit SHA from the local repository
-    const latestCommit = execSync('git rev-parse HEAD', {
+    // Check latest origin/main commit before resetting so overrides stay intact if unchanged
+    const latestCommit = execFileSync('git', ['rev-parse', 'origin/main'], {
       cwd: docsDir,
       encoding: 'utf8',
     }).trim();
@@ -61,11 +54,19 @@ function updateDocsCommit(): boolean {
       return false;
     }
 
+    // Reset local branch to match origin/main, discarding any local changes
+    console.log('Resetting to origin/main...');
+    execFileSync('git', ['reset', '--hard', latestCommit], {
+      cwd: docsDir,
+      stdio: 'inherit',
+    });
+
     // Update config with new commit
     config.mastodonDocsCommit = latestCommit;
 
     // Write updated config
     fs.writeFileSync(configPath, JSON.stringify(config, null, 2) + '\n');
+    resetConfigCache();
 
     console.log(
       `Updated mastodonDocsCommit from ${oldCommit} to ${latestCommit}`
@@ -88,8 +89,9 @@ function updateDocsCommit(): boolean {
 async function updateSecurityCommit(): Promise<boolean> {
   console.log('Resolving latest mastodon/mastodon commit...');
 
-  const lsRemote = execSync(
-    'git ls-remote https://github.com/mastodon/mastodon refs/heads/main',
+  const lsRemote = execFileSync(
+    'git',
+    ['ls-remote', 'https://github.com/mastodon/mastodon', 'refs/heads/main'],
     { encoding: 'utf8' }
   ).trim();
   const latestCommit = lsRemote.split(/\s+/)[0];
