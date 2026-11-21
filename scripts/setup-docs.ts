@@ -1,7 +1,6 @@
 #!/usr/bin/env ts-node
 
 import fs from 'fs';
-import path from 'path';
 import { execSync } from 'child_process';
 import { applyOverrides } from './apply-overrides';
 import { setupSecurityPolicy } from './setup-security-policy';

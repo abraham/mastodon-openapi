@@ -1,6 +1,5 @@
 import { HashAttribute } from '../interfaces/ApiMethod';
 import { OpenAPIProperty, OpenAPISpec } from '../interfaces/OpenAPISchema';
-import { EntityParsingUtils } from '../parsers/EntityParsingUtils';
 import { UtilityHelpers } from './UtilityHelpers';
 
 type ParseType = (typeString: string) => OpenAPIProperty;

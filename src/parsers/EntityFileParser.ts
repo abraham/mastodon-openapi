@@ -3,7 +3,6 @@ import matter from 'gray-matter';
 import { EntityClass } from '../interfaces/EntityClass';
 import { EntityAttribute } from '../interfaces/EntityAttribute';
 import { AttributeParser } from './AttributeParser';
-import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
 import { EntityParsingUtils } from './EntityParsingUtils';
 import { MarkdownDocument } from '../document/MarkdownDocument';
@@ -163,7 +162,7 @@ export class EntityFileParser {
     ].forEach((regex) => {
       let match;
       while ((match = regex.exec(content)) !== null) {
-        const [fullMatch, entityNameRaw, entityId] = match;
+        const [fullMatch, entityNameRaw] = match;
 
         // For Pattern 1 (entity attributes), remove " entity" suffix if present
         // This handles cases like "CredentialAccount entity attributes" -> "CredentialAccount"

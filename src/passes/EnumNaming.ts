@@ -30,8 +30,7 @@ export function toPascalCase(input: string): string {
  */
 export function generateEntityEnumComponentName(
   entityName: string,
-  propertyName: string,
-  enumValues: any[]
+  propertyName: string
 ): string {
   // Sanitize property name to remove invalid characters
   const sanitizedPropName = propertyName.replace(/[^a-zA-Z0-9_]/g, '_');
@@ -101,10 +100,7 @@ export function isSubsetOf(subset: any[], superset: any[]): boolean {
 /**
  * Generate a name for a shared enum component
  */
-export function generateSharedEnumComponentName(
-  contextName: string,
-  enumValues: any[]
-): string {
+export function generateSharedEnumComponentName(contextName: string): string {
   // Sanitize context name to remove invalid characters
   const sanitizedContext = contextName.replace(/[^a-zA-Z0-9_]/g, '_');
 

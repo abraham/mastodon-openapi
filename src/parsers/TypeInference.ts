@@ -36,7 +36,7 @@ export class TypeInference {
     // This pattern matches the visibility parameter format specifically
     // Make sure it's not part of "due to" by using negative lookbehind
     const toPattern = /(?<!due\s+)to\s+(`[^`]+`(?:\s*,\s*`[^`]+`)*)/gi;
-    let match = toPattern.exec(description);
+    const match = toPattern.exec(description);
     if (match) {
       const valuesList = match[1];
       const values = valuesList.match(/`([^`]+)`/g);

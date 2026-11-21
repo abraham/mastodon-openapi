@@ -28,8 +28,8 @@ export class ComponentEmitter {
     const componentExamples = new Map<string, any>();
 
     // Process all paths and operations
-    for (const [pathKey, pathItem] of Object.entries(spec.paths)) {
-      for (const [methodKey, operation] of Object.entries(pathItem)) {
+    for (const pathItem of Object.values(spec.paths)) {
+      for (const operation of Object.values(pathItem)) {
         if (
           typeof operation === 'object' &&
           operation !== null &&
@@ -46,9 +46,7 @@ export class ComponentEmitter {
                 'content' in response &&
                 response.content
               ) {
-                for (const [contentType, mediaType] of Object.entries(
-                  response.content
-                )) {
+                for (const mediaType of Object.values(response.content)) {
                   if (
                     mediaType &&
                     typeof mediaType === 'object' &&

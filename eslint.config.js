@@ -4,7 +4,7 @@ const prettierConfig = require('eslint-config-prettier');
 
 module.exports = [
   {
-    files: ['src/**/*.{ts}'],
+    files: ['src/**/*.ts', 'scripts/**/*.ts'],
     languageOptions: {
       parser: typescriptParser,
       parserOptions: {
@@ -66,6 +66,7 @@ module.exports = [
       'dist/**',
       'node_modules/**',
       'mastodon-documentation/**',
+      'mastodon-security/**',
       '*.js',
     ],
   },
