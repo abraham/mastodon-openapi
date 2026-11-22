@@ -3,7 +3,7 @@
   "info": {
     "title": "Mastodon API",
     "version": "4.7.0",
-    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [431e64f](https://github.com/mastodon/documentation/commit/431e64f8a31b4e25d602d6ce6e2b56e9fdf3b7b9). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
+    "description": "Unofficial documentation for the Mastodon API. Generated with [mastodon-openapi](https://github.com/abraham/mastodon-openapi) from [55c6231](https://github.com/mastodon/documentation/commit/55c62319e6b9ca2b116385b18568411422c45e26). Targets [supported](https://github.com/mastodon/mastodon/security/policy#supported-versions) Mastodon versions.",
     "contact": {
       "name": "Abraham Williams",
       "email": "hi@abrah.am"
@@ -36211,6 +36211,36 @@
                   }
                 }
               },
+              "collections": {
+                "description": "Limits related to collections.",
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "max_items": {
+                    "description": "The maximum number of items in a single collection.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "max_name_length": {
+                    "description": "The maximum length allowed for the name of a collection.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  },
+                  "max_description_length": {
+                    "description": "The maximum length allowed for the description of a collection.",
+                    "type": [
+                      "integer",
+                      "null"
+                    ]
+                  }
+                }
+              },
               "limited_federation": {
                 "description": "Whether federation is limited to explicitly allowed domains.",
                 "type": [
@@ -36719,7 +36749,12 @@
                 "remote": "public"
               }
             },
-            "limited_federation": false
+            "limited_federation": false,
+            "collections": {
+              "max_items": 25,
+              "max_name_length": 40,
+              "max_description_length": 100
+            }
           },
           "registrations": {
             "enabled": true,
