@@ -105,6 +105,17 @@ describe('overrides', () => {
         expect((success![1] as any).headers).toHaveProperty(header);
       }
     });
+
+    it.each(
+      endpointOverrides
+        .filter((o) => o.callback)
+        .map((o) => [`${o.httpMethod} ${o.path}`, o] as const)
+    )('%s carries its callback definition', (_label, override) => {
+      const operation =
+        schema.paths[override.path][override.httpMethod.toLowerCase()];
+      expect(operation.callbacks).toBeDefined();
+      expect(Object.keys(operation.callbacks).length).toBeGreaterThan(0);
+    });
   });
 
   describe('stream event payload overrides', () => {

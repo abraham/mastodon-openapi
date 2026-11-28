@@ -150,6 +150,7 @@ export function hasVersionConflict(firstSegment: string): boolean {
 }
 
 export type RequestBodyOverrideKind = 'status-variants' | 'create-app';
+export type CallbackOverrideKind = 'web-push-notification';
 
 export interface EndpointOverride {
   httpMethod: string;
@@ -158,6 +159,8 @@ export interface EndpointOverride {
   requestBody?: RequestBodyOverrideKind;
   /** Response headers added on top of the documented ones. */
   extraResponseHeaders?: string[];
+  /** Out-of-band webhook/push callbacks triggered by this endpoint. */
+  callback?: CallbackOverrideKind;
   reason: string;
 }
 
@@ -182,6 +185,13 @@ export const endpointOverrides: EndpointOverride[] = [
     extraResponseHeaders: ['Mastodon-Async-Refresh'],
     reason:
       'Context may still be loading; the header is documented separately from the endpoint.',
+  },
+  {
+    httpMethod: 'POST',
+    path: '/api/v1/push/subscription',
+    callback: 'web-push-notification',
+    reason:
+      'Mastodon delivers encrypted Web Push notifications to subscription[endpoint]; the payload is serialized by Web::NotificationSerializer and not documented in mastodon/documentation.',
   },
 ];
 
@@ -227,6 +237,23 @@ export function extraResponseHeadersFor(
   }
 
   return headers;
+}
+
+export function callbackOverrideFor(
+  httpMethod: string,
+  path: string
+): CallbackOverrideKind | undefined {
+  const override = findEndpointOverride(httpMethod, path);
+  if (!override?.callback) {
+    return undefined;
+  }
+
+  reportOverride(
+    'callbacks',
+    `${override.httpMethod} ${path} uses ${override.callback}`,
+    override.reason
+  );
+  return override.callback;
 }
 
 export interface StreamEventPayloadOverride {

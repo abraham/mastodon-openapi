@@ -24,6 +24,7 @@ import { ComponentEmitter } from './ComponentEmitter';
 import { ResponseEmitter } from './ResponseEmitter';
 import { RequestBodyEmitter } from './RequestBodyEmitter';
 import { StreamingSchemaEmitter } from './StreamingSchemaEmitter';
+import { CallbackEmitter } from './CallbackEmitter';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -37,6 +38,7 @@ class MethodConverter {
   private components: ComponentEmitter;
   private responses: ResponseEmitter;
   private requestBodies: RequestBodyEmitter;
+  private callbacks: CallbackEmitter;
 
   constructor(
     typeParser: TypeParser,
@@ -63,6 +65,7 @@ class MethodConverter {
       this.sorting,
       this.components
     );
+    this.callbacks = new CallbackEmitter(this.sorting);
   }
 
   /**
@@ -152,6 +155,11 @@ class MethodConverter {
 
     if (method.deprecated) {
       operation.deprecated = true;
+    }
+
+    const callbacks = this.callbacks.build(method, path, spec);
+    if (callbacks) {
+      operation.callbacks = callbacks;
     }
 
     if (method.version && VersionParser.isOperationUnreleased(method.version)) {
