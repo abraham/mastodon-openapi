@@ -98,4 +98,170 @@ describe('OpenAPIGenerator - Streaming endpoints', () => {
       ).toBeUndefined();
     }
   });
+
+  test('should emit discriminated oneOf and single-event schemas for streaming endpoints', () => {
+    const methodFiles: ApiMethodsFile[] = [
+      {
+        name: 'streaming',
+        description: 'Streaming methods',
+        streamEvents: [
+          {
+            name: 'update',
+            description: 'A new Status has appeared.',
+            payload: { kind: 'entity', entityName: 'Status' },
+          },
+          {
+            name: 'delete',
+            description: 'A status has been deleted.',
+            payload: { kind: 'string' },
+          },
+          {
+            name: 'filters_changed',
+            description: 'Keyword filters have been changed.',
+            payload: { kind: 'empty' },
+          },
+          {
+            name: 'announcement.reaction',
+            description: 'An announcement has received an emoji reaction.',
+            payload: { kind: 'object' },
+          },
+          {
+            name: 'conversation',
+            description: 'A direct conversation has been updated.',
+            payload: { kind: 'entity', entityName: 'Conversation' },
+          },
+          {
+            name: 'notifications_merged',
+            description: 'Unused event should not be emitted.',
+            payload: { kind: 'empty' },
+          },
+        ],
+        methods: [
+          {
+            name: 'Watch your home timeline and notifications',
+            httpMethod: 'GET',
+            endpoint: '/api/v1/streaming/user',
+            description: 'Returns user events',
+            returns:
+              '`update`, `delete`, `filters_changed`, `announcement.reaction`',
+            isStreaming: true,
+            streamEvents: [
+              'update',
+              'delete',
+              'filters_changed',
+              'announcement.reaction',
+            ],
+          },
+          {
+            name: 'Watch for direct messages',
+            httpMethod: 'GET',
+            endpoint: '/api/v1/streaming/direct',
+            description: 'Returns direct message events',
+            returns: '`conversation`',
+            isStreaming: true,
+            streamEvents: ['conversation'],
+          },
+        ],
+      },
+    ];
+
+    const spec = generator.generateSchema([], methodFiles);
+
+    // Multi-event endpoint emits discriminated oneOf
+    const userSchema =
+      spec.paths['/api/v1/streaming/user']?.get?.responses['200'].content?.[
+        'text/event-stream'
+      ]?.schema;
+    expect(userSchema).toEqual({
+      oneOf: [
+        { $ref: '#/components/schemas/StreamUpdateEvent' },
+        { $ref: '#/components/schemas/StreamDeleteEvent' },
+        { $ref: '#/components/schemas/StreamFiltersChangedEvent' },
+        { $ref: '#/components/schemas/StreamAnnouncementReactionEvent' },
+      ],
+      discriminator: {
+        propertyName: 'event',
+        mapping: {
+          update: '#/components/schemas/StreamUpdateEvent',
+          delete: '#/components/schemas/StreamDeleteEvent',
+          filters_changed: '#/components/schemas/StreamFiltersChangedEvent',
+          'announcement.reaction':
+            '#/components/schemas/StreamAnnouncementReactionEvent',
+        },
+      },
+    });
+
+    // Single-event endpoint emits a direct $ref without a redundant oneOf
+    const directSchema =
+      spec.paths['/api/v1/streaming/direct']?.get?.responses['200'].content?.[
+        'text/event-stream'
+      ]?.schema;
+    expect(directSchema).toEqual({
+      $ref: '#/components/schemas/StreamConversationEvent',
+    });
+
+    // Component schemas match each payload kind
+    const schemas = spec.components?.schemas ?? {};
+    expect(schemas.StreamUpdateEvent).toEqual({
+      type: 'object',
+      description: 'A new Status has appeared.',
+      properties: {
+        data: { $ref: '#/components/schemas/Status' },
+        event: { type: 'string', const: 'update' },
+      },
+      required: ['data', 'event'],
+    });
+    expect(schemas.StreamDeleteEvent).toEqual({
+      type: 'object',
+      description: 'A status has been deleted.',
+      properties: {
+        data: { type: 'string' },
+        event: { type: 'string', const: 'delete' },
+      },
+      required: ['data', 'event'],
+    });
+    expect(schemas.StreamFiltersChangedEvent).toEqual({
+      type: 'object',
+      description: 'Keyword filters have been changed.',
+      properties: {
+        event: { type: 'string', const: 'filters_changed' },
+        data: { type: 'string' },
+      },
+      required: ['event'],
+    });
+    expect(schemas.StreamAnnouncementReactionEvent).toEqual({
+      type: 'object',
+      description: 'An announcement has received an emoji reaction.',
+      properties: {
+        data: {
+          $ref: '#/components/schemas/StreamAnnouncementReactionPayload',
+        },
+        event: { type: 'string', const: 'announcement.reaction' },
+      },
+      required: ['data', 'event'],
+    });
+    expect(schemas.StreamAnnouncementReactionPayload).toEqual({
+      type: 'object',
+      properties: {
+        announcement_id: {
+          type: 'string',
+          description: 'The ID of the Announcement in the database.',
+        },
+        count: {
+          type: 'integer',
+          description:
+            'The total number of users who have added this reaction.',
+        },
+        name: {
+          type: 'string',
+          description:
+            'The emoji used for the reaction. Either a unicode emoji, or a custom emoji shortcode.',
+        },
+      },
+      required: ['announcement_id', 'count', 'name'],
+    });
+
+    // Unreferenced events are not emitted to avoid unused component warnings
+    expect(schemas.StreamNotificationsMergedEvent).toBeUndefined();
+  });
 });

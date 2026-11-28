@@ -19,6 +19,7 @@ interface ApiMethod {
   versions?: string[]; // New field for parsed version numbers
   deprecated?: boolean;
   isStreaming?: boolean;
+  streamEvents?: string[]; // Event names returned by streaming endpoints
   responseExamples?: Record<string, any>; // Response examples by status code
   responseCodes?: Array<{
     code: string;

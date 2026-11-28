@@ -3,6 +3,7 @@ import matter from 'gray-matter';
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod, HashAttribute } from '../interfaces/ApiMethod';
 import { ParameterParser } from './ParameterParser';
+import { StreamingEventParser } from './StreamingEventParser';
 import { TextUtils } from './TextUtils';
 import { VersionParser } from './VersionParser';
 import { ExampleParser } from './ExampleParser';
@@ -77,10 +78,16 @@ class MethodParser {
     // Parse methods from markdown content
     const methods = this.parseMethods(parsed.content);
 
+    // Parse streaming event definitions if present (e.g. methods/streaming.md)
+    const streamEvents = StreamingEventParser.parseEventDefinitions(
+      parsed.content
+    );
+
     return {
       name: fileName,
       description,
       methods,
+      streamEvents: streamEvents.length > 0 ? streamEvents : undefined,
     };
   }
 
@@ -194,6 +201,10 @@ class MethodParser {
       endpoint.startsWith('/api/v1/streaming/') &&
       !endpoint.endsWith('/health');
 
+    const streamEvents = isStreaming
+      ? StreamingEventParser.parseMethodStreamEvents(returns)
+      : undefined;
+
     // Parse response examples from the section
     const responseExamples = ExampleParser.parseMethodResponseExamples(section);
 
@@ -216,6 +227,8 @@ class MethodParser {
       versions: versions.length > 0 ? versions : undefined,
       deprecated: isDeprecated || undefined,
       isStreaming: isStreaming || undefined,
+      streamEvents:
+        streamEvents && streamEvents.length > 0 ? streamEvents : undefined,
       responseExamples:
         Object.keys(responseExamples).length > 0 ? responseExamples : undefined,
       responseCodes: responseCodes.length > 0 ? responseCodes : undefined,

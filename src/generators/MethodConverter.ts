@@ -1,6 +1,7 @@
 import { ApiMethodsFile } from '../interfaces/ApiMethodsFile';
 import { ApiMethod } from '../interfaces/ApiMethod';
 import { ApiParameter } from '../interfaces/ApiParameter';
+import { StreamEventDefinition } from '../interfaces/StreamEvent';
 import {
   OpenAPIOperation,
   OpenAPIPath,
@@ -22,6 +23,7 @@ import { SchemaSorting } from './SchemaSorting';
 import { ComponentEmitter } from './ComponentEmitter';
 import { ResponseEmitter } from './ResponseEmitter';
 import { RequestBodyEmitter } from './RequestBodyEmitter';
+import { StreamingSchemaEmitter } from './StreamingSchemaEmitter';
 
 /**
  * Converter for transforming API methods to OpenAPI paths and operations
@@ -53,7 +55,8 @@ class MethodConverter {
       errorExampleRegistry,
       this.components,
       ResponseCodeParser.parseResponseCodes(context.source),
-      HeaderParser.parseRateLimitHeaders(context.source)
+      HeaderParser.parseRateLimitHeaders(context.source),
+      new StreamingSchemaEmitter(this.sorting)
     );
     this.requestBodies = new RequestBodyEmitter(
       typeParser,
@@ -91,9 +94,21 @@ class MethodConverter {
     methodFiles: ApiMethodsFile[],
     spec: OpenAPISpec
   ): void {
+    const streamEventDefinitions = new Map<string, StreamEventDefinition>();
+    for (const methodFile of methodFiles) {
+      for (const event of methodFile.streamEvents ?? []) {
+        streamEventDefinitions.set(event.name, event);
+      }
+    }
+
     for (const methodFile of methodFiles) {
       for (const method of methodFile.methods) {
-        this.convertMethod(method, methodFile.name, spec);
+        this.convertMethod(
+          method,
+          methodFile.name,
+          spec,
+          streamEventDefinitions
+        );
       }
     }
 
@@ -110,7 +125,8 @@ class MethodConverter {
   public convertMethod(
     method: ApiMethod,
     category: string,
-    spec: OpenAPISpec
+    spec: OpenAPISpec,
+    streamEventDefinitions?: ReadonlyMap<string, StreamEventDefinition>
   ): void {
     const path = this.normalizePath(method.endpoint);
     const httpMethod = method.httpMethod.toLowerCase() as keyof OpenAPIPath;
@@ -125,7 +141,12 @@ class MethodConverter {
       summary: method.name,
       description: this.buildDescriptionWithVersionHistory(method),
       tags: [this.extractTagFromEndpoint(method.endpoint)],
-      responses: this.responses.build(method, path, spec),
+      responses: this.responses.build(
+        method,
+        path,
+        spec,
+        streamEventDefinitions
+      ),
       externalDocs: this.generateMethodExternalDocs(method, category),
     };
 

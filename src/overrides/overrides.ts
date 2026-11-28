@@ -228,3 +228,58 @@ export function extraResponseHeadersFor(
 
   return headers;
 }
+
+export interface StreamEventPayloadOverride {
+  /** Event name as documented in methods/streaming.md, e.g. "announcement.reaction". */
+  event: string;
+  /** Schema name for the extracted payload object in components.schemas. */
+  payloadSchemaName: string;
+  properties: Record<string, { type: string; description: string }>;
+  required: string[];
+  reason: string;
+}
+
+export const streamEventPayloadOverrides: StreamEventPayloadOverride[] = [
+  {
+    event: 'announcement.reaction',
+    payloadSchemaName: 'StreamAnnouncementReactionPayload',
+    properties: {
+      announcement_id: {
+        type: 'string',
+        description: 'The ID of the Announcement in the database.',
+      },
+      count: {
+        type: 'integer',
+        description: 'The total number of users who have added this reaction.',
+      },
+      name: {
+        type: 'string',
+        description:
+          'The emoji used for the reaction. Either a unicode emoji, or a custom emoji shortcode.',
+      },
+    },
+    required: ['announcement_id', 'count', 'name'],
+    reason:
+      'streaming.md describes the announcement.reaction payload hash fields in prose without types.',
+  },
+];
+
+const byStreamEvent = new Map(
+  streamEventPayloadOverrides.map((o) => [o.event, o])
+);
+
+export function streamEventPayloadOverrideFor(
+  event: string
+): StreamEventPayloadOverride | undefined {
+  const override = byStreamEvent.get(event);
+  if (!override) {
+    return undefined;
+  }
+
+  reportOverride(
+    'stream-event-payload',
+    `${event} payload uses ${override.payloadSchemaName}`,
+    override.reason
+  );
+  return override;
+}
