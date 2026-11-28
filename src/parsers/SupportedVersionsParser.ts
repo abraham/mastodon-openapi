@@ -1,3 +1,4 @@
+import { Config, getConfig } from '../config';
 import { DocumentSource } from '../source/DocumentSource';
 import { defaultSource } from '../source/FileSystemSource';
 
@@ -14,17 +15,31 @@ export interface SupportedVersions {
  *
  * "Until <date>" rows are treated as supported regardless of the date so that
  * output depends only on the pinned commit, never on the current clock.
+ *
+ * An optional `mastodonVersion` in config.json overrides `maximum` while
+ * preserving `minimum` from SECURITY.md.
  */
 export class SupportedVersionsParser {
   private static cached: SupportedVersions | undefined;
 
   public static parse(
-    source: DocumentSource = defaultSource()
+    source?: DocumentSource,
+    config?: Pick<Config, 'mastodonVersion'>
   ): SupportedVersions {
-    if (!this.cached) {
-      this.cached = this.parseContent(source.readSecurityPolicy());
+    const useCache = source === undefined && config === undefined;
+    if (useCache && this.cached) {
+      return this.cached;
     }
-    return this.cached;
+
+    const resolvedSource = source ?? defaultSource();
+    const resolvedConfig = config ?? getConfig();
+    const versions = this.parseContent(resolvedSource.readSecurityPolicy());
+    const result = this.applyOverride(versions, resolvedConfig.mastodonVersion);
+
+    if (useCache) {
+      this.cached = result;
+    }
+    return result;
   }
 
   /** Test seam: drop the memoized result. */
@@ -69,6 +84,24 @@ export class SupportedVersionsParser {
     const sorted = versions.sort(this.compare);
 
     return { minimum: sorted[0], maximum: sorted[sorted.length - 1] };
+  }
+
+  private static applyOverride(
+    versions: SupportedVersions,
+    override?: string
+  ): SupportedVersions {
+    if (!override) {
+      return versions;
+    }
+    if (this.compare(override, versions.minimum) < 0) {
+      throw new Error(
+        `Configured mastodonVersion (${override}) cannot be lower than minimum supported version (${versions.minimum})`
+      );
+    }
+    return {
+      minimum: versions.minimum,
+      maximum: override,
+    };
   }
 
   /** "4.7.0" -> "4.7.0", "4.5.x" -> "4.5.0", "< 4.4" -> null. */

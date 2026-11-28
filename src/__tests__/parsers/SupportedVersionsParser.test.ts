@@ -1,4 +1,5 @@
 import { SupportedVersionsParser } from '../../parsers/SupportedVersionsParser';
+import { InMemorySource } from '../../source/InMemorySource';
 
 const SECURITY_MD = `# Security Policy
 
@@ -116,6 +117,34 @@ describe('SupportedVersionsParser', () => {
 
       expect(versions.minimum).toMatch(/^\d+\.\d+\.\d+$/);
       expect(versions.maximum).toMatch(/^\d+\.\d+\.\d+$/);
+    });
+
+    it('should fall back to SECURITY.md maximum when mastodonVersion is omitted', () => {
+      const source = new InMemorySource({ securityPolicy: SECURITY_MD });
+
+      expect(SupportedVersionsParser.parse(source, {})).toEqual({
+        minimum: '4.4.0',
+        maximum: '4.7.0',
+      });
+    });
+
+    it('should override maximum with config.mastodonVersion while keeping SECURITY.md minimum', () => {
+      const source = new InMemorySource({ securityPolicy: SECURITY_MD });
+
+      expect(
+        SupportedVersionsParser.parse(source, { mastodonVersion: '5.0.0' })
+      ).toEqual({
+        minimum: '4.4.0',
+        maximum: '5.0.0',
+      });
+    });
+
+    it('should throw when config.mastodonVersion is lower than SECURITY.md minimum', () => {
+      const source = new InMemorySource({ securityPolicy: SECURITY_MD });
+
+      expect(() =>
+        SupportedVersionsParser.parse(source, { mastodonVersion: '4.3.0' })
+      ).toThrow(/cannot be lower than minimum supported version/);
     });
   });
 });

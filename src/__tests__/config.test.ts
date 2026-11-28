@@ -70,6 +70,21 @@ describe('Configuration', () => {
       expect(parseConfig(JSON.stringify(valid))).toEqual(valid);
     });
 
+    it('should accept an optional mastodonVersion in X.Y.Z format', () => {
+      const withVersion = { ...valid, mastodonVersion: '5.0.0' };
+      expect(parseConfig(JSON.stringify(withVersion))).toEqual(withVersion);
+    });
+
+    it('should throw when mastodonVersion is not in X.Y.Z format', () => {
+      for (const bad of ['', 'v5', '5.0', 5, null]) {
+        expect(() =>
+          parseConfig(JSON.stringify({ ...valid, mastodonVersion: bad }))
+        ).toThrow(
+          /"mastodonVersion" must be a version string in X\.Y\.Z format/
+        );
+      }
+    });
+
     it('should throw when a required string key is missing', () => {
       expect(() => parseConfig(JSON.stringify({ blockedFiles: [] }))).toThrow(
         /"mastodonDocsCommit" must be a non-empty string/

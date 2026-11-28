@@ -2,6 +2,7 @@ import { SupportedVersionsParser } from './SupportedVersionsParser';
 
 /**
  * The currently supported Mastodon API version, from mastodon/mastodon SECURITY.md
+ * (or overridden by config.json#mastodonVersion).
  */
 export const SUPPORTED_VERSION = SupportedVersionsParser.parse().maximum;
 

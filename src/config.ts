@@ -27,6 +27,11 @@ export interface Config {
   mastodonDocsCommit: string;
   /** Commit SHA of mastodon/mastodon to read SECURITY.md from. */
   mastodonSecurityCommit: string;
+  /**
+   * Optional override for the highest supported Mastodon version (e.g. "5.0.0").
+   * When set, takes precedence over the maximum version parsed from SECURITY.md.
+   */
+  mastodonVersion?: string;
   /** Documentation files to skip, relative to content/en. */
   blockedFiles: string[];
   /** Repository to cherry-pick documentation fixes from. */
@@ -110,6 +115,14 @@ export function parseConfig(contents: string, source = CONFIG_PATH): Config {
     if (!Array.isArray(config[key])) {
       problems.push(`"${key}" must be an array`);
     }
+  }
+
+  if (
+    config.mastodonVersion !== undefined &&
+    (typeof config.mastodonVersion !== 'string' ||
+      !/^\d+\.\d+\.\d+$/.test(config.mastodonVersion))
+  ) {
+    problems.push('"mastodonVersion" must be a version string in X.Y.Z format');
   }
 
   if (problems.length > 0) {
