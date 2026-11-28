@@ -33,7 +33,7 @@
   "author": "",
   "license": "MIT",
   "devDependencies": {
-    "@redocly/cli": "^2.79.0",
+    "@redocly/cli": "^2.83.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^26.6.6",
     "@typescript-eslint/eslint-plugin": "^8.74.0",
