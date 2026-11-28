@@ -143,6 +143,8 @@ interface OpenAPIHeader {
   $ref?: string;
 }
 
+type OpenAPICallback = Record<string, OpenAPIPath>;
+
 interface OpenAPIOperation {
   operationId?: string;
   summary?: string;
@@ -152,6 +154,7 @@ interface OpenAPIOperation {
   parameters?: OpenAPIParameter[];
   requestBody?: OpenAPIRequestBody;
   responses: Record<string, OpenAPIResponse>;
+  callbacks?: Record<string, OpenAPICallback>;
   deprecated?: boolean;
   externalDocs?: OpenAPIExternalDocs;
 }
@@ -210,6 +213,7 @@ export {
   OpenAPIRequestBody,
   OpenAPIResponse,
   OpenAPIHeader,
+  OpenAPICallback,
   OpenAPIOperation,
   OpenAPIPath,
   OpenAPIExample,
