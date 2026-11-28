@@ -1,6 +1,7 @@
 {
   "mastodonDocsCommit": "55c62319e6b9ca2b116385b18568411422c45e26",
   "mastodonSecurityCommit": "9bd703117f9945f9a3ac657ba045e2549898bfcc",
+  "mastodonVersion": "5.0.0",
   "blockedFiles": ["methods/notifications_alpha.md"],
   "overridesRepository": "https://github.com/abraham/documentation",
   "overrideCommits": [

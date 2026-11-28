@@ -77,6 +77,10 @@ pinned by `config.json#mastodonSecurityCommit` and vendored into `mastodon-secur
 count as supported regardless of the date, so generation depends only on the pinned commit
 and never on the current date.
 
+An optional `mastodonVersion` field in `config.json` (in `X.Y.Z` format) overrides the
+maximum supported version parsed from `SECURITY.md` while keeping the minimum from
+`SECURITY.md`.
+
 ### Generate Schema
 
 ```bash
