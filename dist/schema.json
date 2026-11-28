@@ -28276,7 +28276,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamConversationEvent"
+                }
+              }
             }
           },
           "401": {
@@ -28394,7 +28398,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -28524,7 +28550,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -28762,7 +28810,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -28892,7 +28962,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -29021,7 +29113,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -29150,7 +29264,29 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -29279,7 +29415,49 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/StreamUpdateEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamNotificationEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamFiltersChangedEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamAnnouncementEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamAnnouncementReactionEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamAnnouncementDeleteEvent"
+                    },
+                    {
+                      "$ref": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  ],
+                  "discriminator": {
+                    "propertyName": "event",
+                    "mapping": {
+                      "update": "#/components/schemas/StreamUpdateEvent",
+                      "delete": "#/components/schemas/StreamDeleteEvent",
+                      "notification": "#/components/schemas/StreamNotificationEvent",
+                      "filters_changed": "#/components/schemas/StreamFiltersChangedEvent",
+                      "announcement": "#/components/schemas/StreamAnnouncementEvent",
+                      "announcement.reaction": "#/components/schemas/StreamAnnouncementReactionEvent",
+                      "announcement.delete": "#/components/schemas/StreamAnnouncementDeleteEvent",
+                      "status.update": "#/components/schemas/StreamStatusUpdateEvent"
+                    }
+                  }
+                }
+              }
             }
           },
           "401": {
@@ -29398,7 +29576,11 @@
               }
             },
             "content": {
-              "text/event-stream": {}
+              "text/event-stream": {
+                "schema": {
+                  "$ref": "#/components/schemas/StreamNotificationEvent"
+                }
+              }
             }
           },
           "401": {
@@ -41458,6 +41640,180 @@
               }
             }
           }
+        ]
+      },
+      "StreamUpdateEvent": {
+        "type": "object",
+        "description": "A new Status has appeared. Payload contains a [Status](https://docs.joinmastodon.org/entities/Status/) cast to a string. Available since v1.0.0",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "event": {
+            "type": "string",
+            "const": "update"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamDeleteEvent": {
+        "type": "object",
+        "description": "A status has been deleted. Payload contains the String ID of the deleted Status. Available since v1.0.0",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string",
+            "const": "delete"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamNotificationEvent": {
+        "type": "object",
+        "description": "A new notification has appeared. Payload contains a [Notification](https://docs.joinmastodon.org/entities/Notification/) cast to a string. Available since v1.4.2",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Notification"
+          },
+          "event": {
+            "type": "string",
+            "const": "notification"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamFiltersChangedEvent": {
+        "type": "object",
+        "description": "Keyword filters have been changed. Either does not contain a payload (for WebSocket connections), or contains an undefined payload (for HTTP connections). Available since v2.4.3",
+        "properties": {
+          "event": {
+            "type": "string",
+            "const": "filters_changed"
+          },
+          "data": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "event"
+        ]
+      },
+      "StreamAnnouncementEvent": {
+        "type": "object",
+        "description": "An announcement has been published. Payload contains an [Announcement](https://docs.joinmastodon.org/entities/Announcement/) cast to a string. Available since v3.1.0",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Announcement"
+          },
+          "event": {
+            "type": "string",
+            "const": "announcement"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamAnnouncementReactionPayload": {
+        "type": "object",
+        "properties": {
+          "announcement_id": {
+            "type": "string",
+            "description": "The ID of the Announcement in the database."
+          },
+          "count": {
+            "type": "integer",
+            "description": "The total number of users who have added this reaction."
+          },
+          "name": {
+            "type": "string",
+            "description": "The emoji used for the reaction. Either a unicode emoji, or a custom emoji shortcode."
+          }
+        },
+        "required": [
+          "announcement_id",
+          "count",
+          "name"
+        ]
+      },
+      "StreamAnnouncementReactionEvent": {
+        "type": "object",
+        "description": "An announcement has received an emoji reaction. Payload contains a Hash (with `name`, `count`, and `announcement_id`) cast to a string. Available since v3.1.0",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/StreamAnnouncementReactionPayload"
+          },
+          "event": {
+            "type": "string",
+            "const": "announcement.reaction"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamAnnouncementDeleteEvent": {
+        "type": "object",
+        "description": "An announcement has been deleted. Payload contains the String ID of the deleted Announcement. Available since v3.1.0",
+        "properties": {
+          "data": {
+            "type": "string"
+          },
+          "event": {
+            "type": "string",
+            "const": "announcement.delete"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamStatusUpdateEvent": {
+        "type": "object",
+        "description": "A Status has been edited. Payload contains a [Status](https://docs.joinmastodon.org/entities/Status/) cast to a string. Available since v3.5.0",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Status"
+          },
+          "event": {
+            "type": "string",
+            "const": "status.update"
+          }
+        },
+        "required": [
+          "data",
+          "event"
+        ]
+      },
+      "StreamConversationEvent": {
+        "type": "object",
+        "description": "A direct conversation has been updated. Payload contains a [Conversation](https://docs.joinmastodon.org/entities/Conversation/) cast to a string. Available since v2.6.0",
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Conversation"
+          },
+          "event": {
+            "type": "string",
+            "const": "conversation"
+          }
+        },
+        "required": [
+          "data",
+          "event"
         ]
       },
       "StatusVisibilityEnum": {

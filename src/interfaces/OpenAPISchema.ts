@@ -59,6 +59,11 @@ interface OpenAPISecurityScheme {
   };
 }
 
+interface OpenAPIDiscriminator {
+  propertyName: string;
+  mapping?: Record<string, string>;
+}
+
 interface OpenAPIProperty {
   title?: string;
   type?: string | string[];
@@ -68,6 +73,8 @@ interface OpenAPIProperty {
   $ref?: string;
   oneOf?: OpenAPIProperty[];
   allOf?: (OpenAPIProperty | { $ref: string })[];
+  discriminator?: OpenAPIDiscriminator;
+  const?: string;
   enum?: string[];
   default?: string;
   deprecated?: boolean;
@@ -88,6 +95,7 @@ interface OpenAPISchema {
   description?: string;
   oneOf?: OpenAPIProperty[];
   allOf?: (OpenAPIProperty | { $ref: string })[];
+  discriminator?: OpenAPIDiscriminator;
   example?: any;
   additionalProperties?: OpenAPIProperty | boolean;
   externalDocs?: OpenAPIExternalDocs;
@@ -195,6 +203,7 @@ export {
   OpenAPIExternalDocs,
   OpenAPISecurityScheme,
   OAuthFlow,
+  OpenAPIDiscriminator,
   OpenAPIProperty,
   OpenAPISchema,
   OpenAPIParameter,

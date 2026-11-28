@@ -62,4 +62,47 @@ describe('MethodParser - Streaming endpoints', () => {
       expect(userStreamingMethod?.returns).toContain('notification');
     }
   });
+
+  test('should parse stream event definitions and per-method event lists', () => {
+    const methodFiles = methodParser.parseAllMethods();
+    const streamingMethodFile = methodFiles.find((f) => f.name === 'streaming');
+
+    expect(streamingMethodFile?.streamEvents).toBeDefined();
+    const byName = new Map(
+      streamingMethodFile!.streamEvents!.map((e) => [e.name, e])
+    );
+    expect(byName.get('update')?.payload).toEqual({
+      kind: 'entity',
+      entityName: 'Status',
+    });
+    expect(byName.get('delete')?.payload).toEqual({ kind: 'string' });
+    expect(byName.get('announcement.reaction')?.payload).toEqual({
+      kind: 'object',
+    });
+    expect(byName.get('filters_changed')?.payload).toEqual({ kind: 'empty' });
+
+    const userMethod = streamingMethodFile!.methods.find(
+      (m) => m.endpoint === '/api/v1/streaming/user'
+    );
+    expect(userMethod?.streamEvents).toEqual([
+      'update',
+      'delete',
+      'notification',
+      'filters_changed',
+      'announcement',
+      'announcement.reaction',
+      'announcement.delete',
+      'status.update',
+    ]);
+
+    const directMethod = streamingMethodFile!.methods.find(
+      (m) => m.endpoint === '/api/v1/streaming/direct'
+    );
+    expect(directMethod?.streamEvents).toEqual(['conversation']);
+
+    const healthMethod = streamingMethodFile!.methods.find(
+      (m) => m.endpoint === '/api/v1/streaming/health'
+    );
+    expect(healthMethod?.streamEvents).toBeUndefined();
+  });
 });

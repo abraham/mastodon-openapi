@@ -16,6 +16,7 @@ export type OverrideCategory =
   | 'version-conflict'
   | 'request-body'
   | 'response-headers'
+  | 'stream-event-payload'
   | 'workaround';
 
 export function reportOverride(

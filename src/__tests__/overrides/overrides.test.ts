@@ -5,6 +5,7 @@ import {
   endpointOverrides,
   entityOverrides,
   responseEntityNameOverrides,
+  streamEventPayloadOverrides,
   versionConflictPathSegments,
 } from '../../overrides/overrides';
 
@@ -27,6 +28,7 @@ describe('overrides', () => {
       ...entityOverrides,
       ...responseEntityNameOverrides,
       ...endpointOverrides,
+      ...streamEventPayloadOverrides,
     ];
     for (const override of all) {
       expect(override.reason.length).toBeGreaterThan(0);
@@ -101,6 +103,18 @@ describe('overrides', () => {
       expect(success).toBeDefined();
       for (const header of override.extraResponseHeaders!) {
         expect((success![1] as any).headers).toHaveProperty(header);
+      }
+    });
+  });
+
+  describe('stream event payload overrides', () => {
+    it.each(
+      streamEventPayloadOverrides.map((o) => [o.payloadSchemaName, o] as const)
+    )('%s is present in the schema', (_name, override) => {
+      const target = schemas[override.payloadSchemaName];
+      expect(target).toBeDefined();
+      for (const property of Object.keys(override.properties)) {
+        expect(target.properties).toHaveProperty(property);
       }
     });
   });

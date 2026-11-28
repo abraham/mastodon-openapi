@@ -1,8 +1,10 @@
 import { ApiMethod } from '../interfaces/ApiMethod';
 import { OpenAPISpec } from '../interfaces/OpenAPISchema';
+import { StreamEventDefinition } from '../interfaces/StreamEvent';
 import { TypeParser } from './TypeParser';
 import { ErrorExampleRegistry } from './ErrorExampleRegistry';
 import { ComponentEmitter } from './ComponentEmitter';
+import { StreamingSchemaEmitter } from './StreamingSchemaEmitter';
 import { HttpHeader } from '../parsers/HeaderParser';
 import { extraResponseHeadersFor } from '../overrides/overrides';
 
@@ -22,20 +24,28 @@ export class ResponseEmitter {
     private readonly errorExampleRegistry: ErrorExampleRegistry,
     private readonly components: ComponentEmitter,
     private readonly globalResponseCodes: ResponseCode[],
-    private readonly rateLimitHeaders: HttpHeader[]
+    private readonly rateLimitHeaders: HttpHeader[],
+    private readonly streamingSchemas: StreamingSchemaEmitter = new StreamingSchemaEmitter()
   ) {}
 
   public build(
     method: ApiMethod,
     normalizedPath: string,
-    spec: OpenAPISpec
+    spec: OpenAPISpec,
+    streamEventDefinitions?: ReadonlyMap<string, StreamEventDefinition>
   ): Record<string, any> {
-    const responseSchema = this.typeParser.parseResponseSchema(
-      method.returns,
-      spec,
-      method.hashAttributes,
-      method.name
-    );
+    const responseSchema = method.isStreaming
+      ? this.streamingSchemas.buildResponseSchema(
+          method,
+          streamEventDefinitions ?? new Map(),
+          spec
+        )
+      : this.typeParser.parseResponseSchema(
+          method.returns,
+          spec,
+          method.hashAttributes,
+          method.name
+        );
 
     const responses: Record<string, any> = {};
     const responseHeaders = this.responseHeaders(method, normalizedPath);
